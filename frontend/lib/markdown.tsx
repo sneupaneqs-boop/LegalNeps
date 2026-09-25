@@ -48,7 +48,7 @@ export function renderAnswer(text: string, msgId: string, maxN: number): ReactNo
   const flush = () => {
     if (!list) return;
     const Tag = list.ordered ? "ol" : "ul";
-    blocks.push(<Tag key={blocks.length}>{list.items}</Tag>);
+    blocks.push(<Tag key={`list-${blocks.length}`}>{list.items}</Tag>);
     list = null;
   };
 
@@ -64,16 +64,16 @@ export function renderAnswer(text: string, msgId: string, maxN: number): ReactNo
         list = { ordered, items: [] };
       }
       const body = (bullet ? bullet[1] : numbered![1]) as string;
-      list.items.push(<li key={i}>{inline(body, msgId, maxN)}</li>);
+      list.items.push(<li key={`li-${i}`}>{inline(body, msgId, maxN)}</li>);
       return;
     }
     flush();
     if (heading) {
-      blocks.push(<h4 key={i}>{inline(heading[1], msgId, maxN)}</h4>);
+      blocks.push(<h4 key={`h-${i}`}>{inline(heading[1], msgId, maxN)}</h4>);
     } else if (line.trim() === "") {
-      blocks.push(<Fragment key={i} />);
+      blocks.push(<Fragment key={`gap-${i}`} />);
     } else {
-      blocks.push(<p key={i}>{inline(line, msgId, maxN)}</p>);
+      blocks.push(<p key={`p-${i}`}>{inline(line, msgId, maxN)}</p>);
     }
   });
   flush();
