@@ -16441,6 +16441,690 @@
 "चालक परिक्षण"
 ]
 }
+],
+"local government, ward office, municipality, judicial committee, mediation": [
+{
+"en": [
+"local government",
+"local body"
+],
+"roman": [
+"sthaniy sarkar",
+"sthaniy nikay"
+],
+"ne": [
+"स्थानीय सरकार",
+"स्थानीय तह"
+]
+},
+{
+"en": [
+"ward office",
+"ward"
+],
+"roman": [
+"ward karyalaya",
+"wada karyalaya",
+"wada"
+],
+"ne": [
+"वडा कार्यालय",
+"वडा"
+]
+},
+{
+"en": [
+"municipality",
+"urban municipality"
+],
+"roman": [
+"nagarpalika",
+"nagarpalika"
+],
+"ne": [
+"नगरपालिका"
+]
+},
+{
+"en": [
+"rural municipality",
+"village council"
+],
+"roman": [
+"gaunpalika",
+"gaunpalika"
+],
+"ne": [
+"गाउँपालिका"
+]
+},
+{
+"en": [
+"metropolitan city",
+"metro"
+],
+"roman": [
+"mahanagarpalika",
+"mahanagar"
+],
+"ne": [
+"महानगरपालिका"
+]
+},
+{
+"en": [
+"sub metropolitan city"
+],
+"roman": [
+"upmahanagarpalika",
+"upamahanagar"
+],
+"ne": [
+"उपमहानगरपालिका"
+]
+},
+{
+"en": [
+"judicial committee",
+"justice committee"
+],
+"roman": [
+"nyayik samiti",
+"nyayik samitee"
+],
+"ne": [
+"न्यायिक समिति"
+]
+},
+{
+"en": [
+"mediation",
+"conciliation",
+"settlement"
+],
+"roman": [
+"melmilap",
+"madhyasthata"
+],
+"ne": [
+"मेलमिलाप",
+"मध्यस्थता"
+]
+},
+{
+"en": [
+"mediator",
+"conciliator"
+],
+"roman": [
+"melmilap karta",
+"madhyastha"
+],
+"ne": [
+"मेलमिलापकर्ता",
+"मध्यस्थ"
+]
+},
+{
+"en": [
+"recommendation",
+"letter of recommendation"
+],
+"roman": [
+"sifarish",
+"sifaris"
+],
+"ne": [
+"सिफारिस",
+"सिफारीस"
+]
+},
+{
+"en": [
+"birth registration"
+],
+"roman": [
+"janma darta",
+"janma dartaa"
+],
+"ne": [
+"जन्म दर्ता"
+]
+},
+{
+"en": [
+"death registration"
+],
+"roman": [
+"mrityu darta",
+"mrityu dartaa"
+],
+"ne": [
+"मृत्यु दर्ता"
+]
+},
+{
+"en": [
+"marriage registration"
+],
+"roman": [
+"bibaha darta",
+"vivaha darta"
+],
+"ne": [
+"विवाह दर्ता"
+]
+},
+{
+"en": [
+"divorce registration"
+],
+"roman": [
+"sambandha bichhed darta",
+"divorce darta"
+],
+"ne": [
+"सम्बन्ध विच्छेद दर्ता"
+]
+},
+{
+"en": [
+"migration certificate",
+"migration"
+],
+"roman": [
+"basai sarai",
+"basaisarai"
+],
+"ne": [
+"बसाइँसराइ",
+"बसाई सराई"
+]
+},
+{
+"en": [
+"vital events registration"
+],
+"roman": [
+"ghatana darta",
+"panjikaran"
+],
+"ne": [
+"घटना दर्ता",
+"पञ्जीकरण"
+]
+},
+{
+"en": [
+"local tax",
+"municipality tax"
+],
+"roman": [
+"sthaniy kar",
+"kar"
+],
+"ne": [
+"स्थानीय कर",
+"कर"
+]
+},
+{
+"en": [
+"property tax",
+"land tax"
+],
+"roman": [
+"sampatti kar",
+"malpot"
+],
+"ne": [
+"सम्पत्ति कर",
+"मालपोत कर"
+]
+},
+{
+"en": [
+"business registration",
+"firm registration"
+],
+"roman": [
+"udyog darta",
+"pasal darta",
+"firmi darta"
+],
+"ne": [
+"व्यवसाय दर्ता",
+"उद्योग दर्ता",
+"फर्म दर्ता"
+]
+},
+{
+"en": [
+"application",
+"petition"
+],
+"roman": [
+"nibedan",
+"darhast"
+],
+"ne": [
+"निवेदक",
+"निवेदन",
+"दरखास्त"
+]
+},
+{
+"en": [
+"complaint",
+"grievance"
+],
+"roman": [
+"gunso",
+"ujuri",
+"shikayat"
+],
+"ne": [
+"गुनासो",
+"उजुरी",
+"शिकायत"
+]
+},
+{
+"en": [
+"dispute resolution"
+],
+"roman": [
+"bibad samadhan",
+"bibad nirasan"
+],
+"ne": [
+"विवाद समाधान",
+"विवाद निरूपण"
+]
+},
+{
+"en": [
+"jurisdiction"
+],
+"roman": [
+"adhikar kshetra",
+"adhikarchetra"
+],
+"ne": [
+"अधिकारक्षेत्र"
+]
+},
+{
+"en": [
+"mayor",
+"chief"
+],
+"roman": [
+"mayor",
+"प्रमुख",
+"nagar pramukh"
+],
+"ne": [
+"प्रमुख",
+"मेयर",
+"नगरप्रमुख"
+]
+},
+{
+"en": [
+"deputy mayor",
+"deputy chief"
+],
+"roman": [
+"deputy mayor",
+"upapramukh"
+],
+"ne": [
+"उपप्रमुख",
+"उपमेयर"
+]
+},
+{
+"en": [
+"ward chairperson",
+"ward chair"
+],
+"roman": [
+"ward adhyaksha",
+"wada adhyaksha"
+],
+"ne": [
+"वडा अध्यक्ष",
+"वडाध्यक्ष"
+]
+},
+{
+"en": [
+"assembly",
+"municipal assembly"
+],
+"roman": [
+"nagar sabha",
+"gaun sabha"
+],
+"ne": [
+"नगर सभा",
+"गाउँ सभा"
+]
+},
+{
+"en": [
+"executive",
+"municipal executive"
+],
+"roman": [
+"nagar karyapalika",
+"gaun karyapalika"
+],
+"ne": [
+"नगर कार्यपालिका",
+"गाउँ कार्यपालिका"
+]
+},
+{
+"en": [
+"citizenship recommendation"
+],
+"roman": [
+"nagarikta sifarish",
+"nagarikta"
+],
+"ne": [
+"नागरिकता सिफारिस"
+]
+},
+{
+"en": [
+"relationship verification",
+"family relation"
+],
+"roman": [
+"nata pratistha",
+"nata प्रमाणित",
+"naata प्रमाणित"
+],
+"ne": [
+"नाता प्रमाणित"
+]
+},
+{
+"en": [
+"charity verification",
+"destitute recommendation"
+],
+"roman": [
+"vipanna sifarish",
+"garib sifarish"
+],
+"ne": [
+"विपन्न सिफारिस",
+"असाहाय सिफारिस"
+]
+},
+{
+"en": [
+"charter",
+"citizens charter"
+],
+"roman": [
+"nagarik wadapatra",
+"wadapatra"
+],
+"ne": [
+"नागरिक बडापत्र",
+"बडापत्र"
+]
+},
+{
+"en": [
+"public hearing"
+],
+"roman": [
+"sarwajanik sunuwai",
+"public sunuwai"
+],
+"ne": [
+"सार्वजनिक सुनुवाइ"
+]
+},
+{
+"en": [
+"public audit"
+],
+"roman": [
+"sarwajanik lekha parikshya",
+"sarwajanik parikshan"
+],
+"ne": [
+"सार्वजनिक परीक्षण"
+]
+},
+{
+"en": [
+"budget",
+"annual plan"
+],
+"roman": [
+"badjet",
+"barsi yojana",
+"binitiyo"
+],
+"ne": [
+"बजेट",
+"वार्षिक योजना"
+]
+},
+{
+"en": [
+"planning committee"
+],
+"roman": [
+"yojana samiti",
+"tathya samiti"
+],
+"ne": [
+"योजना समिति"
+]
+},
+{
+"en": [
+"consumer committee",
+"user group"
+],
+"roman": [
+"upabhokta samiti",
+"user committee"
+],
+"ne": [
+"उपभोक्ता समिति"
+]
+},
+{
+"en": [
+"house construction permission",
+"building permit"
+],
+"roman": [
+"ghar naksha pass",
+"naksha swikriti"
+],
+"ne": [
+"घर नक्सा पास",
+"नक्सा स्वीकृति"
+]
+},
+{
+"en": [
+"land demarcation",
+"boundary verification"
+],
+"roman": [
+"jagga simankan",
+"chhembaki"
+],
+"ne": [
+"जग्गा सीमाङ्कन",
+"सिमाना प्रमाणीकरण"
+]
+},
+{
+"en": [
+"stipend",
+"social security allowance"
+],
+"roman": [
+"samajik surakshya bhatta",
+"bhatta"
+],
+"ne": [
+"सामाजिक सुरक्षा भत्ता",
+"भत्ता"
+]
+},
+{
+"en": [
+"senior citizen card"
+],
+"roman": [
+"jyestha nagarik parichaypatra",
+"buddha parichaypatra"
+],
+"ne": [
+"ज्येष्ठ नागरिक परिचयपत्र"
+]
+},
+{
+"en": [
+"disability identity card"
+],
+"roman": [
+"apanga parichaypatra",
+"ashakta parichaypatra"
+],
+"ne": [
+"अपाङ्गता परिचयपत्र"
+]
+},
+{
+"en": [
+"local act",
+"local law"
+],
+"roman": [
+"sthaniy ain",
+"sthaniy kanun"
+],
+"ne": [
+"स्थानीय ऐन",
+"स्थानीय कानुन"
+]
+},
+{
+"en": [
+"directive",
+"procedure"
+],
+"roman": [
+"dirkesan",
+"karyabidhi",
+"niyamawali"
+],
+"ne": [
+"कार्यविधि",
+"निर्देशिका",
+"नियमावली"
+]
+},
+{
+"en": [
+"summons",
+"notice"
+],
+"roman": [
+"suchana",
+"myad purchi",
+"pesi"
+],
+"ne": [
+"सूचना",
+"म्याद पर्ची",
+"तारेख"
+]
+},
+{
+"en": [
+"decision",
+"order"
+],
+"roman": [
+"nirnaya",
+"adesh"
+],
+"ne": [
+"निर्णय",
+"आदेश"
+]
+},
+{
+"en": [
+"execution of judgment",
+"enforcement"
+],
+"roman": [
+"karryawaryan",
+"faisla karyanwayan"
+],
+"ne": [
+"फैसला कार्यान्वयन"
+]
+},
+{
+"en": [
+"landlord tenant dispute",
+"rent dispute"
+],
+"roman": [
+"gharbeti bahal bibad",
+"bahal bibad"
+],
+"ne": [
+"घरधनी बहालवाला विवाद",
+"भाडा विवाद"
+]
+},
+{
+"en": [
+"boundary dispute",
+"land dispute"
+],
+"roman": [
+"simana bibad",
+"jagga bibad"
+],
+"ne": [
+"सिमाना विवाद",
+"जग्गा विवाद"
+]
+},
+{
+"en": [
+"water source dispute",
+"irrigation dispute"
+],
+"roman": [
+"pani kuwa bibad",
+"kulo bibad"
+],
+"ne": [
+"पानी कुलो विवाद",
+"सिंचाइ विवाद"
+]
+}
 ]
 }
 }
