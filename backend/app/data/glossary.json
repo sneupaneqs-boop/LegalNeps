@@ -17125,6 +17125,3667 @@
 "सिंचाइ विवाद"
 ]
 }
+],
+"right to information, public service, government employees": [
+{
+"en": [
+"right to information",
+"rti"
+],
+"roman": [
+"suchana ko hak",
+"rti"
+],
+"ne": [
+"सूचनाको हक",
+"सूचनाको अधिकार"
+]
+},
+{
+"en": [
+"information officer",
+"spokesperson"
+],
+"roman": [
+"suchana adhikari",
+"prabakta"
+],
+"ne": [
+"सूचना अधिकारी",
+"प्रवक्ता"
+]
+},
+{
+"en": [
+"public information",
+"government records"
+],
+"roman": [
+"sarwajanik suchana",
+"darbasta"
+],
+"ne": [
+"सार्वजनिक सूचना",
+"सार्वजनिक महत्वको सूचना"
+]
+},
+{
+"en": [
+"national information commission",
+"information commission"
+],
+"roman": [
+"rashtriya suchana ayog",
+"suchana ayog"
+],
+"ne": [
+"राष्ट्रिय सूचना आयोग",
+"सूचना आयोग"
+]
+},
+{
+"en": [
+"chief information commissioner",
+"head of information commission"
+],
+"roman": [
+"mukhya suchana ayukta",
+"suchana ayukta"
+],
+"ne": [
+"मुख्य सूचना आयुक्त",
+"सूचना आयुक्त"
+]
+},
+{
+"en": [
+"public body",
+"public agency",
+"government office"
+],
+"roman": [
+"sarwajanik nikaya",
+"sarwajanik sanstha"
+],
+"ne": [
+"सार्वजनिक निकाय",
+"सरकारी कार्यालय"
+]
+},
+{
+"en": [
+"appeal",
+"complaint to commission"
+],
+"roman": [
+"punarbedan",
+"ujuri",
+"shikayat"
+],
+"ne": [
+"पुनरावेदन",
+"उजुरी",
+"निवedan"
+]
+},
+{
+"en": [
+"fine",
+"penalty for denial"
+],
+"roman": [
+"jurmana",
+"सजाय",
+"danda"
+],
+"ne": [
+"जरिवाना",
+"द सजाय",
+"दण्ड"
+]
+},
+{
+"en": [
+"civil service",
+"government service"
+],
+"roman": [
+"nijamati sewa",
+"sarkari sewa"
+],
+"ne": [
+"निजामती सेवा",
+"सरकारी सेवा"
+]
+},
+{
+"en": [
+"civil servant",
+"government employee"
+],
+"roman": [
+"nijamati karmachari",
+"sarkari karmachari"
+],
+"ne": [
+"निजामती कर्मचारी",
+"सरकारी कर्मचारी"
+]
+},
+{
+"en": [
+"public service commission",
+"lok sewa"
+],
+"roman": [
+"lok sewa ayog",
+"loksewa"
+],
+"ne": [
+"लोक सेवा आयोग"
+]
+},
+{
+"en": [
+"disciplinary action",
+"departmental action"
+],
+"roman": [
+"anushasanik karbahi",
+"bibhagiya karbahi"
+],
+"ne": [
+"अनुшаसनिक कारबाही",
+"विभागीय कारबाही"
+]
+},
+{
+"en": [
+"suspension",
+"suspended employee"
+],
+"roman": [
+"nilamban",
+"nilambit"
+],
+"ne": [
+"निलम्बन",
+"निलम्बित"
+]
+},
+{
+"en": [
+"removal from service",
+"dismissal"
+],
+"roman": [
+"sewa bata barkhast",
+"barkhasti"
+],
+"ne": [
+"सेवाबाट हटाइने",
+"बर्खास्ती"
+]
+},
+{
+"en": [
+"promotion",
+"career advancement"
+],
+"roman": [
+"baduwa",
+"stariya baduwa"
+],
+"ne": [
+"बढुवा",
+"आन्तरिक बढुवा"
+]
+},
+{
+"en": [
+"transfer",
+"posting"
+],
+"roman": [
+"सरुवा",
+"saruwa"
+],
+"ne": [
+"सरुवा",
+"पदस्थापन"
+]
+},
+{
+"en": [
+"leave",
+"public leave"
+],
+"roman": [
+"bidha",
+"sarwajanik bidha"
+],
+"ne": [
+"बिदा",
+"सार्वजनिक बिदा"
+]
+},
+{
+"en": [
+"pension",
+"retirement benefits"
+],
+"roman": [
+"pension",
+"nibritti bharan"
+],
+"ne": [
+"निवृत्तीभरण",
+"पेन्सन"
+]
+},
+{
+"en": [
+"gratuity",
+"retirement fund"
+],
+"roman": [
+"upadan",
+"sanchay kosh"
+],
+"ne": [
+"उपदान",
+"सञ्चय कोष"
+]
+},
+{
+"en": [
+"provident fund",
+"epf"
+],
+"roman": [
+"karmachari sanchay kosh",
+"sanchaykosh"
+],
+"ne": [
+"कर्मचारी सञ्चय कोष"
+]
+},
+{
+"en": [
+"citizen charter",
+"nagarik wadapatra"
+],
+"roman": [
+"nagarik wadapatra",
+"charter"
+],
+"ne": [
+"बडापत्र",
+"नागरिक बडापत्र"
+]
+},
+{
+"en": [
+"corruption",
+"bribery"
+],
+"roman": [
+"bhrastachar",
+"rishwat"
+],
+"ne": [
+"भ्रष्टाचार",
+"घुस"
+]
+},
+{
+"en": [
+"abuse of authority",
+"misuse of power"
+],
+"roman": [
+"adhikar ko durupayog",
+"padko durupayog"
+],
+"ne": [
+"अधिकारको दुरुपयोग",
+"पदको दुरुपयोग"
+]
+},
+{
+"en": [
+"commission for the investigation of abuse of authority",
+"ciaa"
+],
+"roman": [
+"akhtiyar",
+"akhtiyar durupayog anusandhan ayog"
+],
+"ne": [
+"अख्तियार दुरुपयोग अनुसन्धान आयोग",
+"अख्तियार"
+]
+},
+{
+"en": [
+"constitutional body",
+"constitutional commission"
+],
+"roman": [
+"sambaandhik nikaya",
+"sabaidhanik nikaya"
+],
+"ne": [
+"संवैधानिक निकाय",
+"संवैधानिक आयोग"
+]
+},
+{
+"en": [
+"code of conduct",
+"ethical code"
+],
+"roman": [
+"achar sanghita",
+"karmachari achar sanghita"
+],
+"ne": [
+"आचारसंहिता",
+"कर्मचारी आचारसंहिता"
+]
+},
+{
+"en": [
+"transparency",
+"openness"
+],
+"roman": [
+"pardarshita",
+"khullapan"
+],
+"ne": [
+"पारदर्शिता",
+"खुलापन"
+]
+},
+{
+"en": [
+"accountability",
+"responsibility"
+],
+"roman": [
+"jafadehi",
+"uttardayitwa"
+],
+"ne": [
+"उत्तरदायित्व",
+"जवाफदेहिता"
+]
+},
+{
+"en": [
+"secret",
+"confidential information"
+],
+"roman": [
+"gopya",
+"gopaniya suchana"
+],
+"ne": [
+"गोप्य",
+"गोपनीय सूचना"
+]
+},
+{
+"en": [
+"oath of office",
+"secrecy oath"
+],
+"roman": [
+"sapad",
+"gopaniyata ko sapad"
+],
+"ne": [
+"शपथ",
+"गोपनीयताको शपथ"
+]
+},
+{
+"en": [
+"application for information",
+"information request"
+],
+"roman": [
+"suchana mag garne",
+"suchana ko nivedan"
+],
+"ne": [
+"सूचना माग गर्ने निवेदन",
+"सूचनाको लागि निवेदन"
+]
+},
+{
+"en": [
+"time limit for information",
+"deadline to provide info"
+],
+"roman": [
+"suchana dine samaya",
+"hadmyad"
+],
+"ne": [
+"सूचना दिनुपर्ने अवधि",
+"हदम्याद"
+]
+},
+{
+"en": [
+"denial of information",
+"refusal to provide info"
+],
+"roman": [
+"suchana nadeko",
+"suchana dina inkar"
+],
+"ne": [
+"सूचना दिन इन्कार गरेको",
+"सूचना उपलब्ध नगराएको"
+]
+},
+{
+"en": [
+"remedy",
+"legal remedy"
+],
+"roman": [
+"upay",
+"kanuni upay"
+],
+"ne": [
+"उपचार",
+"कानूनी उपचार"
+]
+},
+{
+"en": [
+"compensation",
+"damages"
+],
+"roman": [
+"kshati purti",
+"kshatipirti"
+],
+"ne": [
+"क्षतिपूर्ति"
+]
+},
+{
+"en": [
+"public procurement",
+"tender"
+],
+"roman": [
+"sarwajanik kharid",
+"bolpatra"
+],
+"ne": [
+"सार्वजनिक खरिद",
+"बोलपत्र"
+]
+},
+{
+"en": [
+"audit",
+"final audit"
+],
+"roman": [
+"leha parikshan",
+"mahaleha"
+],
+"ne": [
+"लेखा परीक्षण",
+"महालेखापरीक्षक"
+]
+},
+{
+"en": [
+"whistleblower",
+"informer protection"
+],
+"roman": [
+"suchana date suraksha",
+"soochak suraksha"
+],
+"ne": [
+"सूचकको सुरक्षा",
+"सूचनादाता संरक्षण"
+]
+},
+{
+"en": [
+"cabinet decision",
+"council of ministers decision"
+],
+"roman": [
+"manta parishad ko nirnaya",
+"cabinet nirnaya"
+],
+"ne": [
+"मन्त्रिपरिषद्को निर्णय"
+]
+},
+{
+"en": [
+"gazette",
+"nepal rajpatra"
+],
+"roman": [
+"rajpatra",
+"nepal rajpatra"
+],
+"ne": [
+"राजपत्र",
+"नेपाल राजपत्र"
+]
+}
+],
+"children's rights, juvenile justice, education": [
+{
+"en": [
+"child",
+"minor",
+"juvenile"
+],
+"roman": [
+"balak",
+"nabalak",
+"bachha"
+],
+"ne": [
+"बालबालिका",
+"बालक",
+"अपेक्षित बालक",
+"नाबालिग"
+]
+},
+{
+"en": [
+"children's rights",
+"child rights"
+],
+"roman": [
+"balbalikaka adhikar",
+"bal adhikar"
+],
+"ne": [
+"बालबालिकाको हक",
+"बाल अधिकार"
+]
+},
+{
+"en": [
+"best interest of child",
+"child best interest"
+],
+"roman": [
+"balbalikako hit",
+"sarvottam hit"
+],
+"ne": [
+"बालबालिकाको सर्वोतम हित",
+"बालहित"
+]
+},
+{
+"en": [
+"juvenile justice",
+"child justice system"
+],
+"roman": [
+"bal nyaya",
+"bal nyayik pranali"
+],
+"ne": [
+"बाल न्याय",
+"बाल न्याय प्रणाली"
+]
+},
+{
+"en": [
+"juvenile court",
+"children's bench"
+],
+"roman": [
+"bal adalat",
+"balak adalat"
+],
+"ne": [
+"बाल अदालत",
+"बाल इजलास"
+]
+},
+{
+"en": [
+"child offender",
+"juvenile delinquent"
+],
+"roman": [
+"apradhi balak",
+"bal apardhi"
+],
+"ne": [
+"बाल अपराधी",
+"कानुनसँग द्वन्द्वमा परेको बालक"
+]
+},
+{
+"en": [
+"correctional home",
+"juvenile reform home"
+],
+"roman": [
+"sudhar griha",
+"bal sudhar griha"
+],
+"ne": [
+"बाल सुधारगृह",
+"सुधारगृह"
+]
+},
+{
+"en": [
+"free education",
+"compulsory education"
+],
+"roman": [
+"nisulka sikshya",
+"anivarya ra nisulka sikshya"
+],
+"ne": [
+"निःशुल्क शिक्षा",
+"अनिवार्य तथा निःशुल्क शिक्षा"
+]
+},
+{
+"en": [
+"right to education"
+],
+"roman": [
+"sikshya pako adhikar",
+"sikshyako hak"
+],
+"ne": [
+"शिक्षाको हक"
+]
+},
+{
+"en": [
+"child labor",
+"child labour"
+],
+"roman": [
+"bal shram",
+"balshram"
+],
+"ne": [
+"बालश्रम",
+"बाल श्रम"
+]
+},
+{
+"en": [
+"hazardous child labor",
+"risky child work"
+],
+"roman": [
+"jokhimpurna bal shram",
+"atik jokhimpurna shram"
+],
+"ne": [
+"जोखिमपूर्ण बालश्रम",
+"अति जोखिमयुक्त बालश्रम"
+]
+},
+{
+"en": [
+"child marriage"
+],
+"roman": [
+"bal biha",
+"balvivaha"
+],
+"ne": [
+"बालविवाह",
+"बाल विवाह"
+]
+},
+{
+"en": [
+"child trafficking"
+],
+"roman": [
+"bal bechbikhan",
+"bal taskar"
+],
+"ne": [
+"बाल बेचबिखन",
+"बालबालिका बेचबिखन तथा ओसारपसार"
+]
+},
+{
+"en": [
+"guardianship",
+"custody of child"
+],
+"roman": [
+"sanrakshakatwa",
+"abhivabak",
+"sanrakshak"
+],
+"ne": [
+"संरक्षकत्व",
+"संरक्षक",
+"अभिभावक"
+]
+},
+{
+"en": [
+"adoption"
+],
+"roman": [
+"tine patne",
+"tuine",
+"daittwa linu",
+"dattak putra"
+],
+"ne": [
+"दत्तकपुत्र",
+"दत्तक ग्रहण",
+"धर्मपुत्र"
+]
+},
+{
+"en": [
+"birth registration",
+"birth certificate"
+],
+"roman": [
+"janma darta",
+"janma pramanpatra"
+],
+"ne": [
+"जन्मदर्ता",
+"जन्म प्रमाणपत्र"
+]
+},
+{
+"en": [
+"child abuse",
+"maltreatment of child"
+],
+"roman": [
+"bal utpidan",
+"balmanovigyanik utpidan"
+],
+"ne": [
+"बाल दुर्व्यवहार",
+"बाल उत्पीडन"
+]
+},
+{
+"en": [
+"corporal punishment",
+"physical punishment"
+],
+"roman": [
+"saririk sajay",
+"pitne",
+"marnu"
+],
+"ne": [
+"शारीरिक सजाय",
+"मानसिक तथा शारीरिक सजाय निषेध"
+]
+},
+{
+"en": [
+"school management committee"
+],
+"roman": [
+"bidyalaya byabasthapan samiti",
+"bibyas"
+],
+"ne": [
+"विद्यालय व्यवस्थापन समिति"
+]
+},
+{
+"en": [
+"teacher",
+"educator"
+],
+"roman": [
+"shikshak",
+"guru"
+],
+"ne": [
+"शिक्षक",
+"गुरु"
+]
+},
+{
+"en": [
+"school",
+"educational institution"
+],
+"roman": [
+"bidyalaya",
+"school",
+"shikshyalaya"
+],
+"ne": [
+"विद्यालय",
+"शैक्षिक संस्था"
+]
+},
+{
+"en": [
+"curriculum",
+"syllabus"
+],
+"roman": [
+"pathyakram",
+"pathya"
+],
+"ne": [
+"पाठ्यक्रम"
+]
+},
+{
+"en": [
+"textbook",
+"books"
+],
+"roman": [
+"pathyapustak",
+"kitab"
+],
+"ne": [
+"पाठ्यपुस्तक"
+]
+},
+{
+"en": [
+"scholarship",
+"stipend"
+],
+"roman": [
+"chhatrabriti",
+"scholarship"
+],
+"ne": [
+"छात्रवृत्ति"
+]
+},
+{
+"en": [
+"child welfare officer"
+],
+"roman": [
+"bal kalyan adhikrit",
+"bal kalyan adhikari"
+],
+"ne": [
+"बाल कल्याण अधिकृत",
+"बाल कल्याण अधिकारी"
+]
+},
+{
+"en": [
+"child welfare committee"
+],
+"roman": [
+"bal kalyan samiti",
+"sthaniya bal samiti"
+],
+"ne": [
+"बाल कल्याण समिति",
+"स्थानीय बाल सञ्जाल",
+"बाल कोष"
+]
+},
+{
+"en": [
+"orphan",
+"destitute child"
+],
+"roman": [
+"anath",
+"tuho",
+"asahay balak"
+],
+"ne": [
+"अनाथ बालक",
+"असहाय बालबालिका"
+]
+},
+{
+"en": [
+"orphanage",
+"children's home"
+],
+"roman": [
+"anathalaya",
+"balgriha"
+],
+"ne": [
+"बालगृह",
+"अनाथालय"
+]
+},
+{
+"en": [
+"diversion",
+"diversion case"
+],
+"roman": [
+"daivarjan",
+"milapatra",
+"bikalpiya karbahi"
+],
+"ne": [
+"डाइभर्सन",
+"वैकल्पिक कारवाही"
+]
+},
+{
+"en": [
+"probation officer"
+],
+"roman": [
+"probation officer",
+"parikshakalik adhikari"
+],
+"ne": [
+"परीक्षण अधिकारी",
+"प्रोबेशन अधिकृत"
+]
+},
+{
+"en": [
+"child sexual abuse",
+"sexual exploitation"
+],
+"roman": [
+"laingik shosan",
+"balunmaad",
+"karni"
+],
+"ne": [
+"यौन दुर्व्यवहार",
+"बाल यौन शोषण"
+]
+},
+{
+"en": [
+"foster care",
+"alternative care"
+],
+"roman": [
+"bikalpiya care",
+"pariwarik care"
+],
+"ne": [
+"बैकल्पिक हेरचाह",
+"पारिवारिक हेरचाह"
+]
+},
+{
+"en": [
+"child participation"
+],
+"roman": [
+"bal sahigarita",
+"sahabhagita"
+],
+"ne": [
+"बाल सहभागिता"
+]
+},
+{
+"en": [
+"primary education"
+],
+"roman": [
+"prathamik sikshya",
+"adharbhut sikshya"
+],
+"ne": [
+"आधारभूत शिक्षा",
+"प्राथमिक शिक्षा"
+]
+},
+{
+"en": [
+"secondary education"
+],
+"roman": [
+"madhyamik sikshya"
+],
+"ne": [
+"माध्यमिक शिक्षा"
+]
+},
+{
+"en": [
+"higher education"
+],
+"roman": [
+"ucccha sikshya"
+],
+"ne": [
+"उच्च शिक्षा"
+]
+},
+{
+"en": [
+"early childhood development",
+"ecd"
+],
+"roman": [
+"prarambhik bal bikas",
+"montessori",
+"bal vikas"
+],
+"ne": [
+"प्रारंभिक बालविकास",
+"प्रारंभिक बालविकास तथा शिक्षा"
+]
+},
+{
+"en": [
+"special education"
+],
+"roman": [
+"vishesh sikshya",
+"samabeshi sikshya"
+],
+"ne": [
+"विशेष शिक्षा",
+"समावेशी शिक्षा"
+]
+},
+{
+"en": [
+"child health and nutrition"
+],
+"roman": [
+"bal swasthya",
+"poshan"
+],
+"ne": [
+"बाल स्वास्थ्य तथा पोषण"
+]
+},
+{
+"en": [
+"juvenile reformatory",
+"juvenile detention"
+],
+"roman": [
+"bal thunwa",
+"hiraasat"
+],
+"ne": [
+"बाल हिरासत",
+"सुधार गृह"
+]
+}
+],
+"health, medical negligence, abortion, disability, senior citizens": [
+{
+"en": [
+"medical negligence",
+"doctor mistake",
+"medical malpractice"
+],
+"roman": [
+"medical negligence",
+"chikitsek galti",
+"laaparwahi"
+],
+"ne": [
+"चिकित्सकीय लापरवाही",
+"उपचारमा लापरवाही"
+]
+},
+{
+"en": [
+"abortion",
+"miscarriage"
+],
+"roman": [
+"abortion",
+"garbha patan",
+"garbhapatan"
+],
+"ne": [
+"गर्भपतन",
+"गर्भ तुझाउने काम"
+]
+},
+{
+"en": [
+"safe abortion"
+],
+"roman": [
+"surakshit garbha patan",
+"safe abortion"
+],
+"ne": [
+"सुरक्षित गर्भपतन"
+]
+},
+{
+"en": [
+"disability",
+"handicapped"
+],
+"roman": [
+"disability",
+"apangata",
+"apanga"
+],
+"ne": [
+"अपाङ्गता",
+"अशक्तता"
+]
+},
+{
+"en": [
+"senior citizen",
+"elderly"
+],
+"roman": [
+"senior citizen",
+"jestha nagarik",
+"biddha"
+],
+"ne": [
+"जेष्ठ नागरिक",
+"वृद्धवृद्धा"
+]
+},
+{
+"en": [
+"health right",
+"right to health"
+],
+"roman": [
+"swasthya ko adhikar",
+"health right"
+],
+"ne": [
+"स्वास्थ्यसम्बन्धी हक",
+"स्वास्थ्यको हक"
+]
+},
+{
+"en": [
+"patient rights"
+],
+"roman": [
+"patient rights",
+"birami ko adhikar"
+],
+"ne": [
+"बिरामीको अधिकार",
+"रोगीको अधिकार"
+]
+},
+{
+"en": [
+"informed consent"
+],
+"roman": [
+"informed consent",
+"swikriti"
+],
+"ne": [
+"सूचित सहमति",
+"पूर्व सहमति"
+]
+},
+{
+"en": [
+"public health"
+],
+"roman": [
+"sarwajanik swasthya",
+"public health"
+],
+"ne": [
+"सार्वजनिक स्वास्थ्य"
+]
+},
+{
+"en": [
+"mental health"
+],
+"roman": [
+"mental health",
+"mansik swasthya"
+],
+"ne": [
+"मानसिक स्वास्थ्य"
+]
+},
+{
+"en": [
+"organ donation"
+],
+"roman": [
+"organ donation",
+"ang dan"
+],
+"ne": [
+"अङ्गदान",
+"शरीरको अङ्ग दान"
+]
+},
+{
+"en": [
+"organ transplantation"
+],
+"roman": [
+"ang प्रत्यारोपण",
+"ang pratiropan"
+],
+"ne": [
+"अङ्ग प्रत्यारोपण"
+]
+},
+{
+"en": [
+"brain death"
+],
+"roman": [
+"brain death",
+"dimagi mrityu"
+],
+"ne": [
+"मस्तिष्क मृत्यु",
+"दिमागी मृत्यु"
+]
+},
+{
+"en": [
+"euthanasia",
+"mercy killing"
+],
+"roman": [
+"euthanasia",
+"daya mrityu"
+],
+"ne": [
+"दया मृत्यु",
+"इच्छामृत्यु"
+]
+},
+{
+"en": [
+"infectious disease"
+],
+"roman": [
+"saruwa rog",
+"infectious disease"
+],
+"ne": [
+"सरुवा रोग",
+"संक्रामक रोग"
+]
+},
+{
+"en": [
+"epidemic",
+"pandemic"
+],
+"roman": [
+"mahapamari",
+"mahamari"
+],
+"ne": [
+"महामारी"
+]
+},
+{
+"en": [
+"quarantine",
+"isolation"
+],
+"roman": [
+"quarantine",
+"isolation",
+"algaaw"
+],
+"ne": [
+"क्वारेन्टाइन",
+"वातावरण पृथकीकरण",
+"एकाउन्टेबल आइसोलेसन"
+]
+},
+{
+"en": [
+"health insurance"
+],
+"roman": [
+"health insurance",
+"swasthya beema"
+],
+"ne": [
+"स्वास्थ्य बीमा"
+]
+},
+{
+"en": [
+"free treatment"
+],
+"roman": [
+"nisulka upachar",
+"free treatment"
+],
+"ne": [
+"निःशुल्क उपचार"
+]
+},
+{
+"en": [
+"emergency treatment"
+],
+"roman": [
+"emergency upachar",
+"akasmit upachar"
+],
+"ne": [
+"आकस्मिक उपचार",
+"आपत्कालीन स्वास्थ्य सेवा"
+]
+},
+{
+"en": [
+"pharmacy regulation",
+"medicines act"
+],
+"roman": [
+"aushadhi ain",
+"medicine act"
+],
+"ne": [
+"औषधि ऐन",
+"औषधि नियमन"
+]
+},
+{
+"en": [
+"fake medicine",
+"adulterated drug"
+],
+"roman": [
+"misaawat aushadhi",
+"nakli aushadhi"
+],
+"ne": [
+"नक्कली औषधि",
+"मिसावटयुक्त औषधि"
+]
+},
+{
+"en": [
+"clinical trial"
+],
+"roman": [
+"clinical trial",
+"parixhan"
+],
+"ne": [
+"क्लिनिकल परीक्षण",
+"औषधि परीक्षण"
+]
+},
+{
+"en": [
+"medical council"
+],
+"roman": [
+"nepal medical council",
+"medical parishad"
+],
+"ne": [
+"नेपाल मेडिकल काउन्सिल",
+"चिकित्सक परिषद्"
+]
+},
+{
+"en": [
+"health worker assault",
+"attack on doctor"
+],
+"roman": [
+"swasthya karmi mathi hamla",
+"doctor kuto"
+],
+"ne": [
+"स्वास्थ्यकर्मीमाथिको आक्रमण",
+"चिकित्सकमाथि हातपात"
+]
+},
+{
+"en": [
+"hospital negligence"
+],
+"roman": [
+"hospital laaparwahi",
+"aspataal galti"
+],
+"ne": [
+"अस्पतालको लापरवाही",
+"स्वास्थ्य संस्थाको त्रुटि"
+]
+},
+{
+"en": [
+"wrongful death in medical"
+],
+"roman": [
+"upachar garda mrityu",
+"wrongful death"
+],
+"ne": [
+"उपचारको क्रममा भएको मृत्यु",
+"लापरवाहीबाट भएको मृत्यु"
+]
+},
+{
+"en": [
+"compensation for medical error"
+],
+"roman": [
+"kshati purti",
+"compensation"
+],
+"ne": [
+"क्षतिपूर्ति",
+"भर्पाई"
+]
+},
+{
+"en": [
+"medical confidentiality",
+"privacy of patient"
+],
+"roman": [
+"gopniyata",
+"patient privacy"
+],
+"ne": [
+"बिरामीको गोपनीयता",
+"चिकित्सकीय गोपनीयता"
+]
+},
+{
+"en": [
+"palliative care"
+],
+"roman": [
+"palliative care",
+"antyawastha sew",
+"santwana sewa"
+],
+"ne": [
+"प्यालिएटिभ केयर",
+"सान्त्वना चिकित्सा सेवा"
+]
+},
+{
+"en": [
+"disability identity card"
+],
+"roman": [
+"apanga parichaya patra",
+"disability card"
+],
+"ne": [
+"अपाङ्गता परिचयपत्र"
+]
+},
+{
+"en": [
+"disability rights"
+],
+"roman": [
+"apangata bhayeka byaktiko adhikar",
+"disability rights"
+],
+"ne": [
+"अपाङ्गता भएका व्यक्तिको अधिकार",
+"अपाङ्ग अधिकार"
+]
+},
+{
+"en": [
+"accessibility for disabled"
+],
+"roman": [
+"pahuwa",
+"accessibility",
+"sugamta"
+],
+"ne": [
+"सुगम पहुँच",
+"अपाङ्गतामैत्री संरचना"
+]
+},
+{
+"en": [
+"senior citizen allowance",
+"old age allowance"
+],
+"roman": [
+"briddha bhata",
+"jestha nagarik bhatta"
+],
+"ne": [
+"ज्येष्ठ नागरिक भत्ता",
+"वृद्ध भत्ता"
+]
+},
+{
+"en": [
+"senior citizen home",
+"old age home"
+],
+"roman": [
+"briddhashram",
+"jestha nagarik ashram"
+],
+"ne": [
+"वृद्धश्रम",
+"ज्येष्ठ नागरिक विश्राम गृह"
+]
+},
+{
+"en": [
+"maintenance by children",
+"parental care law"
+],
+"roman": [
+"ama bau ko herchaha",
+"alan palan"
+],
+"ne": [
+"आमाबाबुको हेरचाह तथा पालनपोषण",
+"ज्येष्ठ नागरिकको संरक्षण"
+]
+},
+{
+"en": [
+"abandonment of elderly"
+],
+"roman": [
+"jestha nagarik upeksha",
+"old age abandonment"
+],
+"ne": [
+"ज्येष्ठ नागरिकको उपेक्षा",
+"वृद्धबुद्धा त्याग"
+]
+},
+{
+"en": [
+"mental hospital",
+"psychiatric facility"
+],
+"roman": [
+"mansik aspataal",
+"mental hospital"
+],
+"ne": [
+"मानसिक अस्पताल",
+"मनोचिकित्सा केन्द्र"
+]
+},
+{
+"en": [
+"rehabilitation center"
+],
+"roman": [
+"rehab center",
+"rehabilitation"
+],
+"ne": [
+"पुनस्थापना केन्द्र",
+"सुधार गृह"
+]
+},
+{
+"en": [
+"drug addiction treatment"
+],
+"roman": [
+"nasha mukti",
+"durobyasan upachar"
+],
+"ne": [
+"कुलत सुधार",
+"दुर्व्यसन उपचार",
+"पुनस्थापना"
+]
+},
+{
+"en": [
+"blood bank"
+],
+"roman": [
+"blood bank",
+"rakat sanchar"
+],
+"ne": [
+"रक्तसञ्चार केन्द्र",
+"रगत बैंक"
+]
+},
+{
+"en": [
+"organ trafficking"
+],
+"roman": [
+"ang taskari",
+"kidney bechbech"
+],
+"ne": [
+"अङ्ग बेचबिखन",
+"मानव अङ्ग तस्करी"
+]
+},
+{
+"en": [
+"surrogacy"
+],
+"roman": [
+"surrogacy",
+"kiraya ko garbha"
+],
+"ne": [
+"सोरोगसी",
+"भाडाको गर्भ"
+]
+},
+{
+"en": [
+"artificial insemination",
+"ivf"
+],
+"roman": [
+"ivf",
+"kritrim garbhadhan"
+],
+"ne": [
+"कृत्रिम गर्भाधान",
+"आईभिएफ"
+]
+},
+{
+"en": [
+"health emergency"
+],
+"roman": [
+"swasthya sankatkal",
+"health emergency"
+],
+"ne": [
+"स्वास्थ्य आपत्काल",
+"स्वास्थ्य संकटकाल"
+]
+},
+{
+"en": [
+"health standard",
+"hospital guideline"
+],
+"roman": [
+"swasthya mapdanda",
+"health standards"
+],
+"ne": [
+"स्वास्थ्य मापदण्ड",
+"अस्पताल सञ्चालन निर्देशिका"
+]
+},
+{
+"en": [
+"quack doctor",
+"fake practitioner"
+],
+"roman": [
+"nakli doctor",
+"jharfuk doctor"
+],
+"ne": [
+"नक्कली चिकित्सक",
+"अनधिकृत चिकित्सक"
+]
+},
+{
+"en": [
+"health inspector"
+],
+"roman": [
+"swasthya nirexhak",
+"health inspector"
+],
+"ne": [
+"स्वास्थ्य निरीक्षक"
+]
+},
+{
+"en": [
+"medical board"
+],
+"roman": [
+"medical board",
+"samiti"
+],
+"ne": [
+"चिकित्सकीय बोर्ड",
+"चिकित्सा समिति"
+]
+},
+{
+"en": [
+"health facility"
+],
+"roman": [
+"swasthya sanstha",
+"health post"
+],
+"ne": [
+"स्वास्थ्य संस्था",
+"स्वास्थ्य चौकी",
+"अस्पताल"
+]
+}
+],
+"environment, forest, water, wildlife": [
+{
+"en": [
+"environment",
+"environmental protection"
+],
+"roman": [
+"environment",
+"watawaran",
+"paryawaran"
+],
+"ne": [
+"वातावरण",
+"वातावरण संरक्षण"
+]
+},
+{
+"en": [
+"forest",
+"national forest"
+],
+"roman": [
+"forest",
+"jungle",
+"ban",
+"national ban"
+],
+"ne": [
+"वन",
+"राष्ट्रिय वन"
+]
+},
+{
+"en": [
+"wildlife",
+"wild animal"
+],
+"roman": [
+"wildlife",
+"banjantu",
+"jantu",
+"wanyajantu"
+],
+"ne": [
+"वन्यजन्तु",
+"जंगली जनावर"
+]
+},
+{
+"en": [
+"water resources",
+"water body"
+],
+"roman": [
+"water",
+"pani",
+"jal",
+"jal srot"
+],
+"ne": [
+"जलस्रोतः",
+"पानी",
+"जलस्रोत"
+]
+},
+{
+"en": [
+"pollution",
+"environmental pollution"
+],
+"roman": [
+"pollution",
+"pradushan",
+"watawaran pradushan"
+],
+"ne": [
+"प्रदूषण",
+"वातावरण प्रदूषण"
+]
+},
+{
+"en": [
+"protected area",
+"conservation area"
+],
+"roman": [
+"protected area",
+"samrakshchit kshetra",
+"nikunj"
+],
+"ne": [
+"संरक्षित क्षेत्र",
+"राष्ट्रिय निकुञ्ज"
+]
+},
+{
+"en": [
+"national park",
+"park"
+],
+"roman": [
+"national park",
+"nikunja",
+"nikunj"
+],
+"ne": [
+"राष्ट्रिय निकुञ्ज"
+]
+},
+{
+"en": [
+"reserve",
+"wildlife reserve"
+],
+"roman": [
+"reserve",
+"wildlife reserve",
+"arashchhya",
+"aarakshya"
+],
+"ne": [
+"आरक्ष",
+"वन्यजन्तु आरक्ष"
+]
+},
+{
+"en": [
+"timber",
+"wood",
+"forest product"
+],
+"roman": [
+"timber",
+"wood",
+"kath",
+"daura",
+"ban paidawar"
+],
+"ne": [
+"काठ",
+"दाउरा",
+"वन पैदावार"
+]
+},
+{
+"en": [
+"poaching",
+"illegal hunting"
+],
+"roman": [
+"poaching",
+"shikar",
+"awaydha shikar"
+],
+"ne": [
+"अवैध शिकार",
+"सिकार खेल्ने"
+]
+},
+{
+"en": [
+"biodiversity",
+"biological diversity"
+],
+"roman": [
+"biodiversity",
+"jaibik vividhta"
+],
+"ne": [
+"जैविक विविधता"
+]
+},
+{
+"en": [
+"endangered species",
+"rare wildlife"
+],
+"roman": [
+"endangered species",
+"durta wanyajantu",
+"loptamukh wanyajantu"
+],
+"ne": [
+"लोपोन्मुख वन्यजन्तु",
+"दुर्लभ वन्यजन्तु"
+]
+},
+{
+"en": [
+"environmental impact assessment",
+"eia"
+],
+"roman": [
+"eia",
+"watawaran prabhaw mulyankan"
+],
+"ne": [
+"वातावरणीय प्रभाव मूल्याङ्कन"
+]
+},
+{
+"en": [
+"initial environmental examination",
+"iee"
+],
+"roman": [
+"iee",
+"prarambhik watawaran parikshyan"
+],
+"ne": [
+"प्रारम्भिक वातावरणीय परीक्षण"
+]
+},
+{
+"en": [
+"community forest",
+"community forestry"
+],
+"roman": [
+"community forest",
+"samudayik ban"
+],
+"ne": [
+"सामुदायिक वन"
+]
+},
+{
+"en": [
+"leasehold forest"
+],
+"roman": [
+"leasehold forest",
+"kabulyati ban"
+],
+"ne": [
+"कबूलीएती वन",
+"कबुलियाती वन"
+]
+},
+{
+"en": [
+"religious forest"
+],
+"roman": [
+"religious forest",
+"dharmik ban"
+],
+"ne": [
+"धार्मिक वन"
+]
+},
+{
+"en": [
+"private forest"
+],
+"roman": [
+"private forest",
+"niji ban"
+],
+"ne": [
+"निजी वन"
+]
+},
+{
+"en": [
+"protected forest"
+],
+"roman": [
+"protected forest",
+"samrakshchit ban"
+],
+"ne": [
+"संरक्षित वन"
+]
+},
+{
+"en": [
+"drinking water",
+"potable water"
+],
+"roman": [
+"drinking water",
+"khanepani"
+],
+"ne": [
+"खानेपानी"
+]
+},
+{
+"en": [
+"irrigation"
+],
+"roman": [
+"irrigation",
+"sinchai"
+],
+"ne": [
+"सिँचाइ"
+]
+},
+{
+"en": [
+"hydropower",
+"hydro electricity"
+],
+"roman": [
+"hydropower",
+"jalbidhyut"
+],
+"ne": [
+"जलविद्युत"
+]
+},
+{
+"en": [
+"river",
+"stream"
+],
+"roman": [
+"river",
+"nadi",
+"khola"
+],
+"ne": [
+"नदी",
+"खोला"
+]
+},
+{
+"en": [
+"lake",
+"wetland"
+],
+"roman": [
+"lake",
+"wetland",
+"tal",
+"talau",
+"simsar"
+],
+"ne": [
+"ताल",
+"सिमसार क्षेत्र"
+]
+},
+{
+"en": [
+"groundwater"
+],
+"roman": [
+"groundwater",
+"bhoomi gat pani"
+],
+"ne": [
+"भूमिगत पानी",
+"भुमिगत जल"
+]
+},
+{
+"en": [
+"water pollution"
+],
+"roman": [
+"water pollution",
+"pani pradushan",
+"jal pradushan"
+],
+"ne": [
+"जल प्रदूषण",
+"पानी प्रदूषण"
+]
+},
+{
+"en": [
+"air pollution"
+],
+"roman": [
+"air pollution",
+"hawai pradushan",
+"bayu pradushan"
+],
+"ne": [
+"वायु प्रदूषण"
+]
+},
+{
+"en": [
+"noise pollution"
+],
+"roman": [
+"noise pollution",
+"halahal pradushan",
+"कोलाहल प्रदूषण",
+"dhwani pradushan"
+],
+"ne": [
+"ध्वनि प्रदूषण"
+]
+},
+{
+"en": [
+"solid waste",
+"waste management"
+],
+"roman": [
+"solid waste",
+"fohor",
+"fohor maila byawasthapan"
+],
+"ne": [
+"फोहोरमैला",
+"फोहोरमैला व्यवस्थापन"
+]
+},
+{
+"en": [
+"hazardous waste"
+],
+"roman": [
+"hazardous waste",
+"vishesha fohor",
+"khanikari fohor"
+],
+"ne": [
+"खतरनाक फोहोरमैला"
+]
+},
+{
+"en": [
+"climate change"
+],
+"roman": [
+"climate change",
+"jalbayu pariwartan"
+],
+"ne": [
+"जलवायु परिवर्तन"
+]
+},
+{
+"en": [
+"carbon trade",
+"carbon emission"
+],
+"roman": [
+"carbon emission",
+"carbon utsarjan"
+],
+"ne": [
+"कार्बन उत्सर्जन"
+]
+},
+{
+"en": [
+"deforestation"
+],
+"roman": [
+"deforestation",
+"ban vinas"
+],
+"ne": [
+"वन विनाश",
+"फँडानी"
+]
+},
+{
+"en": [
+"afforestation",
+"tree plantation"
+],
+"roman": [
+"afforestation",
+"ban ropan",
+"rukh ropan"
+],
+"ne": [
+"वृक्षारोपण",
+"वन रोपण"
+]
+},
+{
+"en": [
+"wildlife smuggling",
+"illegal wildlife trade"
+],
+"roman": [
+"wildlife smuggling",
+"waryajantu taskari"
+],
+"ne": [
+"वन्यजन्तु तस्करी"
+]
+},
+{
+"en": [
+"trophy hunting"
+],
+"roman": [
+"trophy hunting",
+"shikar aadhikar"
+],
+"ne": [
+"सिकार गर्न अनुमति"
+]
+},
+{
+"en": [
+"zoo",
+"zoological garden"
+],
+"roman": [
+"zoo",
+"chidiakhana"
+],
+"ne": [
+"चिडियाखाना",
+"प्राणी उद्यान"
+]
+},
+{
+"en": [
+"botanical garden"
+],
+"roman": [
+"botanical garden",
+"vanaspati udyan"
+],
+"ne": [
+"वनस्पति उद्यान"
+]
+},
+{
+"en": [
+"herbs",
+"medicinal plants"
+],
+"roman": [
+"herbs",
+"jadibuti"
+],
+"ne": [
+"जडीबुटी"
+]
+},
+{
+"en": [
+"soil erosion"
+],
+"roman": [
+"soil erosion",
+"bhakshya",
+"bhukshya"
+],
+"ne": [
+"भू-क्षय"
+]
+},
+{
+"en": [
+"landslide"
+],
+"roman": [
+"landslide",
+"पहिरो",
+"pahiro"
+],
+"ne": [
+"पहिरो",
+"भू-स्खलन"
+]
+},
+{
+"en": [
+"flood"
+],
+"roman": [
+"flood",
+"badi",
+"baadi"
+],
+"ne": [
+"बाढी"
+]
+},
+{
+"en": [
+"natural disaster"
+],
+"roman": [
+"natural disaster",
+"prakritik prakop",
+"daibi prakop"
+],
+"ne": [
+"प्राकृतिक प्रकोप",
+"दैवी विपत्ति"
+]
+},
+{
+"en": [
+"buffer zone"
+],
+"roman": [
+"buffer zone",
+"मध्यवर्ती क्षेत्र",
+"madhyawarti kshetra"
+],
+"ne": [
+"मध्यवर्ती क्षेत्र"
+]
+},
+{
+"en": [
+"conservation area management"
+],
+"roman": [
+"conservation area management",
+"samrakshchit kshetra byawastha"
+],
+"ne": [
+"संरक्षित क्षेत्र व्यवस्थापन"
+]
+},
+{
+"en": [
+"environmental inspector"
+],
+"roman": [
+"environmental inspector",
+"watawaran nirikshyak"
+],
+"ne": [
+"वातावरण निरीक्षक"
+]
+},
+{
+"en": [
+"forest officer"
+],
+"roman": [
+"forest officer",
+"ban adhikrit"
+],
+"ne": [
+"वन अधिकृत"
+]
+},
+{
+"en": [
+"game scout",
+"forest guard"
+],
+"roman": [
+"forest guard",
+"ban rakshak"
+],
+"ne": [
+"वन रक्षक"
+]
+},
+{
+"en": [
+"fisheries",
+"fish farming"
+],
+"roman": [
+"fisheries",
+"macha palan"
+],
+"ne": [
+"माछापालन",
+"जलचर संरक्षण"
+]
+},
+{
+"en": [
+"quarrying",
+"stone mining"
+],
+"roman": [
+"quarrying",
+"dhunga khani",
+"rodi khani"
+],
+"ne": [
+"ढुङ्गा उत्खनन",
+"गिट्टी बालुवा उत्खनन"
+]
+}
+],
+"intellectual property, copyright, trademark, patent": [
+{
+"en": [
+"intellectual property",
+"ip right"
+],
+"roman": [
+"baudhik sampatti",
+"intellectual property"
+],
+"ne": [
+"बौद्धिक सम्पत्ति",
+"बौद्धिक सम्पत्ति अधिकार"
+]
+},
+{
+"en": [
+"copyright",
+"copy right"
+],
+"roman": [
+"pratilipi adhikar",
+"copyright",
+"pratilipi"
+],
+"ne": [
+"प्रतिलिपि अधिकार",
+"प्रतिलिपि"
+]
+},
+{
+"en": [
+"trademark",
+"trade mark",
+"brand name"
+],
+"roman": [
+"trademark",
+"trade mark",
+"vyaparik chinha"
+],
+"ne": [
+"व्यापारिक चिह्न",
+"ट्रेडमार्क"
+]
+},
+{
+"en": [
+"patent",
+"invention patent"
+],
+"roman": [
+"patent",
+"patent adhikar",
+"awiskar"
+],
+"ne": [
+"पेटेन्ट",
+"आविष्कार",
+"पेटेन्ट अधिकार"
+]
+},
+{
+"en": [
+"design",
+"industrial design"
+],
+"roman": [
+"design",
+"udyogik design",
+"naksha"
+],
+"ne": [
+"डिजाइन",
+"औद्योगिक डिजाइन"
+]
+},
+{
+"en": [
+"trade secret",
+"confidential information"
+],
+"roman": [
+"trade secret",
+"gopniya sadhan",
+"vyaparik gopya"
+],
+"ne": [
+"व्यापारिक गोपनीयता",
+"गोपनीय व्यावसायिक जानकारी"
+]
+},
+{
+"en": [
+"infringement",
+"copyright violation"
+],
+"roman": [
+"adhikar ullanghan",
+"infringement",
+"pratilipi ullanghan"
+],
+"ne": [
+"अधिकारको उल्लङ्घन",
+"प्रतिलिपि अधिकार उल्लङ्घन",
+"उल्लङ्घन"
+]
+},
+{
+"en": [
+"piracy",
+"counterfeiting"
+],
+"roman": [
+"piracy",
+"nakli",
+"nakli utpadan"
+],
+"ne": [
+"पाइरेसी",
+"नक्कली उत्पादन",
+"अकल चोरी"
+]
+},
+{
+"en": [
+"license",
+"licensing agreement"
+],
+"roman": [
+"license",
+"anumati patra",
+"layisens"
+],
+"ne": [
+"इजाजतपत्र",
+"लाइसेन्स",
+"अनुमतिपत्र"
+]
+},
+{
+"en": [
+"royalty",
+"license fee"
+],
+"roman": [
+"royalty",
+"royalti",
+"sulka"
+],
+"ne": [
+"रोयल्टी",
+"दस्तुर"
+]
+},
+{
+"en": [
+"assignment",
+"transfer of rights"
+],
+"roman": [
+"adhikar hastantar",
+"assignment",
+"hastantar"
+],
+"ne": [
+"अधिकार हस्तान्तरण",
+"हस्तान्तरण"
+]
+},
+{
+"en": [
+"registration",
+"trademark registration"
+],
+"roman": [
+"darta",
+"trademark darta",
+"panjikaran"
+],
+"ne": [
+"दर्ता",
+"पञ्जीकरण",
+"व्यापारिक चिह्न दर्ता"
+]
+},
+{
+"en": [
+"department",
+"industry department"
+],
+"roman": [
+"vibhag",
+"udyog bibhag",
+"department of industry"
+],
+"ne": [
+"उद्योग विभाग",
+"विभाग"
+]
+},
+{
+"en": [
+"registrar",
+"ip office"
+],
+"roman": [
+"registrar",
+"panji",
+"kayalaya"
+],
+"ne": [
+"पञ्जिकर्ता",
+"कार्यालय"
+]
+},
+{
+"en": [
+"opposition",
+"trademark opposition"
+],
+"roman": [
+"birodh",
+"pratibandh",
+"opposition"
+],
+"ne": [
+"विरोध",
+"दाबी विरोध"
+]
+},
+{
+"en": [
+"renewal",
+"trademark renewal"
+],
+"roman": [
+"nabikaran",
+"renewal",
+"myaad thap"
+],
+"ne": [
+"नबेरण",
+"नवीकरण",
+"म्याद थप"
+]
+},
+{
+"en": [
+"prior art",
+"existing invention"
+],
+"roman": [
+"purano awiskar",
+"prior art"
+],
+"ne": [
+"पूर्वआविष्कार",
+"विद्यमान आविष्कार"
+]
+},
+{
+"en": [
+"author",
+"creator"
+],
+"roman": [
+"lekhak",
+"srashta",
+"author"
+],
+"ne": [
+"सस्र्टा",
+"लेखक",
+"सृष्टिकर्ता"
+]
+},
+{
+"en": [
+"work",
+"literary work"
+],
+"roman": [
+"kriti",
+"sahityik kriti",
+"work"
+],
+"ne": [
+"कृति",
+"साहित्यिक कृति"
+]
+},
+{
+"en": [
+"moral rights",
+"paternity right"
+],
+"roman": [
+"naitik adhikar",
+"moral rights"
+],
+"ne": [
+"नैतिक अधिकार"
+]
+},
+{
+"en": [
+"economic rights",
+"financial rights"
+],
+"roman": [
+"aarthik adhikar",
+"economic rights"
+],
+"ne": [
+"आर्थिक अधिकार"
+]
+},
+{
+"en": [
+"fair use",
+"fair dealing"
+],
+"roman": [
+"fair use",
+"nyayik prayog"
+],
+"ne": [
+"न्यायोचित प्रयोग",
+"उचित प्रयोग"
+]
+},
+{
+"en": [
+"public domain",
+"expired copyright"
+],
+"roman": [
+"public domain",
+"sarwajanik"
+],
+"ne": [
+"सार्वजनिक डोमेन",
+"सार्वजनिक सम्पत्ति"
+]
+},
+{
+"en": [
+"geographical indication",
+"gi tag"
+],
+"roman": [
+"geographical indication",
+"bhougolik sanket"
+],
+"ne": [
+"भौगोलिक सङ्केत",
+"भौगोलिक पहिचान"
+]
+},
+{
+"en": [
+"goodwill",
+"business reputation"
+],
+"roman": [
+"goodwill",
+"khyati",
+"pratishtha"
+],
+"ne": [
+"ख्याति",
+"व्यापारिक प्रतिष्ठा",
+"गुडविल"
+]
+},
+{
+"en": [
+"passing off",
+"fake brand"
+],
+"roman": [
+"passing off",
+"nakli brand"
+],
+"ne": [
+"नक्कली व्यापारिक नाम प्रयोग",
+"भ्रामक व्यापार"
+]
+},
+{
+"en": [
+"remedy",
+"legal remedy"
+],
+"roman": [
+"upachar",
+"kanuni upachar",
+"remedy"
+],
+"ne": [
+"कानूनी उपचार",
+"उपचार"
+]
+},
+{
+"en": [
+"damages",
+"compensation"
+],
+"roman": [
+"kshatipurti",
+"damages",
+"bharpai"
+],
+"ne": [
+"क्षतिपूर्ति",
+"भरपाइ"
+]
+},
+{
+"en": [
+"injunction",
+"stay order"
+],
+"roman": [
+"rojhka aadesh",
+"interim order",
+"nirodhatmak aadesh"
+],
+"ne": [
+"निषेधाज्ञा",
+"अन्तरिम आदेश"
+]
+},
+{
+"en": [
+"seizure",
+"confiscation"
+],
+"roman": [
+"jabt",
+"jasabt",
+"seizure"
+],
+"ne": [
+"जफत",
+"कब्जा"
+]
+},
+{
+"en": [
+"fine",
+"penalty"
+],
+"roman": [
+"jarmana",
+"danda",
+"sulka"
+],
+"ne": [
+"जरिवाना",
+"कैद र जरिवाना",
+"दण्ड"
+]
+},
+{
+"en": [
+"imprisonment",
+"jail"
+],
+"roman": [
+"kaid",
+"jail",
+"sajaya"
+],
+"ne": [
+"कैद",
+"सजाय"
+]
+},
+{
+"en": [
+"dispute resolution",
+"arbitration"
+],
+"roman": [
+"bivad samadhan",
+"madhyastha",
+"dispute"
+],
+"ne": [
+"विवाद समाधान",
+"मध्यस्थता",
+"मेलमिलाप"
+]
+},
+{
+"en": [
+"court",
+"district court"
+],
+"roman": [
+"adalat",
+"zilla adalat",
+"court"
+],
+"ne": [
+"अदालत",
+"जिल्ला अदालत"
+]
+},
+{
+"en": [
+"appeal",
+"high court appeal"
+],
+"roman": [
+"punaravedan",
+"appeal",
+"uchha adalat"
+],
+"ne": [
+"पुनरावेदन",
+"उच्च अदालत"
+]
+},
+{
+"en": [
+"supreme court",
+"apex court"
+],
+"roman": [
+"sarbोच्च adalat",
+"supreme court",
+"sarwartha"
+],
+"ne": [
+"सर्वोच्च अदालत"
+]
+},
+{
+"en": [
+"evidence",
+"proof"
+],
+"roman": [
+"praman",
+"sabut",
+"evidence"
+],
+"ne": [
+"प्रमाण",
+"सबूत"
+]
+},
+{
+"en": [
+"expert testimony",
+"expert opinion"
+],
+"roman": [
+"bisheshagya rai",
+"expert opinion"
+],
+"ne": [
+"विशेषज्ञ राय",
+"विशेषज्ञ प्रमाण"
+]
+},
+{
+"en": [
+"publication",
+"gazette notification"
+],
+"roman": [
+"rajpatra",
+"prakashan",
+"gazette"
+],
+"ne": [
+"राजपत्र",
+"प्रकाशन",
+"सूचना"
+]
+},
+{
+"en": [
+"application",
+"petition"
+],
+"roman": [
+"nibedan",
+"firad",
+"application"
+],
+"ne": [
+"निवेदन",
+"फिराद",
+"दुकान दर्ता निवेदन"
+]
+}
+],
+"elections, parliament, president, federal/provincial government, judiciary structure": [
+{
+"en": [
+"president",
+"head of state"
+],
+"roman": [
+"rastrapati",
+"president"
+],
+"ne": [
+"राष्ट्रपति",
+"राष्ट्रप्रमुख"
+]
+},
+{
+"en": [
+"vice president",
+"deputy head of state"
+],
+"roman": [
+"uparastrapati",
+"vice president"
+],
+"ne": [
+"उपराष्ट्रपति"
+]
+},
+{
+"en": [
+"prime minister",
+"head of government"
+],
+"roman": [
+"pradhanmantri",
+"pm"
+],
+"ne": [
+"प्रधानमन्त्री",
+"मन्त्रिपरिषद्को अध्यक्ष"
+]
+},
+{
+"en": [
+"parliament",
+"federal parliament",
+"legislature"
+],
+"roman": [
+"sandsad",
+"federal parliament",
+"pariament"
+],
+"ne": [
+"संघीय संसद",
+"व्यवस्थापिका"
+]
+},
+{
+"en": [
+"house of representatives",
+"lower house"
+],
+"roman": [
+"pratinidhisabha",
+"house of representatives"
+],
+"ne": [
+"प्रतिनिधिसभा"
+]
+},
+{
+"en": [
+"national assembly",
+"upper house"
+],
+"roman": [
+"rastriya sabha",
+"upper house"
+],
+"ne": [
+"राष्ट्रिय सभा"
+]
+},
+{
+"en": [
+"speaker",
+"parliament speaker"
+],
+"roman": [
+"sabhapati",
+"speaker",
+"sabhamukh"
+],
+"ne": [
+"सभामुख",
+"अध्यक्ष"
+]
+},
+{
+"en": [
+"deputy speaker"
+],
+"roman": [
+"upasabhamukh",
+"deputy speaker"
+],
+"ne": [
+"उपसभामुख"
+]
+},
+{
+"en": [
+"supreme court",
+"apex court"
+],
+"roman": [
+"sarbochha adalat",
+"supreme court"
+],
+"ne": [
+"सर्वोच्च अदालत"
+]
+},
+{
+"en": [
+"chief justice",
+"head of judiciary"
+],
+"roman": [
+"pradhan nyayadhish",
+"chief justice"
+],
+"ne": [
+"प्रधानन्यायाधीश"
+]
+},
+{
+"en": [
+"judge",
+"justice"
+],
+"roman": [
+"nyayadhish",
+"judge"
+],
+"ne": [
+"न्यायाधीश"
+]
+},
+{
+"en": [
+"high court"
+],
+"roman": [
+"uccaha adalat",
+"high court"
+],
+"ne": [
+"उच्च अदालत"
+]
+},
+{
+"en": [
+"district court"
+],
+"roman": [
+"jilla adalat",
+"district court"
+],
+"ne": [
+"जिल्ला अदालत"
+]
+},
+{
+"en": [
+"election",
+"polling"
+],
+"roman": [
+"nirwachan",
+"election",
+"chunab"
+],
+"ne": [
+"निर्वाचन",
+"चुनाव"
+]
+},
+{
+"en": [
+"election commission"
+],
+"roman": [
+"nirwachan ayog",
+"election commission"
+],
+"ne": [
+"निर्वाचन आयोग"
+]
+},
+{
+"en": [
+"constituency"
+],
+"roman": [
+"khetriya",
+"nirwachan kshetra",
+"constituency"
+],
+"ne": [
+"निर्वाचन क्षेत्र"
+]
+},
+{
+"en": [
+"voter list",
+"electoral roll"
+],
+"roman": [
+"matdata nwali",
+"voter list"
+],
+"ne": [
+"मतदाता नामावली"
+]
+},
+{
+"en": [
+"ballot paper",
+"vote"
+],
+"roman": [
+"matpatra",
+"vote",
+"matdan"
+],
+"ne": [
+"मतपत्र",
+"मतदान"
+]
+},
+{
+"en": [
+"proportional representation"
+],
+"roman": [
+"samanupatik",
+"proportional system"
+],
+"ne": [
+"स समानुपातिक निर्वाचन प्रणाली"
+]
+},
+{
+"en": [
+"first past the post",
+"direct election"
+],
+"roman": [
+"प्रत्यक्ष निर्वाचन",
+"fptp"
+],
+"ne": [
+"पहिलो हुने निर्वाcho प्रणाली",
+"प्रत्यक्ष निर्वाचन प्रणाली"
+]
+},
+{
+"en": [
+"provincial assembly",
+"state assembly"
+],
+"roman": [
+"pradesh sabha",
+"provincial assembly"
+],
+"ne": [
+"प्रदेश सभा"
+]
+},
+{
+"en": [
+"chief minister"
+],
+"roman": [
+"chief minister",
+"mukhya mantri"
+],
+"ne": [
+"मुख्यमन्त्री"
+]
+},
+{
+"en": [
+"provincial government",
+"state government"
+],
+"roman": [
+"pradesh sarkar",
+"provincial government"
+],
+"ne": [
+"प्रदेश सरकार",
+"प्रदेश मन्त्रिपरिषद्"
+]
+},
+{
+"en": [
+"governor",
+"province head"
+],
+"roman": [
+"pradesh pramukh",
+"governor"
+],
+"ne": [
+"प्रदेश प्रमुख"
+]
+},
+{
+"en": [
+"local level",
+"municipality",
+"rural municipality"
+],
+"roman": [
+"sthanik tah",
+"nagarpalika",
+"gaunpalika"
+],
+"ne": [
+"स्थानीय तह",
+"नगरपालिका",
+"गाउँपालिका"
+]
+},
+{
+"en": [
+"mayor",
+"chairperson"
+],
+"roman": [
+"mayor",
+"adhyakshya",
+"प्रमुख"
+],
+"ne": [
+"प्रमुख",
+"अध्यक्ष",
+"मेयर"
+]
+},
+{
+"en": [
+"deputy mayor",
+"vice chairperson"
+],
+"roman": [
+"upamayor",
+"upaadhyakshya"
+],
+"ne": [
+"उपप्रमुख",
+"उपाध्यक्ष",
+"उपमेयर"
+]
+},
+{
+"en": [
+"ward chair",
+"ward president"
+],
+"roman": [
+"ward adhyakshya",
+"wada sachib"
+],
+"ne": [
+"वडा अध्यक्ष"
+]
+},
+{
+"en": [
+"constitution",
+"fundamental law"
+],
+"roman": [
+"samvidhan",
+"constitution"
+],
+"ne": [
+"संविधान",
+"नेपालको संविधान"
+]
+},
+{
+"en": [
+"constitutional bench"
+],
+"roman": [
+"samvidhanik bench",
+"constitutional bench"
+],
+"ne": [
+"संवैधानिक इजलास"
+]
+},
+{
+"en": [
+"constitutional council"
+],
+"roman": [
+"samvidhanik parishad",
+"constitutional council"
+],
+"ne": [
+"संवैधानिक परिषद्"
+]
+},
+{
+"en": [
+"cabinet",
+"council of ministers"
+],
+"roman": [
+"mantriparishad",
+"cabinet"
+],
+"ne": [
+"मन्त्रिपरिषद्",
+"मन्त्रिमण्डल"
+]
+},
+{
+"en": [
+"bill",
+"draft law"
+],
+"roman": [
+"bidheyak",
+"bill"
+],
+"ne": [
+"विधेयक"
+]
+},
+{
+"en": [
+"act",
+"statute",
+"law"
+],
+"roman": [
+"ain",
+"kanun",
+"act"
+],
+"ne": [
+"ऐन",
+"कानून"
+]
+},
+{
+"en": [
+"ordinance"
+],
+"roman": [
+"adhyadesh",
+"ordinance"
+],
+"ne": [
+"अध्यादेश"
+]
+},
+{
+"en": [
+"oath",
+"affirmation"
+],
+"roman": [
+"sapath",
+"oath"
+],
+"ne": [
+"शपथ"
+]
+},
+{
+"en": [
+"impeachment"
+],
+"roman": [
+"mahabhiyog",
+"impeachment"
+],
+"ne": [
+"महाअभियोग"
+]
+},
+{
+"en": [
+"jurisdiction",
+"authority"
+],
+"roman": [
+"adhikarchetra",
+"jurisdiction"
+],
+"ne": [
+"अधिकारक्षेत्र"
+]
+},
+{
+"en": [
+"writ petition",
+"writ"
+],
+"roman": [
+"writ",
+"ret",
+"uthan"
+],
+"ne": [
+"रिट",
+"उत्प्रेषण",
+"परमादेश"
+]
+},
+{
+"en": [
+"public interest litigation",
+"pil"
+],
+"roman": [
+"sarwajanik hitko mukadma",
+"pil"
+],
+"ne": [
+"सार्वजनिक हितको मुद्दा"
+]
+},
+{
+"en": [
+"attorney general"
+],
+"roman": [
+"mahanayadhivakta",
+"attorney general"
+],
+"ne": [
+"महान्यायाधिवक्ता"
+]
+},
+{
+"en": [
+"political party"
+],
+"roman": [
+"rajnitik dal",
+"party"
+],
+"ne": [
+"राजनीतिक दल"
+]
+},
+{
+"en": [
+"bye election",
+"by election"
+],
+"roman": [
+"upaschunab",
+"bye election"
+],
+"ne": [
+"उपनिर्वाचन"
+]
+}
 ]
 }
 }
