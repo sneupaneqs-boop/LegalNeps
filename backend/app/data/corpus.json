@@ -1,0 +1,167 @@
+[
+  {
+    "id": "civil-marriage-1",
+    "category": "law",
+    "topic": "Marriage",
+    "title_en": "Requirements for a Valid Marriage",
+    "title_ne": "विवाहको मान्य सर्तहरू",
+    "text_en": "Under the National Civil Code, 2074 (2017), a marriage is valid only if both parties have given free consent, both have attained the legal marriageable age (20 years), neither is already married to another living spouse (except where polygamy has been separately permitted by law), and the parties are not within a prohibited degree of relationship. A marriage performed without free consent, or induced by fraud, coercion, or undue influence, may be declared voidable.",
+    "text_ne": "मुलुकी देवानी संहिता, २०७४ अनुसार विवाह मान्य हुनको लागि दुवै पक्षको स्वतन्त्र मञ्जुरी हुनुपर्छ, दुवैको उमेर विवाह योग्य (२० वर्ष) पुगेको हुनुपर्छ, कुनै पनि पक्ष अर्को जीवित जीवनसाथीसँग विवाहित हुनु हुँदैन (कानूनले अलग्गै बहुविवाहको अनुमति दिएको अवस्था बाहेक), र पक्षहरू निषेधित नातासम्बन्धभित्र पर्नु हुँदैन। जबरजस्ती, धोका वा दबाबमा गरिएको विवाह अमान्य घोषित हुन सक्छ।",
+    "source_en": "National Civil Code, 2074 (2017) — Part 2, Chapter on Marriage",
+    "source_ne": "मुलुकी देवानी संहिता, २०७४ — भाग २, विवाह सम्बन्धी परिच्छेद"
+  },
+  {
+    "id": "civil-divorce-1",
+    "category": "law",
+    "topic": "Divorce",
+    "title_en": "Grounds for Divorce",
+    "title_ne": "सम्बन्धविच्छेद (पारपाचुके) का आधारहरू",
+    "text_en": "Either spouse may seek divorce on grounds such as cruelty, desertion for a continuous period, the other spouse's serious mental or physical incapacity, or mutual consent of both spouses. A woman may also seek divorce if her husband takes a second wife without her consent, subject to statutory exceptions. Divorce cases are filed at the District Court having jurisdiction over the couple's residence, and the court may attempt reconciliation before granting the divorce.",
+    "text_ne": "क्रूरता, निरन्तर परित्याग, अर्को जीवनसाथीको गम्भीर मानसिक वा शारीरिक अक्षमता, वा दुवैको आपसी सहमतिको आधारमा जुनसुकै जीवनसाथीले सम्बन्धविच्छेदको मागदावी गर्न सक्छन्। पतिले पत्नीको सहमति बिना अर्को विवाह गरेमा कानुनी अपवादको अधीनमा रही पत्नीले पनि सम्बन्धविच्छेद माग गर्न सक्छिन्। सम्बन्धविच्छेदको मुद्दा दम्पतीको बसोबास रहेको जिल्ला अदालतमा दायर गरिन्छ र अदालतले सम्बन्धविच्छेद स्वीकृत गर्नु अघि मेलमिलापको प्रयास गर्न सक्छ।",
+    "source_en": "National Civil Code, 2074 (2017) — Part 2, Chapter on Marriage and Divorce",
+    "source_ne": "मुलुकी देवानी संहिता, २०७४ — भाग २, विवाह र सम्बन्धविच्छेद परिच्छेद"
+  },
+  {
+    "id": "civil-property-inheritance-1",
+    "category": "law",
+    "topic": "Property & Inheritance",
+    "title_en": "Equal Inheritance Rights of Daughters and Sons",
+    "title_ne": "छोरी र छोराको समान अंश (उत्तराधिकार) अधिकार",
+    "text_en": "The National Civil Code, 2074 (2017) recognizes daughters as coparceners with equal rights to ancestral property alongside sons, removing earlier discriminatory provisions that conditioned a daughter's share on her marital status or age. A married daughter also retains her right to parental property, subject to procedures set out in the Code for partition (bandavat).",
+    "text_ne": "मुलुकी देवानी संहिता, २०७४ ले छोरीलाई छोरा सरह पैतृक सम्पत्तिमा समान अंशियारको हैसियत दिएको छ, जसले विवाह वा उमेरको आधारमा छोरीको अंशलाई सीमित गर्ने पुरानो विभेदकारी व्यवस्थालाई हटाएको छ। विवाहित छोरीले पनि संहितामा तोकिएको अंशबण्डाको प्रक्रिया अनुसार आमाबाबुको सम्पत्तिमा आफ्नो हक कायम राख्न सक्छिन्।",
+    "source_en": "National Civil Code, 2074 (2017) — Part 3, Chapter on Partition of Property",
+    "source_ne": "मुलुकी देवानी संहिता, २०७४ — भाग ३, अंशबण्डा सम्बन्धी परिच्छेद"
+  },
+  {
+    "id": "civil-contract-1",
+    "category": "law",
+    "topic": "Contract",
+    "title_en": "Essential Elements of a Valid Contract",
+    "title_ne": "मान्य सम्झौताका आवश्यक तत्वहरू",
+    "text_en": "A contract is valid under the National Civil Code, 2074 (2017) when it is made between competent parties with free consent, for a lawful object and lawful consideration. A contract made by a minor, a person of unsound mind, or under coercion, undue influence, fraud, or misrepresentation is voidable at the option of the aggrieved party. Contracts that are against public policy or expressly forbidden by law are void.",
+    "text_ne": "मुलुकी देवानी संहिता, २०७४ अनुसार सक्षम पक्षहरूबीच स्वतन्त्र मञ्जुरीमा, वैध उद्देश्य र वैध प्रतिफलका साथ भएको सम्झौता मान्य हुन्छ। नाबालक, मानसिक रूपले अस्वस्थ व्यक्ति, वा जबरजस्ती, अनुचित प्रभाव, धोका वा गलत प्रस्तुतिकरणमा भएको सम्झौता पीडित पक्षको इच्छामा अमान्य ठहर्न सक्छ। सार्वजनिक नीतिको विपरीत वा कानुनले स्पष्ट निषेध गरेको सम्झौता वदर हुन्छ।",
+    "source_en": "National Civil Code, 2074 (2017) — Part 4, Chapter on Contracts",
+    "source_ne": "मुलुकी देवानी संहिता, २०७४ — भाग ४, सम्झौता सम्बन्धी परिच्छेद"
+  },
+  {
+    "id": "civil-contract-breach-1",
+    "category": "law",
+    "topic": "Contract",
+    "title_en": "Remedies for Breach of Contract",
+    "title_ne": "सम्झौता भङ्ग भएमा उपलब्ध उपचारहरू",
+    "text_en": "When a party breaches a contract, the aggrieved party may claim compensation for the loss actually suffered as a natural consequence of the breach, seek specific performance where monetary compensation would be inadequate, or rescind the contract and claim restitution of any benefit conferred. Claims for compensation must generally be filed within the limitation period prescribed by law, and the claimant must show that reasonable steps were taken to mitigate the loss.",
+    "text_ne": "कुनै पक्षले सम्झौता भङ्ग गरेमा पीडित पक्षले भङ्गको स्वाभाविक परिणामस्वरूप भएको वास्तविक हानिको क्षतिपूर्ति दाबी गर्न सक्छ, पैसाले मात्र पर्याप्त उपचार नहुने अवस्थामा सम्झौता पूर्ण रूपमा कार्यान्वयन गराउन (specific performance) माग गर्न सक्छ, वा सम्झौता खारेज गरी दिइएको लाभ फिर्ता माग गर्न सक्छ। क्षतिपूर्तिको दाबी सामान्यतया कानुनले तोकेको हदम्याद भित्रै दायर गर्नुपर्छ र दाबीकर्ताले हानि घटाउन उचित प्रयास गरेको देखाउनुपर्छ।",
+    "source_en": "National Civil Code, 2074 (2017) — Part 4, Chapter on Contracts, Compensation for Breach",
+    "source_ne": "मुलुकी देवानी संहिता, २०७४ — भाग ४, सम्झौता भङ्ग क्षतिपूर्ति सम्बन्धी व्यवस्था"
+  },
+  {
+    "id": "civil-tort-1",
+    "category": "law",
+    "topic": "Tort / Compensation",
+    "title_en": "Liability for Negligence and Compensation",
+    "title_ne": "लापरबाहीको दायित्व र क्षतिपूर्ति",
+    "text_en": "A person who causes loss or injury to another through a negligent or wrongful act is liable to pay compensation proportionate to the harm caused, under the general liability (badafi) provisions of the National Civil Code, 2074. This covers situations such as injury from a dangerous activity, damage caused by an animal under one's control, or harm resulting from failure to exercise reasonable care, and applies whether or not there is a pre-existing contract between the parties.",
+    "text_ne": "मुलुकी देवानी संहिताको सामान्य दायित्व (बदफैली) सम्बन्धी व्यवस्था अनुसार लापरबाही वा गलत कार्यबाट अर्कोलाई हानि वा चोट पुर्‍याउने व्यक्ति भएको हानिको अनुपातमा क्षतिपूर्ति तिर्न उत्तरदायी हुन्छ। यसले खतरनाक गतिविधिबाट भएको चोट, आफ्नो नियन्त्रणमा रहेको जनावरबाट भएको क्षति, वा उचित सावधानी नअपनाएकोले भएको हानि जस्ता अवस्थाहरूलाई समेट्छ, र पक्षहरूबीच पहिलेदेखि सम्झौता भए वा नभए पनि यो लागू हुन्छ।",
+    "source_en": "National Civil Code, 2074 (2017) — Part 5, Chapter on Liability (Badafi)",
+    "source_ne": "मुलुकी देवानी संहिता, २०७४ — भाग ५, बदफैली (दायित्व) सम्बन्धी परिच्छेद"
+  },
+  {
+    "id": "civil-tenancy-1",
+    "category": "law",
+    "topic": "Property / Tenancy",
+    "title_en": "Rights and Duties in a Lease (Rent) Agreement",
+    "title_ne": "घरभाडा सम्झौतामा अधिकार र कर्तव्य",
+    "text_en": "In a lease of house or land, the lessor must hand over peaceful possession of the property and the lessee must pay the agreed rent and use the property as agreed. Either party may terminate the lease by giving the notice period specified in the agreement or, if none is specified, a reasonable notice as recognized by practice and law. A lessee cannot be evicted arbitrarily without following the process for termination and, where applicable, court process.",
+    "text_ne": "घर वा जग्गाको भाडा सम्झौतामा घरधनीले सम्पत्तिको शान्तिपूर्ण भोगचलन दिनुपर्छ र भाडावालले सहमति भएको भाडा तिर्नुपर्छ र सम्पत्तिलाई सहमति अनुसार प्रयोग गर्नुपर्छ। कुनै पनि पक्षले सम्झौतामा तोकिएको सूचना अवधि दिई, वा नतोकिएमा प्रचलन र कानुनले मान्यता दिएको उचित सूचना दिई सम्झौता अन्त्य गर्न सक्छ। भाडावालालाई अन्त्यको प्रक्रिया र आवश्यक परेमा अदालती प्रक्रिया नपुर्‍याई स्वेच्छाचारी रूपमा घर खाली गर्न लगाउन मिल्दैन।",
+    "source_en": "National Civil Code, 2074 (2017) — Part 3, Chapter on Contract of Lease",
+    "source_ne": "मुलुकी देवानी संहिता, २०७४ — भाग ३, भाडा सम्झौता सम्बन्धी परिच्छेद"
+  },
+  {
+    "id": "civil-adoption-1",
+    "category": "law",
+    "topic": "Family / Adoption",
+    "title_en": "Rules Governing Adoption",
+    "title_ne": "धर्मपुत्र/धर्मपुत्री (गोद लिने) सम्बन्धी नियम",
+    "text_en": "Adoption under the National Civil Code, 2074 (2017) requires the free consent of the person being adopted if they are of an age to understand the matter, and where a married couple adopts, the consent of both spouses. An adopted child acquires the same rights, including inheritance rights, in the adoptive family as a biological child, while the specific procedure and approvals required depend on whether the adoption is domestic or intercountry.",
+    "text_ne": "मुलुकी देवानी संहिता, २०७४ अनुसार गोद लिने प्रक्रियामा गोद लिइने व्यक्ति कुरा बुझ्ने उमेरको भएमा निजको स्वतन्त्र मञ्जुरी आवश्यक हुन्छ, र विवाहित दम्पतीले गोद लिँदा दुवै पति-पत्नीको मञ्जुरी चाहिन्छ। गोद लिइएको बालबालिकाले गोद लिने परिवारमा अंश हकसहित जैविक सन्तान सरह अधिकार पाउँछ, जबकि आवश्यक प्रक्रिया र स्वीकृति गोद लिने कार्य स्वदेशी हो कि अन्तर्देशीय हो भन्नेमा भर पर्छ।",
+    "source_en": "National Civil Code, 2074 (2017) — Part 2, Chapter on Adoption",
+    "source_ne": "मुलुकी देवानी संहिता, २०७४ — भाग २, धर्मपुत्र/धर्मपुत्री सम्बन्धी परिच्छेद"
+  },
+  {
+    "id": "civil-guardianship-1",
+    "category": "law",
+    "topic": "Family / Guardianship",
+    "title_en": "Guardianship of Minors",
+    "title_ne": "नाबालकको संरक्षकत्व",
+    "text_en": "A minor's parents are ordinarily the natural guardians responsible for the minor's person and property. If both parents are unable to act as guardian, the court may appoint a guardian giving priority to the minor's best interest, and a guardian appointed by the court must manage the minor's property with reasonable care and render account when required, and may not dispose of the minor's immovable property without the court's permission.",
+    "text_ne": "सामान्यतया नाबालकका आमाबाबु नै निजको शरीर र सम्पत्तिको प्राकृतिक संरक्षक हुन्छन्। दुवै आमाबाबु संरक्षकको जिम्मेवारी वहन गर्न असमर्थ भएमा अदालतले नाबालकको सर्वोत्तम हितलाई प्राथमिकता दिई संरक्षक तोक्न सक्छ, र अदालतले तोकेको संरक्षकले नाबालकको सम्पत्ति उचित सावधानीपूर्वक व्यवस्थापन गर्नुपर्छ, आवश्यक परेमा लेखा पेश गर्नुपर्छ, र अदालतको अनुमति बिना नाबालकको अचल सम्पत्ति बिक्री गर्न पाउँदैन।",
+    "source_en": "National Civil Code, 2074 (2017) — Part 2, Chapter on Guardianship",
+    "source_ne": "मुलुकी देवानी संहिता, २०७४ — भाग २, संरक्षकत्व सम्बन्धी परिच्छेद"
+  },
+  {
+    "id": "civil-defamation-1",
+    "category": "law",
+    "topic": "Tort / Reputation",
+    "title_en": "Civil Liability for Defamation",
+    "title_ne": "मानहानिमा देवानी दायित्व",
+    "text_en": "A person who injures another's reputation by making or publishing a false statement, without lawful justification, may be held liable to pay compensation under the civil liability provisions of the National Civil Code, 2074 (2017), separate from any criminal liability for defamation under the National Penal (Criminal) Code. The claimant must generally show that the statement was false, was communicated to a third party, and caused harm to reputation.",
+    "text_ne": "कानुनी औचित्य बिना झुटो भनाइ गरेर वा प्रकाशित गरेर अर्काको प्रतिष्ठामा हानि पुर्‍याउने व्यक्तिलाई मुलुकी देवानी संहिता, २०७४ को देवानी दायित्व सम्बन्धी व्यवस्था अनुसार क्षतिपूर्ति तिर्न लगाउन सकिन्छ, जुन मुलुकी अपराध संहिता अन्तर्गतको मानहानिको फौजदारी दायित्वभन्दा फरक हो। दाबीकर्ताले सामान्यतया भनाइ झुटो थियो, तेस्रो पक्षलाई सुनाइयो वा प्रकाशित गरियो, र त्यसले प्रतिष्ठामा हानि पुर्‍यायो भन्ने देखाउनुपर्छ।",
+    "source_en": "National Civil Code, 2074 (2017) — Part 5, Chapter on Liability (Badafi)",
+    "source_ne": "मुलुकी देवानी संहिता, २०७४ — भाग ५, बदफैली सम्बन्धी परिच्छेद"
+  },
+  {
+    "id": "civil-limitation-1",
+    "category": "law",
+    "topic": "Procedure",
+    "title_en": "Limitation Period for Civil Claims",
+    "title_ne": "देवानी दाबीको हदम्याद",
+    "text_en": "Civil claims under the National Civil Code, 2074 (2017) must ordinarily be filed within the limitation period fixed for that particular type of claim, commonly two years from the date the cause of action arises unless a different period is specified for a particular claim, such as claims relating to partition of property or a contract, and a claim filed after the limitation period may be dismissed even if otherwise valid, subject to limited exceptions.",
+    "text_ne": "मुलुकी देवानी संहिता, २०७४ अन्तर्गतका देवानी दाबीहरू सामान्यतया सम्बन्धित दाबीको लागि तोकिएको हदम्याद भित्रै दायर गर्नुपर्छ, जुन प्रायः दाबीको कारण उत्पन्न भएको मितिले दुई वर्ष हुन्छ, जबसम्म अंशबण्डा वा सम्झौता जस्ता विशेष दाबीको लागि फरक अवधि तोकिएको छैन। सीमित अपवाद बाहेक हदम्याद नाघेपछि दायर गरिएको दाबी अन्यथा मान्य भए तापनि खारेज हुन सक्छ।",
+    "source_en": "National Civil Code, 2074 (2017) — Part 1, Chapter on Limitation",
+    "source_ne": "मुलुकी देवानी संहिता, २०७४ — भाग १, हदम्याद सम्बन्धी परिच्छेद"
+  },
+  {
+    "id": "precedent-daughter-inheritance",
+    "category": "precedent",
+    "topic": "Property & Inheritance",
+    "title_en": "Landmark Case: Equal Property Rights for Daughters",
+    "title_ne": "ऐतिहासिक फैसला: छोरीको समान अंश अधिकार",
+    "text_en": "In a series of public interest litigations led by women's rights advocates (including Advocate Meera Dhungana) in the early 2000s, the Supreme Court of Nepal directed the government to amend discriminatory inheritance laws that denied unmarried daughters an equal share of parental property or stripped a daughter's share upon marriage. These rulings were a major driver behind the reform later consolidated in the National Civil Code, 2074 (2017), which grants sons and daughters equal coparcenary rights.",
+    "text_ne": "सन् २००० को दशकको सुरुतिर महिला अधिकारवादी अधिवक्ताहरू (अधिवक्ता मीरा ढुंगानासहित) ले दायर गरेका जनहित मुद्दाहरूमा नेपालको सर्वोच्च अदालतले अविवाहित छोरीलाई आमाबाबुको सम्पत्तिमा समान अंश नदिने वा विवाहपछि छोरीको अंश खोसिने विभेदकारी कानुनमा संशोधन गर्न सरकारलाई निर्देशन दिएको थियो। यी फैसलाहरूले पछि मुलुकी देवानी संहिता, २०७४ मा समेटिएको सुधारलाई ठूलो प्रोत्साहन दिए, जसले छोरा र छोरीलाई समान अंशियार अधिकार दिन्छ।",
+    "source_en": "Supreme Court of Nepal — Public interest litigation on women's property/inheritance rights (illustrative summary; verify exact case citation via nkp.gov.np)",
+    "source_ne": "नेपालको सर्वोच्च अदालत — महिला सम्पत्ति/अंश अधिकार सम्बन्धी जनहित मुद्दा (सारांश; सही मुद्दा उद्धरणका लागि nkp.gov.np हेर्नुहोस्)"
+  },
+  {
+    "id": "precedent-marital-rape",
+    "category": "precedent",
+    "topic": "Family / Criminal-Civil Overlap",
+    "title_en": "Landmark Case: Recognition of Marital Rape as a Crime",
+    "title_ne": "ऐतिहासिक फैसला: वैवाहिक बलात्कारलाई अपराधको रूपमा मान्यता",
+    "text_en": "Public interest litigation filed by women's rights advocates led the Supreme Court of Nepal to direct the government to criminalize marital rape, rejecting the earlier legal position that a husband could not be held criminally liable for non-consensual sex with his wife. This judicial recognition contributed to the subsequent statutory criminalization of marital rape under Nepal's Penal Code framework, alongside related civil remedies for the survivor including compensation.",
+    "text_ne": "महिला अधिकारवादी अधिवक्ताहरूले दायर गरेको जनहित मुद्दामा सर्वोच्च अदालतले पतिले पत्नीको मञ्जुरी बिना यौन सम्पर्क राखेमा फौजदारी दायित्व नहुने पुरानो कानुनी अवस्थालाई अस्वीकार गर्दै वैवाहिक बलात्कारलाई अपराधीकरण गर्न सरकारलाई निर्देशन दियो। यस न्यायिक मान्यताले पछि मुलुकी अपराध संहिता अन्तर्गत वैवाहिक बलात्कारको अपराधीकरणमा योगदान पुर्‍यायो, साथै पीडितका लागि क्षतिपूर्तिसहितका देवानी उपचारहरू पनि सम्भव बनायो।",
+    "source_en": "Supreme Court of Nepal — Public interest litigation on marital rape (illustrative summary; verify exact case citation via nkp.gov.np)",
+    "source_ne": "नेपालको सर्वोच्च अदालत — वैवाहिक बलात्कार सम्बन्धी जनहित मुद्दा (सारांश; सही मुद्दा उद्धरणका लागि nkp.gov.np हेर्नुहोस्)"
+  },
+  {
+    "id": "precedent-citizenship-gender",
+    "category": "precedent",
+    "topic": "Constitutional / Family",
+    "title_en": "Landmark Case: Gender Equality in Citizenship Transmission",
+    "title_ne": "ऐतिहासिक फैसला: नागरिकतामा लैंगिक समानता",
+    "text_en": "Advocate Sapana Pradhan-Malla and other petitioners challenged provisions that made it harder for a Nepali mother, as opposed to a Nepali father, to pass citizenship to her child, particularly where the father was unknown, absent, or foreign. The Supreme Court's rulings in this line of cases pushed for a more gender-equal reading of citizenship provisions, though full legislative parity has remained a continuing area of legal and political debate.",
+    "text_ne": "अधिवक्ता सपना प्रधान मल्ल र अन्य निवेदकहरूले नेपाली आमाले, नेपाली बुबाको तुलनामा, विशेष गरी बुबा अज्ञात, अनुपस्थित वा विदेशी भएको अवस्थामा आफ्नो सन्तानलाई नागरिकता हस्तान्तरण गर्न गाह्रो बनाउने व्यवस्थाहरूलाई चुनौती दिएका थिए। यस श्रृंखलाका मुद्दाहरूमा सर्वोच्च अदालतका फैसलाहरूले नागरिकता व्यवस्थालाई थप लैंगिक समानतापूर्ण ढंगले व्याख्या गर्न जोड दिए, यद्यपि पूर्ण कानुनी समानता अझै निरन्तर कानुनी र राजनीतिक बहसको विषय रहेको छ।",
+    "source_en": "Supreme Court of Nepal — Public interest litigation on citizenship and gender equality (illustrative summary; verify exact case citation via nkp.gov.np)",
+    "source_ne": "नेपालको सर्वोच्च अदालत — नागरिकता र लैंगिक समानता सम्बन्धी जनहित मुद्दा (सारांश; सही मुद्दा उद्धरणका लागि nkp.gov.np हेर्नुहोस्)"
+  },
+  {
+    "id": "civil-consumer-1",
+    "category": "law",
+    "topic": "Consumer / Contract",
+    "title_en": "Protection Against Unfair Contract Terms",
+    "title_ne": "अनुचित सम्झौता शर्तविरुद्ध संरक्षण",
+    "text_en": "Where a contract is entered into on standard, non-negotiable terms drafted by the stronger party (such as a service provider), and a term is found to be unreasonable, unconscionable, or contrary to public policy, courts may refuse to enforce that specific term even while upholding the rest of the contract. Consumers also have remedies under Nepal's consumer protection legislation for defective goods, false advertising, or unfair trade practices, which may be pursued alongside or instead of a civil claim for breach of contract.",
+    "text_ne": "बलियो पक्षले (जस्तै सेवा प्रदायकले) तयार गरेको मानक, अपरिवर्तनीय सर्तमा सम्झौता भएको र कुनै सर्त अनुचित, असंगत वा सार्वजनिक नीतिको विपरीत देखिएमा अदालतले सम्झौताको बाँकी भाग कायम राख्दै त्यो विशेष सर्त लागू नगर्न सक्छ। उपभोक्ताहरूले नेपालको उपभोक्ता संरक्षण कानुन अन्तर्गत त्रुटिपूर्ण वस्तु, झुटो विज्ञापन वा अनुचित व्यापारिक अभ्यासको विरुद्धमा सम्झौता भङ्गको देवानी दाबीसँगै वा त्यसको सट्टामा उपचार खोज्न सक्छन्।",
+    "source_en": "National Civil Code, 2074 (2017), read with Consumer Protection Act, 2075 (2018)",
+    "source_ne": "मुलुकी देवानी संहिता, २०७४ र उपभोक्ता संरक्षण ऐन, २०७५ सँगै हेर्ने"
+  }
+]
