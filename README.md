@@ -68,6 +68,46 @@ section/paragraph, and swap the TF-IDF retriever for a multilingual
 embedding model (e.g. `intfloat/multilingual-e5-base`) + a vector index
 (FAISS) once the corpus is too large for TF-IDF to work well.
 
+### Bulk-scraping lawcommission.gov.np
+
+`backend/scripts/scrape_lawcommission.py` + `backend/scripts/ingest_scraped.py`
+are a two-step pipeline to pull in *every* law/rule/regulation the Law
+Commission publishes, not just the handful of seed PDFs above:
+
+```bash
+# 1. crawl + download every ऐन/नियमावली/etc. PDF (resumable, polite, rate-limited)
+python3 backend/scripts/scrape_lawcommission.py crawl
+python3 backend/scripts/scrape_lawcommission.py stats
+
+# 2. (optional) OCR any scanned PDFs that have no text layer at all
+#    apt install ocrmypdf tesseract-ocr-nep tesseract-ocr-eng
+python3 backend/scripts/scrape_lawcommission.py ocr
+
+# 3. turn the downloaded PDFs into corpus.json entries (visual Gemini read,
+#    same technique as ingest_pdfs.py, so it copes with the legacy font)
+GEMINI_API_KEY=... python3 backend/scripts/ingest_scraped.py
+```
+
+Both scripts are resumable/idempotent: re-running `crawl` skips URLs already
+in `sources/lawcommission/manifest.jsonl`, and re-running `ingest_scraped.py`
+skips documents already recorded in `sources/lawcommission/ingested.json`.
+Downloaded PDFs live under `sources/lawcommission/<category>/` and are
+gitignored (large binary dump) — only the resulting `corpus.json` entries get
+committed.
+
+**Precedents/case law**: lawcommission.gov.np publishes legislation, not
+Supreme Court judgments — those are published separately as NKP (Nepal
+Kanoon Patrika) by the Supreme Court (supremecourt.gov.np). Pass
+`--extra-domain supremecourt.gov.np --seed https://supremecourt.gov.np/...`
+to the crawler to pull those in too once you've confirmed the site's actual
+listing URLs.
+
+**Network note**: this sandboxed session's egress proxy blocks
+`lawcommission.gov.np` outright (policy denial, confirmed via both `curl`
+and `WebFetch`), so the crawl could be written but not run from here. Run it
+from an environment with unrestricted internet access (your own machine, or
+a Claude Code on the web environment configured to allow that host).
+
 ## Running it locally
 
 ### Backend (FastAPI)
