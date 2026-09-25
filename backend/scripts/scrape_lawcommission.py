@@ -90,12 +90,23 @@ def classify(text: str) -> str:
     return "other"
 
 
+def _truncate_utf8_bytes(s: str, max_bytes: int) -> str:
+    """Truncate to a byte budget without splitting a multi-byte character
+    (Devanagari is 3 bytes/char in UTF-8, so a naive char-count limit can
+    still overflow the filesystem's byte-based filename limit)."""
+    b = s.encode("utf-8")
+    if len(b) <= max_bytes:
+        return s
+    return b[:max_bytes].decode("utf-8", errors="ignore")
+
+
 def safe_filename(url: str, title: str) -> str:
     ext = os.path.splitext(urlparse(url).path)[1].lower() or ".pdf"
     base = re.sub(r"[^\wऀ-ॿ\-.]+", "_", title.strip(), flags=re.UNICODE).strip("_")
     if not base:
         base = hashlib.sha1(url.encode("utf-8")).hexdigest()[:16]
-    base = base[:150]
+    # keep total filename (base + ext) well under the common 255-byte limit
+    base = _truncate_utf8_bytes(base, 200 - len(ext.encode("utf-8")))
     return f"{base}{ext}"
 
 
@@ -205,63 +216,132 @@ class Crawler:
             return False
         return True
 
+    @staticmethod
+    def _priority(url: str) -> int:
+        """Listing pages (category tables, index pages, pagination) link
+        directly to every Act/Rule PDF, so drain them before the thousands of
+        individual /content/ news/detail pages."""
+        path = urlparse(url).path
+        if path.startswith("/category/") or path.startswith("/pages/") or path in ("", "/"):
+            return 0
+        if path.startswith("/content/"):
+            return 2
+        return 1
+
+    def _state_path(self) -> str:
+        return os.path.join(os.path.dirname(self.manifest_path), "crawl_state.json")
+
+    def _save_state(self, heap: list):
+        tmp = self._state_path() + ".tmp"
+        with open(tmp, "w", encoding="utf-8") as f:
+            json.dump({"visited": sorted(self.seen_urls), "queue": [u for _, _, u in heap]}, f, ensure_ascii=False)
+        os.replace(tmp, self._state_path())
+
     def crawl(self):
-        queue: list[str] = list(self.seeds)
-        while queue and self.stats["pages"] < self.max_pages:
-            url = queue.pop(0)
-            if url in self.seen_urls or not self._in_scope(url):
-                continue
-            self.seen_urls.add(url)
+        import heapq
+        heap: list = []
+        self._enqueued: set[str] = set()
+        seq = 0
 
-            if self._is_doc_link(url):
-                self._handle_doc(url, link_text=os.path.basename(urlparse(url).path))
-                continue
+        def push(u: str):
+            nonlocal seq
+            if u in self._enqueued or u in self.seen_urls:
+                return
+            self._enqueued.add(u)
+            heapq.heappush(heap, (self._priority(u), seq, u))
+            seq += 1
 
-            if not self._robots_allows(url):
-                continue
+        self._push = push
+        if os.path.exists(self._state_path()):
+            with open(self._state_path(), "r", encoding="utf-8") as f:
+                state = json.load(f)
+            self.seen_urls.update(state.get("visited", []))
+            for u in state.get("queue", []):
+                push(u)
+            print(f"[crawl] resumed: visited={len(self.seen_urls)} queue={len(heap)}", file=sys.stderr)
+        for s in self.seeds:
+            push(s)
 
-            html = self._fetch_page(url)
-            self.stats["pages"] += 1
-            if html is None:
-                continue
+        while heap and self.stats["pages"] < self.max_pages:
+            _, _, url = heapq.heappop(heap)
+            try:
+                self._crawl_one(url, len(heap))
+            except Exception as e:  # noqa: BLE001 - a single bad page must never kill the crawl
+                self.stats["errors"] += 1
+                print(f"[crawl] unexpected error: {e}", file=sys.stderr)
+            if self.stats["pages"] % 10 == 0:
+                self._save_state(heap)
 
-            soup = BeautifulSoup(html, "html.parser")
-            for a in soup.find_all("a", href=True):
-                href = a["href"].strip()
-                if not href or href.startswith("#"):
-                    continue
-                abs_url = urljoin(url, href)
-                abs_url = abs_url.split("#")[0]
-                if not self._in_scope(abs_url):
-                    continue
-                if self._is_doc_link(abs_url):
-                    self._handle_doc(abs_url, link_text=self._infer_title(a, abs_url))
-                elif abs_url not in self.seen_urls:
-                    queue.append(abs_url)
-
-            if self.stats["pages"] % 25 == 0:
-                print(
-                    f"[crawl] pages={self.stats['pages']} docs_found={self.stats['docs_found']} "
-                    f"downloaded={self.stats['docs_downloaded']} skipped={self.stats['docs_skipped']} "
-                    f"queue={len(queue)}",
-                    file=sys.stderr,
-                )
-            time.sleep(self._page_delay_for(url))
-
+        self._save_state(heap)
         print(f"[crawl] done: {self.stats}", file=sys.stderr)
 
+    def _crawl_one(self, url: str, queue_len: int):
+        if url in self.seen_urls or not self._in_scope(url):
+            return
+        self.seen_urls.add(url)
+
+        if self._is_doc_link(url):
+            self._safe_handle_doc(url, link_text=os.path.basename(urlparse(url).path))
+            return
+
+        if not self._robots_allows(url):
+            return
+
+        html = self._fetch_page(url)
+        self.stats["pages"] += 1
+        if html is None:
+            return
+
+        soup = BeautifulSoup(html, "html.parser")
+        self._current_page = url
+        page_hosts = {urlparse(s).netloc for s in self.seeds}
+        for a in soup.find_all("a", href=True):
+            href = a["href"].strip()
+            if not href or href.startswith("#"):
+                continue
+            abs_url = urljoin(url, href)
+            abs_url = abs_url.split("#")[0]
+            if not self._in_scope(abs_url):
+                continue
+            if self._is_doc_link(abs_url):
+                self._safe_handle_doc(abs_url, link_text=self._infer_title(a, abs_url))
+            elif urlparse(abs_url).netloc in page_hosts:
+                self._push(abs_url)
+
+        if self.stats["pages"] % 10 == 0:
+            print(
+                f"[crawl] pages={self.stats['pages']} docs_found={self.stats['docs_found']} "
+                f"downloaded={self.stats['docs_downloaded']} skipped={self.stats['docs_skipped']} "
+                f"queue={queue_len}",
+                file=sys.stderr,
+            )
+        time.sleep(self._page_delay_for(url))
+
     def _fetch_page(self, url: str) -> str | None:
+        for attempt, wait in enumerate((15, 45, 120, None)):
+            try:
+                r = self.session.get(url, timeout=self.timeout)
+                if r.status_code == 404:
+                    return None
+                r.raise_for_status()
+                ctype = r.headers.get("Content-Type", "")
+                if "text/html" not in ctype:
+                    return None
+                return r.text
+            except requests.RequestException as e:
+                print(f"[crawl] fetch failed {url} (attempt {attempt + 1}): {e}", file=sys.stderr)
+                if wait is None:
+                    self.stats["errors"] += 1
+                    return None
+                time.sleep(wait)  # the government server sheds load with 503s; back off
+        return None
+
+    def _safe_handle_doc(self, url: str, link_text: str):
         try:
-            r = self.session.get(url, timeout=self.timeout)
-            r.raise_for_status()
-            ctype = r.headers.get("Content-Type", "")
-            if "text/html" not in ctype:
-                return None
-            return r.text
-        except requests.RequestException as e:
+            self._handle_doc(url, link_text)
+        except Exception as e:  # noqa: BLE001 - one bad document must never kill the crawl
             self.stats["errors"] += 1
-            print(f"[crawl] fetch failed {url}: {e}", file=sys.stderr)
-            return None
+            print(f"[download] unexpected error for {url}: {e}", file=sys.stderr)
 
     def _handle_doc(self, url: str, link_text: str):
         self.stats["docs_found"] += 1
@@ -308,6 +388,7 @@ class Crawler:
             "url": url,
             "title": link_text,
             "category": category,
+            "source_page": getattr(self, "_current_page", None),
             "local_path": os.path.relpath(dest_path, ROOT),
             "sha256": sha256.hexdigest(),
             "size_bytes": size,

@@ -26,6 +26,7 @@ import sys
 import time
 
 from google import genai
+from google.genai import types
 
 ROOT = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 CORPUS_PATH = os.path.join(ROOT, "backend", "app", "data", "corpus.json")
@@ -167,7 +168,12 @@ def main():
         print(f"-- [{rec['category']}] {title} ({rec['url']})")
 
         try:
-            f = client.files.upload(file=path)
+            # display_name/name must be ASCII-safe: the SDK puts it in an HTTP
+            # header, which breaks on the raw Devanagari filenames we scrape.
+            upload_config = types.UploadFileConfig(
+                display_name=slugify(title), mime_type="application/pdf"
+            )
+            f = client.files.upload(file=path, config=upload_config)
             while f.state.name == "PROCESSING":
                 time.sleep(2)
                 f = client.files.get(name=f.name)

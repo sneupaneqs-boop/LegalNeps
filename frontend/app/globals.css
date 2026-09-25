@@ -111,10 +111,11 @@ body {
   padding: 12px 16px;
   border-radius: 14px;
   line-height: 1.55;
-  white-space: pre-wrap;
+  overflow-wrap: anywhere;
 }
 
 .bubble.user {
+  white-space: pre-wrap;
   background: var(--user-bubble);
   border-bottom-right-radius: 4px;
 }
@@ -141,15 +142,145 @@ body {
 
 .source-item {
   margin-bottom: 6px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 6px 8px;
+  scroll-margin-top: 80px;
 }
 
-.source-item .title {
+.source-item:target {
+  border-color: var(--accent-2);
+}
+
+.source-item summary {
+  cursor: pointer;
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  list-style: none;
+}
+
+.source-item summary::-webkit-details-marker {
+  display: none;
+}
+
+.src-n {
+  min-width: 20px;
+  height: 20px;
+  border-radius: 10px;
+  background: var(--panel-2);
   color: var(--text);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 11px;
+  font-weight: 700;
+}
+
+.badge {
+  font-size: 10.5px;
+  padding: 1px 6px;
+  border-radius: 6px;
   font-weight: 600;
+  white-space: nowrap;
+}
+
+.badge.law {
+  background: rgba(96, 165, 250, 0.15);
+  color: #93c5fd;
+}
+
+.badge.precedent {
+  background: rgba(251, 191, 36, 0.15);
+  color: #fcd34d;
 }
 
 .source-item .citation {
-  font-style: italic;
+  color: var(--text);
+}
+
+.src-body {
+  margin-top: 6px;
+  padding-left: 28px;
+}
+
+.src-body .title {
+  color: var(--text);
+  font-weight: 600;
+  margin-bottom: 4px;
+}
+
+.src-body .snippet {
+  margin-bottom: 6px;
+}
+
+.src-link {
+  color: var(--accent-2);
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.src-link:hover {
+  text-decoration: underline;
+}
+
+.answer p {
+  margin: 0 0 8px;
+}
+
+.answer h4 {
+  margin: 12px 0 6px;
+  font-size: 15px;
+}
+
+.answer ul,
+.answer ol {
+  margin: 0 0 8px;
+  padding-left: 22px;
+}
+
+.answer li {
+  margin-bottom: 4px;
+}
+
+.cite {
+  display: inline-block;
+  font-size: 10.5px;
+  line-height: 1;
+  padding: 2px 5px;
+  margin: 0 1px;
+  border-radius: 6px;
+  background: var(--panel-2);
+  color: var(--accent-2);
+  text-decoration: none;
+  vertical-align: super;
+}
+
+.suggestions-label {
+  margin-top: 18px;
+  font-size: 13px;
+}
+
+.suggestions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  justify-content: center;
+  margin-top: 10px;
+}
+
+.suggestion {
+  background: var(--panel-2);
+  border: 1px solid var(--border);
+  color: var(--text);
+  padding: 8px 12px;
+  border-radius: 999px;
+  cursor: pointer;
+  font-size: 13px;
+}
+
+.suggestion:hover {
+  border-color: var(--accent-2);
 }
 
 .fallback-notice {

@@ -1,34 +1,74 @@
 export type Lang = "en" | "ne";
 
-export const strings: Record<Lang, Record<string, string>> = {
+type Strings = {
+  appName: string;
+  tagline: string;
+  placeholder: string;
+  send: string;
+  thinking: string;
+  disclaimerBanner: string;
+  sourcesLabel: string;
+  emptyState: string;
+  langToggle: string;
+  fallbackNotice: string;
+  badgeLaw: string;
+  badgePrecedent: string;
+  officialSource: string;
+  tryAsking: string;
+  suggestions: string[];
+  error: string;
+};
+
+export const strings: Record<Lang, Strings> = {
   en: {
     appName: "Kanooni Sathi",
     tagline: "Your bilingual legal friend for Nepali law",
     placeholder: "Describe what's going on, in your own words...",
     send: "Send",
-    thinking: "Thinking...",
+    thinking: "Reading the relevant laws and precedents...",
     disclaimerBanner:
-      "Kanooni Sathi gives general legal information for educational purposes. It is not a substitute for a licensed advocate.",
-    sourcesLabel: "Based on",
+      "Answers are grounded only in official sources (Nepal Law Commission and Supreme Court's Nepal Kanoon Patrika). General information, not a substitute for a licensed advocate.",
+    sourcesLabel: "Official sources",
     emptyState:
-      "Tell me what's happening — a landlord dispute, a marriage problem, an unpaid debt, anything. I'll explain your options in plain language.",
+      "Tell me what's happening — a landlord dispute, a marriage problem, an unpaid debt, a workplace issue, anything. I'll explain your options in plain language, citing the exact law.",
     langToggle: "नेपाली",
     fallbackNotice:
-      "AI model not configured on this server — showing matched legal passages directly.",
+      "AI summary unavailable right now — showing the matching official provisions directly.",
+    badgeLaw: "Law",
+    badgePrecedent: "Precedent",
+    officialSource: "Open official source",
+    tryAsking: "Try asking:",
+    suggestions: [
+      "My landlord won't return my deposit. What can I do?",
+      "How can a woman get citizenship for her child in Nepal?",
+      "What is the punishment for child marriage?",
+      "My employer hasn't paid my salary for 3 months.",
+    ],
+    error: "Something went wrong reaching the server. Please try again.",
   },
   ne: {
     appName: "कानूनी साथी",
     tagline: "नेपाली कानूनका लागि तपाईंको दुईभाषी कानूनी साथी",
     placeholder: "आफ्नै भाषामा आफ्नो समस्या लेख्नुहोस्...",
     send: "पठाउनुहोस्",
-    thinking: "सोच्दैछु...",
+    thinking: "सम्बन्धित कानून र नजिर पढ्दैछु...",
     disclaimerBanner:
-      "कानूनी साथीले शैक्षिक उद्देश्यले सामान्य कानूनी जानकारी प्रदान गर्छ। यो इजाजतपत्रप्राप्त अधिवक्ताको सल्लाहको विकल्प होइन।",
-    sourcesLabel: "आधार",
+      "जवाफ नेपाल कानून आयोग र सर्वोच्च अदालतको नेपाल कानून पत्रिकाका आधिकारिक स्रोतमा मात्र आधारित छन्। यो सामान्य जानकारी हो, इजाजतपत्रप्राप्त अधिवक्ताको सल्लाहको विकल्प होइन।",
+    sourcesLabel: "आधिकारिक स्रोत",
     emptyState:
-      "घरभेटासँगको विवाद, वैवाहिक समस्या, नतिरेको ऋण, जे भए पनि मलाई भन्नुहोस्। म सजिलो भाषामा तपाईंका विकल्पहरू बुझाउँला।",
+      "घरबहाल विवाद, वैवाहिक समस्या, नतिरेको ऋण, कामदारको पारिश्रमिक, जे भए पनि मलाई भन्नुहोस्। म सजिलो भाषामा, सम्बन्धित कानूनको दफासहित तपाईंका विकल्पहरू बुझाउँला।",
     langToggle: "English",
-    fallbackNotice:
-      "यस सर्भरमा AI मोडेल कन्फिगर छैन — मिल्दो कानूनी अंशहरू सिधै देखाइन्छ।",
+    fallbackNotice: "AI सारांश अहिले उपलब्ध छैन — मिल्दो आधिकारिक कानुनी प्रावधान सिधै देखाइन्छ।",
+    badgeLaw: "कानून",
+    badgePrecedent: "नजिर",
+    officialSource: "आधिकारिक स्रोत हेर्नुहोस्",
+    tryAsking: "यस्तो सोध्न सक्नुहुन्छ:",
+    suggestions: [
+      "घरबेटीले धरौटी फिर्ता दिएन, म के गर्न सक्छु?",
+      "सम्बन्ध विच्छेद गर्दा अंश कसरी पाइन्छ?",
+      "बाल विवाह गरेमा के सजाय हुन्छ?",
+      "कम्पनीले तीन महिनादेखि तलब दिएको छैन।",
+    ],
+    error: "सर्भरसँग जडान गर्दा समस्या भयो। कृपया फेरि प्रयास गर्नुहोस्।",
   },
 };
