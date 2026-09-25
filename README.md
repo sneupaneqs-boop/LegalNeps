@@ -14,7 +14,9 @@ deposit") and not just keyword-match legal text.
    (`backend/app/data/corpus.json`) using TF-IDF similarity, in whichever
    language (English or Nepali) the message was written in.
 2. **Generation** (`backend/app/generation.py`) — the top matching passages
-   are handed to Claude (Anthropic API) along with a system prompt that
+   are handed to an LLM (Groq, if `GROQ_API_KEY` is set — falls back to
+   Claude via `ANTHROPIC_API_KEY` if that's what's configured instead) along
+   with a system prompt that
    instructs it to: understand the person's real underlying concern, answer
    only from the retrieved passages (no invented citations), explain things
    in plain non-legalese language, reply in the same language as the question,

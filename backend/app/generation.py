@@ -65,22 +65,38 @@ def _extractive_fallback(message: str, sources: List[dict], lang: Literal["en", 
     return "\n".join(lines)
 
 
-def generate_answer(message: str, sources: List[dict], lang: Literal["en", "ne"]) -> tuple[str, bool]:
-    if not config.ANTHROPIC_API_KEY:
-        return _extractive_fallback(message, sources, lang), False
-
-    import anthropic
-
-    client = anthropic.Anthropic(api_key=config.ANTHROPIC_API_KEY)
-
+def _build_user_content(message: str, sources: List[dict], lang: Literal["en", "ne"]) -> str:
     context = _format_context(sources, lang)
     lang_instruction = "Reply in English." if lang == "en" else "Reply in Nepali (Devanagari script)."
-
-    user_content = (
+    return (
         f"Retrieved context:\n{context}\n\n"
         f"Person's message: {message}\n\n"
         f"{lang_instruction}"
     )
+
+
+def _generate_with_groq(message: str, sources: List[dict], lang: Literal["en", "ne"]) -> str:
+    from groq import Groq
+
+    client = Groq(api_key=config.GROQ_API_KEY)
+    user_content = _build_user_content(message, sources, lang)
+
+    response = client.chat.completions.create(
+        model=config.GROQ_MODEL,
+        max_tokens=1024,
+        messages=[
+            {"role": "system", "content": SYSTEM_PROMPT},
+            {"role": "user", "content": user_content},
+        ],
+    )
+    return response.choices[0].message.content
+
+
+def _generate_with_anthropic(message: str, sources: List[dict], lang: Literal["en", "ne"]) -> str:
+    import anthropic
+
+    client = anthropic.Anthropic(api_key=config.ANTHROPIC_API_KEY)
+    user_content = _build_user_content(message, sources, lang)
 
     response = client.messages.create(
         model=config.ANTHROPIC_MODEL,
@@ -88,6 +104,12 @@ def generate_answer(message: str, sources: List[dict], lang: Literal["en", "ne"]
         system=SYSTEM_PROMPT,
         messages=[{"role": "user", "content": user_content}],
     )
+    return "".join(block.text for block in response.content if block.type == "text")
 
-    answer = "".join(block.text for block in response.content if block.type == "text")
-    return answer, True
+
+def generate_answer(message: str, sources: List[dict], lang: Literal["en", "ne"]) -> tuple[str, bool]:
+    if config.GROQ_API_KEY:
+        return _generate_with_groq(message, sources, lang), True
+    if config.ANTHROPIC_API_KEY:
+        return _generate_with_anthropic(message, sources, lang), True
+    return _extractive_fallback(message, sources, lang), False
