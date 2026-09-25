@@ -33,10 +33,9 @@ export default function Home() {
       const final = await streamChatMessage(text, lang, {
         onMeta: (meta) => {
           started = true;
-          setLoading(false);
           setMessages((prev) => [
             ...prev,
-            { id: botId, role: "bot", text: "", sources: meta.sources, llmUsed: true },
+            { id: botId, role: "bot", text: "", sources: meta.sources, llmUsed: true, streaming: true },
           ]);
         },
         onDelta: (piece) => {
@@ -44,7 +43,7 @@ export default function Home() {
           update({ text: streamed });
         },
       });
-      update({ text: final.answer, llmUsed: final.llm_used });
+      update({ text: final.answer, llmUsed: final.llm_used, streaming: false });
     } catch {
       if (!started) {
         // streaming unavailable (proxy, old server): fall back to one-shot request
@@ -58,7 +57,7 @@ export default function Home() {
           setMessages((prev) => [...prev, { id: botId, role: "bot", text: t.error }]);
         }
       } else {
-        update({ text: t.error });
+        update({ text: t.error, streaming: false });
       }
     } finally {
       setLoading(false);
@@ -107,7 +106,7 @@ export default function Home() {
         {messages.map((m) => (
           <ChatMessage key={m.id} message={m} lang={lang} />
         ))}
-        {loading && (
+        {loading && !messages.some((m) => m.streaming) && (
           <div className="bubble-row bot">
             <div className="bubble bot">{t.thinking}</div>
           </div>

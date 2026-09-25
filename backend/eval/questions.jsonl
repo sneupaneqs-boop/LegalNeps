@@ -88,3 +88,63 @@
 {"q": "Can a public servant be dismissed without a hearing?", "expect": ["निजामती सेवा", "नेपालको संविधान"], "area": "administrative"}
 {"q": "What evidence is admissible in court?", "expect": ["प्रमाण ऐन"], "area": "evidence"}
 {"q": "Is witchcraft accusation (बोक्सी) a crime?", "expect": ["बोक्सी", "मुलुकी अपराध संहिता"], "area": "criminal"}
+{"q": "What are the qualifications to become Prime Minister of Nepal?", "expect": ["नेपालको संविधान"], "area": "constitutional"}
+{"q": "How many members are in the National Assembly?", "expect": ["नेपालको संविधान"], "area": "constitutional"}
+{"q": "राष्ट्रपतिको पदावधि कति वर्षको हुन्छ?", "expect": ["नेपालको संविधान"], "area": "constitutional"}
+{"q": "Can the constitution of Nepal be amended? How?", "expect": ["नेपालको संविधान"], "area": "constitutional"}
+{"q": "What is the official language of Nepal?", "expect": ["नेपालको संविधान"], "area": "constitutional"}
+{"q": "What is the right to property under the constitution?", "expect": ["नेपालको संविधान"], "area": "constitutional"}
+{"q": "Does the constitution guarantee the right to a clean environment?", "expect": ["नेपालको संविधान"], "area": "constitutional"}
+{"q": "महिलाको हक के के छन्?", "expect": ["नेपालको संविधान"], "area": "constitutional"}
+{"q": "What are the rights of an accused person to a fair trial?", "expect": ["नेपालको संविधान", "मुलुकी फौजदारी कार्यविधि संहिता"], "area": "criminal procedure"}
+{"q": "Who appoints the Chief Justice of Nepal?", "expect": ["नेपालको संविधान"], "area": "constitutional"}
+{"q": "What is the jurisdiction of the High Court?", "expect": ["नेपालको संविधान", "न्याय प्रशासन"], "area": "judiciary"}
+{"q": "How long does police custody last before charges must be filed?", "expect": ["मुलुकी फौजदारी कार्यविधि संहिता"], "area": "criminal procedure"}
+{"q": "जाहेरी दरखास्त कहाँ दिने?", "expect": ["मुलुकी फौजदारी कार्यविधि संहिता"], "area": "criminal procedure"}
+{"q": "Can I get bail for a criminal case?", "expect": ["मुलुकी फौजदारी कार्यविधि संहिता"], "area": "criminal procedure"}
+{"q": "What is the time limit to appeal a district court decision?", "expect": ["मुलुकी देवानी कार्यविधि संहिता", "मुलुकी फौजदारी कार्यविधि संहिता"], "area": "appeal"}
+{"q": "पुनरावेदन गर्ने म्याद कति दिन हो?", "expect": ["मुलुकी देवानी कार्यविधि संहिता", "मुलुकी फौजदारी कार्यविधि संहिता"], "area": "appeal"}
+{"q": "How is a court judgment executed if the losing party doesn't comply?", "expect": ["मुलुकी देवानी कार्यविधि संहिता"], "area": "execution"}
+{"q": "What is the punishment for murder in Nepal?", "expect": ["मुलुकी अपराध संहिता"], "area": "criminal"}
+{"q": "ज्यान मार्ने कसूरमा के सजाय हुन्छ?", "expect": ["मुलुकी अपराध संहिता"], "area": "criminal"}
+{"q": "Is abortion legal in Nepal?", "expect": ["सुरक्षित मातृत्व", "मुलुकी अपराध संहिता"], "area": "health"}
+{"q": "गर्भपतन गर्न कानूनले कहिले अनुमति दिन्छ?", "expect": ["सुरक्षित मातृत्व", "मुलुकी अपराध संहिता"], "area": "health"}
+{"q": "What is the punishment for kidnapping or hostage taking?", "expect": ["मुलुकी अपराध संहिता"], "area": "criminal"}
+{"q": "Is sexual harassment at the workplace punishable?", "expect": ["कार्यस्थलमा हुने यौनजन्य दुर्व्यवहार", "मुलुकी अपराध संहिता"], "area": "harassment"}
+{"q": "What is the law on public offence like disturbing peace?", "expect": ["सार्वजनिक अपराध", "मुलुकी अपराध संहिता"], "area": "criminal"}
+{"q": "What happens if someone forges a document or signature?", "expect": ["मुलुकी अपराध संहिता"], "area": "criminal"}
+{"q": "कीर्ते कागज बनाएमा के सजाय हुन्छ?", "expect": ["मुलुकी अपराध संहिता"], "area": "criminal"}
+{"q": "Can a husband be punished for marital rape?", "expect": ["मुलुकी अपराध संहिता"], "area": "criminal"}
+{"q": "What is the punishment for caste-based discrimination?", "expect": ["जातीय भेदभाव", "मुलुकी अपराध संहिता"], "area": "discrimination"}
+{"q": "How do I register a marriage?", "expect": ["जन्म, मृत्यु तथा अन्य व्यक्तिगत घटना", "मुलुकी देवानी संहिता"], "area": "family"}
+{"q": "विवाह दर्ता कसरी गर्ने?", "expect": ["जन्म, मृत्यु तथा अन्य व्यक्तिगत घटना", "मुलुकी देवानी संहिता"], "area": "family"}
+{"q": "How do I register a birth and get a birth certificate?", "expect": ["जन्म, मृत्यु तथा अन्य व्यक्तिगत घटना"], "area": "registration"}
+{"q": "Is a husband obliged to pay maintenance (alimony) to his wife?", "expect": ["मुलुकी देवानी संहिता"], "area": "family"}
+{"q": "Can a woman keep her own personal property (daijo/pewa) after marriage?", "expect": ["मुलुकी देवानी संहिता"], "area": "family"}
+{"q": "What is the law on surrogacy or artificial insemination?", "expect": ["मुलुकी देवानी संहिता", "मुलुकी अपराध संहिता"], "area": "family"}
+{"q": "Can a guardian sell a minor's property?", "expect": ["मुलुकी देवानी संहिता"], "area": "guardianship"}
+{"q": "What is joint property (sagol) and how is it managed?", "expect": ["मुलुकी देवानी संहिता"], "area": "property"}
+{"q": "How long does a lease of land or house remain valid?", "expect": ["मुलुकी देवानी संहिता"], "area": "property"}
+{"q": "What is a guarantee (jamani) and when is the guarantor liable?", "expect": ["मुलुकी देवानी संहिता"], "area": "contract"}
+{"q": "What remedies do I have if the seller breaches a sale contract?", "expect": ["मुलुकी देवानी संहिता"], "area": "contract"}
+{"q": "Who is liable if a dog bites someone?", "expect": ["मुलुकी देवानी संहिता", "मुलुकी अपराध संहिता"], "area": "tort"}
+{"q": "Can I claim compensation for medical negligence?", "expect": ["मुलुकी देवानी संहिता", "जनस्वास्थ्य", "उपभोक्ता"], "area": "tort"}
+{"q": "How is land registered after purchase (rajinama)?", "expect": ["मुलुकी देवानी संहिता", "मालपोत"], "area": "land"}
+{"q": "What is the procedure for land acquisition by the government?", "expect": ["जग्गा प्राप्ति"], "area": "land"}
+{"q": "Can a foreigner buy land in Nepal?", "expect": ["मुलुकी देवानी संहिता", "भूमि"], "area": "land"}
+{"q": "How much gratuity does an employee get on retirement?", "expect": ["श्रम ऐन", "निजामती सेवा"], "area": "labour"}
+{"q": "What is the social security fund and who must contribute?", "expect": ["सामाजिक सुरक्षा", "योगदानमा आधारित"], "area": "social security"}
+{"q": "Can workers form a trade union?", "expect": ["ट्रेड युनियन", "नेपालको संविधान"], "area": "labour"}
+{"q": "What leave is a civil servant entitled to?", "expect": ["निजामती सेवा"], "area": "civil service"}
+{"q": "What is the penalty for tax evasion?", "expect": ["आयकर", "राजस्व चुहावट"], "area": "tax"}
+{"q": "What goods are prohibited from import through customs?", "expect": ["भन्सार"], "area": "customs"}
+{"q": "How does a cooperative society get registered?", "expect": ["सहकारी"], "area": "cooperative"}
+{"q": "What is the law on insurance claims?", "expect": ["बीमा"], "area": "insurance"}
+{"q": "What protections exist for depositors if a bank fails?", "expect": ["निक्षेप तथा कर्जा सुरक्षण", "बैंक तथा वित्तीय संस्था"], "area": "banking"}
+{"q": "What is the punishment for cutting trees in a national forest?", "expect": ["वन ऐन", "वन नियमावली"], "area": "environment"}
+{"q": "Is hunting wildlife like rhinos punishable?", "expect": ["राष्ट्रिय निकुञ्ज तथा वन्यजन्तु संरक्षण"], "area": "environment"}
+{"q": "What are the rules for building construction permits?", "expect": ["भवन"], "area": "construction"}
+{"q": "What does the Supreme Court say about the rights of women to property after divorce?", "expect": ["मुलुकी देवानी संहिता", "नेपालको संविधान"], "area": "precedent"}
+{"q": "सर्वोच्च अदालतले घरेलु हिंसासम्बन्धी के नजिर स्थापित गरेको छ?", "expect": ["घरेलु हिंसा", "मुलुकी अपराध संहिता"], "area": "precedent"}
+{"q": "What has the Supreme Court held about writ of habeas corpus?", "expect": ["नेपालको संविधान"], "area": "precedent"}
+{"q": "Which international treaties on human rights has Nepal ratified?", "expect": ["सन्धि", "महासन्धि", "प्रतिज्ञापत्र"], "area": "treaty"}

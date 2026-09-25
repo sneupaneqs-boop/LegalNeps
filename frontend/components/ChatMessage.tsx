@@ -8,6 +8,7 @@ export type Message = {
   text: string;
   sources?: Source[];
   llmUsed?: boolean;
+  streaming?: boolean;
 };
 
 export default function ChatMessage({
@@ -30,7 +31,7 @@ export default function ChatMessage({
         {isUser ? (
           message.text
         ) : (
-          <div className="answer">
+          <div className={`answer${message.streaming ? " streaming" : ""}`}>
             {renderAnswer(message.text, message.id, sources.length)}
           </div>
         )}

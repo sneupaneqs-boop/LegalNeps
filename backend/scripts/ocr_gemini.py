@@ -20,7 +20,8 @@ import time
 ROOT = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 DOCS = os.path.join(ROOT, "sources", "processed", "law_docs.jsonl")
 OCR_DIR = os.path.join(ROOT, "sources", "processed", "ocr")
-MODELS = ["gemini-3.5-flash", "gemini-3.6-flash", "gemini-3.8-flash", "gemini-3.1-flash-lite", "gemini-3.5-flash-lite"]
+MODELS = os.environ.get("OCR_MODELS", "gemini-3.5-flash-lite,gemini-3.1-flash-lite,gemini-flash-lite-latest,"
+                        "gemini-3.1-flash-lite-preview,gemini-3-flash-preview").split(",")
 PAGES_PER_CALL = 3
 
 PROMPT = """Transcribe these scanned pages of an official Nepali legal document exactly, in \

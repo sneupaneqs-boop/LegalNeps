@@ -1,20 +1,28 @@
 """BM25 search over the government-sourced corpus (laws + precedents).
 
-The corpus is loaded from gzip JSONL shards (backend/app/data/corpus/), and
-the BM25 term matrix is cached on disk keyed by the corpus digest, so
-restarts are fast. Ranking = BM25 over folded/stemmed tokens (see
-text_norm), fused across several query phrasings with reciprocal rank
-fusion, times a small authority prior (constitution/acts above reports),
-with a per-document cap so one long act can't crowd out everything else.
+The corpus ships as gzip JSONL shards (backend/app/data/corpus/). On first
+start they're compiled into an on-disk cache keyed by the corpus digest:
+the BM25 weight matrix (.npz), vocabulary, compact per-passage metadata, and
+a SQLite store holding the full passages. Only the matrix and metadata live
+in memory; passage text is read from SQLite for the handful of results
+returned, so memory stays small even with hundreds of thousands of passages.
+
+Ranking = BM25 over folded/stemmed tokens (text_norm), fused across several
+weighted query phrasings (reciprocal rank fusion), times an authority prior
+(constitution/acts above reports, commencement clauses down-weighted), with a
+per-document cap and duplicate-text collapsing.
 """
 from __future__ import annotations
 
 import gzip
+import hashlib
 import json
+import sqlite3
 import threading
 from collections import defaultdict
+from functools import lru_cache
 from pathlib import Path
-from typing import Iterable
+from typing import Iterable, Iterator
 
 import numpy as np
 from scipy import sparse
@@ -32,7 +40,6 @@ AUTHORITY = {
     "directive": 0.97, "treaty": 0.95, "amendment": 1.0, "gazette": 0.95, "other": 0.7,
 }
 RRF_K = 60
-
 
 _LOW_VALUE_HEADINGS = ("संक्षिप्त नाम र प्रारम्भ", "सङ्क्षिप्त नाम र प्रारम्भ", "संक्षिप्त नाम", "खारेजी र बचाउ", "खारेजी")
 _LOW_VALUE_DOCS = ("वार्षिक प्रतिवेदन", "annual report", "विषय-सूची", "सूचनाको हक बमोजिम सार्वजनिक")
@@ -53,6 +60,11 @@ def _prior(e: dict) -> float:
     return p
 
 
+def _text_key(e: dict) -> int:
+    key = fold(e.get("text_ne") or e.get("text_en") or "")[:160]
+    return int.from_bytes(hashlib.blake2b(key.encode("utf-8"), digest_size=8).digest(), "little", signed=True)
+
+
 def _index_text(e: dict) -> str:
     parts = [
         e.get("doc_title_ne") or "", e.get("doc_title_en") or "",
@@ -63,38 +75,78 @@ def _index_text(e: dict) -> str:
     return "\n".join(parts)
 
 
-def load_entries() -> tuple[list[dict], str]:
+def corpus_source() -> tuple[Iterable[dict], str]:
     manifest = CORPUS_DIR / "manifest.json"
     if manifest.exists():
         m = json.loads(manifest.read_text(encoding="utf-8"))
-        entries: list[dict] = []
-        for name in m["files"]:
-            with gzip.open(CORPUS_DIR / name, "rt", encoding="utf-8") as f:
-                entries.extend(json.loads(line) for line in f)
-        return entries, m["digest"]
+
+        def stream():
+            for name in m["files"]:
+                with gzip.open(CORPUS_DIR / name, "rt", encoding="utf-8") as f:
+                    for line in f:
+                        yield json.loads(line)
+        return stream(), m["digest"]
     entries = json.loads(LEGACY_CORPUS.read_text(encoding="utf-8"))
     return entries, "legacy-%d" % len(entries)
 
 
 class Index:
-    def __init__(self, entries: list[dict], digest: str):
-        self.entries = entries
+    def __init__(self, entries: Iterable[dict], digest: str):
         self.digest = digest
-        self.by_id = {e["id"]: i for i, e in enumerate(entries)}
-        self.prior = np.array([_prior(e) for e in entries], dtype=np.float32)
+        self._local = threading.local()
         if not self._load_cache():
-            self._build()
-            self._save_cache()
+            self._build(entries)
 
-    # -- building -----------------------------------------------------
-    def _build(self):
+    # -- storage --------------------------------------------------------
+    def _paths(self):
+        base = CACHE_DIR / self.digest
+        return (Path(f"{base}.npz"), Path(f"{base}.vocab.json"), Path(f"{base}.meta.npz"), Path(f"{base}.sqlite"))
+
+    def _db(self) -> sqlite3.Connection:
+        con = getattr(self._local, "con", None)
+        if con is None:
+            con = sqlite3.connect(f"file:{self._paths()[3]}?mode=ro", uri=True, check_same_thread=False)
+            self._local.con = con
+        return con
+
+    def _load_cache(self) -> bool:
+        mpath, vpath, metapath, dbpath = self._paths()
+        if not all(p.exists() for p in (mpath, vpath, metapath, dbpath)):
+            return False
+        try:
+            self.W = sparse.load_npz(mpath).tocsc()
+            self.vocab = json.loads(vpath.read_text(encoding="utf-8"))
+            meta = np.load(metapath, allow_pickle=False)
+            self.prior = meta["prior"]
+            self.text_key = meta["text_key"]
+            self.ids = meta["ids"].tolist()
+            self.category = meta["category"].tolist()
+            self.doc_type = meta["doc_type"].tolist()
+            self.doc_title = meta["doc_title"].tolist()
+            return self.W.shape[0] == len(self.ids)
+        except Exception:  # noqa: BLE001 - stale/corrupt cache: rebuild
+            return False
+
+    def _build(self, entries: Iterable[dict]):
+        CACHE_DIR.mkdir(parents=True, exist_ok=True)
+        mpath, vpath, metapath, dbpath = self._paths()
+        tmp_db = Path(f"{dbpath}.tmp")
+        if tmp_db.exists():
+            tmp_db.unlink()
+        con = sqlite3.connect(tmp_db)
+        con.execute("CREATE TABLE p (rowid INTEGER PRIMARY KEY, doc TEXT NOT NULL)")
+
         vocab: dict[str, int] = {}
-        rows, cols, vals = [], [], []
-        lengths = np.zeros(len(self.entries), dtype=np.float32)
-        for i, e in enumerate(self.entries):
+        rows: list[int] = []
+        cols: list[int] = []
+        vals: list[int] = []
+        lengths: list[int] = []
+        prior, keys, ids, cats, dtypes, titles = [], [], [], [], [], []
+        batch = []
+        for i, e in enumerate(entries):
             counts: dict[int, int] = defaultdict(int)
             toks = tokenize(_index_text(e))
-            lengths[i] = len(toks)
+            lengths.append(len(toks))
             for t in toks:
                 j = vocab.get(t)
                 if j is None:
@@ -103,51 +155,72 @@ class Index:
             rows.extend([i] * len(counts))
             cols.extend(counts.keys())
             vals.extend(counts.values())
-        n = len(self.entries)
-        tf = sparse.csr_matrix(
-            (np.array(vals, dtype=np.float32), (np.array(rows), np.array(cols))),
+            prior.append(_prior(e))
+            keys.append(_text_key(e))
+            ids.append(e["id"])
+            cats.append(e.get("category") or "law")
+            dtypes.append(e.get("doc_type") or "")
+            titles.append(e.get("doc_title_ne") or e.get("title_ne") or e["id"])
+            batch.append((i + 1, json.dumps(e, ensure_ascii=False)))
+            if len(batch) >= 2000:
+                con.executemany("INSERT INTO p VALUES (?, ?)", batch)
+                batch = []
+        if batch:
+            con.executemany("INSERT INTO p VALUES (?, ?)", batch)
+        con.commit()
+        con.close()
+
+        n = len(ids)
+        lengths_a = np.array(lengths, dtype=np.float32)
+        tf = sparse.coo_matrix(
+            (np.array(vals, dtype=np.float32), (np.array(rows, dtype=np.int32), np.array(cols, dtype=np.int32))),
             shape=(n, len(vocab)),
         )
-        df = np.bincount(tf.indices, minlength=len(vocab)).astype(np.float32)
+        df = np.bincount(tf.col, minlength=len(vocab)).astype(np.float32)
         idf = np.log(1 + (n - df + 0.5) / (df + 0.5)).astype(np.float32)
-        avgdl = float(lengths.mean()) if n else 1.0
+        avgdl = float(lengths_a.mean()) if n else 1.0
         # floor at half the average length so a 20-word clause that happens to
         # contain one query term doesn't outrank a substantive provision
-        dl = np.maximum(lengths, 0.5 * avgdl)
+        dl = np.maximum(lengths_a, 0.5 * avgdl)
         norm = K1 * (1 - B + B * dl / max(avgdl, 1e-6))
-        tf = tf.tocoo()
         w = tf.data * (K1 + 1) / (tf.data + norm[tf.row]) * idf[tf.col]
         self.W = sparse.csc_matrix((w.astype(np.float32), (tf.row, tf.col)), shape=tf.shape)
         self.vocab = vocab
+        self.prior = np.array(prior, dtype=np.float32)
+        self.text_key = np.array(keys, dtype=np.int64)
+        self.ids, self.category, self.doc_type, self.doc_title = ids, cats, dtypes, titles
 
-    def _cache_paths(self):
-        return CACHE_DIR / f"{self.digest}.npz", CACHE_DIR / f"{self.digest}.vocab.json"
-
-    def _load_cache(self) -> bool:
-        mpath, vpath = self._cache_paths()
-        if not (mpath.exists() and vpath.exists()):
-            return False
+        tmp_db.replace(dbpath)
         try:
-            self.W = sparse.load_npz(mpath).tocsc()
-            self.vocab = json.loads(vpath.read_text(encoding="utf-8"))
-            return self.W.shape[0] == len(self.entries)
-        except Exception:  # noqa: BLE001 - stale/corrupt cache: rebuild
-            return False
-
-    def _save_cache(self):
-        try:
-            CACHE_DIR.mkdir(parents=True, exist_ok=True)
-            mpath, vpath = self._cache_paths()
             sparse.save_npz(mpath, self.W)
-            vpath.write_text(json.dumps(self.vocab, ensure_ascii=False), encoding="utf-8")
+            vpath.write_text(json.dumps(vocab, ensure_ascii=False), encoding="utf-8")
+            np.savez(metapath, prior=self.prior, text_key=self.text_key, ids=np.array(ids),
+                     category=np.array(cats), doc_type=np.array(dtypes), doc_title=np.array(titles))
         except OSError:
-            pass  # read-only deploys just rebuild on start
+            pass  # read-only deploy: in-memory index still works for this process
 
-    # -- querying -----------------------------------------------------
+    # -- access -----------------------------------------------------------
+    def __len__(self) -> int:
+        return len(self.ids)
+
+    def get(self, i: int) -> dict:
+        row = self._db().execute("SELECT doc FROM p WHERE rowid = ?", (int(i) + 1,)).fetchone()
+        return json.loads(row[0])
+
+    def iter_entries(self) -> Iterator[dict]:
+        for (doc,) in self._db().execute("SELECT doc FROM p ORDER BY rowid"):
+            yield json.loads(doc)
+
+    @property
+    def entries(self) -> list[dict]:
+        """All passages (loads everything - for scripts/evals, not requests)."""
+        return list(self.iter_entries())
+
+    # -- querying -----------------------------------------------------------
     def bm25(self, query: str) -> np.ndarray:
         ids = [self.vocab[t] for t in dict.fromkeys(tokenize(query)) if t in self.vocab]
         if not ids:
-            return np.zeros(len(self.entries), dtype=np.float32)
+            return np.zeros(len(self), dtype=np.float32)
         return np.asarray(self.W[:, ids].sum(axis=1)).ravel()
 
     def search(
@@ -166,14 +239,15 @@ class Index:
                 weighted[text] = max(w, weighted.get(text, 0.0))
         if not weighted:
             return []
-        fused = np.zeros(len(self.entries), dtype=np.float32)
-        best_raw = np.zeros(len(self.entries), dtype=np.float32)
+        n = len(self)
+        fused = np.zeros(n, dtype=np.float32)
+        best_raw = np.zeros(n, dtype=np.float32)
         for q, w in weighted.items():
             s = self.bm25(q) * self.prior
             if not s.any():
                 continue
             best_raw = np.maximum(best_raw, s)
-            top = np.argpartition(-s, min(300, len(s) - 1))[:300]
+            top = np.argpartition(-s, min(300, n - 1))[:300]
             top = top[np.argsort(-s[top])]
             for rank, i in enumerate(top):
                 if s[i] <= 0:
@@ -182,9 +256,8 @@ class Index:
 
         boost_toks = [set(tokenize(t)) for t in boost_titles if t]
         if boost_toks:
-            cand = np.nonzero(fused)[0]
-            for i in cand:
-                title_toks = set(tokenize(self.entries[i].get("doc_title_ne") or self.entries[i].get("title_ne") or ""))
+            for i in np.nonzero(fused)[0]:
+                title_toks = _title_tokens(self.doc_title[i])
                 if any(bt and len(bt & title_toks) / len(bt) >= 0.6 for bt in boost_toks):
                     fused[i] *= 1.35
 
@@ -193,20 +266,24 @@ class Index:
         for i in order:
             if fused[i] <= 0 or len(results) >= top_k:
                 break
-            e = self.entries[i]
-            if category and e.get("category") != category:
+            if category and self.category[i] != category:
                 continue
-            doc_key = e.get("doc_title_ne") or e["id"]
-            cap = 1 if e.get("doc_type") == "other" else per_doc_cap  # reports/dictionaries: one passage
+            doc_key = self.doc_title[i]
+            cap = 1 if self.doc_type[i] == "other" else per_doc_cap  # reports/dictionaries: one passage
             if per_doc[doc_key] >= cap:
                 continue
-            text_key = fold(e.get("text_ne") or e.get("text_en") or "")[:160]
-            if text_key in seen_text:
+            key = int(self.text_key[i])
+            if key in seen_text:
                 continue  # same provision published in two documents
-            seen_text.add(text_key)
+            seen_text.add(key)
             per_doc[doc_key] += 1
-            results.append({**e, "score": float(best_raw[i]), "rrf": float(fused[i])})
+            results.append({**self.get(i), "score": float(best_raw[i]), "rrf": float(fused[i])})
         return results
+
+
+@lru_cache(maxsize=20000)
+def _title_tokens(title: str) -> frozenset:
+    return frozenset(tokenize(title))
 
 
 _index: Index | None = None
@@ -218,7 +295,7 @@ def get_index() -> Index:
     if _index is None:
         with _lock:
             if _index is None:
-                entries, digest = load_entries()
+                entries, digest = corpus_source()
                 _index = Index(entries, digest)
     return _index
 
@@ -230,10 +307,9 @@ def retrieve(query: str, lang: str = "auto", top_k: int = 4) -> list[dict]:
 
 def corpus_stats() -> dict:
     idx = get_index()
-    by = defaultdict(int)
-    for e in idx.entries:
-        by[e.get("doc_type") or e.get("category")] += 1
-    docs = len({e.get("doc_title_ne") for e in idx.entries if e.get("category") == "law"})
-    return {"entries": len(idx.entries), "by_type": dict(by), "law_documents": docs,
+    by: dict[str, int] = defaultdict(int)
+    for t, c in zip(idx.doc_type, idx.category):
+        by[t or c] += 1
+    docs = len({t for t, c in zip(idx.doc_title, idx.category) if c == "law"})
+    return {"entries": len(idx), "by_type": dict(by), "law_documents": docs,
             "vocab": len(idx.vocab), "digest": idx.digest}
-
