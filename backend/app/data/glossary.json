@@ -1,0 +1,16446 @@
+{
+"areas": {
+"landlord-tenant and house rent": [
+{
+"en": [
+"landlord",
+"house owner",
+"homeowner",
+"property owner"
+],
+"roman": [
+"gharbeti",
+"ghardhani",
+"ghar ko dhani"
+],
+"ne": [
+"घरधनी",
+"घरबेटी"
+]
+},
+{
+"en": [
+"tenant",
+"renter",
+"lessee"
+],
+"roman": [
+"bahalwala",
+"dera wal",
+"derawal",
+"bhada ma basne"
+],
+"ne": [
+"बहालवाला",
+"डेरावाल",
+"भाडामा बस्ने"
+]
+},
+{
+"en": [
+"house rent",
+"rent",
+"lease amount"
+],
+"roman": [
+"ghar bhada",
+"bahal",
+"bhada"
+],
+"ne": [
+"घर बहाल",
+"बहाल",
+"भाडा"
+]
+},
+{
+"en": [
+"rent agreement",
+"lease agreement",
+"tenancy contract"
+],
+"roman": [
+"bahal patra",
+"ghar bhada samjhauta",
+"samjhauta patra"
+],
+"ne": [
+"बहालपत्र",
+"घर बहाल सम्झौतापत्र",
+"सम्झौता पत्र"
+]
+},
+{
+"en": [
+"security deposit",
+"advance rent",
+"deposit"
+],
+"roman": [
+"agrim bahal",
+"dharauti",
+"advance bhada"
+],
+"ne": [
+"अग्रिम बहाल",
+"धरौटी",
+"अग्रिम भाडा"
+]
+},
+{
+"en": [
+"rent eviction",
+"vacate house",
+"eviction"
+],
+"roman": [
+"ghar khali",
+"derawal hataune",
+"khali गराउने"
+],
+"ne": [
+"घर खाली",
+"बहालबाट हटाउने",
+"डेरा खाली"
+]
+},
+{
+"en": [
+"subletting",
+"under tenancy",
+"sub lease"
+],
+"roman": [
+"arkalai bhada ma dine",
+"sublet",
+"prakat bahal"
+],
+"ne": [
+"पछाडि बहालमा दिने",
+"पुनः बहालमा दिने"
+]
+},
+{
+"en": [
+"tenancy period",
+"lease term",
+"duration"
+],
+"roman": [
+"bahal abadhi",
+"samay abadhi",
+"bhada abadhi"
+],
+"ne": [
+"बहाल अवधि",
+"सम्झौता अवधि"
+]
+},
+{
+"en": [
+"rent increment",
+"increase rent",
+"rent hike"
+],
+"roman": [
+"bhada badhaune",
+"bahal briddhi",
+"bhada briddhi"
+],
+"ne": [
+"बहाल वृद्धि",
+"भाडा वृद्धि"
+]
+},
+{
+"en": [
+"electricity bill",
+"power charge"
+],
+"roman": [
+"bidhyut mahasul",
+"bijuli ko bhada",
+"bijuli bill"
+],
+"ne": [
+"विद्युत् महसुल",
+"बिजुली महसुल"
+]
+},
+{
+"en": [
+"water charges",
+"water bill"
+],
+"roman": [
+"khanepani mahasul",
+"pani ko bhada",
+"pani bill"
+],
+"ne": [
+"खानेपानी महसुल",
+"पानी महसुल"
+]
+},
+{
+"en": [
+"rent receipt",
+"payment receipt"
+],
+"roman": [
+"bhada bharpai",
+"bahal bharpai",
+"raseed"
+],
+"ne": [
+"बहाल भरपार्इ",
+"भाडा भरपाई",
+"रसिद"
+]
+},
+{
+"en": [
+"maintenance charge",
+"house repair",
+"repairs"
+],
+"roman": [
+"marmat sambhar",
+"ghar marmat"
+],
+"ne": [
+"मर्मत सम्भार",
+"घर मर्मत खर्च"
+]
+},
+{
+"en": [
+"rent tax",
+"house rent tax"
+],
+"roman": [
+"ghar bahal kar",
+"bahal kar"
+],
+"ne": [
+"घर बहाल कर",
+"बहाल कर"
+]
+},
+{
+"en": [
+"breach of contract",
+"violation of terms"
+],
+"roman": [
+"samjhauta ullanghan",
+"sharta palana nagareko"
+],
+"ne": [
+"सम्झौता उल्लङ्घन",
+"शर्त उल्लङ्घन"
+]
+},
+{
+"en": [
+"notice to vacate",
+"eviction notice"
+],
+"roman": [
+"ghar khali garne suchana",
+"30 dine suchana",
+"notice"
+],
+"ne": [
+"घर खाली गर्ने सूचना",
+"सूचना"
+]
+},
+{
+"en": [
+"commercial lease",
+"shoppe rent",
+"office rent"
+],
+"roman": [
+"byawasaik bahal",
+"pasal bhada"
+],
+"ne": [
+"व्यावसायिक बहाल",
+"पसल भाडा"
+]
+},
+{
+"en": [
+"residential lease",
+"home rent"
+],
+"roman": [
+"awasiya bahal",
+"basobas bahal"
+],
+"ne": [
+"आवासीय बहाल",
+"आवास भाडा"
+]
+},
+{
+"en": [
+"property damage",
+"damage to house"
+],
+"roman": [
+"bhautik kshati",
+"ghar ko kshati",
+"nukshani"
+],
+"ne": [
+"भौतिक क्षति",
+"नोक्सानी",
+"क्षतिपूर्ति"
+]
+},
+{
+"en": [
+"unpaid rent",
+"rent arrears"
+],
+"roman": [
+"baki bhada",
+"tirna baki bahal"
+],
+"ne": [
+"बाँकी बहाल",
+"भाडा बक्यौता"
+]
+},
+{
+"en": [
+"rent default",
+"failure to pay rent"
+],
+"roman": [
+"bhada natireko",
+"bahal mabala natireko"
+],
+"ne": [
+"बहाल नबुझाएको",
+"भाडा नदिएको"
+]
+},
+{
+"en": [
+"inventory list",
+"fixtures list"
+],
+"roman": [
+"saman ko vivaran",
+"dharohor vivaran"
+],
+"ne": [
+"सामानको विवरण",
+"जिन्सी विवरण"
+]
+},
+{
+"en": [
+"legal remedies",
+"compensation"
+],
+"roman": [
+"kshatipurtir",
+"harjana"
+],
+"ne": [
+"क्षतिपूर्ति",
+"हर्जाना"
+]
+},
+{
+"en": [
+"unlawful entry",
+"trespass by landlord"
+],
+"roman": [
+"anadhikrit pravesh",
+"zabardasti pravesh"
+],
+"ne": [
+"अनधिकृत प्रवेश",
+"जबरजस्ती प्रवेश"
+]
+},
+{
+"en": [
+"essential services",
+"amenities"
+],
+"roman": [
+"dharatalik suvidha",
+"mahatwapurna suvidha"
+],
+"ne": [
+"आधारभूत सुविधा",
+"आवश्यक सेवा"
+]
+},
+{
+"en": [
+"utility disconnection",
+"cut off water electricity"
+],
+"roman": [
+"bijuli pani kaatne",
+"suvidha rokne"
+],
+"ne": [
+"सुविधा रोक्ने",
+"बिजुली पानी काट्ने"
+]
+},
+{
+"en": [
+"lockout",
+"illegal lockout"
+],
+"roman": [
+"tala lagaune",
+"dhoka thunne"
+],
+"ne": [
+"ताला लगाउने",
+"ढोका थुन्ने"
+]
+},
+{
+"en": [
+"dispute resolution",
+"rent dispute"
+],
+"roman": [
+"bahal vivad",
+"gharbeti derawal vivad"
+],
+"ne": [
+"बहाल विवाद",
+"विवाद समाधान"
+]
+},
+{
+"en": [
+"judicial committee",
+"local level court"
+],
+"roman": [
+"nyayik samiti",
+"palika nyayik samiti"
+],
+"ne": [
+"न्यायिक समिति"
+]
+},
+{
+"en": [
+"limitation period",
+"statute of limitations"
+],
+"roman": [
+"hadmyad"
+],
+"ne": [
+"हदम्याद"
+]
+},
+{
+"en": [
+"plaint",
+"complaint"
+],
+"roman": [
+"firad",
+"firadpatra",
+"mudda"
+],
+"ne": [
+"फिरादपत्र",
+"उजुरी"
+]
+},
+{
+"en": [
+"written statement",
+"reply"
+],
+"roman": [
+"pratuttar patra",
+"jawab"
+],
+"ne": [
+"प्रतिउत्तरपत्र"
+]
+},
+{
+"en": [
+"interim order",
+"stay order"
+],
+"roman": [
+"antarim aadesh",
+"rokka aadesh"
+],
+"ne": [
+"अन्तरिम आदेश",
+"रोकक्का आदेश"
+]
+},
+{
+"en": [
+"joint tenancy",
+"shared rent"
+],
+"roman": [
+"sajha bahal",
+"sajha derawal"
+],
+"ne": [
+"सह-बहाल",
+"साझा बहाल"
+]
+},
+{
+"en": [
+"right to privacy",
+"tenant privacy"
+],
+"roman": [
+"gopanoyata ko adhikar",
+"privacy"
+],
+"ne": [
+"गोपनीयताको अधिकार"
+]
+},
+{
+"en": [
+"force majeure",
+"natural disaster damage"
+],
+"roman": [
+"daivi prakop",
+"makaam kshati"
+],
+"ne": [
+"दैवी प्रकोप",
+"काबू बाहिरको परिस्थिति"
+]
+},
+{
+"en": [
+"renewal of lease",
+"contract renewal"
+],
+"roman": [
+"samjhauta navikaran",
+"bahal navikaran"
+],
+"ne": [
+"सम्झौता नवीकरण",
+"बहाल नवीकरण"
+]
+},
+{
+"en": [
+"early termination",
+"lease cancellation"
+],
+"roman": [
+"samjhauta radd",
+"samjhauta antya"
+],
+"ne": [
+"सम्झौता रद्द",
+"बहाल अन्त्य"
+]
+},
+{
+"en": [
+"possession of house",
+"handover"
+],
+"roman": [
+"bhog chalan",
+"ghar bujhaune"
+],
+"ne": [
+"भोगचलन",
+"घर बुझाउने"
+]
+},
+{
+"en": [
+"peaceful possession",
+"quiet enjoyment"
+],
+"roman": [
+"shantipurna bhogchalan"
+],
+"ne": [
+"शान्तिपूर्ण भोगचलन"
+]
+}
+],
+"marriage, divorce and matrimonial property": [
+{
+"en": [
+"marriage",
+"wedding",
+"matrimony",
+"nuptials"
+],
+"roman": [
+"bihe",
+"bibaha",
+"vivah",
+"bivah"
+],
+"ne": [
+"विवाह",
+"बिहे"
+]
+},
+{
+"en": [
+"divorce",
+"separation",
+"dissolution of marriage",
+"split up"
+],
+"roman": [
+"sambandha bichhed",
+"sambandhabichhed",
+"divorce",
+"sambandha bichede"
+],
+"ne": [
+"सम्बन्ध विच्छेद",
+"डिभोर्स"
+]
+},
+{
+"en": [
+"alimony",
+"maintenance",
+"spousal support",
+"living expenses"
+],
+"roman": [
+"mana chamal",
+"manachamal",
+"kharcha",
+"gujar kharcha"
+],
+"ne": [
+"मानाचामल",
+"गुजारा खर्च",
+"खर्च"
+]
+},
+{
+"en": [
+"partition of property",
+"property division",
+"share of property",
+"partition share"
+],
+"roman": [
+"ansa",
+"ansha",
+"ansa banda",
+"anshabanda"
+],
+"ne": [
+"अंश",
+"अंशबन्डा",
+"अंशभाग"
+]
+},
+{
+"en": [
+"matrimonial property",
+"joint property",
+"marital property"
+],
+"roman": [
+"dampati ko sampatti",
+"samyukta sampatti",
+"sajha sampatti"
+],
+"ne": [
+"दम्पतीको संयुक्त सम्पत्ति",
+"सगोलको सम्पत्ति"
+]
+},
+{
+"en": [
+"dowry",
+"bride price",
+"groom price",
+"gifts"
+],
+"roman": [
+"daijo",
+"pewa",
+"dahej",
+"tilak"
+],
+"ne": [
+"दाइजो",
+"पेवा",
+"तिलक"
+]
+},
+{
+"en": [
+"husband",
+"spouse",
+"groom"
+],
+"roman": [
+"logne",
+"pati",
+"shreeman",
+"dulaha"
+],
+"ne": [
+"लोग्ने",
+"पति",
+"श्रीमान्",
+"दुलाहा"
+]
+},
+{
+"en": [
+"wife",
+"spouse",
+"bride"
+],
+"roman": [
+"swasni",
+"patni",
+"shreemati",
+"dulahi"
+],
+"ne": [
+"स्वास्नी",
+"पत्नी",
+"श्रीमती",
+"दुलही"
+]
+},
+{
+"en": [
+"monogamy",
+"single marriage"
+],
+"roman": [
+"ek bibaha",
+"ekpatnitwa"
+],
+"ne": [
+"एक विवाह",
+"एकपत्नीत्व"
+]
+},
+{
+"en": [
+"polygamy",
+"bigamy",
+"multiple marriages"
+],
+"roman": [
+"bahu bibaha",
+"bahubibaha",
+"bahupatnitwa"
+],
+"ne": [
+"बहुविवाह",
+"बहुपत्नीत्व"
+]
+},
+{
+"en": [
+"child marriage",
+"underage marriage"
+],
+"roman": [
+"bal bibaha",
+"balbibaha"
+],
+"ne": [
+"बालविवाह"
+]
+},
+{
+"en": [
+"forced marriage",
+"coerced marriage"
+],
+"roman": [
+"jabarjasti bibaha",
+"manjuri bina ko bibaha"
+],
+"ne": [
+"मन्जुरी विनाको विवाह",
+"जबरजस्ती विवाह"
+]
+},
+{
+"en": [
+"court marriage",
+"registered marriage",
+"civil marriage"
+],
+"roman": [
+"court marriage",
+"darjadar bibaha",
+"court bihe"
+],
+"ne": [
+"दर्ताद्वारा विवाह",
+"कोर्ट म्यारिज"
+]
+},
+{
+"en": [
+"void marriage",
+"invalid marriage",
+"null marriage"
+],
+"roman": [
+"badrabhagi bibaha",
+"shunya bibaha",
+"amanyata bibaha"
+],
+"ne": [
+"शून्य विवाह",
+"बदरभागी विवाह"
+]
+},
+{
+"en": [
+"voidable marriage",
+"annulment of marriage"
+],
+"roman": [
+"badragarna yogya bibaha",
+"badrabhagi bibaha"
+],
+"ne": [
+"बदर गराउन सकिने विवाह",
+"बदरभागी विवाह"
+]
+},
+{
+"en": [
+"consent for marriage",
+"mutual consent"
+],
+"roman": [
+"manjuri",
+"razikhusi",
+"swikriti"
+],
+"ne": [
+"मन्जुरी",
+"राजीखुसी",
+"स्वीकृति"
+]
+},
+{
+"en": [
+"legal age of marriage",
+"marriageable age"
+],
+"roman": [
+"bibaha garne umer",
+"umer had"
+],
+"ne": [
+"विवाह गर्ने उमेर",
+"उमेरको हद"
+]
+},
+{
+"en": [
+"incestuous marriage",
+"prohibited degree marriage"
+],
+"roman": [
+"hadnata bibaha",
+"had nata karani"
+],
+"ne": [
+"हाडनातामा विवाह",
+"हाडनाता करणी"
+]
+},
+{
+"en": [
+"marital rape",
+"rape by husband"
+],
+"roman": [
+"vaivahik jabarjasti karani",
+"shreeman le gareko karani"
+],
+"ne": [
+"वैवाहिक जबरजस्ती करणी",
+"वैवाहिक बलात्कार"
+]
+},
+{
+"en": [
+"domestic violence",
+"spousal abuse",
+"marital abuse"
+],
+"roman": [
+"gharelu hinsa",
+"shreeman ko kutpit"
+],
+"ne": [
+"घरेलु हिंसा",
+"यातना"
+]
+},
+{
+"en": [
+"reconciliation",
+"mediation",
+"compromise"
+],
+"roman": [
+"melmilap",
+"milapatra",
+"samjhauta"
+],
+"ne": [
+"मेलमिलाप",
+"मिलापत्र",
+"सम्झौता"
+]
+},
+{
+"en": [
+"child custody",
+"guardianship of child"
+],
+"roman": [
+"nabalak ko samrakshan",
+"shishu custody",
+"bachha ko रेखदेख"
+],
+"ne": [
+"नाबालकको संरक्षण",
+"संरक्षकत्व",
+"शिशुको रेखदेख"
+]
+},
+{
+"en": [
+"visitation rights",
+"access to child"
+],
+"roman": [
+"bhetghat garne adhikar",
+"bhetne adhikar"
+],
+"ne": [
+"भेटघाट गर्ने अधिकार",
+"भेट्ने अधिकार"
+]
+},
+{
+"en": [
+"paternity",
+"fatherhood",
+"identity of father"
+],
+"roman": [
+"pittritwa",
+"babu ko pahichan"
+],
+"ne": [
+"पितृत्व",
+"बाबुको पहिचान"
+]
+},
+{
+"en": [
+"maternity",
+"motherhood",
+"identity of mother"
+],
+"roman": [
+"matritwa",
+"ama ko pahichan"
+],
+"ne": [
+"मातृत्व",
+"आमाको पहिचान"
+]
+},
+{
+"en": [
+"illegitimate child",
+"child born out of wedlock"
+],
+"roman": [
+"kanuni manayata napaeko santan",
+"bina bihe ko bachha"
+],
+"ne": [
+"वैवाहिक सम्बन्ध बाहिर जन्मेको शिशु",
+"अवैध सन्तान"
+]
+},
+{
+"en": [
+"legitimate child",
+"child born in wedlock"
+],
+"roman": [
+"kanuni santan",
+"dharmaputra",
+"dharmaputri"
+],
+"ne": [
+"वैवाहिक सम्बन्धबाट जन्मेको शिशु",
+"वैध सन्तान"
+]
+},
+{
+"en": [
+"adoption",
+"adopted child"
+],
+"roman": [
+"dharmaputra",
+"dharmaputri",
+"apnaune"
+],
+"ne": [
+"धर्मपुत्र",
+"धर्मपुत्री",
+"धर्मपुत्र वा धर्मपुत्री ग्रहण गर्ने"
+]
+},
+{
+"en": [
+"maintenance cost",
+"child support",
+"education expenses"
+],
+"roman": [
+"palankosh",
+"shiksha diksha kharcha",
+"bharan poshan"
+],
+"ne": [
+"भरणपोषण",
+"पालनपोषण तथा शिक्षादीक्षाको खर्च"
+]
+},
+{
+"en": [
+"inter-caste marriage",
+"cross-caste marriage"
+],
+"roman": [
+"antardatye bibaha",
+"jatpat bina ko bihe"
+],
+"ne": [
+"अन्तरजातीय विवाह"
+]
+},
+{
+"en": [
+"court petition",
+"plaint",
+"divorce application"
+],
+"roman": [
+"firadpatra",
+"nibedan",
+"mudda darta"
+],
+"ne": [
+"फिरादपत्र",
+"निवेदन",
+"नालिस"
+]
+},
+{
+"en": [
+"written response",
+"reply",
+"defense statement"
+],
+"roman": [
+"pratyuttar patra",
+"jawaf",
+"likhit jawaf"
+],
+"ne": [
+"प्रत्युत्तरपत्र",
+"लिखित जवाफ"
+]
+},
+{
+"en": [
+"limitation period",
+"time limit to file case"
+],
+"roman": [
+"hadmyad",
+"nalis garne samay"
+],
+"ne": [
+"हदम्याद",
+"म्याद"
+]
+},
+{
+"en": [
+"jurisdiction",
+"court authority"
+],
+"roman": [
+"kshetradhikar",
+"mudda herne court"
+],
+"ne": [
+"क्षेत्राधिकार"
+]
+},
+{
+"en": [
+"district court",
+"local court"
+],
+"roman": [
+"jilla adalat",
+"zilla court"
+],
+"ne": [
+"जिल्ला अदालत"
+]
+},
+{
+"en": [
+"interim order",
+"temporary order",
+"interim relief"
+],
+"roman": [
+"antarim aadesh",
+"tatkalin aadesh"
+],
+"ne": [
+"अन्तरिम आदेश",
+"अन्तरकालीन आदेश"
+]
+},
+{
+"en": [
+"sole property",
+"self-earned property",
+"private property"
+],
+"roman": [
+"nijo sampatti",
+"nigi sampatti",
+"aafno kamai"
+],
+"ne": [
+"निजी सम्पत्ति",
+"आफ्नै आर्जनको सम्पत्ति"
+]
+},
+{
+"en": [
+"ancestral property",
+"inherited property"
+],
+"roman": [
+"paitrik sampatti",
+"paupau ko sampatti"
+],
+"ne": [
+"पैतृक सम्पत्ति",
+"बाबुबाजेको सम्पत्ति"
+]
+},
+{
+"en": [
+"adultery",
+"cheating on spouse",
+"extramarital affair"
+],
+"roman": [
+"parastree gaman",
+"parapurush gaman",
+"sauteli"
+],
+"ne": [
+"परस्त्रीगमन",
+"परपुरुषगमन",
+"इतर सम्बन्ध"
+]
+},
+{
+"en": [
+"desertion",
+"abandonment",
+"leaving spouse"
+],
+"roman": [
+"shreeman shreemati chhadera gayeko",
+"perityag",
+"ghar chhadeko"
+],
+"ne": [
+"घरबाट निकाला गरेको",
+"परित्याग गरेको",
+"अलग बसेको"
+]
+},
+{
+"en": [
+"cruelty",
+"mental torture",
+"physical abuse"
+],
+"roman": [
+"krurta",
+"mansik yatana",
+"saririk yatana"
+],
+"ne": [
+"क्रूरता",
+"शारीरिक वा मानसिक यातना"
+]
+},
+{
+"en": [
+"impotency",
+"unable to consummate"
+],
+"roman": [
+"napunsakta",
+"sharik samparka garna nasakne"
+],
+"ne": [
+"नपुंसकता",
+"शारीरिक सम्पर्क गर्न असमर्थ"
+]
+},
+{
+"en": [
+"bigamy punishment",
+"illegal second marriage"
+],
+"roman": [
+"bahu bibaha sajaya",
+"bihe darta khareji"
+],
+"ne": [
+"बहुविवाहको सजाय",
+"कानुन विपरीतको विवाह"
+]
+},
+{
+"en": [
+"marriage registration certificate",
+"marriage paper"
+],
+"roman": [
+"bibaha darta pramanpatra",
+"bihe ko kagaj"
+],
+"ne": [
+"विवाह दर्ता प्रमाणपत्र"
+]
+},
+{
+"en": [
+"divorce certificate",
+"divorce paper"
+],
+"roman": [
+"sambandha bichhed pramanpatra",
+"divorce kagaj"
+],
+"ne": [
+"सम्बन्ध विच्छेदको प्रमाणपत्र"
+]
+},
+{
+"en": [
+"cohabitation",
+"living together without marriage"
+],
+"roman": [
+"bina bihe sangei basne",
+"cohabitation",
+"sathai basne"
+],
+"ne": [
+"सहवास",
+"विवाह नगरी सँगै बसेको"
+]
+},
+{
+"en": [
+"legal heir",
+"successor"
+],
+"roman": [
+"hakdar",
+"kanuni uttaradhikari",
+"apnalog"
+],
+"ne": [
+"हकदार",
+"कानुनी उत्तराधिकारी"
+]
+},
+{
+"en": [
+"will",
+"testament",
+"property transfer deed"
+],
+"roman": [
+"ichhyapatra",
+"will",
+"vasiyat"
+],
+"ne": [
+"इच्छापत्र",
+"वसीयत"
+]
+},
+{
+"en": [
+"family court",
+"bench for family disputes"
+],
+"roman": [
+"pariwarik ijlas",
+"pariwarik mudda"
+],
+"ne": [
+"पारिवारिक इजलास"
+]
+},
+{
+"en": [
+"mediation center",
+"compromise body"
+],
+"roman": [
+"melmilap kendra",
+"milapatra garaune thau"
+],
+"ne": [
+"मेलमिलाप केन्द्र"
+]
+}
+],
+"child custody, adoption, guardianship": [
+{
+"en": [
+"child custody",
+"custody of child",
+"child care",
+"custody"
+],
+"roman": [
+"nabalak ko samrakshan",
+"bachha ko custody",
+"shishu ko rekhdekh",
+"rekhdekh"
+],
+"ne": [
+"नाबालकको संरक्षण",
+"शिशुको रेखदेख",
+"संरक्षण",
+"जिम्मा"
+]
+},
+{
+"en": [
+"adoption",
+"adopt a child",
+"foster care"
+],
+"roman": [
+"dharmaputra",
+"dharmaputri",
+"apnaunu",
+"grahan garnu"
+],
+"ne": [
+"धर्मपुत्र",
+"धर्मपुत्री",
+"धर्मपुत्र वा धर्मपुत्री ग्रहण गर्ने"
+]
+},
+{
+"en": [
+"guardianship",
+"guardian",
+"legal guardian"
+],
+"roman": [
+"samrakshak",
+"samrakshatwa",
+"mulyankan",
+"অভিभावकत्व"
+],
+"ne": [
+"संरक्षकत्व",
+"संरक्षक",
+"माथवर"
+]
+},
+{
+"en": [
+"minor",
+"child",
+"underage"
+],
+"roman": [
+"nabalak",
+"balak",
+"umera नपुगेको",
+"nabalika"
+],
+"ne": [
+"नाबालक",
+"बालबालिका",
+"नाबालिका"
+]
+},
+{
+"en": [
+"best interest of the child",
+"welfare of child"
+],
+"roman": [
+"balbalika ko sarvottam hit",
+"bal hit"
+],
+"ne": [
+"बालबालिकाको सर्वोत्तम हित",
+"बालहित"
+]
+},
+{
+"en": [
+"natural guardian",
+"biological parents"
+],
+"roman": [
+"prakritik samrakshak",
+"janma dine aama buba"
+],
+"ne": [
+"प्राकृतिक संरक्षक",
+"जन्मदिने आमा बाबु"
+]
+},
+{
+"en": [
+"appointed guardian",
+"legal guardian appointed"
+],
+"roman": [
+"niyukta samrakshak",
+"kanuni samrakshak"
+],
+"ne": [
+"नियुक्त संरक्षक",
+"कानुनी संरक्षक"
+]
+},
+{
+"en": [
+"visitation rights",
+"right to meet child",
+"access to child"
+],
+"roman": [
+"bhetghat garne adhikar",
+"bhetghat",
+"bhetne adhikar"
+],
+"ne": [
+"भेटघाट गर्ने अधिकार",
+"भेटघाट",
+"हेरचाह र भेटघाट"
+]
+},
+{
+"en": [
+"maintenance of child",
+"child support",
+"alimony for child"
+],
+"roman": [
+"palonposhan",
+"kharcha",
+"balbalika ko palon poshan"
+],
+"ne": [
+"पालनपोषण",
+"खर्च",
+"भरणपोषण",
+"शिशुको हेरचाह र पालनपोषण"
+]
+},
+{
+"en": [
+"inter-country adoption",
+"foreign adoption"
+],
+"roman": [
+"antardeshiya dharmaputra",
+"bideshi le dharmaputra rakhne"
+],
+"ne": [
+"अन्तरदेशीय धर्मपुत्र वा धर्मपुत्री",
+"अन्तरदेशीय धर्मपुत्र"
+]
+},
+{
+"en": [
+"surrogacy",
+"surrogate mother"
+],
+"roman": [
+"surrogacy",
+"sarogate",
+"kokh bhada ma line"
+],
+"ne": [
+"सरोगेसी",
+"सैरोगेसी",
+"कोख भाडामा लिने"
+]
+},
+{
+"en": [
+"abandoned child",
+"foundling"
+],
+"roman": [
+"bevarise balak",
+"tyagiyeko balak"
+],
+"ne": [
+"वेवारिसे बालक",
+"त्यागिएको बालक",
+"फेला परेको बालक"
+]
+},
+{
+"en": [
+"orphan",
+"orphanage"
+],
+"roman": [
+"anath",
+"anathalaya",
+"tuhuro"
+],
+"ne": [
+"अनाथ",
+"टुहुरो",
+"अनाथालय",
+"बालगृह"
+]
+},
+{
+"en": [
+"paternity",
+"fatherhood",
+"identity of father"
+],
+"roman": [
+"pittritwa",
+"buba ko pahichan",
+"babu ko patto"
+],
+"ne": [
+"पितृत्व",
+"बाबुको पहिचान",
+"पितृत्वको ठेगाना"
+]
+},
+{
+"en": [
+"maternity",
+"motherhood"
+],
+"roman": [
+"matritwa",
+"aama ko pahichan"
+],
+"ne": [
+"मातृत्व",
+"आमाको पहिचान"
+]
+},
+{
+"en": [
+"illegitimate child",
+"child born out of wedlock"
+],
+"roman": [
+"kanun bhanda bahira janmiyeko",
+"aboidh santan"
+],
+"ne": [
+"विवाह बाहिर जन्मिएको सन्तान",
+"अवैध सन्तान"
+]
+},
+{
+"en": [
+"legitimate child"
+],
+"roman": [
+"vaidh santan",
+"kanuni santan"
+],
+"ne": [
+"वैध सन्तान",
+"कानुन बमोजिमको सन्तान"
+]
+},
+{
+"en": [
+"stepchild",
+"stepson",
+"stepdaughter"
+],
+"roman": [
+"sautelo chhora",
+"sauteli chhori",
+"sautela santan"
+],
+"ne": [
+"सौतेलो छोरा",
+"सौतेली छोरी",
+"सौतेला सन्तान"
+]
+},
+{
+"en": [
+"stepmother",
+"stepfather"
+],
+"roman": [
+"sauteni aama",
+"sautelo buba",
+"sauteni"
+],
+"ne": [
+"सौतेनी आमा",
+"सौतेलो बाबु"
+]
+},
+{
+"en": [
+"will for guardianship",
+"testamentary guardian"
+],
+"roman": [
+"ichhyapatra dwara samrakshak",
+"will guardian"
+],
+"ne": [
+"इच्छापत्रद्वारा नियुक्त संरक्षक",
+"इच्छापत्रको संरक्षक"
+]
+},
+{
+"en": [
+"temporary custody",
+"interim custody"
+],
+"roman": [
+"ast अस्थाई custody",
+"ast अस्थाई rekhdekh"
+],
+"ne": [
+"अस्थायी संरक्षक",
+"अन्तरकालीन संरक्षण"
+]
+},
+{
+"en": [
+"joint custody"
+],
+"roman": [
+"samyukta custody",
+"samyukta rekhdekh"
+],
+"ne": [
+"संयुक्त संरक्षण",
+"संयुक्त रेखदेख"
+]
+},
+{
+"en": [
+"sole custody"
+],
+"roman": [
+"ekal custody",
+"ekal rekhdekh"
+],
+"ne": [
+"एकल संरक्षण",
+"एकल रेखदेख"
+]
+},
+{
+"en": [
+"child rights",
+"rights of the child"
+],
+"roman": [
+"bal adhikar",
+"balbalika ko adhikar"
+],
+"ne": [
+"बालअधिकार",
+"बालबालिकाको अधिकार"
+]
+},
+{
+"en": [
+"child abuse",
+"child exploitation"
+],
+"roman": [
+"bal shoshan",
+"bal durvyavahar"
+],
+"ne": [
+"बाल शोषण",
+"बाल दुर्व्यवहार"
+]
+},
+{
+"en": [
+"child marriage"
+],
+"roman": [
+"bal bibaha",
+"bal biba"
+],
+"ne": [
+"बालविवाह",
+"बाल विवाह"
+]
+},
+{
+"en": [
+"consent for adoption"
+],
+"roman": [
+"dharmaputra rakhne manjuri",
+"manjurinama"
+],
+"ne": [
+"धर्मपुत्र राख्ने मन्जुरी",
+"स्वीकृति"
+]
+},
+{
+"en": [
+"deed of adoption",
+"adoption agreement"
+],
+"roman": [
+"dharmaputra ko kagaj",
+"dharmaputra likhat"
+],
+"ne": [
+"धर्मपुत्रको लिखत",
+"धर्मपुत्र सम्बन्धी कागज"
+]
+},
+{
+"en": [
+"revocation of adoption",
+"cancel adoption"
+],
+"roman": [
+"dharmaputra raddhi",
+"dharmaputra khareji"
+],
+"ne": [
+"धर्मपुत्र बदर",
+"धर्मपुत्र वा धर्मपुत्री बदर गर्ने"
+]
+},
+{
+"en": [
+"property of minor",
+"minor's estate"
+],
+"roman": [
+"nabalak ko sampatti",
+"nabalak ko ghar jagga"
+],
+"ne": [
+"नाबालकको सम्पत्ति",
+"नाबालकको जायजेथा"
+]
+},
+{
+"en": [
+"curator",
+"manager of minor's property"
+],
+"roman": [
+"mathavar",
+"sampatti ko rekhdekh garne"
+],
+"ne": [
+"माथवर",
+"सम्पत्तिको संरक्षक"
+]
+},
+{
+"en": [
+"legal capacity",
+"age of majority"
+],
+"roman": [
+"kanuni yogyata",
+"umera pugeko"
+],
+"ne": [
+"कानुनी सक्षमता",
+"उमेर पुगेको",
+"बालिग"
+]
+},
+{
+"en": [
+"child protection home",
+"juvenile home"
+],
+"roman": [
+"bal sudhar griha",
+"bal griha"
+],
+"ne": [
+"बाल सुधार गृह",
+"बालगृह"
+]
+},
+{
+"en": [
+"foster parent",
+"foster family"
+],
+"roman": [
+"palne aama buba",
+"foster pariwar"
+],
+"ne": [
+"पालनपोषण गर्ने परिवार",
+"पालक परिवार"
+]
+},
+{
+"en": [
+"disqualification of guardian"
+],
+"roman": [
+"samrakshak ko ayogyata",
+"samrakshak nahuwa"
+],
+"ne": [
+"संरक्षकको अयोग्यता",
+"संरक्षक हुन अयोग्य"
+]
+},
+{
+"en": [
+"removal of guardian",
+"change of guardian"
+],
+"roman": [
+"samrakshak hataune",
+"samrakshak ferbadal"
+],
+"ne": [
+"संरक्षक हटाउने",
+"संरक्षक हेरफेर"
+]
+},
+{
+"en": [
+"duties of guardian",
+"responsibilities of guardian"
+],
+"roman": [
+"samrakshak ko kartavya",
+"samrakshak ko daitwa"
+],
+"ne": [
+"संरक्षकको कर्तव्य",
+"संरक्षकको दायित्व"
+]
+},
+{
+"en": [
+"child labor"
+],
+"roman": [
+"bal shram",
+"bal majdugiri"
+],
+"ne": [
+"बालश्रम",
+"बाल श्रम"
+]
+},
+{
+"en": [
+"kidnapping of minor",
+"child abduction"
+],
+"roman": [
+"balika apharan",
+"nabalak apharan"
+],
+"ne": [
+"नाबालक अपहरण",
+"बालबालिकाको अपहरण"
+]
+},
+{
+"en": [
+"limitation period for adoption",
+"statute of limitations"
+],
+"roman": [
+"dharmaputra ko hadmyad",
+"hadmyad"
+],
+"ne": [
+"हदम्याद",
+"नालिस गर्ने हदम्याद"
+]
+}
+],
+"inheritance, partition (अंश), wills, ancestral property": [
+{
+"en": [
+"partition",
+"property division",
+"partition of property",
+"share of property"
+],
+"roman": [
+"angsa",
+"ansa",
+"angsa banda",
+"ansabanda"
+],
+"ne": [
+"अंश",
+"अंशबन्डा",
+"अंश भाग"
+]
+},
+{
+"en": [
+"ancestral property",
+"joint family property",
+"paternal property"
+],
+"roman": [
+"paitrik sampatti",
+"paitrik",
+"sagol ko sampatti"
+],
+"ne": [
+"पैतृक सम्पत्ति",
+"सगोलको सम्पत्ति"
+]
+},
+{
+"en": [
+"will",
+"testament",
+"last will"
+],
+"roman": [
+"ichhyapatra",
+"icchyapatra",
+"wasiyatnama",
+"wasiyat"
+],
+"ne": [
+"इच्छापत्र",
+"वसीयतनामा",
+"वसीयत"
+]
+},
+{
+"en": [
+"inheritance",
+"succession",
+"right of inheritance"
+],
+"roman": [
+"aputali",
+"uttaradhikar",
+"aputali hak"
+],
+"ne": [
+"अपुताली",
+"उत्तराधिकार",
+"अपुताली हक"
+]
+},
+{
+"en": [
+"heir",
+"successor",
+"legal heir"
+],
+"roman": [
+"hakdar",
+"uttaradhikari",
+"aputali paune"
+],
+"ne": [
+"हकदार",
+"उत्तराधिकारी",
+"अपुताली पाउने व्यक्ति"
+]
+},
+{
+"en": [
+"coparcener",
+"shareholder of property",
+"entitled to partition"
+],
+"roman": [
+"angshiyar",
+"ansiyar",
+"bhagidar"
+],
+"ne": [
+"अंशियार",
+"अंशियारहरू"
+]
+},
+{
+"en": [
+"self-earned property",
+"private property",
+"personal property"
+],
+"roman": [
+"nijo sampatti",
+"nigi sampatti",
+"swaarjit sampatti"
+],
+"ne": [
+"निजी सम्पत्ति",
+"स्वआर्जित सम्पत्ति"
+]
+},
+{
+"en": [
+"joint family",
+"undivided family",
+"common kitchen"
+],
+"roman": [
+"sagol",
+"sagolko pariwar",
+"ekai chulo"
+],
+"ne": [
+"सगोल",
+"सगोलको परिवार",
+"एकै चुलो"
+]
+},
+{
+"en": [
+"separation of family",
+"living separately",
+"kitchen separation"
+],
+"roman": [
+"mano chuttieko",
+"mano chuttaune",
+"bhinna bhayeko"
+],
+"ne": [
+"मानो छुट्टिएको",
+"मानो छुट्याउने",
+"भिन्न भएको"
+]
+},
+{
+"en": [
+"deed of partition",
+"partition deed",
+"registered partition"
+],
+"roman": [
+"angsabanda ko kagaj",
+"angsa patra",
+"likhat"
+],
+"ne": [
+"अंशबन्डाको कागज",
+"अंशपत्र",
+"लिखत"
+]
+},
+{
+"en": [
+"equal share",
+"equal division",
+"equal partition"
+],
+"roman": [
+"barabar hissa",
+"saman hissa",
+"saman bhag"
+],
+"ne": [
+"समान हिस्सा",
+"बराबर अंश",
+"समान भाग"
+]
+},
+{
+"en": [
+"right to property",
+"property right"
+],
+"roman": [
+"sampatti ko hak",
+"sampatti hak"
+],
+"ne": [
+"सम्पत्ति सम्बन्धी हक",
+"सम्पत्तिको अधिकार"
+]
+},
+{
+"en": [
+"disinheritance",
+"depriving of share",
+"no share"
+],
+"roman": [
+"angsa dabi nahune",
+"angsa bata banchit",
+"bedakhil"
+],
+"ne": [
+"अंशबाट बञ्चित",
+"अंश दाबी नहुने"
+]
+},
+{
+"en": [
+"creditor",
+"lender"
+],
+"roman": [
+"sahu",
+"rin dine",
+"lenden karta"
+],
+"ne": [
+"साहु",
+"ऋण दिने व्यक्ति"
+]
+},
+{
+"en": [
+"debt",
+"liability",
+"loan"
+],
+"roman": [
+"rin",
+"karja",
+"rin dhan"
+],
+"ne": [
+"ऋण",
+"दायित्व",
+"कर्जा"
+]
+},
+{
+"en": [
+"division of debt",
+"debt partition"
+],
+"roman": [
+"rin ko banda",
+"rin bandobast"
+],
+"ne": [
+"ऋणको बन्डा",
+"ऋणको दायित्व बाँडफाँड"
+]
+},
+{
+"en": [
+"stepmother",
+"second wife of father"
+],
+"roman": [
+"sauteni ama",
+"sauteni ma"
+],
+"ne": [
+"सौतेनी आमा"
+]
+},
+{
+"en": [
+"stepson",
+"stepdaughter"
+],
+"roman": [
+"sauteni chhora",
+"sauteni chhori"
+],
+"ne": [
+"सौतेनी छोरा",
+"सौतेनी छोरी"
+]
+},
+{
+"en": [
+"widow",
+"widow's share"
+],
+"roman": [
+"bhidawa",
+"एकल महिला",
+"bidhwa ko angsa"
+],
+"ne": [
+"विधवा",
+"एकल महिला",
+"विधवाको अंश"
+]
+},
+{
+"en": [
+"unborn child",
+"child in womb",
+"fetus share"
+],
+"roman": [
+"garbha ko bacha",
+"garbhako bachha",
+"garbhastha shishu"
+],
+"ne": [
+"गर्भको बच्चा",
+"गर्भस्थ शिशु",
+"गर्भमा रहेको बच्चाको अंश"
+]
+},
+{
+"en": [
+"adopted son",
+"adopted daughter",
+"adoption"
+],
+"roman": [
+"dharmaputra",
+"dharmaputri",
+"dharmaputra rakhne"
+],
+"ne": [
+"धर्मपुत्र",
+"धर्मपुत्री",
+"धर्मपुत्र राख्ने"
+]
+},
+{
+"en": [
+"claim for partition",
+"partition lawsuit",
+"suit for partition"
+],
+"roman": [
+"angsa mudda",
+"angsa dabi",
+"angsa pawaun bhani"
+],
+"ne": [
+"अंश मुद्दा",
+"अंश दाबी",
+"अंश चलन"
+]
+},
+{
+"en": [
+"inventory of property",
+"property list",
+"court inventory"
+],
+"roman": [
+"farakfarak",
+"terij",
+"sampatti ko bibaran",
+"phiraat"
+],
+"ne": [
+"सम्पत्तिको विवरण",
+"तथ्याङ्क",
+"तेरिज",
+"फाँटवारी"
+]
+},
+{
+"en": [
+"concealment of property",
+"hiding property"
+],
+"roman": [
+"sampatti lukayeko",
+"chori",
+"angsa churaune"
+],
+"ne": [
+"सम्पत्ति लुकाएको",
+"जीउ मास्ने",
+"अंश चोरी"
+]
+},
+{
+"en": [
+"maintenance",
+"alimony",
+"living expenses"
+],
+"roman": [
+"mana chamal",
+"khana kharcha",
+"palansangrakshan"
+],
+"ne": [
+"मानाचामल",
+"खाद्यान्न खर्च",
+"भरणपोषण"
+]
+},
+{
+"en": [
+"guardian",
+"custodian",
+"protector"
+],
+"roman": [
+"samrakshak",
+"mulyar",
+"rekhdekh karta"
+],
+"ne": [
+"संरक्षक",
+"माथवर"
+]
+},
+{
+"en": [
+"minor",
+"underage child"
+],
+"roman": [
+"nabalak",
+"sano bacha"
+],
+"ne": [
+"नाबालक",
+"नाबालिग"
+]
+},
+{
+"en": [
+"major",
+"adult"
+],
+"roman": [
+"prapte umer",
+"baalik",
+"umer pugeko"
+],
+"ne": [
+"प्राप्त उमेर",
+"बालिग"
+]
+},
+{
+"en": [
+"gift",
+"donation",
+"gift deed"
+],
+"roman": [
+"bakshis",
+"daan",
+"bakshpatra"
+],
+"ne": [
+"बकसपत्र",
+"दान",
+"बकस"
+]
+},
+{
+"en": [
+"conditional gift",
+"gift with condition"
+],
+"roman": [
+"shartasahit ko bakshpatra",
+"sharte baksh"
+],
+"ne": [
+"शर्तसहितको बकसपत्र"
+]
+},
+{
+"en": [
+"unconditional gift",
+"free gift"
+],
+"roman": [
+"halai bakshpatra",
+"halai bakas"
+],
+"ne": [
+"हालैको बकसपत्र",
+"हालेबकस"
+]
+},
+{
+"en": [
+"maternal property",
+"mother's property"
+],
+"roman": [
+"matrik sampatti",
+"ama ko sampatti"
+],
+"ne": [
+"मातृक सम्पत्ति",
+"आमाको निजी सम्पत्ति"
+]
+},
+{
+"en": [
+"stridhan",
+"woman's exclusive property",
+"dowry"
+],
+"roman": [
+"daijo",
+"pewa",
+"stridhan"
+],
+"ne": [
+"दाइजो",
+"पेवा",
+"स्त्रीधन"
+]
+},
+{
+"en": [
+"escheat",
+"ownerless property",
+"government property"
+],
+"roman": [
+"bairas",
+"sarkari swamitwa",
+"aputali khane koi nabhayeko"
+],
+"ne": [
+"बैरस",
+"अपुताली सरकारमा जाने",
+"लावारिस सम्पत्ति"
+]
+},
+{
+"en": [
+"registration of deed",
+"land registration",
+"deed registration"
+],
+"roman": [
+"likhat parit",
+"rajinama",
+"pass garne"
+],
+"ne": [
+"लिखत पारित",
+"रजिष्ट्रेशन",
+"पास गर्ने"
+]
+},
+{
+"en": [
+"land revenue office",
+"malpot",
+"land registry"
+],
+"roman": [
+"malpot karyalaya",
+"malpot"
+],
+"ne": [
+"मालपोत कार्यालय"
+]
+},
+{
+"en": [
+"valuation of property",
+"property valuation"
+],
+"roman": [
+"mulyankan",
+"sampatti mulyankan"
+],
+"ne": [
+"मूल्याङ्कन",
+"सम्पत्ति मूल्याङ्कन"
+]
+},
+{
+"en": [
+"co-owner",
+"joint owner"
+],
+"roman": [
+"saha swami",
+"sajha dhani"
+],
+"ne": [
+"सह-स्वामी",
+"सगोलको हिस्सेदार"
+]
+},
+{
+"en": [
+"dispute",
+"litigation",
+"property dispute"
+],
+"roman": [
+"bibad",
+"jhagada",
+"kajiya"
+],
+"ne": [
+"विवाद",
+"झगडा",
+"कजिया"
+]
+},
+{
+"en": [
+"compromise deed",
+"settlement deed",
+"amicable settlement"
+],
+"roman": [
+"milapatra",
+"samjhauta",
+"melmilap"
+],
+"ne": [
+"मिलापत्र",
+"सम्झौता पत्र"
+]
+},
+{
+"en": [
+"court fee",
+"filing fee"
+],
+"roman": [
+"adalati dastur",
+"court fee",
+"mudda kharcha"
+],
+"ne": [
+"अदालती दस्तुर",
+"कोर्ट फि"
+]
+},
+{
+"en": [
+"limitation period",
+"time limit for filing"
+],
+"roman": [
+"hadmyad",
+"nalish garne samay"
+],
+"ne": [
+"हदम्याद",
+"नालिस गर्ने म्याद"
+]
+},
+{
+"en": [
+"jurisdiction",
+"court authority"
+],
+"roman": [
+"khetradhikar",
+"chetradhikar"
+],
+"ne": [
+"क्षेत्राधिकार"
+]
+},
+{
+"en": [
+"stay order",
+"injunction",
+"property freeze"
+],
+"roman": [
+"roka",
+"stahgit",
+"nishedhagya"
+],
+"ne": [
+"रोक्का",
+"निषेधाज्ञा",
+"सम्पत्ति रोक्का"
+]
+},
+{
+"en": [
+"release of property",
+"unfreeze property"
+],
+"roman": [
+"fukuwa",
+"roka fukuwa"
+],
+"ne": [
+"फुकुवा",
+"रोक्का फुकुवा"
+]
+},
+{
+"en": [
+"execution of partition",
+"actual division of land"
+],
+"roman": [
+"kitta kat",
+"baga lagaune",
+"chalan paune"
+],
+"ne": [
+"कित्ताकाट",
+"चलन चलाउने",
+"अंश चलन"
+]
+},
+{
+"en": [
+"verbal partition",
+"informal partition"
+],
+"roman": [
+"gharayasi banda",
+"maukhi banda"
+],
+"ne": [
+"घरायसी बन्डा",
+"मौखिक बन्डा"
+]
+},
+{
+"en": [
+"household head",
+"head of family"
+],
+"roman": [
+"ghar muli",
+"gharmuli"
+],
+"ne": [
+"घरमूली"
+]
+},
+{
+"en": [
+"illegitimate child",
+"child born out of wedlock"
+],
+"roman": [
+"syalputra",
+"byabhachar bata janmeko"
+],
+"ne": [
+"ब्यभिचारबाट जन्मेको",
+"नाजायज सन्तान"
+]
+},
+{
+"en": [
+"right of survivorship",
+"survivor's right"
+],
+"roman": [
+"bachneko hak",
+"uttarjiwi hak"
+],
+"ne": [
+"उत्तरजीवीको हक"
+]
+}
+],
+"contracts, sale, agency, guarantees": [
+{
+"en": [
+"contract",
+"agreement",
+"legal pact"
+],
+"roman": [
+"karar",
+"samjhauta",
+"likhat"
+],
+"ne": [
+"करार",
+"सम्झौता",
+"लिखत"
+]
+},
+{
+"en": [
+"sale",
+"purchase",
+"buying and selling"
+],
+"roman": [
+"kharid bikri",
+"bikri",
+"bechbikh"
+],
+"ne": [
+"खरिद बिक्री",
+"बिक्री",
+"बेचबिखन"
+]
+},
+{
+"en": [
+"agency",
+"representation",
+"proxy"
+],
+"roman": [
+"agency",
+"pratinidhitwo",
+"abhikarta"
+],
+"ne": [
+"एजेन्सी",
+"प्रतिनिधित्व",
+"अभिकर्ता"
+]
+},
+{
+"en": [
+"guarantee",
+"surety",
+"warranty"
+],
+"roman": [
+"jamanat",
+"manjuri",
+"guarantee"
+],
+"ne": [
+"जमानत",
+"मन्जुरी",
+"ज्यामानत"
+]
+},
+{
+"en": [
+"breach of contract",
+"contract violation"
+],
+"roman": [
+"karar bhanga",
+"samjhauta ullanghan"
+],
+"ne": [
+"करार भङ्ग",
+"सम्झौता उल्लंघन"
+]
+},
+{
+"en": [
+"compensation",
+"damages",
+"indemnity"
+],
+"roman": [
+"chhatipurti",
+"harjana"
+],
+"ne": [
+"क्षतिपूर्ति",
+"हर्जाना"
+]
+},
+{
+"en": [
+"consideration",
+"quid pro quo",
+"price"
+],
+"roman": [
+"pratiphala",
+"mulya"
+],
+"ne": [
+"प्रतिफल",
+"मूल्य"
+]
+},
+{
+"en": [
+"proposal",
+"offer"
+],
+"roman": [
+"prastab",
+"peshkash"
+],
+"ne": [
+"प्रस्ताव",
+"पेशकश"
+]
+},
+{
+"en": [
+"acceptance",
+"consent"
+],
+"roman": [
+"swikriti",
+"manjuri"
+],
+"ne": [
+"स्वीकृति",
+"मन्जुरी"
+]
+},
+{
+"en": [
+"void contract",
+"invalid agreement"
+],
+"roman": [
+"badrabhagi karar",
+"shunya karar"
+],
+"ne": [
+"बदरभागी करार",
+"शून्य करार"
+]
+},
+{
+"en": [
+"voidable contract"
+],
+"roman": [
+"badragarna yogya karar",
+"badrabhagi"
+],
+"ne": [
+"बदर गराउन योग्य करार",
+"बदरभागी"
+]
+},
+{
+"en": [
+"agent",
+"representative"
+],
+"roman": [
+"abhikarta",
+"pratinidhi"
+],
+"ne": [
+"अभिकर्ता",
+"प्रतिनिधि"
+]
+},
+{
+"en": [
+"principal",
+"employer"
+],
+"roman": [
+"mukhya",
+"dhani",
+"niyokta"
+],
+"ne": [
+"मुख्य",
+"धनी",
+"नियोक्ता"
+]
+},
+{
+"en": [
+"sub-agent"
+],
+"roman": [
+"upabhikarta",
+"sahayak pratinidhi"
+],
+"ne": [
+"उपअभिकर्ता",
+"सहायक प्रतिनिधि"
+]
+},
+{
+"en": [
+"power of attorney",
+"authorization letter"
+],
+"roman": [
+"adhikarnama",
+"manjuribhama",
+"warisnama"
+],
+"ne": [
+"अधिकारनामा",
+"मन्जुरीनामा",
+"वारिसनामा"
+]
+},
+{
+"en": [
+"earnest money",
+"advance payment",
+"deposit"
+],
+"roman": [
+"baina",
+"bainabatta",
+"peshki"
+],
+"ne": [
+"बैना",
+"बैनाबट्टा",
+"पेश्की"
+]
+},
+{
+"en": [
+"seller",
+"vendor"
+],
+"roman": [
+"bikreta",
+"bechne wala"
+],
+"ne": [
+"विक्रेता",
+"बेच्नेवाला"
+]
+},
+{
+"en": [
+"buyer",
+"purchaser"
+],
+"roman": [
+"kretar",
+"kinne wala"
+],
+"ne": [
+"क्रेता",
+"किन्नेवाला"
+]
+},
+{
+"en": [
+"goods",
+"merchandise",
+"chattel"
+],
+"roman": [
+"malbastu",
+"samagri"
+],
+"ne": [
+"मालवस्तु",
+"सामग्री"
+]
+},
+{
+"en": [
+"delivery of goods",
+"handover"
+],
+"roman": [
+"malbastu hastantaran",
+"bujharath"
+],
+"ne": [
+"मालवस्तु हस्तान्तरण",
+"बुझारथ"
+]
+},
+{
+"en": [
+"warranty",
+"guarantee of quality"
+],
+"roman": [
+"bharpai",
+"guarantee",
+"gunastariya"
+],
+"ne": [
+"ग्यारेन्टी",
+"गुणस्तरको प्रत्याभूति"
+]
+},
+{
+"en": [
+"performance of contract",
+"execution"
+],
+"roman": [
+"karar palan",
+"karar karyanwayan"
+],
+"ne": [
+"करार पालन",
+"करार कार्यान्वयन"
+]
+},
+{
+"en": [
+"specific performance"
+],
+"roman": [
+"bishes palan",
+"jastatastai palan"
+],
+"ne": [
+"विशेष पालन",
+"जस्ताको तस्तै पालन"
+]
+},
+{
+"en": [
+"unjust enrichment"
+],
+"roman": [
+"anyayochit labh",
+"binakaran labh"
+],
+"ne": [
+"अन्यायोचित लाभ",
+"बिनाकारण लाभ"
+]
+},
+{
+"en": [
+"quasi contract"
+],
+"roman": [
+"kararsarah",
+"ardha karar"
+],
+"ne": [
+"करारसरह",
+"अर्ध करार"
+]
+},
+{
+"en": [
+"contingent contract"
+],
+"roman": [
+"shartayukta karar",
+"ghatnabas hune karar"
+],
+"ne": [
+"शर्तयुक्त करार",
+"घटनावश हुने करार"
+]
+},
+{
+"en": [
+"coercion",
+"duress",
+"force"
+],
+"roman": [
+"jorjabarjasti",
+"balatkar",
+"dhamki"
+],
+"ne": [
+"जोरजबरजस्ती",
+"धम्की"
+]
+},
+{
+"en": [
+"undue influence"
+],
+"roman": [
+"anuchit prabhav"
+],
+"ne": [
+"अनुचित प्रभाव"
+]
+},
+{
+"en": [
+"fraud",
+"cheating",
+"misrepresentation"
+],
+"roman": [
+"kapat",
+"dhoka",
+"jalsazi"
+],
+"ne": [
+"कपट",
+"धोखा",
+"जालसाजी"
+]
+},
+{
+"en": [
+"mistake",
+"error"
+],
+"roman": [
+"bhul",
+"galti"
+],
+"ne": [
+"भूल",
+"गलती"
+]
+},
+{
+"en": [
+"limitation period",
+"time limit"
+],
+"roman": [
+"hadmyad",
+"samay sima"
+],
+"ne": [
+"हदम्याद",
+"समय सीमा"
+]
+},
+{
+"en": [
+"joint liability",
+"solidary liability"
+],
+"roman": [
+"samyukta dayitwa"
+],
+"ne": [
+"संयुक्त दायित्व"
+]
+},
+{
+"en": [
+"liquidated damages",
+"pre-estimated compensation"
+],
+"roman": [
+"nirdharit chhatipurti"
+],
+"ne": [
+"निर्धारित क्षतिपूर्ति"
+]
+},
+{
+"en": [
+"bailment"
+],
+"roman": [
+"nikshep",
+"dharauti rakhne"
+],
+"ne": [
+"निक्षेप",
+"धरौटी राख्ने कार्य"
+]
+},
+{
+"en": [
+"pledge",
+"pawn",
+"mortgage"
+],
+"roman": [
+"bandhaki",
+"rehan",
+"dhito"
+],
+"ne": [
+"बन्धकी",
+"रेहन",
+"धितो"
+]
+},
+{
+"en": [
+"pawnor",
+"pledger"
+],
+"roman": [
+"dhito rakhne wala",
+"bandhaki dine"
+],
+"ne": [
+"धितो राख्नेवाला",
+"बन्धकी दिने"
+]
+},
+{
+"en": [
+"pawnee",
+"pledgee"
+],
+"roman": [
+"dhito line wala",
+"bandhaki line"
+],
+"ne": [
+"धितो लिनेवाला",
+"बन्धकी लिने"
+]
+},
+{
+"en": [
+"indemnity contract"
+],
+"roman": [
+"chhatipurti karar",
+"harsajhi karar"
+],
+"ne": [
+"क्षतिपूर्ति करार"
+]
+},
+{
+"en": [
+"creditor",
+"lender"
+],
+"roman": [
+"saahu",
+"rinadata"
+],
+"ne": [
+"साहु",
+"ऋणदाता"
+]
+},
+{
+"en": [
+"debtor",
+"borrower"
+],
+"roman": [
+"asami",
+"rinigrahi",
+"rini"
+],
+"ne": [
+"आसामी",
+"ऋणी"
+]
+},
+{
+"en": [
+"surety",
+"guarantor"
+],
+"roman": [
+"jamanatकर्ता",
+"jamani",
+"guarantor"
+],
+"ne": [
+"जमानतकर्ता",
+"जमानी"
+]
+},
+{
+"en": [
+"discharge of contract",
+"termination"
+],
+"roman": [
+"karar ko antya",
+"karar samapta"
+],
+"ne": [
+"करारको अन्त्य",
+"करार समाप्त"
+]
+},
+{
+"en": [
+"novation",
+"new contract"
+],
+"roman": [
+"karar pariwartan",
+"naya karar"
+],
+"ne": [
+"करार परिवर्तन",
+"नयाँ करार"
+]
+},
+{
+"en": [
+"rescission",
+"cancellation"
+],
+"roman": [
+"karar raddikaran",
+"khareji"
+],
+"ne": [
+"करार रद्दीकरण",
+"खारेजी"
+]
+},
+{
+"en": [
+"tender",
+"bid"
+],
+"roman": [
+"bolpatra",
+"tender"
+],
+"ne": [
+"बोलपत्र",
+"टेण्डर"
+]
+},
+{
+"en": [
+"auction sale"
+],
+"roman": [
+"lilam bikri",
+"bhadabhada"
+],
+"ne": [
+"लिलाम बिक्री"
+]
+},
+{
+"en": [
+"bill of sale",
+"invoice",
+"receipt"
+],
+"roman": [
+"bharpai",
+"bill",
+"rasid"
+],
+"ne": [
+"भरपाई",
+"बिल",
+"रसिद"
+]
+},
+{
+"en": [
+"arbitration clause"
+],
+"roman": [
+"madhyasthata daphah",
+"madhyasthata samjhauta"
+],
+"ne": [
+"मध्यस्थता दफा",
+"मध्यस्थता सम्झौता"
+]
+},
+{
+"en": [
+"good faith",
+"bona fide"
+],
+"roman": [
+"asali niyata",
+"bhalomansa"
+],
+"ne": [
+"असल नियत",
+"सद्भाव"
+]
+},
+{
+"en": [
+"bad faith",
+"mala fide"
+],
+"roman": [
+"badiyat",
+"khoti niyata"
+],
+"ne": [
+"बदनियत",
+"खराब नियत"
+]
+}
+],
+"loans, debt recovery, mortgage, interest": [
+{
+"en": [
+"loan",
+"debt",
+"borrowed money"
+],
+"roman": [
+"rin",
+"ryn",
+"sapat",
+"sapati"
+],
+"ne": [
+"ऋण",
+"सापटी",
+"कर्जा"
+]
+},
+{
+"en": [
+"lender",
+"creditor"
+],
+"roman": [
+"sahu",
+"sahuki",
+"rin dine"
+],
+"ne": [
+"साहू",
+"ऋणदाता"
+]
+},
+{
+"en": [
+"borrower",
+"debtor"
+],
+"roman": [
+"asami",
+"rin line"
+],
+"ne": [
+"आसामी",
+"ऋणी"
+]
+},
+{
+"en": [
+"interest",
+"interest rate"
+],
+"roman": [
+"byaj",
+"byaj dar"
+],
+"ne": [
+"ब्याज",
+"ब्याजदर"
+]
+},
+{
+"en": [
+"principal amount",
+"capital sum"
+],
+"roman": [
+"sawa",
+"sawa ropai",
+"mool dhana"
+],
+"ne": [
+"साँवा",
+"मूलधन"
+]
+},
+{
+"en": [
+"promissory note",
+"loan deed",
+"loan agreement"
+],
+"roman": [
+"kapali tamasuk",
+"tamasuk",
+"lingden kagaj"
+],
+"ne": [
+"कपली तमसुक",
+"तमसुक",
+"लेनदेनको कागज"
+]
+},
+{
+"en": [
+"mortgage",
+"pledge",
+"pawn"
+],
+"roman": [
+"drito",
+"dhitoptra",
+"bandhak",
+"dhitopatrapana"
+],
+"ne": [
+"धितो",
+"बन्धक",
+"दृष्टिबन्धक"
+]
+},
+{
+"en": [
+"usufructuary mortgage"
+],
+"roman": [
+"bhog bandhak"
+],
+"ne": [
+"भोगबन्धक"
+]
+},
+{
+"en": [
+"hypothecation mortgage",
+"simple mortgage"
+],
+"roman": [
+"drishti bandhak"
+],
+"ne": [
+"दृष्टिबन्धक"
+]
+},
+{
+"en": [
+"debt recovery",
+"recovery of loan"
+],
+"roman": [
+"rin usuli",
+"sawa byaj uthaune"
+],
+"ne": [
+"ऋण असुली",
+"बिगो असुल"
+]
+},
+{
+"en": [
+"loan default",
+"non-payment"
+],
+"roman": [
+"rin natirnu",
+"asami bhagyo",
+"bhaneko samayama natirya"
+],
+"ne": [
+"ऋण नतिरेको",
+"भाखा नाघेको"
+]
+},
+{
+"en": [
+"default period",
+"due date expiration"
+],
+"roman": [
+"bhakha nagheko",
+"bhakha"
+],
+"ne": [
+"भाखा नाघेको",
+"भाखा"
+]
+},
+{
+"en": [
+"bouncing check",
+"cheque bounce",
+"dishonored check"
+],
+"roman": [
+"cheque bounce",
+"check bounce",
+"khatama paisa nabhae"
+],
+"ne": [
+"चेक अनादर",
+"चेक बाउन्स"
+]
+},
+{
+"en": [
+"banking offense",
+"banking crime"
+],
+"roman": [
+"banking kasur",
+"banking kasoor"
+],
+"ne": [
+"बैंकिङ्ग कसूर"
+]
+},
+{
+"en": [
+"guarantor",
+"surety"
+],
+"roman": [
+"jamani",
+"jamanat basne",
+"jamanat"
+],
+"ne": [
+"जमानी",
+"जमानतदार"
+]
+},
+{
+"en": [
+"guarantee deed"
+],
+"roman": [
+"jamanat patra",
+"jamani kagaj"
+],
+"ne": [
+"जमानतपत्र",
+"जमानी कागज"
+]
+},
+{
+"en": [
+"compound interest"
+],
+"roman": [
+"chakriya byaj",
+"byaj ko byaj"
+],
+"ne": [
+"चक्रवृद्धि ब्याज"
+]
+},
+{
+"en": [
+"maximum interest rate limit"
+],
+"roman": [
+"byaj ko sima",
+"dash pratishat byaj"
+],
+"ne": [
+"ब्याजको हद",
+"कानूनी ब्याजदर"
+]
+},
+{
+"en": [
+"loan transaction",
+"money lending"
+],
+"roman": [
+"lenden",
+"len den"
+],
+"ne": [
+"लेनदेन",
+"लेनदेन व्यवहार"
+]
+},
+{
+"en": [
+"loan recovery suit",
+"lawsuit for debt recovery"
+],
+"roman": [
+"lenden mudda",
+"rin usuli mudda"
+],
+"ne": [
+"लेनदेन मुद्दा",
+"ऋण असुली नालिश"
+]
+},
+{
+"en": [
+"blacklisting",
+"black listed debtor"
+],
+"roman": [
+"kalo suchi",
+"black list"
+],
+"ne": [
+"कालोसूची",
+"कालोसूचीमा राख्ने"
+]
+},
+{
+"en": [
+"auction",
+"public sale of mortgaged property"
+],
+"roman": [
+"nilam",
+"nilami",
+"nilam bikri"
+],
+"ne": [
+"लिलाम",
+"लिलाम बिक्री"
+]
+},
+{
+"en": [
+"valuer",
+"property valuation"
+],
+"roman": [
+"mulyankan",
+"dhito mulyankan"
+],
+"ne": [
+"मूल्याङ्कन",
+"धितो मूल्याङ्कन"
+]
+},
+{
+"en": [
+"debt recovery tribunal"
+],
+"roman": [
+"rin usuli tribunal",
+"rin usuli nyayadhikaran"
+],
+"ne": [
+"ऋण असुली न्यायाधिकरण"
+]
+},
+{
+"en": [
+"appellate debt recovery tribunal"
+],
+"roman": [
+"punaravedan rin usuli tribunal"
+],
+"ne": [
+"ऋण असुली पुनरावेदन न्यायाधिकरण"
+]
+},
+{
+"en": [
+"claim amount",
+"disputed amount"
+],
+"roman": [
+"bigo",
+"bigo daabi",
+"muddako bigo"
+],
+"ne": [
+"बिगो",
+"बिगो दाबी"
+]
+},
+{
+"en": [
+"excessive interest",
+"usury"
+],
+"roman": [
+"adhik byaj",
+"mithe byaj",
+"meter byaj"
+],
+"ne": [
+"अनुचित लेनदेन",
+"मिटरब्याज"
+]
+},
+{
+"en": [
+"loan write off"
+],
+"roman": [
+"rin minaha",
+"rin tirna naparne"
+],
+"ne": [
+"ऋण मिनाहा"
+]
+},
+{
+"en": [
+"installment"
+],
+"roman": [
+"kistha",
+"kista"
+],
+"ne": [
+"किस्ता"
+]
+},
+{
+"en": [
+"equated monthly installment",
+"emi"
+],
+"roman": [
+"masik kista"
+],
+"ne": [
+"मासिक किस्ता"
+]
+},
+{
+"en": [
+"receipt",
+"acknowledgement of payment"
+],
+"roman": [
+"bharpai",
+"paisa bujheko kagaj"
+],
+"ne": [
+"भरपाई"
+]
+},
+{
+"en": [
+"partial payment"
+],
+"roman": [
+"aamsik bhugtani",
+"sapat firta"
+],
+"ne": [
+"आंशिक भुक्तानी",
+"काटौँटी"
+]
+},
+{
+"en": [
+"statute of limitations",
+"limitation period for loan"
+],
+"roman": [
+"hadmyad",
+"lenden ko hadmyad"
+],
+"ne": [
+"हदम्याद"
+]
+},
+{
+"en": [
+"attachment of property",
+"freezing assets"
+],
+"roman": [
+"rokkha",
+"rokka",
+"sampatti rokka"
+],
+"ne": [
+"रोक्का",
+"सम्पत्ति रोक्का"
+]
+},
+{
+"en": [
+"release of property",
+"unfreezing assets"
+],
+"roman": [
+"fukuwa",
+"rokka fukuwa"
+],
+"ne": [
+"फुुकुवा",
+"रोक्का फुुकुवा"
+]
+},
+{
+"en": [
+"collateral security"
+],
+"roman": [
+"suraksha",
+"dhitoko suraksha"
+],
+"ne": [
+"सुरक्षण",
+"धितो सुरक्षण"
+]
+},
+{
+"en": [
+"fraudulent loan",
+"cheating in loan"
+],
+"roman": [
+"jhuta kagaj",
+"thagi lenden"
+],
+"ne": [
+"ठगी",
+"किर्ते"
+]
+},
+{
+"en": [
+"forgery of loan deed"
+],
+"roman": [
+"kirte tamasuk",
+"sikka kirte"
+],
+"ne": [
+"किर्ते तमसुक",
+"कीर्ते कागजात"
+]
+},
+{
+"en": [
+"loan settlement",
+"compromise"
+],
+"roman": [
+"melmilap",
+"rin milpatra"
+],
+"ne": [
+"मिलापत्र",
+"ऋण फछ्र्यौट"
+]
+},
+{
+"en": [
+"execution of decree",
+"court enforcement"
+],
+"roman": [
+"faisala karyanvayan",
+"bigo bharai paun"
+],
+"ne": [
+"फैसला कार्यान्वयन",
+"बिगो भराउने"
+]
+},
+{
+"en": [
+"microfinance loan"
+],
+"roman": [
+"laghubitta rin"
+],
+"ne": [
+"लघुवित्त कर्जा"
+]
+},
+{
+"en": [
+"hire purchase loan"
+],
+"roman": [
+"hire purchase",
+"gaadi rin"
+],
+"ne": [
+"भाडा खरिद कर्जा",
+"हायार पर्चेज कर्जा"
+]
+},
+{
+"en": [
+"unsecured loan"
+],
+"roman": [
+"bina dhito rin",
+"kapali rin"
+],
+"ne": [
+"बिना धितो कर्जा",
+"कपली कर्जा"
+]
+},
+{
+"en": [
+"penal interest",
+"penalty interest"
+],
+"roman": [
+"harjana",
+"harjana byaj",
+"penalty"
+],
+"ne": [
+"हर्जाना ब्याज",
+"मनासिब हर्जाना"
+]
+},
+{
+"en": [
+"loan tenure",
+"maturity period"
+],
+"roman": [
+"rin ko abadhi",
+"bhakha samaya"
+],
+"ne": [
+"ऋणको अवधि",
+"भाखा अवधि"
+]
+}
+],
+"land ownership, land registration, tenancy of farmland (mohi), land ceiling": [
+{
+"en": [
+"land ownership",
+"land title",
+"ownership of land"
+],
+"roman": [
+"jaggadhani",
+"jagga dhani",
+"swamitwa",
+"jaggako swamitva"
+],
+"ne": [
+"जग्गाधनी",
+"स्वामित्व",
+"जग्गा स्वामित्व"
+]
+},
+{
+"en": [
+"land registration",
+"land pass",
+"registration of land"
+],
+"roman": [
+"jagga registration",
+"jagga pass",
+"likhat parit",
+"namshari"
+],
+"ne": [
+"लिखत पारित",
+"जग्गा दर्ता",
+"नामसारी"
+]
+},
+{
+"en": [
+"tenant",
+"tenant farmer",
+"tiller"
+],
+"roman": [
+"mohi",
+"mohi hak",
+"khetala",
+"mohiya"
+],
+"ne": [
+"मोही",
+"मोही हक",
+"कमाउने व्यक्ति"
+]
+},
+{
+"en": [
+"landlord",
+"land owner"
+],
+"roman": [
+"talsing",
+"jagga dhani",
+"talsing hak"
+],
+"ne": [
+"तल्सीङ",
+"जग्गाधनी"
+]
+},
+{
+"en": [
+"land ceiling",
+"maximum land limit"
+],
+"roman": [
+"jagga hadbadi",
+"hadbadi",
+"had myad jagga"
+],
+"ne": [
+"हदबन्दी",
+"जग्गाको हदबन्दी"
+]
+},
+{
+"en": [
+"land revenue office",
+"land registry office",
+"malpot"
+],
+"roman": [
+"malpot",
+"malpot karyalaya",
+"bhumisudhar"
+],
+"ne": [
+"मालपोत कार्यालय",
+"भूमि सुधार कार्यालय"
+]
+},
+{
+"en": [
+"land tax",
+"land revenue"
+],
+"roman": [
+"malpot tiro",
+"tiro",
+"jagga kar",
+"bhumikar"
+],
+"ne": [
+"मालपोत",
+"तिरो",
+"भूमिकर"
+]
+},
+{
+"en": [
+"land measurement",
+"survey",
+"cadastral survey"
+],
+"roman": [
+"napi",
+"jagga napi",
+"napsa",
+"cadastral"
+],
+"ne": [
+"नापी",
+"जग्गा नापी",
+"नक्सा स्रेस्ता"
+]
+},
+{
+"en": [
+"land ownership certificate",
+"land deed",
+"red book"
+],
+"roman": [
+"lalpurja",
+"jagga dhani praman patra",
+"purja"
+],
+"ne": [
+"जग्गाधनी प्रमाण पुर्जा",
+"लालपुर्जा"
+]
+},
+{
+"en": [
+"land record",
+"land register"
+],
+"roman": [
+"shresta",
+"jagga shresta",
+"moth",
+"dhaddada"
+],
+"ne": [
+"स्रेस्ता",
+"मोथ",
+"जग्गा स्रेस्ता"
+]
+},
+{
+"en": [
+"division of land",
+"partition of land",
+"plotting"
+],
+"roman": [
+"kitta kat",
+"kittakat",
+"jagga khandikaran"
+],
+"ne": [
+"कित्ताकाट",
+"जग्गा खण्डीकरण"
+]
+},
+{
+"en": [
+"parcel number",
+"plot number"
+],
+"roman": [
+"kitta nombar",
+"kitta no",
+"kitta"
+],
+"ne": [
+"कित्ता नम्बर",
+"कित्ता"
+]
+},
+{
+"en": [
+"public land",
+"government land"
+],
+"roman": [
+"sarbajanik jagga",
+"sarkari jagga",
+"ailani"
+],
+"ne": [
+"सार्वजनिक जग्गा",
+"सरकारी जग्गा",
+"ऐलानी जग्गा"
+]
+},
+{
+"en": [
+"unregistered land",
+"barren land",
+"waste land"
+],
+"roman": [
+"ailani jagga",
+"ailani",
+"parti jagga"
+],
+"ne": [
+"ऐलानी",
+"पर्ती जग्गा",
+"बेदर्ता जग्गा"
+]
+},
+{
+"en": [
+"guthi land",
+"trust land"
+],
+"roman": [
+"guthi jagga",
+"guthi",
+"raj guthi"
+],
+"ne": [
+"गुठी जग्गा",
+"गुठी",
+"राजगुठी"
+]
+},
+{
+"en": [
+"tenancy right",
+"tenant rights"
+],
+"roman": [
+"mohi hak",
+"mohiyani hak",
+"mohi ko hak"
+],
+"ne": [
+"मोही हक",
+"मोहीयानी हक"
+]
+},
+{
+"en": [
+"division of tenancy land",
+"mohi division"
+],
+"roman": [
+"mohi badfadh",
+"mohi jagga badfadh",
+"mohi ra talsing"
+],
+"ne": [
+"मोही बाँडफाँड",
+"जग्गा बाँडफाँड"
+]
+},
+{
+"en": [
+"rent in kind",
+"crop share",
+"tenant rent"
+],
+"roman": [
+"kut",
+"kut bali",
+"bali",
+"thekka"
+],
+"ne": [
+"कुत",
+"कुत बाली",
+"बाली"
+]
+},
+{
+"en": [
+"eviction of tenant",
+"removal of tenant"
+],
+"roman": [
+"mohi nishkasand",
+"mohi hataune",
+"bali japti"
+],
+"ne": [
+"मोही निष्कासन",
+"मोही निष्काशन"
+]
+},
+{
+"en": [
+"land acquisition",
+"government taking land"
+],
+"roman": [
+"jagga praptikar",
+"jagga adhigrahan",
+"muyoja"
+],
+"ne": [
+"जग्गा प्राप्ति",
+"जग्गा अधिग्रहण"
+]
+},
+{
+"en": [
+"compensation for land"
+],
+"roman": [
+"muwabja",
+"muabja",
+"chhatipurti"
+],
+"ne": [
+"मुआब्जा",
+"क्षतिपूर्ति"
+]
+},
+{
+"en": [
+"land encroachment",
+"illegal land occupation"
+],
+"roman": [
+"jagga micheko",
+"jagga hड़p",
+"sima michne"
+],
+"ne": [
+"जग्गा मिचाई",
+"जग्गा अतिक्रमण",
+"सिमाना मिच्ने"
+]
+},
+{
+"en": [
+"boundary",
+"border of land"
+],
+"roman": [
+"sandh",
+"simana",
+"sandhiyar"
+],
+"ne": [
+"साँध",
+"सिमाना"
+]
+},
+{
+"en": [
+"neighboring land owner",
+"adjoining owner"
+],
+"roman": [
+"sandhiyar",
+"sadh ko jagga",
+"p पड़ोसी"
+],
+"ne": [
+"साँधियार"
+]
+},
+{
+"en": [
+"land use",
+"land classification"
+],
+"roman": [
+"bhumi upayog",
+"bhumiko borigikaran",
+"krishi jagga"
+],
+"ne": [
+"भूमि उपयोग",
+"वर्गीकरण",
+"कृषि क्षेत्र"
+]
+},
+{
+"en": [
+"agricultural land",
+"farmland"
+],
+"roman": [
+"krishi jagga",
+"khetiyogya jagga",
+"khet",
+"bari"
+],
+"ne": [
+"कृषि जग्गा",
+"खेतीयोग्य जग्गा",
+"खेतीपाती"
+]
+},
+{
+"en": [
+"residential land",
+"housing land"
+],
+"roman": [
+"ghaderi",
+"abasik jagga",
+"ghar banaune jagga"
+],
+"ne": [
+"घडेरी",
+"आवासीय जग्गा"
+]
+},
+{
+"en": [
+"commercial land"
+],
+"roman": [
+"byabasayik jagga",
+"byaparik jagga"
+],
+"ne": [
+"व्यावसायिक जग्गा"
+]
+},
+{
+"en": [
+"land transaction",
+"buying and selling land"
+],
+"roman": [
+"jagga karobar",
+"jagga kharid bikri",
+"benaami"
+],
+"ne": [
+"जग्गा कारोबार",
+"जग्गा खरिद बिक्री"
+]
+},
+{
+"en": [
+"power of attorney for land",
+"authorized agent"
+],
+"roman": [
+"manjurnama",
+"waris",
+"warisnama"
+],
+"ne": [
+"मन्जुरनामा",
+"वारिसनामा"
+]
+},
+{
+"en": [
+"mortgage of land",
+"land collateral"
+],
+"roman": [
+"jagga dharauti",
+"jagga bandhak",
+"dhito",
+"drishya bandhak"
+],
+"ne": [
+"जग्गा धितो",
+"दृष्टिबन्धक",
+"बन्धक"
+]
+},
+{
+"en": [
+"release of mortgage",
+"freeing land collateral"
+],
+"roman": [
+"dhito fukuwa",
+"fukuwa",
+"bandhak mukti"
+],
+"ne": [
+"धितो फुकुवा",
+"फुकुवा"
+]
+},
+{
+"en": [
+"excess land",
+"land above ceiling"
+],
+"roman": [
+"hadbadi bhanda dherai",
+"hadbadi jagga",
+"fajil jagga"
+],
+"ne": [
+"हदबन्दी भन्दा बढीको जग्गा",
+"फाजिल जग्गा"
+]
+},
+{
+"en": [
+"land reform"
+],
+"roman": [
+"bhumi sudhar",
+"bhumisudhar"
+],
+"ne": [
+"भूमि सुधार"
+]
+},
+{
+"en": [
+"land dispute",
+"land case"
+],
+"roman": [
+"jagga jhagada",
+"jagga mamila",
+"mudda"
+],
+"ne": [
+"जग्गा विवाद",
+"जग्गा सम्बन्धी मुद्दा"
+]
+},
+{
+"en": [
+"right of way",
+"road access"
+],
+"roman": [
+"bato",
+"nikas",
+"bato nikalne",
+"bhogadhikar"
+],
+"ne": [
+"निकास",
+"बाटो",
+"भोगाधिकार"
+]
+},
+{
+"en": [
+"adverse possession",
+"long term possession"
+],
+"roman": [
+"bhogchalan",
+"lambo samay ko bhog",
+"chalan"
+],
+"ne": [
+"भोगचलन",
+"चलन भोग"
+]
+},
+{
+"en": [
+"joint land ownership",
+"co-ownership"
+],
+"roman": [
+"sanyukta jagga",
+"sanyukta swamitva",
+"sajha jagga"
+],
+"ne": [
+"संयुक्त स्वामित्व",
+"सगोलको जग्गा"
+]
+},
+{
+"en": [
+"transfer of land title",
+"mutation"
+],
+"roman": [
+"namshari",
+"dakhil kharij",
+"dakhilkharij"
+],
+"ne": [
+"दाखिल खारेज",
+"नामसारी"
+]
+},
+{
+"en": [
+"forfeiture of land",
+"confiscation of land"
+],
+"roman": [
+"jagga japti",
+"japti",
+"sarkari karan"
+],
+"ne": [
+"जग्गा जफत",
+"जफत"
+]
+},
+{
+"en": [
+"land measurement unit",
+"ropani",
+"bigha"
+],
+"roman": [
+"ropani",
+"bigha",
+"kattha",
+"dhur",
+"aana",
+"paisa",
+"dam"
+],
+"ne": [
+"रोपनी",
+"बिघा",
+"कट्ठा",
+"धुर",
+"आना"
+]
+},
+{
+"en": [
+"field book",
+"survey record"
+],
+"roman": [
+"field book",
+"fieldbook",
+"napi naksa"
+],
+"ne": [
+"फिल्डबुक",
+"नापी नक्सा"
+]
+},
+{
+"en": [
+"land lease",
+"tenancy contract"
+],
+"roman": [
+"jagga bahal",
+"karar",
+"ijajatpatra"
+],
+"ne": [
+"जग्गा बहाल",
+"करारनामा"
+]
+},
+{
+"en": [
+"fraudulent land transfer",
+"fake land papers"
+],
+"roman": [
+"kirte lalpurja",
+"kirte",
+"jali dastabej"
+],
+"ne": [
+"कीर्ते लिखत",
+"कीर्ते लालपुर्जा"
+]
+},
+{
+"en": [
+"land administration"
+],
+"roman": [
+"bhumi prashasan",
+"jagga prashasan"
+],
+"ne": [
+"भूमि प्रशासन"
+]
+}
+],
+"neighbour disputes, easements, encroachment, boundaries": [
+{
+"en": [
+"neighbour",
+"neighbor",
+"neighboring",
+"next door"
+],
+"roman": [
+"pachhiyar",
+"chhimeki",
+"sadhiyar",
+"padosi"
+],
+"ne": [
+"सँधियार",
+"छिमेकी"
+]
+},
+{
+"en": [
+"boundary",
+"border",
+"demarcation",
+"limit"
+],
+"roman": [
+"simana",
+"sandh",
+"seema",
+"bhed"
+],
+"ne": [
+"सँध",
+"सिमाना",
+"सीमा"
+]
+},
+{
+"en": [
+"encroachment",
+"encroach",
+"trespass",
+"land grabbing"
+],
+"roman": [
+"michne",
+"michaat",
+"sandh micheko",
+"atikraman"
+],
+"ne": [
+"अतिक्रमण",
+"सँध मिच्ने",
+"जग्गा मिचाई"
+]
+},
+{
+"en": [
+"easement",
+"right of way",
+"easement right"
+],
+"roman": [
+"bhogadhikar",
+"suvidhadhikar",
+"bato ko adhikar"
+],
+"ne": [
+"सुविधाधिकार",
+"भोगाधिकार"
+]
+},
+{
+"en": [
+"right of way",
+"pathway",
+"access road",
+"passage"
+],
+"roman": [
+"bato ko nikaas",
+"bato",
+"nikas",
+"nigaas"
+],
+"ne": [
+"निकास",
+"बाटोको निकास",
+"बाटो"
+]
+},
+{
+"en": [
+"landlord",
+"landowner",
+"property owner"
+],
+"roman": [
+"jaggadhani",
+"gharbeti",
+"malik"
+],
+"ne": [
+"जग्गाधनी",
+"घरधनी"
+]
+},
+{
+"en": [
+"tenant",
+"renter",
+"occupier"
+],
+"roman": [
+"bahalwala",
+"derawal",
+"mohi"
+],
+"ne": [
+"बहालवाला",
+"मोही"
+]
+},
+{
+"en": [
+"joint property",
+"common land",
+"shared property"
+],
+"roman": [
+"sajha jagga",
+"sajha sampatti",
+"samyukta"
+],
+"ne": [
+"संयुक्त सम्पत्ति",
+"साझा जग्गा"
+]
+},
+{
+"en": [
+"public land",
+"government land",
+"community land"
+],
+"roman": [
+"sarbajanik jagga",
+"sarkari jagga",
+"ailani"
+],
+"ne": [
+"सार्वजनिक जग्गा",
+"सरकारी जग्गा",
+"ऐलानी जग्गा"
+]
+},
+{
+"en": [
+"nuisance",
+"disturbance",
+"annoyance"
+],
+"roman": [
+"hairani",
+"dikkadar",
+"shor saraba",
+"badha"
+],
+"ne": [
+"बाधा",
+"हैरानी",
+"हस्तक्षेप"
+]
+},
+{
+"en": [
+"water outlet",
+"drainage",
+"sewerage",
+"water flow"
+],
+"roman": [
+"paisaile",
+"pani ko nikas",
+"dhale",
+"kulo"
+],
+"ne": [
+"पानीको निकास",
+"पैनी",
+"कुलो",
+"ढल"
+]
+},
+{
+"en": [
+"wall",
+"boundary wall",
+"fence"
+],
+"roman": [
+"prakar",
+"bharo",
+"bhad",
+"kandh",
+"dhiko"
+],
+"ne": [
+"प्राकार",
+"पर्खाल",
+"घेराबारा"
+]
+},
+{
+"en": [
+"construction",
+"building",
+"structure"
+],
+"roman": [
+"nirman",
+"bhavan nirman",
+"ghar banaune"
+],
+"ne": [
+"निर्माण",
+"भवन निर्माण",
+"संरचना"
+]
+},
+{
+"en": [
+"demolition",
+"demolish",
+"destroying structure"
+],
+"roman": [
+"bhatkaune",
+"dhalaune",
+"nashta garne"
+],
+"ne": [
+"भत्काउने",
+"नष्ट गर्ने",
+"ढलाउने"
+]
+},
+{
+"en": [
+"limitation period",
+"time limit",
+"deadline"
+],
+"roman": [
+"hadmyad",
+"myad"
+],
+"ne": [
+"हदम्याद",
+"म्याद"
+]
+},
+{
+"en": [
+"dispute",
+"conflict",
+"quarrel",
+"lawsuit"
+],
+"roman": [
+"bibad",
+"jhagada",
+"mudda",
+"jhapad"
+],
+"ne": [
+"विवाद",
+"झगडा",
+"मुद्दा"
+]
+},
+{
+"en": [
+"mediation",
+"compromise",
+"settlement"
+],
+"roman": [
+"melmilap",
+"milapatra",
+"samjhauta"
+],
+"ne": [
+"मेलमिलाप",
+"मिलापत्र",
+"सम्झौता"
+]
+},
+{
+"en": [
+"injunction",
+"stay order",
+"stop work order"
+],
+"roman": [
+"nishedhagya",
+"rokka",
+"stahagit"
+],
+"ne": [
+"निषेधाज्ञा",
+"रोक्का",
+"स्थगन आदेश"
+]
+},
+{
+"en": [
+"compensation",
+"damages",
+"indemnity"
+],
+"roman": [
+"क्षतिपूर्ति",
+"harjana",
+"muwabja"
+],
+"ne": [
+"क्षतिपूर्ति",
+"मुआब्जा",
+"हर्जाना"
+]
+},
+{
+"en": [
+"land measurement",
+"survey",
+"cadastral survey"
+],
+"roman": [
+"napi",
+"jaga janch",
+"naksa"
+],
+"ne": [
+"नापी",
+"जग्गा जाँच",
+"नक्सा"
+]
+},
+{
+"en": [
+"land registration",
+"land deed",
+"ownership certificate"
+],
+"roman": [
+"lalpurja",
+"durgam",
+"shresta",
+"tamsuk"
+],
+"ne": [
+"लालपुर्जा",
+"श्रेस्ता",
+"दर्ता स्रेस्ता"
+]
+},
+{
+"en": [
+"encroaching wall",
+"overhanging tree",
+"branches"
+],
+"roman": [
+"rukha ko हाँगा",
+"hangabinga",
+"micheko rukh"
+],
+"ne": [
+"रूखको हाँगा",
+"फैलिएको हाँगा"
+]
+},
+{
+"en": [
+"light and air",
+"right to light",
+"ventilation"
+],
+"roman": [
+"hawa pani",
+"prakash ko adhikar",
+"ujyalo"
+],
+"ne": [
+"प्रकाश र हावा",
+"उज्यालोको अधिकार"
+]
+},
+{
+"en": [
+"natural flow",
+"rainwater",
+"flooding"
+],
+"roman": [
+"prakritik bahaab",
+"bhad",
+"badi",
+"pani bahane"
+],
+"ne": [
+"प्राकृतिक बहाव",
+"वर्षाको पानी"
+]
+},
+{
+"en": [
+"adverse possession",
+"long possession",
+"occupancy"
+],
+"roman": [
+"bhogchalan",
+"lambo bhog",
+"chalan chalti"
+],
+"ne": [
+"भोगचलन",
+"चलनचल्ती"
+]
+},
+{
+"en": [
+"partition of land",
+"division",
+"splitting land"
+],
+"roman": [
+"kitta kat",
+"bhandabanda",
+"ansha"
+],
+"ne": [
+"कित्ताकाट",
+"बण्डा",
+"अंशबण्डा"
+]
+},
+{
+"en": [
+"land revenue office",
+"land registry",
+"malpot"
+],
+"roman": [
+"malpot karyalaya",
+"malpot",
+"bhumi sudhar"
+],
+"ne": [
+"मालपोत कार्यालय",
+"भूमि सुधार"
+]
+},
+{
+"en": [
+"survey office",
+"napi office"
+],
+"roman": [
+"napi karyalaya",
+"napi"
+],
+"ne": [
+"नापी कार्यालय"
+]
+},
+{
+"en": [
+"local ward office",
+"ward committee"
+],
+"roman": [
+"wada karyalaya",
+"wada adhyaksha",
+"bhela"
+],
+"ne": [
+"वडा कार्यालय",
+"वडा अध्यक्ष"
+]
+},
+{
+"en": [
+"judicial committee",
+"local court",
+"municipality court"
+],
+"roman": [
+"nyayik samiti",
+"nyayik",
+"palika nyayik"
+],
+"ne": [
+"न्यायिक समिति"
+]
+},
+{
+"en": [
+"trespasser",
+"intruder",
+"illegal occupier"
+],
+"roman": [
+"anadhikrit prabesh",
+"michaha",
+"ghuspaith"
+],
+"ne": [
+"अनाधिकृत प्रवेश",
+"अतिक्रमणकारी"
+]
+},
+{
+"en": [
+"joint wall",
+"party wall",
+"shared wall"
+],
+"roman": [
+"sajha parkhal",
+"sajha kandh",
+"dobar parkhal"
+],
+"ne": [
+"साझा पर्खाल",
+"सँधको पर्खाल"
+]
+},
+{
+"en": [
+"excavation",
+"digging",
+"foundation digging"
+],
+"roman": [
+"khanne",
+"jaga khanne",
+"p जग खन्ने"
+],
+"ne": [
+"जग खन्ने",
+"उत्खनन"
+]
+},
+{
+"en": [
+"lateral support",
+"landslide risk",
+"soil support"
+],
+"roman": [
+"sahara",
+"pahiro",
+"jaga thamne",
+"tek"
+],
+"ne": [
+"पार्विक सहारा",
+"टेको",
+"पहिरो नियन्त्रण"
+]
+},
+{
+"en": [
+"nuisance noise",
+"loud music",
+"sound pollution"
+],
+"roman": [
+"dhwani pradushan",
+"halla",
+"shor"
+],
+"ne": [
+"ध्वनि प्रदूषण",
+"कोलाहल"
+]
+},
+{
+"en": [
+"smell",
+"odor",
+"waste dumping"
+],
+"roman": [
+"gandh",
+"fohor fyalne",
+"gandh failyane"
+],
+"ne": [
+"दुर्गन्ध",
+"फोहोरमैला फ्याँक्ने"
+]
+},
+{
+"en": [
+"easement of necessity",
+"necessary way",
+"no alternative path"
+],
+"roman": [
+"anibarya bato",
+"bikalpahin bato"
+],
+"ne": [
+"अनिवार्य निकास",
+"बाटोको अनिवार्यता"
+]
+},
+{
+"en": [
+"right to clean environment",
+"pollution free"
+],
+"roman": [
+"swachha batabaran",
+"batabaran adhikar"
+],
+"ne": [
+"स्वच्छ वातावरणको अधिकार"
+]
+},
+{
+"en": [
+"encroachment removal",
+"eviction",
+"demolishing encroachment"
+],
+"roman": [
+"atikraman hataune",
+"khali garaune"
+],
+"ne": [
+"अतिक्रमण हटाउने",
+"खाली गराउने"
+]
+},
+{
+"en": [
+"boundary marker",
+"pillar",
+"peg"
+],
+"roman": [
+"sandh ko khuti",
+"jungha",
+"pillar",
+"nishan"
+],
+"ne": [
+"सँधको बुझो",
+"जङ्गा",
+"सिमानाको खम्बा"
+]
+},
+{
+"en": [
+"private path",
+"personal road"
+],
+"roman": [
+"nigi bato",
+"nijo bato"
+],
+"ne": [
+"निजी बाटो"
+]
+},
+{
+"en": [
+"public path",
+"cart track",
+"footpath"
+],
+"roman": [
+"goreto",
+"ghoreto",
+"sarbajanik bato"
+],
+"ne": [
+"गोरेटो",
+"घोरेटो",
+"सार्वजनिक बाटो"
+]
+},
+{
+"en": [
+"land measurement error",
+"wrong map",
+"area mismatch"
+],
+"roman": [
+"chetraphal pharak",
+"napi galti",
+"naksa galti"
+],
+"ne": [
+"क्षेत्रफल फरक",
+"नापी त्रुटि"
+]
+},
+{
+"en": [
+"illegal construction",
+"without permit",
+"no map pass"
+],
+"roman": [
+"naksa pass bina",
+"bina ijajat",
+"be-kanuni ghar"
+],
+"ne": [
+"नक्सा पास बिनाको निर्माण",
+"अवैध निर्माण"
+]
+},
+{
+"en": [
+"right to privacy",
+"overlooking window"
+],
+"roman": [
+"gopanyata",
+"jhyal rakhne",
+"ankha laune"
+],
+"ne": [
+"गोपनीयताको अधिकार",
+"सँधतर्फ झ्याल राख्ने"
+]
+},
+{
+"en": [
+"water source",
+"spring",
+"well",
+"tap"
+],
+"roman": [
+"pani ko muhan",
+"kuwa",
+"dhara",
+"pande"
+],
+"ne": [
+"पानीको मुहान",
+"कुवा",
+"धारा"
+]
+},
+{
+"en": [
+"land dispute petition",
+"complaint",
+"application"
+],
+"roman": [
+"nibedan",
+"ujuri",
+"firyadpatra"
+],
+"ne": [
+"निवेदन",
+"उजुरी",
+"फिरादपत्र"
+]
+},
+{
+"en": [
+"spot inspection",
+"site visit",
+"court visit"
+],
+"roman": [
+"sarjamin",
+"naksa janch",
+"sthalgat janch"
+],
+"ne": [
+"सरजमिन",
+"स्थलगत जाँच",
+"नक्सा जाँच"
+]
+},
+{
+"en": [
+"witness",
+"neighbour witness"
+],
+"roman": [
+"sakshi",
+"sadhiko sakshi",
+"bakpatra"
+],
+"ne": [
+"साक्षी",
+"सँधियार साक्षी"
+]
+},
+{
+"en": [
+"title deed",
+"ownership proof",
+"land paper"
+],
+"roman": [
+"swamitwa praman",
+"purja",
+"kagajpatra"
+],
+"ne": [
+"स्वामित्वको प्रमाण",
+"जग्गाधनी प्रमाणपूर्जा"
+]
+}
+],
+"torts, compensation, negligence, damages": [
+{
+"en": [
+"tort",
+"civil wrong",
+"wrongdoing"
+],
+"roman": [
+"duskriti",
+"galat kam",
+"beaini"
+],
+"ne": [
+"दुष्कृति",
+"गलत कार्य"
+]
+},
+{
+"en": [
+"compensation",
+"damages",
+"reparation"
+],
+"roman": [
+"kshatipurti",
+"bharai",
+"harjana"
+],
+"ne": [
+"क्षतिपूर्ति",
+"भराइ पाउने",
+"हर्जाना"
+]
+},
+{
+"en": [
+"negligence",
+"carelessness"
+],
+"roman": [
+"laparbahi",
+"beasta"
+],
+"ne": [
+"लापरबाही",
+"असावधानी"
+]
+},
+{
+"en": [
+"strict liability",
+"absolute liability"
+],
+"roman": [
+"purna dayitwa",
+"kathor dayitwa"
+],
+"ne": [
+"पूर्ण दायित्व",
+"कठोर दायित्व"
+]
+},
+{
+"en": [
+"vicarious liability",
+"liability for others"
+],
+"roman": [
+"pratinidhi dayitwa",
+"anyako dayitwa"
+],
+"ne": [
+"प्रतिनिधिमूलक दायित्व"
+]
+},
+{
+"en": [
+"defamation",
+"libel",
+"slander"
+],
+"roman": [
+"beijat",
+"gaali beijati"
+],
+"ne": [
+"गाली बेइज्जती",
+"इज्जतमा धक्का"
+]
+},
+{
+"en": [
+"nuisance",
+"disturbance"
+],
+"roman": [
+"hairani",
+"dukha dine"
+],
+"ne": [
+"हैरानी",
+"अवरोध"
+]
+},
+{
+"en": [
+"trespass",
+"unauthorized entry"
+],
+"roman": [
+"anadhikrit prabesh",
+"jagga micheko"
+],
+"ne": [
+"अनधिकृत प्रवेश",
+"अतिक्रमण"
+]
+},
+{
+"en": [
+"assault",
+"battery"
+],
+"roman": [
+"kutpit",
+"akraman"
+],
+"ne": [
+"कुटपिट",
+"आक्रमण"
+]
+},
+{
+"en": [
+"false imprisonment",
+"wrongful confinement"
+],
+"roman": [
+"thuna",
+"beaini thuna"
+],
+"ne": [
+"गैरकानूनी थुना",
+"बन्दी"
+]
+},
+{
+"en": [
+"malicious prosecution"
+],
+"roman": [
+"badniyat",
+"jhutto mudda"
+],
+"ne": [
+"बदनियतपूर्ण अभियोजन",
+"झूटो मुद्दा"
+]
+},
+{
+"en": [
+"medical negligence",
+"malpractice"
+],
+"roman": [
+"upachar laparbahi",
+"doctor ko galti"
+],
+"ne": [
+"उपचारमा लापरबाही",
+"चिकित्सकीय असावधानी"
+]
+},
+{
+"en": [
+"contributory negligence"
+],
+"roman": [
+"thap laparbahi",
+"ubhayaya laparbahi"
+],
+"ne": [
+"सहयोगी लापरबाही",
+"पीडितको आफ्नै गल्ती"
+]
+},
+{
+"en": [
+"damages for pain",
+"suffering"
+],
+"roman": [
+"manasik pida",
+"kashta"
+],
+"ne": [
+"मानसिक पीडा",
+"शारीरिक कष्ट"
+]
+},
+{
+"en": [
+"loss of earnings",
+"income loss"
+],
+"roman": [
+"aamdani ghata",
+"kamai nabhayeko"
+],
+"ne": [
+"आय आर्जनको नोक्सानी",
+"आम्दानीको क्षति"
+]
+},
+{
+"en": [
+"property damage"
+],
+"roman": [
+"sampatti kshati",
+"ghar bhatkayeko"
+],
+"ne": [
+"सम्पत्तिको क्षति",
+"धनमालको नोक्सानी"
+]
+},
+{
+"en": [
+"causation",
+"direct link"
+],
+"roman": [
+"karan",
+"pratyaksh sambandha"
+],
+"ne": [
+"प्रत्यक्ष सम्बन्ध",
+"कारण र परिणाम"
+]
+},
+{
+"en": [
+"duty of care"
+],
+"roman": [
+"kartabya",
+"sabdhan hune kartabya"
+],
+"ne": [
+"सावधानी अपनाउनुपर्ने कर्तव्य"
+]
+},
+{
+"en": [
+"breach of duty"
+],
+"roman": [
+"kartabya palan nagareko"
+],
+"ne": [
+"कर्तव्य पालनाको उल्लंघन"
+]
+},
+{
+"en": [
+"remedy",
+"legal relief"
+],
+"roman": [
+"upachar",
+"kanuni upachar"
+],
+"ne": [
+"कानूनी उपचार"
+]
+},
+{
+"en": [
+"limitation period",
+"deadline"
+],
+"roman": [
+"hadmyad",
+"samay sima"
+],
+"ne": [
+"हदम्याद"
+]
+},
+{
+"en": [
+"plaintiff",
+"victim"
+],
+"roman": [
+"firaadi",
+"pidit"
+],
+"ne": [
+"फिरादी",
+"पीडित"
+]
+},
+{
+"en": [
+"defendant",
+"wrongdoer"
+],
+"roman": [
+"pratibadi",
+"kasurdar"
+],
+"ne": [
+"प्रतिवादी",
+"विपक्षी"
+]
+},
+{
+"en": [
+"burden of proof"
+],
+"roman": [
+"praman puryaune bhar"
+],
+"ne": [
+"प्रमाण पुर्याउने भार"
+]
+},
+{
+"en": [
+"evidence",
+"proof"
+],
+"roman": [
+"praman",
+"sabut"
+],
+"ne": [
+"प्रमाण",
+"सबुद"
+]
+},
+{
+"en": [
+"injunction",
+"stay order"
+],
+"roman": [
+"निषेधाज्ञा",
+"rokne adesh"
+],
+"ne": [
+"निषेधाज्ञा",
+"अन्तरिम आदेश"
+]
+},
+{
+"en": [
+"public nuisance"
+],
+"roman": [
+"sarbojanik hairani"
+],
+"ne": [
+"सार्वजनिक हैरानी"
+]
+},
+{
+"en": [
+"private nuisance"
+],
+"roman": [
+"byaktigat hairani"
+],
+"ne": [
+"व्यक्तिगत हैरानी"
+]
+},
+{
+"en": [
+"unlawful detention"
+],
+"roman": [
+"beaini thuna"
+],
+"ne": [
+"गैरकानूनी थुना"
+]
+},
+{
+"en": [
+"bodily harm",
+"injury"
+],
+"roman": [
+"angabhanga",
+"chotpatak"
+],
+"ne": [
+"अङ्गभङ्ग",
+"चोटपटक"
+]
+},
+{
+"en": [
+"mental shock",
+"trauma"
+],
+"roman": [
+"manasik aghat"
+],
+"ne": [
+"मानसिक आघात"
+]
+},
+{
+"en": [
+"standard of care"
+],
+"roman": [
+"sabdhani ko star"
+],
+"ne": [
+"सावधानीको स्तर"
+]
+},
+{
+"en": [
+"reasonable person"
+],
+"roman": [
+"bibekshil manchhe"
+],
+"ne": [
+"विवेकशील व्यक्ति"
+]
+},
+{
+"en": [
+"act of god",
+"force majeure"
+],
+"roman": [
+"daibi prakop"
+],
+"ne": [
+"दैवी प्रकोप"
+]
+},
+{
+"en": [
+"consent",
+"voluntary risk"
+],
+"roman": [
+"manjuri",
+"swechha"
+],
+"ne": [
+"मन्जुरी",
+"स्वैच्छिक जोखिम"
+]
+},
+{
+"en": [
+"joint liability"
+],
+"roman": [
+"samyukta dayitwa"
+],
+"ne": [
+"संयुक्त दायित्व"
+]
+},
+{
+"en": [
+"liquidated damages"
+],
+"roman": [
+"nirdharit kshatipurti"
+],
+"ne": [
+"निर्धारित क्षतिपूर्ति"
+]
+},
+{
+"en": [
+"unliquidated damages"
+],
+"roman": [
+"anirdharit kshatipurti"
+],
+"ne": [
+"अनिर्धारित क्षतिपूर्ति"
+]
+},
+{
+"en": [
+"restitution"
+],
+"roman": [
+"purwastitima lyaune"
+],
+"ne": [
+"पूर्वस्थितिमा ल्याउने कार्य"
+]
+},
+{
+"en": [
+"wrongful death"
+],
+"roman": [
+"beaini mrityu"
+],
+"ne": [
+"गैरकानूनी मृत्यु"
+]
+},
+{
+"en": [
+"professional negligence"
+],
+"roman": [
+"peshagat laparbahi"
+],
+"ne": [
+"पेशागत लापरबाही"
+]
+},
+{
+"en": [
+"product liability"
+],
+"roman": [
+"bastuko dayitwa"
+],
+"ne": [
+"वस्तुको दायित्व"
+]
+},
+{
+"en": [
+"consumer protection"
+],
+"roman": [
+"upabhokta samrakshan"
+],
+"ne": [
+"उपभोक्ता संरक्षण"
+]
+},
+{
+"en": [
+"defective goods"
+],
+"roman": [
+"kharab saman"
+],
+"ne": [
+"त्रुटिपूर्ण वस्तु"
+]
+},
+{
+"en": [
+"misrepresentation"
+],
+"roman": [
+"jhutto bibaran"
+],
+"ne": [
+"झूटो विवरण",
+"मिथ्या वर्णन"
+]
+},
+{
+"en": [
+"fraud",
+"deceit"
+],
+"roman": [
+"kapat",
+"dhokadhadi"
+],
+"ne": [
+"कपट",
+"धोकाधडी"
+]
+},
+{
+"en": [
+"exemplary damages",
+"punitive damages"
+],
+"roman": [
+"danatmak kshatipurti"
+],
+"ne": [
+"दण्डात्मक क्षतिपूर्ति"
+]
+},
+{
+"en": [
+"nominal damages"
+],
+"roman": [
+"nammatra ko kshatipurti"
+],
+"ne": [
+"नाममात्रको क्षतिपूर्ति"
+]
+},
+{
+"en": [
+"mitigation of loss"
+],
+"roman": [
+"kshati nyunikaran"
+],
+"ne": [
+"क्षति न्यूनीकरण"
+]
+},
+{
+"en": [
+"legal injury"
+],
+"roman": [
+"kanuni kshati"
+],
+"ne": [
+"कानूनी क्षति"
+]
+}
+],
+"criminal law general: murder, hurt, assault, theft, robbery, cheating, fraud": [
+{
+"en": [
+"murder",
+"homicide",
+"killing"
+],
+"roman": [
+"jyann marne",
+"hatya",
+"kartabya jyan"
+],
+"ne": [
+"ज्यान मार्ने",
+"ज्यान सम्बन्धी कसूर",
+"कर्तब्य ज्यान"
+]
+},
+{
+"en": [
+"culpable homicide",
+"manslaughter"
+],
+"roman": [
+"jyann marne kasur",
+"kartabya jyan"
+],
+"ne": [
+"ज्यान मार्ने कसूर",
+"कर्तब्य ज्यान"
+]
+},
+{
+"en": [
+"attempt to murder",
+"murder attempt"
+],
+"roman": [
+"jyan marne udyog",
+"jyan marne prayas"
+],
+"ne": [
+"ज्यान मार्ने उद्योग"
+]
+},
+{
+"en": [
+"hurt",
+"injury",
+"physical harm"
+],
+"roman": [
+"kutpit",
+"anga bhanga",
+"kuti"
+],
+"ne": [
+"कुटपिट",
+"अङ्गभङ्ग",
+"चोटपटक"
+]
+},
+{
+"en": [
+"grievous hurt",
+"mutilation"
+],
+"roman": [
+"anga bhanga",
+"ghate"
+],
+"ne": [
+"अङ्गभङ्ग",
+"गम्भीर कुटपिट"
+]
+},
+{
+"en": [
+"assault",
+"battery"
+],
+"roman": [
+"kutpit",
+"hamala"
+],
+"ne": [
+"कुटपिट",
+"हमला"
+]
+},
+{
+"en": [
+"theft",
+"stealing",
+"larceny"
+],
+"roman": [
+"chori",
+"chorne"
+],
+"ne": [
+"चोरी",
+"चोरी सम्बन्धी कसूर"
+]
+},
+{
+"en": [
+"robbery",
+"mugging"
+],
+"roman": [
+"luttpit",
+"dakaiti",
+"lutera"
+],
+"ne": [
+"लुटपिट",
+"डकैती"
+]
+},
+{
+"en": [
+"dacoity",
+"armed robbery"
+],
+"roman": [
+"dakaiti",
+"luttpit"
+],
+"ne": [
+"डकैती"
+]
+},
+{
+"en": [
+"cheating",
+"deception"
+],
+"roman": [
+"thagi",
+"thagne"
+],
+"ne": [
+"ठगी"
+]
+},
+{
+"en": [
+"fraud",
+"forgery",
+"falsification"
+],
+"roman": [
+"kirtay",
+"jalshaji",
+"thagi"
+],
+"ne": [
+"कीर्ते",
+"जालसाजी"
+]
+},
+{
+"en": [
+"criminal breach of trust"
+],
+"roman": [
+"biswasghat",
+"apahar"
+],
+"ne": [
+"विश्वासघात"
+]
+},
+{
+"en": [
+"extortion",
+"blackmail"
+],
+"roman": [
+"dar dhas dhamki",
+"जबरजस्ती असुली"
+],
+"ne": [
+"जबरजस्ती असुली"
+]
+},
+{
+"en": [
+"kidnapping",
+"abduction"
+],
+"roman": [
+"apaharan",
+"bandhak"
+],
+"ne": [
+"अपहरण",
+"शरीर बन्धक"
+]
+},
+{
+"en": [
+"hostage taking",
+"confinement"
+],
+"roman": [
+"sharir bandhak",
+"thunne"
+],
+"ne": [
+"शरीर बन्धक"
+]
+},
+{
+"en": [
+"rape",
+"sexual assault"
+],
+"roman": [
+"jabarjasti karani",
+"balatkar"
+],
+"ne": [
+"जबरजस्ती करणी",
+"बलात्कार"
+]
+},
+{
+"en": [
+"sexual harassment"
+],
+"roman": [
+"yaun durbyabahar",
+"yaun hinsa"
+],
+"ne": [
+"यौन दुर्व्यवहार"
+]
+},
+{
+"en": [
+"defamation",
+"libel",
+"slander"
+],
+"roman": [
+"beijjati",
+"gali beijjati"
+],
+"ne": [
+"गाली बेइज्जती"
+]
+},
+{
+"en": [
+"trespass",
+"criminal trespass"
+],
+"roman": [
+"anadhikrit prabesh",
+"gharma pasne"
+],
+"ne": [
+"अनाधिकृत प्रवेश"
+]
+},
+{
+"en": [
+"arson",
+"burning property"
+],
+"roman": [
+"aaglagi",
+"aago lagaune"
+],
+"ne": [
+"आगो लगाउने कसूर",
+"आगलागी"
+]
+},
+{
+"en": [
+"bribery",
+"corruption"
+],
+"roman": [
+"bhrastachar",
+"ghush"
+],
+"ne": [
+"भ्रष्टाचार",
+"घुस"
+]
+},
+{
+"en": [
+"money laundering"
+],
+"roman": [
+"sampatti suddhikaran"
+],
+"ne": [
+"सम्पत्ति शुद्धीकरण"
+]
+},
+{
+"en": [
+"cyber crime",
+"computer crime"
+],
+"roman": [
+"cyber aparadh",
+"bidhyutiy aparadh"
+],
+"ne": [
+"विद्युतीय कारोबार सम्बन्धी कसूर",
+"साइबर अपराध"
+]
+},
+{
+"en": [
+"human trafficking"
+],
+"roman": [
+"manab bechbikhan",
+"chelibeti bechbikhan"
+],
+"ne": [
+"मानव बेचबिखन तथा ओसारपसार"
+]
+},
+{
+"en": [
+"drug trafficking",
+"narcotics"
+],
+"roman": [
+"lagu padartha",
+"drug karobar"
+],
+"ne": [
+"लागू औषध कारोबार"
+]
+},
+{
+"en": [
+"counterfeiting",
+"fake currency"
+],
+"roman": [
+"khoto mudra",
+"nakkali note"
+],
+"ne": [
+"खोटा मुद्रा"
+]
+},
+{
+"en": [
+"perjury",
+"false evidence"
+],
+"roman": [
+"jhutho praman",
+"jhutho bakpatra"
+],
+"ne": [
+"झूटो प्रमाण",
+"झूटो बकपत्र"
+]
+},
+{
+"en": [
+"abetment",
+"incitement"
+],
+"roman": [
+"durutsahan",
+"uksyaune"
+],
+"ne": [
+"दुरुत्साहन"
+]
+},
+{
+"en": [
+"conspiracy"
+],
+"roman": [
+"shadyantra",
+"milibhag"
+],
+"ne": [
+"षड्यन्त्र"
+]
+},
+{
+"en": [
+"accomplice",
+"accessory"
+],
+"roman": [
+"matheyar",
+"sath dine"
+],
+"ne": [
+"मतियार"
+]
+},
+{
+"en": [
+"self defense",
+"private defense"
+],
+"roman": [
+"atmarakshya",
+"nizi rakshya"
+],
+"ne": [
+"आत्मरक्षा",
+"निजी रक्षाको अधिकार"
+]
+},
+{
+"en": [
+"bail",
+"security deposit"
+],
+"roman": [
+"dharauti",
+"jamanat"
+],
+"ne": [
+"धरौटी",
+"जमानत"
+]
+},
+{
+"en": [
+"custody",
+"detention"
+],
+"roman": [
+"thuna",
+"hiraasat"
+],
+"ne": [
+"थुना",
+"हिरासत"
+]
+},
+{
+"en": [
+"imprisonment",
+"jail time"
+],
+"roman": [
+"kaid",
+"karagar"
+],
+"ne": [
+"कैद"
+]
+},
+{
+"en": [
+"life imprisonment"
+],
+"roman": [
+"janmakaid",
+"ajiban karabas"
+],
+"ne": [
+"जन्मकैद"
+]
+},
+{
+"en": [
+"fine",
+"penalty"
+],
+"roman": [
+"jaribana",
+"danda"
+],
+"ne": [
+"जरिबाना"
+]
+},
+{
+"en": [
+"compensation",
+"restitution"
+],
+"roman": [
+"chhatipurti",
+"bharai line"
+],
+"ne": [
+"क्षतिपूर्ति"
+]
+},
+{
+"en": [
+"first information report",
+"complaint"
+],
+"roman": [
+"jaheri",
+"firad"
+],
+"ne": [
+"जाहेरी दरखास्त",
+"जाहेरी"
+]
+},
+{
+"en": [
+"investigation"
+],
+"roman": [
+"anushandhan",
+"chanbin"
+],
+"ne": [
+"अनुसन्धान"
+]
+},
+{
+"en": [
+"charge sheet",
+"indictment"
+],
+"roman": [
+"abhigoy patra",
+"mudda dayar"
+],
+"ne": [
+"अभियोग पत्र"
+]
+},
+{
+"en": [
+"accused",
+"defendant"
+],
+"roman": [
+"pratibadi",
+"kasurdar"
+],
+"ne": [
+"प्रतिवादी",
+"अभियुक्त"
+]
+},
+{
+"en": [
+"victim",
+"aggrieved party"
+],
+"roman": [
+"pidit"
+],
+"ne": [
+"पीडित"
+]
+},
+{
+"en": [
+"witness"
+],
+"roman": [
+"sakshi",
+"gawah"
+],
+"ne": [
+"साक्षी"
+]
+},
+{
+"en": [
+"evidence",
+"proof"
+],
+"roman": [
+"praman",
+"sabut"
+],
+"ne": [
+"प्रमाण",
+"सबूत"
+]
+},
+{
+"en": [
+"acquittal",
+"release"
+],
+"roman": [
+"safai",
+"riha"
+],
+"ne": [
+"सफाइ"
+]
+},
+{
+"en": [
+"conviction"
+],
+"roman": [
+"dosh thahar",
+"sajaya"
+],
+"ne": [
+"दोषी ठहर"
+]
+},
+{
+"en": [
+"limitation period"
+],
+"roman": [
+"hadmyad"
+],
+"ne": [
+"हदम्याद"
+]
+},
+{
+"en": [
+"jurisdiction"
+],
+"roman": [
+"khetradhikar"
+],
+"ne": [
+"क्षेत्राधिकार"
+]
+},
+{
+"en": [
+"summons",
+"notice"
+],
+"roman": [
+"myad",
+"suchana"
+],
+"ne": [
+"म्याद",
+"इतिलायनामा"
+]
+},
+{
+"en": [
+"warrant"
+],
+"roman": [
+"purji",
+"pakrau purji"
+],
+"ne": [
+"पक्राउ पुर्जी"
+]
+}
+],
+"sexual offences, rape, harassment, child sexual abuse": [
+{
+"en": [
+"rape",
+"forcible intercourse"
+],
+"roman": [
+"jabarjasti karni",
+"balatkar"
+],
+"ne": [
+"जबरजस्ती करणी",
+"बलात्कार"
+]
+},
+{
+"en": [
+"sexual harassment",
+"harassment"
+],
+"roman": [
+"yaun durbyabahar",
+"yaun utpidan"
+],
+"ne": [
+"यौन दुर्व्यवहार",
+"यौन उत्पीडन"
+]
+},
+{
+"en": [
+"child sexual abuse",
+"pedophilia"
+],
+"roman": [
+"bal yaun durbyabahar",
+"bal yaun durachar"
+],
+"ne": [
+"बाल यौन दुर्व्यवहार",
+"बाल यौन दुराचार"
+]
+},
+{
+"en": [
+"incest",
+"sexual intercourse with relatives"
+],
+"roman": [
+"hadnata karni",
+"nata bhitrako karni"
+],
+"ne": [
+"हाडनाता करणी"
+]
+},
+{
+"en": [
+"unnatural sex",
+"sodomy"
+],
+"roman": [
+"aprakritik maithun",
+"gunayu maithun"
+],
+"ne": [
+"अप्राकृतिक मैथुन"
+]
+},
+{
+"en": [
+"marital rape"
+],
+"roman": [
+"baibahik jabarjasti karni"
+],
+"ne": [
+"वैवाहिक जबरजस्ती करणी"
+]
+},
+{
+"en": [
+"attempt to rape"
+],
+"roman": [
+"jabarjasti karni udyog"
+],
+"ne": [
+"जबरजस्ती करणीको उद्योग"
+]
+},
+{
+"en": [
+"gang rape"
+],
+"roman": [
+"samuhik jabarjasti karni"
+],
+"ne": [
+"सामूहिक जबरजस्ती करणी"
+]
+},
+{
+"en": [
+"sexual intercourse with consent"
+],
+"roman": [
+"manjuri karni"
+],
+"ne": [
+"मन्जुरीले गरेको करणी"
+]
+},
+{
+"en": [
+"statutory rape",
+"rape of minor"
+],
+"roman": [
+"nabalik karni"
+],
+"ne": [
+"नाबालिगसँगको करणी"
+]
+},
+{
+"en": [
+"victim",
+"survivor"
+],
+"roman": [
+"pidit"
+],
+"ne": [
+"पीडित"
+]
+},
+{
+"en": [
+"perpetrator",
+"accused"
+],
+"roman": [
+"kasurdar",
+"pratibadi"
+],
+"ne": [
+"कसूरदार",
+"प्रतिवादी"
+]
+},
+{
+"en": [
+"compensation"
+],
+"roman": [
+"kshatipurti",
+"bharapai"
+],
+"ne": [
+"क्षतिपूर्ति"
+]
+},
+{
+"en": [
+"medical examination",
+"forensic test"
+],
+"roman": [
+"swasthya parikshan",
+"dakshya parikshan"
+],
+"ne": [
+"स्वास्थ्य परीक्षण"
+]
+},
+{
+"en": [
+"first information report",
+"fir"
+],
+"roman": [
+"jaheri",
+"jaheri darkhasta"
+],
+"ne": [
+"जाहेरी दरखास्त"
+]
+},
+{
+"en": [
+"limitation period",
+"statute of limitations"
+],
+"roman": [
+"hadmyad"
+],
+"ne": [
+"हदम्याद"
+]
+},
+{
+"en": [
+"confidentiality",
+"privacy"
+],
+"roman": [
+"gopaniyata"
+],
+"ne": [
+"गोपनीयता"
+]
+},
+{
+"en": [
+"in-camera hearing",
+"closed court"
+],
+"roman": [
+"banda ijalas"
+],
+"ne": [
+"बन्द इजलास"
+]
+},
+{
+"en": [
+"human trafficking",
+"sex trafficking"
+],
+"roman": [
+"manab bechbikhan"
+],
+"ne": [
+"मानव बेचबिखन तथा ओसारपसार"
+]
+},
+{
+"en": [
+"prostitution"
+],
+"roman": [
+"beshyabritti"
+],
+"ne": [
+"वेश्यावृत्ति"
+]
+},
+{
+"en": [
+"sexual exploitation"
+],
+"roman": [
+"yaun shoshan"
+],
+"ne": [
+"यौन शोषण"
+]
+},
+{
+"en": [
+"indecent act",
+"obscenity"
+],
+"roman": [
+"ashlil kriya",
+"ashlilata"
+],
+"ne": [
+"अश्लील क्रिया",
+"अश्लीलता"
+]
+},
+{
+"en": [
+"witness"
+],
+"roman": [
+"sakshi"
+],
+"ne": [
+"साक्षी"
+]
+},
+{
+"en": [
+"evidence",
+"proof"
+],
+"roman": [
+"praman"
+],
+"ne": [
+"प्रमाण"
+]
+},
+{
+"en": [
+"life imprisonment"
+],
+"roman": [
+"janmakaid"
+],
+"ne": [
+"जन्मकैद"
+]
+},
+{
+"en": [
+"fine",
+"penalty"
+],
+"roman": [
+"jaribana"
+],
+"ne": [
+"जरिबाना"
+]
+},
+{
+"en": [
+"custody",
+"detention"
+],
+"roman": [
+"thuna",
+"thunachhek"
+],
+"ne": [
+"थुना",
+"थुनछेक"
+]
+},
+{
+"en": [
+"bail"
+],
+"roman": [
+"dharauti",
+"jamanat"
+],
+"ne": [
+"धरौटी",
+"जमानत"
+]
+},
+{
+"en": [
+"investigation"
+],
+"roman": [
+"anushandhan"
+],
+"ne": [
+"अनुसन्धान"
+]
+},
+{
+"en": [
+"police report"
+],
+"roman": [
+"prahari pratibedan"
+],
+"ne": [
+"प्रहरी प्रतिवेदन"
+]
+},
+{
+"en": [
+"legal aid"
+],
+"roman": [
+"kanuni sahayata"
+],
+"ne": [
+"कानूनी सहायता"
+]
+},
+{
+"en": [
+"minor",
+"underage"
+],
+"roman": [
+"nabalik"
+],
+"ne": [
+"नाबालिग"
+]
+},
+{
+"en": [
+"guardian"
+],
+"roman": [
+"sanrakshak"
+],
+"ne": [
+"संरक्षक"
+]
+},
+{
+"en": [
+"statement",
+"deposition"
+],
+"roman": [
+"bayan"
+],
+"ne": [
+"बयान"
+]
+},
+{
+"en": [
+"crime",
+"offence"
+],
+"roman": [
+"kasur",
+"aparadh"
+],
+"ne": [
+"कसूर",
+"अपराध"
+]
+},
+{
+"en": [
+"punishment",
+"sentence"
+],
+"roman": [
+"sajaya"
+],
+"ne": [
+"सजाय"
+]
+},
+{
+"en": [
+"rehabilitation"
+],
+"roman": [
+"punarsthapana"
+],
+"ne": [
+"पुनर्स्थापना"
+]
+},
+{
+"en": [
+"threat",
+"intimidation"
+],
+"roman": [
+"dhamki"
+],
+"ne": [
+"धम्की"
+]
+},
+{
+"en": [
+"undue influence"
+],
+"roman": [
+"anuchit prabhab"
+],
+"ne": [
+"अनुचित प्रभाव"
+]
+},
+{
+"en": [
+"abetment",
+"accomplice"
+],
+"roman": [
+"durutsahan",
+"matoyar"
+],
+"ne": [
+"दुरुत्साहन",
+"मतियार"
+]
+},
+{
+"en": [
+"physical contact"
+],
+"roman": [
+"sharirik samparka"
+],
+"ne": [
+"शारीरिक सम्पर्क"
+]
+},
+{
+"en": [
+"mental trauma"
+],
+"roman": [
+"manasik aghat"
+],
+"ne": [
+"मानसिक आघात"
+]
+},
+{
+"en": [
+"dna test"
+],
+"roman": [
+"dna parikshan"
+],
+"ne": [
+"डी.एन.ए. परीक्षण"
+]
+},
+{
+"en": [
+"government attorney"
+],
+"roman": [
+"sarkari wakil"
+],
+"ne": [
+"सरकारी वकील"
+]
+},
+{
+"en": [
+"defense lawyer"
+],
+"roman": [
+"kanun byabasayi"
+],
+"ne": [
+"कानून व्यवसायी"
+]
+},
+{
+"en": [
+"charge sheet"
+],
+"roman": [
+"abhayog patra"
+],
+"ne": [
+"अभियोग पत्र"
+]
+},
+{
+"en": [
+"arrest warrant"
+],
+"roman": [
+"prakrau purji"
+],
+"ne": [
+"पक्राउ पुर्जी"
+]
+},
+{
+"en": [
+"hostile witness"
+],
+"roman": [
+"ulto sakshi"
+],
+"ne": [
+"उल्टो साक्षी"
+]
+},
+{
+"en": [
+"circumstantial evidence"
+],
+"roman": [
+"paristhitijanya praman"
+],
+"ne": [
+"परिस्थितिजन्य प्रमाण"
+]
+},
+{
+"en": [
+"burden of proof"
+],
+"roman": [
+"praman puryaune bhar"
+],
+"ne": [
+"प्रमाण पुर्याउने भार"
+]
+}
+],
+"domestic violence and gender-based violence": [
+{
+"en": [
+"domestic violence",
+"home violence"
+],
+"roman": [
+"gharelu hinsa"
+],
+"ne": [
+"घरेलु हिंसा"
+]
+},
+{
+"en": [
+"gender based violence",
+"gbv"
+],
+"roman": [
+"laingik hinsa"
+],
+"ne": [
+"लैङ्गिक हिंसा"
+]
+},
+{
+"en": [
+"rape",
+"forced sex"
+],
+"roman": [
+"jabarjasti karani",
+"balatkar"
+],
+"ne": [
+"जबरजस्ती करणी",
+"बलात्कार"
+]
+},
+{
+"en": [
+"sexual harassment",
+"harassment"
+],
+"roman": [
+"yaun durbyabahar",
+"yaun hinsa"
+],
+"ne": [
+"यौन दुर्व्यवहार",
+"यौन हिंसा"
+]
+},
+{
+"en": [
+"physical violence",
+"beating"
+],
+"roman": [
+"sharirik hinsa",
+"kutpit"
+],
+"ne": [
+"शारीरिक हिंसा",
+"कुटपिट"
+]
+},
+{
+"en": [
+"mental violence",
+"torture"
+],
+"roman": [
+"manasik hinsa",
+"manasik yatana"
+],
+"ne": [
+"मानसिक हिंसा",
+"मानसिक यातना"
+]
+},
+{
+"en": [
+"economic violence",
+"financial abuse"
+],
+"roman": [
+"arthik hinsa"
+],
+"ne": [
+"आर्थिक हिंसा"
+]
+},
+{
+"en": [
+"dowry",
+"dowry system"
+],
+"roman": [
+"daijo",
+"dahej"
+],
+"ne": [
+"दाइजो",
+"दहेज"
+]
+},
+{
+"en": [
+"witchcraft accusation",
+"witchcraft"
+],
+"roman": [
+"bokshi ko aarop",
+"bokshi pratha"
+],
+"ne": [
+"बोक्सीको आरोप"
+]
+},
+{
+"en": [
+"child marriage"
+],
+"roman": [
+"bal bibaha"
+],
+"ne": [
+"बाल विवाह"
+]
+},
+{
+"en": [
+"polygamy",
+"multiple wives"
+],
+"roman": [
+"bahu bibaha"
+],
+"ne": [
+"बहु विवाह"
+]
+},
+{
+"en": [
+"forced marriage"
+],
+"roman": [
+"jabarjasti bibaha"
+],
+"ne": [
+"जबरजस्ती विवाह"
+]
+},
+{
+"en": [
+"unnatural sex"
+],
+"roman": [
+"aprakritik maithun"
+],
+"ne": [
+"अप्राकृतिक मैथुन"
+]
+},
+{
+"en": [
+"incest"
+],
+"roman": [
+"hadnata karani"
+],
+"ne": [
+"हाडनाता करणी"
+]
+},
+{
+"en": [
+"victim",
+"survivor"
+],
+"roman": [
+"pidit"
+],
+"ne": [
+"पीडित"
+]
+},
+{
+"en": [
+"perpetrator",
+"accused"
+],
+"roman": [
+"kasurdar",
+"abhiyukta"
+],
+"ne": [
+"कसूरदार",
+"अभियुक्त"
+]
+},
+{
+"en": [
+"complaint",
+"report"
+],
+"roman": [
+"ujuri",
+"firaadpatra"
+],
+"ne": [
+"उजुरी",
+"फिरादपत्र"
+]
+},
+{
+"en": [
+"first information report",
+"fir"
+],
+"roman": [
+"jaheri",
+"jaheri darkhasta"
+],
+"ne": [
+"जाहेरी",
+"जाहेरी दरखास्त"
+]
+},
+{
+"en": [
+"compensation",
+"damages"
+],
+"roman": [
+"kshatipurti"
+],
+"ne": [
+"क्षतिपूर्ति"
+]
+},
+{
+"en": [
+"interim protection order"
+],
+"roman": [
+"antarim sanrakshan adesh"
+],
+"ne": [
+"अन्तरिम संरक्षण आदेश"
+]
+},
+{
+"en": [
+"rehabilitation",
+"shelter"
+],
+"roman": [
+"punarsthapana",
+"ashraya sthal"
+],
+"ne": [
+"पुनर्स्थापना",
+"आश्रय स्थल"
+]
+},
+{
+"en": [
+"confidentiality"
+],
+"roman": [
+"gopaniyata"
+],
+"ne": [
+"गोपनीयता"
+]
+},
+{
+"en": [
+"human trafficking"
+],
+"roman": [
+"manav bechbikhan"
+],
+"ne": [
+"मानव बेचबिखन"
+]
+},
+{
+"en": [
+"menstrual seclusion",
+"chhaupadi"
+],
+"roman": [
+"chhaupadi",
+"chhaukuti"
+],
+"ne": [
+"छाउपडी"
+]
+},
+{
+"en": [
+"abortion",
+"forced abortion"
+],
+"roman": [
+"garbha patan"
+],
+"ne": [
+"गर्भपतन"
+]
+},
+{
+"en": [
+"sex determination"
+],
+"roman": [
+"linga pahichan"
+],
+"ne": [
+"लिङ्ग पहिचान"
+]
+},
+{
+"en": [
+"marital rape"
+],
+"roman": [
+"baibahik jabarjasti karani"
+],
+"ne": [
+"वैवाहिक जबरजस्ती करणी"
+]
+},
+{
+"en": [
+"custody of child"
+],
+"roman": [
+"nabalak ko sanrakshan"
+],
+"ne": [
+"नाबालकको संरक्षण"
+]
+},
+{
+"en": [
+"alimony",
+"maintenance"
+],
+"roman": [
+"manachamal",
+"kharcha"
+],
+"ne": [
+"मानाचामल",
+"खर्च"
+]
+},
+{
+"en": [
+"divorce"
+],
+"roman": [
+"sambandha bichhed"
+],
+"ne": [
+"सम्बन्ध विच्छेद"
+]
+},
+{
+"en": [
+"limitation period"
+],
+"roman": [
+"hadmyad"
+],
+"ne": [
+"हदम्याद"
+]
+},
+{
+"en": [
+"witness"
+],
+"roman": [
+"sakshi"
+],
+"ne": [
+"साक्षी"
+]
+},
+{
+"en": [
+"evidence",
+"proof"
+],
+"roman": [
+"praman"
+],
+"ne": [
+"प्रमाण"
+]
+},
+{
+"en": [
+"investigation"
+],
+"roman": [
+"chanbin",
+"anusandhan"
+],
+"ne": [
+"छानबिन",
+"अनुसन्धान"
+]
+},
+{
+"en": [
+"prosecutor"
+],
+"roman": [
+"sarkari vakil"
+],
+"ne": [
+"सरकारी वकील"
+]
+},
+{
+"en": [
+"legal aid"
+],
+"roman": [
+"kanuni sahayata"
+],
+"ne": [
+"कानूनी सहायता"
+]
+},
+{
+"en": [
+"fine",
+"penalty"
+],
+"roman": [
+"jaribana"
+],
+"ne": [
+"जरिबाना"
+]
+},
+{
+"en": [
+"imprisonment",
+"jail"
+],
+"roman": [
+"kaid"
+],
+"ne": [
+"कैद"
+]
+},
+{
+"en": [
+"life imprisonment"
+],
+"roman": [
+"janmakaid"
+],
+"ne": [
+"जन्मकैद"
+]
+},
+{
+"en": [
+"reconciliation",
+"mediation"
+],
+"roman": [
+"melmilap"
+],
+"ne": [
+"मेलमिलाप"
+]
+},
+{
+"en": [
+"psychological counseling"
+],
+"roman": [
+"manobaigyanik paramarsha"
+],
+"ne": [
+"मनोवैज्ञानिक परामर्श"
+]
+},
+{
+"en": [
+"acid attack"
+],
+"roman": [
+"acid prahar"
+],
+"ne": [
+"तेजाब प्रहार"
+]
+},
+{
+"en": [
+"cyber bullying",
+"online harassment"
+],
+"roman": [
+"cyber hinsa"
+],
+"ne": [
+"साइबर हिंसा"
+]
+},
+{
+"en": [
+"stalking"
+],
+"roman": [
+"pachhyaunu"
+],
+"ne": [
+"पछ्याउनु"
+]
+},
+{
+"en": [
+"indecent assault"
+],
+"roman": [
+"ashlil durbyabahar"
+],
+"ne": [
+"अश्लील दुर्व्यवहार"
+]
+},
+{
+"en": [
+"right to equality"
+],
+"roman": [
+"samantako hak"
+],
+"ne": [
+"समानताको हक"
+]
+},
+{
+"en": [
+"women's rights"
+],
+"roman": [
+"mahila ko hak"
+],
+"ne": [
+"महिलाको हक"
+]
+},
+{
+"en": [
+"social boycott"
+],
+"roman": [
+"samajik bahiskar"
+],
+"ne": [
+"सामाजिक बहिष्कार"
+]
+},
+{
+"en": [
+"threat",
+"intimidation"
+],
+"roman": [
+"dhamki"
+],
+"ne": [
+"धम्की"
+]
+},
+{
+"en": [
+"kidnapping",
+"abduction"
+],
+"roman": [
+"apaharan"
+],
+"ne": [
+"अपहरण"
+]
+}
+],
+"defamation, insult, privacy, cyber crime, online harassment, hacking": [
+{
+"en": [
+"defamation",
+"libel",
+"slander"
+],
+"roman": [
+"beijjati",
+"gaali beijjati",
+"manhani"
+],
+"ne": [
+"बेइज्जती",
+"गाली बेइज्जती",
+"मानहानी"
+]
+},
+{
+"en": [
+"insult",
+"verbal abuse"
+],
+"roman": [
+"gaali garne",
+"gaali galauj"
+],
+"ne": [
+"गाली गर्ने",
+"गाली गलौज"
+]
+},
+{
+"en": [
+"privacy",
+"right to privacy"
+],
+"roman": [
+"gopanyata",
+"gopanyata ko hak"
+],
+"ne": [
+"गोपनीयता",
+"गोपनीयताको हक"
+]
+},
+{
+"en": [
+"cyber crime",
+"electronic crime"
+],
+"roman": [
+"cyber aparadh",
+"bidhyutiy aparadh"
+],
+"ne": [
+"साइबर अपराध",
+"विद्युतीय अपराध"
+]
+},
+{
+"en": [
+"hacking",
+"unauthorized access"
+],
+"roman": [
+"hacking",
+"anadhikrit prabesh"
+],
+"ne": [
+"ह्याकिङ",
+"अनधिकृत पहुँच"
+]
+},
+{
+"en": [
+"online harassment",
+"cyber bullying"
+],
+"roman": [
+"online हैरानी",
+"cyber bullying"
+],
+"ne": [
+"अनलाइन हैरानी",
+"साइबर बुलिङ"
+]
+},
+{
+"en": [
+"character assassination"
+],
+"roman": [
+"charitra hatya"
+],
+"ne": [
+"चरित्र हत्या"
+]
+},
+{
+"en": [
+"data theft",
+"stealing information"
+],
+"roman": [
+"tathya chori",
+"suchana chori"
+],
+"ne": [
+"तथ्य चोरी",
+"सूचना चोरी"
+]
+},
+{
+"en": [
+"phishing",
+"deceptive links"
+],
+"roman": [
+"phishing",
+"jhukkyaune link"
+],
+"ne": [
+"फिसिङ",
+"झुक्याउने लिङ्क"
+]
+},
+{
+"en": [
+"identity theft",
+"impersonation"
+],
+"roman": [
+"nakkali parichaya",
+"banaute parichaya"
+],
+"ne": [
+"नक्कली परिचय",
+"छद्मभेषी"
+]
+},
+{
+"en": [
+"compensation",
+"damages"
+],
+"roman": [
+"chhatipurti",
+"manhani bapat ko rakam"
+],
+"ne": [
+"क्षतिपूर्ति",
+"मनासिब क्षतिपूर्ति"
+]
+},
+{
+"en": [
+"confidentiality breach"
+],
+"roman": [
+"gopanyata bhanga"
+],
+"ne": [
+"गोपनीयता भङ्ग"
+]
+},
+{
+"en": [
+"electronic record",
+"digital evidence"
+],
+"roman": [
+"bidhyutiy abhilekh",
+"digital praman"
+],
+"ne": [
+"विद्युतीय अभिलेख",
+"डिजिटल प्रमाण"
+]
+},
+{
+"en": [
+"social media",
+"social networks"
+],
+"roman": [
+"samajik sanjal"
+],
+"ne": [
+"सामाजिक सञ्जाल"
+]
+},
+{
+"en": [
+"fake news",
+"misinformation"
+],
+"roman": [
+"bhramak suchana",
+"jhutho khabar"
+],
+"ne": [
+"भ्रामक सूचना",
+"झुटो समाचार"
+]
+},
+{
+"en": [
+"surveillance",
+"spying"
+],
+"roman": [
+"jasusi",
+"nigrani"
+],
+"ne": [
+"जासुसी",
+"निगरानी"
+]
+},
+{
+"en": [
+"unauthorized photography"
+],
+"roman": [
+"binanumati photo khichne"
+],
+"ne": [
+"अनुमति बिना फोटो खिच्ने"
+]
+},
+{
+"en": [
+"publication",
+"broadcasting"
+],
+"roman": [
+"prakashan",
+"prasaran"
+],
+"ne": [
+"प्रकाशन",
+"प्रसारण"
+]
+},
+{
+"en": [
+"malicious intent"
+],
+"roman": [
+"durashaya",
+"khot niyat"
+],
+"ne": [
+"दुराशय",
+"खोट नियत"
+]
+},
+{
+"en": [
+"reputation",
+"prestige"
+],
+"roman": [
+"pratishtha",
+"ijat"
+],
+"ne": [
+"प्रतिष्ठा",
+"इज्जत"
+]
+},
+{
+"en": [
+"electronic signature"
+],
+"roman": [
+"bidhyutiy hastakshar"
+],
+"ne": [
+"विद्युतीय हस्ताक्षर"
+]
+},
+{
+"en": [
+"computer system"
+],
+"roman": [
+"computer pranali"
+],
+"ne": [
+"कम्प्युटर प्रणाली"
+]
+},
+{
+"en": [
+"source code"
+],
+"roman": [
+"source code",
+"mool sanket"
+],
+"ne": [
+"स्रोत सङ्केत"
+]
+},
+{
+"en": [
+"virus",
+"malware"
+],
+"roman": [
+"virus",
+"malware"
+],
+"ne": [
+"भाइरस",
+"मालवेयर"
+]
+},
+{
+"en": [
+"denial of service",
+"dos attack"
+],
+"roman": [
+"sewa awarodh"
+],
+"ne": [
+"सेवा अवरुद्ध"
+]
+},
+{
+"en": [
+"pornography",
+"obscene content"
+],
+"roman": [
+"ashlil samagri"
+],
+"ne": [
+"अश्लील सामग्री"
+]
+},
+{
+"en": [
+"revenge porn"
+],
+"roman": [
+"badala lina ashlil photo"
+],
+"ne": [
+"बदला लिन अश्लील सामग्री प्रकाशन"
+]
+},
+{
+"en": [
+"cyber terrorism"
+],
+"roman": [
+"cyber atankwad"
+],
+"ne": [
+"साइबर आतंकवाद"
+]
+},
+{
+"en": [
+"intellectual property"
+],
+"roman": [
+"bauddhik sampatti"
+],
+"ne": [
+"बौद्धिक सम्पत्ति"
+]
+},
+{
+"en": [
+"copyright infringement"
+],
+"roman": [
+"pratilipi adhikar ullanghan"
+],
+"ne": [
+"प्रतिलिपि अधिकार उल्लङ्घन"
+]
+},
+{
+"en": [
+"defamatory statement"
+],
+"roman": [
+"beijjatijanak abhivyakti"
+],
+"ne": [
+"बेइज्जतीजन्य अभिव्यक्ति"
+]
+},
+{
+"en": [
+"public figure"
+],
+"roman": [
+"sarvajanik byakti"
+],
+"ne": [
+"सार्वजनिक व्यक्ति"
+]
+},
+{
+"en": [
+"good faith"
+],
+"roman": [
+"sadniyat",
+"asal niyat"
+],
+"ne": [
+"सद्नियत",
+"असल नियत"
+]
+},
+{
+"en": [
+"limitation period",
+"statute of limitations"
+],
+"roman": [
+"hadmyad"
+],
+"ne": [
+"हदम्याद"
+]
+},
+{
+"en": [
+"punishment",
+"penalty"
+],
+"roman": [
+"sajaya",
+"danda"
+],
+"ne": [
+"सजाय",
+"दण्ड"
+]
+},
+{
+"en": [
+"fine",
+"monetary penalty"
+],
+"roman": [
+"jaribana"
+],
+"ne": [
+"जरिबाना"
+]
+},
+{
+"en": [
+"imprisonment",
+"jail"
+],
+"roman": [
+"kaid",
+"karagar"
+],
+"ne": [
+"कैद",
+"कारागार"
+]
+},
+{
+"en": [
+"complaint",
+"first information report"
+],
+"roman": [
+"uajuri",
+"jahari"
+],
+"ne": [
+"उजुरी",
+"जाहेरी"
+]
+},
+{
+"en": [
+"investigation"
+],
+"roman": [
+"anushandhan"
+],
+"ne": [
+"अनुसन्धान"
+]
+},
+{
+"en": [
+"prosecution"
+],
+"roman": [
+"abhiyojan"
+],
+"ne": [
+"अभियोजन"
+]
+},
+{
+"en": [
+"defendant",
+"accused"
+],
+"roman": [
+"prativadi",
+"abhiyukta"
+],
+"ne": [
+"प्रतिवादी",
+"अभियुक्त"
+]
+},
+{
+"en": [
+"plaintiff",
+"victim"
+],
+"roman": [
+"badi",
+"pidit"
+],
+"ne": [
+"वादी",
+"पीडित"
+]
+},
+{
+"en": [
+"evidence",
+"proof"
+],
+"roman": [
+"praman",
+"sabut"
+],
+"ne": [
+"प्रमाण",
+"सबुद"
+]
+},
+{
+"en": [
+"witness"
+],
+"roman": [
+"sakshi"
+],
+"ne": [
+"साक्षी"
+]
+},
+{
+"en": [
+"court",
+"tribunal"
+],
+"roman": [
+"adalat",
+"nyayadhikaran"
+],
+"ne": [
+"अदालत",
+"न्यायाधिकरण"
+]
+},
+{
+"en": [
+"verdict",
+"judgment"
+],
+"roman": [
+"faisala"
+],
+"ne": [
+"फैसला"
+]
+},
+{
+"en": [
+"appeal"
+],
+"roman": [
+"punaravedan"
+],
+"ne": [
+"पुनरावेदन"
+]
+},
+{
+"en": [
+"legal counsel",
+"lawyer"
+],
+"roman": [
+"kanuni sallahkar",
+"wakil"
+],
+"ne": [
+"कानुनी सल्लाहकार",
+"कानुन व्यवसायी"
+]
+},
+{
+"en": [
+"freedom of expression"
+],
+"roman": [
+"bichhar ra abhibyakti ko swatantrata"
+],
+"ne": [
+"विचार र अभिव्यक्तिको स्वतन्त्रता"
+]
+},
+{
+"en": [
+"reasonable restriction"
+],
+"roman": [
+"manasib bandhej"
+],
+"ne": [
+"मनासिब बन्देज"
+]
+}
+],
+"criminal procedure: arrest, bail, FIR/first information report, police custody, investigation, trial": [
+{
+"en": [
+"first information report",
+"fir",
+"complaint"
+],
+"roman": [
+"jahari",
+"jahari darkhast",
+"fir"
+],
+"ne": [
+"जाहेरी दरखास्त",
+"जाहेरी"
+]
+},
+{
+"en": [
+"arrest",
+"detention"
+],
+"roman": [
+"prakrau",
+"thunua",
+"samatnu"
+],
+"ne": [
+"पक्राउ",
+"थुनामा राख्ने"
+]
+},
+{
+"en": [
+"arrest warrant",
+"warrant"
+],
+"roman": [
+"prakrau purji",
+"warrant"
+],
+"ne": [
+"पक्राउ पुर्जी"
+]
+},
+{
+"en": [
+"bail",
+"security deposit"
+],
+"roman": [
+"dharauti",
+"jamanat"
+],
+"ne": [
+"धरौटी",
+"जमानत"
+]
+},
+{
+"en": [
+"police custody",
+"remand"
+],
+"roman": [
+"prahari hirasat",
+"hirasat"
+],
+"ne": [
+"प्रहरी हिरासत"
+]
+},
+{
+"en": [
+"investigation",
+"inquiry"
+],
+"roman": [
+"anusandhan",
+"chanbin"
+],
+"ne": [
+"अनुसन्धान",
+"छानबिन"
+]
+},
+{
+"en": [
+"trial",
+"court case"
+],
+"roman": [
+"muddha",
+"bahas",
+"mamila"
+],
+"ne": [
+"मुद्दा",
+"पुर्पक्ष"
+]
+},
+{
+"en": [
+"prosecutor",
+"government lawyer"
+],
+"roman": [
+"sarkari vakil"
+],
+"ne": [
+"सरकारी वकील"
+]
+},
+{
+"en": [
+"defense lawyer",
+"advocate"
+],
+"roman": [
+"kanun byabasayi",
+"wakil"
+],
+"ne": [
+"कानून व्यवसायी",
+"अधिवक्ता"
+]
+},
+{
+"en": [
+"charge sheet",
+"indictment"
+],
+"roman": [
+"abhayog patra"
+],
+"ne": [
+"अभियोग पत्र"
+]
+},
+{
+"en": [
+"accused",
+"defendant"
+],
+"roman": [
+"prativadi",
+"kasurdar"
+],
+"ne": [
+"प्रतिवादी",
+"अभियुक्त"
+]
+},
+{
+"en": [
+"victim",
+"complainant"
+],
+"roman": [
+"pidit",
+"vadi"
+],
+"ne": [
+"पीडित",
+"वादी"
+]
+},
+{
+"en": [
+"witness"
+],
+"roman": [
+"sakshi",
+"gawah"
+],
+"ne": [
+"साक्षी",
+"गवाह"
+]
+},
+{
+"en": [
+"evidence",
+"proof"
+],
+"roman": [
+"praman",
+"sabut"
+],
+"ne": [
+"प्रमाण",
+"सबुद"
+]
+},
+{
+"en": [
+"statement",
+"deposition"
+],
+"roman": [
+"bayan",
+"bakapatra"
+],
+"ne": [
+"बयान",
+"बकपत्र"
+]
+},
+{
+"en": [
+"limitation period",
+"time limit"
+],
+"roman": [
+"hadmyad"
+],
+"ne": [
+"हदम्याद"
+]
+},
+{
+"en": [
+"judicial custody",
+"prison"
+],
+"roman": [
+"karagar",
+"jail"
+],
+"ne": [
+"कारागार",
+"थुना"
+]
+},
+{
+"en": [
+"search warrant"
+],
+"roman": [
+"talashi purji"
+],
+"ne": [
+"तलासी पुर्जी"
+]
+},
+{
+"en": [
+"seizure memo",
+"inventory"
+],
+"roman": [
+"baramadagi muchulka"
+],
+"ne": [
+"बरामदगी मुचुल्का"
+]
+},
+{
+"en": [
+"autopsy",
+"post mortem"
+],
+"roman": [
+"post mortem",
+"shaba parikshan"
+],
+"ne": [
+"शव परीक्षण",
+"पोस्टमार्टम"
+]
+},
+{
+"en": [
+"crime scene report"
+],
+"roman": [
+"ghatnasthal muchulka"
+],
+"ne": [
+"घटनास्थल मुचुल्का"
+]
+},
+{
+"en": [
+"summons",
+"notice"
+],
+"roman": [
+"myad jari",
+"itayanama"
+],
+"ne": [
+"म्याद जारी",
+"इतायनामा"
+]
+},
+{
+"en": [
+"legal aid"
+],
+"roman": [
+"kanuni sahayata"
+],
+"ne": [
+"कानूनी सहायता"
+]
+},
+{
+"en": [
+"acquittal",
+"release"
+],
+"roman": [
+"safai",
+"riha"
+],
+"ne": [
+"सफाइ",
+"रिहा"
+]
+},
+{
+"en": [
+"conviction",
+"guilty verdict"
+],
+"roman": [
+"dosh thahar",
+"sajaya"
+],
+"ne": [
+"दोष ठहर",
+"सजाय"
+]
+},
+{
+"en": [
+"appeal"
+],
+"roman": [
+"punaravedan"
+],
+"ne": [
+"पुनरावेदन"
+]
+},
+{
+"en": [
+"pardon",
+"amnesty"
+],
+"roman": [
+"maafi"
+],
+"ne": [
+"माफी",
+"आममाफी"
+]
+},
+{
+"en": [
+"fine",
+"penalty"
+],
+"roman": [
+"jaribana"
+],
+"ne": [
+"जरिबाना"
+]
+},
+{
+"en": [
+"imprisonment",
+"jail time"
+],
+"roman": [
+"kaid"
+],
+"ne": [
+"कैद"
+]
+},
+{
+"en": [
+"life imprisonment"
+],
+"roman": [
+"janmakaid"
+],
+"ne": [
+"जन्मकैद"
+]
+},
+{
+"en": [
+"interrogation"
+],
+"roman": [
+"sodhpuch"
+],
+"ne": [
+"सोधपुछ"
+]
+},
+{
+"en": [
+"anticipatory bail"
+],
+"roman": [
+"purbapaksyako lagi dharauti"
+],
+"ne": [
+"पुर्पक्षको लागि धरौटी"
+]
+},
+{
+"en": [
+"cognizable offense"
+],
+"roman": [
+"faujdari kasur"
+],
+"ne": [
+"फौजदारी कसूर"
+]
+},
+{
+"en": [
+"non-bailable"
+],
+"roman": [
+"dharauti na hune"
+],
+"ne": [
+"धरौटी नहुने"
+]
+},
+{
+"en": [
+"court order"
+],
+"roman": [
+"adalati adesh"
+],
+"ne": [
+"अदालती आदेश"
+]
+},
+{
+"en": [
+"bench"
+],
+"roman": [
+"ijalas"
+],
+"ne": [
+"इजलास"
+]
+},
+{
+"en": [
+"hearing"
+],
+"roman": [
+"sunuwai"
+],
+"ne": [
+"सुनुवाइ"
+]
+},
+{
+"en": [
+"expert opinion"
+],
+"roman": [
+"bisheshagya rai"
+],
+"ne": [
+"विशेषज्ञको राय"
+]
+},
+{
+"en": [
+"forensic lab"
+],
+"roman": [
+"bidhi bigyan prayogshala"
+],
+"ne": [
+"विधि विज्ञान प्रयोगशाला"
+]
+},
+{
+"en": [
+"crime",
+"offense"
+],
+"roman": [
+"aparadh",
+"kasur"
+],
+"ne": [
+"अपराध",
+"कसूर"
+]
+},
+{
+"en": [
+"handcuff"
+],
+"roman": [
+"hatkadi"
+],
+"ne": [
+"हत्कडी"
+]
+},
+{
+"en": [
+"under investigation"
+],
+"roman": [
+"anusandhanadhin"
+],
+"ne": [
+"अनुसन्धानधीन"
+]
+},
+{
+"en": [
+"compromise",
+"settlement"
+],
+"roman": [
+"milapatra"
+],
+"ne": [
+"मिलापत्र"
+]
+},
+{
+"en": [
+"compensation"
+],
+"roman": [
+"kshatipurti"
+],
+"ne": [
+"क्षतिपूर्ति"
+]
+},
+{
+"en": [
+"juvenile justice"
+],
+"roman": [
+"bal nyaya"
+],
+"ne": [
+"बाल न्याय"
+]
+},
+{
+"en": [
+"rehabilitation center"
+],
+"roman": [
+"sudhar griha"
+],
+"ne": [
+"सुधार गृह"
+]
+},
+{
+"en": [
+"police report"
+],
+"roman": [
+"prahari prativedan"
+],
+"ne": [
+"प्रहरी प्रतिवेदन"
+]
+},
+{
+"en": [
+"legal representative"
+],
+"roman": [
+"kanuni pratinidhi"
+],
+"ne": [
+"कानूनी प्रतिनिधि"
+]
+},
+{
+"en": [
+"habeas corpus"
+],
+"roman": [
+"bandi pratyakshikaran"
+],
+"ne": [
+"बन्दी प्रत्यक्षीकरण"
+]
+},
+{
+"en": [
+"summary trial"
+],
+"roman": [
+"sankshipta karyabidhi"
+],
+"ne": [
+"संक्षिप्त कार्यविधि"
+]
+}
+],
+"civil procedure: filing a suit, court fees, limitation period, appeal, execution of judgment": [
+{
+"en": [
+"plaint",
+"lawsuit",
+"suit filing"
+],
+"roman": [
+"phiradpatra",
+"mudda halne",
+"phirad"
+],
+"ne": [
+"फिरादपत्र",
+"फिराद"
+]
+},
+{
+"en": [
+"limitation period",
+"deadline to file",
+"time limit"
+],
+"roman": [
+"hadmyad",
+"samaya sima"
+],
+"ne": [
+"हदम्याद"
+]
+},
+{
+"en": [
+"court fee",
+"filing fee"
+],
+"roman": [
+"adalat dastur",
+"court fee",
+"adalati sulka"
+],
+"ne": [
+"अदालती शुल्क"
+]
+},
+{
+"en": [
+"appeal",
+"higher court"
+],
+"roman": [
+"punaravedan",
+"upallo adalat"
+],
+"ne": [
+"पुनरावेदन"
+]
+},
+{
+"en": [
+"execution of judgment",
+"verdict implementation"
+],
+"roman": [
+"faisala karyanvayan",
+"faisala lagu"
+],
+"ne": [
+"फैसला कार्यान्वयन"
+]
+},
+{
+"en": [
+"written statement",
+"defense response"
+],
+"roman": [
+"pratiuttar patra",
+"jawaf"
+],
+"ne": [
+"प्रतिउत्तरपत्र",
+"प्रतिउत्तर"
+]
+},
+{
+"en": [
+"plaintiff",
+"petitioner"
+],
+"roman": [
+"vadi",
+"mudda halne manche"
+],
+"ne": [
+"वादी"
+]
+},
+{
+"en": [
+"defendant",
+"respondent"
+],
+"roman": [
+"prativadi",
+"vipachhi"
+],
+"ne": [
+"प्रतिवादी"
+]
+},
+{
+"en": [
+"power of attorney",
+"legal representative"
+],
+"roman": [
+"waris",
+"warisnama"
+],
+"ne": [
+"वारिस",
+"वारिसनामा"
+]
+},
+{
+"en": [
+"legal practitioner",
+"lawyer",
+"advocate"
+],
+"roman": [
+"kanun vyavasayi",
+"wakil"
+],
+"ne": [
+"कानुन व्यवसायी",
+"वकिल"
+]
+},
+{
+"en": [
+"jurisdiction",
+"court authority"
+],
+"roman": [
+"kshetradhikar"
+],
+"ne": [
+"क्षेत्राधिकार"
+]
+},
+{
+"en": [
+"cause of action",
+"reason for suit"
+],
+"roman": [
+"nalish",
+"daavi"
+],
+"ne": [
+"नालिस",
+"दावी"
+]
+},
+{
+"en": [
+"evidence",
+"proof"
+],
+"roman": [
+"praman",
+"sabut"
+],
+"ne": [
+"प्रमाण",
+"सबुद"
+]
+},
+{
+"en": [
+"witness",
+"testifier"
+],
+"roman": [
+"sakshi",
+"gawah"
+],
+"ne": [
+"साक्षी"
+]
+},
+{
+"en": [
+"summons",
+"notice"
+],
+"roman": [
+"myad",
+"itlayanam",
+"suchana"
+],
+"ne": [
+"म्याद",
+"इतलायानामा"
+]
+},
+{
+"en": [
+"stay order",
+"injunction"
+],
+"roman": [
+"stahagan",
+"antarim adesh"
+],
+"ne": [
+"स्थगन",
+"अन्तरिम आदेश"
+]
+},
+{
+"en": [
+"judgment",
+"verdict",
+"decision"
+],
+"roman": [
+"faisala",
+"nirnaya"
+],
+"ne": [
+"फैसला",
+"निर्णय"
+]
+},
+{
+"en": [
+"decree",
+"court order"
+],
+"roman": [
+"adesh",
+"parcha"
+],
+"ne": [
+"आदेश",
+"पर्चा"
+]
+},
+{
+"en": [
+"summary procedure"
+],
+"roman": [
+"sanchhipta karyavidhi"
+],
+"ne": [
+"संक्षिप्त कार्यविधि"
+]
+},
+{
+"en": [
+"mediation",
+"compromise"
+],
+"roman": [
+"melmilap",
+"milapatra"
+],
+"ne": [
+"मेलमिलाप",
+"मिलापत्र"
+]
+},
+{
+"en": [
+"court of first instance",
+"district court"
+],
+"roman": [
+"shuru adalat",
+"jilla adalat"
+],
+"ne": [
+"शुरु अदालत",
+"जिल्ला अदालत"
+]
+},
+{
+"en": [
+"high court"
+],
+"roman": [
+"uchha adalat"
+],
+"ne": [
+"उच्च अदालत"
+]
+},
+{
+"en": [
+"supreme court"
+],
+"roman": [
+"sarbochha adalat"
+],
+"ne": [
+"सर्वोच्च अदालत"
+]
+},
+{
+"en": [
+"legal aid"
+],
+"roman": [
+"kanuni sahayata"
+],
+"ne": [
+"कानुनी सहायता"
+]
+},
+{
+"en": [
+"court clerk",
+"registrar"
+],
+"roman": [
+"shrestedar",
+"tahashildar"
+],
+"ne": [
+"श्रेस्तेदार",
+"तहशिलदार"
+]
+},
+{
+"en": [
+"bench",
+"judge panel"
+],
+"roman": [
+"izalas"
+],
+"ne": [
+"इजलास"
+]
+},
+{
+"en": [
+"single bench"
+],
+"roman": [
+"ekal izalas"
+],
+"ne": [
+"एकल इजलास"
+]
+},
+{
+"en": [
+"division bench"
+],
+"roman": [
+"samyukta izalas"
+],
+"ne": [
+"संयुक्त इजलास"
+]
+},
+{
+"en": [
+"full bench"
+],
+"roman": [
+"purna izalas"
+],
+"ne": [
+"पूर्ण इजलास"
+]
+},
+{
+"en": [
+"contempt of court"
+],
+"roman": [
+"adalatko abamanana"
+],
+"ne": [
+"अदालतको अवहेलना"
+]
+},
+{
+"en": [
+"amicus curiae"
+],
+"roman": [
+"adalatko sahayogi"
+],
+"ne": [
+"अदालतको सहयोगी"
+]
+},
+{
+"en": [
+"bail",
+"security"
+],
+"roman": [
+"dharauti",
+"jamanat"
+],
+"ne": [
+"धरौटी",
+"जमानत"
+]
+},
+{
+"en": [
+"guarantor"
+],
+"roman": [
+"jamani",
+"basne manche"
+],
+"ne": [
+"जमानी"
+]
+},
+{
+"en": [
+"attachment of property",
+"freezing assets"
+],
+"roman": [
+"roka",
+"sampatti roka"
+],
+"ne": [
+"रोक्का",
+"सम्पत्ति रोक्का"
+]
+},
+{
+"en": [
+"auction",
+"judicial sale"
+],
+"roman": [
+"lilam",
+"lilam bikri"
+],
+"ne": [
+"लिलाम",
+"लिलाम बिक्री"
+]
+},
+{
+"en": [
+"rejoinder",
+"reply to defense"
+],
+"roman": [
+"prati-uttar ko uttar"
+],
+"ne": [
+"प्रतिउत्तरको उत्तर"
+]
+},
+{
+"en": [
+"certified copy"
+],
+"roman": [
+"pramanit nakal"
+],
+"ne": [
+"प्रमाणित नक्कल"
+]
+},
+{
+"en": [
+"original document"
+],
+"roman": [
+"asal likhat"
+],
+"ne": [
+"अशल लिखत"
+]
+},
+{
+"en": [
+"court diary",
+"cause list"
+],
+"roman": [
+"peshi",
+"dainiki"
+],
+"ne": [
+"पेशी",
+"दैनिकी"
+]
+},
+{
+"en": [
+"adjournment",
+"postponement"
+],
+"roman": [
+"peshi sarne",
+"stahagan"
+],
+"ne": [
+"पेशी सर्ने",
+"स्थगन"
+]
+},
+{
+"en": [
+"ex-parte decision"
+],
+"roman": [
+"ekpachhiya faisala"
+],
+"ne": [
+"एकपक्षीय फैसला"
+]
+},
+{
+"en": [
+"legal standing",
+"locus standi"
+],
+"roman": [
+"hakdai"
+],
+"ne": [
+"हकदैया"
+]
+},
+{
+"en": [
+"limitation extension"
+],
+"roman": [
+"myad thap"
+],
+"ne": [
+"म्याद थप"
+]
+},
+{
+"en": [
+"court fee waiver"
+],
+"roman": [
+"court fee chhut"
+],
+"ne": [
+"अदालती शुल्क मिनाहा"
+]
+},
+{
+"en": [
+"execution petition"
+],
+"roman": [
+"faisala karyanvayan darkhasta"
+],
+"ne": [
+"फैसला कार्यान्वयन दरखास्त"
+]
+},
+{
+"en": [
+"fine",
+"penalty"
+],
+"roman": [
+"jaribana"
+],
+"ne": [
+"जरिवाना"
+]
+},
+{
+"en": [
+"compensation",
+"damages"
+],
+"roman": [
+"chhatipurti"
+],
+"ne": [
+"क्षतिपूर्ति"
+]
+},
+{
+"en": [
+"legal validity"
+],
+"roman": [
+"kanuni manyata"
+],
+"ne": [
+"कानुनी मान्यता"
+]
+},
+{
+"en": [
+"notary public"
+],
+"roman": [
+"notary public",
+"lekhapadhi"
+],
+"ne": [
+"नोटेरी पब्लिक"
+]
+},
+{
+"en": [
+"oath",
+"affidavit"
+],
+"roman": [
+"shapath",
+"saugandh"
+],
+"ne": [
+"शपथ",
+"शपथपत्र"
+]
+}
+],
+"constitutional rights, writs, fundamental rights, equality, discrimination, citizenship": [
+{
+"en": [
+"constitution",
+"supreme law"
+],
+"roman": [
+"sambidhan",
+"sanbidhan"
+],
+"ne": [
+"संविधान",
+"मूल कानून"
+]
+},
+{
+"en": [
+"fundamental rights",
+"basic rights"
+],
+"roman": [
+"maulik hak",
+"moulik adhikar"
+],
+"ne": [
+"मौलिक हक",
+"आधारभूत अधिकार"
+]
+},
+{
+"en": [
+"citizenship",
+"nationality"
+],
+"roman": [
+"nagarikta",
+"nagariyata"
+],
+"ne": [
+"नागरिकता"
+]
+},
+{
+"en": [
+"citizenship by descent",
+"lineage"
+],
+"roman": [
+"banshaj nagarikta",
+"banshajko adhar"
+],
+"ne": [
+"वंशजको आधारमा नागरिकता"
+]
+},
+{
+"en": [
+"naturalized citizenship"
+],
+"roman": [
+"angikrit nagarikta",
+"angikrit"
+],
+"ne": [
+"अङ्गीकृत नागरिकता"
+]
+},
+{
+"en": [
+"right to equality",
+"equal rights"
+],
+"roman": [
+"samantako hak",
+"samanta"
+],
+"ne": [
+"समानताको हक"
+]
+},
+{
+"en": [
+"discrimination",
+"bias"
+],
+"roman": [
+"bhedbhau",
+"bibhed"
+],
+"ne": [
+"भेदभाव",
+"विभेद"
+]
+},
+{
+"en": [
+"untouchability",
+"caste discrimination"
+],
+"roman": [
+"chhuwachhut",
+"jatiya bhedbhau"
+],
+"ne": [
+"छुवाछूत तथा भेदभाव विरुद्धको हक"
+]
+},
+{
+"en": [
+"right to freedom",
+"liberty"
+],
+"roman": [
+"swatantratako hak",
+"swatantrata"
+],
+"ne": [
+"स्वतन्त्रताको हक"
+]
+},
+{
+"en": [
+"freedom of speech",
+"expression"
+],
+"roman": [
+"bichar ra abhibyakti",
+"bolne adhikar"
+],
+"ne": [
+"विचार र अभिव्यक्तिको स्वतन्त्रता"
+]
+},
+{
+"en": [
+"right to justice",
+"legal remedy"
+],
+"roman": [
+"nyayayik hak",
+"nyaya"
+],
+"ne": [
+"न्याय सम्बन्धी हक"
+]
+},
+{
+"en": [
+"preventive detention"
+],
+"roman": [
+"niwarak najarbandi",
+"najarbandi"
+],
+"ne": [
+"निवारक नजरबन्द"
+]
+},
+{
+"en": [
+"right against torture"
+],
+"roman": [
+"yatana biruddha",
+"yatana"
+],
+"ne": [
+"यातना विरुद्धको हक"
+]
+},
+{
+"en": [
+"right to information",
+"rti"
+],
+"roman": [
+"suchanako hak",
+"suchana"
+],
+"ne": [
+"सूचनाको हक"
+]
+},
+{
+"en": [
+"right to privacy"
+],
+"roman": [
+"gopaniyatako hak",
+"gopaniyata"
+],
+"ne": [
+"गोपनीयताको हक"
+]
+},
+{
+"en": [
+"right to property"
+],
+"roman": [
+"sampattiko hak",
+"sampatti"
+],
+"ne": [
+"सम्पत्तिको हक"
+]
+},
+{
+"en": [
+"religious freedom"
+],
+"roman": [
+"dharmik swatantrata",
+"dharma"
+],
+"ne": [
+"धार्मिक स्वतन्त्रताको हक"
+]
+},
+{
+"en": [
+"right of women"
+],
+"roman": [
+"mahila ko hak",
+"mahila adhikar"
+],
+"ne": [
+"महिलाको हक"
+]
+},
+{
+"en": [
+"right of dalit"
+],
+"roman": [
+"dalit ko hak",
+"dalit adhikar"
+],
+"ne": [
+"दलितको हक"
+]
+},
+{
+"en": [
+"right to education"
+],
+"roman": [
+"shikshako hak",
+"shiksha"
+],
+"ne": [
+"शिक्षा सम्बन्धी हक"
+]
+},
+{
+"en": [
+"right to health"
+],
+"roman": [
+"swasthya ko hak",
+"swasthya"
+],
+"ne": [
+"स्वास्थ्य सम्बन्धी हक"
+]
+},
+{
+"en": [
+"right to labor",
+"employment"
+],
+"roman": [
+"shram ko hak",
+"rojgari"
+],
+"ne": [
+"श्रमको हक",
+"रोजगारीको हक"
+]
+},
+{
+"en": [
+"constitutional remedy",
+"writs"
+],
+"roman": [
+"sambidhanik upachar",
+"rit"
+],
+"ne": [
+"संवैधानिक उपचारको हक",
+"रिट"
+]
+},
+{
+"en": [
+"writ of habeas corpus"
+],
+"roman": [
+"bandi pratyakshikaran",
+"bandi"
+],
+"ne": [
+"बन्दी प्रत्यक्षीकरण"
+]
+},
+{
+"en": [
+"writ of mandamus"
+],
+"roman": [
+"paramadesh"
+],
+"ne": [
+"परमादेश"
+]
+},
+{
+"en": [
+"writ of prohibition"
+],
+"roman": [
+"pratishedh"
+],
+"ne": [
+"प्रतिषेध"
+]
+},
+{
+"en": [
+"writ of certiorari"
+],
+"roman": [
+"utpreshan"
+],
+"ne": [
+"उत्प्रेषण"
+]
+},
+{
+"en": [
+"writ of quo warranto"
+],
+"roman": [
+"adhikar prichha"
+],
+"ne": [
+"अधिकार पृच्छा"
+]
+},
+{
+"en": [
+"sovereignty"
+],
+"roman": [
+"sarvabhaumasatta",
+"sarvabhaum"
+],
+"ne": [
+"सार्वभौमसत्ता"
+]
+},
+{
+"en": [
+"secularism"
+],
+"roman": [
+"dharmanirapekshata",
+"dharmanirapeksh"
+],
+"ne": [
+"धर्मनिरपेक्षता"
+]
+},
+{
+"en": [
+"federalism",
+"federal"
+],
+"roman": [
+"sanghiyata",
+"sanghiya"
+],
+"ne": [
+"सङ्घीयता",
+"सङ्घीय"
+]
+},
+{
+"en": [
+"proportional representation"
+],
+"roman": [
+"samanupatik",
+"samanupatik pratinidhitwa"
+],
+"ne": [
+"समानुपातिक समावेशी"
+]
+},
+{
+"en": [
+"social justice"
+],
+"roman": [
+"samajik nyaya"
+],
+"ne": [
+"सामाजिक न्यायको हक"
+]
+},
+{
+"en": [
+"state power"
+],
+"roman": [
+"rajyasatta",
+"rajya shakti"
+],
+"ne": [
+"राज्यशक्ति"
+]
+},
+{
+"en": [
+"directive principles"
+],
+"roman": [
+"nirdeshak siddhanta"
+],
+"ne": [
+"निर्देशक सिद्धान्तहरू"
+]
+},
+{
+"en": [
+"executive"
+],
+"roman": [
+"karyapalika"
+],
+"ne": [
+"कार्यपालिका"
+]
+},
+{
+"en": [
+"legislature",
+"parliament"
+],
+"roman": [
+"व्यवस्थापिका",
+"sansad"
+],
+"ne": [
+"व्यवस्थापिका",
+"संसद"
+]
+},
+{
+"en": [
+"judiciary",
+"courts"
+],
+"roman": [
+"nyayapalika",
+"adalat"
+],
+"ne": [
+"न्यायपालिका"
+]
+},
+{
+"en": [
+"constitutional body"
+],
+"roman": [
+"sambidhanik nikaya"
+],
+"ne": [
+"संवैधानिक निकाय"
+]
+},
+{
+"en": [
+"election commission"
+],
+"roman": [
+"nirwachan ayog"
+],
+"ne": [
+"निर्वाचन आयोग"
+]
+},
+{
+"en": [
+"human rights commission"
+],
+"roman": [
+"manav adhikar ayog"
+],
+"ne": [
+"मानव अधिकार आयोग"
+]
+},
+{
+"en": [
+"public service commission"
+],
+"roman": [
+"lok sewa ayog"
+],
+"ne": [
+"लोक सेवा आयोग"
+]
+},
+{
+"en": [
+"attorney general"
+],
+"roman": [
+"mahanayadhivakta"
+],
+"ne": [
+"महान्यायाधिवक्ता"
+]
+},
+{
+"en": [
+"emergency power"
+],
+"roman": [
+"sankatkalin abastha",
+"sankatkal"
+],
+"ne": [
+"सङ्कटकालीन अवस्था"
+]
+},
+{
+"en": [
+"amendment"
+],
+"roman": [
+"sanshodhan"
+],
+"ne": [
+"संशोधन"
+]
+},
+{
+"en": [
+"victim rights"
+],
+"roman": [
+"piditko hak"
+],
+"ne": [
+"अपराध पीडितको हक"
+]
+},
+{
+"en": [
+"child rights"
+],
+"roman": [
+"balbalika ko hak"
+],
+"ne": [
+"बालबालिकाको हक"
+]
+},
+{
+"en": [
+"senior citizens rights"
+],
+"roman": [
+"jyestha nagarik hak"
+],
+"ne": [
+"ज्येष्ठ नागरिकको हक"
+]
+},
+{
+"en": [
+"right to environment"
+],
+"roman": [
+"batabaran ko hak"
+],
+"ne": [
+"स्वच्छ वातावरणको हक"
+]
+},
+{
+"en": [
+"consumer rights"
+],
+"roman": [
+"upabhokta ko hak"
+],
+"ne": [
+"उपभोक्ताको हक"
+]
+}
+],
+"labour and employment: wages, dismissal, leave, gratuity, provident fund, trade unions, child labour": [
+{
+"en": [
+"labor",
+"labour",
+"work"
+],
+"roman": [
+"shram",
+"kaam"
+],
+"ne": [
+"श्रम",
+"काम"
+]
+},
+{
+"en": [
+"employer",
+"boss",
+"owner"
+],
+"roman": [
+"rozgardaata",
+"malik"
+],
+"ne": [
+"रोजगारदाता",
+"मालिक"
+]
+},
+{
+"en": [
+"employee",
+"worker",
+"laborer"
+],
+"roman": [
+"shramik",
+"karmachari"
+],
+"ne": [
+"श्रमिक",
+"कर्मचारी"
+]
+},
+{
+"en": [
+"wages",
+"salary",
+"pay"
+],
+"roman": [
+"talab",
+"jyala",
+"parishramik"
+],
+"ne": [
+"पारिश्रमिक",
+"तलव",
+"ज्याला"
+]
+},
+{
+"en": [
+"minimum wage",
+"basic pay"
+],
+"roman": [
+"nyuntam parishramik",
+"nyuntam talab"
+],
+"ne": [
+"न्यूनतम पारिश्रमिक"
+]
+},
+{
+"en": [
+"dismissal",
+"termination",
+"firing"
+],
+"roman": [
+"nishkashan",
+"sewa mukta",
+"nikalne"
+],
+"ne": [
+"निष्कासन",
+"सेवाबाट हटाउने",
+"सेवा अन्त्य"
+]
+},
+{
+"en": [
+"resignation"
+],
+"roman": [
+"rajinama",
+"tyagpatra"
+],
+"ne": [
+"राजीनामा",
+"त्यागपत्र"
+]
+},
+{
+"en": [
+"gratuity"
+],
+"roman": [
+"upadan"
+],
+"ne": [
+"उपदान"
+]
+},
+{
+"en": [
+"provident fund",
+"pf"
+],
+"roman": [
+"sanchaya kosh"
+],
+"ne": [
+"सञ्चय कोष"
+]
+},
+{
+"en": [
+"leave",
+"holiday",
+"vacation"
+],
+"roman": [
+"bida"
+],
+"ne": [
+"बिदा"
+]
+},
+{
+"en": [
+"sick leave"
+],
+"roman": [
+"birami bida"
+],
+"ne": [
+"बिरामी बिदा"
+]
+},
+{
+"en": [
+"maternity leave"
+],
+"roman": [
+"sutkeri bida",
+"prasuti bida"
+],
+"ne": [
+"प्रसूति बिदा",
+"सुत्केरी बिदा"
+]
+},
+{
+"en": [
+"paternity leave"
+],
+"roman": [
+"prasuti syahar bida"
+],
+"ne": [
+"प्रसूति स्याहार बिदा"
+]
+},
+{
+"en": [
+"annual leave",
+"home leave"
+],
+"roman": [
+"ghar bida"
+],
+"ne": [
+"घर बिदा"
+]
+},
+{
+"en": [
+"public holiday"
+],
+"roman": [
+"sarvajanik bida"
+],
+"ne": [
+"सार्वजनिक बिदा"
+]
+},
+{
+"en": [
+"trade union"
+],
+"roman": [
+"trade union",
+"shramik sangathan"
+],
+"ne": [
+"ट्रेड युनियन",
+"श्रमिक संगठन"
+]
+},
+{
+"en": [
+"collective bargaining"
+],
+"roman": [
+"samuhik saudabaji"
+],
+"ne": [
+"सामूहिक सौदाबाजी"
+]
+},
+{
+"en": [
+"child labor",
+"child labour"
+],
+"roman": [
+"bal shram",
+"bal shramik"
+],
+"ne": [
+"बालश्रम",
+"बाल श्रमिक"
+]
+},
+{
+"en": [
+"forced labor",
+"slavery"
+],
+"roman": [
+"badha shram",
+"balajapti"
+],
+"ne": [
+"बाँधा श्रम",
+"जबरजस्ती काम लगाउने"
+]
+},
+{
+"en": [
+"overtime"
+],
+"roman": [
+"atirikta samay",
+"overtime"
+],
+"ne": [
+"अतिरिक्त समय"
+]
+},
+{
+"en": [
+"bonus"
+],
+"roman": [
+"bonus",
+"munafa"
+],
+"ne": [
+"बोनस",
+"लाभांश"
+]
+},
+{
+"en": [
+"social security"
+],
+"roman": [
+"samajik surakshya"
+],
+"ne": [
+"सामाजिक सुरक्षा"
+]
+},
+{
+"en": [
+"employment contract",
+"appointment letter"
+],
+"roman": [
+"niyukti patra",
+"shram sambajhota"
+],
+"ne": [
+"नियुक्ति पत्र",
+"श्रम सम्झौता"
+]
+},
+{
+"en": [
+"probation period"
+],
+"roman": [
+"parikshyan kal"
+],
+"ne": [
+"परीक्षण काल"
+]
+},
+{
+"en": [
+"retrenchment",
+"layoff"
+],
+"roman": [
+"katauti",
+"shramik katauti"
+],
+"ne": [
+"कटौती",
+"श्रमिक कटौती"
+]
+},
+{
+"en": [
+"workplace accident",
+"injury"
+],
+"roman": [
+"durghatna",
+"chotpatak"
+],
+"ne": [
+"कार्यस्थल दुर्घटना",
+"चोटपटक"
+]
+},
+{
+"en": [
+"compensation",
+"damages"
+],
+"roman": [
+"kshatipurti",
+"bharpai"
+],
+"ne": [
+"क्षतिपूर्ति"
+]
+},
+{
+"en": [
+"labor court"
+],
+"roman": [
+"shram adalat"
+],
+"ne": [
+"श्रम अदालत"
+]
+},
+{
+"en": [
+"strike",
+"protest"
+],
+"roman": [
+"hartal",
+"andolan"
+],
+"ne": [
+"हडताल",
+"आन्दोलन"
+]
+},
+{
+"en": [
+"lockout"
+],
+"roman": [
+"talabandi"
+],
+"ne": [
+"तालाबन्दी"
+]
+},
+{
+"en": [
+"misconduct",
+"bad behavior"
+],
+"roman": [
+"kharaab acharan",
+"durachar"
+],
+"ne": [
+"खराब आचरण",
+"दुराचार"
+]
+},
+{
+"en": [
+"disciplinary action"
+],
+"roman": [
+"anusashanik karbahi"
+],
+"ne": [
+"अनुशासनिक कारबाही"
+]
+},
+{
+"en": [
+"working hours"
+],
+"roman": [
+"kaam garne samay"
+],
+"ne": [
+"काम गर्ने समय"
+]
+},
+{
+"en": [
+"rest period",
+"break"
+],
+"roman": [
+"khaja samay",
+"bishram"
+],
+"ne": [
+"विश्राम समय"
+]
+},
+{
+"en": [
+"occupational safety"
+],
+"roman": [
+"swasthya ra surakshya"
+],
+"ne": [
+"व्यवसायिक सुरक्षा तथा स्वास्थ्य"
+]
+},
+{
+"en": [
+"labor inspector"
+],
+"roman": [
+"shram nirikshyak"
+],
+"ne": [
+"श्रम निरीक्षक"
+]
+},
+{
+"en": [
+"outsourcing"
+],
+"roman": [
+"bahya srot"
+],
+"ne": [
+"बाह्य स्रोत"
+]
+},
+{
+"en": [
+"internship"
+],
+"roman": [
+"shikshyanarthi"
+],
+"ne": [
+"शिक्षार्थी"
+]
+},
+{
+"en": [
+"discrimination"
+],
+"roman": [
+"भेदभाव",
+"bhedbhav"
+],
+"ne": [
+"भेदभाव"
+]
+},
+{
+"en": [
+"equal pay"
+],
+"roman": [
+"saman parishramik"
+],
+"ne": [
+"समान पारिश्रमिक"
+]
+},
+{
+"en": [
+"sexual harassment"
+],
+"roman": [
+"yaun durvyavahar"
+],
+"ne": [
+"यौन दुर्व्यवहार"
+]
+},
+{
+"en": [
+"festival allowance",
+"dashain bonus"
+],
+"roman": [
+"chadparva kharcha"
+],
+"ne": [
+"चाडपर्व खर्च"
+]
+},
+{
+"en": [
+"medical insurance"
+],
+"roman": [
+"aushadhi upachar bima"
+],
+"ne": [
+"औषधि उपचार बीमा"
+]
+},
+{
+"en": [
+"unemployment"
+],
+"roman": [
+"berojgari"
+],
+"ne": [
+"बेरोजगारी"
+]
+},
+{
+"en": [
+"permanent employee"
+],
+"roman": [
+"sthayi karmachari"
+],
+"ne": [
+"स्थायी कर्मचारी"
+]
+},
+{
+"en": [
+"temporary employee"
+],
+"roman": [
+"asthayi karmachari"
+],
+"ne": [
+"अस्थायी कर्मचारी"
+]
+},
+{
+"en": [
+"daily wager"
+],
+"roman": [
+"jyaldari"
+],
+"ne": [
+"ज्यालादारी"
+]
+},
+{
+"en": [
+"casual worker"
+],
+"roman": [
+"akasmik shramik"
+],
+"ne": [
+"आकस्मिक श्रमिक"
+]
+},
+{
+"en": [
+"remittance"
+],
+"roman": [
+"bipreshan"
+],
+"ne": [
+"विप्रेषण"
+]
+},
+{
+"en": [
+"foreign employment"
+],
+"roman": [
+"baideshik rojgar"
+],
+"ne": [
+"वैदेशिक रोजगार"
+]
+}
+],
+"consumer protection, product quality, price, complaints": [
+{
+"en": [
+"consumer",
+"customer",
+"buyer"
+],
+"roman": [
+"upabhokta",
+"grahak",
+"khariidkarta"
+],
+"ne": [
+"उपभोक्ता",
+"ग्राहक"
+]
+},
+{
+"en": [
+"quality",
+"standard",
+"grade"
+],
+"roman": [
+"gunastar",
+"maapdan",
+"quality"
+],
+"ne": [
+"गुणस्तर",
+"मापदण्ड"
+]
+},
+{
+"en": [
+"price",
+"cost",
+"rate"
+],
+"roman": [
+"mulya",
+"dar",
+"daam"
+],
+"ne": [
+"मूल्य",
+"दर"
+]
+},
+{
+"en": [
+"complaint",
+"grievance",
+"petition"
+],
+"roman": [
+"gunaaso",
+"ujuri",
+"nivedan"
+],
+"ne": [
+"गुनासो",
+"उजुरी",
+"निवेदन"
+]
+},
+{
+"en": [
+"adulteration",
+"mixing",
+"impure"
+],
+"roman": [
+"milawat",
+"misawat"
+],
+"ne": [
+"मिसावट"
+]
+},
+{
+"en": [
+"expiry date",
+"expiration",
+"validity"
+],
+"roman": [
+"myaad gujriyeko",
+"expiry date",
+"myaad sakiyeko"
+],
+"ne": [
+"म्याद नाघेको",
+"उपभोग्य अवधि"
+]
+},
+{
+"en": [
+"black marketing",
+"hoarding"
+],
+"roman": [
+"kalobajaari",
+"kaalo bajaar"
+],
+"ne": [
+"कालोबजारी"
+]
+},
+{
+"en": [
+"compensation",
+"damages",
+"reimbursement"
+],
+"roman": [
+"क्षतिपूर्ति",
+"khyatipurti",
+"harjana"
+],
+"ne": [
+"क्षतिपूर्ति",
+"हर्जाना"
+]
+},
+{
+"en": [
+"label",
+"tag",
+"description"
+],
+"roman": [
+"label",
+"parichaya",
+"bibaran"
+],
+"ne": [
+"लेबल",
+"विवरण"
+]
+},
+{
+"en": [
+"weight",
+"measurement",
+"quantity"
+],
+"roman": [
+"taul",
+"naap",
+"pariman"
+],
+"ne": [
+"तौल",
+"नाप",
+"परिमाण"
+]
+},
+{
+"en": [
+"fraud",
+"cheating",
+"deception"
+],
+"roman": [
+"thagi",
+"chhalkapat"
+],
+"ne": [
+"ठगी",
+"छलकपट"
+]
+},
+{
+"en": [
+"artificial shortage",
+"scarcity"
+],
+"roman": [
+"kritrim abhav"
+],
+"ne": [
+"कृत्रिम अभाव"
+]
+},
+{
+"en": [
+"maximum retail price",
+"mrp"
+],
+"roman": [
+"adhiktam khudra mulya",
+"mrp"
+],
+"ne": [
+"अधिकतम खुद्रा मूल्य"
+]
+},
+{
+"en": [
+"invoice",
+"bill",
+"receipt"
+],
+"roman": [
+"bill",
+"bijak",
+"rasid"
+],
+"ne": [
+"बीजक",
+"बिल",
+"रसिद"
+]
+},
+{
+"en": [
+"harmful",
+"hazardous",
+"toxic"
+],
+"roman": [
+"hanikarak",
+"bisalu"
+],
+"ne": [
+"हानिकारक",
+"विषाक्त"
+]
+},
+{
+"en": [
+"monitoring",
+"inspection",
+"supervision"
+],
+"roman": [
+"anugaman",
+"nirikshan"
+],
+"ne": [
+"अनुगमन",
+"निरीक्षण"
+]
+},
+{
+"en": [
+"service provider",
+"seller",
+"vendor"
+],
+"roman": [
+"sewa pradayak",
+"bikreta"
+],
+"ne": [
+"सेवा प्रदायक",
+"विक्रेता"
+]
+},
+{
+"en": [
+"unfair trade",
+"malpractice"
+],
+"roman": [
+"anuchit vyaparik kriya"
+],
+"ne": [
+"अनुचित व्यापारिक क्रियाकलाप"
+]
+},
+{
+"en": [
+"warranty",
+"guarantee"
+],
+"roman": [
+"warranty",
+"guarantee",
+"bharosa"
+],
+"ne": [
+"वारेन्टी",
+"ग्यारेन्टी"
+]
+},
+{
+"en": [
+"substandard",
+"low quality"
+],
+"roman": [
+"kam asal",
+"kam gunastar"
+],
+"ne": [
+"न्यून गुणस्तर",
+"कमसल"
+]
+},
+{
+"en": [
+"misleading advertisement",
+"fake ads"
+],
+"roman": [
+"bhramak bigyapan"
+],
+"ne": [
+"भ्रामक विज्ञापन"
+]
+},
+{
+"en": [
+"market price",
+"current rate"
+],
+"roman": [
+"bajaar bhau",
+"prachalit mulya"
+],
+"ne": [
+"बजार भाउ",
+"प्रचलित मूल्य"
+]
+},
+{
+"en": [
+"department of commerce",
+"regulator"
+],
+"roman": [
+"banijya bibhag"
+],
+"ne": [
+"वाणिज्य विभाग"
+]
+},
+{
+"en": [
+"essential goods",
+"necessities"
+],
+"roman": [
+"anibarya bastu",
+"upabhogya bastu"
+],
+"ne": [
+"अनिवार्य वस्तु",
+"उपभोग्य वस्तु"
+]
+},
+{
+"en": [
+"refund",
+"return money"
+],
+"roman": [
+"paisa firta",
+"refund"
+],
+"ne": [
+"रकम फिर्ता"
+]
+},
+{
+"en": [
+"replacement",
+"exchange"
+],
+"roman": [
+"satta-patta",
+"sattne",
+"exchange"
+],
+"ne": [
+"साटफेर",
+"प्रतिस्थापन"
+]
+},
+{
+"en": [
+"fine",
+"penalty"
+],
+"roman": [
+"jaribana",
+"danda"
+],
+"ne": [
+"जरिवाना",
+"दण्ड"
+]
+},
+{
+"en": [
+"legal action",
+"prosecution"
+],
+"roman": [
+"kanuni karbahi"
+],
+"ne": [
+"कानूनी कारबाही"
+]
+},
+{
+"en": [
+"consumer rights",
+"protection"
+],
+"roman": [
+"upabhokta adhikar",
+"hit"
+],
+"ne": [
+"उपभोक्ता अधिकार",
+"उपभोक्ता हित"
+]
+},
+{
+"en": [
+"sampling",
+"test sample"
+],
+"roman": [
+"namuna",
+"sample"
+],
+"ne": [
+"नमूना"
+]
+},
+{
+"en": [
+"laboratory test",
+"lab report"
+],
+"roman": [
+"prayogshala parikshan"
+],
+"ne": [
+"प्रयोगशाला परीक्षण"
+]
+},
+{
+"en": [
+"wholesaler",
+"distributor"
+],
+"roman": [
+"thok bikreta"
+],
+"ne": [
+"थोक विक्रेता"
+]
+},
+{
+"en": [
+"retailer",
+"shopkeeper"
+],
+"roman": [
+"khudra bikreta",
+"pasale"
+],
+"ne": [
+"खुदरा विक्रेता",
+"पसले"
+]
+},
+{
+"en": [
+"cartel",
+"syndicate",
+"price fixing"
+],
+"roman": [
+"cartel",
+"syndicate",
+"milomato"
+],
+"ne": [
+"कार्टेलिङ",
+"मिलेमतो"
+]
+},
+{
+"en": [
+"overcharging",
+"high price"
+],
+"roman": [
+"badhi mulya",
+"mahango"
+],
+"ne": [
+"बढी मूल्य",
+"महँगो"
+]
+},
+{
+"en": [
+"manufacturing date",
+"production date"
+],
+"roman": [
+"utpadan miti"
+],
+"ne": [
+"उत्पादन मिति"
+]
+},
+{
+"en": [
+"batch number",
+"lot number"
+],
+"roman": [
+"batch number",
+"ghaan number"
+],
+"ne": [
+"ब्याच नम्बर",
+"घान नम्बर"
+]
+},
+{
+"en": [
+"storage",
+"warehouse",
+"godown"
+],
+"roman": [
+"bhandaran",
+"godam"
+],
+"ne": [
+"भण्डारण",
+"गोदाम"
+]
+},
+{
+"en": [
+"license",
+"permit"
+],
+"roman": [
+"ijajatpatra",
+"license"
+],
+"ne": [
+"इजाजतपत्र",
+"अनुमति"
+]
+},
+{
+"en": [
+"registration",
+"enrolment"
+],
+"roman": [
+"darta",
+"panjikaran"
+],
+"ne": [
+"दर्ता"
+]
+},
+{
+"en": [
+"public health",
+"safety"
+],
+"roman": [
+"janaswasthya",
+"surakshya"
+],
+"ne": [
+"जनस्वास्थ्य",
+"सुरक्षा"
+]
+},
+{
+"en": [
+"investigation",
+"inquiry"
+],
+"roman": [
+"chanbin",
+"tahakikat"
+],
+"ne": [
+"छानबिन",
+"तहकिकात"
+]
+},
+{
+"en": [
+"evidence",
+"proof"
+],
+"roman": [
+"praman",
+"sabut"
+],
+"ne": [
+"प्रमाण",
+"सबूत"
+]
+},
+{
+"en": [
+"witness",
+"testimony"
+],
+"roman": [
+"sakshi",
+"bakpatra"
+],
+"ne": [
+"साक्षी",
+"बकपत्र"
+]
+},
+{
+"en": [
+"court",
+"tribunal"
+],
+"roman": [
+"adalat",
+"nyayadhikaran"
+],
+"ne": [
+"अदालत",
+"न्यायाधिकरण"
+]
+},
+{
+"en": [
+"mediation",
+"settlement"
+],
+"roman": [
+"melmilap",
+"milapatra"
+],
+"ne": [
+"मेलमिलाप",
+"मिलापत्र"
+]
+},
+{
+"en": [
+"prohibited",
+"banned",
+"illegal"
+],
+"roman": [
+"nishedh",
+"pratibandhit",
+"abaidha"
+],
+"ne": [
+"निषेध",
+"प्रतिबन्धित",
+"अवैध"
+]
+},
+{
+"en": [
+"trademark",
+"brand"
+],
+"roman": [
+"trademark",
+"chinha"
+],
+"ne": [
+"ट्रेडमार्क",
+"व्यापारिक चिन्ह"
+]
+},
+{
+"en": [
+"monopoly",
+"sole control"
+],
+"roman": [
+"ekadhikar"
+],
+"ne": [
+"एकाधिकार"
+]
+},
+{
+"en": [
+"consumer court",
+"special court"
+],
+"roman": [
+"upabhokta adalat"
+],
+"ne": [
+"उपभोक्ता अदालत"
+]
+}
+],
+"company, business registration, partnership, insolvency": [
+{
+"en": [
+"company",
+"corporation"
+],
+"roman": [
+"company",
+"kampani"
+],
+"ne": [
+"कम्पनी"
+]
+},
+{
+"en": [
+"private company",
+"pvt ltd"
+],
+"roman": [
+"private company",
+"nigi kampani"
+],
+"ne": [
+"प्राइभेट कम्पनी"
+]
+},
+{
+"en": [
+"public company",
+"limited company"
+],
+"roman": [
+"public company",
+"sarvajanik kampani"
+],
+"ne": [
+"पब्लिक कम्पनी"
+]
+},
+{
+"en": [
+"partnership",
+"firm"
+],
+"roman": [
+"sajhedari",
+"partnership"
+],
+"ne": [
+"साझेदारी",
+"साझेदारी फर्म"
+]
+},
+{
+"en": [
+"sole proprietorship",
+"private firm"
+],
+"roman": [
+"nigi firm",
+"ekal firm"
+],
+"ne": [
+"प्राइभेट फर्म",
+"निजी फर्म"
+]
+},
+{
+"en": [
+"registration",
+"incorporation"
+],
+"roman": [
+"darta",
+"registration"
+],
+"ne": [
+"दर्ता",
+"संस्थापन"
+]
+},
+{
+"en": [
+"office of company registrar",
+"ocr"
+],
+"roman": [
+"company registrar karyalaya",
+"ocr"
+],
+"ne": [
+"कम्पनी रजिष्ट्रारको कार्यालय"
+]
+},
+{
+"en": [
+"memorandum of association",
+"moa"
+],
+"roman": [
+"prabandha patra",
+"moa"
+],
+"ne": [
+"प्रबन्धपत्र"
+]
+},
+{
+"en": [
+"articles of association",
+"aoa"
+],
+"roman": [
+"niyamawali",
+"aoa"
+],
+"ne": [
+"नियमावली"
+]
+},
+{
+"en": [
+"shareholder",
+"stockholder"
+],
+"roman": [
+"share dhani",
+"shareholder"
+],
+"ne": [
+"शेयरधनी"
+]
+},
+{
+"en": [
+"director",
+"board member"
+],
+"roman": [
+"sanchalak",
+"director"
+],
+"ne": [
+"सञ्चालक"
+]
+},
+{
+"en": [
+"board of directors",
+"bod"
+],
+"roman": [
+"sanchalak samiti",
+"bod"
+],
+"ne": [
+"सञ्चालक समिति"
+]
+},
+{
+"en": [
+"managing director",
+"md"
+],
+"roman": [
+"prabandha sanchalak",
+"md"
+],
+"ne": [
+"प्रबन्ध सञ्चालक"
+]
+},
+{
+"en": [
+"share capital",
+"equity"
+],
+"roman": [
+"share punji",
+"share capital"
+],
+"ne": [
+"शेयर पूँजी"
+]
+},
+{
+"en": [
+"authorized capital"
+],
+"roman": [
+"adhikrit punji"
+],
+"ne": [
+"अधिकृत पूँजी"
+]
+},
+{
+"en": [
+"issued capital"
+],
+"roman": [
+"jari punji"
+],
+"ne": [
+"जारी पूँजी"
+]
+},
+{
+"en": [
+"paid up capital"
+],
+"roman": [
+"chukta punji"
+],
+"ne": [
+"चुक्ता पूँजी"
+]
+},
+{
+"en": [
+"insolvency",
+"bankruptcy"
+],
+"roman": [
+"diwaliya",
+"insolvency"
+],
+"ne": [
+"टाट पल्टने",
+"दिवालिया"
+]
+},
+{
+"en": [
+"liquidation",
+"winding up"
+],
+"roman": [
+"khareji",
+"liquidation"
+],
+"ne": [
+"खारेजी",
+"लिक्विडेशन"
+]
+},
+{
+"en": [
+"liquidator"
+],
+"roman": [
+"liquidator"
+],
+"ne": [
+"लिक्विडेटर"
+]
+},
+{
+"en": [
+"dividend",
+"bonus"
+],
+"roman": [
+"labhansha",
+"dividend"
+],
+"ne": [
+"लाभांश"
+]
+},
+{
+"en": [
+"annual general meeting",
+"agm"
+],
+"roman": [
+"sadharan sabha",
+"agm"
+],
+"ne": [
+"साधारण सभा"
+]
+},
+{
+"en": [
+"special general meeting",
+"sgm"
+],
+"roman": [
+"bishesh sadharan sabha"
+],
+"ne": [
+"विशेष साधारण सभा"
+]
+},
+{
+"en": [
+"proxy"
+],
+"roman": [
+"proxi",
+"waris"
+],
+"ne": [
+"प्रोक्सी",
+"प्रतिनिधि"
+]
+},
+{
+"en": [
+"quorum"
+],
+"roman": [
+"gana purak sankhya"
+],
+"ne": [
+"गणपूरक संख्या"
+]
+},
+{
+"en": [
+"audit",
+"auditor"
+],
+"roman": [
+"lekhaparikshan",
+"auditor"
+],
+"ne": [
+"लेखापरीक्षण",
+"लेखापरीक्षक"
+]
+},
+{
+"en": [
+"prospectus"
+],
+"roman": [
+"bibaran patra",
+"prospectus"
+],
+"ne": [
+"विवरणपत्र"
+]
+},
+{
+"en": [
+"debenture",
+"bond"
+],
+"roman": [
+"rinpatra",
+"debenture"
+],
+"ne": [
+"ऋणपत्र"
+]
+},
+{
+"en": [
+"promoter"
+],
+"roman": [
+"pabardhak",
+"promoter"
+],
+"ne": [
+"प्रवर्द्धक"
+]
+},
+{
+"en": [
+"foreign investment"
+],
+"roman": [
+"baideshik lagani",
+"fdi"
+],
+"ne": [
+"वैदेशिक लगानी"
+]
+},
+{
+"en": [
+"joint venture",
+"jv"
+],
+"roman": [
+"samyukta lagani",
+"jv"
+],
+"ne": [
+"संयुक्त लगानी"
+]
+},
+{
+"en": [
+"industry",
+"factory"
+],
+"roman": [
+"udhyog"
+],
+"ne": [
+"उद्योग"
+]
+},
+{
+"en": [
+"department of industry",
+"doi"
+],
+"roman": [
+"udhyog bibhag"
+],
+"ne": [
+"उद्योग विभाग"
+]
+},
+{
+"en": [
+"trade mark"
+],
+"roman": [
+"trade mark",
+"chinha"
+],
+"ne": [
+"ट्रेडमार्क",
+"व्यापारिक चिन्ह"
+]
+},
+{
+"en": [
+"patent"
+],
+"roman": [
+"patent"
+],
+"ne": [
+"पेटेण्ट"
+]
+},
+{
+"en": [
+"copyright"
+],
+"roman": [
+"pratilipi adhikar"
+],
+"ne": [
+"प्रतिलिपि अधिकार"
+]
+},
+{
+"en": [
+"tax",
+"income tax"
+],
+"roman": [
+"kar",
+"ayakar"
+],
+"ne": [
+"कर",
+"आयकर"
+]
+},
+{
+"en": [
+"pan",
+"vat"
+],
+"roman": [
+"pan",
+"vat",
+"mulyabhibriddhi kar"
+],
+"ne": [
+"स्थायी लेखा नम्बर",
+"मूल्य अभिवृद्धि कर"
+]
+},
+{
+"en": [
+"compliance",
+"legal duty"
+],
+"roman": [
+"palan",
+"kanuni kartabya"
+],
+"ne": [
+"परिपालना"
+]
+},
+{
+"en": [
+"fine",
+"penalty"
+],
+"roman": [
+"jaribana",
+"danda"
+],
+"ne": [
+"जरिवाना"
+]
+},
+{
+"en": [
+"merger"
+],
+"roman": [
+"merger",
+"gabhine"
+],
+"ne": [
+"गाभिने",
+"मर्जर"
+]
+},
+{
+"en": [
+"acquisition"
+],
+"roman": [
+"prapti",
+"acquisition"
+],
+"ne": [
+"प्राप्ति"
+]
+},
+{
+"en": [
+"ultra vires",
+"beyond power"
+],
+"roman": [
+"adhikar kshetra bahira"
+],
+"ne": [
+"अधिकार क्षेत्र बाहिर"
+]
+},
+{
+"en": [
+"consensus",
+"agreement"
+],
+"roman": [
+"samjhauta",
+"sahamati"
+],
+"ne": [
+"सहमति",
+"सम्झौता"
+]
+},
+{
+"en": [
+"minutes",
+"record"
+],
+"roman": [
+"minit",
+"nirnaya"
+],
+"ne": [
+"माइन्युट",
+"निर्णय पुस्तिका"
+]
+},
+{
+"en": [
+"power of attorney"
+],
+"roman": [
+"adhikar patra",
+"warisnama"
+],
+"ne": [
+"अख्तियारनामा",
+"वारिसनामा"
+]
+},
+{
+"en": [
+"creditor"
+],
+"roman": [
+"sahuk",
+"rinadata"
+],
+"ne": [
+"साहु",
+"ऋणदाता"
+]
+},
+{
+"en": [
+"debtor"
+],
+"roman": [
+"asami",
+"rini"
+],
+"ne": [
+"आसामी",
+"ऋणी"
+]
+},
+{
+"en": [
+"collateral",
+"security"
+],
+"roman": [
+"dhito",
+"surakshyan"
+],
+"ne": [
+"धितो"
+]
+},
+{
+"en": [
+"winding up order"
+],
+"roman": [
+"khareji adesh"
+],
+"ne": [
+"खारेजीको आदेश"
+]
+}
+],
+"tax: income tax, VAT, customs, excise": [
+{
+"en": [
+"income tax",
+"tax on earnings"
+],
+"roman": [
+"aayakar",
+"income tax"
+],
+"ne": [
+"आयकर"
+]
+},
+{
+"en": [
+"value added tax",
+"vat"
+],
+"roman": [
+"mulyabridhi kar",
+"vat"
+],
+"ne": [
+"मूल्य अभिवृद्धि कर"
+]
+},
+{
+"en": [
+"customs duty",
+"import tax"
+],
+"roman": [
+"bhansar mahasul",
+"bhansar"
+],
+"ne": [
+"भन्सार महसुल"
+]
+},
+{
+"en": [
+"excise duty",
+"excise"
+],
+"roman": [
+"antashulka",
+"antashulk"
+],
+"ne": [
+"अन्त:शुल्क"
+]
+},
+{
+"en": [
+"taxpayer",
+"assessee"
+],
+"roman": [
+"karadata",
+"kar data"
+],
+"ne": [
+"करदाता"
+]
+},
+{
+"en": [
+"permanent account number",
+"pan"
+],
+"roman": [
+"sthayi lekha nambar",
+"pan number"
+],
+"ne": [
+"स्थायी लेखा नम्बर"
+]
+},
+{
+"en": [
+"tax return",
+"filing"
+],
+"roman": [
+"kar bibaran",
+"ayakar bibaran"
+],
+"ne": [
+"कर विवरण"
+]
+},
+{
+"en": [
+"tax assessment",
+"determination"
+],
+"roman": [
+"kar nirdharan"
+],
+"ne": [
+"कर निर्धारण"
+]
+},
+{
+"en": [
+"tax exemption",
+"tax free"
+],
+"roman": [
+"kar chhut"
+],
+"ne": [
+"कर छुट"
+]
+},
+{
+"en": [
+"tax deduction at source",
+"tds"
+],
+"roman": [
+"srotma kar katti",
+"tds"
+],
+"ne": [
+"स्रोतमा कर कट्टी"
+]
+},
+{
+"en": [
+"revenue",
+"government income"
+],
+"roman": [
+"rajaswa"
+],
+"ne": [
+"राजस्व"
+]
+},
+{
+"en": [
+"fiscal year",
+"financial year"
+],
+"roman": [
+"arthik barsha"
+],
+"ne": [
+"आर्थिक वर्ष"
+]
+},
+{
+"en": [
+"income",
+"earnings"
+],
+"roman": [
+"aaya",
+"aamdani"
+],
+"ne": [
+"आय",
+"आम्दानी"
+]
+},
+{
+"en": [
+"profit",
+"gain"
+],
+"roman": [
+"munafa",
+"labh"
+],
+"ne": [
+"नाफा",
+"लाभ"
+]
+},
+{
+"en": [
+"loss"
+],
+"roman": [
+"noksani",
+"ghata"
+],
+"ne": [
+"नोक्सानी"
+]
+},
+{
+"en": [
+"expenditure",
+"expenses"
+],
+"roman": [
+"kharcha",
+"byaya"
+],
+"ne": [
+"खर्च",
+"व्यय"
+]
+},
+{
+"en": [
+"tax evasion",
+"tax fraud"
+],
+"roman": [
+"kar chali"
+],
+"ne": [
+"कर छली"
+]
+},
+{
+"en": [
+"fine",
+"penalty"
+],
+"roman": [
+"jaribana",
+"danda"
+],
+"ne": [
+"जरिबाना"
+]
+},
+{
+"en": [
+"interest",
+"late fee"
+],
+"roman": [
+"byaj",
+"bilamba shulka"
+],
+"ne": [
+"ब्याज",
+"विलम्ब शुल्क"
+]
+},
+{
+"en": [
+"audit",
+"tax audit"
+],
+"roman": [
+"lekha parikshan"
+],
+"ne": [
+"लेखापरीक्षण"
+]
+},
+{
+"en": [
+"auditor"
+],
+"roman": [
+"lekha parikshak"
+],
+"ne": [
+"लेखापरीक्षक"
+]
+},
+{
+"en": [
+"tax officer"
+],
+"roman": [
+"kar adhikrit"
+],
+"ne": [
+"कर अधिकृत"
+]
+},
+{
+"en": [
+"inland revenue department",
+"ird"
+],
+"roman": [
+"antarik rajaswa bibhag"
+],
+"ne": [
+"आन्तरिक राजस्व विभाग"
+]
+},
+{
+"en": [
+"tax office",
+"iro"
+],
+"roman": [
+"antarik rajaswa karyalaya"
+],
+"ne": [
+"आन्तरिक राजस्व कार्यालय"
+]
+},
+{
+"en": [
+"appeal",
+"tax appeal"
+],
+"roman": [
+"punarabedan"
+],
+"ne": [
+"पुनरावेदन"
+]
+},
+{
+"en": [
+"revenue tribunal"
+],
+"roman": [
+"rajaswa nyayadhikaran"
+],
+"ne": [
+"राजस्व न्यायाधिकरण"
+]
+},
+{
+"en": [
+"administrative review"
+],
+"roman": [
+"prasashanik punarabalokan"
+],
+"ne": [
+"प्रशासकीय पुनरावलोकन"
+]
+},
+{
+"en": [
+"invoice",
+"bill"
+],
+"roman": [
+"bijak",
+"bill"
+],
+"ne": [
+"बीजक",
+"बिल"
+]
+},
+{
+"en": [
+"purchase"
+],
+"roman": [
+"kharid"
+],
+"ne": [
+"खरिद"
+]
+},
+{
+"en": [
+"sales"
+],
+"roman": [
+"bikri"
+],
+"ne": [
+"बिक्री"
+]
+},
+{
+"en": [
+"export"
+],
+"roman": [
+"nikasi"
+],
+"ne": [
+"निकासी"
+]
+},
+{
+"en": [
+"import"
+],
+"roman": [
+"paithari"
+],
+"ne": [
+"पैठारी"
+]
+},
+{
+"en": [
+"customs clearance"
+],
+"roman": [
+"bhansar janchpas"
+],
+"ne": [
+"भन्सार जाँचपास"
+]
+},
+{
+"en": [
+"declaration",
+"customs form"
+],
+"roman": [
+"prajnapatra"
+],
+"ne": [
+"प्रज्ञापनपत्र"
+]
+},
+{
+"en": [
+"smuggling",
+"illegal trade"
+],
+"roman": [
+"chori nikasi paithari"
+],
+"ne": [
+"चोरी निकासी पैठारी"
+]
+},
+{
+"en": [
+"tax liability"
+],
+"roman": [
+"kar dayitwa"
+],
+"ne": [
+"कर दायित्व"
+]
+},
+{
+"en": [
+"tax credit"
+],
+"roman": [
+"kar milan"
+],
+"ne": [
+"कर मिलान"
+]
+},
+{
+"en": [
+"withholding tax"
+],
+"roman": [
+"agrim kar katti"
+],
+"ne": [
+"अग्रिम कर कट्टी"
+]
+},
+{
+"en": [
+"capital gains tax"
+],
+"roman": [
+"punjigat labh kar"
+],
+"ne": [
+"पूँजीगत लाभ कर"
+]
+},
+{
+"en": [
+"dividend tax"
+],
+"roman": [
+"labhansha kar"
+],
+"ne": [
+"लाभांश कर"
+]
+},
+{
+"en": [
+"remuneration tax",
+"salary tax"
+],
+"roman": [
+"parishramik kar"
+],
+"ne": [
+"पारिश्रमिक कर"
+]
+},
+{
+"en": [
+"resident"
+],
+"roman": [
+"basinda"
+],
+"ne": [
+"बासिन्दा"
+]
+},
+{
+"en": [
+"non-resident"
+],
+"roman": [
+"gair basinda"
+],
+"ne": [
+"गैर-बासिन्दा"
+]
+},
+{
+"en": [
+"tax rate"
+],
+"roman": [
+"kar ko dar"
+],
+"ne": [
+"करको दर"
+]
+},
+{
+"en": [
+"threshold"
+],
+"roman": [
+"sima"
+],
+"ne": [
+"सीमा"
+]
+},
+{
+"en": [
+"registration"
+],
+"roman": [
+"darta"
+],
+"ne": [
+"दर्ता"
+]
+},
+{
+"en": [
+"deregistration",
+"cancellation"
+],
+"roman": [
+"khareji"
+],
+"ne": [
+"खारेजी"
+]
+},
+{
+"en": [
+"tax refund"
+],
+"roman": [
+"kar firta"
+],
+"ne": [
+"कर फिर्ता"
+]
+},
+{
+"en": [
+"advance tax"
+],
+"roman": [
+"agrim kar"
+],
+"ne": [
+"अग्रिम कर"
+]
+},
+{
+"en": [
+"self assessment"
+],
+"roman": [
+"swayam kar nirdharan"
+],
+"ne": [
+"स्वयं कर निर्धारण"
+]
+},
+{
+"en": [
+"amended assessment"
+],
+"roman": [
+"sansodhit kar nirdharan"
+],
+"ne": [
+"संशोधित कर निर्धारण"
+]
+},
+{
+"en": [
+"tax clearance certificate"
+],
+"roman": [
+"kar chukta pramanpatra"
+],
+"ne": [
+"कर चुक्ता प्रमाणपत्र"
+]
+},
+{
+"en": [
+"valuation"
+],
+"roman": [
+"mulyankan"
+],
+"ne": [
+"मूल्याङ्कन"
+]
+},
+{
+"en": [
+"proprietary firm"
+],
+"roman": [
+"ekal farm"
+],
+"ne": [
+"एकल फर्म"
+]
+},
+{
+"en": [
+"partnership"
+],
+"roman": [
+"sajhedari"
+],
+"ne": [
+"साझेदारी"
+]
+},
+{
+"en": [
+"company"
+],
+"roman": [
+"company"
+],
+"ne": [
+"कम्पनी"
+]
+},
+{
+"en": [
+"entity"
+],
+"roman": [
+"nikaya"
+],
+"ne": [
+"निकाय"
+]
+},
+{
+"en": [
+"business income"
+],
+"roman": [
+"byawasayik aaya"
+],
+"ne": [
+"व्यावसायिक आय"
+]
+},
+{
+"en": [
+"investment income"
+],
+"roman": [
+"lagani aaya"
+],
+"ne": [
+"लगानी आय"
+]
+},
+{
+"en": [
+"employment income"
+],
+"roman": [
+"rojgari aaya"
+],
+"ne": [
+"रोजगारी आय"
+]
+}
+],
+"banking, cheques, negotiable instruments, microfinance, cooperatives": [
+{
+"en": [
+"cheque bounce",
+"dishonor of cheque",
+"insufficient funds"
+],
+"roman": [
+"cheque bounce",
+"paisa napugeko",
+"check bounce"
+],
+"ne": [
+"चेक अनादर",
+"खातामा पर्याप्त मौज्दात नभएको"
+]
+},
+{
+"en": [
+"negotiable instruments",
+"financial documents"
+],
+"roman": [
+"binimaya adhikar patra",
+"negotiable instrument"
+],
+"ne": [
+"विनिमय अधिकारपत्र"
+]
+},
+{
+"en": [
+"banking offense",
+"banking crime"
+],
+"roman": [
+"banking kasur",
+"banking aparadh"
+],
+"ne": [
+"बैंकिङ कसूर"
+]
+},
+{
+"en": [
+"cooperative",
+"co-op"
+],
+"roman": [
+"sahakari",
+"sahakari sanstha"
+],
+"ne": [
+"सहकारी",
+"सहकारी संस्था"
+]
+},
+{
+"en": [
+"microfinance",
+"micro finance"
+],
+"roman": [
+"laghubitta",
+"microfinance"
+],
+"ne": [
+"लघुवित्त"
+]
+},
+{
+"en": [
+"loan",
+"debt",
+"credit"
+],
+"roman": [
+"karja",
+"rin",
+"loan"
+],
+"ne": [
+"कर्जा",
+"ऋण"
+]
+},
+{
+"en": [
+"collateral",
+"security",
+"mortgage"
+],
+"roman": [
+"dhitto",
+"surakshya"
+],
+"ne": [
+"धितो",
+"सुरक्षण"
+]
+},
+{
+"en": [
+"interest rate",
+"interest"
+],
+"roman": [
+"byaj",
+"byaj dar"
+],
+"ne": [
+"ब्याज",
+"ब्याजदर"
+]
+},
+{
+"en": [
+"compound interest"
+],
+"roman": [
+"byaj ko byaj",
+"chakriya byaj"
+],
+"ne": [
+"ब्याजको ब्याज",
+"चक्रिय ब्याज"
+]
+},
+{
+"en": [
+"guarantor",
+"surety"
+],
+"roman": [
+"jamanatkarta",
+"jamani"
+],
+"ne": [
+"जमानतकर्ता",
+"जमानी"
+]
+},
+{
+"en": [
+"promissory note"
+],
+"roman": [
+"tamassuk",
+"pratigya patra"
+],
+"ne": [
+"तमसुक",
+"प्रतिज्ञापत्र"
+]
+},
+{
+"en": [
+"bill of exchange"
+],
+"roman": [
+"binimaya patra"
+],
+"ne": [
+"विनिमयपत्र"
+]
+},
+{
+"en": [
+"fixed deposit"
+],
+"roman": [
+"muddati khata",
+"fixed deposit"
+],
+"ne": [
+"मुद्दती खाता"
+]
+},
+{
+"en": [
+"savings account"
+],
+"roman": [
+"bachat khata"
+],
+"ne": [
+"बचत खाता"
+]
+},
+{
+"en": [
+"current account"
+],
+"roman": [
+"chalti khata"
+],
+"ne": [
+"चल्ती खाता"
+]
+},
+{
+"en": [
+"central bank",
+"nrb"
+],
+"roman": [
+"rastra bank",
+"kendriya bank"
+],
+"ne": [
+"नेपाल राष्ट्र बैंक",
+"केन्द्रीय बैंक"
+]
+},
+{
+"en": [
+"blacklisted",
+"blacklist"
+],
+"roman": [
+"kalo suchi"
+],
+"ne": [
+"कालो सूची"
+]
+},
+{
+"en": [
+"defaulter",
+"loan defaulter"
+],
+"roman": [
+"rini",
+"karja naitireko"
+],
+"ne": [
+"ऋणी",
+"कर्जा नतिर्ने"
+]
+},
+{
+"en": [
+"foreclosure",
+"auction"
+],
+"roman": [
+"lilam",
+"dhito lilam"
+],
+"ne": [
+"लिलाम",
+"धितो लिलाम"
+]
+},
+{
+"en": [
+"money laundering"
+],
+"roman": [
+"sampatti suddhikaran"
+],
+"ne": [
+"सम्पत्ति शुद्धीकरण"
+]
+},
+{
+"en": [
+"foreign exchange"
+],
+"roman": [
+"विदेशी विनिमय",
+"foreign exchange"
+],
+"ne": [
+"विदेशी विनिमय"
+]
+},
+{
+"en": [
+"remittance"
+],
+"roman": [
+"bipreshan",
+"remittance"
+],
+"ne": [
+"विप्रेषण"
+]
+},
+{
+"en": [
+"share capital"
+],
+"roman": [
+"share punji"
+],
+"ne": [
+"शेयर पूँजी"
+]
+},
+{
+"en": [
+"dividend"
+],
+"roman": [
+"labhansha"
+],
+"ne": [
+"लाभांश"
+]
+},
+{
+"en": [
+"liquidation",
+"winding up"
+],
+"roman": [
+"khareji",
+"liquidation"
+],
+"ne": [
+"खारेजी",
+"लिक्विडेशन"
+]
+},
+{
+"en": [
+"insolvency"
+],
+"roman": [
+"टाट पल्टिएको",
+"diwala"
+],
+"ne": [
+"दामासाही",
+"टाट पल्टिएको"
+]
+},
+{
+"en": [
+"fraud",
+"cheating"
+],
+"roman": [
+"thagi",
+"jalshaji"
+],
+"ne": [
+"ठगी",
+"जालसाजी"
+]
+},
+{
+"en": [
+"forgery"
+],
+"roman": [
+"kirtay",
+"likhat kirtay"
+],
+"ne": [
+"कीर्ते",
+"लिखत कीर्ते"
+]
+},
+{
+"en": [
+"overdraft"
+],
+"roman": [
+"overdraft",
+"adhivikarsha"
+],
+"ne": [
+"अधिविकर्ष"
+]
+},
+{
+"en": [
+"letter of credit",
+"lc"
+],
+"roman": [
+"lc",
+"pratit patra"
+],
+"ne": [
+"प्रतीतपत्र"
+]
+},
+{
+"en": [
+"bank guarantee"
+],
+"roman": [
+"bank jamanat"
+],
+"ne": [
+"बैंक जमानत"
+]
+},
+{
+"en": [
+"mortgage deed"
+],
+"roman": [
+"dhito bandhaki likhat"
+],
+"ne": [
+"धितो बन्धकी लिखत"
+]
+},
+{
+"en": [
+"principal amount"
+],
+"roman": [
+"sawa",
+"asal rin"
+],
+"ne": [
+"साँवा"
+]
+},
+{
+"en": [
+"penalty",
+"fine"
+],
+"roman": [
+"jaribana",
+"danda"
+],
+"ne": [
+"जरिवाना",
+"दण्ड"
+]
+},
+{
+"en": [
+"repayment schedule"
+],
+"roman": [
+"bhuktani talika"
+],
+"ne": [
+"भुक्तानी तालिका"
+]
+},
+{
+"en": [
+"statement of account"
+],
+"roman": [
+"khata bibaran"
+],
+"ne": [
+"खाता विवरण"
+]
+},
+{
+"en": [
+"kyc",
+"know your customer"
+],
+"roman": [
+"kyc",
+"grahak pahichan"
+],
+"ne": [
+"ग्राहक पहिचान"
+]
+},
+{
+"en": [
+"digital banking",
+"online banking"
+],
+"roman": [
+"digital banking",
+"vidhyutiya banking"
+],
+"ne": [
+"विद्युतीय बैंकिङ"
+]
+},
+{
+"en": [
+"atm card",
+"debit card"
+],
+"roman": [
+"atm card",
+"debit card"
+],
+"ne": [
+"डेबिट कार्ड"
+]
+},
+{
+"en": [
+"credit card"
+],
+"roman": [
+"credit card"
+],
+"ne": [
+"क्रेडिट कार्ड"
+]
+},
+{
+"en": [
+"locker facility"
+],
+"roman": [
+"locker subidha"
+],
+"ne": [
+"लकर सुविधा"
+]
+},
+{
+"en": [
+"merger",
+"acquisition"
+],
+"roman": [
+"merger",
+"gabhine"
+],
+"ne": [
+"गाभिने",
+"प्राप्ति"
+]
+},
+{
+"en": [
+"board of directors"
+],
+"roman": [
+"sanchalak samiti"
+],
+"ne": [
+"सञ्चालक समिति"
+]
+},
+{
+"en": [
+"ceo",
+"chief executive"
+],
+"roman": [
+"mukhya karyakari"
+],
+"ne": [
+"प्रमुख कार्यकारी अधिकृत"
+]
+},
+{
+"en": [
+"audit"
+],
+"roman": [
+"lekhaparikshyan"
+],
+"ne": [
+"लेखापरीक्षण"
+]
+},
+{
+"en": [
+"balance sheet"
+],
+"roman": [
+"batsalya",
+"balance sheet"
+],
+"ne": [
+"वासलात"
+]
+},
+{
+"en": [
+"profit and loss"
+],
+"roman": [
+"nafa noksan"
+],
+"ne": [
+"नाफा नोक्सान"
+]
+},
+{
+"en": [
+"reserve fund"
+],
+"roman": [
+"jadda kosh"
+],
+"ne": [
+"जगेडा कोष"
+]
+},
+{
+"en": [
+"shareholder"
+],
+"roman": [
+"share dhani"
+],
+"ne": [
+"शेयरधनी"
+]
+},
+{
+"en": [
+"usury",
+"illegal interest"
+],
+"roman": [
+"meter byaj",
+"anuchit len den"
+],
+"ne": [
+"अनुचित लेनदेन",
+"मिटर ब्याज"
+]
+}
+],
+"corruption, bribery, money laundering": [
+{
+"en": [
+"corruption",
+"graft"
+],
+"roman": [
+"bhrastachar",
+"bhrastachar"
+],
+"ne": [
+"भ्रष्टाचार"
+]
+},
+{
+"en": [
+"bribery",
+"bribe",
+"kickback"
+],
+"roman": [
+"riswat",
+"ghus",
+"ghoos"
+],
+"ne": [
+"रिसवत",
+"घुस"
+]
+},
+{
+"en": [
+"money laundering",
+"asset laundering"
+],
+"roman": [
+"sampatti suddhikaran"
+],
+"ne": [
+"सम्पत्ति शुद्धीकरण"
+]
+},
+{
+"en": [
+"abuse of authority",
+"misuse of power"
+],
+"roman": [
+"akhtiyarupayoga",
+"akhtiyar durupayog"
+],
+"ne": [
+"अख्तियारको दुरुपयोग"
+]
+},
+{
+"en": [
+"illicit enrichment",
+"illegal property"
+],
+"roman": [
+"agyanat sampatti",
+"behisabi sampatti"
+],
+"ne": [
+"गैरकानूनी सम्पत्ति आर्जन"
+]
+},
+{
+"en": [
+"public servant",
+"government official"
+],
+"roman": [
+"sarvajanik padadhikari",
+"rastra sevak"
+],
+"ne": [
+"सार्वजनिक पदाधिकारी",
+"राष्ट्र सेवक"
+]
+},
+{
+"en": [
+"confiscation",
+"seizure"
+],
+"roman": [
+"ضبط",
+"japti"
+],
+"ne": [
+"जफत"
+]
+},
+{
+"en": [
+"forgery",
+"fake documents"
+],
+"roman": [
+"kirtay",
+"likhat kirtay"
+],
+"ne": [
+"लिखत कीर्ते"
+]
+},
+{
+"en": [
+"embezzlement",
+"misappropriation"
+],
+"roman": [
+"hina mina",
+"durupayog"
+],
+"ne": [
+"हिनामिना",
+"दुरुपयोग"
+]
+},
+{
+"en": [
+"investigation",
+"inquiry"
+],
+"roman": [
+"chanbin",
+"anusandhan"
+],
+"ne": [
+"अनुसन्धान",
+"छानविन"
+]
+},
+{
+"en": [
+"prosecution",
+"lawsuit"
+],
+"roman": [
+"mudda",
+"abhayojan"
+],
+"ne": [
+"अभियोजन",
+"मुद्दा"
+]
+},
+{
+"en": [
+"commission for investigation of abuse of authority",
+"ciaa"
+],
+"roman": [
+"akhtiyar"
+],
+"ne": [
+"अख्तियार दुरुपयोग अनुसन्धान आयोग"
+]
+},
+{
+"en": [
+"department of money laundering investigation",
+"dmli"
+],
+"roman": [
+"sampatti suddhikaran bibhag"
+],
+"ne": [
+"सम्पत्ति शुद्धीकरण अनुसन्धान विभाग"
+]
+},
+{
+"en": [
+"special court"
+],
+"roman": [
+"vishesh adalat"
+],
+"ne": [
+"विशेष अदालत"
+]
+},
+{
+"en": [
+"proceeds of crime"
+],
+"roman": [
+"aparadhik kamai"
+],
+"ne": [
+"कसूरजन्य सम्पत्ति"
+]
+},
+{
+"en": [
+"terrorist financing"
+],
+"roman": [
+"atankabadi kriyakalapma bittiya sahayata"
+],
+"ne": [
+"आतङ्कवादी क्रियाकलापमा वित्तीय लगानी"
+]
+},
+{
+"en": [
+"conflict of interest"
+],
+"roman": [
+"swartha ko bajh"
+],
+"ne": [
+"स्वार्थको बाझिनु"
+]
+},
+{
+"en": [
+"nepotism",
+"favoritism"
+],
+"roman": [
+"natawad",
+"kripawad"
+],
+"ne": [
+"नातावाद",
+"कृपावाद"
+]
+},
+{
+"en": [
+"false statement",
+"wrong report"
+],
+"roman": [
+"galat pratibedan"
+],
+"ne": [
+"गलत प्रतिवेदन"
+]
+},
+{
+"en": [
+"revenue leakage",
+"tax evasion"
+],
+"roman": [
+"rajaswa chuwat"
+],
+"ne": [
+"राजस्व चुहावट"
+]
+},
+{
+"en": [
+"tender rigging",
+"bid rigging"
+],
+"roman": [
+"thekka patta milomato"
+],
+"ne": [
+"ठेक्कापट्टामा मिलोमतो"
+]
+},
+{
+"en": [
+"collusion"
+],
+"roman": [
+"milomato"
+],
+"ne": [
+"मिलोमतो"
+]
+},
+{
+"en": [
+"whistleblower"
+],
+"roman": [
+"suchana dine"
+],
+"ne": [
+"सूचना दिने व्यक्ति"
+]
+},
+{
+"en": [
+"imprisonment",
+"jail time"
+],
+"roman": [
+"kaid"
+],
+"ne": [
+"कैद"
+]
+},
+{
+"en": [
+"fine",
+"penalty"
+],
+"roman": [
+"jaribana"
+],
+"ne": [
+"जरिवाना"
+]
+},
+{
+"en": [
+"suspension from office"
+],
+"roman": [
+"nilamban"
+],
+"ne": [
+"निलम्बन"
+]
+},
+{
+"en": [
+"disqualification"
+],
+"roman": [
+"ayogya"
+],
+"ne": [
+"अयोग्यता"
+]
+},
+{
+"en": [
+"extortion"
+],
+"roman": [
+"chanda",
+"dhamki"
+],
+"ne": [
+"जबरजस्ती चन्दा"
+]
+},
+{
+"en": [
+"black marketing"
+],
+"roman": [
+"kala bajari"
+],
+"ne": [
+"कालो बजार"
+]
+},
+{
+"en": [
+"fraud",
+"cheating"
+],
+"roman": [
+"thagi"
+],
+"ne": [
+"ठगी"
+]
+},
+{
+"en": [
+"beneficial owner"
+],
+"roman": [
+"vastavik dhani"
+],
+"ne": [
+"वास्तविक धनी"
+]
+},
+{
+"en": [
+"politically exposed person",
+"pep"
+],
+"roman": [
+"rajnaitik vyakti"
+],
+"ne": [
+"राजनीतिक रूपमा उच्चपदस्थ व्यक्ति"
+]
+},
+{
+"en": [
+"financial intelligence unit",
+"fiu"
+],
+"roman": [
+"vittiya jankari ikai"
+],
+"ne": [
+"वित्तीय जानकारी एकाई"
+]
+},
+{
+"en": [
+"suspicious transaction report",
+"str"
+],
+"roman": [
+"shankaspad karobar"
+],
+"ne": [
+"शंकास्पद कारोबार प्रतिवेदन"
+]
+},
+{
+"en": [
+"threshold transaction report",
+"ttr"
+],
+"roman": [
+"sima karobar"
+],
+"ne": [
+"सीमा कारोबार प्रतिवेदन"
+]
+},
+{
+"en": [
+"know your customer",
+"kyc"
+],
+"roman": [
+"grahak pahichan"
+],
+"ne": [
+"ग्राहक पहिचान"
+]
+},
+{
+"en": [
+"frozen assets"
+],
+"roman": [
+"roka"
+],
+"ne": [
+"रोक्का"
+]
+},
+{
+"en": [
+"legal person",
+"entity"
+],
+"roman": [
+"kanuni vyakti"
+],
+"ne": [
+"कानूनी व्यक्ति"
+]
+},
+{
+"en": [
+"predicate offense"
+],
+"roman": [
+"mula kasur"
+],
+"ne": [
+"सम्बद्ध कसूर"
+]
+},
+{
+"en": [
+"mutual legal assistance"
+],
+"roman": [
+"parashparik kanuni sahayata"
+],
+"ne": [
+"पारस्परिक कानूनी सहायता"
+]
+},
+{
+"en": [
+"extradition"
+],
+"roman": [
+"prahari supurdagi"
+],
+"ne": [
+"सुपुर्दगी"
+]
+},
+{
+"en": [
+"organized crime"
+],
+"roman": [
+"sangathit aparadh"
+],
+"ne": [
+"संगठित अपराध"
+]
+},
+{
+"en": [
+"criminal liability"
+],
+"roman": [
+"faujdari dayitwa"
+],
+"ne": [
+"फौजदारी दायित्व"
+]
+},
+{
+"en": [
+"burden of proof"
+],
+"roman": [
+"praman puryaune bhar"
+],
+"ne": [
+"प्रमाण पुर्याउने भार"
+]
+},
+{
+"en": [
+"witness protection"
+],
+"roman": [
+"sakshi samrakshan"
+],
+"ne": [
+"साक्षी संरक्षण"
+]
+},
+{
+"en": [
+"good governance"
+],
+"roman": [
+"sushasan"
+],
+"ne": [
+"सुशासन"
+]
+},
+{
+"en": [
+"transparency"
+],
+"roman": [
+"pardarshita"
+],
+"ne": [
+"पारदर्शिता"
+]
+},
+{
+"en": [
+"accountability"
+],
+"roman": [
+"uttardayitwa"
+],
+"ne": [
+"उत्तरदायित्व"
+]
+},
+{
+"en": [
+"integrity"
+],
+"roman": [
+"sadachar"
+],
+"ne": [
+"सदाचार"
+]
+},
+{
+"en": [
+"public procurement"
+],
+"roman": [
+"sarvajanik kharid"
+],
+"ne": [
+"सार्वजनिक खरीद"
+]
+}
+],
+"human trafficking, foreign employment, migration": [
+{
+"en": [
+"human trafficking",
+"trafficking in persons"
+],
+"roman": [
+"manav bechbikhan",
+"manav taskari"
+],
+"ne": [
+"मानव बेचबिखन तथा ओसारपसार",
+"मानव तस्करी"
+]
+},
+{
+"en": [
+"foreign employment",
+"overseas jobs"
+],
+"roman": [
+"baideshik rojgar",
+"bideshi kaam"
+],
+"ne": [
+"वैदेशिक रोजगार"
+]
+},
+{
+"en": [
+"migration",
+"migrant"
+],
+"roman": [
+"pravasan",
+"basai sarai"
+],
+"ne": [
+"प्रवासन",
+"बसाई सराई"
+]
+},
+{
+"en": [
+"recruitment agency",
+"manpower agency"
+],
+"roman": [
+"manpower company",
+"ijajatpatra prapta sastha"
+],
+"ne": [
+"इजाजतपत्र प्राप्त संस्था",
+"म्यानपावर कम्पनी"
+]
+},
+{
+"en": [
+"work permit",
+"labor permit"
+],
+"roman": [
+"shram swikriti"
+],
+"ne": [
+"श्रम स्वीकृति"
+]
+},
+{
+"en": [
+"illegal recruitment",
+"fraud in foreign employment"
+],
+"roman": [
+"baideshik rojgar thagi"
+],
+"ne": [
+"वैदेशिक रोजगार ठगी"
+]
+},
+{
+"en": [
+"compensation",
+"reparation"
+],
+"roman": [
+"kshatipurti",
+"bharipau"
+],
+"ne": [
+"क्षतिपूर्ति",
+"भराइपाउने"
+]
+},
+{
+"en": [
+"deportation",
+"expulsion"
+],
+"roman": [
+"desh nikala",
+"deport"
+],
+"ne": [
+"देश निकाला",
+"निष्कासन"
+]
+},
+{
+"en": [
+"passport",
+"travel document"
+],
+"roman": [
+"rahadani",
+"yatra anumati patra"
+],
+"ne": [
+"राहदानी",
+"यात्रा अनुमति पत्र"
+]
+},
+{
+"en": [
+"visa",
+"entry permit"
+],
+"roman": [
+"visa",
+"prabesh agya"
+],
+"ne": [
+"भिषा",
+"प्रवेश आज्ञा"
+]
+},
+{
+"en": [
+"forced labor",
+"bonded labor"
+],
+"roman": [
+"jabarjasti kam",
+"bandha shram"
+],
+"ne": [
+"जबरजस्ती श्रम",
+"बन्धक श्रम"
+]
+},
+{
+"en": [
+"exploitation",
+"abuse"
+],
+"roman": [
+"shoshan"
+],
+"ne": [
+"शोषण"
+]
+},
+{
+"en": [
+"rehabilitation",
+"reintegration"
+],
+"roman": [
+"punarsthapana"
+],
+"ne": [
+"पुनर्स्थापना"
+]
+},
+{
+"en": [
+"rescue",
+"salvage"
+],
+"roman": [
+"uddhar"
+],
+"ne": [
+"उद्धार"
+]
+},
+{
+"en": [
+"victim",
+"survivor"
+],
+"roman": [
+"pidit"
+],
+"ne": [
+"पीडित"
+]
+},
+{
+"en": [
+"perpetrator",
+"offender"
+],
+"roman": [
+"kasurdar",
+"apradhi"
+],
+"ne": [
+"कसूरदार",
+"अपराधी"
+]
+},
+{
+"en": [
+"welfare fund",
+"migrant fund"
+],
+"roman": [
+"kalyankari kosh"
+],
+"ne": [
+"वैदेशिक रोजगार कल्याणकारी कोष"
+]
+},
+{
+"en": [
+"labor contract",
+"employment agreement"
+],
+"roman": [
+"shram sambjhauta",
+"karar"
+],
+"ne": [
+"श्रम सम्झौता",
+"करारनामा"
+]
+},
+{
+"en": [
+"guarantor",
+"surety"
+],
+"roman": [
+"jamanatkarta"
+],
+"ne": [
+"जमानतकर्ता"
+]
+},
+{
+"en": [
+"consular service",
+"embassy"
+],
+"roman": [
+"dutabas",
+"pararastra sewa"
+],
+"ne": [
+"दूतावास",
+"कन्सुलर सेवा"
+]
+},
+{
+"en": [
+"human smuggling",
+"illegal border crossing"
+],
+"roman": [
+"manav taskari",
+"simapar"
+],
+"ne": [
+"मानव तस्करी",
+"सीमापार अपराध"
+]
+},
+{
+"en": [
+"organ harvesting",
+"organ extraction"
+],
+"roman": [
+"anga jhikne",
+"manav anga pratyaropan"
+],
+"ne": [
+"मानव अङ्ग झिक्ने",
+"अङ्ग प्रत्यारोपण"
+]
+},
+{
+"en": [
+"prostitution",
+"sexual exploitation"
+],
+"roman": [
+"beshyabritti",
+"yaun shoshan"
+],
+"ne": [
+"वेश्यावृत्ति",
+"यौन शोषण"
+]
+},
+{
+"en": [
+"department of foreign employment",
+"dofe"
+],
+"roman": [
+"baideshik rojgar bivag"
+],
+"ne": [
+"वैदेशिक रोजगार विभाग"
+]
+},
+{
+"en": [
+"labor attaché",
+"labor counselor"
+],
+"roman": [
+"shram paramarshadata",
+"shram chari"
+],
+"ne": [
+"श्रम सहचारी"
+]
+},
+{
+"en": [
+"orientation training",
+"pre-departure training"
+],
+"roman": [
+"purba prastari abhimukhikaran"
+],
+"ne": [
+"पूर्व प्रस्थान अभिमुखीकरण"
+]
+},
+{
+"en": [
+"service charge",
+"recruitment fee"
+],
+"roman": [
+"sewa sulka"
+],
+"ne": [
+"सेवा शुल्क"
+]
+},
+{
+"en": [
+"blacklisted",
+"banned agency"
+],
+"roman": [
+"kalo suchi"
+],
+"ne": [
+"कालो सूची"
+]
+},
+{
+"en": [
+"repatriation",
+"return home"
+],
+"roman": [
+"swadesh firti"
+],
+"ne": [
+"स्वदेश फिर्ती"
+]
+},
+{
+"en": [
+"complaint",
+"grievance"
+],
+"roman": [
+"ujuri",
+"gunaso"
+],
+"ne": [
+"उजुरी",
+"गुनासो"
+]
+},
+{
+"en": [
+"investigation",
+"inquiry"
+],
+"roman": [
+"chanbin",
+"anusandhan"
+],
+"ne": [
+"छानविन",
+"अनुसन्धान"
+]
+},
+{
+"en": [
+"evidence",
+"proof"
+],
+"roman": [
+"praman",
+"sabut"
+],
+"ne": [
+"प्रमाण",
+"सबुद"
+]
+},
+{
+"en": [
+"witness",
+"testifier"
+],
+"roman": [
+"sakshi"
+],
+"ne": [
+"साक्षी"
+]
+},
+{
+"en": [
+"fine",
+"penalty"
+],
+"roman": [
+"jaribana"
+],
+"ne": [
+"जरिवाना"
+]
+},
+{
+"en": [
+"imprisonment",
+"jail"
+],
+"roman": [
+"karabas",
+"jel"
+],
+"ne": [
+"कारावास",
+"जेल"
+]
+},
+{
+"en": [
+"extradition",
+"handover of criminal"
+],
+"roman": [
+"suprudagi"
+],
+"ne": [
+"सुपुर्दगी"
+]
+},
+{
+"en": [
+"asylum",
+"refugee status"
+],
+"roman": [
+"sharanarthi"
+],
+"ne": [
+"शरणार्थी"
+]
+},
+{
+"en": [
+"citizenship",
+"nationality"
+],
+"roman": [
+"nagarikta"
+],
+"ne": [
+"नागरिकता"
+]
+},
+{
+"en": [
+"non-resident nepali",
+"nrn"
+],
+"roman": [
+"gair abasiya nepali"
+],
+"ne": [
+"गैर आवासीय नेपाली"
+]
+},
+{
+"en": [
+"immigration office",
+"border control"
+],
+"roman": [
+"adhyagaman"
+],
+"ne": [
+"अध्यागमन कार्यालय"
+]
+},
+{
+"en": [
+"overstay",
+"visa violation"
+],
+"roman": [
+"visa sakiyera baseko"
+],
+"ne": [
+"भिषा अवधि नाघेको"
+]
+},
+{
+"en": [
+"forgery",
+"fake documents"
+],
+"roman": [
+"kirti",
+"jali likhat"
+],
+"ne": [
+"कीर्ते",
+"जालसाजी"
+]
+},
+{
+"en": [
+"power of attorney",
+"proxy"
+],
+"roman": [
+"waris",
+"manjurinama"
+],
+"ne": [
+"वारिसनामा",
+"मन्जुरीनामा"
+]
+},
+{
+"en": [
+"legal aid",
+"lawyer service"
+],
+"roman": [
+"kanuni sahayata"
+],
+"ne": [
+"कानूनी सहायता"
+]
+},
+{
+"en": [
+"tribunal",
+"special court"
+],
+"roman": [
+"nyayadhikaran"
+],
+"ne": [
+"न्यायाधिकरण"
+]
+},
+{
+"en": [
+"appeal",
+"petition"
+],
+"roman": [
+"punarawardan"
+],
+"ne": [
+"पुनरावेदन"
+]
+},
+{
+"en": [
+"limitation period",
+"deadline"
+],
+"roman": [
+"hadmyad"
+],
+"ne": [
+"हदम्याद"
+]
+},
+{
+"en": [
+"confiscation",
+"seizure"
+],
+"roman": [
+"japti"
+],
+"ne": [
+"जफत"
+]
+},
+{
+"en": [
+"inducement",
+"allurement"
+],
+"roman": [
+"pralobhan"
+],
+"ne": [
+"प्रलोभन"
+]
+},
+{
+"en": [
+"kidnapping",
+"abduction"
+],
+"roman": [
+"apaharan"
+],
+"ne": [
+"अपहरण"
+]
+}
+],
+"narcotics, arms, public order": [
+{
+"en": [
+"narcotics",
+"drug trafficking",
+"illegal drugs",
+"drugs"
+],
+"roman": [
+"narkotik",
+"lasa",
+"drugs",
+"aushadhi",
+"amlat"
+],
+"ne": [
+"नसालु पदार्थ",
+"लागु औषध",
+"प्रतिबन्धित औषध"
+]
+},
+{
+"en": [
+"drug possession",
+"carrying drugs"
+],
+"roman": [
+"drugs bokne",
+"drug rakne",
+"narkotik rakhne"
+],
+"ne": [
+"लागु औषध कारोबार",
+"लागु औषध नियन्त्रण",
+"लागु पदार्थ सेवन"
+]
+},
+{
+"en": [
+"arms and ammunition",
+"weapons",
+"firearm"
+],
+"roman": [
+"hatiyaar",
+"banduk",
+"goli",
+"hathiyar"
+],
+"ne": [
+"हातहतियार",
+"खरखजाना",
+"हातहतियार तथा खरखजाना"
+]
+},
+{
+"en": [
+"illegal arms",
+"unlicensed weapon"
+],
+"roman": [
+"nabhayeko hatiyaar",
+"illegal gun",
+"banduk rakhne"
+],
+"ne": [
+"अवैध हातहतियार",
+"बेतम भार",
+"हातहतियारको इजाजत"
+]
+},
+{
+"en": [
+"public order",
+"peace and order",
+"public tranquility"
+],
+"roman": [
+"sarwajanik shanti",
+"shanti surakshya",
+"public order"
+],
+"ne": [
+"सार्वजनिक शान्तिसुरक्षा",
+"शान्ति र सुव्यवस्था",
+"सार्वजनिक सुव्यवस्था"
+]
+},
+{
+"en": [
+"riot",
+"rioting",
+"public disturbance"
+],
+"roman": [
+"hulad",
+"dangafasad",
+"danga",
+"halla"
+],
+"ne": [
+"दङ्गाफसाद",
+"हूलदङ्गा",
+"शान्ति भङ्ग"
+]
+},
+{
+"en": [
+"unlawful assembly",
+"illegal gathering"
+],
+"roman": [
+"bheed",
+"jamma",
+"gairakanooni bheed"
+],
+"ne": [
+"गैरकानूनी जमघट",
+"सार्वजनिक स्थलमा झैझगडा",
+"कानूनी विपरीत भेला"
+]
+},
+{
+"en": [
+"treason",
+"offense against the state",
+"sedition"
+],
+"roman": [
+"rajdroh",
+"deshdroh",
+"rajya birodhi"
+],
+"ne": [
+"राजद्रोह",
+"राज्य विरुद्धको अपराध",
+"देशद्रोह"
+]
+},
+{
+"en": [
+"smuggling",
+"illegal trade"
+],
+"roman": [
+"taskari",
+"chori nikasi",
+"chori paath"
+],
+"ne": [
+"तस्करी",
+"चोरी पै निकासी",
+"अवैध व्यापार"
+]
+},
+{
+"en": [
+"explosive substance",
+"bomb"
+],
+"roman": [
+"visfotak padartha",
+"bomb",
+"visfot"
+],
+"ne": [
+"विष्फोटक पदार्थ",
+"विष्फोटक वस्तु",
+"बम"
+]
+},
+{
+"en": [
+"extortion",
+"blackmail",
+"protection money"
+],
+"roman": [
+"chanda",
+"asuli",
+"dhamki",
+"balat"
+],
+"ne": [
+"चन्दा असुली",
+"धम्की दिएर असुल्ने",
+"जबरजस्ती चन्दा"
+]
+},
+{
+"en": [
+"organized crime",
+"gang",
+"syndicate"
+],
+"roman": [
+"sangathit aparaadh",
+"gang",
+"samuha aparaadh"
+],
+"ne": [
+"संगठित अपराध",
+"अपराधी समूह",
+"आपराधिक संगठन"
+]
+},
+{
+"en": [
+"cyber crime",
+"online offense"
+],
+"roman": [
+"cyber crime",
+"online thagi",
+"computer aparaadh"
+],
+"ne": [
+"साइबर अपराध",
+"विद्युतीय कारोबार कसूर",
+"सूचना प्रविधि अपराध"
+]
+},
+{
+"en": [
+"terrorism",
+"terrorist act"
+],
+"roman": [
+"atankawad",
+"atankakari",
+"terrorist"
+],
+"ne": [
+"आतङ्कवाद",
+"आतङ्ककारी गतिविधि",
+"विध्वंसकारी कार्य"
+]
+},
+{
+"en": [
+"human trafficking",
+"trafficking in persons"
+],
+"roman": [
+"manav betbech",
+"trafficking",
+"manav osharpasar"
+],
+"ne": [
+"मानव बेचबिखन",
+"मानव ओसारपसार",
+"मानव बेचबिखन तथा ओसारपसार"
+]
+},
+{
+"en": [
+"kidnapping",
+"abduction"
+],
+"roman": [
+"apaharan",
+"kidnap",
+"manav apaharan"
+],
+"ne": [
+"अपहरण",
+"शरीर बन्धक",
+"अपहरण तथा शरीर बन्धक"
+]
+},
+{
+"en": [
+"bribery",
+"corruption"
+],
+"roman": [
+"ghus",
+"bhrastachar",
+"lanch"
+],
+"ne": [
+"घुस",
+"भ्रष्टाचार",
+"लाञ्च"
+]
+},
+{
+"en": [
+"money laundering",
+"illegal wealth"
+],
+"roman": [
+"sampati shuddhikaran",
+"kala dhan",
+"money laundering"
+],
+"ne": [
+"सम्पत्ति शुद्धीकरण",
+"मनी लाउन्डरिङ",
+"गैरकानूनी सम्पत्ति"
+]
+},
+{
+"en": [
+"counterfeit currency",
+"fake notes"
+],
+"roman": [
+"nakali nota",
+"khot coins",
+"nakali paisa"
+],
+"ne": [
+"खोटा चलन",
+"नक्कली नोट",
+"खोटा मुद्रा"
+]
+},
+{
+"en": [
+"forgery",
+"fake document"
+],
+"roman": [
+"nakali kagaj",
+"forgery",
+"kagaj kiich"
+],
+"ne": [
+"लिखत किर्ते",
+"किर्ते कागजात",
+"छाप तथा सहीछाप किर्ते"
+]
+},
+{
+"en": [
+"arson",
+"setting fire"
+],
+"roman": [
+"ago lagane",
+"aglagi",
+"aago"
+],
+"ne": [
+"आगो लगाउने",
+"डढेलो",
+"सार्वजनिक सम्पत्तिमा आगजनी"
+]
+},
+{
+"en": [
+"vandalism",
+"property damage"
+],
+"roman": [
+"todfod",
+"nasht",
+"samgiri todne"
+],
+"ne": [
+"सार्वजनिक तोडफोड",
+"सम्पत्ति तोडफोड",
+"आपराधिक उपद्रव"
+]
+},
+{
+"en": [
+"trespass",
+"illegal entry"
+],
+"roman": [
+"jabardasti pravesh",
+"trespass",
+"bina anumati pravesh"
+],
+"ne": [
+"अनाधिकार प्रवेश",
+"जबरजस्ती घरभित्र प्रवेश",
+"गृहप्रवेश"
+]
+},
+{
+"en": [
+"defamation",
+"libel",
+"slander"
+],
+"roman": [
+"ijzatma aanch",
+"galij",
+"defamation"
+],
+"ne": [
+"बेइज्जत",
+"मानहानि",
+"प्रतिष्ठामा आँच"
+]
+},
+{
+"en": [
+"hate speech",
+"communal incitement"
+],
+"roman": [
+"jatibhed",
+"sampradayik dvesh",
+"hate speech"
+],
+"ne": [
+"जातजाति वा समुदायगत द्वेष",
+"साम्प्रदायिक सद्भाव भङ्ग",
+"घृणास्पद अभिव्यक्ति"
+]
+},
+{
+"en": [
+"contempt of court",
+"court disobedient"
+],
+"roman": [
+"adalat ko avatana",
+"contempt",
+"adalatko apman"
+],
+"ne": [
+"अदालतको अवहेलना",
+"न्यायको अवहेलना"
+]
+},
+{
+"en": [
+"escape from custody",
+"jail break"
+],
+"roman": [
+"jail bhagne",
+"police bata bhagne",
+"custody bata bhagne"
+],
+"ne": [
+"कैदबाट भग्नु",
+"हिरासतबाट भाग्ने",
+"थुनाबाट उम्कने"
+]
+},
+{
+"en": [
+"harassment",
+"mental torture"
+],
+"roman": [
+"manasik yatana",
+"harassment",
+"sataune"
+],
+"ne": [
+"मानसिक यातना",
+"उत्पीडन",
+"तङ्गाउने"
+]
+},
+{
+"en": [
+"stalking",
+"following someone"
+],
+"roman": [
+"pichha garne",
+"stalking",
+"dharakne"
+],
+"ne": [
+"पिच्छ, पछ्याउने",
+"तङ्याउने",
+"अनाधिकार पछ्याउने"
+]
+},
+{
+"en": [
+"fraud",
+"cheating"
+],
+"roman": [
+"thagi",
+"dhokha",
+"fraud"
+],
+"ne": [
+"ठगी",
+"विश्वासघात",
+"धोखाधडी"
+]
+},
+{
+"en": [
+"usury",
+"illegal lending"
+],
+"roman": [
+"meter byaaj",
+"besi byaaj",
+"gairakanooni byaaj"
+],
+"ne": [
+"मीटरब्याज",
+"शोषणयुक्त ब्याज",
+"अनुचित लेनदेन"
+]
+},
+{
+"en": [
+"gambling",
+"betting"
+],
+"roman": [
+"jua",
+"betting",
+"pasa"
+],
+"ne": [
+"जुवा",
+"जुवा खेल्ने वा खेलाउने",
+"सट्टाबाजी"
+]
+},
+{
+"en": [
+"public nuisance",
+"annoyance"
+],
+"roman": [
+"hallakhor",
+"nuisance",
+"duhkha dine"
+],
+"ne": [
+"सार्वजनिक उपद्रव",
+"शान्तिमा बाधा",
+"हल्लाखलल"
+]
+},
+{
+"en": [
+"environmental crime",
+"pollution"
+],
+"roman": [
+"vatavaran pradushan",
+"van vinas",
+"pollution"
+],
+"ne": [
+"वातावरण प्रदूषण",
+"वन विनाश",
+"प्राकृतिक स्रोत दोहन"
+]
+},
+{
+"en": [
+"poaching",
+"illegal hunting"
+],
+"roman": [
+"shikar",
+"jantu shikar",
+"illegal hunting"
+],
+"ne": [
+"अवैध शिकार",
+"वन्यजन्तु शिकार",
+"संरक्षित जीवजन्तु मार्ने"
+]
+},
+{
+"en": [
+"illegal mining",
+"stone quarrying"
+],
+"roman": [
+"gairakanooni khanij",
+"ghenti khanne",
+"illegal mining"
+],
+"ne": [
+"अवैध उत्खनन",
+"गिट्टी बालुवा चोरी",
+"खानीजन्य पदार्थको अवैध दोहन"
+]
+},
+{
+"en": [
+"violation of curfew",
+"curfew break"
+],
+"roman": [
+"curfew todne",
+"nishadhagya ullekh"
+],
+"ne": [
+"ककर्फ्यु उल्लङ्घन",
+"निषेधाज्ञा उल्लङ्घन",
+"कानूनी आदेशको अवहेलना"
+]
+},
+{
+"en": [
+"obstruction of public servant",
+"police obstruction"
+],
+"roman": [
+"police lai baadha",
+"adhikari lai rokne"
+],
+"ne": [
+"सरकारी काममा बाधा",
+"कर्मचारीलाई बाधा पुर्याउने",
+"पक्राउमा अवरोध"
+]
+},
+{
+"en": [
+"false information",
+"rumor mongering"
+],
+"roman": [
+"afwa",
+"nakali khabar",
+"false news"
+],
+"ne": [
+"अफवा फैलाउने",
+"झूटा सूचना",
+"सार्वजनिक भ्रम सिर्जना"
+]
+},
+{
+"en": [
+"illegal detention",
+"wrongful confinement"
+],
+"roman": [
+"bina karan thunne",
+"wrongful confinement"
+],
+"ne": [
+"गैरकानूनी थुनामा राख्ने",
+"शरीर बन्धक",
+"अनाधिकार नियन्त्रण"
+]
+}
+],
+"traffic, vehicles, driving licence, road accidents": [
+{
+"en": [
+"driving licence",
+"driver licence",
+"driving permit"
+],
+"roman": [
+"driving licence",
+"driver licence",
+"licence",
+"laisens"
+],
+"ne": [
+"चालक अनुमति पत्र",
+"लाइसेन्स",
+"सवारी चालक अनुमतिपत्र"
+]
+},
+{
+"en": [
+"traffic police",
+"traffic cop"
+],
+"roman": [
+"traffic police",
+"traphik",
+"traffic"
+],
+"ne": [
+"ट्राफिक प्रहरी",
+"यातायात प्रहरी"
+]
+},
+{
+"en": [
+"vehicle registration",
+"bluebook",
+"vehicle bluebook"
+],
+"roman": [
+"bluebook",
+"blubook",
+"blue book",
+"gadi darta"
+],
+"ne": [
+"सवारी दर्ता प्रमाणपत्र",
+"ब्लूबुक",
+"सवारी किताब"
+]
+},
+{
+"en": [
+"road accident",
+"traffic accident",
+"collision"
+],
+"roman": [
+"accident",
+"road accident",
+"durghatana",
+"sawari durghatana"
+],
+"ne": [
+"सवारी दुर्घटना",
+"दुर्घटना",
+"सडक दुर्घटना"
+]
+},
+{
+"en": [
+"traffic fine",
+"penalty",
+"ticket"
+],
+"roman": [
+"fine",
+"challan",
+"rasid",
+"jarimana",
+"traffic fine"
+],
+"ne": [
+"जरिवाना",
+"ट्राफिक जरिवाना",
+"सजाय",
+"रसिद"
+]
+},
+{
+"en": [
+"speed limit",
+"over speeding"
+],
+"roman": [
+"speed limit",
+"overspeed",
+"tiwrakati"
+],
+"ne": [
+"गति सीमा",
+"तीव्र गति"
+]
+},
+{
+"en": [
+"drink driving",
+"drunk driving",
+"dui baje"
+],
+"roman": [
+"drink drive",
+"drunk drive",
+"maapaase",
+"mapase"
+],
+"ne": [
+"मापसे",
+"मादक पदार्थ सेवन गरी सवारी चलाउने"
+]
+},
+{
+"en": [
+"third party insurance",
+"vehicle insurance"
+],
+"roman": [
+"insurance",
+"bima",
+"third party bima"
+],
+"ne": [
+"सवारी बीमा",
+"तेस्रो पक्ष बीमा",
+"बीमा"
+]
+},
+{
+"en": [
+"hit and run",
+"accident escape"
+],
+"roman": [
+"hit and run",
+"durghatana garera bhagne"
+],
+"ne": [
+"दुर्घटना गराएर भागेको अवस्था",
+"सवारी दुर्घटना र फरार"
+]
+},
+{
+"en": [
+"traffic lights",
+"traffic signal"
+],
+"roman": [
+"traffic light",
+"signal",
+"batti"
+],
+"ne": [
+"ट्राफिक संकेत",
+"ट्राफिक बत्ती",
+"सङ्केत}"
+]
+},
+{
+"en": [
+"helmet rule",
+"wearing helmet"
+],
+"roman": [
+"helmet",
+"helmets"
+],
+"ne": [
+"हेल्मेट",
+"हेल्मेट अनिवार्य"
+]
+},
+{
+"en": [
+"seat belt",
+"seatbelt rule"
+],
+"roman": [
+"seatbelt",
+"seat belt"
+],
+"ne": [
+"सिट बेल्ट",
+"सुरक्षा पेटी"
+]
+},
+{
+"en": [
+"vehicle tax",
+"road tax"
+],
+"roman": [
+"vehicle tax",
+"road tax",
+"kar",
+"bhansar"
+],
+"ne": [
+"सवारी कर",
+"सडक कर",
+"कर"
+]
+},
+{
+"en": [
+"public transport",
+"bus",
+"microbus"
+],
+"roman": [
+"public transport",
+"sarwajanik yatayat",
+"bus"
+],
+"ne": [
+"सार्वजनिक यातायात",
+"सवारी साधन",
+"बस"
+]
+},
+{
+"en": [
+"commercial vehicle",
+"yellow plate"
+],
+"roman": [
+"commercial vehicle",
+"bhada ko gadi"
+],
+"ne": [
+"भाडाको सवारी साधन",
+"व्यापारिक सवारी"
+]
+},
+{
+"en": [
+"overloading",
+"excess passengers"
+],
+"roman": [
+"overloading",
+"overcrowd",
+"capacity bhanda dherai"
+],
+"ne": [
+"क्षमताभन्दा बढी भार वा यात्रु बोक्ने",
+"ओभरलोड"
+]
+},
+{
+"en": [
+"reckless driving",
+"dangerous driving"
+],
+"roman": [
+"reckless driving",
+"dangerous driving",
+"laparwahi"
+],
+"ne": [
+"لاपरवाहीपूर्वक सवारी चलाउने",
+"खतरापूर्ण ड्राइभिङ",
+"लापरवाही"
+]
+},
+{
+"en": [
+"vehicle fitness",
+"fitness certificate"
+],
+"roman": [
+"fitness certificate",
+"gadi ko jaach"
+],
+"ne": [
+"सवारी फिट्नेस",
+"सवारी जाँचपास",
+"फिट्नेस प्रमाणपत्र"
+]
+},
+{
+"en": [
+"pedestrian crossing",
+"zebra crossing"
+],
+"roman": [
+"zebra crossing",
+"pedestrian crossing"
+],
+"ne": [
+"जेब्रा क्रसिङ",
+"पदयात्री पार गर्ने ठाउँ"
+]
+},
+{
+"en": [
+"one way",
+"one way road"
+],
+"roman": [
+"one way",
+"oneway"
+],
+"ne": [
+"एकतर्फी सडक",
+"वान वे"
+]
+},
+{
+"en": [
+"no parking",
+"parking zone"
+],
+"roman": [
+"no parking",
+"parking",
+"park garne thau"
+],
+"ne": [
+"पार्क गर्न निषेध",
+"नो पार्किङ",
+"पार्किङ स्थल"
+]
+},
+{
+"en": [
+"revocation of licence",
+"cancelling licence"
+],
+"roman": [
+"licence cancel",
+"licence radd",
+"manjuri kharij"
+],
+"ne": [
+"चालक अनुमतिपत्र खारेज",
+"लाइसेन्स रद्द"
+]
+},
+{
+"en": [
+"provisional licence",
+"learner licence"
+],
+"roman": [
+"learner licence",
+"trial licence",
+"sisu licence"
+],
+"ne": [
+"सिक्ष्यार्थी चालक अनुमतिपत्र",
+"लर्निङ लाइसेन्स"
+]
+},
+{
+"en": [
+"vehicle transfer",
+"ownership transfer"
+],
+"roman": [
+"name transfer",
+"namasari",
+"vehicle transfer"
+],
+"ne": [
+"नामसारी",
+"सवारी नामसारी",
+"स्वामित्व हस्तान्तरण"
+]
+},
+{
+"en": [
+"traffic rule violation",
+"breaking rule"
+],
+"roman": [
+"rule break",
+"kanun ullanghan",
+"traffic niyam ulangan"
+],
+"ne": [
+"ट्राफिक नियम उल्लङ्घन",
+"कानून उल्लङ्घन"
+]
+},
+{
+"en": [
+"road sign",
+"traffic sign"
+],
+"roman": [
+"road sign",
+"traffic sign",
+"sanket"
+],
+"ne": [
+"सडक संकेत",
+"ट्राफिक चिन्ह"
+]
+},
+{
+"en": [
+"highway",
+"expressway"
+],
+"roman": [
+"highway",
+"rajmarg"
+],
+"ne": [
+"राजमार्ग",
+"मुख्य सडक"
+]
+},
+{
+"en": [
+"driving school",
+"driving training"
+],
+"roman": [
+"driving school",
+"driving training",
+"trial center"
+],
+"ne": [
+"ड्राइभिङ स्कुल",
+"चालक प्रशिक्षण केन्द्र",
+"ट्रायल सेन्टर"
+]
+},
+{
+"en": [
+"vehicle modification",
+"changing parts"
+],
+"roman": [
+"vehicle modification",
+"gadi rupantar"
+],
+"ne": [
+"सवारी परिवर्तन",
+"रुपान्तरण"
+]
+},
+{
+"en": [
+"hit and run compensation",
+"accident relief"
+],
+"roman": [
+"accident compensation",
+"durghatana kshatipurti"
+],
+"ne": [
+"दुर्घटना क्षतिपूर्ति",
+"राहत तथा क्षतिपूर्ति"
+]
+},
+{
+"en": [
+"vehicular pollution",
+"smoke emission"
+],
+"roman": [
+"pollution",
+"dhunga",
+"dhunwaw",
+"pradushan"
+],
+"ne": [
+"सवारी प्रदूषण",
+"धूवाँ उत्सर्जन",
+"वातावरण प्रदूषण"
+]
+},
+{
+"en": [
+"road division",
+"department of transport management"
+],
+"roman": [
+"yatayat karyalaya",
+"dotm",
+"yatayat"
+],
+"ne": [
+"यातायात व्यवस्था विभाग",
+"यातायात कार्यालय",
+"सडक विभाग"
+]
+},
+{
+"en": [
+"accidental death",
+"fatal accident"
+],
+"roman": [
+"fatal accident",
+"mrityu",
+"durghatanabata mrityu"
+],
+"ne": [
+"सवारी दुर्घटनाबाट मृत्यु",
+"मृत्यु हुने दुर्घटना"
+]
+},
+{
+"en": [
+"minor accident",
+"property damage only"
+],
+"roman": [
+"normal accident",
+"सामान्य दुर्घटना"
+],
+"ne": [
+"सामान्य दुर्घटना",
+"सम्पत्ति मात्र क्षति भएको दुर्घटना"
+]
+},
+{
+"en": [
+"impound vehicle",
+"seize vehicle"
+],
+"roman": [
+"gadi नियन्त्रण",
+"gadi seizure",
+"gadi kabja"
+],
+"ne": [
+"सवारी नियन्त्रणमा लिने",
+"सवारी कब्जा"
+]
+},
+{
+"en": [
+"horn prohibition",
+"no honking"
+],
+"roman": [
+"no honking",
+"horn nishidh",
+"horn bajauna napaune"
+],
+"ne": [
+"हर्न बजाउन निषेध",
+"निसिद्ध क्षेत्र"
+]
+},
+{
+"en": [
+"oversized vehicle",
+"long vehicle"
+],
+"roman": [
+"oversized vehicle",
+"thulo gadi"
+],
+"ne": [
+"अति ठूलो सवारी",
+"लामो सवारी साधन"
+]
+},
+{
+"en": [
+"temporary route permit",
+"route permit"
+],
+"roman": [
+"route permit",
+"batoanumati"
+],
+"ne": [
+"रुट इजाजतपत्र",
+"बाटो इजाजत",
+"रुट पर्मिट"
+]
+},
+{
+"en": [
+"vehicle inspection",
+"vehicle checkup"
+],
+"roman": [
+"vehicle check",
+"jaachpaas"
+],
+"ne": [
+"सवारी जाँचपास",
+"परीक्षण"
+]
+},
+{
+"en": [
+"driving test",
+"trial exam"
+],
+"roman": [
+"trial exam",
+"driving test",
+"trial"
+],
+"ne": [
+"प्रयोगात्मक परीक्षा",
+"ट्रायल परीक्षा",
+"चालक परिक्षण"
+]
+}
+]
+}
+}
