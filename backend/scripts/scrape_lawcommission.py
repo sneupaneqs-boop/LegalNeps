@@ -45,7 +45,7 @@ import time
 import urllib.robotparser
 from dataclasses import dataclass, field
 from typing import Iterable
-from urllib.parse import urljoin, urlparse
+from urllib.parse import unquote, urljoin, urlparse
 
 import requests
 from bs4 import BeautifulSoup
@@ -92,7 +92,7 @@ def classify(text: str) -> str:
 
 def safe_filename(url: str, title: str) -> str:
     ext = os.path.splitext(urlparse(url).path)[1].lower() or ".pdf"
-    base = re.sub(r"[^\w\-.]+", "_", title.strip(), flags=re.UNICODE).strip("_")
+    base = re.sub(r"[^\wऀ-ॿ\-.]+", "_", title.strip(), flags=re.UNICODE).strip("_")
     if not base:
         base = hashlib.sha1(url.encode("utf-8")).hexdigest()[:16]
     base = base[:150]
@@ -106,12 +106,14 @@ class Crawler:
     out_dir: str = DEFAULT_OUT_DIR
     manifest_path: str = DEFAULT_MANIFEST
     delay: float = 1.0
+    doc_delay: float = 0.5
     max_pages: int = 20000
     timeout: int = 30
     session: requests.Session = field(default_factory=requests.Session)
     seen_urls: set[str] = field(default_factory=set)
     seen_doc_urls: set[str] = field(default_factory=set)
     robots: dict[str, urllib.robotparser.RobotFileParser] = field(default_factory=dict)
+    page_delay_by_origin: dict[str, float] = field(default_factory=dict)
     stats: dict[str, int] = field(default_factory=lambda: {"pages": 0, "docs_found": 0, "docs_downloaded": 0, "docs_skipped": 0, "errors": 0})
 
     def __post_init__(self):
@@ -153,14 +155,45 @@ class Crawler:
             self.robots[origin] = rp
         if rp is None:
             return True
+        if origin not in self.page_delay_by_origin:
+            try:
+                cd = rp.crawl_delay(USER_AGENT)
+            except Exception:  # noqa: BLE001
+                cd = None
+            self.page_delay_by_origin[origin] = max(self.delay, float(cd)) if cd else self.delay
         try:
             return rp.can_fetch(USER_AGENT, url)
         except Exception:  # noqa: BLE001
             return True
 
+    def _page_delay_for(self, url: str) -> float:
+        parsed = urlparse(url)
+        origin = f"{parsed.scheme}://{parsed.netloc}"
+        return self.page_delay_by_origin.get(origin, self.delay)
+
     def _is_doc_link(self, url: str) -> bool:
         ext = os.path.splitext(urlparse(url).path)[1].lower()
         return ext in DOC_EXTENSIONS
+
+    def _infer_title(self, a_tag, url: str) -> str:
+        """Icon-only PDF links (common on the category tables) carry no anchor
+        text; fall back to a sibling data-title in the same table row, then
+        to the row's first non-numeric cell, then to the URL's own filename
+        (uploaded PDFs are typically named after the document in Nepali)."""
+        text = a_tag.get_text(strip=True)
+        if text:
+            return text
+        row = a_tag.find_parent("tr")
+        if row is not None:
+            sib = row.find(attrs={"data-title": True})
+            if sib and sib.get("data-title"):
+                return sib["data-title"]
+            for td in row.find_all("td"):
+                t = td.get_text(strip=True)
+                if t and not t.isdigit():
+                    return t
+        base = os.path.splitext(os.path.basename(urlparse(url).path))[0]
+        return unquote(base)
 
     def _in_scope(self, url: str) -> bool:
         parsed = urlparse(url)
@@ -202,7 +235,7 @@ class Crawler:
                 if not self._in_scope(abs_url):
                     continue
                 if self._is_doc_link(abs_url):
-                    self._handle_doc(abs_url, link_text=a.get_text(strip=True) or href)
+                    self._handle_doc(abs_url, link_text=self._infer_title(a, abs_url))
                 elif abs_url not in self.seen_urls:
                     queue.append(abs_url)
 
@@ -213,7 +246,7 @@ class Crawler:
                     f"queue={len(queue)}",
                     file=sys.stderr,
                 )
-            time.sleep(self.delay)
+            time.sleep(self._page_delay_for(url))
 
         print(f"[crawl] done: {self.stats}", file=sys.stderr)
 
@@ -283,7 +316,7 @@ class Crawler:
         self._append_manifest(record)
         self.seen_doc_urls.add(url)
         self.stats["docs_downloaded"] += 1
-        time.sleep(self.delay)
+        time.sleep(self.doc_delay)
 
 
 def cmd_crawl(args):
@@ -295,6 +328,7 @@ def cmd_crawl(args):
         out_dir=args.out_dir,
         manifest_path=args.manifest,
         delay=args.delay,
+        doc_delay=args.doc_delay,
         max_pages=args.max_pages,
     )
     crawler.crawl()
@@ -304,10 +338,10 @@ def _extractable_text_fraction(pdf_path: str) -> float:
     """Rough heuristic: fraction of sampled pages that yield >20 chars of text."""
     try:
         from pypdf import PdfReader
-    except ImportError:
+    except Exception:  # noqa: BLE001 - broken/missing pypdf install
         try:
             from PyPDF2 import PdfReader  # type: ignore
-        except ImportError:
+        except Exception:  # noqa: BLE001
             return 1.0  # can't check; assume fine, skip OCR
     try:
         reader = PdfReader(pdf_path)
@@ -394,13 +428,17 @@ def build_parser():
     pc = sub.add_parser("crawl", help="crawl + download documents")
     pc.add_argument("--seed", nargs="+", default=[
         "https://lawcommission.gov.np/",
-        "https://lawcommission.gov.np/en/",
     ])
-    pc.add_argument("--extra-domain", nargs="*", default=[],
-                     help="additional netlocs to allow (e.g. supremecourt.gov.np for precedents)")
+    pc.add_argument("--extra-domain", nargs="*", default=["giwmscdnone.gov.np"],
+                     help="additional netlocs to allow (PDFs are hosted on the CDN "
+                          "domain by default; add supremecourt.gov.np for precedents)")
     pc.add_argument("--out-dir", default=DEFAULT_OUT_DIR)
     pc.add_argument("--manifest", default=DEFAULT_MANIFEST)
-    pc.add_argument("--delay", type=float, default=1.0, help="seconds between requests")
+    pc.add_argument("--delay", type=float, default=2.0,
+                     help="seconds between HTML page requests (raised to robots.txt's "
+                          "Crawl-delay automatically if it's higher)")
+    pc.add_argument("--doc-delay", type=float, default=0.5,
+                     help="seconds between binary document downloads")
     pc.add_argument("--max-pages", type=int, default=20000)
     pc.set_defaults(func=cmd_crawl)
 
