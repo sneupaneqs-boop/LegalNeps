@@ -18,3 +18,15 @@ frontend/.env.local
 
 # OS
 .DS_Store
+
+# Scraped law-commission corpus (large binary dump, not meant for git)
+sources/lawcommission/
+
+# Scraped NKP precedents (large raw dump)
+sources/nkp/
+
+# Intermediate extraction output and runtime index cache
+sources/processed/
+backend/app/data/index_cache/
+frontend/tsconfig.tsbuildinfo
+backend/eval/reports/

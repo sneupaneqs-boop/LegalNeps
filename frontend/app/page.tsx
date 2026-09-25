@@ -1,8 +1,8 @@
 "use client";
 
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import ChatMessage, { Message } from "@/components/ChatMessage";
-import { sendChatMessage } from "@/lib/api";
+import { sendChatMessage, streamChatMessage, Turn, warmUp } from "@/lib/api";
 import { Lang, strings } from "@/lib/i18n";
 
 export default function Home() {
@@ -12,38 +12,65 @@ export default function Home() {
   const [loading, setLoading] = useState(false);
   const inputRef = useRef<HTMLTextAreaElement>(null);
 
-  const t = strings[lang];
+  useEffect(() => {
+    warmUp();
+  }, []);
 
-  async function handleSend() {
-    const text = input.trim();
+  const t = strings[lang];
+  const nextId = useRef(0);
+  const newId = () => `m${nextId.current++}`;
+
+  async function handleSend(preset?: string) {
+    const text = (preset ?? input).trim();
     if (!text || loading) return;
 
-    setMessages((prev) => [...prev, { role: "user", text }]);
+    // last few turns so follow-ups ("what about daughters?") are understood
+    const history: Turn[] = messages
+      .filter((m) => m.text && !m.streaming)
+      .slice(-6)
+      .map((m) => ({ role: m.role, text: m.text.slice(0, 1500) }));
+    setMessages((prev) => [...prev, { id: newId(), role: "user", text }]);
     setInput("");
     setLoading(true);
 
+    const botId = newId();
+    let started = false;
+    const update = (patch: Partial<Message>) =>
+      setMessages((prev) => prev.map((m) => (m.id === botId ? { ...m, ...patch } : m)));
     try {
-      const res = await sendChatMessage(text, lang);
-      setMessages((prev) => [
-        ...prev,
-        {
-          role: "bot",
-          text: res.answer,
-          sources: res.sources,
-          llmUsed: res.llm_used,
+      let streamed = "";
+      const final = await streamChatMessage(text, lang, {
+        onMeta: (meta) => {
+          started = true;
+          setMessages((prev) => [
+            ...prev,
+            { id: botId, role: "bot", text: "", sources: meta.sources, llmUsed: true, streaming: true },
+          ]);
         },
-      ]);
+        onDelta: (piece) => {
+          streamed += piece;
+          update({ text: streamed });
+        },
+      }, history);
+      update({ text: final.answer, llmUsed: final.llm_used, streaming: false });
     } catch (err) {
-      setMessages((prev) => [
-        ...prev,
-        {
-          role: "bot",
-          text:
-            lang === "en"
-              ? "Something went wrong reaching the server. Please try again."
-              : "सर्भरसँग जडान गर्दा समस्या भयो। कृपया फेरि प्रयास गर्नुहोस्।",
-        },
-      ]);
+      const timedOut = err instanceof Error && err.message === "timeout";
+      if (timedOut && !started) {
+        setMessages((prev) => [...prev, { id: botId, role: "bot", text: t.timeout }]);
+      } else if (!started) {
+        // streaming unavailable (proxy, old server): fall back to one-shot request
+        try {
+          const res = await sendChatMessage(text, lang, history);
+          setMessages((prev) => [
+            ...prev,
+            { id: botId, role: "bot", text: res.answer, sources: res.sources, llmUsed: res.llm_used },
+          ]);
+        } catch {
+          setMessages((prev) => [...prev, { id: botId, role: "bot", text: t.error }]);
+        }
+      } else {
+        update({ text: t.error, streaming: false });
+      }
     } finally {
       setLoading(false);
       inputRef.current?.focus();
@@ -76,12 +103,22 @@ export default function Home() {
 
       <div className="messages">
         {messages.length === 0 && (
-          <div className="empty-state">{t.emptyState}</div>
+          <div className="empty-state">
+            <p>{t.emptyState}</p>
+            <div className="suggestions-label">{t.tryAsking}</div>
+            <div className="suggestions">
+              {t.suggestions.map((q) => (
+                <button key={q} className="suggestion" onClick={() => handleSend(q)}>
+                  {q}
+                </button>
+              ))}
+            </div>
+          </div>
         )}
-        {messages.map((m, i) => (
-          <ChatMessage key={i} message={m} lang={lang} />
+        {messages.map((m) => (
+          <ChatMessage key={m.id} message={m} lang={lang} />
         ))}
-        {loading && (
+        {loading && !messages.some((m) => m.streaming) && (
           <div className="bubble-row bot">
             <div className="bubble bot">{t.thinking}</div>
           </div>
@@ -97,7 +134,7 @@ export default function Home() {
           placeholder={t.placeholder}
           rows={1}
         />
-        <button onClick={handleSend} disabled={loading || !input.trim()}>
+        <button onClick={() => handleSend()} disabled={loading || !input.trim()}>
           {t.send}
         </button>
       </div>

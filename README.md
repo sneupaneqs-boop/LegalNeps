@@ -1,72 +1,60 @@
 # Kanooni Sathi (कानूनी साथी) — Legal Friend
 
-A bilingual (English / Nepali) AI assistant that helps people understand Nepali
-law — starting with civil law — in plain, empathetic language. Inspired by
-[Niti](https://github.com/Yunika-Bajracharya/Niti-Legal-Semantic-Search), but
-built as retrieval + LLM reasoning (RAG) instead of raw extractive search, so
-it can actually understand a person's situation ("my landlord won't return my
-deposit") and not just keyword-match legal text.
+A bilingual (English / Nepali) assistant that answers questions about Nepali
+law in plain language, grounded **only in official government sources**:
+
+- **Laws** — every Act, Code, Regulation, Order, policy and treaty published by
+  the Nepal Law Commission (lawcommission.gov.np), split into sections (दफा /
+  धारा / नियम).
+- **Precedents** — Supreme Court decisions from the official Nepal Kanoon
+  Patrika (nkp.gov.np): headnotes, laws applied, precedents relied on.
+
+Every answer cites numbered sources that link to the exact PDF page or court
+decision. Questions can be in English, Nepali or romanised Nepali
+("gharbeti le deposit firta diyena").
 
 ## How it works
 
-1. **Retrieval** (`backend/app/retrieval.py`) — the user's message is matched
-   against a bilingual corpus of law provisions and precedents
-   (`backend/app/data/corpus.json`) using TF-IDF similarity, in whichever
-   language (English or Nepali) the message was written in.
-2. **Generation** (`backend/app/generation.py`) — the top matching passages
-   are handed to an LLM (tries Gemini via `GEMINI_API_KEY`, then Groq via
-   `GROQ_API_KEY`, then Claude via `ANTHROPIC_API_KEY` — whichever is
-   configured) along with a system prompt that instructs it to: understand
-   the person's real underlying concern, answer only from the retrieved
-   passages (no invented citations), explain things in plain non-legalese
-   language, reply in the same language as the question, and always add a
-   disclaimer that this isn't a substitute for a licensed advocate.
-3. If no LLM key is configured, the backend still works — it falls back to
-   showing the raw matched passages directly (extractive mode), so the app
-   degrades gracefully instead of breaking.
+1. **Understand** — a cheap/fast LLM tier rewrites the question into formal
+   Nepali legal search terms and likely statutes (statutes exist only in
+   Nepali, so this is what lets English questions find them). A built-in
+   glossary does the same offline, so search keeps working with no LLM.
+2. **Retrieve** — BM25 over Nepali-normalised tokens (digit/vowel-length
+   folding, postposition stripping), several weighted phrasings fused,
+   authority priors (Constitution/Acts above reports), duplicates collapsed.
+   Laws and precedents are retrieved separately. <1 ms per query.
+3. **Answer** — the stronger LLM tier writes a plain-language answer using only
+   the retrieved passages, citing them as [1], [2]…, streamed to the browser.
+4. **Never hangs** — every LLM call has a time budget (8 s to understand, 30 s
+   for the answer to start). If no model responds, the app returns the matching
+   official provisions instead.
 
-## About the legal corpus
+## LLM providers (tried in order)
 
-`backend/app/data/corpus.json` mixes two kinds of entries:
+| Provider | Env vars | Notes |
+|---|---|---|
+| Free-tier providers called directly (no gateway needed — this is what the hosted backend uses) | `GROQ_API_KEYS`, `GEMINI_API_KEYS`, `OPENROUTER_API_KEYS`, `COHERE_API_KEYS`, `MISTRAL_API_KEYS`, `CEREBRAS_API_KEYS` — each a comma-separated list of keys | The `OPENAI_MODELS` / `OPENAI_FAST_MODELS` chains (`provider/model`, strongest first) are walked in order; every key of a provider is tried (rotated) and rate-limited key+model pairs cool down, so more keys = more free capacity. Entries for providers without keys are skipped |
+| Any OpenAI-compatible gateway, e.g. **[OmniRoute](https://github.com/diegosouzapw/OmniRoute)** | `OPENAI_BASE_URL`, `OPENAI_API_KEY` | When set, the same chains go through the gateway instead of the direct APIs |
+| Google Gemini SDK | `GEMINI_API_KEY`, optional `GEMINI_MODELS` / `GEMINI_FAST_MODELS` | Fallback; the free tier allows only ~20 requests/day per full "flash" model, lite models allow more |
+| Anthropic | `ANTHROPIC_API_KEY`, `ANTHROPIC_MODEL` | |
+| Groq SDK | `GROQ_API_KEY`, `GROQ_MODEL` | Last resort |
 
-- **Real, sourced entries** (`constitution-*`, `maxim-*`, and the finance/Act
-  entries) — extracted from the actual PDFs in `sources/` (Nepal's
-  Constitution, a Law Commission legal-maxims volume, and several finance
-  Acts, all originally in Nepali with a legacy, non-Unicode font that made
-  naive text extraction come out garbled). `backend/scripts/ingest_pdfs.py`
-  re-extracts these correctly by having Gemini read the PDF pages visually
-  (bypassing the broken font layer) and translate each provision into the
-  other language in the same pass. Re-run it (`GEMINI_API_KEY=... python3
-  backend/scripts/ingest_pdfs.py [constitution|maxims|acts|all]`) if you add
-  more source PDFs to `sources/`.
-- **Illustrative demo entries** (`civil-*`, `precedent-*`) — paraphrased
-  summaries of civil-law topics (marriage, contracts, tort, etc.) written
-  from general knowledge before real source documents were available, kept
-  because they cover topics the uploaded PDFs don't. Precedent entries are
-  explicitly marked "illustrative summary — verify exact case citation."
-  Worth replacing with real Supreme Court (NKP) text over time.
+### Using OmniRoute for more free capacity
 
-### Corpus format
+OmniRoute is a self-hosted gateway: you connect your own API keys for
+providers with free tiers (Gemini, Groq, Mistral, OpenRouter, Cerebras, …) in
+its dashboard, and it routes each request to whichever has quota left.
 
-Each entry in `corpus.json`:
-
-```json
-{
-  "id": "unique-id",
-  "category": "law | precedent",
-  "topic": "short topic label",
-  "title_en": "...", "title_ne": "...",
-  "text_en": "...", "text_ne": "...",
-  "source_en": "citation string", "source_ne": "citation string (Nepali)"
-}
+```bash
+npx omniroute            # dashboard + API on http://localhost:20128
+# connect providers in the dashboard, create an API key, then:
+export OPENAI_BASE_URL=http://localhost:20128/v1
+export OPENAI_API_KEY=<key from the OmniRoute dashboard>
 ```
 
-To scale this up to the full Civil Code and NKP case law, the next steps
-would be: ingest official PDFs (once the environment's network policy allows
-those domains, or by uploading the PDFs directly), chunk them by
-section/paragraph, and swap the TF-IDF retriever for a multilingual
-embedding model (e.g. `intfloat/multilingual-e5-base`) + a vector index
-(FAISS) once the corpus is too large for TF-IDF to work well.
+Only connect providers through their official API keys. OmniRoute's own
+terms-risk catalog marks some providers "avoid" (they scrape consumer chat
+websites or reuse subscription logins) — don't enable those for a public app.
 
 ## Running it locally
 
@@ -76,68 +64,72 @@ embedding model (e.g. `intfloat/multilingual-e5-base`) + a vector index
 cd backend
 python3 -m venv venv && source venv/bin/activate
 pip install -r requirements.txt
-cp .env.example .env   # then add GEMINI_API_KEY (or GROQ_API_KEY / ANTHROPIC_API_KEY)
-uvicorn app.main:app --reload --port 8000
+cp .env.example .env   # add GROQ_API_KEYS / GEMINI_API_KEYS / ... (or OPENAI_BASE_URL for OmniRoute)
+uvicorn app.main:app --port 8000
 ```
 
-Without any LLM key set, `/api/chat` still works in extractive fallback
-mode — useful for testing retrieval without API cost.
+The first start compiles the corpus into a search index under
+`app/data/index_cache/` (about a minute); later starts take under a second.
 
 ### Frontend (Next.js)
 
 ```bash
 cd frontend
 npm install
-cp .env.local.example .env.local   # points at the backend URL
+cp .env.local.example .env.local   # NEXT_PUBLIC_API_URL=http://localhost:8000
 npm run dev
 ```
 
-Open http://localhost:3000. Use the language toggle in the top-right to
-switch the whole UI (and the assistant's replies) between English and
-Nepali.
-
 ## API
 
-`POST /api/chat`
+- `POST /api/chat/stream` — `{"message": "...", "language": "auto"|"en"|"ne"}` →
+  NDJSON: `{"type":"meta","sources":[...]}`, then `{"type":"delta","text":...}`…,
+  then `{"type":"done","answer":...,"llm_used":bool}`.
+- `POST /api/chat` — same input, one JSON response.
+- `GET /api/search?q=...&category=law|precedent&k=10` — search only.
+- `GET /api/stats` — corpus counts.
 
-```json
-{ "message": "my landlord won't return my rent deposit", "language": "auto" }
+## Rebuilding the corpus
+
+```bash
+pip install -r backend/requirements-scripts.txt
+python3 backend/scripts/scrape_lawcommission.py crawl   # resumable; honours robots.txt crawl-delay
+python3 backend/scripts/scrape_nkp.py                   # Supreme Court precedents
+python3 backend/scripts/extract_laws.py                 # PDF -> clean section chunks
+GEMINI_API_KEY=... python3 backend/scripts/ocr_gemini.py   # scanned / broken PDFs only
+GEMINI_API_KEY=... python3 backend/scripts/build_corpus.py # -> backend/app/data/corpus/*.jsonl.gz
 ```
 
-`language` is `"en"`, `"ne"`, or `"auto"` (detects Devanagari script).
+Extraction needs no LLM for almost all documents: legacy fonts (Preeti,
+Kantipur, PCS Nepali…) are converted per text span, and Kalimati PDFs with
+broken Unicode maps (e.g. "मममि" for "मिति") are decoded from the font's own
+glyph outlines. Documents whose text layer still isn't real Nepali are flagged
+and transcribed with Gemini vision.
 
-Response:
+## Tests and evaluation
 
-```json
-{
-  "answer": "...",
-  "language": "en",
-  "sources": [{ "id": "...", "title": "...", "citation": "...", "snippet": "...", "score": 0.4 }],
-  "llm_used": true
-}
+```bash
+cd backend
+python3 -m pytest -q                                # unit + API tests (no LLM calls)
+python3 eval/run_eval.py retrieval                  # 150 hand-written questions (en / ne / romanised)
+python3 eval/run_eval.py synth-gen && python3 eval/run_eval.py synth   # questions generated from real provisions
+python3 eval/run_eval.py e2e --n 15                 # full answers graded for grounding
 ```
 
 ## Project structure
 
 ```
-backend/
-  app/
-    main.py            FastAPI app + CORS
-    routes/chat.py      POST /api/chat
-    retrieval.py         TF-IDF retrieval over the bilingual corpus
-    generation.py        Gemini/Groq/Claude prompt + extractive fallback
-    data/corpus.json     the legal corpus (see caveat above)
-  scripts/ingest_pdfs.py re-extracts sources/*.pdf into corpus.json via Gemini
-sources/                 original source PDFs (Constitution, legal maxims, Acts)
-frontend/
-  app/page.tsx           chat UI, language toggle
-  components/ChatMessage.tsx
-  lib/api.ts             backend client
-  lib/i18n.ts             English/Nepali UI strings
+backend/app/        FastAPI app: retrieval.py (BM25 + passage store), generation.py
+                    (understand -> search -> answer), llm.py (providers, tiers,
+                    time budgets), glossary.py, text_norm.py
+backend/app/data/   corpus shards + glossary (built by the scripts)
+backend/scripts/    scrapers, PDF extraction, OCR, corpus/glossary builders
+backend/eval/       evaluation questions and harness
+backend/tests/      pytest suite
+frontend/           Next.js chat UI (streaming, clickable citations, EN/NE)
 ```
 
 ## Disclaimer
 
-This app provides general legal information for educational purposes. It is
-not a substitute for advice from a licensed Nepali advocate, and the demo
-corpus has not been independently verified against official sources.
+General legal information for educational purposes, not a substitute for a
+licensed Nepali advocate. Always check the linked official source.
