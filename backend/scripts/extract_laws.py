@@ -60,6 +60,36 @@ def _get_mapper():
     return _mapper
 
 
+COMMON_EN = set("""the of and to in is for on by with as at be or an are this that from it not
+act acts rule rules regulation section sub clause chapter schedule article part name date no number
+office government nepal ministry department court district supreme high law laws legal order notice
+form application applicant signature address fee fees amount rs total year years month day details
+and/or shall may must will per any all other such under above below following page table list report
+policy plan national international committee board council authority member members chairman
+secretary officer officers public private company bank tax income value added customs social
+health education development management service services system information technology data
+case registration letter reference autopsy police examination sheets floor plans elevations
+drawings section cross longitudinal first middle last identity citizen citizenship passport
+designation country nationality english nepali b.s. a.d.""".split())
+EN_FUNCTION_WORDS = {"the", "of", "and", "to", "in", "for", "on", "with", "by", "is", "be", "or", "as",
+                     "at", "from", "no", "a", "an", "are", "this", "that", "shall", "which", "name", "date"}
+_PREETI_MARKS = set("]{}|;'/\\«»@)*!&^%$#+=[<>?`~\"")
+
+
+def looks_preeti(text: str) -> bool:
+    """Legacy-font text whose font isn't called Preeti (subset names like
+    'F1', 'Arial' fallbacks): Latin letters, few real English words, and the
+    punctuation Preeti uses for matras and digits (] f { ; / @ ) ...)."""
+    letters = sum(c.isalpha() for c in text)
+    if letters < 3 or re.search(r"[\u0900-\u097F]", text):
+        return False
+    words = re.findall(r"[A-Za-z]+", text)
+    if words and sum(w.lower() in COMMON_EN for w in words) / len(words) > 0.2:
+        return False
+    marks = sum(c in _PREETI_MARKS for c in text)
+    return marks / max(1, len(text.strip())) > 0.05
+
+
 def legacy_map_name(font: str) -> str | None:
     f = font.lower().replace(" ", "").replace("_", "")
     for key, name in LEGACY_FONTS:
@@ -77,67 +107,64 @@ def convert_legacy(text: str, map_name: str) -> str:
         return text
 
 
-GLYPH_TABLES_PATH = os.path.join(OUT_DIR, "glyph_tables.json")
-_glyph_tables: dict | None = None
+GLYPH_REF_PATH = os.path.join(OUT_DIR, "glyph_reference.json")
+_glyph_ref: dict | None = None
+_table_cache: dict[str, dict | None] = {}
 
 
 def _font_family(basefont: str) -> str:
     return basefont.split("+", 1)[-1]
 
 
-def load_glyph_tables() -> dict:
-    global _glyph_tables
-    if _glyph_tables is None:
-        import devanagari_glyphs as G
-
-        raw = json.load(open(GLYPH_TABLES_PATH, encoding="utf-8")) if os.path.exists(GLYPH_TABLES_PATH) else {}
-        _glyph_tables = {fam: G.prepare(t) for fam, t in raw.items()}
-    return _glyph_tables
+def load_glyph_reference() -> dict:
+    global _glyph_ref
+    if _glyph_ref is None:
+        _glyph_ref = json.load(open(GLYPH_REF_PATH, encoding="utf-8")) if os.path.exists(GLYPH_REF_PATH) \
+            else {"hash_text": {}, "reph_hashes": []}
+    return _glyph_ref
 
 
-def _embedded_font(doc, xref):
-    import io
-
-    from fontTools.ttLib import TTFont
-
+def _font_bytes(doc, xref) -> bytes | None:
     try:
-        buf = doc.extract_font(xref)[3]
-        return (TTFont(io.BytesIO(buf)), buf) if buf else (None, None)
+        return doc.extract_font(xref)[3] or None
     except Exception:  # noqa: BLE001
-        return None, None
-
-
-def _compatible(font, table: dict) -> bool:
-    """The embedded (possibly subset) font must agree with the reference
-    table on the Devanagari glyphs it maps in its own cmap."""
-    order = font.getGlyphOrder()
-    gid = {n: i for i, n in enumerate(order)}
-    agree = total = 0
-    for cp, name in (font.getBestCmap() or {}).items():
-        if 0x0900 <= cp <= 0x097F and name in gid:
-            total += 1
-            agree += table["text"].get(gid[name]) == chr(cp)
-    return total == 0 or agree / total >= 0.95
+        return None
 
 
 def font_plan(doc) -> dict[str, tuple]:
-    """font name (as texttrace reports it) -> ("legacy", map) | ("glyph", table) | ("plain", None)."""
-    tables = load_glyph_tables()
+    """font name (as texttrace reports it) -> ("legacy", map) | ("glyph", table) | ("plain", None).
+    Embedded Unicode Devanagari fonts are decoded from glyph outlines when
+    they match the reference design (any build/subset of Kalimati etc.)."""
+    import hashlib
+
+    import devanagari_glyphs as G
+
+    ref = load_glyph_reference()
     plan: dict[str, tuple] = {}
+    merged: dict[str, dict] = {}
     for pno in range(len(doc)):
         for xref, _ext, _typ, basefont, *_ in doc.get_page_fonts(pno):
             fam = _font_family(basefont)
-            if fam in plan:
-                continue
             m = legacy_map_name(fam)
             if m:
                 plan[fam] = ("legacy", m)
-            elif fam in tables:
-                font, _ = _embedded_font(doc, xref)
-                ok = font is None or _compatible(font, tables[fam])
-                plan[fam] = ("glyph", tables[fam]) if ok else ("plain", None)
-            else:
-                plan[fam] = ("plain", None)
+                continue
+            if not ref["hash_text"]:
+                continue
+            buf = _font_bytes(doc, xref)
+            if not buf:
+                continue
+            key = hashlib.sha1(buf).hexdigest()
+            if key not in _table_cache:
+                _table_cache[key] = G.table_for_embedded(buf, ref)
+            t = _table_cache[key]
+            if t:
+                agg = merged.setdefault(fam, {"text": {}, "reph_set": set()})
+                agg["text"].update(t["text"])
+                agg["reph_set"] |= t["reph_set"]
+    for fam, agg in merged.items():
+        if fam not in plan:
+            plan[fam] = ("glyph", {"text": agg["text"], "reph": sorted(agg["reph_set"]), "reph_set": agg["reph_set"]})
     return plan
 
 
@@ -219,6 +246,9 @@ def page_text(page, plan: dict) -> tuple[str, int, int]:
         elif kind == "legacy":
             legacy += len(raw)
             t = convert_legacy(raw, arg)
+        elif looks_preeti(raw):
+            legacy += len(raw)
+            t = convert_legacy(raw, "Preeti")
         else:
             t = raw
         total += len(raw)
@@ -282,24 +312,40 @@ def extract_pdf(path: str) -> dict:
         if len(t) < 40:
             empty.append(i + 1)
         pages.append(t)
+    joined = "".join(pages)
+    dev = len(re.findall(r"[\u0900-\u097F]", joined))
+    lat = len(re.findall(r"[A-Za-z]", joined))
+    dev_share = dev / max(1, dev + lat)
+    latin_words = re.findall(r"[A-Za-z]+", joined)
+    en_rate = sum(w.lower() in EN_FUNCTION_WORDS for w in latin_words) / max(1, len(latin_words))
     return {
         "n_pages": len(pages),
         "pages": pages,
+        "devanagari_share": round(dev_share, 3),
         "legacy_fraction": round(legacy / total, 3) if total else 0.0,
         "glyph_decoded_fonts": sorted(f for f, (k, _) in plan.items() if k == "glyph"),
         "empty_pages": empty,
-        "needs_ocr": len(pages) > 0 and len(empty) / len(pages) > 0.5,
+        # scanned (no text) or text layer that isn't Nepali at all (garbage encodings)
+        "needs_ocr": len(pages) > 0 and (
+            len(empty) / len(pages) > 0.5
+            or (dev + lat > 500 and dev_share < 0.3 and en_rate < 0.08)  # neither Nepali nor English: garbage encoding
+        ),
     }
 
 
-def build_glyph_tables(records: list[dict], max_docs: int = 400) -> dict:
-    """Scan PDFs for complete embedded Devanagari fonts (with GSUB) and build
-    one GID->Unicode table per font family."""
+def build_glyph_reference(records: list[dict], max_docs: int = 600) -> dict:
+    """Merge outline->text references from every complete embedded
+    Devanagari font (with GSUB) found in the downloaded PDFs."""
+    import hashlib
+
     import pymupdf
 
     import devanagari_glyphs as G
+    from fontTools.ttLib import TTFont
+    import io
 
-    found: dict[str, dict] = {}
+    ref = {"hash_text": {}, "reph_hashes": set()}
+    seen: set[str] = set()
     for r in records[:max_docs]:
         path = os.path.join(ROOT, r["local_path"])
         if not path.lower().endswith(".pdf") or not os.path.exists(path):
@@ -310,21 +356,36 @@ def build_glyph_tables(records: list[dict], max_docs: int = 400) -> dict:
             continue
         for pno in range(min(3, len(doc))):
             for xref, _ext, _typ, basefont, *_ in doc.get_page_fonts(pno):
-                fam = _font_family(basefont)
-                if fam in found or legacy_map_name(fam):
+                if legacy_map_name(_font_family(basefont)):
                     continue
-                font, buf = _embedded_font(doc, xref)
-                if font is None or "GSUB" not in font:
+                buf = _font_bytes(doc, xref)
+                if not buf:
+                    continue
+                key = hashlib.sha1(buf).hexdigest()
+                if key in seen:
+                    continue
+                seen.add(key)
+                try:
+                    font = TTFont(io.BytesIO(buf))
+                except Exception:  # noqa: BLE001
+                    continue
+                if "cmap" not in font:
                     continue
                 cmap = font.getBestCmap() or {}
-                if sum(1 for cp in cmap if 0x0900 <= cp <= 0x097F) < 60:
-                    continue  # not a (complete) Devanagari font
+                if "GSUB" not in font or "glyf" not in font or sum(1 for cp in cmap if 0x0900 <= cp <= 0x097F) < 60:
+                    continue
                 try:
-                    found[fam] = G.build_glyph_table(buf)
-                    print(f"[glyphs] table for {fam}: {len(found[fam]['text'])} glyphs", file=sys.stderr)
+                    one = G.build_reference(buf)
                 except Exception as e:  # noqa: BLE001
-                    print(f"[glyphs] failed for {fam}: {e}", file=sys.stderr)
-    return found
+                    print(f"[glyphs] {basefont}: {e}", file=sys.stderr)
+                    continue
+                before = len(ref["hash_text"])
+                for h, t in one["hash_text"].items():
+                    ref["hash_text"].setdefault(h, t)
+                ref["reph_hashes"] |= set(one["reph_hashes"])
+                print(f"[glyphs] reference from {basefont}: +{len(ref['hash_text']) - before} outlines", file=sys.stderr)
+    ref["reph_hashes"] = sorted(ref["reph_hashes"])
+    return ref
 
 
 def _windows(text: str, size: int = 1200, overlap: int = 150, base: int = 0) -> list[tuple[str, int]]:
@@ -406,6 +467,49 @@ def chunk_document(pages: list[str], is_legislation: bool) -> list[dict]:
     return [c for c in chunks if len(c["text"]) > 30]
 
 
+VOCAB_PATH = os.path.join(OUT_DIR, "ne_vocab.json")
+NKP_CASES = os.path.join(ROOT, "sources", "nkp", "cases.jsonl")
+_WORD_RE = re.compile(r"[\u0900-\u0963\u0971-\u097f]{2,}")
+_vocab: set[str] | None = None
+
+
+def build_vocab() -> set[str]:
+    """Words seen >=2x in clean Unicode Supreme Court text (nkp.gov.np)."""
+    import collections
+
+    sys.path.insert(0, os.path.join(ROOT, "backend"))
+    from app.text_norm import fold
+
+    cnt = collections.Counter()
+    if os.path.exists(NKP_CASES):
+        for line in open(NKP_CASES, encoding="utf-8"):
+            c = json.loads(line)
+            cnt.update(_WORD_RE.findall(fold(" ".join([c.get("title", ""), c.get("headnote") or "", c.get("conclusion") or ""]))))
+    return {w for w, n in cnt.items() if n >= 2}
+
+
+def _get_vocab() -> set[str]:
+    global _vocab
+    if _vocab is None:
+        _vocab = set(json.load(open(VOCAB_PATH, encoding="utf-8"))) if os.path.exists(VOCAB_PATH) else set()
+    return _vocab
+
+
+def valid_word_rate(text: str) -> float | None:
+    """Share of Devanagari words that are real Nepali words; garbage
+    encodings score far below real (even archaic) Nepali."""
+    vocab = _get_vocab()
+    if not vocab:
+        return None
+    sys.path.insert(0, os.path.join(ROOT, "backend"))
+    from app.text_norm import fold
+
+    words = _WORD_RE.findall(fold(text))
+    if len(words) < 20:
+        return None
+    return sum(w in vocab for w in words) / len(words)
+
+
 LEGISLATION_CATS = {"act", "rule", "constitution", "order", "amendment", "directive"}
 
 
@@ -420,7 +524,19 @@ def process(rec: dict) -> dict | None:
     is_leg = rec["category"] in LEGISLATION_CATS or bool(
         re.search(r"(ऐन|नियमावली|नियमहरु|नियमहरू|संहिता|आदेश|संविधान|अध्यादेश)", rec.get("title") or "")
     )
+    ocr_path = os.path.join(OUT_DIR, "ocr", rec["sha256"] + ".json")
+    if os.path.exists(ocr_path):
+        ex["pages"] = [re.sub(r"</?(?:u|b|i|strong|em)>|\*\*", "", p)
+                       for p in json.load(open(ocr_path, encoding="utf-8"))["pages"]]
+        ex["needs_ocr"] = False
+        ex["ocr"] = True
+    full = "\n".join(ex["pages"])
+    quality = valid_word_rate(full)
+    garbled = full.count("\ufffd") > 0.05 * max(1, len(full))
+    if (quality is not None and quality < 0.3) or garbled:
+        ex["needs_ocr"] = True  # text layer is not real Nepali: send to OCR instead
     chunks = [] if ex["needs_ocr"] else chunk_document(ex["pages"], is_leg)
+    chunks = [c for c in chunks if (valid_word_rate(c["text"]) or 1.0) >= 0.25]
     return {
         "url": rec["url"],
         "sha256": rec["sha256"],
@@ -430,6 +546,8 @@ def process(rec: dict) -> dict | None:
         "local_path": rec["local_path"],
         "n_pages": ex["n_pages"],
         "legacy_fraction": ex["legacy_fraction"],
+        "devanagari_share": ex["devanagari_share"],
+        "quality": round(quality, 3) if quality is not None else None,
         "empty_pages": ex["empty_pages"][:50],
         "needs_ocr": ex["needs_ocr"],
         "is_legislation": is_leg,
@@ -442,6 +560,7 @@ def main():
     ap.add_argument("--force", action="store_true")
     ap.add_argument("--workers", type=int, default=3)
     ap.add_argument("--rebuild-glyphs", action="store_true")
+    ap.add_argument("--rebuild-vocab", action="store_true")
     args = ap.parse_args()
     sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 
@@ -450,6 +569,8 @@ def main():
     if os.path.exists(OUT_PATH) and not args.force:
         for line in open(OUT_PATH, encoding="utf-8"):
             r = json.loads(line)
+            if r.get("needs_ocr") and os.path.exists(os.path.join(OUT_DIR, "ocr", r["sha256"] + ".json")):
+                continue  # OCR text has arrived since: re-process
             done[r["sha256"]] = r
 
     records, seen_sha = [], set(done)
@@ -460,17 +581,24 @@ def main():
         seen_sha.add(r["sha256"])
         records.append(r)
 
-    if args.rebuild_glyphs or not os.path.exists(GLYPH_TABLES_PATH):
+    if args.rebuild_vocab or not os.path.exists(VOCAB_PATH):
+        vocab = build_vocab()
+        with open(VOCAB_PATH, "w", encoding="utf-8") as f:
+            json.dump(sorted(vocab), f, ensure_ascii=False)
+        print(f"[extract] vocabulary: {len(vocab)} words", file=sys.stderr)
+
+    if args.rebuild_glyphs or not os.path.exists(GLYPH_REF_PATH):
         all_recs = [json.loads(l) for l in open(MANIFEST, encoding="utf-8")]
-        tables = build_glyph_tables(all_recs)
-        with open(GLYPH_TABLES_PATH, "w", encoding="utf-8") as f:
-            json.dump({fam: {"text": {str(k): v for k, v in t["text"].items()}, "reph": t["reph"]}
-                       for fam, t in tables.items()}, f, ensure_ascii=False)
+        ref = build_glyph_reference(all_recs)
+        with open(GLYPH_REF_PATH, "w", encoding="utf-8") as f:
+            json.dump(ref, f, ensure_ascii=False)
 
     print(f"[extract] {len(done)} cached, {len(records)} new", file=sys.stderr)
-    mode = "w" if args.force else "a"
     n = 0
-    with open(OUT_PATH, mode, encoding="utf-8") as out, ProcessPoolExecutor(args.workers) as ex:
+    tmp = OUT_PATH + ".tmp"
+    with open(tmp, "w", encoding="utf-8") as out, ProcessPoolExecutor(args.workers) as ex:
+        for r in done.values():
+            out.write(json.dumps(r, ensure_ascii=False) + "\n")
         for res in ex.map(process, records, chunksize=2):
             if res is None:
                 continue
@@ -479,6 +607,7 @@ def main():
             n += 1
             if n % 25 == 0:
                 print(f"[extract] {n}/{len(records)}", file=sys.stderr)
+    os.replace(tmp, OUT_PATH)
     print(f"[extract] done: {n} documents", file=sys.stderr)
 
 

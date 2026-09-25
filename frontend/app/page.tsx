@@ -2,7 +2,7 @@
 
 import { useRef, useState } from "react";
 import ChatMessage, { Message } from "@/components/ChatMessage";
-import { sendChatMessage } from "@/lib/api";
+import { sendChatMessage, streamChatMessage } from "@/lib/api";
 import { Lang, strings } from "@/lib/i18n";
 
 export default function Home() {
@@ -24,23 +24,42 @@ export default function Home() {
     setInput("");
     setLoading(true);
 
+    const botId = newId();
+    let started = false;
+    const update = (patch: Partial<Message>) =>
+      setMessages((prev) => prev.map((m) => (m.id === botId ? { ...m, ...patch } : m)));
     try {
-      const res = await sendChatMessage(text, lang);
-      setMessages((prev) => [
-        ...prev,
-        {
-          id: newId(),
-          role: "bot",
-          text: res.answer,
-          sources: res.sources,
-          llmUsed: res.llm_used,
+      let streamed = "";
+      const final = await streamChatMessage(text, lang, {
+        onMeta: (meta) => {
+          started = true;
+          setLoading(false);
+          setMessages((prev) => [
+            ...prev,
+            { id: botId, role: "bot", text: "", sources: meta.sources, llmUsed: true },
+          ]);
         },
-      ]);
+        onDelta: (piece) => {
+          streamed += piece;
+          update({ text: streamed });
+        },
+      });
+      update({ text: final.answer, llmUsed: final.llm_used });
     } catch {
-      setMessages((prev) => [
-        ...prev,
-        { id: newId(), role: "bot", text: t.error },
-      ]);
+      if (!started) {
+        // streaming unavailable (proxy, old server): fall back to one-shot request
+        try {
+          const res = await sendChatMessage(text, lang);
+          setMessages((prev) => [
+            ...prev,
+            { id: botId, role: "bot", text: res.answer, sources: res.sources, llmUsed: res.llm_used },
+          ]);
+        } catch {
+          setMessages((prev) => [...prev, { id: botId, role: "bot", text: t.error }]);
+        }
+      } else {
+        update({ text: t.error });
+      }
     } finally {
       setLoading(false);
       inputRef.current?.focus();

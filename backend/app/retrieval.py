@@ -29,9 +29,28 @@ CACHE_DIR = DATA_DIR / "index_cache"
 K1, B = 1.4, 0.72
 AUTHORITY = {
     "constitution": 1.18, "act": 1.12, "rule": 1.04, "precedent": 1.05, "order": 0.97,
-    "directive": 0.97, "treaty": 0.95, "amendment": 1.0, "gazette": 0.95, "other": 0.85,
+    "directive": 0.97, "treaty": 0.95, "amendment": 1.0, "gazette": 0.95, "other": 0.7,
 }
 RRF_K = 60
+
+
+_LOW_VALUE_HEADINGS = ("संक्षिप्त नाम र प्रारम्भ", "सङ्क्षिप्त नाम र प्रारम्भ", "संक्षिप्त नाम", "खारेजी र बचाउ", "खारेजी")
+_LOW_VALUE_DOCS = ("वार्षिक प्रतिवेदन", "annual report", "विषय-सूची", "सूचनाको हक बमोजिम सार्वजनिक")
+
+
+def _prior(e: dict) -> float:
+    """Authority of the source x usefulness of this particular passage."""
+    kind = e.get("doc_type") or ("precedent" if e.get("category") == "precedent" else "other")
+    p = AUTHORITY.get(kind, 1.0)
+    if e.get("curated"):
+        p *= 1.08
+    heading = e.get("title_ne") or ""
+    if any(heading.startswith(h) for h in _LOW_VALUE_HEADINGS):
+        p *= 0.5  # "short title and commencement" / repeal clauses rarely answer anything
+    doc = (e.get("doc_title_ne") or "").lower()
+    if any(d in doc for d in _LOW_VALUE_DOCS):
+        p *= 0.45  # the Commission's own annual reports mention every topic in passing
+    return p
 
 
 def _index_text(e: dict) -> str:
@@ -62,11 +81,7 @@ class Index:
         self.entries = entries
         self.digest = digest
         self.by_id = {e["id"]: i for i, e in enumerate(entries)}
-        self.prior = np.array(
-            [AUTHORITY.get(e.get("doc_type") or ("precedent" if e.get("category") == "precedent" else "other"), 1.0)
-             * (1.08 if e.get("curated") else 1.0) for e in entries],
-            dtype=np.float32,
-        )
+        self.prior = np.array([_prior(e) for e in entries], dtype=np.float32)
         if not self._load_cache():
             self._build()
             self._save_cache()
@@ -96,7 +111,10 @@ class Index:
         df = np.bincount(tf.indices, minlength=len(vocab)).astype(np.float32)
         idf = np.log(1 + (n - df + 0.5) / (df + 0.5)).astype(np.float32)
         avgdl = float(lengths.mean()) if n else 1.0
-        norm = K1 * (1 - B + B * lengths / max(avgdl, 1e-6))
+        # floor at half the average length so a 20-word clause that happens to
+        # contain one query term doesn't outrank a substantive provision
+        dl = np.maximum(lengths, 0.5 * avgdl)
+        norm = K1 * (1 - B + B * dl / max(avgdl, 1e-6))
         tf = tf.tocoo()
         w = tf.data * (K1 + 1) / (tf.data + norm[tf.row]) * idf[tf.col]
         self.W = sparse.csc_matrix((w.astype(np.float32), (tf.row, tf.col)), shape=tf.shape)
@@ -134,18 +152,23 @@ class Index:
 
     def search(
         self,
-        queries: Iterable[str],
+        queries: Iterable[str | tuple[str, float]],
         top_k: int = 8,
         boost_titles: Iterable[str] = (),
         category: str | None = None,
         per_doc_cap: int = 3,
     ) -> list[dict]:
-        queries = [q for q in dict.fromkeys(q.strip() for q in queries) if q]
-        if not queries:
+        weighted: dict[str, float] = {}
+        for q in queries:
+            text, w = (q, 1.0) if isinstance(q, str) else q
+            text = text.strip()
+            if text:
+                weighted[text] = max(w, weighted.get(text, 0.0))
+        if not weighted:
             return []
         fused = np.zeros(len(self.entries), dtype=np.float32)
         best_raw = np.zeros(len(self.entries), dtype=np.float32)
-        for q in queries:
+        for q, w in weighted.items():
             s = self.bm25(q) * self.prior
             if not s.any():
                 continue
@@ -155,7 +178,7 @@ class Index:
             for rank, i in enumerate(top):
                 if s[i] <= 0:
                     break
-                fused[i] += 1.0 / (RRF_K + rank)
+                fused[i] += w / (RRF_K + rank)
 
         boost_toks = [set(tokenize(t)) for t in boost_titles if t]
         if boost_toks:

@@ -18,7 +18,7 @@ import re
 from collections import OrderedDict
 from threading import Lock
 
-from . import config, llm
+from . import config, glossary, llm
 from .retrieval import get_index
 from .text_norm import detect_language, fold
 
@@ -60,9 +60,10 @@ ANSWER_SYSTEM = """You are Kanooni Sathi ("Legal Friend"), a warm, precise bilin
 Grounding rules (strict):
 - Use ONLY the numbered passages in "Official sources". They are verbatim extracts from Nepal Law \
 Commission publications and Supreme Court (Nepal Kanoon Patrika) decisions, in Nepali.
-- Cite every legal statement with the passage number in square brackets, e.g. [2] or [1][3], and \
-name the law and section/article (e.g. "Muluki Civil Code 2074, Section 99" / "मुलुकी देवानी संहिता, \
-२०७४ को दफा ९९"). Never invent a law, section, number, deadline, fine or case that is not in the passages.
+- Cite every legal statement with the passage NUMBER ONLY in square brackets, placed at the end of \
+the sentence: e.g. "...must give 35 days' notice (Muluki Civil Code 2074, Section 400) [3]." Name the \
+law and section in the sentence text, never inside the brackets - brackets contain only digits like \
+[3] or [1][4]. Never invent a law, section, number, deadline, fine or case that is not in the passages.
 - If the passages don't cover the question, say so plainly, share only what they do support, and \
 suggest what to ask a lawyer or which office to approach.
 - Passages may contain small OCR/typing glitches; read through them, but don't quote garbled words.
@@ -136,11 +137,27 @@ def analyze_query(message: str, lang_hint: str) -> dict:
         return base
 
 
+def build_queries(message: str, analysis: dict) -> list[tuple[str, float]]:
+    """Weighted query set: the LLM's Nepali legal phrasings carry most
+    weight; glossary expansion translates English/romanised words locally;
+    the raw message counts less when it isn't Nepali (English words mostly
+    match English-heavy noise like forms and dictionaries)."""
+    is_ne = detect_language(message) == "ne"
+    expansion = glossary.expand(message)
+    queries: list[tuple[str, float]] = [(message, 1.0 if is_ne else (0.35 if (expansion or analysis.get("queries_ne")) else 1.0))]
+    queries += [(q, 1.0) for q in analysis.get("queries_ne", [])]
+    queries += [(q, 0.4) for q in analysis.get("queries_en", [])]
+    if expansion:
+        queries.append((" ".join(expansion), 1.0 if not analysis.get("queries_ne") else 0.7))
+        queries += [(t, 0.25) for t in expansion[:6]]
+    return queries
+
+
 def search(message: str, analysis: dict, top_k: int | None = None, precedent_k: int | None = None) -> list[dict]:
     idx = get_index()
     top_k = top_k or config.TOP_K
     precedent_k = config.PRECEDENT_K if precedent_k is None else precedent_k
-    queries = [message] + analysis.get("queries_ne", []) + analysis.get("queries_en", [])
+    queries = build_queries(message, analysis)
     laws = idx.search(queries, top_k=top_k, boost_titles=analysis.get("laws", []), category="law")
     precedents = []
     if precedent_k and analysis.get("wants_precedent", True):
@@ -157,6 +174,30 @@ def _passage(i: int, s: dict, lang: str) -> str:
         body += f"\n[English translation]: {s['text_en']}"
     kind = "Supreme Court precedent" if s.get("category") == "precedent" else "Statute"
     return f"[{i}] ({kind}) {cite}\nTitle: {title}\n{body[:2400]}"
+
+
+_BRACKET = re.compile(r"\[([^\[\]\d०-९][^\[\]]{2,160}?)\]")
+_SEC_NUM = re.compile(r"(?:Section|Article|Rule|दफा|धारा|नियम)\s*([0-9०-९]+)", re.I)
+
+
+def normalize_citations(answer: str, sources: list[dict]) -> str:
+    """Models sometimes cite as "[Muluki Civil Code 2074, Section 400]"
+    instead of "[3]"; map those to the numbered source when the section
+    and law match one, so every citation is clickable."""
+    def fix(m):
+        inner = m.group(1)
+        sec = _SEC_NUM.search(inner)
+        if not sec:
+            return m.group(0)
+        num = sec.group(1).translate(str.maketrans("०१२३४५६७८९", "0123456789"))
+        words = set(re.findall(r"[a-z]{4,}|[ऀ-ॿ]{3,}", inner.lower()))
+        for i, s in enumerate(sources, 1):
+            cite = f"{s.get('source_en') or ''} {s.get('source_ne') or ''}"
+            if (s.get("section") or "").split(" ")[0] == num and \
+                    words & set(re.findall(r"[a-z]{4,}|[ऀ-ॿ]{3,}", cite.lower())):
+                return f"({inner}) [{i}]"
+        return m.group(0)
+    return _BRACKET.sub(fix, answer)
 
 
 def _extractive(sources: list[dict], lang: str) -> str:
@@ -199,7 +240,7 @@ def answer_question(message: str, language: str = "auto") -> dict:
             f"{'Reply in English.' if lang == 'en' else 'Reply in Nepali (Devanagari).'}"
         )
         try:
-            answer = llm.complete(ANSWER_SYSTEM, user, max_tokens=1800, temperature=0.2)
+            answer = normalize_citations(llm.complete(ANSWER_SYSTEM, user, max_tokens=1800, temperature=0.2), sources)
             llm_used = True
         except Exception as e:  # noqa: BLE001
             log.warning("generation failed, using extractive fallback: %s", str(e)[:200])
@@ -212,6 +253,52 @@ def answer_question(message: str, language: str = "auto") -> dict:
     if llm_used:
         _answer_cache.put(ckey, result)
     return result
+
+
+def stream_answer(message: str, language: str = "auto"):
+    """Event generator for the streaming endpoint:
+    ("meta", {...sources...}) -> ("delta", text)* -> ("done", {...})."""
+    lang_hint = detect_language(message) if language == "auto" else language
+    ckey = _cache_key(message, language)
+    cached = _answer_cache.get(ckey)
+    if cached is not None:
+        yield "meta", {"language": cached["language"], "sources": cached["sources"], "analysis": cached.get("analysis")}
+        yield "done", {"answer": cached["answer"], "llm_used": cached["llm_used"], "cached": True}
+        return
+
+    analysis = analyze_query(message, lang_hint)
+    lang = language if language in ("en", "ne") else (analysis.get("reply_language") or lang_hint)
+    sources = search(message, analysis)
+    meta_analysis = {k: analysis.get(k) for k in ("concern", "area", "queries_ne", "laws")}
+    yield "meta", {"language": lang, "sources": sources, "analysis": meta_analysis}
+
+    if not sources or not llm.available():
+        answer = answer_question(message, language)["answer"] if not sources else _extractive(sources, lang)
+        yield "done", {"answer": answer, "llm_used": False, "cached": False}
+        return
+
+    context = "\n\n".join(_passage(i, s, lang) for i, s in enumerate(sources, 1))
+    user = (
+        f"Official sources:\n{context}\n\n"
+        f"Person's concern (as understood): {analysis.get('concern') or '-'}\n"
+        f"Person's message: {message}\n\n"
+        f"{'Reply in English.' if lang == 'en' else 'Reply in Nepali (Devanagari).'}"
+    )
+    parts: list[str] = []
+    try:
+        for piece in llm.stream(ANSWER_SYSTEM, user):
+            parts.append(piece)
+            yield "delta", piece
+        answer = normalize_citations("".join(parts), sources)
+        llm_used = True
+    except Exception as e:  # noqa: BLE001
+        log.warning("streaming generation failed: %s", str(e)[:200])
+        answer = "".join(parts) or _extractive(sources, lang)
+        llm_used = bool(parts)
+    result = {"answer": answer, "language": lang, "sources": sources, "llm_used": llm_used, "analysis": meta_analysis}
+    if llm_used:
+        _answer_cache.put(ckey, result)
+    yield "done", {"answer": answer, "llm_used": llm_used, "cached": False}
 
 
 # Backwards-compatible helper used by older callers/tests.

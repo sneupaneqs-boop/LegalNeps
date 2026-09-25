@@ -1,8 +1,11 @@
 import asyncio
+import json
 
 from fastapi import APIRouter, Query
+from fastapi.responses import StreamingResponse
+from starlette.concurrency import iterate_in_threadpool
 
-from ..generation import answer_question
+from ..generation import answer_question, stream_answer
 from ..retrieval import corpus_stats, get_index
 from ..schemas import ChatRequest, ChatResponse, SearchResponse, Source
 
@@ -35,6 +38,30 @@ async def chat(payload: ChatRequest) -> ChatResponse:
         analysis=result.get("analysis"),
         cached=result.get("cached", False),
     )
+
+
+@router.post("/chat/stream")
+async def chat_stream(payload: ChatRequest) -> StreamingResponse:
+    """NDJSON stream: {"type":"meta", sources...} then {"type":"delta","text"}* then {"type":"done"}.
+    Sources arrive before the model starts writing, so the UI can show them immediately."""
+    def events():
+        lang = "en"
+        try:
+            for kind, data in stream_answer(payload.message, payload.language or "auto"):
+                if kind == "meta":
+                    lang = data["language"]
+                    data = {**data, "sources": [_to_source(i, h, lang).model_dump()
+                                                for i, h in enumerate(data["sources"], 1)]}
+                    yield json.dumps({"type": "meta", **data}, ensure_ascii=False) + "\n"
+                elif kind == "delta":
+                    yield json.dumps({"type": "delta", "text": data}, ensure_ascii=False) + "\n"
+                else:
+                    yield json.dumps({"type": "done", **data}, ensure_ascii=False) + "\n"
+        except Exception:  # noqa: BLE001 - never leave the client hanging
+            yield json.dumps({"type": "error"}) + "\n"
+
+    return StreamingResponse(iterate_in_threadpool(events()), media_type="application/x-ndjson",
+                             headers={"Cache-Control": "no-cache", "X-Accel-Buffering": "no"})
 
 
 @router.get("/search", response_model=SearchResponse)

@@ -10,6 +10,8 @@ from __future__ import annotations
 import json
 import logging
 import re
+import threading
+import time
 
 from . import config
 
@@ -29,24 +31,40 @@ _gemini_client = None
 _no_thinking: set[str] = set()
 
 
+_client_lock = threading.Lock()
+_cooldown: dict[str, float] = {}  # model -> unix time until which it's rate-limited
+
+
 def _gemini():
     global _gemini_client
     if _gemini_client is None:
-        from google import genai
-        from google.genai import types
+        with _client_lock:  # one shared client; a GC'd duplicate would close its pool mid-request
+            if _gemini_client is None:
+                from google import genai
+                from google.genai import types
 
-        _gemini_client = genai.Client(
-            api_key=config.GEMINI_API_KEY,
-            http_options=types.HttpOptions(timeout=config.LLM_TIMEOUT_S * 1000),
-        )
+                _gemini_client = genai.Client(
+                    api_key=config.GEMINI_API_KEY,
+                    http_options=types.HttpOptions(timeout=config.LLM_TIMEOUT_S * 1000),
+                )
     return _gemini_client
+
+
+def _note_rate_limit(model: str, msg: str):
+    m = re.search(r"retryDelay['\"]?:\s*['\"]?(\d+(?:\.\d+)?)s", msg)
+    delay = float(m.group(1)) if m else 30.0
+    if "PerDay" in msg:
+        delay = max(delay, 3600.0)
+    _cooldown[model] = time.time() + min(delay, 6 * 3600)
 
 
 def _gemini_complete(models: list[str], system: str, user: str, json_mode: bool, max_tokens: int, temperature: float) -> str:
     from google.genai import types
 
     last = None
-    for model in models:
+    now = time.time()
+    ready = [m for m in models if _cooldown.get(m, 0) <= now]
+    for model in ready or models[-1:]:
         cfg = dict(
             system_instruction=system,
             max_output_tokens=max_tokens,
@@ -76,6 +94,10 @@ def _gemini_complete(models: list[str], system: str, user: str, json_mode: bool,
                 if any(t in msg for t in _TRANSIENT):
                     # quota / overload: the next model in the chain is the fastest recovery
                     log.warning("gemini %s unavailable: %s", model, msg[:120])
+                    if "429" in msg or "RESOURCE_EXHAUSTED" in msg:
+                        _note_rate_limit(model, msg)
+                    elif "503" in msg or "UNAVAILABLE" in msg:
+                        _cooldown[model] = time.time() + 20
                     break
                 log.warning("gemini %s failed: %s", model, msg[:200])
                 break
@@ -138,3 +160,39 @@ def parse_json(text: str) -> dict:
         if m:
             return json.loads(m.group(0))
         raise
+
+
+def stream(system: str, user: str, *, max_tokens: int = 1800, temperature: float = 0.2):
+    """Yield answer text incrementally. Falls back to the next model only
+    before anything has been emitted; other providers yield one chunk."""
+    if config.GEMINI_API_KEY:
+        from google.genai import types
+
+        now = time.time()
+        models = [m for m in config.GEMINI_MODELS if _cooldown.get(m, 0) <= now] or config.GEMINI_MODELS[-1:]
+        for model in models:
+            cfg = dict(system_instruction=system, max_output_tokens=max_tokens, temperature=temperature)
+            if "flash" in model and model not in _no_thinking:
+                cfg["thinking_config"] = types.ThinkingConfig(thinking_budget=512)
+            emitted = False
+            try:
+                for chunk in _gemini().models.generate_content_stream(
+                        model=model, contents=user, config=types.GenerateContentConfig(**cfg)):
+                    text = chunk.text or ""
+                    if text:
+                        emitted = True
+                        yield text
+                if emitted:
+                    return
+            except Exception as e:  # noqa: BLE001
+                msg = str(e)
+                if emitted:
+                    raise
+                if "thinking_config" in cfg and "INVALID_ARGUMENT" in msg:
+                    _no_thinking.add(model)
+                if "429" in msg or "RESOURCE_EXHAUSTED" in msg:
+                    _note_rate_limit(model, msg)
+                elif "503" in msg or "UNAVAILABLE" in msg:
+                    _cooldown[model] = time.time() + 20
+                log.warning("gemini stream %s failed: %s", model, msg[:150])
+    yield complete(system, user, max_tokens=max_tokens, temperature=temperature)

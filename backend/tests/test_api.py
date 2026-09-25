@@ -50,3 +50,22 @@ def test_validation(client):
 def test_stats(client):
     s = client.get("/api/stats").json()
     assert s["entries"] == len(ENTRIES) and s["by_type"]["precedent"] == 1
+
+
+def test_text_citations_are_mapped_to_numbered_sources():
+    from app.generation import normalize_citations
+    sources = [dict(ENTRIES[1]), dict(ENTRIES[0])]
+    out = normalize_citations("Give notice [Muluki Civil Code 2074, Section 400]. Divorce [Muluki Civil Code, Section 99].", sources)
+    assert "[1]" in out and "[2]" in out
+    assert normalize_citations("see [3]", sources) == "see [3]"
+    assert normalize_citations("[Some Act, Section 7]", sources) == "[Some Act, Section 7]"
+
+
+def test_streaming_endpoint_sends_sources_then_done(client):
+    import json
+    r = client.post("/api/chat/stream", json={"message": "बाल विवाह सजाय", "language": "ne"})
+    assert r.status_code == 200
+    events = [json.loads(l) for l in r.text.splitlines() if l.strip()]
+    assert events[0]["type"] == "meta" and events[0]["sources"][0]["n"] == 1
+    assert events[-1]["type"] == "done" and events[-1]["llm_used"] is False
+    assert "[1]" in events[-1]["answer"]

@@ -146,7 +146,7 @@ def decode_span(chars, table: dict) -> str | None:
     Returns None if the span has a Devanagari glyph the table doesn't know
     (caller should then fall back to the PDF's own ToUnicode text)."""
     text_of = table["text"]
-    reph = table["reph_set"] if "reph_set" in table else set(table["reph"])
+    reph = table.get("reph_set") or set(table["reph"])
     glyphs: list[tuple[str, bool]] = []
     for c in chars:
         gid = c[1]
@@ -177,3 +177,87 @@ def prepare(table: dict) -> dict:
         "reph": table["reph"],
         "reph_set": set(table["reph"]),
     }
+
+
+# --- version-independent decoding via glyph outlines -----------------------
+# Different Kalimati builds number their glyphs differently, but a glyph's
+# outline (its contour coordinates) is the same in every build. Keying the
+# reference table by outline hash lets us decode any build/subset.
+
+def _outline_hash(glyf, name: str) -> str | None:
+    import hashlib
+
+    try:
+        coords, ends, flags = glyf[name].getCoordinates(glyf)
+    except Exception:  # noqa: BLE001
+        return None
+    if len(coords) == 0:
+        return None  # empty outline (space, ZWJ, .notdef without contours)
+    h = hashlib.sha1()
+    h.update(bytes(str(list(coords)), "ascii"))
+    h.update(bytes(str(list(ends)), "ascii"))
+    return h.hexdigest()[:16]
+
+
+def build_reference(font_bytes: bytes) -> dict:
+    """{"hash_text": {outline_hash: text}, "reph_hashes": [...]} from a
+    complete font (needs cmap + GSUB)."""
+    from fontTools.ttLib import TTFont
+
+    table = build_glyph_table(font_bytes)
+    font = TTFont(io.BytesIO(font_bytes))
+    glyf = font["glyf"]
+    order = font.getGlyphOrder()
+    reph = set(table["reph"])
+    hash_text, reph_hashes, clashes = {}, set(), set()
+    for gid, text in table["text"].items():
+        h = _outline_hash(glyf, order[gid])
+        if h is None:
+            continue
+        if h in hash_text and hash_text[h] != text:
+            clashes.add(h)  # identical outlines, different meaning: can't decide
+        hash_text[h] = text
+        if gid in reph:
+            reph_hashes.add(h)
+    for h in clashes:
+        hash_text.pop(h, None)
+    return {"hash_text": hash_text, "reph_hashes": sorted(reph_hashes)}
+
+
+def table_for_embedded(font_bytes: bytes, reference: dict) -> dict | None:
+    """GID->text table for an embedded (possibly subset, any-build) font,
+    matched to the reference by outline. None if it isn't the same design."""
+    from fontTools.ttLib import TTFont
+
+    try:
+        font = TTFont(io.BytesIO(font_bytes))
+        glyf = font["glyf"]
+    except Exception:  # noqa: BLE001
+        return None
+    order = font.getGlyphOrder()
+    try:
+        cmap = {name: chr(cp) for cp, name in (font.getBestCmap() or {}).items()}
+    except Exception:  # noqa: BLE001 - subset without a cmap table
+        cmap = {}
+    hash_text = reference["hash_text"]
+    reph_h = set(reference["reph_hashes"])
+    text, reph, matched, outlined = {}, set(), 0, 0
+    for gid, name in enumerate(order):
+        h = _outline_hash(glyf, name)
+        if h is None:
+            if name in cmap:
+                text[gid] = cmap[name]
+            elif name in ("space", "uni0020", "nbspace", "uni00A0"):
+                text[gid] = " "
+            continue
+        outlined += 1
+        if h in hash_text:
+            text[gid] = hash_text[h]
+            matched += 1
+            if h in reph_h:
+                reph.add(gid)
+        elif name in cmap:
+            text[gid] = cmap[name]
+    if outlined == 0 or matched / outlined < 0.6:
+        return None  # a different typeface
+    return {"text": text, "reph": sorted(reph), "reph_set": reph}

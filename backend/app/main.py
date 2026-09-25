@@ -22,7 +22,22 @@ async def lifespan(_app: FastAPI):
 
 app = FastAPI(title="Kanooni Sathi API", version="0.2.0", lifespan=lifespan)
 
-app.add_middleware(GZipMiddleware, minimum_size=1024)
+
+class _GZipExceptStreams:
+    """gzip buffers a streamed body until it ends, which would defeat
+    /api/chat/stream; compress everything else."""
+
+    def __init__(self, app):
+        self.plain = app
+        self.gzip = GZipMiddleware(app, minimum_size=1024)
+
+    async def __call__(self, scope, receive, send):
+        if scope["type"] == "http" and scope["path"].endswith("/stream"):
+            return await self.plain(scope, receive, send)
+        return await self.gzip(scope, receive, send)
+
+
+app.add_middleware(_GZipExceptStreams)
 app.add_middleware(
     CORSMiddleware,
     allow_origins=config.CORS_ORIGINS,

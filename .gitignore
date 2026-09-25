@@ -29,3 +29,4 @@ sources/nkp/
 sources/processed/
 backend/app/data/index_cache/
 frontend/tsconfig.tsbuildinfo
+backend/eval/reports/

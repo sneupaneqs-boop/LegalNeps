@@ -100,6 +100,12 @@ def parse(html: str, case_id: int) -> dict | None:
     concl_idx = max(full.rfind("ठहर्छ"), full.rfind("ठहर्‍याई"), full.rfind("ठहर गर्छ"))
     conclusion = full[max(0, concl_idx - 900): concl_idx + 120].strip() if concl_idx > 0 else ""
 
+    # Older decisions have no headnote: keep the opening of the judgment
+    # (facts + issue) so they're still searchable.
+    body_start = (end + 1) if end is not None else 0
+    body_lines = [l for l in lines[body_start:] if not COUNSEL_RE.search(l) and not PARTY_RE.match(l)]
+    body_excerpt = " ".join(body_lines)[:1600]
+
     m = re.search(r"निर्णय नं\.?\s*([०-९0-9]+)", title)
     return {
         "nkp_id": case_id,
@@ -118,6 +124,7 @@ def parse(html: str, case_id: int) -> dict | None:
         "related_laws": laws[:10],
         "cited_precedents": cited[:10],
         "conclusion": conclusion,
+        "body_excerpt": body_excerpt,
         "full_text_chars": len(full),
     }
 
@@ -144,6 +151,7 @@ def main():
     ap.add_argument("--end", type=int, default=11000)
     ap.add_argument("--workers", type=int, default=2)
     ap.add_argument("--delay", type=float, default=0.5, help="per-worker delay between requests")
+    ap.add_argument("--refetch-thin", action="store_true", help="re-fetch decisions stored without any summary")
     args = ap.parse_args()
 
     os.makedirs(OUT_DIR, exist_ok=True)
@@ -157,6 +165,16 @@ def main():
     missing_path = os.path.join(OUT_DIR, "missing_ids.json")
     missing: set[int] = set(json.load(open(missing_path))) if os.path.exists(missing_path) else set()
 
+    if args.refetch_thin:
+        # re-fetch decisions stored without a headnote/conclusion so the new
+        # body_excerpt field gets filled; the corpus builder keeps the last copy
+        thin = set()
+        for line in open(OUT_PATH, encoding="utf-8"):
+            c = json.loads(line)
+            if len(c.get("headnote") or "") < 40 and len(c.get("conclusion") or "") < 40 and not c.get("body_excerpt"):
+                thin.add(c["nkp_id"])
+        done -= thin
+        print(f"[nkp] re-fetching {len(thin)} decisions without a summary", file=sys.stderr)
     todo = [i for i in range(args.start, args.end + 1) if i not in done and i not in missing]
     print(f"[nkp] {len(done)} already fetched, {len(todo)} to go", file=sys.stderr)
     stats = {"ok": 0, "missing": 0, "parse_fail": 0}

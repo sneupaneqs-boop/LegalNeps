@@ -165,13 +165,16 @@ def precedent_entries() -> list[dict]:
     out = []
     if not os.path.exists(NKP_CASES):
         return out
-    seen = set()
+    latest: dict[int, dict] = {}
     for line in open(NKP_CASES, encoding="utf-8"):
         c = json.loads(line)
-        if c["nkp_id"] in seen:
-            continue
-        seen.add(c["nkp_id"])
-        body = c.get("headnote") or c.get("conclusion") or ""
+        latest[c["nkp_id"]] = c  # re-fetched records supersede older ones
+    for c in latest.values():
+        body = c.get("headnote") or ""
+        if len(body) < 40:
+            body = c.get("conclusion") or ""
+        if len(body) < 40:
+            body = c.get("body_excerpt") or ""
         if len(body) < 40:
             continue
         laws = "; ".join(c.get("related_laws") or [])
