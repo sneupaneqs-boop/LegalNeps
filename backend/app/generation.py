@@ -92,6 +92,24 @@ def _generate_with_groq(message: str, sources: List[dict], lang: Literal["en", "
     return response.choices[0].message.content
 
 
+def _generate_with_gemini(message: str, sources: List[dict], lang: Literal["en", "ne"]) -> str:
+    from google import genai
+    from google.genai import types
+
+    client = genai.Client(api_key=config.GEMINI_API_KEY)
+    user_content = _build_user_content(message, sources, lang)
+
+    response = client.models.generate_content(
+        model=config.GEMINI_MODEL,
+        contents=user_content,
+        config=types.GenerateContentConfig(
+            system_instruction=SYSTEM_PROMPT,
+            max_output_tokens=1024,
+        ),
+    )
+    return response.text
+
+
 def _generate_with_anthropic(message: str, sources: List[dict], lang: Literal["en", "ne"]) -> str:
     import anthropic
 
@@ -108,6 +126,8 @@ def _generate_with_anthropic(message: str, sources: List[dict], lang: Literal["e
 
 
 def generate_answer(message: str, sources: List[dict], lang: Literal["en", "ne"]) -> tuple[str, bool]:
+    if config.GEMINI_API_KEY:
+        return _generate_with_gemini(message, sources, lang), True
     if config.GROQ_API_KEY:
         return _generate_with_groq(message, sources, lang), True
     if config.ANTHROPIC_API_KEY:
