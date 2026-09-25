@@ -20,7 +20,7 @@ from threading import Lock
 
 from . import config, glossary, llm
 from .retrieval import get_index
-from .text_norm import detect_language, fold
+from .text_norm import detect_language, fold, tokenize
 
 log = logging.getLogger(__name__)
 
@@ -121,7 +121,7 @@ def analyze_query(message: str, lang_hint: str) -> dict:
         return base
     try:
         raw = llm.complete(ANALYZE_SYSTEM, f"Question: {message}", fast=True, json_mode=True,
-                           max_tokens=700, temperature=0.1)
+                           max_tokens=1000, temperature=0.1)
         data = llm.parse_json(raw)
         out = {**base, **{k: data.get(k, base[k]) for k in base if k != "llm"}, "llm": True}
         for k in ("queries_ne", "queries_en", "laws"):
@@ -166,14 +166,56 @@ def search(message: str, analysis: dict, top_k: int | None = None, precedent_k: 
     return laws + precedents
 
 
-def _passage(i: int, s: dict, lang: str) -> str:
+_SENT_SPLIT = re.compile(r"(?<=[।?!])\s+|\n+|(?=\([क-ह०-९0-9]{1,3}\)\s)")
+
+
+def focus(text: str, query_terms: set[str], limit: int = 700) -> str:
+    """The part of a passage that matters for this question: the heading line
+    plus the run of sentences around the best-matching one, within `limit`
+    chars. Keeps prompts small - Nepali is token-heavy and free tiers cap
+    tokens per minute - without dropping the relevant clause."""
+    text = text.strip()
+    if len(text) <= limit:
+        return text
+    parts = [p.strip() for p in _SENT_SPLIT.split(text) if p and p.strip()]
+    if not parts:
+        return text[:limit]
+    head = parts[0][:160]
+    scores = [len(query_terms & set(tokenize(p))) for p in parts]
+    best = max(range(len(parts)), key=lambda i: (scores[i], -i))
+    lo = hi = best
+    size = len(parts[best])
+    while True:  # grow the window toward whichever neighbour matches more
+        cand = []
+        if lo - 1 > 0:
+            cand.append((scores[lo - 1], lo - 1))
+        if hi + 1 < len(parts):
+            cand.append((scores[hi + 1], hi + 1))
+        if not cand:
+            break
+        _, j = max(cand)
+        if size + len(parts[j]) + 1 > limit - len(head):
+            break
+        size += len(parts[j]) + 1
+        lo, hi = min(lo, j), max(hi, j)
+    body = " ".join(parts[lo:hi + 1])[: limit - len(head)]
+    prefix = "" if lo == 0 else head + " … "
+    return prefix + body + (" …" if hi < len(parts) - 1 else "")
+
+
+def _passage(i: int, s: dict, lang: str, terms: set[str] | None = None) -> str:
     title = s.get("title_ne") or s.get("title_en") or ""
     cite = s.get("source_ne") if lang == "ne" else (s.get("source_en") or s.get("source_ne"))
-    body = s.get("text_ne") or ""
+    body = focus(s.get("text_ne") or "", terms or set(), config.PASSAGE_CHARS)
     if s.get("text_en"):
-        body += f"\n[English translation]: {s['text_en']}"
+        body += f"\n[English translation]: {focus(s['text_en'], terms or set(), config.PASSAGE_CHARS)}"
     kind = "Supreme Court precedent" if s.get("category") == "precedent" else "Statute"
-    return f"[{i}] ({kind}) {cite}\nTitle: {title}\n{body[:2400]}"
+    return f"[{i}] ({kind}) {cite}\nTitle: {title}\n{body}"
+
+
+def _terms(message: str, analysis: dict) -> set[str]:
+    words = [message] + list(analysis.get("queries_ne") or []) + glossary.expand(message)
+    return set(tokenize(" ".join(words)))
 
 
 _BRACKET = re.compile(r"\[([^\[\]\d०-९][^\[\]]{2,160}?)\]")
@@ -232,7 +274,8 @@ def answer_question(message: str, language: str = "auto") -> dict:
                   "यस प्रश्नसँग मिल्ने आधिकारिक कानुनी प्रावधान फेला परेन। कृपया अलि विस्तारमा बताउनुहोस् "
                   "(को, के भयो, कहाँ)?")
     elif llm.available():
-        context = "\n\n".join(_passage(i, s, lang) for i, s in enumerate(sources, 1))
+        terms = _terms(message, analysis)
+        context = "\n\n".join(_passage(i, s, lang, terms) for i, s in enumerate(sources, 1))
         user = (
             f"Official sources:\n{context}\n\n"
             f"Person's concern (as understood): {analysis.get('concern') or '-'}\n"
@@ -277,7 +320,8 @@ def stream_answer(message: str, language: str = "auto"):
         yield "done", {"answer": answer, "llm_used": False, "cached": False}
         return
 
-    context = "\n\n".join(_passage(i, s, lang) for i, s in enumerate(sources, 1))
+    terms = _terms(message, analysis)
+    context = "\n\n".join(_passage(i, s, lang, terms) for i, s in enumerate(sources, 1))
     user = (
         f"Official sources:\n{context}\n\n"
         f"Person's concern (as understood): {analysis.get('concern') or '-'}\n"

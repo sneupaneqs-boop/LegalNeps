@@ -37,7 +37,10 @@ class Handler(BaseHTTPRequestHandler):
         self.send_response(200)
         self.send_header("Content-Type", "application/json")
         self.end_headers()
-        self.wfile.write(json.dumps({"choices": [{"message": {"content": f"ok:{body['model']}"}}]}).encode())
+        content = f"ok:{body['model']}"
+        if mode == "parts":
+            content = [{"type": "text", "text": "ok:"}, {"type": "text", "text": body["model"]}]
+        self.wfile.write(json.dumps({"choices": [{"message": {"content": content}}]}).encode())
 
 
 @pytest.fixture()
@@ -85,3 +88,25 @@ def test_stream_gives_up_when_nothing_starts(gateway, monkeypatch):
     with pytest.raises(llm.LLMUnavailable):
         list(llm.stream("sys", "hi"))
     assert time.time() - t < 6
+
+
+def test_content_as_list_of_parts_and_reasoning_hint(gateway):
+    MODE["value"] = "parts"
+    assert llm.complete("sys", "hi", fast=True) == "ok:auto/fast"
+    body = llm._openai_payload("gemini/gemini-3.1-flash-lite", "s", "u", True, 10, 0, fast=True)
+    assert body["reasoning_effort"] == "none" and body["response_format"]["type"] == "json_object"
+    assert llm._openai_payload("groq/openai/gpt-oss-120b", "s", "u", False, 10, 0)["reasoning_effort"] == "low"
+    assert "reasoning_effort" not in llm._openai_payload("mistral/mistral-small-latest", "s", "u", False, 10, 0)
+
+
+def test_stream_skips_model_that_only_thinks(gateway, monkeypatch):
+    # "hang" sleeps before sending anything; with a short per-model window the
+    # stream must give up on it quickly rather than wait for the full budget
+    MODE["value"] = "hang"
+    monkeypatch.setattr(config, "MODEL_FIRST_TOKEN_S", 2)
+    monkeypatch.setattr(config, "FIRST_TOKEN_BUDGET_S", 20)
+    monkeypatch.setattr(config, "LLM_CALL_TIMEOUT_S", 3)
+    t = time.time()
+    with pytest.raises(llm.LLMUnavailable):
+        list(llm.stream("sys", "hi"))
+    assert time.time() - t < 10

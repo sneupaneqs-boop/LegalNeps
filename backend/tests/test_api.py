@@ -69,3 +69,15 @@ def test_streaming_endpoint_sends_sources_then_done(client):
     assert events[0]["type"] == "meta" and events[0]["sources"][0]["n"] == 1
     assert events[-1]["type"] == "done" and events[-1]["llm_used"] is False
     assert "[1]" in events[-1]["answer"]
+
+
+def test_focus_keeps_heading_and_the_matching_clause():
+    from app.generation import focus
+    from app.text_norm import tokenize
+    filler = " ".join(f"({i}) यो असम्बन्धित व्यवस्था हो।" for i in range(1, 40))
+    text = "१७३. बाल विवाह गर्न नहुने : " + filler + " (४०) बाल विवाह गर्नेलाई तीन वर्षसम्म कैद हुनेछ। " + filler
+    out = focus(text, set(tokenize("बाल विवाह कैद सजाय")), limit=300)
+    assert len(out) <= 330
+    assert out.startswith("१७३. बाल विवाह गर्न नहुने")
+    assert "तीन वर्षसम्म कैद" in out
+    assert focus("छोटो पाठ", set(), 300) == "छोटो पाठ"
