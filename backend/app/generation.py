@@ -1,6 +1,23 @@
-from typing import List, Literal
+import time
+from typing import Callable, List, Literal
 
 from . import config
+
+_TRANSIENT_STATUS_CODES = {429, 500, 502, 503, 504}
+
+
+def _with_retry(fn: Callable[[], str], attempts: int = 3, base_delay: float = 1.5) -> str:
+    last_err = None
+    for attempt in range(attempts):
+        try:
+            return fn()
+        except Exception as e:  # noqa: BLE001
+            status = getattr(e, "status_code", None) or getattr(e, "code", None)
+            if status not in _TRANSIENT_STATUS_CODES or attempt == attempts - 1:
+                raise
+            last_err = e
+            time.sleep(base_delay * (attempt + 1))
+    raise last_err
 
 DISCLAIMER_EN = (
     "This is general legal information, not a substitute for advice from a "
@@ -81,15 +98,18 @@ def _generate_with_groq(message: str, sources: List[dict], lang: Literal["en", "
     client = Groq(api_key=config.GROQ_API_KEY)
     user_content = _build_user_content(message, sources, lang)
 
-    response = client.chat.completions.create(
-        model=config.GROQ_MODEL,
-        max_tokens=1024,
-        messages=[
-            {"role": "system", "content": SYSTEM_PROMPT},
-            {"role": "user", "content": user_content},
-        ],
-    )
-    return response.choices[0].message.content
+    def call():
+        response = client.chat.completions.create(
+            model=config.GROQ_MODEL,
+            max_tokens=1024,
+            messages=[
+                {"role": "system", "content": SYSTEM_PROMPT},
+                {"role": "user", "content": user_content},
+            ],
+        )
+        return response.choices[0].message.content
+
+    return _with_retry(call)
 
 
 def _generate_with_gemini(message: str, sources: List[dict], lang: Literal["en", "ne"]) -> str:
@@ -99,15 +119,18 @@ def _generate_with_gemini(message: str, sources: List[dict], lang: Literal["en",
     client = genai.Client(api_key=config.GEMINI_API_KEY)
     user_content = _build_user_content(message, sources, lang)
 
-    response = client.models.generate_content(
-        model=config.GEMINI_MODEL,
-        contents=user_content,
-        config=types.GenerateContentConfig(
-            system_instruction=SYSTEM_PROMPT,
-            max_output_tokens=1024,
-        ),
-    )
-    return response.text
+    def call():
+        response = client.models.generate_content(
+            model=config.GEMINI_MODEL,
+            contents=user_content,
+            config=types.GenerateContentConfig(
+                system_instruction=SYSTEM_PROMPT,
+                max_output_tokens=1024,
+            ),
+        )
+        return response.text
+
+    return _with_retry(call)
 
 
 def _generate_with_anthropic(message: str, sources: List[dict], lang: Literal["en", "ne"]) -> str:
@@ -116,13 +139,16 @@ def _generate_with_anthropic(message: str, sources: List[dict], lang: Literal["e
     client = anthropic.Anthropic(api_key=config.ANTHROPIC_API_KEY)
     user_content = _build_user_content(message, sources, lang)
 
-    response = client.messages.create(
-        model=config.ANTHROPIC_MODEL,
-        max_tokens=1024,
-        system=SYSTEM_PROMPT,
-        messages=[{"role": "user", "content": user_content}],
-    )
-    return "".join(block.text for block in response.content if block.type == "text")
+    def call():
+        response = client.messages.create(
+            model=config.ANTHROPIC_MODEL,
+            max_tokens=1024,
+            system=SYSTEM_PROMPT,
+            messages=[{"role": "user", "content": user_content}],
+        )
+        return "".join(block.text for block in response.content if block.type == "text")
+
+    return _with_retry(call)
 
 
 def generate_answer(message: str, sources: List[dict], lang: Literal["en", "ne"]) -> tuple[str, bool]:

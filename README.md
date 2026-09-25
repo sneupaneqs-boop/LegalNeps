@@ -14,34 +14,37 @@ deposit") and not just keyword-match legal text.
    (`backend/app/data/corpus.json`) using TF-IDF similarity, in whichever
    language (English or Nepali) the message was written in.
 2. **Generation** (`backend/app/generation.py`) — the top matching passages
-   are handed to an LLM (Groq, if `GROQ_API_KEY` is set — falls back to
-   Claude via `ANTHROPIC_API_KEY` if that's what's configured instead) along
-   with a system prompt that
-   instructs it to: understand the person's real underlying concern, answer
-   only from the retrieved passages (no invented citations), explain things
-   in plain non-legalese language, reply in the same language as the question,
-   and always add a disclaimer that this isn't a substitute for a licensed
-   advocate.
-3. If no `ANTHROPIC_API_KEY` is configured, the backend still works — it
-   falls back to showing the raw matched passages directly (extractive mode),
-   so the app degrades gracefully instead of breaking.
+   are handed to an LLM (tries Gemini via `GEMINI_API_KEY`, then Groq via
+   `GROQ_API_KEY`, then Claude via `ANTHROPIC_API_KEY` — whichever is
+   configured) along with a system prompt that instructs it to: understand
+   the person's real underlying concern, answer only from the retrieved
+   passages (no invented citations), explain things in plain non-legalese
+   language, reply in the same language as the question, and always add a
+   disclaimer that this isn't a substitute for a licensed advocate.
+3. If no LLM key is configured, the backend still works — it falls back to
+   showing the raw matched passages directly (extractive mode), so the app
+   degrades gracefully instead of breaking.
 
-## ⚠️ About the legal corpus (read this)
+## About the legal corpus
 
-This environment's network access could not reach the Nepal Law Commission
-(`lawcommission.gov.np`) or Supreme Court (`nkp.gov.np`) sites to pull the
-verbatim official text. `backend/app/data/corpus.json` currently contains a
-**curated demo corpus**: paraphrased summaries of well-known National Civil
-Code, 2074 (2017) provisions and a few landmark Supreme Court precedents,
-written from general knowledge for testing purposes only. Every entry is
-labeled with a citation, and precedent entries are explicitly marked
-"illustrative summary — verify exact case citation."
+`backend/app/data/corpus.json` mixes two kinds of entries:
 
-**Before using this for anything real:** replace `corpus.json` with actual
-text sourced from the official Nepal Law Commission and Supreme Court (NKP)
-publications. The retrieval/generation pipeline works with any corpus in the
-same shape — see the schema at the top of this README's "Corpus format"
-section below.
+- **Real, sourced entries** (`constitution-*`, `maxim-*`, and the finance/Act
+  entries) — extracted from the actual PDFs in `sources/` (Nepal's
+  Constitution, a Law Commission legal-maxims volume, and several finance
+  Acts, all originally in Nepali with a legacy, non-Unicode font that made
+  naive text extraction come out garbled). `backend/scripts/ingest_pdfs.py`
+  re-extracts these correctly by having Gemini read the PDF pages visually
+  (bypassing the broken font layer) and translate each provision into the
+  other language in the same pass. Re-run it (`GEMINI_API_KEY=... python3
+  backend/scripts/ingest_pdfs.py [constitution|maxims|acts|all]`) if you add
+  more source PDFs to `sources/`.
+- **Illustrative demo entries** (`civil-*`, `precedent-*`) — paraphrased
+  summaries of civil-law topics (marriage, contracts, tort, etc.) written
+  from general knowledge before real source documents were available, kept
+  because they cover topics the uploaded PDFs don't. Precedent entries are
+  explicitly marked "illustrative summary — verify exact case citation."
+  Worth replacing with real Supreme Court (NKP) text over time.
 
 ### Corpus format
 
@@ -73,12 +76,12 @@ embedding model (e.g. `intfloat/multilingual-e5-base`) + a vector index
 cd backend
 python3 -m venv venv && source venv/bin/activate
 pip install -r requirements.txt
-cp .env.example .env   # then add your ANTHROPIC_API_KEY
+cp .env.example .env   # then add GEMINI_API_KEY (or GROQ_API_KEY / ANTHROPIC_API_KEY)
 uvicorn app.main:app --reload --port 8000
 ```
 
-Without `ANTHROPIC_API_KEY` set, `/api/chat` still works in extractive
-fallback mode — useful for testing retrieval without API cost.
+Without any LLM key set, `/api/chat` still works in extractive fallback
+mode — useful for testing retrieval without API cost.
 
 ### Frontend (Next.js)
 
@@ -122,8 +125,10 @@ backend/
     main.py            FastAPI app + CORS
     routes/chat.py      POST /api/chat
     retrieval.py         TF-IDF retrieval over the bilingual corpus
-    generation.py        Claude prompt + extractive fallback
+    generation.py        Gemini/Groq/Claude prompt + extractive fallback
     data/corpus.json     the legal corpus (see caveat above)
+  scripts/ingest_pdfs.py re-extracts sources/*.pdf into corpus.json via Gemini
+sources/                 original source PDFs (Constitution, legal maxims, Acts)
 frontend/
   app/page.tsx           chat UI, language toggle
   components/ChatMessage.tsx
