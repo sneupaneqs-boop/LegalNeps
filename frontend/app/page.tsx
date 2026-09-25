@@ -2,7 +2,7 @@
 
 import { useRef, useState } from "react";
 import ChatMessage, { Message } from "@/components/ChatMessage";
-import { sendChatMessage, streamChatMessage } from "@/lib/api";
+import { sendChatMessage, streamChatMessage, Turn } from "@/lib/api";
 import { Lang, strings } from "@/lib/i18n";
 
 export default function Home() {
@@ -20,6 +20,11 @@ export default function Home() {
     const text = (preset ?? input).trim();
     if (!text || loading) return;
 
+    // last few turns so follow-ups ("what about daughters?") are understood
+    const history: Turn[] = messages
+      .filter((m) => m.text && !m.streaming)
+      .slice(-6)
+      .map((m) => ({ role: m.role, text: m.text.slice(0, 1500) }));
     setMessages((prev) => [...prev, { id: newId(), role: "user", text }]);
     setInput("");
     setLoading(true);
@@ -42,7 +47,7 @@ export default function Home() {
           streamed += piece;
           update({ text: streamed });
         },
-      });
+      }, history);
       update({ text: final.answer, llmUsed: final.llm_used, streaming: false });
     } catch (err) {
       const timedOut = err instanceof Error && err.message === "timeout";
@@ -51,7 +56,7 @@ export default function Home() {
       } else if (!started) {
         // streaming unavailable (proxy, old server): fall back to one-shot request
         try {
-          const res = await sendChatMessage(text, lang);
+          const res = await sendChatMessage(text, lang, history);
           setMessages((prev) => [
             ...prev,
             { id: botId, role: "bot", text: res.answer, sources: res.sources, llmUsed: res.llm_used },

@@ -28,7 +28,8 @@ def _to_source(n: int, hit: dict, lang: str) -> Source:
 @router.post("/chat", response_model=ChatResponse)
 async def chat(payload: ChatRequest) -> ChatResponse:
     # LLM + search calls are blocking; keep the event loop free for other requests.
-    result = await asyncio.to_thread(answer_question, payload.message, payload.language or "auto")
+    history = [t.model_dump() for t in payload.history]
+    result = await asyncio.to_thread(answer_question, payload.message, payload.language or "auto", history)
     lang = result["language"]
     return ChatResponse(
         answer=result["answer"],
@@ -44,10 +45,12 @@ async def chat(payload: ChatRequest) -> ChatResponse:
 async def chat_stream(payload: ChatRequest) -> StreamingResponse:
     """NDJSON stream: {"type":"meta", sources...} then {"type":"delta","text"}* then {"type":"done"}.
     Sources arrive before the model starts writing, so the UI can show them immediately."""
+    history = [t.model_dump() for t in payload.history]
+
     def events():
         lang = "en"
         try:
-            for kind, data in stream_answer(payload.message, payload.language or "auto"):
+            for kind, data in stream_answer(payload.message, payload.language or "auto", history):
                 if kind == "meta":
                     lang = data["language"]
                     data = {**data, "sources": [_to_source(i, h, lang).model_dump()

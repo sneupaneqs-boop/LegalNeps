@@ -21,9 +21,12 @@ export type ChatResponse = {
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:8000";
 
+export type Turn = { role: "user" | "bot"; text: string };
+
 export async function sendChatMessage(
   message: string,
-  language: "en" | "ne"
+  language: "en" | "ne",
+  history: Turn[] = []
 ): Promise<ChatResponse> {
   const controller = new AbortController();
   const timer = setTimeout(() => controller.abort(), 60_000);
@@ -31,7 +34,7 @@ export async function sendChatMessage(
     const res = await fetch(`${API_URL}/api/chat`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ message, language }),
+      body: JSON.stringify({ message, language, history }),
       signal: controller.signal,
     });
     if (!res.ok) {
@@ -53,7 +56,8 @@ export type StreamHandlers = {
 export async function streamChatMessage(
   message: string,
   language: "en" | "ne",
-  handlers: StreamHandlers
+  handlers: StreamHandlers,
+  history: Turn[] = []
 ): Promise<{ answer: string; llm_used: boolean }> {
   const controller = new AbortController();
   // The server sends sources within ~10s and caps the whole answer at ~60s;
@@ -63,7 +67,7 @@ export async function streamChatMessage(
     const res = await fetch(`${API_URL}/api/chat/stream`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ message, language }),
+      body: JSON.stringify({ message, language, history }),
       signal: controller.signal,
     });
     if (!res.ok || !res.body) throw new Error(`Request failed with status ${res.status}`);

@@ -81,3 +81,17 @@ def test_focus_keeps_heading_and_the_matching_clause():
     assert out.startswith("१७३. बाल विवाह गर्न नहुने")
     assert "तीन वर्षसम्म कैद" in out
     assert focus("छोटो पाठ", set(), 300) == "छोटो पाठ"
+
+
+def test_greetings_and_thanks_get_a_reply_not_law_passages(client):
+    for msg, lang, needle in [("hi", "en", "Kanooni Sathi"), ("नमस्ते", "auto", "कानूनी साथी"), ("thank you", "en", "welcome")]:
+        body = client.post("/api/chat", json={"message": msg, "language": lang}).json()
+        assert body["sources"] == []
+        assert needle in body["answer"]
+
+
+def test_history_is_accepted_and_validated(client):
+    hist = [{"role": "user", "text": "बाल विवाह"}, {"role": "bot", "text": "..."}]
+    r = client.post("/api/chat", json={"message": "सजाय कति हो?", "history": hist})
+    assert r.status_code == 200
+    assert client.post("/api/chat", json={"message": "x", "history": [{"role": "system", "text": "y"}]}).status_code == 422

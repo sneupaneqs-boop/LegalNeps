@@ -85,3 +85,31 @@ def detect_language(text: str) -> str:
     dev = len(DEVANAGARI_RE.findall(text or ""))
     lat = len(re.findall(r"[A-Za-z]", text or ""))
     return "ne" if dev >= max(1, lat // 3) else "en"
+
+
+# Common words of romanised Nepali ("malai police le pakreko cha") that are
+# not English words, used to answer in Nepali when people type in Latin script.
+ROMAN_NE = {
+    "malai", "mero", "meri", "hamro", "timro", "tapai", "tapaai", "tapailai", "garne", "garnu", "garera",
+    "gareko", "garyo", "garchu", "garchha", "garcha", "cha", "chha", "chaina", "chhaina", "ho", "hoina",
+    "bhayo", "bhaye", "bhane", "bhanyo", "ke", "kasari", "kina", "kaha", "kati", "ma", "le", "lai", "ko",
+    "ki", "ra", "pani", "sanga", "dekhi", "samma", "huncha", "hunchha", "parcha", "parchha", "diyena",
+    "dinu", "dina", "linu", "lina", "sakchu", "sakincha", "gharbeti", "shreemati", "shrimati", "shriman",
+    "shreeman", "shreemaan", "chora", "chori", "bau", "buwa", "aama", "didi", "bahini", "dai", "bhai",
+    "paisa", "jagga", "ghar", "kaam", "talab", "adalat", "muddha", "mudda", "ujuri", "pakreko", "pakrau",
+    "baru", "aba", "ani", "tara", "yo", "tyo", "yas", "ahile", "hijo", "bholi", "garnuparcha", "milcha",
+    "milchha", "paincha", "paunchha", "paucha", "firta", "diyo", "diye", "chahiyo", "chahincha",
+}
+
+
+def guess_language(text: str) -> str:
+    """Reply language for 'auto': Devanagari -> ne; Latin script counts as
+    romanised Nepali when its words are mostly Nepali ones; else en."""
+    if detect_language(text) == "ne":
+        return "ne"
+    words = re.findall(r"[a-z]+", (text or "").lower())
+    if not words:
+        return "en"
+    ne_hits = sum(w in ROMAN_NE for w in words)
+    en_hits = sum(w in EN_STOP for w in words)
+    return "ne" if ne_hits >= 2 and ne_hits > en_hits else "en"

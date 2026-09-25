@@ -31,3 +31,12 @@ def test_detect_language():
     assert detect_language("मेरो घरबेटीले धरौटी फिर्ता दिएन") == "ne"
     assert detect_language("my landlord kept my deposit") == "en"
     assert detect_language("दफा 5 of the Act?") == "ne"
+
+
+def test_guess_language_handles_romanised_nepali():
+    from app.text_norm import guess_language
+    assert guess_language("k garne malai police le pakreko cha") == "ne"
+    assert guess_language("gharbeti le deposit firta diyena") == "ne"
+    assert guess_language("what about daughters?") == "en"
+    assert guess_language("what's the weather in Kathmandu today?") == "en"
+    assert guess_language("सम्बन्ध विच्छेद") == "ne"

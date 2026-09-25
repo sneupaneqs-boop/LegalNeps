@@ -20,7 +20,7 @@ from threading import Lock
 
 from . import config, glossary, llm
 from .retrieval import get_index
-from .text_norm import detect_language, fold, tokenize
+from .text_norm import detect_language, fold, guess_language, tokenize
 
 log = logging.getLogger(__name__)
 
@@ -38,7 +38,18 @@ search queries for a corpus that contains ONLY official Nepali-language statutes
 Acts/ऐन, Codes/संहिता, Regulations/नियमावली, Orders) and Supreme Court precedents (नेपाल कानून \
 पत्रिका), all written in formal legal Nepali.
 
+People type anything: greetings, thanks, follow-ups to the earlier conversation, vague or \
+off-topic messages. Classify first, then (for legal questions) plan the search.
+
 Return JSON with exactly these keys:
+- "intent": one of "legal" (asks about law, rights, a legal problem or procedure - even vaguely \
+or emotionally described), "greeting", "thanks", "smalltalk" (chit-chat, questions about you), \
+"off_topic" (clearly not about law), "unclear" (legal-ish but too vague to search, e.g. "help me").
+- "reply": for any intent other than "legal", a short warm reply in the reply language: answer \
+the greeting/thanks/smalltalk briefly, say you help with Nepali law for off_topic, or ask ONE \
+specific clarifying question for unclear. Empty string for "legal".
+- "question": for "legal", the person's question rewritten as a complete, self-contained question \
+(resolve follow-ups like "what about daughters?" using the earlier conversation); else "".
 - "reply_language": "ne" if the person wrote in Nepali (Devanagari or romanised Nepali like \
 "mero ghar"), else "en".
 - "concern": one sentence restating the person's real underlying legal concern, in the reply language.
@@ -110,22 +121,66 @@ def _cache_key(message: str, lang: str) -> str:
     return lang + "|" + _WS.sub(" ", fold(message)).strip()
 
 
-def analyze_query(message: str, lang_hint: str) -> dict:
-    key = _cache_key(message, lang_hint)
+GREETING_RE = re.compile(
+    r"^\s*(hi+|hello|hey|namaste|namaskar|good (morning|afternoon|evening)|नमस्ते|नमस्कार|हेलो|हाई)\W*$", re.I)
+THANKS_RE = re.compile(r"^\s*(thanks?( you)?|thank u|ok(ay)?|dhanyabad|dhanyawad|धन्यवाद|ठिक छ|हुन्छ)\W*$", re.I)
+
+CANNED = {
+    ("greeting", "en"): "Hello! I'm Kanooni Sathi. Tell me about your legal question or situation — "
+                        "a landlord issue, family matter, work problem, a police case, anything — and I'll "
+                        "explain what Nepali law says, with the exact sections.",
+    ("greeting", "ne"): "नमस्ते! म कानूनी साथी हुँ। तपाईंको कानुनी प्रश्न वा समस्या बताउनुहोस् — घरबहाल, पारिवारिक, "
+                        "कामकाज, प्रहरी मुद्दा, जुनसुकै — म नेपाली कानूनले के भन्छ, दफासहित बुझाउँछु।",
+    ("thanks", "en"): "You're welcome! Ask me anything else about Nepali law whenever you need.",
+    ("thanks", "ne"): "स्वागत छ! नेपाली कानूनबारे अरू केही जान्न परे जुनसुकै बेला सोध्नुहोस्।",
+    ("off_topic", "en"): "I can only help with questions about Nepali law — your rights, procedures, "
+                         "penalties, family, property, work and so on. What legal question can I help with?",
+    ("off_topic", "ne"): "म नेपाली कानूनसम्बन्धी प्रश्नमा मात्र सहयोग गर्न सक्छु — हक-अधिकार, प्रक्रिया, सजाय, "
+                         "परिवार, सम्पत्ति, रोजगारी आदि। तपाईंको कानुनी प्रश्न के हो?",
+    ("unclear", "en"): "I'd like to help. Could you tell me a little more — what happened, who is involved, "
+                       "and what you want to achieve?",
+    ("unclear", "ne"): "म सहयोग गर्न चाहन्छु। अलि विस्तारमा बताउनुहोस् — के भयो, को-को संलग्न छन्, र तपाईं के चाहनुहुन्छ?",
+}
+
+
+def _history_text(history: list[dict] | None, limit: int = 4) -> str:
+    if not history:
+        return ""
+    turns = history[-limit:]
+    return "\n".join(f"{'Person' if t.get('role') == 'user' else 'Assistant'}: {(t.get('text') or '')[:500]}"
+                     for t in turns)
+
+
+def quick_intent(message: str) -> str | None:
+    """Obvious non-legal messages, recognised without any LLM."""
+    if GREETING_RE.match(message):
+        return "greeting"
+    if THANKS_RE.match(message):
+        return "thanks"
+    return None
+
+
+def analyze_query(message: str, lang_hint: str, history: list[dict] | None = None) -> dict:
+    hist = _history_text(history)
+    key = _cache_key(message + "\x00" + hist, lang_hint)
     cached = _analysis_cache.get(key)
     if cached is not None:
         return cached
-    base = {"reply_language": lang_hint, "concern": "", "area": "", "queries_ne": [],
+    base = {"intent": quick_intent(message) or "legal", "reply": "", "question": "",
+            "reply_language": lang_hint, "concern": "", "area": "", "queries_ne": [],
             "queries_en": [], "laws": [], "wants_precedent": True, "llm": False}
-    if not llm.available():
+    if base["intent"] != "legal" or not llm.available():
         return base
     try:
-        raw = llm.complete(ANALYZE_SYSTEM, f"Question: {message}", fast=True, json_mode=True,
+        prompt = (f"Earlier conversation:\n{hist}\n\n" if hist else "") + f"Latest message: {message}"
+        raw = llm.complete(ANALYZE_SYSTEM, prompt, fast=True, json_mode=True,
                            max_tokens=1000, temperature=0.1)
         data = llm.parse_json(raw)
         out = {**base, **{k: data.get(k, base[k]) for k in base if k != "llm"}, "llm": True}
         for k in ("queries_ne", "queries_en", "laws"):
             out[k] = [str(x) for x in (out[k] or []) if str(x).strip()][:6]
+        if out["intent"] not in ("legal", "greeting", "thanks", "smalltalk", "off_topic", "unclear"):
+            out["intent"] = "legal"
         if out["reply_language"] not in ("en", "ne"):
             out["reply_language"] = lang_hint
         if lang_hint in ("en", "ne") and lang_hint != detect_language(message):
@@ -254,105 +309,83 @@ def _extractive(sources: list[dict], lang: str) -> str:
     return "\n".join(lines)
 
 
-def answer_question(message: str, language: str = "auto") -> dict:
-    lang_hint = detect_language(message) if language == "auto" else language
-    ckey = _cache_key(message, language)
-    cached = _answer_cache.get(ckey)
-    if cached is not None:
-        return {**cached, "cached": True}
-
-    analysis = analyze_query(message, lang_hint)
-    lang = analysis.get("reply_language") or lang_hint
-    if language in ("en", "ne"):
-        lang = language
-    sources = search(message, analysis)
-
-    llm_used = False
-    if not sources:
-        answer = ("I couldn't find an official provision that matches this question. Could you describe "
-                  "the situation in a bit more detail (who, what happened, where)?" if lang == "en" else
-                  "यस प्रश्नसँग मिल्ने आधिकारिक कानुनी प्रावधान फेला परेन। कृपया अलि विस्तारमा बताउनुहोस् "
-                  "(को, के भयो, कहाँ)?")
-    elif llm.available():
-        terms = _terms(message, analysis)
-        context = "\n\n".join(_passage(i, s, lang, terms) for i, s in enumerate(sources, 1))
-        user = (
-            f"Official sources:\n{context}\n\n"
-            f"Person's concern (as understood): {analysis.get('concern') or '-'}\n"
-            f"Person's message: {message}\n\n"
-            f"{'Reply in English.' if lang == 'en' else 'Reply in Nepali (Devanagari).'}"
-        )
-        try:
-            answer = normalize_citations(llm.complete(ANSWER_SYSTEM, user, max_tokens=1800, temperature=0.2), sources)
-            llm_used = True
-        except Exception as e:  # noqa: BLE001
-            log.warning("generation failed, using extractive fallback: %s", str(e)[:200])
-            answer = _extractive(sources, lang)
-    else:
-        answer = _extractive(sources, lang)
-
-    result = {"answer": answer, "language": lang, "sources": sources, "llm_used": llm_used,
-              "analysis": {k: analysis.get(k) for k in ("concern", "area", "queries_ne", "laws")}}
-    if llm_used:
-        _answer_cache.put(ckey, result)
-    return result
+def _prompt(message: str, analysis: dict, sources: list[dict], lang: str, history: list[dict] | None) -> str:
+    terms = _terms(analysis.get("question") or message, analysis)
+    context = "\n\n".join(_passage(i, s, lang, terms) for i, s in enumerate(sources, 1))
+    hist = _history_text(history, limit=4)
+    return (
+        f"Official sources:\n{context}\n\n"
+        + (f"Earlier conversation (context only):\n{hist}\n\n" if hist else "")
+        + f"Person's concern (as understood): {analysis.get('concern') or '-'}\n"
+        f"Person's message: {message}\n\n"
+        f"{'Reply in English.' if lang == 'en' else 'Reply in Nepali (Devanagari).'}"
+    )
 
 
-def stream_answer(message: str, language: str = "auto"):
-    """Event generator for the streaming endpoint:
-    ("meta", {...sources...}) -> ("delta", text)* -> ("done", {...})."""
-    lang_hint = detect_language(message) if language == "auto" else language
-    ckey = _cache_key(message, language)
+def run(message: str, language: str = "auto", history: list[dict] | None = None):
+    """The whole pipeline as events: ("meta", {language, sources, analysis}),
+    then ("delta", text)* while the answer is written, then ("done", {...}).
+    Non-legal messages (greetings, thanks, off-topic, too vague) get a direct
+    reply and no sources; legal ones get a grounded, cited answer, or the
+    matching provisions if no model responds in time."""
+    lang_hint = guess_language(message) if language == "auto" else language
+    ckey = _cache_key(message + "\x00" + _history_text(history), language)
     cached = _answer_cache.get(ckey)
     if cached is not None:
         yield "meta", {"language": cached["language"], "sources": cached["sources"], "analysis": cached.get("analysis")}
         yield "done", {"answer": cached["answer"], "llm_used": cached["llm_used"], "cached": True}
         return
 
-    analysis = analyze_query(message, lang_hint)
-    lang = language if language in ("en", "ne") else (analysis.get("reply_language") or lang_hint)
-    sources = search(message, analysis)
-    meta_analysis = {k: analysis.get(k) for k in ("concern", "area", "queries_ne", "laws")}
-    yield "meta", {"language": lang, "sources": sources, "analysis": meta_analysis}
+    analysis = analyze_query(message, lang_hint, history)
+    lang = language if language in ("en", "ne") else lang_hint  # script/word-based, not the model's guess
+    meta_analysis = {k: analysis.get(k) for k in ("concern", "area", "queries_ne", "laws", "intent")}
 
-    if not sources or not llm.available():
-        answer = answer_question(message, language)["answer"] if not sources else _extractive(sources, lang)
-        yield "done", {"answer": answer, "llm_used": False, "cached": False}
+    if analysis.get("intent", "legal") != "legal":
+        reply = (analysis.get("reply") or "").strip()
+        if not reply or (lang == "en") == bool(re.search(r"[\u0900-\u097f]", reply)):
+            # the model replied in the other language: use our own wording instead
+            reply = CANNED.get((analysis["intent"], lang)) or CANNED[("unclear", lang)]
+        yield "meta", {"language": lang, "sources": [], "analysis": meta_analysis}
+        yield "done", {"answer": reply, "llm_used": analysis.get("llm", False), "cached": False}
         return
 
-    terms = _terms(message, analysis)
-    context = "\n\n".join(_passage(i, s, lang, terms) for i, s in enumerate(sources, 1))
-    user = (
-        f"Official sources:\n{context}\n\n"
-        f"Person's concern (as understood): {analysis.get('concern') or '-'}\n"
-        f"Person's message: {message}\n\n"
-        f"{'Reply in English.' if lang == 'en' else 'Reply in Nepali (Devanagari).'}"
-    )
+    query = analysis.get("question") or message
+    sources = search(query, analysis)
+    yield "meta", {"language": lang, "sources": sources, "analysis": meta_analysis}
+
+    if not sources:
+        yield "done", {"answer": CANNED[("unclear", lang)], "llm_used": False, "cached": False}
+        return
+    if not llm.available():
+        yield "done", {"answer": _extractive(sources, lang), "llm_used": False, "cached": False}
+        return
+
     parts: list[str] = []
     try:
-        for piece in llm.stream(ANSWER_SYSTEM, user):
+        for piece in llm.stream(ANSWER_SYSTEM, _prompt(message, analysis, sources, lang, history)):
             parts.append(piece)
             yield "delta", piece
         answer = normalize_citations("".join(parts), sources)
         llm_used = True
     except Exception as e:  # noqa: BLE001
-        log.warning("streaming generation failed: %s", str(e)[:200])
+        log.warning("answer generation failed: %s", str(e)[:200])
         answer = "".join(parts) or _extractive(sources, lang)
         llm_used = bool(parts)
-    result = {"answer": answer, "language": lang, "sources": sources, "llm_used": llm_used, "analysis": meta_analysis}
     if llm_used:
-        _answer_cache.put(ckey, result)
+        _answer_cache.put(ckey, {"answer": answer, "language": lang, "sources": sources,
+                                 "llm_used": True, "analysis": meta_analysis})
     yield "done", {"answer": answer, "llm_used": llm_used, "cached": False}
 
 
-# Backwards-compatible helper used by older callers/tests.
-def generate_answer(message: str, sources: list[dict], lang: str) -> tuple[str, bool]:
-    if not llm.available():
-        return _extractive(sources, lang), False
-    context = "\n\n".join(_passage(i, s, lang) for i, s in enumerate(sources, 1))
-    user = f"Official sources:\n{context}\n\nPerson's message: {message}\n\n" + (
-        "Reply in English." if lang == "en" else "Reply in Nepali (Devanagari).")
-    try:
-        return llm.complete(ANSWER_SYSTEM, user), True
-    except Exception:  # noqa: BLE001
-        return _extractive(sources, lang), False
+def stream_answer(message: str, language: str = "auto", history: list[dict] | None = None):
+    yield from run(message, language, history)
+
+
+def answer_question(message: str, language: str = "auto", history: list[dict] | None = None) -> dict:
+    result: dict = {"answer": "", "sources": [], "llm_used": False}
+    for kind, data in run(message, language, history):
+        if kind == "meta":
+            result.update(language=data["language"], sources=data["sources"], analysis=data["analysis"])
+        elif kind == "done":
+            result.update(answer=data["answer"], llm_used=data["llm_used"], cached=data.get("cached", False))
+    return result
