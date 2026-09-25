@@ -14,6 +14,9 @@ DEV_DIGITS = str.maketrans("०१२३४५६७८९", "0123456789")
 _FOLD = str.maketrans({
     "ी": "ि", "ू": "ु", "ँ": "ं", "ॉ": "ो", "़": None, "‌": None, "‍": None,
     "­": None, "ऋ": "रि",
+    # ब/व are used interchangeably (सम्बन्धी/सम्वन्धी, जबरजस्ती/जवर्जस्ती) and a
+    # halant is often present or dropped (जबर्जस्ती/जबरजस्ती): fold both away
+    "व": "ब", "्": None,
 })
 TOKEN_RE = re.compile(r"[ऀ-ॣॱ-ॿ]+|[a-z0-9]+")
 DEVANAGARI_RE = re.compile(r"[ऀ-ॿ]")
@@ -54,6 +57,10 @@ def fold(text: str) -> str:
         if a in text:
             text = text.replace(a, b)
     return text.lower()
+
+
+NE_SUFFIXES = sorted({fold(x) for x in NE_SUFFIXES}, key=len, reverse=True)
+NE_STOP = {fold(x) for x in NE_STOP}
 
 
 def _stem_ne(tok: str) -> str:

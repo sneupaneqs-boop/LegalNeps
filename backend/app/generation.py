@@ -377,6 +377,11 @@ def run(message: str, language: str = "auto", history: list[dict] | None = None)
         log.warning("answer generation failed: %s", str(e)[:200])
         answer = "".join(parts) or _extractive(sources, lang)
         llm_used = bool(parts)
+    if llm_used and len(answer.strip()) < 200:
+        # the model's stream stopped after a sentence or two: still give the
+        # person the provisions that answer their question, and don't cache it
+        answer = answer.rstrip() + "\n\n" + _extractive(sources, lang)
+        llm_used = False
     if llm_used:
         _answer_cache.put(ckey, {"answer": answer, "language": lang, "sources": sources,
                                  "llm_used": True, "analysis": meta_analysis})

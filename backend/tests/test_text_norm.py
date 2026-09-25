@@ -10,7 +10,7 @@ def test_digits_and_vowel_length_fold_together():
 
 def test_postpositions_are_stripped_to_the_same_stem():
     stems = {tokenize(w)[0] for w in ["जग्गाको", "जग्गालाई", "जग्गामा", "जग्गा"]}
-    assert stems == {"जग्गा"}
+    assert stems == {fold("जग्गा")}
     assert tokenize("बालबालिकाहरूको") == tokenize("बालबालिका")
 
 
@@ -40,3 +40,9 @@ def test_guess_language_handles_romanised_nepali():
     assert guess_language("what about daughters?") == "en"
     assert guess_language("what's the weather in Kathmandu today?") == "en"
     assert guess_language("सम्बन्ध विच्छेद") == "ne"
+
+
+def test_ba_va_and_halant_spelling_variants_match():
+    # the Penal Code spells rape "जवर्जस्ती"; people type "जबरजस्ती"
+    assert tokenize("जवर्जस्ती करणी") == tokenize("जबरजस्ती करणि")
+    assert tokenize("सम्वन्धी") == tokenize("सम्बन्धी")

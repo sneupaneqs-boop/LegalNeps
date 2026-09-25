@@ -155,8 +155,8 @@ def _model_key(t: _Target) -> str:
 
 def _cool_target(t: _Target, msg: str):
     _cool(t.cool, msg)
-    if "upstream" in msg:  # the model itself is saturated: other keys won't help
-        _cool(_model_key(t), msg)
+    if any(x in msg for x in ("upstream", "503", "high demand", "UNAVAILABLE", "overloaded")):
+        _cool(_model_key(t), msg)  # the model itself is saturated: other keys won't help
 
 
 def _openai_headers(key: str):
@@ -249,6 +249,7 @@ def _openai_stream(models, system, user, max_tokens, temperature, first_token_de
                         emitted = True
                         yield delta
             if emitted:
+                log.info("answer streamed by %s", t.cool)
                 return
             log.warning("openai-compatible stream %s ended without text", t.cool)
             _cool_target(t, "empty")

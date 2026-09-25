@@ -37,15 +37,20 @@ OPENAI_API_KEY = os.getenv("OPENAI_API_KEY", "")
 # entries whose provider has no key are skipped. Strongest-that-has-quota
 # first; rate-limited model/key pairs are skipped instantly and cooled down.
 OPENAI_MODELS = _list("OPENAI_MODELS",
-                      "groq/openai/gpt-oss-120b,gemini/gemini-3.8-flash,cohere/command-a-plus-05-2026,"
-                      "gemini/gemini-3.6-flash,openrouter/z-ai/glm-5.2:free,groq/qwen/qwen3.8-27b,"
-                      "gemini/gemini-3-flash-preview,openrouter/google/gemma-4-31b-it:free,"
-                      "mistral/mistral-medium-latest,cohere/command-a-03-2025,"
-                      "gemini/gemini-3.5-flash-lite,gemini/gemini-3.1-flash-lite,auto/chat")
+                      "groq/openai/gpt-oss-120b,gemini/gemini-3.8-flash,gemini/gemini-3.6-flash,"
+                      "gemini/gemini-3-flash-preview,groq/qwen/qwen3.8-27b,gemini/gemini-3.7-flash,"
+                      "gemini/gemini-3.5-flash,cohere/command-a-plus-05-2026,mistral/mistral-medium-latest,"
+                      "openrouter/z-ai/glm-5.2:free,openrouter/google/gemma-4-31b-it:free,"
+                      "cohere/command-a-03-2025,gemini/gemini-3.5-flash-lite,gemini/gemini-3.1-flash-lite,auto/chat")
+# Query analysis runs on different providers than the answer where possible
+# (Groq's per-minute token limit is shared by both otherwise). Measured on 40
+# eval questions: gemini-3.5-flash-lite MRR 0.88 at 1.2s median, 3.1-flash-lite
+# hit@8 0.98; OpenRouter free models are often rate-limited upstream.
 OPENAI_FAST_MODELS = _list("OPENAI_FAST_MODELS",
-                           "groq/qwen/qwen3.8-27b,groq/openai/gpt-oss-20b,gemini/gemini-3.1-flash-lite,"
-                           "gemini/gemini-3.5-flash-lite,cohere/command-r7b-12-2024,"
-                           "openrouter/qwen/qwen3.8-27b:free,mistral/mistral-small-latest,auto/fast")
+                           "gemini/gemini-3.5-flash-lite,gemini/gemini-3.1-flash-lite,groq/openai/gpt-oss-120b,"
+                           "gemini/gemini-flash-lite-latest,cohere/command-a-03-2025,groq/qwen/qwen3.8-27b,"
+                           "groq/openai/gpt-oss-20b,mistral/mistral-small-latest,"
+                           "openrouter/qwen/qwen3.8-27b:free,auto/fast")
 
 
 def _keys(*names: str) -> list[str]:

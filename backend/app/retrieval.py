@@ -35,6 +35,8 @@ CORPUS_DIR = DATA_DIR / "corpus"
 LEGACY_CORPUS = DATA_DIR / "corpus.json"
 CACHE_DIR = DATA_DIR / "index_cache"
 
+# bump when tokenisation/weighting changes so stale on-disk caches are rebuilt
+INDEX_VERSION = 2
 K1, B = 1.4, 0.72
 AUTHORITY = {
     "constitution": 1.18, "act": 1.12, "rule": 1.04, "precedent": 1.05, "order": 0.97,
@@ -100,7 +102,7 @@ class Index:
 
     # -- storage --------------------------------------------------------
     def _paths(self):
-        base = CACHE_DIR / self.digest
+        base = CACHE_DIR / f"{self.digest}-v{INDEX_VERSION}"
         return (Path(f"{base}.npz"), Path(f"{base}.vocab.json"), Path(f"{base}.meta.npz"), Path(f"{base}.sqlite"))
 
     def _db(self) -> sqlite3.Connection:
