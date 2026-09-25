@@ -37,6 +37,7 @@ def available() -> bool:
 
 
 _cooldown: dict[str, float] = {}  # "provider:model" -> unix time until which it's skipped
+_no_effort: set[str] = set()      # gateway models that reject reasoning_effort
 _no_thinking: set[str] = set()
 _client_lock = threading.Lock()
 _gemini_client = None
@@ -81,7 +82,7 @@ def _openai_payload(model, system, user, json_mode, max_tokens, temperature, str
         "stream": stream,
     }
     effort = _reasoning_effort(model)
-    if effort:
+    if effort and model not in _no_effort:
         body["reasoning_effort"] = effort
     if json_mode:
         body["response_format"] = {"type": "json_object"}
@@ -119,26 +120,42 @@ def _openai_headers():
 def _openai_complete(models, system, user, json_mode, max_tokens, temperature, deadline, fast=False) -> str:
     last = None
     for model in _ready("openai", models):
-        left = deadline - time.time()
-        if left < 2:
-            break
-        try:
-            r = _client_http().post(
-                f"{config.OPENAI_BASE_URL.rstrip('/')}/chat/completions",
-                json=_openai_payload(model, system, user, json_mode, max_tokens, temperature, fast=fast),
-                headers=_openai_headers(), timeout=min(left, config.LLM_CALL_TIMEOUT_S),
-            )
-            if r.status_code >= 400:
-                raise LLMUnavailable(f"{r.status_code} {r.text[:200]}")
-            text = _text_of(r.json()["choices"][0]["message"].get("content")).strip()
-            if text:
-                return text
-            last = LLMUnavailable(f"{model}: empty response")
-        except Exception as e:  # noqa: BLE001
-            last = e
-            log.warning("openai-compatible %s failed: %s", model, str(e)[:160])
-            _cool(f"openai:{model}", str(e))
+        for _ in range(2):  # second pass only to retry without reasoning_effort
+            left = deadline - time.time()
+            if left < 2:
+                break
+            try:
+                return _openai_call(model, system, user, json_mode, max_tokens, temperature, fast, left)
+            except _RetryWithoutEffort:
+                continue
+            except Exception as e:  # noqa: BLE001
+                last = e
+                log.warning("openai-compatible %s failed: %s", model, str(e)[:160])
+                _cool(f"openai:{model}", str(e))
+                break
     raise LLMUnavailable(str(last)[:300] if last else "openai-compatible: no time left")
+
+
+class _RetryWithoutEffort(Exception):
+    pass
+
+
+def _openai_call(model, system, user, json_mode, max_tokens, temperature, fast, left) -> str:
+    r = _client_http().post(
+        f"{config.OPENAI_BASE_URL.rstrip('/')}/chat/completions",
+        json=_openai_payload(model, system, user, json_mode, max_tokens, temperature, fast=fast),
+        headers=_openai_headers(), timeout=min(left, config.LLM_CALL_TIMEOUT_S),
+    )
+    if r.status_code == 400 and "invalid" in r.text.lower() and _reasoning_effort(model) \
+            and model not in _no_effort:
+        _no_effort.add(model)  # this model rejects reasoning_effort: resend without it
+        raise _RetryWithoutEffort()
+    if r.status_code >= 400:
+        raise LLMUnavailable(f"{r.status_code} {r.text[:200]}")
+    text = _text_of(r.json()["choices"][0]["message"].get("content")).strip()
+    if not text:
+        raise LLMUnavailable(f"{model}: empty response")
+    return text
 
 
 def _openai_stream(models, system, user, max_tokens, temperature, first_token_deadline):
@@ -161,7 +178,10 @@ def _openai_stream(models, system, user, max_tokens, temperature, first_token_de
                 headers=_openai_headers(), timeout=timeout,
             ) as r:
                 if r.status_code >= 400:
-                    raise LLMUnavailable(f"{r.status_code} {r.read()[:200]!r}")
+                    err = r.read()[:300]
+                    if r.status_code == 400 and _reasoning_effort(model) and model not in _no_effort:
+                        _no_effort.add(model)  # next request to this model goes without it
+                    raise LLMUnavailable(f"{r.status_code} {err!r}")
                 for line in r.iter_lines():
                     if not emitted and time.time() > model_deadline:
                         raise LLMUnavailable(f"{model}: no answer text within {config.MODEL_FIRST_TOKEN_S}s")
@@ -207,8 +227,10 @@ def _gemini():
 def _gemini_cfg(model, system, json_mode, max_tokens, temperature, timeout_s, thinking):
     from google.genai import types
 
+    # the Gemini API rejects request deadlines under 10s; our own budget check
+    # (before each attempt) still bounds the total time
     cfg = dict(system_instruction=system, max_output_tokens=max_tokens, temperature=temperature,
-               http_options=types.HttpOptions(timeout=int(timeout_s * 1000)))
+               http_options=types.HttpOptions(timeout=int(max(10.0, timeout_s) * 1000)))
     if json_mode:
         cfg["response_mime_type"] = "application/json"
     if thinking is not None and "flash" in model and model not in _no_thinking:

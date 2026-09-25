@@ -19,6 +19,11 @@ class Handler(BaseHTTPRequestHandler):
         mode = MODE["value"]
         if mode == "hang":
             time.sleep(8)
+        if mode == "400-effort" and "reasoning_effort" in body:
+            self.send_response(400)
+            self.end_headers()
+            self.wfile.write(b'{"error":{"message":"Request contains an invalid argument."}}')
+            return
         if mode == "429":
             self.send_response(429)
             self.end_headers()
@@ -110,3 +115,18 @@ def test_stream_skips_model_that_only_thinks(gateway, monkeypatch):
     with pytest.raises(llm.LLMUnavailable):
         list(llm.stream("sys", "hi"))
     assert time.time() - t < 10
+
+
+def test_model_rejecting_reasoning_effort_is_retried_without_it(gateway, monkeypatch):
+    seen = []
+    orig = llm._openai_payload
+
+    def spy(model, *a, **k):
+        body = orig(model, *a, **k)
+        seen.append("reasoning_effort" in body)
+        return body
+    monkeypatch.setattr(llm, "_openai_payload", spy)
+    monkeypatch.setattr(config, "OPENAI_FAST_MODELS", ["gemini/gemini-3.5-flash-lite"])
+    MODE["value"] = "400-effort"
+    assert llm.complete("sys", "hi", fast=True) == "ok:gemini/gemini-3.5-flash-lite"
+    assert seen == [True, False]
