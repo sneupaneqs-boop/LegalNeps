@@ -25,7 +25,20 @@ GEMINI_MODELS = _list("GEMINI_MODELS", os.getenv("GEMINI_MODEL", "") or
 GEMINI_FAST_MODELS = _list("GEMINI_FAST_MODELS",
                            "gemini-3.1-flash-lite,gemini-3.5-flash-lite,gemini-flash-lite-latest,"
                            "gemini-3.1-flash-lite-preview,gemini-3-flash-preview")
-LLM_TIMEOUT_S = int(os.getenv("LLM_TIMEOUT_S", "40"))
+# OpenAI-compatible gateway, tried first when set. For OmniRoute:
+#   OPENAI_BASE_URL=http://localhost:20128/v1  OPENAI_API_KEY=<OmniRoute API key>
+# "auto/fast" and "auto" let OmniRoute pick the provider per tier.
+OPENAI_BASE_URL = os.getenv("OPENAI_BASE_URL", "")
+OPENAI_API_KEY = os.getenv("OPENAI_API_KEY", "")
+OPENAI_MODELS = _list("OPENAI_MODELS", "auto")
+OPENAI_FAST_MODELS = _list("OPENAI_FAST_MODELS", "auto/fast")
+
+# Hard time budgets (seconds) so a slow/rate-limited provider can't hang the UI.
+LLM_TIMEOUT_S = int(os.getenv("LLM_TIMEOUT_S", "60"))            # whole streamed answer
+LLM_CALL_TIMEOUT_S = float(os.getenv("LLM_CALL_TIMEOUT_S", "20"))  # one attempt on one model
+ANALYZE_BUDGET_S = float(os.getenv("ANALYZE_BUDGET_S", "8"))       # question understanding
+ANSWER_BUDGET_S = float(os.getenv("ANSWER_BUDGET_S", "40"))        # non-streamed answer
+FIRST_TOKEN_BUDGET_S = float(os.getenv("FIRST_TOKEN_BUDGET_S", "30"))  # streamed answer must start by then
 
 CORS_ORIGINS = [
     origin.strip()

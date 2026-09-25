@@ -1,9 +1,17 @@
-"""Provider-agnostic LLM calls with model fallback.
+"""Provider-agnostic LLM calls with tiered models, fallback and hard deadlines.
 
-Gemini is the primary provider: each call walks a chain of models and moves
-on when one is rate-limited/unavailable, so a free-tier quota running out on
-one model doesn't take the app down. Anthropic and Groq remain available as
-alternative providers.
+Providers are tried in order until one answers, each call bounded by a time
+budget so a slow or rate-limited provider can never leave the UI "thinking":
+
+1. OpenAI-compatible gateway (OPENAI_BASE_URL) - e.g. a self-hosted OmniRoute
+   (http://localhost:20128/v1) that fans out over many providers' free tiers
+   with its own fallback, or OpenRouter/Groq/any compatible API.
+2. Gemini (GEMINI_API_KEY) - walks a chain of models; per-model cooldowns on
+   429/503 because each model has its own (small, on free tier) quota.
+3. Anthropic, 4. Groq.
+
+Two tiers everywhere: `fast=True` (query understanding - cheap, low latency)
+and the answer tier (stronger model, still cheapest that does the job).
 """
 from __future__ import annotations
 
@@ -16,7 +24,8 @@ import time
 from . import config
 
 log = logging.getLogger(__name__)
-_TRANSIENT = ("429", "RESOURCE_EXHAUSTED", "500", "502", "503", "504", "UNAVAILABLE", "DEADLINE", "timed out", "overloaded")
+_TRANSIENT = ("429", "RESOURCE_EXHAUSTED", "500", "502", "503", "504", "UNAVAILABLE", "DEADLINE",
+              "timed out", "timeout", "overloaded", "Timeout")
 
 
 class LLMUnavailable(RuntimeError):
@@ -24,17 +33,130 @@ class LLMUnavailable(RuntimeError):
 
 
 def available() -> bool:
-    return bool(config.GEMINI_API_KEY or config.ANTHROPIC_API_KEY or config.GROQ_API_KEY)
+    return bool(config.OPENAI_BASE_URL or config.GEMINI_API_KEY or config.ANTHROPIC_API_KEY or config.GROQ_API_KEY)
 
 
-_gemini_client = None
+_cooldown: dict[str, float] = {}  # "provider:model" -> unix time until which it's skipped
 _no_thinking: set[str] = set()
-
-
 _client_lock = threading.Lock()
-_cooldown: dict[str, float] = {}  # model -> unix time until which it's rate-limited
+_gemini_client = None
+_http = None
 
 
+def _cool(key: str, msg: str):
+    if "429" in msg or "RESOURCE_EXHAUSTED" in msg or "rate" in msg.lower():
+        m = re.search(r"retryDelay['\"]?:\s*['\"]?(\d+(?:\.\d+)?)s", msg)
+        delay = float(m.group(1)) if m else 30.0
+        if "PerDay" in msg:
+            delay = max(delay, 3600.0)
+        _cooldown[key] = time.time() + min(delay, 6 * 3600)
+    else:
+        _cooldown[key] = time.time() + 20  # overloaded / timed out: brief pause
+
+
+def _ready(prefix: str, models: list[str]) -> list[str]:
+    now = time.time()
+    ok = [m for m in models if _cooldown.get(f"{prefix}:{m}", 0) <= now]
+    return ok or models[-1:]  # everything cooling down: still try the last-resort model
+
+
+# ---------------------------------------------------------------- OpenAI-compatible (OmniRoute etc.)
+def _client_http():
+    global _http
+    if _http is None:
+        with _client_lock:
+            if _http is None:
+                import httpx
+
+                _http = httpx.Client(timeout=config.LLM_TIMEOUT_S)
+    return _http
+
+
+def _openai_payload(model, system, user, json_mode, max_tokens, temperature, stream=False):
+    body = {
+        "model": model,
+        "messages": [{"role": "system", "content": system}, {"role": "user", "content": user}],
+        "max_tokens": max_tokens,
+        "temperature": temperature,
+        "stream": stream,
+    }
+    if json_mode:
+        body["response_format"] = {"type": "json_object"}
+    return body
+
+
+def _openai_headers():
+    h = {"Content-Type": "application/json"}
+    if config.OPENAI_API_KEY:
+        h["Authorization"] = f"Bearer {config.OPENAI_API_KEY}"
+    return h
+
+
+def _openai_complete(models, system, user, json_mode, max_tokens, temperature, deadline) -> str:
+    last = None
+    for model in _ready("openai", models):
+        left = deadline - time.time()
+        if left < 2:
+            break
+        try:
+            r = _client_http().post(
+                f"{config.OPENAI_BASE_URL.rstrip('/')}/chat/completions",
+                json=_openai_payload(model, system, user, json_mode, max_tokens, temperature),
+                headers=_openai_headers(), timeout=min(left, config.LLM_CALL_TIMEOUT_S),
+            )
+            if r.status_code >= 400:
+                raise LLMUnavailable(f"{r.status_code} {r.text[:200]}")
+            text = (r.json()["choices"][0]["message"].get("content") or "").strip()
+            if text:
+                return text
+            last = LLMUnavailable(f"{model}: empty response")
+        except Exception as e:  # noqa: BLE001
+            last = e
+            log.warning("openai-compatible %s failed: %s", model, str(e)[:160])
+            _cool(f"openai:{model}", str(e))
+    raise LLMUnavailable(str(last)[:300] if last else "openai-compatible: no time left")
+
+
+def _openai_stream(models, system, user, max_tokens, temperature, first_token_deadline):
+    for model in _ready("openai", models):
+        left = first_token_deadline - time.time()
+        if left < 2:
+            return
+        emitted = False
+        try:
+            import httpx
+
+            timeout = httpx.Timeout(config.LLM_TIMEOUT_S, connect=min(left, 10), read=min(left, config.LLM_CALL_TIMEOUT_S))
+            with _client_http().stream(
+                "POST", f"{config.OPENAI_BASE_URL.rstrip('/')}/chat/completions",
+                json=_openai_payload(model, system, user, False, max_tokens, temperature, stream=True),
+                headers=_openai_headers(), timeout=timeout,
+            ) as r:
+                if r.status_code >= 400:
+                    raise LLMUnavailable(f"{r.status_code} {r.read()[:200]!r}")
+                for line in r.iter_lines():
+                    if not line.startswith("data:"):
+                        continue
+                    data = line[5:].strip()
+                    if data == "[DONE]":
+                        break
+                    try:
+                        delta = json.loads(data)["choices"][0].get("delta", {}).get("content") or ""
+                    except (ValueError, KeyError, IndexError):
+                        continue
+                    if delta:
+                        emitted = True
+                        yield delta
+            if emitted:
+                return
+        except Exception as e:  # noqa: BLE001
+            if emitted:
+                raise
+            log.warning("openai-compatible stream %s failed: %s", model, str(e)[:160])
+            _cool(f"openai:{model}", str(e))
+
+
+# ---------------------------------------------------------------- Gemini
 def _gemini():
     global _gemini_client
     if _gemini_client is None:
@@ -50,35 +172,32 @@ def _gemini():
     return _gemini_client
 
 
-def _note_rate_limit(model: str, msg: str):
-    m = re.search(r"retryDelay['\"]?:\s*['\"]?(\d+(?:\.\d+)?)s", msg)
-    delay = float(m.group(1)) if m else 30.0
-    if "PerDay" in msg:
-        delay = max(delay, 3600.0)
-    _cooldown[model] = time.time() + min(delay, 6 * 3600)
+def _gemini_cfg(model, system, json_mode, max_tokens, temperature, timeout_s, thinking):
+    from google.genai import types
+
+    cfg = dict(system_instruction=system, max_output_tokens=max_tokens, temperature=temperature,
+               http_options=types.HttpOptions(timeout=int(timeout_s * 1000)))
+    if json_mode:
+        cfg["response_mime_type"] = "application/json"
+    if thinking is not None and "flash" in model and model not in _no_thinking:
+        cfg["thinking_config"] = types.ThinkingConfig(thinking_budget=thinking)
+    return cfg
 
 
-def _gemini_complete(models: list[str], system: str, user: str, json_mode: bool, max_tokens: int, temperature: float) -> str:
+def _gemini_complete(models, system, user, json_mode, max_tokens, temperature, deadline) -> str:
     from google.genai import types
 
     last = None
-    now = time.time()
-    ready = [m for m in models if _cooldown.get(m, 0) <= now]
-    for model in ready or models[-1:]:
-        cfg = dict(
-            system_instruction=system,
-            max_output_tokens=max_tokens,
-            temperature=temperature,
-        )
-        if json_mode:
-            cfg["response_mime_type"] = "application/json"
-        if "flash" in model and not model.startswith("gemini-2") and model not in _no_thinking:
-            cfg["thinking_config"] = types.ThinkingConfig(thinking_budget=0 if json_mode else 512)
-        for attempt in range(2):
+    for model in _ready("gemini", models):
+        for _ in range(2):  # second pass only to retry without an unsupported thinking budget
+            left = deadline - time.time()
+            if left < 2:
+                raise LLMUnavailable(str(last)[:300] if last else "gemini: no time left")
+            cfg = _gemini_cfg(model, system, json_mode, max_tokens, temperature,
+                              min(left, config.LLM_CALL_TIMEOUT_S), 0 if json_mode else 512)
             try:
-                r = _gemini().models.generate_content(
-                    model=model, contents=user, config=types.GenerateContentConfig(**cfg)
-                )
+                r = _gemini().models.generate_content(model=model, contents=user,
+                                                      config=types.GenerateContentConfig(**cfg))
                 text = (r.text or "").strip()
                 if text:
                     return text
@@ -87,27 +206,53 @@ def _gemini_complete(models: list[str], system: str, user: str, json_mode: bool,
             except Exception as e:  # noqa: BLE001
                 msg = str(e)
                 last = e
-                if "thinking_config" in cfg and ("thinking" in msg.lower() or "INVALID_ARGUMENT" in msg):
-                    cfg.pop("thinking_config")  # model doesn't accept a thinking budget: retry without
+                if "thinking_config" in cfg and "INVALID_ARGUMENT" in msg and model not in _no_thinking:
                     _no_thinking.add(model)
                     continue
+                log.warning("gemini %s failed: %s", model, msg[:140])
                 if any(t in msg for t in _TRANSIENT):
-                    # quota / overload: the next model in the chain is the fastest recovery
-                    log.warning("gemini %s unavailable: %s", model, msg[:120])
-                    if "429" in msg or "RESOURCE_EXHAUSTED" in msg:
-                        _note_rate_limit(model, msg)
-                    elif "503" in msg or "UNAVAILABLE" in msg:
-                        _cooldown[model] = time.time() + 20
-                    break
-                log.warning("gemini %s failed: %s", model, msg[:200])
+                    _cool(f"gemini:{model}", msg)
                 break
     raise LLMUnavailable(str(last)[:300] if last else "no gemini model available")
 
 
-def _anthropic_complete(system: str, user: str, max_tokens: int, temperature: float) -> str:
+def _gemini_stream(system, user, max_tokens, temperature, first_token_deadline):
+    from google.genai import types
+
+    for model in _ready("gemini", config.GEMINI_MODELS):
+        left = first_token_deadline - time.time()
+        if left < 2:
+            return
+        cfg = _gemini_cfg(model, system, False, max_tokens, temperature, min(left, config.LLM_CALL_TIMEOUT_S), 512)
+        emitted = False
+        try:
+            for chunk in _gemini().models.generate_content_stream(
+                    model=model, contents=user, config=types.GenerateContentConfig(**cfg)):
+                text = chunk.text or ""
+                if text:
+                    emitted = True
+                    yield text
+            if emitted:
+                return
+        except Exception as e:  # noqa: BLE001
+            msg = str(e)
+            if emitted:
+                raise
+            if "INVALID_ARGUMENT" in msg:
+                _no_thinking.add(model)
+            log.warning("gemini stream %s failed: %s", model, msg[:140])
+            if any(t in msg for t in _TRANSIENT):
+                _cool(f"gemini:{model}", msg)
+
+
+# ---------------------------------------------------------------- Anthropic / Groq
+def _anthropic_complete(system, user, max_tokens, temperature, deadline) -> str:
     import anthropic
 
-    client = anthropic.Anthropic(api_key=config.ANTHROPIC_API_KEY, timeout=config.LLM_TIMEOUT_S)
+    left = deadline - time.time()
+    if left < 2:
+        raise LLMUnavailable("anthropic: no time left")
+    client = anthropic.Anthropic(api_key=config.ANTHROPIC_API_KEY, timeout=min(left, config.LLM_CALL_TIMEOUT_S))
     r = client.messages.create(
         model=config.ANTHROPIC_MODEL, max_tokens=max_tokens, temperature=temperature,
         system=system, messages=[{"role": "user", "content": user}],
@@ -115,10 +260,13 @@ def _anthropic_complete(system: str, user: str, max_tokens: int, temperature: fl
     return "".join(b.text for b in r.content if b.type == "text").strip()
 
 
-def _groq_complete(system: str, user: str, json_mode: bool, max_tokens: int, temperature: float) -> str:
+def _groq_complete(system, user, json_mode, max_tokens, temperature, deadline) -> str:
     from groq import Groq
 
-    client = Groq(api_key=config.GROQ_API_KEY, timeout=config.LLM_TIMEOUT_S)
+    left = deadline - time.time()
+    if left < 2:
+        raise LLMUnavailable("groq: no time left")
+    client = Groq(api_key=config.GROQ_API_KEY, timeout=min(left, config.LLM_CALL_TIMEOUT_S))
     kw = {"response_format": {"type": "json_object"}} if json_mode else {}
     r = client.chat.completions.create(
         model=config.GROQ_MODEL, max_tokens=max_tokens, temperature=temperature,
@@ -127,26 +275,59 @@ def _groq_complete(system: str, user: str, json_mode: bool, max_tokens: int, tem
     return (r.choices[0].message.content or "").strip()
 
 
+# ---------------------------------------------------------------- public API
 def complete(system: str, user: str, *, fast: bool = False, json_mode: bool = False,
-             max_tokens: int = 1400, temperature: float = 0.2) -> str:
+             max_tokens: int = 1400, temperature: float = 0.2, budget_s: float | None = None) -> str:
+    """One completion within `budget_s` seconds across all providers, or LLMUnavailable."""
+    budget = budget_s if budget_s is not None else (config.ANALYZE_BUDGET_S if fast else config.ANSWER_BUDGET_S)
+    deadline = time.time() + budget
     errors = []
+    attempts = []
+    if config.OPENAI_BASE_URL:
+        models = config.OPENAI_FAST_MODELS if fast else config.OPENAI_MODELS
+        attempts.append(("openai", lambda: _openai_complete(models, system, user, json_mode, max_tokens, temperature, deadline)))
     if config.GEMINI_API_KEY:
         models = config.GEMINI_FAST_MODELS if fast else config.GEMINI_MODELS
-        try:
-            return _gemini_complete(models, system, user, json_mode, max_tokens, temperature)
-        except Exception as e:  # noqa: BLE001
-            errors.append(f"gemini: {e}")
+        attempts.append(("gemini", lambda: _gemini_complete(models, system, user, json_mode, max_tokens, temperature, deadline)))
     if config.ANTHROPIC_API_KEY:
-        try:
-            return _anthropic_complete(system, user, max_tokens, temperature)
-        except Exception as e:  # noqa: BLE001
-            errors.append(f"anthropic: {e}")
+        attempts.append(("anthropic", lambda: _anthropic_complete(system, user, max_tokens, temperature, deadline)))
     if config.GROQ_API_KEY:
+        attempts.append(("groq", lambda: _groq_complete(system, user, json_mode, max_tokens, temperature, deadline)))
+    for name, fn in attempts:
+        if deadline - time.time() < 2:
+            errors.append("time budget exhausted")
+            break
         try:
-            return _groq_complete(system, user, json_mode, max_tokens, temperature)
+            return fn()
         except Exception as e:  # noqa: BLE001
-            errors.append(f"groq: {e}")
+            errors.append(f"{name}: {str(e)[:200]}")
     raise LLMUnavailable("; ".join(errors) or "no LLM provider configured")
+
+
+def stream(system: str, user: str, *, max_tokens: int = 1800, temperature: float = 0.2):
+    """Yield answer text incrementally. A provider/model is only abandoned
+    before it has emitted anything; if none starts within the first-token
+    budget, raise LLMUnavailable so the caller can answer extractively."""
+    first_token_deadline = time.time() + config.FIRST_TOKEN_BUDGET_S
+    if config.OPENAI_BASE_URL:
+        emitted = False
+        for piece in _openai_stream(config.OPENAI_MODELS, system, user, max_tokens, temperature, first_token_deadline):
+            emitted = True
+            yield piece
+        if emitted:
+            return
+    if config.GEMINI_API_KEY:
+        emitted = False
+        for piece in _gemini_stream(system, user, max_tokens, temperature, first_token_deadline):
+            emitted = True
+            yield piece
+        if emitted:
+            return
+    left = first_token_deadline - time.time()
+    if (config.ANTHROPIC_API_KEY or config.GROQ_API_KEY) and left > 3:
+        yield complete(system, user, max_tokens=max_tokens, temperature=temperature, budget_s=left)
+        return
+    raise LLMUnavailable("no model started answering within the time budget")
 
 
 def parse_json(text: str) -> dict:
@@ -160,39 +341,3 @@ def parse_json(text: str) -> dict:
         if m:
             return json.loads(m.group(0))
         raise
-
-
-def stream(system: str, user: str, *, max_tokens: int = 1800, temperature: float = 0.2):
-    """Yield answer text incrementally. Falls back to the next model only
-    before anything has been emitted; other providers yield one chunk."""
-    if config.GEMINI_API_KEY:
-        from google.genai import types
-
-        now = time.time()
-        models = [m for m in config.GEMINI_MODELS if _cooldown.get(m, 0) <= now] or config.GEMINI_MODELS[-1:]
-        for model in models:
-            cfg = dict(system_instruction=system, max_output_tokens=max_tokens, temperature=temperature)
-            if "flash" in model and model not in _no_thinking:
-                cfg["thinking_config"] = types.ThinkingConfig(thinking_budget=512)
-            emitted = False
-            try:
-                for chunk in _gemini().models.generate_content_stream(
-                        model=model, contents=user, config=types.GenerateContentConfig(**cfg)):
-                    text = chunk.text or ""
-                    if text:
-                        emitted = True
-                        yield text
-                if emitted:
-                    return
-            except Exception as e:  # noqa: BLE001
-                msg = str(e)
-                if emitted:
-                    raise
-                if "thinking_config" in cfg and "INVALID_ARGUMENT" in msg:
-                    _no_thinking.add(model)
-                if "429" in msg or "RESOURCE_EXHAUSTED" in msg:
-                    _note_rate_limit(model, msg)
-                elif "503" in msg or "UNAVAILABLE" in msg:
-                    _cooldown[model] = time.time() + 20
-                log.warning("gemini stream %s failed: %s", model, msg[:150])
-    yield complete(system, user, max_tokens=max_tokens, temperature=temperature)

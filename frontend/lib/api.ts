@@ -26,7 +26,7 @@ export async function sendChatMessage(
   language: "en" | "ne"
 ): Promise<ChatResponse> {
   const controller = new AbortController();
-  const timer = setTimeout(() => controller.abort(), 90_000);
+  const timer = setTimeout(() => controller.abort(), 60_000);
   try {
     const res = await fetch(`${API_URL}/api/chat`, {
       method: "POST",
@@ -56,7 +56,9 @@ export async function streamChatMessage(
   handlers: StreamHandlers
 ): Promise<{ answer: string; llm_used: boolean }> {
   const controller = new AbortController();
-  const timer = setTimeout(() => controller.abort(), 120_000);
+  // The server sends sources within ~10s and caps the whole answer at ~60s;
+  // if nothing arrives in time, fail instead of "thinking" forever.
+  let timer = setTimeout(() => controller.abort(), 25_000);
   try {
     const res = await fetch(`${API_URL}/api/chat/stream`, {
       method: "POST",
@@ -78,13 +80,20 @@ export async function streamChatMessage(
         buf = buf.slice(nl + 1);
         if (!line) continue;
         const ev = JSON.parse(line);
-        if (ev.type === "meta") handlers.onMeta(ev);
+        if (ev.type === "meta") {
+          clearTimeout(timer);
+          timer = setTimeout(() => controller.abort(), 90_000);
+          handlers.onMeta(ev);
+        }
         else if (ev.type === "delta") handlers.onDelta(ev.text);
         else if (ev.type === "done") return { answer: ev.answer, llm_used: ev.llm_used };
         else if (ev.type === "error") throw new Error("stream error");
       }
     }
     throw new Error("stream ended early");
+  } catch (e) {
+    if (controller.signal.aborted) throw new Error("timeout");
+    throw e;
   } finally {
     clearTimeout(timer);
   }

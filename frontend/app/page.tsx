@@ -44,8 +44,11 @@ export default function Home() {
         },
       });
       update({ text: final.answer, llmUsed: final.llm_used, streaming: false });
-    } catch {
-      if (!started) {
+    } catch (err) {
+      const timedOut = err instanceof Error && err.message === "timeout";
+      if (timedOut && !started) {
+        setMessages((prev) => [...prev, { id: botId, role: "bot", text: t.timeout }]);
+      } else if (!started) {
         // streaming unavailable (proxy, old server): fall back to one-shot request
         try {
           const res = await sendChatMessage(text, lang);
