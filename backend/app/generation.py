@@ -277,6 +277,9 @@ _BRACKET = re.compile(r"\[([^\[\]\d०-९][^\[\]]{2,160}?)\]")
 _SEC_NUM = re.compile(r"(?:Section|Article|Rule|दफा|धारा|नियम)\s*([0-9०-९]+)", re.I)
 
 
+_DEV = str.maketrans("०१२३४५६७८९", "0123456789")
+
+
 def normalize_citations(answer: str, sources: list[dict]) -> str:
     """Models sometimes cite as "[Muluki Civil Code 2074, Section 400]"
     instead of "[3]"; map those to the numbered source when the section
@@ -294,6 +297,9 @@ def normalize_citations(answer: str, sources: list[dict]) -> str:
                     words & set(re.findall(r"[a-z]{4,}|[ऀ-ॿ]{3,}", cite.lower())):
                 return f"({inner}) [{i}]"
         return m.group(0)
+    # gpt-oss writes 【4】 / 【4†source】; some models use Devanagari digits [४]
+    answer = re.sub(r"【\s*(\d{1,2})\s*(?:†[^】]*)?】", r"[\1]", answer)
+    answer = re.sub(r"\[([०-९]{1,2})\]", lambda m: f"[{m.group(1).translate(_DEV)}]", answer)
     return _BRACKET.sub(fix, answer)
 
 

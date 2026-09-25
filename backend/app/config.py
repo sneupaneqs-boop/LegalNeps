@@ -30,16 +30,48 @@ GEMINI_FAST_MODELS = _list("GEMINI_FAST_MODELS",
 # "auto/fast" and "auto" let OmniRoute pick the provider per tier.
 OPENAI_BASE_URL = os.getenv("OPENAI_BASE_URL", "")
 OPENAI_API_KEY = os.getenv("OPENAI_API_KEY", "")
-# Ordered per tier (OmniRoute model IDs). Strongest-that-has-quota first;
-# rate-limited models are skipped instantly and cooled down. Plain "auto" is
-# kept only as the last resort because it can pick unsuitable models.
+# Model chains per tier as "provider/model". With a gateway (OPENAI_BASE_URL,
+# e.g. OmniRoute) the whole ID goes to the gateway. Without one, each entry is
+# called directly on that provider's OpenAI-compatible API using the keys
+# below (several keys per provider rotate, multiplying free-tier quota);
+# entries whose provider has no key are skipped. Strongest-that-has-quota
+# first; rate-limited model/key pairs are skipped instantly and cooled down.
 OPENAI_MODELS = _list("OPENAI_MODELS",
-                      "gemini/gemini-3.8-flash,groq/openai/gpt-oss-120b,gemini/gemini-3.6-flash,"
-                      "groq/qwen/qwen3.8-27b,gemini/gemini-3-flash-preview,mistral/mistral-medium-latest,"
+                      "groq/openai/gpt-oss-120b,gemini/gemini-3.8-flash,cohere/command-a-plus-05-2026,"
+                      "gemini/gemini-3.6-flash,openrouter/z-ai/glm-5.2:free,groq/qwen/qwen3.8-27b,"
+                      "gemini/gemini-3-flash-preview,openrouter/google/gemma-4-31b-it:free,"
+                      "mistral/mistral-medium-latest,cohere/command-a-03-2025,"
                       "gemini/gemini-3.5-flash-lite,gemini/gemini-3.1-flash-lite,auto/chat")
 OPENAI_FAST_MODELS = _list("OPENAI_FAST_MODELS",
                            "groq/qwen/qwen3.8-27b,groq/openai/gpt-oss-20b,gemini/gemini-3.1-flash-lite,"
-                           "gemini/gemini-3.5-flash-lite,mistral/mistral-small-latest,auto/fast")
+                           "gemini/gemini-3.5-flash-lite,cohere/command-r7b-12-2024,"
+                           "openrouter/qwen/qwen3.8-27b:free,mistral/mistral-small-latest,auto/fast")
+
+
+def _keys(*names: str) -> list[str]:
+    """All keys from comma-separated env vars (GROQ_API_KEYS=k1,k2 and/or GROQ_API_KEY=k)."""
+    out: list[str] = []
+    for n in names:
+        out += [k.strip() for k in os.getenv(n, "").split(",") if k.strip() and k.strip() not in out]
+    return out
+
+
+# Direct providers (OpenAI-compatible endpoints) used when no gateway is set.
+DIRECT_PROVIDERS = {
+    name: (base, keys) for name, base, keys in (
+        ("groq", "https://api.groq.com/openai/v1", _keys("GROQ_API_KEYS", "GROQ_API_KEY")),
+        ("gemini", "https://generativelanguage.googleapis.com/v1beta/openai",
+         _keys("GEMINI_API_KEYS", "GEMINI_API_KEY")),
+        ("openrouter", "https://openrouter.ai/api/v1", _keys("OPENROUTER_API_KEYS", "OPENROUTER_API_KEY")),
+        ("cohere", "https://api.cohere.ai/compatibility/v1", _keys("COHERE_API_KEYS", "COHERE_API_KEY")),
+        ("mistral", "https://api.mistral.ai/v1", _keys("MISTRAL_API_KEYS", "MISTRAL_API_KEY")),
+        ("cerebras", "https://api.cerebras.ai/v1", _keys("CEREBRAS_API_KEYS", "CEREBRAS_API_KEY")),
+    ) if keys
+}
+if not GEMINI_API_KEY and "gemini" in DIRECT_PROVIDERS:
+    GEMINI_API_KEY = DIRECT_PROVIDERS["gemini"][1][0]
+if not GROQ_API_KEY and "groq" in DIRECT_PROVIDERS:
+    GROQ_API_KEY = DIRECT_PROVIDERS["groq"][1][0]
 
 # Hard time budgets (seconds) so a slow/rate-limited provider can't hang the UI.
 LLM_TIMEOUT_S = int(os.getenv("LLM_TIMEOUT_S", "60"))            # whole streamed answer
@@ -54,6 +86,8 @@ CORS_ORIGINS = [
     for origin in os.getenv("CORS_ORIGINS", "http://localhost:3000").split(",")
     if origin.strip()
 ]
+# Vercel production + preview URLs of the frontend project
+CORS_ORIGIN_REGEX = os.getenv("CORS_ORIGIN_REGEX", r"https://kanooni-sathi(-[a-z0-9-]+)?\.vercel\.app")
 TOP_K = int(os.getenv("RETRIEVAL_TOP_K", "6"))
 PRECEDENT_K = int(os.getenv("RETRIEVAL_PRECEDENT_K", "2"))
 # chars of each passage sent to the model (the best-matching window)

@@ -23,6 +23,12 @@ const API_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:8000";
 
 export type Turn = { role: "user" | "bot"; text: string };
 
+// The hosted backend sleeps when idle and needs up to a minute to wake;
+// ping it as soon as the page opens so it's ready by the time a question is sent.
+export function warmUp(): void {
+  fetch(`${API_URL}/api/health`, { cache: "no-store" }).catch(() => {});
+}
+
 export async function sendChatMessage(
   message: string,
   language: "en" | "ne",
@@ -60,9 +66,9 @@ export async function streamChatMessage(
   history: Turn[] = []
 ): Promise<{ answer: string; llm_used: boolean }> {
   const controller = new AbortController();
-  // The server sends sources within ~10s and caps the whole answer at ~60s;
+  // The server sends sources within ~10s (longer if it was asleep) and caps the answer at ~60s;
   // if nothing arrives in time, fail instead of "thinking" forever.
-  let timer = setTimeout(() => controller.abort(), 25_000);
+  let timer = setTimeout(() => controller.abort(), 45_000);
   try {
     const res = await fetch(`${API_URL}/api/chat/stream`, {
       method: "POST",

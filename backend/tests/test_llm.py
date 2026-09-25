@@ -24,6 +24,11 @@ class Handler(BaseHTTPRequestHandler):
             self.end_headers()
             self.wfile.write(b'{"error":{"message":"Request contains an invalid argument."}}')
             return
+        if mode == "429-key1" and self.headers.get("Authorization") == "Bearer key1":
+            self.send_response(429)
+            self.end_headers()
+            self.wfile.write(b'{"error":"rate limit"}')
+            return
         if mode == "429":
             self.send_response(429)
             self.end_headers()
@@ -130,3 +135,24 @@ def test_model_rejecting_reasoning_effort_is_retried_without_it(gateway, monkeyp
     MODE["value"] = "400-effort"
     assert llm.complete("sys", "hi", fast=True) == "ok:gemini/gemini-3.5-flash-lite"
     assert seen == [True, False]
+
+
+def test_direct_providers_rotate_keys_and_skip_unconfigured(gateway, monkeypatch):
+    base = config.OPENAI_BASE_URL
+    monkeypatch.setattr(config, "OPENAI_BASE_URL", "")
+    monkeypatch.setattr(config, "DIRECT_PROVIDERS", {"groq": (base, ["key1", "key2"])})
+    monkeypatch.setattr(config, "OPENAI_MODELS", ["openrouter/x:free", "groq/openai/gpt-oss-120b"])
+    MODE["value"] = "429-key1"
+    # openrouter has no key -> skipped; provider prefix stripped for the direct API;
+    # key1 rate-limited -> key2 answers, and key1 stays cooled for the next call
+    for _ in range(3):
+        assert llm.complete("sys", "hi") == "ok:openai/gpt-oss-120b"
+    assert [t.key for t in llm._targets(["groq/openai/gpt-oss-120b"])] == ["key2"]
+
+
+def test_gateway_chain_not_clobbered_by_gemini_chain(gateway, monkeypatch):
+    # regression: both chains used to share one closure variable, so the
+    # gateway was sent the Gemini SDK model names
+    monkeypatch.setattr(config, "GEMINI_API_KEY", "x")
+    monkeypatch.setattr(config, "GEMINI_FAST_MODELS", ["gemini-lite"])
+    assert llm.complete("sys", "hi", fast=True) == "ok:auto/fast"

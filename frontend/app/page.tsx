@@ -1,8 +1,8 @@
 "use client";
 
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import ChatMessage, { Message } from "@/components/ChatMessage";
-import { sendChatMessage, streamChatMessage, Turn } from "@/lib/api";
+import { sendChatMessage, streamChatMessage, Turn, warmUp } from "@/lib/api";
 import { Lang, strings } from "@/lib/i18n";
 
 export default function Home() {
@@ -11,6 +11,10 @@ export default function Home() {
   const [input, setInput] = useState("");
   const [loading, setLoading] = useState(false);
   const inputRef = useRef<HTMLTextAreaElement>(null);
+
+  useEffect(() => {
+    warmUp();
+  }, []);
 
   const t = strings[lang];
   const nextId = useRef(0);

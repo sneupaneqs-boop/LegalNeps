@@ -19,6 +19,7 @@ import hashlib
 import json
 import sqlite3
 import threading
+from array import array
 from collections import defaultdict
 from functools import lru_cache
 from pathlib import Path
@@ -137,10 +138,8 @@ class Index:
         con.execute("CREATE TABLE p (rowid INTEGER PRIMARY KEY, doc TEXT NOT NULL)")
 
         vocab: dict[str, int] = {}
-        rows: list[int] = []
-        cols: list[int] = []
-        vals: list[int] = []
-        lengths: list[int] = []
+        # compact C arrays: millions of Python ints in lists would double peak memory
+        rows, cols, vals, lengths = array("i"), array("i"), array("f"), array("i")
         prior, keys, ids, cats, dtypes, titles = [], [], [], [], [], []
         batch = []
         for i, e in enumerate(entries):
@@ -171,11 +170,13 @@ class Index:
         con.close()
 
         n = len(ids)
-        lengths_a = np.array(lengths, dtype=np.float32)
+        lengths_a = np.frombuffer(lengths, dtype=np.int32).astype(np.float32)
         tf = sparse.coo_matrix(
-            (np.array(vals, dtype=np.float32), (np.array(rows, dtype=np.int32), np.array(cols, dtype=np.int32))),
+            (np.frombuffer(vals, dtype=np.float32), (np.frombuffer(rows, dtype=np.int32),
+                                                     np.frombuffer(cols, dtype=np.int32))),
             shape=(n, len(vocab)),
         )
+        del rows, cols, vals
         df = np.bincount(tf.col, minlength=len(vocab)).astype(np.float32)
         idf = np.log(1 + (n - df + 0.5) / (df + 0.5)).astype(np.float32)
         avgdl = float(lengths_a.mean()) if n else 1.0
@@ -192,7 +193,7 @@ class Index:
 
         tmp_db.replace(dbpath)
         try:
-            sparse.save_npz(mpath, self.W)
+            sparse.save_npz(mpath, self.W, compressed=False)
             vpath.write_text(json.dumps(vocab, ensure_ascii=False), encoding="utf-8")
             np.savez(metapath, prior=self.prior, text_key=self.text_key, ids=np.array(ids),
                      category=np.array(cats), doc_type=np.array(dtypes), doc_title=np.array(titles))
@@ -298,6 +299,10 @@ def get_index() -> Index:
                 entries, digest = corpus_source()
                 _index = Index(entries, digest)
     return _index
+
+
+def index_ready() -> bool:
+    return _index is not None
 
 
 def retrieve(query: str, lang: str = "auto", top_k: int = 4) -> list[dict]:

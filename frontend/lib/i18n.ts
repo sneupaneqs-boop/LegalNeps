@@ -46,7 +46,7 @@ export const strings: Record<Lang, Strings> = {
       "My employer hasn't paid my salary for 3 months.",
     ],
     error: "Something went wrong reaching the server. Please try again.",
-    timeout: "The server is taking too long to respond. Please try again in a moment.",
+    timeout: "The server is taking too long to respond (it may have been waking up). Please send your question again.",
   },
   ne: {
     appName: "कानूनी साथी",
@@ -72,6 +72,6 @@ export const strings: Record<Lang, Strings> = {
       "कम्पनीले तीन महिनादेखि तलब दिएको छैन।",
     ],
     error: "सर्भरसँग जडान गर्दा समस्या भयो। कृपया फेरि प्रयास गर्नुहोस्।",
-    timeout: "सर्भरले जवाफ दिन धेरै समय लगायो। कृपया केही बेरपछि फेरि प्रयास गर्नुहोस्।",
+    timeout: "सर्भरले जवाफ दिन धेरै समय लगायो (सर्भर भर्खरै सुरु हुँदै थियो होला)। कृपया प्रश्न फेरि पठाउनुहोस्।",
   },
 };

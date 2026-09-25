@@ -42,9 +42,46 @@ LEGACY_FONTS = [
 ]
 
 DEV_DIGITS = str.maketrans("०१२३४५६७८९", "0123456789")
+# Amended sections are flagged with a symbol-font glyph (private use area) or
+# an asterisk-like mark before the number: "\uf0b9११. मृत्युकालीन घोषणाः".
+_MARKS = "\ue000-\uf8ff*✲✳✱✻⊕†‡¤§"
 SECTION_RE = re.compile(
-    r"(?m)^[ \t]*(?P<num>[०-९0-9]{1,3}(?:\.[क-ह])?)[.\)]\s{0,4}(?P<head>[^\n:ः।]{2,140}?)\s*[:ः]"
+    r"(?m)^[ \t" + _MARKS + r"]*(?P<num>[०-९0-9]{1,3}(?:\.?[क-ह])?)[.\)]\s{0,4}(?P<head>[^\n:ः।]{2,140}?)\s*[:ः]"
 )
+# Looser shapes seen in the gazette PDFs - heading wrapped onto a second line,
+# or the dot after the number dropped ("३७ हदम्याद लागू हुनेः"). Too permissive
+# on their own, so they only count when they fill an exact gap in the numbering.
+# (a lookahead, so candidates can overlap and one can't swallow the next)
+LOOSE_SECTION_RE = re.compile(
+    r"(?m)^(?=[ \t" + _MARKS + r"]*(?P<num>[०-९0-9]{1,3})(?:[.\)]\s{0,4}|\s{1,3})"
+    r"(?P<head>[^\n:ः।(\s][^\n:ः।]{1,140}?(?:\n[^\n:ः।]{1,100}?){0,2})\s*[:ः])"
+)
+
+
+def _section_no(num: str) -> int | None:
+    m = re.match(r"\d+", num.translate(DEV_DIGITS))
+    return int(m.group(0)) if m else None
+
+
+def find_sections(full: str) -> list[re.Match]:
+    """Section headings: every strict match, plus loose matches that supply
+    exactly the missing number between two strict neighbours."""
+    strict = list(SECTION_RE.finditer(full))
+    taken = {m.start() for m in strict}
+    extra = []
+    for m in LOOSE_SECTION_RE.finditer(full):
+        if m.start() in taken:
+            continue
+        n = _section_no(m.group("num"))
+        prev = next((s for s in reversed(strict) if s.start() < m.start()), None)
+        nxt = next((s for s in strict if s.start() > m.start()), None)
+        if n is None or prev is None:
+            continue
+        pn = _section_no(prev.group("num"))
+        nn = _section_no(nxt.group("num")) if nxt else None
+        if pn is not None and n == pn + 1 and (nn is None or nn > n):
+            extra.append(m)
+    return sorted(strict + extra, key=lambda m: m.start())
 CHAPTER_RE = re.compile(r"(?m)^[ \t]*(परिच्छेद|भाग)\s*[-–—]?\s*([०-९0-9]{1,3})")
 
 _mapper = None
@@ -434,7 +471,7 @@ def chunk_document(pages: list[str], is_legislation: bool) -> list[dict]:
 
     chunks: list[dict] = []
     if is_legislation:
-        matches = list(SECTION_RE.finditer(full))
+        matches = find_sections(full)
         # require a plausible, mostly increasing section sequence
         if len(matches) >= 3:
             chapter = None
@@ -450,7 +487,7 @@ def chunk_document(pages: list[str], is_legislation: bool) -> list[dict]:
                     if cs <= m.start():
                         chapter = ct
                 num = m.group("num").translate(DEV_DIGITS)
-                head = m.group("head").strip()
+                head = " ".join(re.sub("[\ue000-\uf8ff]", "", m.group("head")).split())
                 pieces = _windows(body, 1800, 200, base=bounds[i]) if len(body) > 2200 else [(body, bounds[i])]
                 for j, (piece, off) in enumerate(pieces):
                     chunks.append({

@@ -1,15 +1,15 @@
 {
-  "built_at": "2026-09-25T11:06:00Z",
+  "built_at": "2026-09-25T11:56:24Z",
   "counts": {
     "curated": 56,
-    "law_chunks": 44635,
+    "law_chunks": 47177,
     "precedents": 10554,
-    "total": 55245,
-    "law_documents": 789
+    "total": 57787,
+    "law_documents": 802
   },
   "files": [
     "part-000.jsonl.gz",
     "part-001.jsonl.gz"
   ],
-  "digest": "1d7acfdb7d29aa60"
+  "digest": "ceb6a969e6897f8e"
 }

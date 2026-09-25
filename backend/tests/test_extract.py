@@ -51,3 +51,19 @@ def test_simulated_bold_redraw_passes_are_dropped():
     assert [c[0] for c in drop_redraw_passes(redraw, 10)] == [ord("a"), ord("b"), ord("c")]
     two_lines = one_pass + [ch("d", 10, 120), ch("e", 15, 120)]
     assert len(drop_redraw_passes(two_lines, 10)) == 5
+
+
+def test_section_headings_with_amendment_marks_wraps_and_missing_dots():
+    from extract_laws import find_sections
+
+    text = (
+        "३६. मतियार हुन नहुनेः कुनै पाठ\nसजाय।\n"
+        "३७ हदम्याद लागू हुनेः यस संहितामा\n"                       # dot dropped
+        "३८. मृत्युकालीन घोषणाः कुनै\n"                      # amendment glyph
+        "३९. आणविक, रासायनिक, जैविक (जिवाणुयुक्त) हातहतियार\nगर्न नहुनेः (१) कसैले\n"  # wrapped
+        "(१) उपदफा (२) बमोजिमः\n"                                  # sub-clause, not a section
+        "४०. अन्तिम दफाः\n"
+        "२ सय रुपैयाँ जरिवाना हुनेः होइन\n"                         # out of sequence
+    )
+    nums = [m.group("num") for m in find_sections(text)]
+    assert nums == ["३६", "३७", "३८", "३९", "४०"]

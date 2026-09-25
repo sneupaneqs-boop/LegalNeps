@@ -33,10 +33,11 @@ decision. Questions can be in English, Nepali or romanised Nepali
 
 | Provider | Env vars | Notes |
 |---|---|---|
-| Any OpenAI-compatible gateway, e.g. **[OmniRoute](https://github.com/diegosouzapw/OmniRoute)** | `OPENAI_BASE_URL`, `OPENAI_API_KEY`, `OPENAI_MODELS` (default `auto`), `OPENAI_FAST_MODELS` (default `auto/fast`) | One endpoint that routes across all the providers you connect in OmniRoute, with fallback and quota tracking |
-| Google Gemini | `GEMINI_API_KEY`, optional `GEMINI_MODELS` / `GEMINI_FAST_MODELS` | Walks a chain of models; the free tier allows only ~20 requests/day per full "flash" model, lite models allow more |
+| Free-tier providers called directly (no gateway needed — this is what the hosted backend uses) | `GROQ_API_KEYS`, `GEMINI_API_KEYS`, `OPENROUTER_API_KEYS`, `COHERE_API_KEYS`, `MISTRAL_API_KEYS`, `CEREBRAS_API_KEYS` — each a comma-separated list of keys | The `OPENAI_MODELS` / `OPENAI_FAST_MODELS` chains (`provider/model`, strongest first) are walked in order; every key of a provider is tried (rotated) and rate-limited key+model pairs cool down, so more keys = more free capacity. Entries for providers without keys are skipped |
+| Any OpenAI-compatible gateway, e.g. **[OmniRoute](https://github.com/diegosouzapw/OmniRoute)** | `OPENAI_BASE_URL`, `OPENAI_API_KEY` | When set, the same chains go through the gateway instead of the direct APIs |
+| Google Gemini SDK | `GEMINI_API_KEY`, optional `GEMINI_MODELS` / `GEMINI_FAST_MODELS` | Fallback; the free tier allows only ~20 requests/day per full "flash" model, lite models allow more |
 | Anthropic | `ANTHROPIC_API_KEY`, `ANTHROPIC_MODEL` | |
-| Groq | `GROQ_API_KEY`, `GROQ_MODEL` | |
+| Groq SDK | `GROQ_API_KEY`, `GROQ_MODEL` | Last resort |
 
 ### Using OmniRoute for more free capacity
 
@@ -63,7 +64,7 @@ websites or reuse subscription logins) — don't enable those for a public app.
 cd backend
 python3 -m venv venv && source venv/bin/activate
 pip install -r requirements.txt
-cp .env.example .env   # add GEMINI_API_KEY and/or OPENAI_BASE_URL (OmniRoute) etc.
+cp .env.example .env   # add GROQ_API_KEYS / GEMINI_API_KEYS / ... (or OPENAI_BASE_URL for OmniRoute)
 uvicorn app.main:app --port 8000
 ```
 

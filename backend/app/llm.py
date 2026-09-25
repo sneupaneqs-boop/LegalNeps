@@ -3,9 +3,10 @@
 Providers are tried in order until one answers, each call bounded by a time
 budget so a slow or rate-limited provider can never leave the UI "thinking":
 
-1. OpenAI-compatible gateway (OPENAI_BASE_URL) - e.g. a self-hosted OmniRoute
-   (http://localhost:20128/v1) that fans out over many providers' free tiers
-   with its own fallback, or OpenRouter/Groq/any compatible API.
+1. OpenAI-compatible chat APIs, walking the "provider/model" chains in config:
+   through a gateway (OPENAI_BASE_URL, e.g. a self-hosted OmniRoute) when set,
+   else directly on Groq / Gemini / OpenRouter / Cohere / Mistral / Cerebras
+   with every configured key for each (rotated, cooled down per key+model).
 2. Gemini (GEMINI_API_KEY) - walks a chain of models; per-model cooldowns on
    429/503 because each model has its own (small, on free tier) quota.
 3. Anthropic, 4. Groq.
@@ -15,6 +16,7 @@ and the answer tier (stronger model, still cheapest that does the job).
 """
 from __future__ import annotations
 
+import itertools
 import json
 import logging
 import re
@@ -33,7 +35,11 @@ class LLMUnavailable(RuntimeError):
 
 
 def available() -> bool:
-    return bool(config.OPENAI_BASE_URL or config.GEMINI_API_KEY or config.ANTHROPIC_API_KEY or config.GROQ_API_KEY)
+    return bool(_compat_enabled() or config.GEMINI_API_KEY or config.ANTHROPIC_API_KEY or config.GROQ_API_KEY)
+
+
+def _compat_enabled() -> bool:
+    return bool(config.OPENAI_BASE_URL or config.DIRECT_PROVIDERS)
 
 
 _cooldown: dict[str, float] = {}  # "provider:model" -> unix time until which it's skipped
@@ -110,28 +116,71 @@ def _text_of(content) -> str:
     return ""
 
 
-def _openai_headers():
+class _Target(tuple):
+    """(base_url, api_key, model_id sent to the API, cooldown key)."""
+    base = property(lambda t: t[0])
+    key = property(lambda t: t[1])
+    model = property(lambda t: t[2])
+    cool = property(lambda t: t[3])
+
+
+_rotation = itertools.count()
+
+
+def _targets(models: list[str]) -> list[_Target]:
+    """Expand a "provider/model" chain into concrete endpoint+key+model calls:
+    everything via the gateway when one is configured, else each provider's
+    own API, rotating the starting key so load spreads over all keys."""
+    out: list[_Target] = []
+    for m in models:
+        if config.OPENAI_BASE_URL:
+            out.append(_Target((config.OPENAI_BASE_URL, config.OPENAI_API_KEY, m, f"openai:{m}")))
+            continue
+        prov, _, model = m.partition("/")
+        if prov not in config.DIRECT_PROVIDERS or not model:
+            continue
+        base, keys = config.DIRECT_PROVIDERS[prov]
+        start = next(_rotation) % len(keys)
+        for i in range(len(keys)):
+            k = keys[(start + i) % len(keys)]
+            out.append(_Target((base, k, model, f"{prov}:{k[-6:]}:{model}")))
+    now = time.time()
+    ready = [t for t in out if _cooldown.get(t.cool, 0) <= now and _cooldown.get(_model_key(t), 0) <= now]
+    return ready or out[-1:]  # everything cooling down: still try the last resort
+
+
+def _model_key(t: _Target) -> str:
+    return f"{t.base}|{t.model}"
+
+
+def _cool_target(t: _Target, msg: str):
+    _cool(t.cool, msg)
+    if "upstream" in msg:  # the model itself is saturated: other keys won't help
+        _cool(_model_key(t), msg)
+
+
+def _openai_headers(key: str):
     h = {"Content-Type": "application/json"}
-    if config.OPENAI_API_KEY:
-        h["Authorization"] = f"Bearer {config.OPENAI_API_KEY}"
+    if key:
+        h["Authorization"] = f"Bearer {key}"
     return h
 
 
 def _openai_complete(models, system, user, json_mode, max_tokens, temperature, deadline, fast=False) -> str:
     last = None
-    for model in _ready("openai", models):
+    for t in _targets(models):
         for _ in range(2):  # second pass only to retry without reasoning_effort
             left = deadline - time.time()
             if left < 2:
                 break
             try:
-                return _openai_call(model, system, user, json_mode, max_tokens, temperature, fast, left)
+                return _openai_call(t, system, user, json_mode, max_tokens, temperature, fast, left)
             except _RetryWithoutEffort:
                 continue
             except Exception as e:  # noqa: BLE001
                 last = e
-                log.warning("openai-compatible %s failed: %s", model, str(e)[:160])
-                _cool(f"openai:{model}", str(e))
+                log.warning("openai-compatible %s failed: %s", t.cool, str(e)[:160])
+                _cool_target(t, str(e))
                 break
     raise LLMUnavailable(str(last)[:300] if last else "openai-compatible: no time left")
 
@@ -140,11 +189,12 @@ class _RetryWithoutEffort(Exception):
     pass
 
 
-def _openai_call(model, system, user, json_mode, max_tokens, temperature, fast, left) -> str:
+def _openai_call(t, system, user, json_mode, max_tokens, temperature, fast, left) -> str:
+    model = t.model
     r = _client_http().post(
-        f"{config.OPENAI_BASE_URL.rstrip('/')}/chat/completions",
+        f"{t.base.rstrip('/')}/chat/completions",
         json=_openai_payload(model, system, user, json_mode, max_tokens, temperature, fast=fast),
-        headers=_openai_headers(), timeout=min(left, config.LLM_CALL_TIMEOUT_S),
+        headers=_openai_headers(t.key), timeout=min(left, config.LLM_CALL_TIMEOUT_S),
     )
     if r.status_code == 400 and "invalid" in r.text.lower() and _reasoning_effort(model) \
             and model not in _no_effort:
@@ -159,7 +209,8 @@ def _openai_call(model, system, user, json_mode, max_tokens, temperature, fast, 
 
 
 def _openai_stream(models, system, user, max_tokens, temperature, first_token_deadline):
-    for model in _ready("openai", models):
+    for t in _targets(models):
+        model = t.model
         left = first_token_deadline - time.time()
         if left < 2:
             return
@@ -173,9 +224,9 @@ def _openai_stream(models, system, user, max_tokens, temperature, first_token_de
             timeout = httpx.Timeout(config.LLM_TIMEOUT_S, connect=min(left, 10),
                                     read=min(left, config.MODEL_FIRST_TOKEN_S + 2))
             with _client_http().stream(
-                "POST", f"{config.OPENAI_BASE_URL.rstrip('/')}/chat/completions",
+                "POST", f"{t.base.rstrip('/')}/chat/completions",
                 json=_openai_payload(model, system, user, False, max_tokens, temperature, stream=True),
-                headers=_openai_headers(), timeout=timeout,
+                headers=_openai_headers(t.key), timeout=timeout,
             ) as r:
                 if r.status_code >= 400:
                     err = r.read()[:300]
@@ -199,13 +250,13 @@ def _openai_stream(models, system, user, max_tokens, temperature, first_token_de
                         yield delta
             if emitted:
                 return
-            log.warning("openai-compatible stream %s ended without text", model)
-            _cool(f"openai:{model}", "empty")
+            log.warning("openai-compatible stream %s ended without text", t.cool)
+            _cool_target(t, "empty")
         except Exception as e:  # noqa: BLE001
             if emitted:
                 raise
-            log.warning("openai-compatible stream %s failed: %s", model, str(e)[:160])
-            _cool(f"openai:{model}", str(e))
+            log.warning("openai-compatible stream %s failed: %s", t.cool, str(e)[:160])
+            _cool_target(t, str(e))
 
 
 # ---------------------------------------------------------------- Gemini
@@ -340,12 +391,12 @@ def complete(system: str, user: str, *, fast: bool = False, json_mode: bool = Fa
     deadline = time.time() + budget
     errors = []
     attempts = []
-    if config.OPENAI_BASE_URL:
-        models = config.OPENAI_FAST_MODELS if fast else config.OPENAI_MODELS
-        attempts.append(("openai", lambda: _openai_complete(models, system, user, json_mode, max_tokens, temperature, deadline, fast)))
+    if _compat_enabled():
+        chain = config.OPENAI_FAST_MODELS if fast else config.OPENAI_MODELS
+        attempts.append(("openai", lambda: _openai_complete(chain, system, user, json_mode, max_tokens, temperature, deadline, fast)))
     if config.GEMINI_API_KEY:
-        models = config.GEMINI_FAST_MODELS if fast else config.GEMINI_MODELS
-        attempts.append(("gemini", lambda: _gemini_complete(models, system, user, json_mode, max_tokens, temperature, deadline)))
+        gchain = config.GEMINI_FAST_MODELS if fast else config.GEMINI_MODELS
+        attempts.append(("gemini", lambda: _gemini_complete(gchain, system, user, json_mode, max_tokens, temperature, deadline)))
     if config.ANTHROPIC_API_KEY:
         attempts.append(("anthropic", lambda: _anthropic_complete(system, user, max_tokens, temperature, deadline)))
     if config.GROQ_API_KEY:
@@ -366,7 +417,7 @@ def stream(system: str, user: str, *, max_tokens: int = 1800, temperature: float
     before it has emitted anything; if none starts within the first-token
     budget, raise LLMUnavailable so the caller can answer extractively."""
     first_token_deadline = time.time() + config.FIRST_TOKEN_BUDGET_S
-    if config.OPENAI_BASE_URL:
+    if _compat_enabled():
         emitted = False
         for piece in _openai_stream(config.OPENAI_MODELS, system, user, max_tokens, temperature, first_token_deadline):
             emitted = True
@@ -394,7 +445,8 @@ def parse_json(text: str) -> dict:
     try:
         return json.loads(text)
     except json.JSONDecodeError:
-        m = re.search(r"\{.*\}", text, flags=re.S)
-        if m:
-            return json.loads(m.group(0))
-        raise
+        start = text.find("{")
+        if start < 0:
+            raise
+        # first complete object; ignores prose or a second object after it
+        return json.JSONDecoder().raw_decode(text[start:])[0]
