@@ -143,6 +143,10 @@ class PlaybookLimitation(BaseModel):
     provision: Optional[ResolvedProvision] = None
 
 
+class PlaybookMatchResponse(BaseModel):
+    playbook_id: Optional[str] = None
+
+
 class Playbook(BaseModel):
     id: str
     area: Optional[str] = None

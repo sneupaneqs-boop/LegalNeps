@@ -1,0 +1,56 @@
+id: bonus_not_paid
+area: employment
+keywords:
+  - "बोनस पाएन"
+  - "बोनस नपाएको"
+  - "bonus not paid"
+  - "annual bonus"
+issue:
+  en: "My employer hasn't paid the bonus I'm entitled to"
+  ne: "मैले पाउनुपर्ने बोनस मेरो रोजगारदाताले दिएको छैन"
+fact_questions:
+  - en: "Did your employer's business make a profit this fiscal year?"
+    ne: "यस आर्थिक वर्षमा तपाईंको रोजगारदाताको व्यवसायले नाफा कमायो?"
+  - en: "How long have you worked there, and were you employed for the whole fiscal year?"
+    ne: "तपाईं कति समयदेखि काम गर्नुभएको छ, र पूरा आर्थिक वर्ष कार्यरत हुनुभयो?"
+  - en: "Have coworkers in a similar position received their bonus?"
+    ne: "समान पदका सहकर्मीले बोनस पाएका छन्?"
+provisions:
+  - law_title_ne: "बोनस ऐन, २०३०"
+    section: "6"
+    note:
+      en: "This section sets out the conditions under which a worker becomes entitled to a bonus."
+      ne: "श्रमिकले बोनस पाउने अवस्था यस दफाले तोकेको छ।"
+  - law_title_ne: "बोनस ऐन, २०३०"
+    section: "9"
+    note:
+      en: "The type of bonus and the period within which it must be distributed are specified here."
+      ne: "बोनसको किसिम र त्यो वितरण गर्नुपर्ने अवधि यस दफामा तोकिएको छ।"
+  - law_title_ne: "बोनस ऐन, २०३०"
+    section: "16"
+    note:
+      en: "Disputes about bonus entitlement have their own resolution procedure under this Act."
+      ne: "बोनससम्बन्धी विवादको समाधानका लागि यस ऐनमा छुट्टै व्यवस्था छ।"
+evidence:
+  - en: "Appointment letter and salary slips"
+    ne: "नियुक्तिपत्र र तलब पर्ची"
+  - en: "Any company notice or financial statement about profit/bonus"
+    ne: "नाफा/बोनसबारे कम्पनीको सूचना वा वित्तीय विवरण, यदि उपलब्ध छ भने"
+  - en: "Evidence coworkers received a bonus, if you have it"
+    ne: "सहकर्मीले बोनस पाएको प्रमाण, यदि छ भने"
+forum:
+  en: "The Labour Office for your district."
+  ne: "आफ्नो जिल्लाको श्रम कार्यालय।"
+limitation:
+  note:
+    en: "Act promptly once the distribution period has passed without payment — the same general labour-complaint window (6 months) applies to most employment disputes."
+    ne: "वितरण अवधि नाघेपछि पनि भुक्तानी नभए चाँडो कारबाही गर्नुहोस् — अधिकांश रोजगार विवादमा सामान्य ६ महिनाको म्याद लागू हुन्छ।"
+  provision:
+    law_title_ne: "श्रम ऐन, २०७४"
+    section: "162"
+next_steps:
+  - en: "Ask your employer in writing for the status of your bonus."
+    ne: "आफ्नो बोनसको स्थितिबारे रोजगारदातालाई लिखित रूपमा सोध्नुहोस्।"
+  - en: "If refused or ignored, file a complaint at the Labour Office."
+    ne: "इन्कार वा बेवास्ता गरे श्रम कार्यालयमा उजुरी दिनुहोस्।"
+template_link: null

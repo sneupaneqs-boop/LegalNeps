@@ -6,9 +6,10 @@ kickoff prompt.
 
 ## Next session
 
-**S7 — +17 playbooks + matcher.** See STRATEGY.md §4, week 2 table: route a
-query to a playbook without an LLM (keywords + glossary), matcher precision
-≥90% on 60 labelled queries, 25 playbooks total (17 more beyond S6's 8).
+**S8 — Calculators.** See STRATEGY.md §4, week 2 table: BS↔AD date
+converter, limitation-period checker, court fee calculator, labour
+gratuity/notice/severance calculator (श्रम ऐन, २०७४), each result showing
+the statute section it's based on. Table-driven tests per calculator.
 
 **Still outstanding from S5** (not this session's job, just don't forget
 it): give the user the exact steps to (a) set `SUPABASE_SERVICE_ROLE_KEY` on
@@ -16,7 +17,78 @@ the backend deploy and `NEXT_PUBLIC_SUPABASE_URL`/`NEXT_PUBLIC_SUPABASE_ANON_KEY
 on the frontend deploy, and (b) do one real signed-in test of save-research
 end to end, since S5 could only verify the pieces individually.
 
+**Still outstanding from S7** (not blocking, just don't forget it): the
+matcher is built and exposed at `GET /api/playbooks/match?q=...` but is not
+yet wired into the frontend chat flow or `generation.py`'s LLM pipeline —
+STRATEGY's architecture diagram shows a confident match short-circuiting
+straight to an Action Plan with zero API calls, which the frontend doesn't
+do yet. Left for whichever session next touches the chat UI/pipeline, since
+S7's own "done when" bar (25 playbooks, ≥90% precision) doesn't require it.
+
 ## Done
+
+### S7 — +17 playbooks + matcher (2026-09-26)
+
+- **17 new playbooks** (`app/data/playbooks/*.yaml`), bringing the total to
+  25: wrongful_termination, workplace_sexual_harassment, bonus_not_paid,
+  foreign_employment_fraud, tenant_eviction_without_notice,
+  land_boundary_dispute, unpaid_personal_loan,
+  traffic_accident_compensation, defamation, theft_complaint,
+  physical_assault, child_custody, maintenance_alimony,
+  child_marriage_protection, citizenship_by_descent,
+  right_to_information_request, fir_not_registered. Same research-before-
+  writing discipline as S6: every provision was found with `idx.search()`
+  and confirmed with `idx.section(doc_slug(title), section)` against the
+  real 57,787-passage corpus before being cited, not written from training-
+  data memory. Two near-miss citations were caught and corrected this way
+  before being finalized: `tenant_eviction_without_notice`'s मुलुकी देवानी
+  संहिता दफा 404 note was originally too generic (rewrote it to state the
+  actual narrow ground the law allows: a tenant vanishing 3+ months without
+  paying rent — not "landlord wants tenant out"), and
+  `land_boundary_dispute` initially considered भूमि सम्बन्धी ऐन दफा 14क until
+  reading its full text showed it's about landholding-ceiling violations,
+  not boundaries — dropped in favour of जग्गा (नाप जाँच) ऐन दफा 5/8.
+- **Matcher** (`app/playbook_matcher.py`, new): routes a free-text query to
+  a playbook id without any LLM call. Each of the 25 playbooks got a hand-
+  written `keywords` list (Nepali + English + romanised trigger phrases,
+  inserted into every YAML right after `area:`). Scoring is plain token/
+  substring overlap — a keyword contributes its word-count as weight, scaled
+  by what fraction of the keyword's own words showed up in the query (so a
+  multi-word phrase can match partially instead of all-or-nothing), and an
+  English/romanised query is first widened through S3's `glossary.expand()`
+  so it can still hit a playbook's Nepali-only keywords. `match()` returns a
+  playbook id only when the top score clears an absolute floor *and* beats
+  the runner-up by a margin — ambiguous or off-topic queries return `None`
+  rather than a wrong guess.
+- **Precision measured, not assumed**: `tests/test_playbook_matcher.py`
+  ships a 65-query labelled set (62 positive across all 25 playbooks, mixing
+  Nepali/English/romanised phrasing, 3 clearly-unrelated negatives),
+  written independently of keyword-tuning. Actual result:
+  **95.16% precision** (59/62) against STRATEGY's ≥90% bar, plus 100% on
+  rejecting the 3 unrelated queries and an empty-query guard.
+- **API**: new `GET /api/playbooks/match?q=...` endpoint
+  (`app/routes/chat.py`) returns `{"playbook_id": "..."|null}`, exercised in
+  `tests/test_playbooks.py`'s existing real-corpus API test alongside the
+  pre-existing `/api/playbooks` endpoints. Not yet wired into the frontend
+  or into `generation.py`'s LLM pipeline as a short-circuit — see "Next
+  session" above.
+- **Verification**: `tests/test_playbooks.py`'s `EXPECTED_IDS` and citation-
+  integrity assertions extended from 8 to all 25 playbooks —
+  `test_every_cited_provision_resolves_in_the_real_corpus` passed with 0
+  `UnresolvedProvision` errors on the first run across all 25×~2-3
+  provisions each. Full backend suite: **107 passed** (was 103 before this
+  session; +4 matcher tests, existing API test extended). Frontend
+  `npm run build` re-run clean (no frontend changes this session, so this
+  just confirms no regression).
+- **Bug caught mid-session, not shipped**: the first attempt at inserting
+  `keywords` into the 25 YAML files via a Python script silently did
+  nothing — the script's `pathlib.Path(".").glob("*.yaml")` was run from
+  `backend/` instead of `backend/app/data/playbooks/`, so the glob matched
+  zero files and the script exited with no output and no error. Caught via
+  `grep -c "^keywords:" app/data/playbooks/*.yaml` returning 0 despite the
+  script appearing to succeed — fixed by pointing the glob at the correct
+  directory and re-running; verified with the same grep plus a
+  `yaml.safe_load` pass over all 25 files afterward.
 
 ### S6 — Action Plan engine (2026-09-26)
 

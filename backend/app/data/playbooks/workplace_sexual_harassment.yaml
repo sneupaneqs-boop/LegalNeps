@@ -1,0 +1,58 @@
+id: workplace_sexual_harassment
+area: employment
+keywords:
+  - "कार्यस्थलमा यौन दुर्व्यवहार"
+  - "workplace sexual harassment"
+  - "boss harassing me"
+  - "अफिसमा दुर्व्यवहार"
+issue:
+  en: "I am being sexually harassed at my workplace"
+  ne: "मलाई कार्यस्थलमा यौनजन्य दुर्व्यवहार भइरहेको छ"
+fact_questions:
+  - en: "Who is harassing you — a colleague, supervisor, or someone else at work?"
+    ne: "दुर्व्यवहार गर्ने व्यक्ति को हो — सहकर्मी, माथिल्लो अधिकारी, वा कार्यस्थलको अन्य कोही?"
+  - en: "Is this a one-time incident or ongoing, and can you describe specific incidents with dates?"
+    ne: "यो एकपटकको घटना हो वा निरन्तर छ? मिति सहित विशेष घटना बताउन सक्नुहुन्छ?"
+  - en: "Has your employer/organization been informed already?"
+    ne: "तपाईंको रोजगारदाता/संस्थालाई पहिले नै जानकारी गराइएको छ?"
+  - en: "Do you want to stay employed there, or are you also considering leaving?"
+    ne: "तपाईं त्यहीं काम गरिरहन चाहनुहुन्छ, वा छोड्ने पनि सोच्दै हुनुहुन्छ?"
+provisions:
+  - law_title_ne: "कार्यस्थलमा हुने यौनजन्य दुर्व्यवहार ( निवारण) ऐन, २०७१"
+    section: "5"
+    note:
+      en: "Every workplace manager has a duty to prevent sexual harassment and to take action when it's reported."
+      ne: "हरेक कार्यस्थलका व्यवस्थापकको यौनजन्य दुर्व्यवहार रोक्ने र उजुरी परेमा कारबाही गर्ने दायित्व हुन्छ।"
+  - law_title_ne: "कार्यस्थलमा हुने यौनजन्य दुर्व्यवहार ( निवारण) ऐन, २०७१"
+    section: "7"
+    note:
+      en: "A victim can file a complaint with the workplace itself, or with the police or another designated authority."
+      ne: "पीडितले कार्यस्थल, प्रहरी, वा अन्य तोकिएको निकायमा उजूरी दिन सक्छ।"
+  - law_title_ne: "कार्यस्थलमा हुने यौनजन्य दुर्व्यवहार ( निवारण) ऐन, २०७१"
+    section: "15"
+    note:
+      en: "The complaint must be investigated and heard through a defined procedure."
+      ne: "उजूरी तोकिएको कार्यविधि अनुसार जाँचबुझ र सुनुवाई हुनुपर्छ।"
+evidence:
+  - en: "Messages, emails, or notes documenting incidents with dates and times"
+    ne: "मिति र समयसहित घटना उल्लेख भएको म्यासेज, इमेल, वा नोट"
+  - en: "Names of any witnesses"
+    ne: "साक्षीहरूको नाम"
+  - en: "Any prior complaint you made to the employer and their response"
+    ne: "रोजगारदातालाई पहिले गरेको उजुरी र निजको जवाफ, यदि छ भने"
+forum:
+  en: "Your workplace's internal complaint mechanism (if one exists), the police, or the Labour Office."
+  ne: "कार्यस्थलको आन्तरिक उजुरी संयन्त्र (भए), प्रहरी, वा श्रम कार्यालय।"
+limitation:
+  note:
+    en: "Report as soon as you can — evidence and witness memory fade with time, and different forums may have their own deadlines."
+    ne: "सकेसम्म चाँडो उजुरी दिनुहोस् — समयसँगै प्रमाण र साक्षीको सम्झना कमजोर हुन्छ, र फरक निकायको आफ्नै म्याद हुन सक्छ।"
+  provision: null
+next_steps:
+  - en: "Write down what happened as soon as possible, with dates, times, and any witnesses."
+    ne: "के भयो भन्ने कुरा मिति, समय, र साक्षीसहित सकेसम्म चाँडो लेखेर राख्नुहोस्।"
+  - en: "Report to your workplace's designated complaint officer or management, in writing if possible."
+    ne: "सकेसम्म लिखित रूपमा कार्यस्थलको तोकिएको उजुरी अधिकारी वा व्यवस्थापनलाई जानकारी दिनुहोस्।"
+  - en: "If the workplace doesn't act, or you don't feel safe reporting there, go to the police."
+    ne: "कार्यस्थलले कारबाही नगरे, वा त्यहाँ उजुरी दिन सुरक्षित महसुस नभए, प्रहरीमा जानुहोस्।"
+template_link: null

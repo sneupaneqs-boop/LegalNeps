@@ -1,5 +1,11 @@
 id: unpaid_salary
 area: employment
+keywords:
+  - "तलब"
+  - "पारिश्रमिक नपाएको"
+  - "salary not paid"
+  - "unpaid wages"
+  - "talab payekoina"
 issue:
   en: "My employer hasn't paid my salary"
   ne: "मेरो रोजगारदाताले तलब वा पारिश्रमिक दिएको छैन"

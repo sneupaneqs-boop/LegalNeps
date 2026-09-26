@@ -9,9 +9,10 @@ from starlette.concurrency import iterate_in_threadpool
 
 from .. import playbooks, supa
 from ..generation import answer_question, stream_answer
+from ..playbook_matcher import match as match_playbook
 from ..retrieval import corpus_stats, doc_slug, get_index
-from ..schemas import (ChatRequest, ChatResponse, LawDoc, LawSection, Playbook, PlaybookSummary,
-                        SavedResearchIn, SavedResearchOut, SearchResponse, Source)
+from ..schemas import (ChatRequest, ChatResponse, LawDoc, LawSection, Playbook, PlaybookMatchResponse,
+                        PlaybookSummary, SavedResearchIn, SavedResearchOut, SearchResponse, Source)
 
 router = APIRouter()
 reqlog = logging.getLogger("kanooni.request")
@@ -197,6 +198,15 @@ async def delete_research(research_id: str, user: dict = Depends(_require_user))
 async def list_playbooks() -> list[PlaybookSummary]:
     rows = await asyncio.to_thread(playbooks.list_playbooks)
     return [PlaybookSummary(**r) for r in rows]
+
+
+@router.get("/playbooks/match", response_model=PlaybookMatchResponse)
+async def match_playbooks(q: str = Query(..., min_length=1)) -> PlaybookMatchResponse:
+    """Non-LLM keyword+glossary routing (S7): a confident hit lets the UI
+    jump straight to an Action Plan without any LLM call; None means fall
+    back to the normal chat/search flow."""
+    playbook_id = await asyncio.to_thread(match_playbook, q)
+    return PlaybookMatchResponse(playbook_id=playbook_id)
 
 
 @router.get("/playbooks/{playbook_id}", response_model=Playbook)

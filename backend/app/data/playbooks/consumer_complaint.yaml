@@ -1,5 +1,11 @@
 id: consumer_complaint
 area: consumer
+keywords:
+  - "उपभोक्ता गुनासो"
+  - "बिग्रेको सामान"
+  - "defective product"
+  - "consumer complaint"
+  - "पसलले ठग्यो"
 issue:
   en: "I bought a defective product or was cheated as a consumer"
   ne: "मैले किनेको सामान बिग्रेको छ वा उपभोक्ताको रूपमा ठगिएँ"

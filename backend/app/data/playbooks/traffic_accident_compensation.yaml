@@ -1,0 +1,52 @@
+id: traffic_accident_compensation
+area: accident
+keywords:
+  - "सवारी दुर्घटना क्षतिपूर्ति"
+  - "traffic accident compensation"
+  - "गाडी दुर्घटना"
+issue:
+  en: "I was injured (or my property was damaged) in a traffic accident and want compensation"
+  ne: "सवारी दुर्घटनामा मलाई चोट लाग्यो (वा सम्पत्तिको क्षति भयो) र मलाई क्षतिपूर्ति चाहिन्छ"
+fact_questions:
+  - en: "Was a police report (मुचुल्का) made at the scene?"
+    ne: "घटनास्थलमा प्रहरी प्रतिवेदन (मुचुल्का) बनेको थियो?"
+  - en: "Do you know the vehicle and driver responsible, and are they insured?"
+    ne: "जिम्मेवार सवारी र चालक थाहा छ, र त्यसको बीमा छ?"
+  - en: "What losses did you suffer — medical costs, lost income, property damage?"
+    ne: "तपाईंलाई के हानि भयो — औषधि उपचार खर्च, गुमेको आम्दानी, सम्पत्ति क्षति?"
+provisions:
+  - law_title_ne: "सवारी तथा यातायात व्यवस्था ऐन, २०४९"
+    section: "163"
+    note:
+      en: "A person harmed in a traffic accident is entitled to have the driver, vehicle owner, or operator pay for treatment costs, funeral costs (if applicable), and compensation."
+      ne: "सवारी दुर्घटनाबाट हानि नोक्सानी भएको व्यक्तिले चालक, सवारी धनी, वा व्यवस्थापकबाट उपचार खर्च, क्रिया खर्च (लागू भए), र क्षतिपूर्ति पाउने हक हुन्छ।"
+  - law_title_ne: "सवारी तथा यातायात व्यवस्था ऐन, २०४९"
+    section: "152"
+    note:
+      en: "Third-party insurance is required for vehicles, which is what typically pays compensation to someone injured by that vehicle."
+      ne: "सवारीको तेस्रो पक्ष बीमा अनिवार्य हुन्छ, जसबाट सामान्यतया त्यो सवारीबाट घाइते भएको व्यक्तिलाई क्षतिपूर्ति भुक्तानी हुन्छ।"
+evidence:
+  - en: "Police report (मुचुल्का) of the accident"
+    ne: "दुर्घटनाको प्रहरी मुचुल्का"
+  - en: "Medical reports and receipts for treatment"
+    ne: "उपचारको मेडिकल रिपोर्ट र रसिद"
+  - en: "Photos of the accident scene, vehicle damage, and injuries"
+    ne: "दुर्घटनास्थल, सवारी क्षति, र चोटपटकको फोटो"
+  - en: "The responsible vehicle's registration and insurance details, if available"
+    ne: "जिम्मेवार सवारीको दर्ता र बीमा विवरण, उपलब्ध भए"
+forum:
+  en: "Report to the Traffic Police immediately; compensation claims are typically pursued through the vehicle's insurer, with the District Court available if a claim is refused."
+  ne: "तुरुन्तै ट्राफिक प्रहरीलाई खबर गर्नुहोस्; क्षतिपूर्तिको दाबी सामान्यतया सवारीको बीमा कम्पनीमार्फत गरिन्छ, दाबी अस्वीकार भए जिल्ला अदालत जान सकिन्छ।"
+limitation:
+  note:
+    en: "Report to police and start your insurance claim as soon as possible after the accident — delays can weaken both evidence and your claim."
+    ne: "दुर्घटनापछि सकेसम्म चाँडो प्रहरीलाई खबर गरी बीमा दाबी सुरु गर्नुहोस् — ढिलाइले प्रमाण र दाबी दुवै कमजोर बनाउन सक्छ।"
+  provision: null
+next_steps:
+  - en: "Seek medical treatment first and keep all records."
+    ne: "पहिले उपचार गराउनुहोस् र सबै रेकर्ड राख्नुहोस्।"
+  - en: "Ensure a police report is filed if it wasn't already."
+    ne: "पहिले नै नभए प्रहरी प्रतिवेदन बनेको सुनिश्चित गर्नुहोस्।"
+  - en: "Contact the responsible vehicle's insurer with your evidence to start a compensation claim."
+    ne: "क्षतिपूर्ति दाबी सुरु गर्न प्रमाणसहित जिम्मेवार सवारीको बीमा कम्पनीलाई सम्पर्क गर्नुहोस्।"
+template_link: null

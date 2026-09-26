@@ -11,13 +11,19 @@ requires_corpus = pytest.mark.skipif(
     not (CORPUS_DIR / "manifest.json").exists(), reason="built corpus shards not present"
 )
 
+# S6 (first 8) + S7 (17 more)
 EXPECTED_IDS = {
     "unpaid_salary", "deposit_not_returned", "domestic_violence", "divorce",
     "cheque_bounce", "inheritance_share", "consumer_complaint", "cyber_harassment",
+    "wrongful_termination", "workplace_sexual_harassment", "bonus_not_paid",
+    "foreign_employment_fraud", "tenant_eviction_without_notice", "land_boundary_dispute",
+    "unpaid_personal_loan", "traffic_accident_compensation", "defamation", "theft_complaint",
+    "physical_assault", "child_custody", "maintenance_alimony", "child_marriage_protection",
+    "citizenship_by_descent", "right_to_information_request", "fir_not_registered",
 }
 
 
-def test_eight_playbooks_exist():
+def test_twentyfive_playbooks_exist():
     ids = {p["id"] for p in playbooks.list_playbooks()}
     assert ids == EXPECTED_IDS
 
@@ -25,10 +31,10 @@ def test_eight_playbooks_exist():
 @requires_corpus
 def test_every_cited_provision_resolves_in_the_real_corpus():
     # raises UnresolvedProvision on the first bad citation - a hard failure,
-    # not a soft warning, per S6's "done when": no playbook may cite a
+    # not a soft warning, per S6/S7's "done when": no playbook may cite a
     # provision the corpus doesn't have.
     resolved = playbooks.all_playbooks_resolved()
-    assert len(resolved) == 8
+    assert len(resolved) == 25
     for pb in resolved:
         assert pb["provisions"], f"{pb['id']} cites no provisions at all"
         for p in pb["provisions"]:
@@ -83,3 +89,11 @@ def test_playbook_api_endpoints():
         assert any(p["section"] == "162" for p in body["provisions"])
 
         assert c.get("/api/playbooks/does-not-exist").status_code == 404
+
+        r = c.get("/api/playbooks/match", params={"q": "तलब पाएको छैन तीन महिनादेखि"})
+        assert r.status_code == 200
+        assert r.json()["playbook_id"] == "unpaid_salary"
+
+        r = c.get("/api/playbooks/match", params={"q": "आजको मौसम कस्तो छ"})
+        assert r.status_code == 200
+        assert r.json()["playbook_id"] is None

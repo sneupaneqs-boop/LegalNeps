@@ -1,0 +1,51 @@
+id: physical_assault
+area: criminal
+keywords:
+  - "कुटपिट गर्यो"
+  - "physical assault"
+  - "someone beat me up"
+  - "मलाई कुट्यो"
+issue:
+  en: "Someone physically assaulted me"
+  ne: "कसैले मलाई शारीरिक आक्रमण/कुटपिट गर्यो"
+fact_questions:
+  - en: "When and where did this happen, and do you know who did it?"
+    ne: "यो कहिले र कहाँ भयो, र गर्ने व्यक्ति को हो थाहा छ?"
+  - en: "Were you injured? Have you seen a doctor?"
+    ne: "तपाईंलाई चोट लाग्यो? डाक्टरलाई देखाउनुभयो?"
+  - en: "Were there any witnesses?"
+    ne: "कुनै साक्षी थिए?"
+provisions:
+  - law_title_ne: "मुलुकी अपराध संहिता, २०७४"
+    section: "191"
+    note:
+      en: "No one may assault another person — causing physical pain, spreading disease, or otherwise causing incapacity all count as assault under this law."
+      ne: "कसैले पनि अर्कोलाई कुटपिट गर्न पाउँदैन — शारीरिक पीडा पुर्‍याउनु, रोग सार्नु, वा अशक्त बनाउनु समेत यस कानून अन्तर्गत कुटपिट मानिन्छ।"
+  - law_title_ne: "मुलुकी फौजदारी कार्यविधि संहिता, २०७४"
+    section: "4 (1)"
+    note:
+      en: "You (or anyone who knows about it) can file a written, oral, or electronic report (जाहेरी) with the police."
+      ne: "तपाईं (वा थाहा पाउने जुनसुकै व्यक्ति) ले प्रहरीमा लिखित, मौखिक, वा विद्युतीय माध्यमबाट जाहेरी दिन सक्नुहुन्छ।"
+evidence:
+  - en: "Medical report documenting your injuries"
+    ne: "चोटपटक उल्लेख भएको मेडिकल रिपोर्ट"
+  - en: "Photos of injuries"
+    ne: "चोटपटकको फोटो"
+  - en: "Witness names and contact information"
+    ne: "साक्षीको नाम र सम्पर्क विवरण"
+forum:
+  en: "Your nearest Police Office."
+  ne: "नजिकैको प्रहरी कार्यालय।"
+limitation:
+  note:
+    en: "Get medical attention and report to police as soon as possible — a timely medical report is important evidence, and criminal complaints generally have their own time limits."
+    ne: "सकेसम्म चाँडो उपचार गराई प्रहरीलाई खबर गर्नुहोस् — समयमै बनेको मेडिकल रिपोर्ट महत्वपूर्ण प्रमाण हो, र फौजदारी उजुरीको सामान्यतया आफ्नै हदम्याद हुन्छ।"
+  provision: null
+next_steps:
+  - en: "Seek medical care immediately and keep the report."
+    ne: "तुरुन्तै उपचार गराई रिपोर्ट सुरक्षित राख्नुहोस्।"
+  - en: "Take photos of any visible injuries."
+    ne: "देखिने चोटपटकको फोटो खिच्नुहोस्।"
+  - en: "File a report (जाहेरी) with the police as soon as possible."
+    ne: "सकेसम्म चाँडो प्रहरीमा जाहेरी दिनुहोस्।"
+template_link: null

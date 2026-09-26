@@ -1,0 +1,51 @@
+id: citizenship_by_descent
+area: civil
+keywords:
+  - "नागरिकता वंशज"
+  - "citizenship by descent"
+  - "आमाको नामबाट नागरिकता"
+  - "child's citizenship"
+issue:
+  en: "I want to get citizenship (or citizenship for my child) by descent"
+  ne: "मलाई (वा मेरो सन्तानलाई) वंशजको आधारमा नागरिकता चाहिन्छ"
+fact_questions:
+  - en: "Is the mother, the father, or both Nepali citizens?"
+    ne: "आमा, बाबु, वा दुवै नेपाली नागरिक हुनुहुन्छ?"
+  - en: "Where was the child born — in Nepal or abroad?"
+    ne: "सन्तानको जन्म कहाँ भयो — नेपालमा वा विदेशमा?"
+  - en: "Do you have the parents' citizenship certificates and the child's birth registration?"
+    ne: "तपाईंसँग अभिभावकको नागरिकता प्रमाणपत्र र सन्तानको जन्म दर्ता छ?"
+provisions:
+  - law_title_ne: "नेपालको संविधान"
+    section: "11"
+    note:
+      en: "A person becomes a Nepali citizen by descent under the conditions set out in the Constitution and the Citizenship Act."
+      ne: "संविधान र नागरिकता ऐनमा तोकिएको सर्त अनुसार व्यक्ति वंशजको आधारमा नेपाली नागरिक हुन्छ।"
+  - law_title_ne: "नेपाल नागरिकता ऐन, २०६३"
+    section: "3 (1)"
+    note:
+      en: "A person whose mother or father was a Nepali citizen at the time of the person's birth acquires Nepali citizenship by descent."
+      ne: "व्यक्तिको जन्मको समयमा आमा वा बाबु नेपाली नागरिक भएमा, त्यस्तो व्यक्तिले वंशजको आधारमा नेपाली नागरिकता प्राप्त गर्छ।"
+evidence:
+  - en: "Parents' citizenship certificates"
+    ne: "अभिभावकको नागरिकता प्रमाणपत्र"
+  - en: "Child's birth registration certificate"
+    ne: "सन्तानको जन्म दर्ता प्रमाणपत्र"
+  - en: "Marriage certificate of the parents, if applicable"
+    ne: "अभिभावकको विवाह दर्ता प्रमाणपत्र, लागू भए"
+forum:
+  en: "The District Administration Office (जिल्ला प्रशासन कार्यालय) in the applicant's district, which issues citizenship certificates."
+  ne: "आवेदकको जिल्लाको जिल्ला प्रशासन कार्यालय, जसले नागरिकता प्रमाणपत्र जारी गर्छ।"
+limitation:
+  note:
+    en: "There's no deadline to apply for citizenship, but obtaining it early makes access to education, banking, travel, and other services much easier."
+    ne: "नागरिकताको लागि निवेदन दिने निश्चित म्याद छैन, तर चाँडै प्राप्त गर्दा शिक्षा, बैंकिङ, यात्रा, र अन्य सेवामा पहुँच सजिलो हुन्छ।"
+  provision: null
+next_steps:
+  - en: "Gather the parents' citizenship certificates and the applicant's birth registration."
+    ne: "अभिभावकको नागरिकता प्रमाणपत्र र आवेदकको जन्म दर्ता जम्मा गर्नुहोस्।"
+  - en: "Submit an application at the District Administration Office of the applicant's district."
+    ne: "आवेदकको जिल्लाको जिल्ला प्रशासन कार्यालयमा निवेदन दिनुहोस्।"
+  - en: "If the application is refused, ask for the reason in writing and consult an advocate about next steps."
+    ne: "निवेदन अस्वीकृत भए लिखित कारण माग्नुहोस् र अर्को कदमका लागि वकिलसँग सल्लाह लिनुहोस्।"
+template_link: null

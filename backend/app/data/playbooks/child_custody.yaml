@@ -1,0 +1,55 @@
+id: child_custody
+area: family
+keywords:
+  - "सन्तान संरक्षण"
+  - "छोराछोरी कसले राख्ने"
+  - "child custody"
+issue:
+  en: "I need to sort out custody of my children after separation/divorce"
+  ne: "छुट्टिएपछि/सम्बन्ध विच्छेदपछि मलाई सन्तानको संरक्षणको व्यवस्था मिलाउनु छ"
+fact_questions:
+  - en: "How old is/are your child(ren)?"
+    ne: "तपाईंको सन्तान(हरू) कति उमेरको हो?"
+  - en: "Have you and the other parent already separated or divorced, or is that still in progress?"
+    ne: "तपाईं र अर्को अभिभावक पहिले नै छुट्टिनुभयो वा सम्बन्ध विच्छेद भयो, वा अझै प्रक्रियामा छ?"
+  - en: "Is there any agreement (even informal) about where the child lives?"
+    ne: "सन्तान कहाँ बस्ने भन्नेबारे कुनै सहमति (अनौपचारिक भए पनि) छ?"
+provisions:
+  - law_title_ne: "मुलुकी देवानी संहिता, २०७४"
+    section: "115"
+    note:
+      en: "When a marriage ends, the law sets out which parent a child under a certain age stays with — a child under 5 generally stays with the mother unless specific exceptions apply."
+      ne: "वैवाहिक सम्बन्ध अन्त्य भएपछि सन्तान कुन अभिभावकको जिम्मामा रहने भन्ने कानूनले तोकेको छ — ५ वर्षमुनिको नाबालक विशेष अपवाद बाहेक सामान्यतया आमाको जिम्मामा रहन्छ।"
+  - law_title_ne: "मुलुकी देवानी संहिता, २०७४"
+    section: "116"
+    note:
+      en: "The parent who has custody must properly care for and look after the child."
+      ne: "जिम्मा लिएको अभिभावकले सन्तानको उचित हेरचाह र स्याहार सम्भार गर्नुपर्छ।"
+  - law_title_ne: "मुलुकी देवानी संहिता, २०७४"
+    section: "117"
+    note:
+      en: "The parent who doesn't have custody is entitled to visitation — periodic meetings with the child, or the child staying with them for a period with the other parent's agreement."
+      ne: "जिम्मा नपाएको अभिभावकले भेटघाटको सुविधा पाउँछ — सन्तानसँग समय समयमा भेट्ने, वा अर्को अभिभावकको सहमतिमा केही अवधि सँगै राख्ने।"
+evidence:
+  - en: "Marriage/divorce documentation, if applicable"
+    ne: "विवाह/सम्बन्ध विच्छेदको कागजात, लागू भए"
+  - en: "Birth certificate(s) of the child(ren)"
+    ne: "सन्तानको जन्म दर्ता प्रमाणपत्र"
+  - en: "Any evidence relevant to the child's best interest (living situation, schooling, care arrangements)"
+    ne: "सन्तानको हितसँग सम्बन्धित प्रमाण (बसोबास, पढाइ, हेरचाहको व्यवस्था)"
+forum:
+  en: "The District Court, usually alongside a divorce proceeding if one is happening."
+  ne: "जिल्ला अदालत, सामान्यतया सम्बन्ध विच्छेद प्रक्रियासँगै भइरहेको भए सोही साथ।"
+limitation:
+  note:
+    en: "There's no fixed filing deadline for custody itself, but resolve it promptly for the child's stability — consult an advocate as soon as separation happens."
+    ne: "संरक्षणको लागि आफैमा निश्चित म्याद छैन, तर सन्तानको स्थिरताका लागि चाँडै समाधान गर्नुहोस् — छुट्टिनासाथ वकिलसँग सल्लाह लिनुहोस्।"
+  provision: null
+next_steps:
+  - en: "Try to agree on a custody and visitation arrangement directly if possible."
+    ne: "सम्भव भए सिधै संरक्षण र भेटघाटको व्यवस्थामा सहमति जनाउने प्रयास गर्नुहोस्।"
+  - en: "If not, raise custody as part of your divorce petition or a separate application at the District Court."
+    ne: "नभए, सम्बन्ध विच्छेद निवेदनको भागको रूपमा वा जिल्ला अदालतमा छुट्टै निवेदनद्वारा संरक्षणको विषय उठाउनुहोस्।"
+  - en: "Keep the child's routine (school, home) as stable as possible during the process."
+    ne: "प्रक्रियाको क्रममा सन्तानको दैनिकी (पढाइ, घर) सकेसम्म स्थिर राख्नुहोस्।"
+template_link: null

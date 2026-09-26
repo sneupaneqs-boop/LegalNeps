@@ -1,0 +1,52 @@
+id: defamation
+area: criminal
+keywords:
+  - "मानहानि"
+  - "बेइज्जती गर्यो"
+  - "defamation"
+  - "false rumours about me"
+  - "बदनाम गर्यो"
+issue:
+  en: "Someone has defamed me (spread damaging false statements about me)"
+  ne: "कसैले मेरो बदनाम हुनेगरी झुटो कुरा फैलाएको छ"
+fact_questions:
+  - en: "What exactly was said or written, and where (in person, print, social media)?"
+    ne: "ठ्याक्कै के भनियो वा लेखियो, र कहाँ (मुखबाट, छापामा, सामाजिक सञ्जालमा)?"
+  - en: "Do you know who is responsible?"
+    ne: "जिम्मेवार व्यक्ति को हो थाहा छ?"
+  - en: "Has this harmed your reputation, job, or relationships in a way you can describe?"
+    ne: "यसले तपाईंको इज्जत, जागिर, वा सम्बन्धमा कस्तो असर पार्यो भन्न सक्नुहुन्छ?"
+provisions:
+  - law_title_ne: "मुलुकी अपराध संहिता, २०७४"
+    section: "306 (1)"
+    note:
+      en: "No one may defame another person — making a statement intending or knowing it could harm someone's reputation, in writing, speech, gesture, or otherwise, counts as defamation."
+      ne: "कसैले पनि अर्काको बेइज्जती गर्न पाउँदैन — इज्जतमा धक्का पुर्‍याउने नियतले वा जानीजानी लेखेर, बोलेर, वा आचरणद्वारा गरेको कार्य बेइज्जती मानिन्छ।"
+  - law_title_ne: "मुलुकी अपराध संहिता, २०७४"
+    section: "307"
+    note:
+      en: "Defamation is punishable with up to 2 years' imprisonment or a fine; if done through electronic or mass-media means, the punishment is higher (up to 1 additional year and a higher fine)."
+      ne: "बेइज्जती गरेमा २ वर्षसम्म कैद वा जरिबाना हुन्छ; विद्युतीय वा अन्य सञ्चार माध्यमबाट गरेमा थप सजाय (थप १ वर्षसम्म कैद र थप जरिबाना) हुन्छ।"
+evidence:
+  - en: "Screenshots, recordings, or written copies of the defamatory statement"
+    ne: "बदनाम गर्ने भनाइको स्क्रिनसट, रेकर्डिङ, वा लिखित प्रति"
+  - en: "Witnesses who heard or saw the statement"
+    ne: "भनाइ सुन्ने वा देख्ने साक्षी"
+  - en: "Evidence of harm caused (e.g. lost work, damaged relationships)"
+    ne: "भएको हानिको प्रमाण (जस्तै गुमेको काम, बिग्रिएको सम्बन्ध)"
+forum:
+  en: "File a complaint with the police, or directly with the District Court."
+  ne: "प्रहरी वा सिधै जिल्ला अदालतमा उजुरी दिन सकिन्छ।"
+limitation:
+  note:
+    en: "Nepali criminal cases generally have their own limitation period depending on the offence — check with the police or an advocate promptly rather than assuming you have unlimited time."
+    ne: "नेपाली फौजदारी मुद्दाको सामान्यतया कसूरअनुसार आफ्नै हदम्याद हुन्छ — असीमित समय छ भन्ने नठानी चाँडै प्रहरी वा वकिलसँग जाँच्नुहोस्।"
+  provision: null
+next_steps:
+  - en: "Save evidence of the statement immediately (screenshots with dates, witness names)."
+    ne: "तुरुन्तै भनाइको प्रमाण (मितिसहित स्क्रिनसट, साक्षीको नाम) सुरक्षित राख्नुहोस्।"
+  - en: "If it's online, also report it to the platform to have it taken down."
+    ne: "अनलाइन भए हटाउनका लागि प्लेटफर्मलाई पनि जानकारी दिनुहोस्।"
+  - en: "File a complaint with the police or the District Court."
+    ne: "प्रहरी वा जिल्ला अदालतमा उजुरी दिनुहोस्।"
+template_link: null

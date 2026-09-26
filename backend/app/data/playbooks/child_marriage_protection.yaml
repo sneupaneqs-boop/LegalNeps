@@ -1,0 +1,45 @@
+id: child_marriage_protection
+area: family
+keywords:
+  - "बाल विवाह"
+  - "child marriage"
+  - "underage marriage"
+issue:
+  en: "A child marriage is happening or being planned and I want to stop it or report it"
+  ne: "बाल विवाह भइरहेको वा योजना बनिरहेको छ र मलाई त्यसलाई रोक्न वा उजुरी दिन छ"
+fact_questions:
+  - en: "How old are the people being married, and has the marriage already happened?"
+    ne: "विवाह गर्ने व्यक्तिहरूको उमेर कति हो, र विवाह भइसक्यो कि हुन बाँकी छ?"
+  - en: "Do you know the families involved and where they live?"
+    ne: "तपाईंलाई संलग्न परिवार र तिनको ठेगाना थाहा छ?"
+  - en: "Is the child in immediate danger, or is this still being planned?"
+    ne: "बालबालिका तत्काल जोखिममा छ, वा यो अझै योजनामा छ?"
+provisions:
+  - law_title_ne: "मुलुकी अपराध संहिता, २०७४"
+    section: "173"
+    note:
+      en: "No one may marry, or cause to be married, a person under 20 years of age. A marriage in violation of this is automatically void, and the person responsible faces up to 3 years' imprisonment and a fine of up to Rs 30,000."
+      ne: "२० वर्ष नपुगेको व्यक्तिको विवाह गर्न वा गराउन पाइँदैन। यस विपरीतको विवाह स्वतः बदर हुन्छ, र जिम्मेवार व्यक्तिलाई ३ वर्षसम्म कैद र ३०,००० रुपैयाँसम्म जरिबाना हुन्छ।"
+evidence:
+  - en: "Age proof of the person being married (birth certificate, citizenship application)"
+    ne: "विवाह गरिने व्यक्तिको उमेरको प्रमाण (जन्म दर्ता प्रमाणपत्र, नागरिकताको निवेदन)"
+  - en: "Any invitation, photos, or communication about the planned/completed marriage"
+    ne: "योजना/भइसकेको विवाहबारे निम्तो, फोटो, वा सञ्चार"
+  - en: "Names of people involved and organizing the marriage"
+    ne: "विवाह गराउने र संलग्न व्यक्तिको नाम"
+forum:
+  en: "The nearest Police Office, or the local ward office, which can intervene to stop a planned child marriage."
+  ne: "नजिकैको प्रहरी कार्यालय, वा स्थानीय वडा कार्यालय, जसले योजना गरिएको बाल विवाह रोक्न हस्तक्षेप गर्न सक्छ।"
+limitation:
+  note:
+    en: "If a marriage is still being planned, report immediately so it can be stopped before it happens — once it has happened, report as soon as possible."
+    ne: "विवाह अझै योजनामा भए, हुनुअघि रोक्न तुरुन्तै जानकारी दिनुहोस् — भइसकेको भए पनि सकेसम्म चाँडो जानकारी दिनुहोस्।"
+  provision: null
+next_steps:
+  - en: "If the marriage is imminent, contact the police or ward office immediately to try to stop it."
+    ne: "विवाह नजिकै भए तुरुन्तै रोक्न प्रहरी वा वडा कार्यालयलाई सम्पर्क गर्नुहोस्।"
+  - en: "Gather age proof and details of who is involved."
+    ne: "उमेरको प्रमाण र संलग्न व्यक्तिको विवरण जम्मा गर्नुहोस्।"
+  - en: "File a report with the police so the marriage can be declared void and those responsible held accountable."
+    ne: "विवाह बदर र जिम्मेवार व्यक्तिलाई जवाफदेही बनाउन प्रहरीमा उजुरी दिनुहोस्।"
+template_link: null

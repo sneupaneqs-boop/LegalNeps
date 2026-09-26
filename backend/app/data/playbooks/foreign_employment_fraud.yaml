@@ -1,0 +1,59 @@
+id: foreign_employment_fraud
+area: employment
+keywords:
+  - "वैदेशिक रोजगार ठगी"
+  - "म्यानपावर ठगी"
+  - "manpower agency cheated"
+  - "foreign employment fraud"
+  - "एजेन्सीले ठग्यो"
+issue:
+  en: "A manpower agency cheated me about a foreign job"
+  ne: "म्यानपावर एजेन्सीले वैदेशिक रोजगारीको बारेमा मलाई ठगे"
+fact_questions:
+  - en: "Did you pay any fee to the agency, and do you have a receipt?"
+    ne: "तपाईंले एजेन्सीलाई कुनै शुल्क तिर्नुभयो, र रसिद छ?"
+  - en: "What exactly went wrong — no job on arrival, different job/salary than promised, or you were never sent?"
+    ne: "के भयो — गएपछि काम नभएको, वाचा गरेभन्दा फरक काम/तलब, वा पठाइएकै छैन?"
+  - en: "Is the agency licensed (has a वैदेशिक रोजगार इजाजतपत्र)?"
+    ne: "एजेन्सीसँग वैदेशिक रोजगार इजाजतपत्र छ?"
+provisions:
+  - law_title_ne: "वैदेशिक रोजगार ऐन, २०६४"
+    section: "36"
+    note:
+      en: "A worker who suffers loss because of a licensed agency's violation can file a complaint for compensation."
+      ne: "इजाजतपत्रवालाको त्रुटिबाट हानि नोक्सानी भएको कामदारले क्षतिपूर्तिको लागि उजुरी गर्न सक्छ।"
+  - law_title_ne: "वैदेशिक रोजगार ऐन, २०६४"
+    section: "51"
+    note:
+      en: "It is a punishable offence for an agency to refuse to refund money or pay compensation it owes a worker."
+      ne: "कामदारलाई तिर्नुपर्ने रकम फिर्ता गर्न वा क्षतिपूर्ति दिन इन्कार गर्नु सजायसहितको कसूर हो।"
+  - law_title_ne: "वैदेशिक रोजगार ऐन, २०६४"
+    section: "64"
+    note:
+      en: "Foreign employment disputes are heard by the Foreign Employment Tribunal."
+      ne: "वैदेशिक रोजगारसम्बन्धी विवाद वैदेशिक रोजगार न्यायाधिकरणले सुन्छ।"
+evidence:
+  - en: "Payment receipts, contract, and any promotional material from the agency"
+    ne: "भुक्तानी रसिद, सम्झौता, र एजेन्सीले दिएको प्रचार सामग्री"
+  - en: "The employment contract you were given (if any) and what actually happened on arrival"
+    ne: "दिइएको रोजगार सम्झौता (यदि छ भने) र गएपछि वास्तवमा के भयो"
+  - en: "Any communication with the agency"
+    ne: "एजेन्सीसँग भएको सञ्चार"
+forum:
+  en: "The Department of Foreign Employment, or directly the Foreign Employment Tribunal for compensation claims."
+  ne: "वैदेशिक रोजगार विभाग, वा क्षतिपूर्तिको दाबीका लागि सिधै वैदेशिक रोजगार न्यायाधिकरण।"
+limitation:
+  note:
+    en: "File your complaint within 1 year of the incident (or, if you were abroad, within 1 year of returning to Nepal)."
+    ne: "घटना भएको मितिले १ वर्षभित्र (वा विदेशमा हुनुभएको भए नेपाल फर्किएको मितिले १ वर्षभित्र) उजुरी दिनुहोस्।"
+  provision:
+    law_title_ne: "वैदेशिक रोजगार ऐन, २०६४"
+    section: "60"
+next_steps:
+  - en: "Gather all receipts, contracts, and communication with the agency."
+    ne: "सबै रसिद, सम्झौता, र एजेन्सीसँगको सञ्चार जम्मा गर्नुहोस्।"
+  - en: "File a complaint with the Department of Foreign Employment."
+    ne: "वैदेशिक रोजगार विभागमा उजुरी दिनुहोस्।"
+  - en: "If unresolved, pursue your claim at the Foreign Employment Tribunal."
+    ne: "समाधान नभएमा वैदेशिक रोजगार न्यायाधिकरणमा दाबी अगाडि बढाउनुहोस्।"
+template_link: null

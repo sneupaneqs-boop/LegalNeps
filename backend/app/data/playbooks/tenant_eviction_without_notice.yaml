@@ -1,0 +1,51 @@
+id: tenant_eviction_without_notice
+area: tenancy
+keywords:
+  - "घर खाली गर्न लगायो"
+  - "बहालवाला निकाल्न खोज्यो"
+  - "evicted without notice"
+  - "landlord evicting me"
+issue:
+  en: "My landlord is trying to evict me without proper notice"
+  ne: "घरबेटीले मलाई उचित सूचना बिना घर खाली गर्न लगाउन खोजिरहेको छ"
+fact_questions:
+  - en: "Do you have a written rental agreement, and what does it say about ending the tenancy?"
+    ne: "तपाईंसँग लिखित घरबहाल सम्झौता छ, र त्यसमा बहाल अन्त्य गर्नेबारे के लेखिएको छ?"
+  - en: "Are you behind on rent, or is there another dispute with the landlord?"
+    ne: "तपाईं भाडा तिर्न बाँकी हुनुहुन्छ, वा घरबेटीसँग अर्को विवाद छ?"
+  - en: "Has the landlord given you any written notice, and how much time did it give you?"
+    ne: "घरबेटीले तपाईंलाई कुनै लिखित सूचना दिनुभएको छ, र कति समय दिनुभयो?"
+provisions:
+  - law_title_ne: "मुलुकी देवानी संहिता, २०७४"
+    section: "400"
+    note:
+      en: "A tenant may leave before the tenancy term ends if the landlord fails to fulfil their own legal duties — this cuts both ways: a landlord also can't force you out outside the legally allowed grounds and process."
+      ne: "घरधनीले आफ्नो दायित्व पूरा नगरेमा बहालवालाले अवधि नसकिँदै घर छाड्न सक्छ — यसको अर्थ घरधनीले पनि कानुनी आधार र प्रक्रिया बाहिर गएर घर खाली गराउन सक्दैन भन्ने हो।"
+  - law_title_ne: "मुलुकी देवानी संहिता, २०७४"
+    section: "404"
+    note:
+      en: "One specific ground the law does allow eviction on: the tenant has vanished without notice and unpaid rent for 3+ months, and can't be found after public notice — then the landlord may go through the local ward office. This does not cover simply wanting the tenant out."
+      ne: "कानूनले घर खाली गराउन अनुमति दिने एउटा विशेष आधार: बहालवाला बिना सूचना ३ महिना वा बढी बहाल नबुझाई बेपत्ता भएको र सार्वजनिक सूचनापछि पनि फेला नपरेको अवस्था — त्यसमा घरधनीले स्थानीय वडा कार्यालयमार्फत प्रक्रिया अगाडि बढाउन सक्छ। यसले जुनसुकै बेला घर खाली गराउने अधिकार दिँदैन।"
+evidence:
+  - en: "Your rental agreement"
+    ne: "घरबहाल सम्झौता"
+  - en: "Any eviction notice you received, and when you received it"
+    ne: "पाएको घर खाली गर्ने सूचना र त्यो कहिले पाउनुभयो"
+  - en: "Proof of rent payments"
+    ne: "भाडा तिरेको प्रमाण"
+forum:
+  en: "Try to resolve directly with the landlord first, referring to your written agreement. If they proceed without following the proper legal grounds/process, consult an advocate about filing at the District Court."
+  ne: "पहिले लिखित सम्झौता देखाउँदै घरबेटीसँग सिधै समाधान गर्ने प्रयास गर्नुहोस्। उचित कानुनी आधार/प्रक्रिया बिना अगाडि बढे जिल्ला अदालतमा जान वकिलसँग सल्लाह लिनुहोस्।"
+limitation:
+  note:
+    en: "Respond to any eviction notice promptly and in writing — don't let a deadline pass without a reply."
+    ne: "घर खाली गर्ने कुनै पनि सूचनाको चाँडै र लिखित रूपमा जवाफ दिनुहोस् — म्याद खेर नजान दिनुहोस्।"
+  provision: null
+next_steps:
+  - en: "Re-read your rental agreement for the notice period and termination terms."
+    ne: "सूचना अवधि र बहाल अन्त्य सर्तका लागि आफ्नो सम्झौता फेरि पढ्नुहोस्।"
+  - en: "Respond in writing to any notice, stating your position clearly."
+    ne: "कुनै पनि सूचनाको आफ्नो अडान स्पष्ट पारेर लिखित जवाफ दिनुहोस्।"
+  - en: "If the landlord acts outside legal grounds, consult an advocate before you move out."
+    ne: "घरबेटीले कानुनी आधार बाहिर गई काम गरे, घर छोड्नुअघि वकिलसँग सल्लाह लिनुहोस्।"
+template_link: null

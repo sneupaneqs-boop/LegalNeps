@@ -1,0 +1,49 @@
+id: right_to_information_request
+area: civil
+keywords:
+  - "सूचनाको हक"
+  - "right to information"
+  - "RTI request"
+  - "सरकारी कार्यालयबाट सूचना"
+issue:
+  en: "I want information from a government office and don't know how to request it"
+  ne: "मलाई सरकारी कार्यालयबाट सूचना चाहिन्छ तर कसरी माग्ने थाहा छैन"
+fact_questions:
+  - en: "What specific information do you want, and from which office?"
+    ne: "तपाईंलाई ठ्याक्कै के सूचना चाहिन्छ, र कुन कार्यालयबाट?"
+  - en: "Have you already asked informally, and were you refused or ignored?"
+    ne: "तपाईंले पहिले नै अनौपचारिक रूपमा सोध्नुभएको थियो, र इन्कार वा बेवास्ता गरियो?"
+  - en: "Is the information about yourself, or about a public matter (spending, decisions, etc.)?"
+    ne: "यो सूचना तपाईं आफैंबारे हो, वा सार्वजनिक विषय (खर्च, निर्णय आदि) बारे हो?"
+provisions:
+  - law_title_ne: "सूचनाको हक सम्बन्धी ऐन, २०६४"
+    section: "7"
+    note:
+      en: "Every Nepali citizen has the right to request information from a public body, following the procedure this section sets out."
+      ne: "हरेक नेपाली नागरिकलाई यस दफाले तोकेको प्रक्रिया पालना गरी सार्वजनिक निकायबाट सूचना माग्ने अधिकार हुन्छ।"
+  - law_title_ne: "सूचनाको हक सम्बन्धी ऐन, २०६४"
+    section: "33"
+    note:
+      en: "If you suffer harm because a public body wrongly denies your right to information, you can claim compensation."
+      ne: "सार्वजनिक निकायले सूचनाको हक गलत तवरले अस्वीकार गरेको कारण हानि भएमा क्षतिपूर्तिको दाबी गर्न सकिन्छ।"
+evidence:
+  - en: "A copy of your written information request, if you already made one"
+    ne: "पहिले नै दिनुभएको भए लिखित सूचना माग गरेको निवेदनको प्रति"
+  - en: "Any written refusal or non-response from the office"
+    ne: "कार्यालयबाट भएको लिखित इन्कार वा जवाफ नआएको प्रमाण"
+forum:
+  en: "The public body's designated Information Officer (सूचना अधिकारी) first; if refused, you can appeal to the National Information Commission (राष्ट्रिय सूचना आयोग)."
+  ne: "पहिले सम्बन्धित निकायको सूचना अधिकारी; इन्कार भएमा राष्ट्रिय सूचना आयोगमा उजुरी गर्न सकिन्छ।"
+limitation:
+  note:
+    en: "If the office doesn't respond or refuses your request, you can appeal to the National Information Commission — do this promptly rather than letting the matter drop."
+    ne: "कार्यालयले जवाफ नदिए वा इन्कार गरे राष्ट्रिय सूचना आयोगमा उजुरी गर्न सकिन्छ — विषय त्यत्तिकै नछाडी चाँडै कारबाही गर्नुहोस्।"
+  provision: null
+next_steps:
+  - en: "Submit a clear, specific written request to the office's Information Officer."
+    ne: "कार्यालयको सूचना अधिकारीलाई स्पष्ट र ठ्याक्कै लिखित निवेदन दिनुहोस्।"
+  - en: "Keep a copy of your request and note the date you submitted it."
+    ne: "निवेदनको प्रति राखी बुझाएको मिति नोट गर्नुहोस्।"
+  - en: "If refused or ignored, appeal to the National Information Commission."
+    ne: "इन्कार वा बेवास्ता भए राष्ट्रिय सूचना आयोगमा उजुरी गर्नुहोस्।"
+template_link: null

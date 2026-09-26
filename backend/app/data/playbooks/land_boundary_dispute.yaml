@@ -1,0 +1,51 @@
+id: land_boundary_dispute
+area: property
+keywords:
+  - "जग्गा सीमा विवाद"
+  - "छिमेकी जग्गा विवाद"
+  - "land boundary dispute"
+  - "neighbour encroached my land"
+issue:
+  en: "I have a boundary dispute with my neighbour over land"
+  ne: "मेरो र छिमेकीबीच जग्गाको सीमानामा विवाद छ"
+fact_questions:
+  - en: "Do you have your land ownership certificate (लालपुर्जा) and survey map (नापी नक्सा)?"
+    ne: "तपाईंसँग जग्गाको लालपुर्जा र नापी नक्सा छ?"
+  - en: "Has your neighbour built, planted, or fenced onto land you believe is yours?"
+    ne: "छिमेकीले तपाईंको भनेको जग्गामा निर्माण, रोपाइँ, वा बार लगाएको छ?"
+  - en: "Has the boundary ever been officially re-surveyed?"
+    ne: "सीमाना कहिल्यै आधिकारिक रूपमा पुनः नापिएको छ?"
+provisions:
+  - law_title_ne: "जग्गा (नाप जाँच) ऐन, २०१९"
+    section: "5"
+    note:
+      en: "This Act governs how boundaries are officially marked and demarcated during a government land survey — the basis for requesting a re-survey of a disputed boundary."
+      ne: "यस ऐनले सरकारी जग्गा नापीको क्रममा सीमाना आधिकारिक रूपमा कसरी छुट्याइन्छ भन्ने व्यवस्था गर्छ — विवादित सीमानाको पुनः नापको लागि माग गर्ने आधार यही हो।"
+  - law_title_ne: "जग्गा (नाप जाँच) ऐन, २०१९"
+    section: "8"
+    note:
+      en: "After survey, the landowner receives an official registration certificate (दर्ता पूर्जा) reflecting the surveyed boundaries."
+      ne: "नापपछि जग्गावालाले नापिएको सीमाना उल्लेख भएको आधिकारिक दर्ता पूर्जा पाउँछ।"
+evidence:
+  - en: "Your land ownership certificate (लालपुर्जा) and any survey map"
+    ne: "जग्गाको लालपुर्जा र नापी नक्सा, यदि उपलब्ध छ भने"
+  - en: "Photos of the disputed boundary and any structures/fencing"
+    ne: "विवादित सीमाना र निर्माण/बारको फोटो"
+  - en: "Any earlier correspondence with the neighbour or local office about the boundary"
+    ne: "सीमानाबारे छिमेकी वा स्थानीय कार्यालयसँग भएको पहिलेको पत्राचार"
+forum:
+  en: "The Land Survey Office (नापी कार्यालय) or Land Revenue Office (मालपोत कार्यालय) for a re-survey; if the dispute isn't resolved administratively, a civil suit can be filed at the District Court."
+  ne: "पुनः नापको लागि नापी कार्यालय वा मालपोत कार्यालय; प्रशासनिक रूपमा समाधान नभएमा जिल्ला अदालतमा देवानी मुद्दा दायर गर्न सकिन्छ।"
+limitation:
+  note:
+    en: "There is no single fixed deadline for requesting a boundary re-survey, but any civil suit over the dispute must be filed within the limitation period the law sets for that type of claim — consult an advocate promptly."
+    ne: "सीमाना पुनः नापको लागि एउटै निश्चित म्याद छैन, तर विवादसम्बन्धी देवानी मुद्दा कानुनले तोकेको हदम्यादभित्रै दायर गर्नुपर्छ — चाँडै वकिलसँग सल्लाह लिनुहोस्।"
+  provision: null
+next_steps:
+  - en: "Gather your ownership documents and try to discuss the boundary with your neighbour first."
+    ne: "आफ्ना स्वामित्व कागजात जम्मा गरी पहिले छिमेकीसँग सीमानाबारे कुराकानी गर्ने प्रयास गर्नुहोस्।"
+  - en: "If unresolved, apply to the Land Survey/Revenue Office for an official re-survey."
+    ne: "समाधान नभएमा आधिकारिक पुनः नापका लागि नापी/मालपोत कार्यालयमा निवेदन दिनुहोस्।"
+  - en: "If still unresolved, consult an advocate about filing a civil suit."
+    ne: "अझै समाधान नभए देवानी मुद्दा दायर गर्न वकिलसँग सल्लाह लिनुहोस्।"
+template_link: null

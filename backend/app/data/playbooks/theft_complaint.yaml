@@ -1,0 +1,51 @@
+id: theft_complaint
+area: criminal
+keywords:
+  - "चोरी भयो"
+  - "मेरो सामान चोरियो"
+  - "theft complaint"
+  - "something was stolen"
+issue:
+  en: "Something was stolen from me"
+  ne: "मेरो सामान चोरी भयो"
+fact_questions:
+  - en: "What was stolen, and what is its approximate value?"
+    ne: "के चोरी भयो, र त्यसको अनुमानित मूल्य कति हो?"
+  - en: "When and where did the theft happen?"
+    ne: "चोरी कहिले र कहाँ भयो?"
+  - en: "Do you suspect anyone, or is there any evidence (CCTV, witnesses)?"
+    ne: "तपाईंलाई कसैको शंका छ, वा कुनै प्रमाण छ (सीसीटीभी, साक्षी)?"
+provisions:
+  - law_title_ne: "मुलुकी अपराध संहिता, २०७४"
+    section: "242"
+    note:
+      en: "Theft is a criminal offence with imprisonment and/or a fine, generally scaled to the value of what was stolen."
+      ne: "चोरी फौजदारी कसूर हो र सामान्यतया चोरी भएको मूल्य अनुसार कैद र/वा जरिबाना हुन्छ।"
+  - law_title_ne: "मुलुकी फौजदारी कार्यविधि संहिता, २०७४"
+    section: "4 (1)"
+    note:
+      en: "Anyone who knows about a crime like this happening can file a written, oral, or electronic report (जाहेरी) with the police, including whatever evidence they have."
+      ne: "यस्तो कसूर भएको थाहा पाउने जुनसुकै व्यक्तिले आफूसँग भएको प्रमाणसहित प्रहरीमा लिखित, मौखिक, वा विद्युतीय माध्यमबाट जाहेरी दिन सक्छ।"
+evidence:
+  - en: "Proof of ownership of the stolen item (receipt, photos)"
+    ne: "चोरी भएको सामानको स्वामित्व प्रमाण (रसिद, फोटो)"
+  - en: "CCTV footage, if available"
+    ne: "सीसीटीभी फुटेज, यदि उपलब्ध छ भने"
+  - en: "Names of any witnesses"
+    ne: "साक्षीको नाम"
+forum:
+  en: "Your nearest Police Office (report as soon as possible)."
+  ne: "नजिकैको प्रहरी कार्यालय (सकेसम्म चाँडो जानकारी गराउनुहोस्)।"
+limitation:
+  note:
+    en: "Report as soon as possible — delayed reports make it harder to recover property and investigate."
+    ne: "सकेसम्म चाँडो जानकारी गराउनुहोस् — ढिलो गरे सामान फिर्ता ल्याउन र अनुसन्धान गर्न गाह्रो हुन्छ।"
+  provision: null
+next_steps:
+  - en: "Note down exactly what was taken, when, and where."
+    ne: "के, कहिले, र कहाँ चोरी भयो ठ्याक्कै लेख्नुहोस्।"
+  - en: "Gather any evidence (CCTV, receipts, witness names)."
+    ne: "कुनै पनि प्रमाण (सीसीटीभी, रसिद, साक्षीको नाम) जम्मा गर्नुहोस्।"
+  - en: "File a written or verbal complaint (जाहेरी) at the Police Office."
+    ne: "प्रहरी कार्यालयमा लिखित वा मौखिक जाहेरी दिनुहोस्।"
+template_link: null

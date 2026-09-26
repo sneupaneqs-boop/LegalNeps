@@ -1,0 +1,51 @@
+id: fir_not_registered
+area: criminal
+keywords:
+  - "जाहेरी दर्ता गरेन"
+  - "FIR not registered"
+  - "प्रहरीले उजुरी लिएन"
+  - "police refused complaint"
+issue:
+  en: "The police refused to register my complaint (FIR/जाहेरी)"
+  ne: "प्रहरीले मेरो जाहेरी दर्ता गर्न इन्कार गर्यो"
+fact_questions:
+  - en: "What crime were you trying to report, and when did you go to the police?"
+    ne: "तपाईंले कुन कसूरको उजुरी दिन खोज्नुभएको थियो, र कहिले प्रहरीकहाँ जानुभयो?"
+  - en: "Did the police give any reason for refusing to register it?"
+    ne: "प्रहरीले दर्ता गर्न इन्कार गर्नुको कुनै कारण दिए?"
+  - en: "Do you have any proof you went to the police (a copy of your written complaint, witnesses)?"
+    ne: "तपाईं प्रहरीकहाँ जानुभएको कुनै प्रमाण छ (लिखित उजुरीको प्रति, साक्षी)?"
+provisions:
+  - law_title_ne: "मुलुकी फौजदारी कार्यविधि संहिता, २०७४"
+    section: "4 (1)"
+    note:
+      en: "Anyone who knows about a crime can file a written, oral, or electronic report (जाहेरी) with the police, along with whatever evidence they have."
+      ne: "कसूर भएको थाहा पाउने जुनसुकै व्यक्तिले आफूसँग भएको प्रमाणसहित प्रहरीमा लिखित, मौखिक, वा विद्युतीय माध्यमबाट जाहेरी दिन सक्छ।"
+  - law_title_ne: "मुलुकी फौजदारी कार्यविधि संहिता, २०७४"
+    section: "5"
+    note:
+      en: "If the police office refuses to register your complaint, you can raise this with the District Government Attorney's Office (or send the complaint by post/electronic means), naming the refusal."
+      ne: "प्रहरी कार्यालयले जाहेरी दर्ता गर्न इन्कार गरेमा, त्यो कुरा उल्लेख गरी सम्बन्धित जिल्ला सरकारी वकिल कार्यालयमा उजुर गर्न वा हुलाक/विद्युतीय माध्यमबाट पठाउन सकिन्छ।"
+evidence:
+  - en: "A copy of your written complaint, if you submitted one"
+    ne: "बुझाउनुभएको भए लिखित उजुरीको प्रति"
+  - en: "Names of any witnesses to your visit to the police station"
+    ne: "प्रहरी कार्यालयमा जानुभएको साक्षीको नाम"
+  - en: "Any evidence of the original crime you were trying to report"
+    ne: "उजुरी दिन खोजेको मूल कसूरको कुनै प्रमाण"
+forum:
+  en: "The District Government Attorney's Office (जिल्ला सरकारी वकिल कार्यालय), or send your complaint by post or electronic means as the law allows."
+  ne: "जिल्ला सरकारी वकिल कार्यालय, वा कानूनले अनुमति दिए बमोजिम हुलाक वा विद्युतीय माध्यमबाट उजुरी पठाउनुहोस्।"
+limitation:
+  note:
+    en: "Act quickly — the underlying crime you're trying to report may have its own limitation period, so don't let the registration refusal cause you to miss it."
+    ne: "चाँडो कारबाही गर्नुहोस् — उजुरी दिन खोजेको मूल कसूरको आफ्नै हदम्याद हुन सक्छ, दर्ता इन्कारका कारण त्यो नबित्न दिनुहोस्।"
+  provision: null
+next_steps:
+  - en: "Ask the police in writing for the reason they won't register your complaint."
+    ne: "प्रहरीलाई किन दर्ता नगरेको लिखित कारण सोध्नुहोस्।"
+  - en: "Submit your complaint in writing (or by post/electronic means) to the District Government Attorney's Office, describing the refusal."
+    ne: "इन्कारको विवरणसहित जिल्ला सरकारी वकिल कार्यालयमा लिखित (वा हुलाक/विद्युतीय माध्यमबाट) उजुरी बुझाउनुहोस्।"
+  - en: "Consult an advocate if the matter is urgent or serious."
+    ne: "विषय जरुरी वा गम्भीर भए वकिलसँग सल्लाह लिनुहोस्।"
+template_link: null

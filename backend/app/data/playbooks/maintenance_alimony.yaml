@@ -1,0 +1,51 @@
+id: maintenance_alimony
+area: family
+keywords:
+  - "भरणपोषण"
+  - "alimony"
+  - "maintenance payment"
+  - "श्रीमतीलाई खर्च दिने"
+issue:
+  en: "I need financial support (maintenance/alimony) from my spouse"
+  ne: "मलाई मेरो श्रीमान/श्रीमतीबाट आर्थिक सहयोग (भरणपोषण) चाहिन्छ"
+fact_questions:
+  - en: "Are you still married, separated, or already divorced?"
+    ne: "तपाईं अझै विवाहित हुनुहुन्छ, छुट्टिनुभएको छ, वा पहिले नै सम्बन्ध विच्छेद भइसक्यो?"
+  - en: "What is your spouse's income or financial situation, as far as you know?"
+    ne: "तपाईंलाई थाहा भएसम्म तपाईंको श्रीमान/श्रीमतीको आम्दानी वा आर्थिक अवस्था के हो?"
+  - en: "Did you receive any property in an earlier partition (अंशबण्डा)?"
+    ne: "पहिलेको अंशबण्डामा तपाईंले कुनै सम्पत्ति पाउनुभएको थियो?"
+provisions:
+  - law_title_ne: "मुलुकी देवानी संहिता, २०७४"
+    section: "89"
+    note:
+      en: "Spouses must provide each other with food/clothing and healthcare according to their means and status — this is the core maintenance duty between husband and wife."
+      ne: "पति-पत्नीले एक-अर्कालाई आफ्नो इज्जत र क्षमता अनुसार खान लाउन तथा स्वास्थ्योपचारको व्यवस्था गर्नुपर्छ — यही पति-पत्नीबीचको मुख्य भरणपोषण दायित्व हो।"
+  - law_title_ne: "मुलुकी देवानी संहिता, २०७४"
+    section: "101"
+    note:
+      en: "If a divorced wife did not receive property in the partition and her former husband has income, the court can order him to pay her maintenance expenses based on his income."
+      ne: "सम्बन्ध विच्छेद भएकी पत्नीले अंशबण्डामा सम्पत्ति नपाएकी र पतिको आम्दानी भएमा, अदालतले पतिको आम्दानीको आधारमा खान लाउने खर्च भराइदिन सक्छ।"
+evidence:
+  - en: "Marriage certificate and any divorce documentation"
+    ne: "विवाह प्रमाणपत्र र सम्बन्ध विच्छेदको कागजात, यदि छ भने"
+  - en: "Evidence of your spouse's income (payslips, business records, property)"
+    ne: "श्रीमान/श्रीमतीको आम्दानीको प्रमाण (तलब पर्ची, व्यवसायको अभिलेख, सम्पत्ति)"
+  - en: "Your own expenses and financial needs"
+    ne: "आफ्नो खर्च र आर्थिक आवश्यकता"
+forum:
+  en: "The District Court, often alongside a divorce case."
+  ne: "जिल्ला अदालत, प्रायः सम्बन्ध विच्छेद मुद्दासँगै।"
+limitation:
+  note:
+    en: "Raise a maintenance claim as early as possible, ideally as part of the divorce/partition proceedings, so the court can address income and property together."
+    ne: "सकेसम्म चाँडो, राम्रो भए सम्बन्ध विच्छेद/अंशबण्डा प्रक्रियासँगै भरणपोषणको दाबी उठाउनुहोस्, ताकि अदालतले आम्दानी र सम्पत्ति सँगै हेर्न सकोस्।"
+  provision: null
+next_steps:
+  - en: "Gather evidence of your spouse's income and your own financial needs."
+    ne: "श्रीमान/श्रीमतीको आम्दानी र आफ्नो आर्थिक आवश्यकताको प्रमाण जम्मा गर्नुहोस्।"
+  - en: "Raise the maintenance issue directly, ideally alongside any divorce or partition case."
+    ne: "राम्रो भए सम्बन्ध विच्छेद वा अंशबण्डा मुद्दासँगै भरणपोषणको विषय उठाउनुहोस्।"
+  - en: "Consult an advocate about filing a claim at the District Court if it isn't resolved directly."
+    ne: "सिधै समाधान नभए जिल्ला अदालतमा दाबी दायर गर्न वकिलसँग सल्लाह लिनुहोस्।"
+template_link: null

@@ -1,5 +1,11 @@
 id: cheque_bounce
 area: finance
+keywords:
+  - "चेक बाउन्स"
+  - "चेक अनादर"
+  - "cheque bounce"
+  - "dishonoured cheque"
+  - "bounced cheque"
 issue:
   en: "A cheque given to me bounced (was dishonoured)"
   ne: "मलाई दिइएको चेक अनादर (बाउन्स) भयो"

@@ -1,0 +1,54 @@
+id: wrongful_termination
+area: employment
+keywords:
+  - "कामबाट हटाइयो"
+  - "जागिरबाट निकालियो"
+  - "wrongful termination"
+  - "fired without notice"
+  - "dismissed from job"
+issue:
+  en: "I was dismissed from my job without proper notice or process"
+  ne: "मलाई उचित सूचना वा प्रक्रिया बिना जागीरबाट हटाइयो"
+fact_questions:
+  - en: "How long had you worked there, and did you receive any written notice before dismissal?"
+    ne: "तपाईं कति समयदेखि त्यहाँ काम गर्नुभएको थियो, र हटाइनुअघि कुनै लिखित सूचना पाउनुभयो?"
+  - en: "Were you accused of misconduct, or was this a layoff/restructuring?"
+    ne: "तपाईंलाई खराब आचरणको आरोप लगाइएको थियो, वा यो कामदार कटौती/पुनर्संरचना थियो?"
+  - en: "Have you received your final settlement (final salary, unused leave, gratuity)?"
+    ne: "तपाईंले अन्तिम फरफारख (बाँकी तलब, नबसेको बिदा, उपदान) पाउनुभयो?"
+provisions:
+  - law_title_ne: "श्रम ऐन, २०७४"
+    section: "144"
+    note:
+      en: "Except for dismissal due to proven misconduct, the employer must give the worker written notice before ending employment — at least 1 day for under 4 weeks' service, longer for longer service."
+      ne: "खराब आचरणमा प्रमाणित कारबाही बाहेक, रोजगारदाताले रोजगार अन्त्य गर्नुअघि श्रमिकलाई लिखित सूचना दिनुपर्छ — चार हप्तासम्मको रोजगारीमा कम्तीमा १ दिन, बढी सेवा अवधिमा थप म्याद।"
+  - law_title_ne: "श्रम ऐन, २०७४"
+    section: "162"
+    note:
+      en: "A worker harmed by a violation of this Act (including improper dismissal) may file a complaint within 6 months of the violation."
+      ne: "यो ऐन विपरीत (अनुचित हटाइएको लगायत) कार्यबाट मर्का परेको श्रमिकले सो कार्य भएको मितिले ६ महिनाभित्र उजुरी दिन सक्छ।"
+evidence:
+  - en: "Appointment letter and any dismissal letter or notice"
+    ne: "नियुक्तिपत्र र हटाइएको पत्र वा सूचना (यदि छ भने)"
+  - en: "Salary slips, attendance records, or performance reviews"
+    ne: "तलब पर्ची, उपस्थिति विवरण, वा कार्यसम्पादन मूल्याङ्कन"
+  - en: "Any written communication about the reason for dismissal"
+    ne: "हटाइनुको कारणबारे भएको लिखित सञ्चार"
+forum:
+  en: "The Labour Office for your district; unresolved cases go to the Labour Court."
+  ne: "आफ्नो जिल्लाको श्रम कार्यालय; समाधान नभएमा श्रम अदालतमा जान सकिन्छ।"
+limitation:
+  note:
+    en: "File your complaint within 6 months of the date you were dismissed."
+    ne: "हटाइएको मितिले ६ महिनाभित्र उजुरी दिनुहोस्।"
+  provision:
+    law_title_ne: "श्रम ऐन, २०७४"
+    section: "162"
+next_steps:
+  - en: "Request a written explanation for your dismissal if you don't have one."
+    ne: "हटाइनुको लिखित कारण नभए माग्नुहोस्।"
+  - en: "Gather your employment records and any evidence of the circumstances."
+    ne: "आफ्नो रोजगारीको अभिलेख र परिस्थितिको प्रमाण जम्मा गर्नुहोस्।"
+  - en: "File a written complaint at the Labour Office within 6 months."
+    ne: "६ महिनाभित्र श्रम कार्यालयमा लिखित उजुरी दिनुहोस्।"
+template_link: null

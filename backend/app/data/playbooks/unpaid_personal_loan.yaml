@@ -1,0 +1,58 @@
+id: unpaid_personal_loan
+area: finance
+keywords:
+  - "सापटी फिर्ता दिएन"
+  - "ऋण तिरेन"
+  - "lent money not returned"
+  - "personal loan not repaid"
+issue:
+  en: "I lent someone money and they haven't paid it back"
+  ne: "मैले कसैलाई पैसा सापटी दिएको थिएँ, अझै फिर्ता पाएको छैन"
+fact_questions:
+  - en: "Do you have any written proof of the loan (agreement, IOU, bank transfer, messages)?"
+    ne: "तपाईंसँग सापटीको लिखित प्रमाण छ (सम्झौता, कागज, बैंक ट्रान्सफर, म्यासेज)?"
+  - en: "Was a repayment date agreed, and has it passed?"
+    ne: "फिर्ता तिर्ने मिति तोकिएको थियो, र त्यो नाघिसक्यो?"
+  - en: "Have you asked the person for repayment, and what did they say?"
+    ne: "तपाईंले फिर्ता माग्नुभयो, र उनीहरूले के भने?"
+provisions:
+  - law_title_ne: "मुलुकी देवानी संहिता, २०७४"
+    section: "495"
+    note:
+      en: "A person who has taken on an obligation (such as repaying a loan) must fulfil it."
+      ne: "दायित्व लिएको व्यक्तिले (जस्तै ऋण तिर्ने) त्यो दायित्व पूरा गर्नुपर्छ।"
+  - law_title_ne: "मुलुकी देवानी संहिता, २०७४"
+    section: "500"
+    note:
+      en: "If someone fails to fulfil their obligation (or delays), and this causes real loss, they must compensate for that actual loss."
+      ne: "दायित्व पूरा नगरे वा ढिलो गरे र त्यसबाट वास्तविक हानि भएमा, त्यो हानिको क्षतिपूर्ति व्यहोर्नुपर्छ।"
+  - law_title_ne: "मुलुकी देवानी संहिता, २०७४"
+    section: "520"
+    note:
+      en: "For most contracts (including a loan agreement), a civil claim must be filed within 2 years of when the cause of action arose."
+      ne: "अधिकांश करार (सापटी सम्झौता लगायत) को हकमा, दाबी गर्नुपर्ने कारण उत्पन्न भएको मितिले २ वर्षभित्र मुद्दा दायर गर्नुपर्छ।"
+evidence:
+  - en: "Any written agreement, IOU note, or messages agreeing to the loan"
+    ne: "कुनै लिखित सम्झौता, ऋणपत्र, वा सापटीमा सहमति जनाउने म्यासेज"
+  - en: "Proof of the money transfer (bank statement, receipt)"
+    ne: "पैसा हस्तान्तरणको प्रमाण (बैंक विवरण, रसिद)"
+  - en: "Any communication where the person acknowledges owing the money"
+    ne: "व्यक्तिले पैसा तिर्नुपर्ने स्वीकार गरेको कुनै सञ्चार"
+forum:
+  en: "Try to settle directly first with a written demand. If unresolved, file a civil suit at the District Court where the borrower resides."
+  ne: "पहिले लिखित माग गरी सिधै मिलाउने प्रयास गर्नुहोस्। समाधान नभएमा ऋणी बसोबास गर्ने जिल्ला अदालतमा देवानी मुद्दा दायर गर्नुहोस्।"
+limitation:
+  note:
+    en: "File your civil claim within 2 years of the date repayment was due (or the date you learned it wouldn't be repaid) — don't delay."
+    ne: "फिर्ता तिर्नुपर्ने मितिले (वा नतिर्ने कुरा थाहा पाएको मितिले) २ वर्षभित्र देवानी दाबी दायर गर्नुहोस् — ढिलो नगर्नुहोस्।"
+  provision:
+    law_title_ne: "मुलुकी देवानी संहिता, २०७४"
+    section: "520"
+next_steps:
+  - en: "Send a written demand letter asking for repayment by a specific date."
+    ne: "निश्चित मितिसम्म फिर्ता माग्दै लिखित माग पत्र पठाउनुहोस्।"
+  - en: "Keep all evidence of the loan and the demand safely."
+    ne: "सापटी र मागको सबै प्रमाण सुरक्षित राख्नुहोस्।"
+  - en: "If still unpaid, consult an advocate about filing a civil suit within the 2-year limit."
+    ne: "अझै भुक्तानी नभए, २ वर्षको म्यादभित्रै देवानी मुद्दा दायर गर्न वकिलसँग सल्लाह लिनुहोस्।"
+template_link: null
