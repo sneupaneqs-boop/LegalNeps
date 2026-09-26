@@ -6,9 +6,51 @@ kickoff prompt.
 
 ## Next session
 
-**S3 — LLM-free hot path.** See STRATEGY.md §4, week 1 table.
+**S4 — Search + law browser UI.** See STRATEGY.md §4, week 1 table.
 
 ## Done
+
+### S3 — LLM-free hot path (2026-09-26)
+
+- **Expanded intent regex** (`app/generation.py::quick_intent`): added
+  `SMALLTALK_RE` ("who are you", "what can you do", "तिमी को हौ", ...) and a
+  deliberately narrow `OFF_TOPIC_HINT_RE` (weather/jokes/songs/movies) —
+  narrow on purpose, since a false positive here sends a real legal question
+  a canned refusal, which is worse than just asking the LLM. Both return
+  before any LLM call, same as the existing greeting/thanks regexes.
+- **Confidence-gated skip of the analyze LLM call**
+  (`generation.confidence()` + `CONFIDENCE_THRESHOLD = 0.6`): a Nepali-script
+  message is confident by default (statutes are all Nepali, so the raw
+  message already searches directly); an English/romanised message is
+  confident when `glossary.expand()` recognises its vocabulary. When
+  confident **and there's no conversation history**, `analyze_query()`
+  returns immediately with a locally-built analysis (no LLM call) instead of
+  calling the LLM to rewrite the query — `build_queries()` already applies
+  the same glossary expansion regardless of whether `analyze_query` called
+  the LLM, so retrieval quality for the skipped case is identical to the
+  existing LLM-unavailable ("raw") path, not degraded. Follow-up messages
+  (history present) always go through the LLM, since resolving "what about
+  daughters?" into a standalone question needs it.
+- `generation.analyze_needs_llm()` factors the same short-circuit logic out
+  of `analyze_query()` so `run()`'s `llm_calls` counter (from S1) stays
+  accurate without duplicating the decision.
+- `tests/test_hot_path.py` (new): confirms `llm.complete` is genuinely never
+  invoked for a confident, no-history message (monkeypatches it to raise if
+  called), confirms it *is* still called for a low-confidence message and
+  for any follow-up, and covers the new regexes.
+
+**Done-when, measured against the real 150-question eval set**
+(`config.GEMINI_API_KEY` set to a dummy value so `llm.available()` is `True`,
+matching how the check runs in production — the same trick S1's structural
+`llm_calls` reasoning used, since this environment has no real provider
+keys):
+
+| Metric | Target | Result |
+|---|---|---|
+| % of eval questions that skip the analyze call | ≥70% | **88%** (132/150) |
+| hit@8 vs. S1 baseline | within 2 pts | **0 pts** (identical by construction — the skipped path builds queries exactly like the existing raw-mode path) |
+
+81/81 backend tests pass (was 75; +6 for S3).
 
 ### S2 — Legal data engine v2 (2026-09-26)
 

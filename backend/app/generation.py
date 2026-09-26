@@ -124,6 +124,18 @@ def _cache_key(message: str, lang: str) -> str:
 GREETING_RE = re.compile(
     r"^\s*(hi+|hello|hey|namaste|namaskar|good (morning|afternoon|evening)|नमस्ते|नमस्कार|हेलो|हाई)\W*$", re.I)
 THANKS_RE = re.compile(r"^\s*(thanks?( you)?|thank u|ok(ay)?|dhanyabad|dhanyawad|धन्यवाद|ठिक छ|हुन्छ)\W*$", re.I)
+# chit-chat about the assistant itself, not a legal question - short enough
+# that false-positiving on a real legal message is very unlikely
+SMALLTALK_RE = re.compile(
+    r"^\s*(who are you|what('?s| is) your name|what can you do|how (are|do) you (work|help)|"
+    r"are you (a )?(robot|bot|ai|human)|तिमी को हौ|तिमीलाई कस्तो छ|तिमी के गर्न सक्छौ|"
+    r"तिमी को हौस्|तिम्रो नाम के हो)\W*$", re.I)
+# a handful of unambiguous non-legal topics; deliberately narrow (a false
+# positive here sends a real legal question a canned "I can't help" reply,
+# which is worse than the false negative of just asking the LLM instead)
+OFF_TOPIC_HINT_RE = re.compile(
+    r"^\s*(what'?s? the weather( \w+)*|tell me a joke|sing (a|me a) song|recommend a movie|"
+    r"मौसम कस्तो छ|एउटा जोक सुनाऊ|गीत गाऊ)\W*[?.!]*\s*$", re.I)
 
 CANNED = {
     ("greeting", "en"): "Hello! I'm Kanooni Sathi. Tell me about your legal question or situation — "
@@ -157,7 +169,43 @@ def quick_intent(message: str) -> str | None:
         return "greeting"
     if THANKS_RE.match(message):
         return "thanks"
+    if SMALLTALK_RE.match(message):
+        return "smalltalk"
+    if OFF_TOPIC_HINT_RE.match(message):
+        return "off_topic"
     return None
+
+
+def confidence(message: str, lang: str) -> float:
+    """How sure we are this message is a legal question we can search well
+    without an LLM rewriting it - i.e. it already contains vocabulary our
+    statute-Nepali index matches (directly, since statutes are in Nepali, or
+    via the glossary's English/romanised -> Nepali expansion). Used to skip
+    analyze_query's LLM call for the common case; low-confidence messages
+    still get the full LLM analysis. quick_intent() has already filtered out
+    greetings/thanks/smalltalk/obvious-off-topic before this is called, so a
+    Nepali-script message reaching here is almost always a real legal
+    question - the LLM's main value for it is polishing search phrasing, not
+    deciding whether to search at all.
+    """
+    if lang == "ne":
+        return 0.9
+    expansion = glossary.expand(message)
+    return min(1.0, 0.3 * len(expansion)) if expansion else 0.0
+
+
+CONFIDENCE_THRESHOLD = 0.6
+
+
+def analyze_needs_llm(message: str, lang_hint: str, history: list[dict] | None = None) -> bool:
+    """Whether analyze_query() will reach a provider for this message - kept
+    in sync with analyze_query()'s own short-circuits so run()'s llm_calls
+    count stays accurate without duplicating the decision logic."""
+    if quick_intent(message) is not None or not llm.available():
+        return False
+    if not history and confidence(message, lang_hint) >= CONFIDENCE_THRESHOLD:
+        return False
+    return True
 
 
 def analyze_query(message: str, lang_hint: str, history: list[dict] | None = None) -> dict:
@@ -171,6 +219,15 @@ def analyze_query(message: str, lang_hint: str, history: list[dict] | None = Non
             "queries_en": [], "laws": [], "wants_precedent": True, "llm": False}
     if base["intent"] != "legal" or not llm.available():
         return base
+    if not history and confidence(message, lang_hint) >= CONFIDENCE_THRESHOLD:
+        # skip the LLM call: build_queries() already does glossary expansion
+        # and searches the raw Nepali message directly, so a confident
+        # message searches just as well without an LLM-rewritten query set.
+        # Follow-ups always go through the LLM (needs history to resolve
+        # "what about daughters?" into a standalone question).
+        out = {**base, "question": message}
+        _analysis_cache.put(key, out)
+        return out
     try:
         prompt = (f"Earlier conversation:\n{hist}\n\n" if hist else "") + f"Latest message: {message}"
         raw = llm.complete(ANALYZE_SYSTEM, prompt, fast=True, json_mode=True,
@@ -344,9 +401,7 @@ def run(message: str, language: str = "auto", history: list[dict] | None = None)
 
     # llm_calls counts pipeline stages that reached a provider (analyze,
     # answer), not per-provider/key retries inside llm.complete/stream.
-    # analyze_query() always attempts a call when the intent isn't caught by
-    # quick_intent() and a provider is configured, whether or not it succeeds.
-    llm_calls = 1 if (quick_intent(message) is None and llm.available()) else 0
+    llm_calls = 1 if analyze_needs_llm(message, lang_hint, history) else 0
     analysis = analyze_query(message, lang_hint, history)
     lang = language if language in ("en", "ne") else lang_hint  # script/word-based, not the model's guess
     meta_analysis = {k: analysis.get(k) for k in ("concern", "area", "queries_ne", "laws", "intent")}
