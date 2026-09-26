@@ -339,9 +339,14 @@ def run(message: str, language: str = "auto", history: list[dict] | None = None)
     cached = _answer_cache.get(ckey)
     if cached is not None:
         yield "meta", {"language": cached["language"], "sources": cached["sources"], "analysis": cached.get("analysis")}
-        yield "done", {"answer": cached["answer"], "llm_used": cached["llm_used"], "cached": True}
+        yield "done", {"answer": cached["answer"], "llm_used": cached["llm_used"], "cached": True, "llm_calls": 0}
         return
 
+    # llm_calls counts pipeline stages that reached a provider (analyze,
+    # answer), not per-provider/key retries inside llm.complete/stream.
+    # analyze_query() always attempts a call when the intent isn't caught by
+    # quick_intent() and a provider is configured, whether or not it succeeds.
+    llm_calls = 1 if (quick_intent(message) is None and llm.available()) else 0
     analysis = analyze_query(message, lang_hint, history)
     lang = language if language in ("en", "ne") else lang_hint  # script/word-based, not the model's guess
     meta_analysis = {k: analysis.get(k) for k in ("concern", "area", "queries_ne", "laws", "intent")}
@@ -352,7 +357,7 @@ def run(message: str, language: str = "auto", history: list[dict] | None = None)
             # the model replied in the other language: use our own wording instead
             reply = CANNED.get((analysis["intent"], lang)) or CANNED[("unclear", lang)]
         yield "meta", {"language": lang, "sources": [], "analysis": meta_analysis}
-        yield "done", {"answer": reply, "llm_used": analysis.get("llm", False), "cached": False}
+        yield "done", {"answer": reply, "llm_used": analysis.get("llm", False), "cached": False, "llm_calls": llm_calls}
         return
 
     query = analysis.get("question") or message
@@ -360,12 +365,13 @@ def run(message: str, language: str = "auto", history: list[dict] | None = None)
     yield "meta", {"language": lang, "sources": sources, "analysis": meta_analysis}
 
     if not sources:
-        yield "done", {"answer": CANNED[("unclear", lang)], "llm_used": False, "cached": False}
+        yield "done", {"answer": CANNED[("unclear", lang)], "llm_used": False, "cached": False, "llm_calls": llm_calls}
         return
     if not llm.available():
-        yield "done", {"answer": _extractive(sources, lang), "llm_used": False, "cached": False}
+        yield "done", {"answer": _extractive(sources, lang), "llm_used": False, "cached": False, "llm_calls": llm_calls}
         return
 
+    llm_calls += 1
     parts: list[str] = []
     try:
         for piece in llm.stream(ANSWER_SYSTEM, _prompt(message, analysis, sources, lang, history)):
@@ -385,7 +391,7 @@ def run(message: str, language: str = "auto", history: list[dict] | None = None)
     if llm_used:
         _answer_cache.put(ckey, {"answer": answer, "language": lang, "sources": sources,
                                  "llm_used": True, "analysis": meta_analysis})
-    yield "done", {"answer": answer, "llm_used": llm_used, "cached": False}
+    yield "done", {"answer": answer, "llm_used": llm_used, "cached": False, "llm_calls": llm_calls}
 
 
 def stream_answer(message: str, language: str = "auto", history: list[dict] | None = None):
@@ -398,5 +404,6 @@ def answer_question(message: str, language: str = "auto", history: list[dict] | 
         if kind == "meta":
             result.update(language=data["language"], sources=data["sources"], analysis=data["analysis"])
         elif kind == "done":
-            result.update(answer=data["answer"], llm_used=data["llm_used"], cached=data.get("cached", False))
+            result.update(answer=data["answer"], llm_used=data["llm_used"], cached=data.get("cached", False),
+                          llm_calls=data.get("llm_calls", 0))
     return result

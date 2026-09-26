@@ -1,5 +1,7 @@
 import asyncio
 import json
+import logging
+import time
 
 from fastapi import APIRouter, Query
 from fastapi.responses import StreamingResponse
@@ -10,6 +12,22 @@ from ..retrieval import corpus_stats, get_index
 from ..schemas import ChatRequest, ChatResponse, SearchResponse, Source
 
 router = APIRouter()
+reqlog = logging.getLogger("kanooni.request")
+
+
+def _log_request(endpoint: str, started: float, *, llm_used: bool, cached: bool, llm_calls: int,
+                 language: str | None) -> None:
+    # One structured line per request: what it cost (llm_calls, latency) and
+    # whether it hit no provider at all (cache) or several (retries/fallback).
+    reqlog.info(json.dumps({
+        "endpoint": endpoint,
+        "llm_calls": llm_calls,
+        "tier": "free",  # only tier that exists until S13's paid AI gateway
+        "latency_ms": int((time.time() - started) * 1000),
+        "cache_hit": cached,
+        "llm_used": llm_used,
+        "language": language,
+    }, ensure_ascii=False))
 
 
 def _to_source(n: int, hit: dict, lang: str) -> Source:
@@ -28,9 +46,12 @@ def _to_source(n: int, hit: dict, lang: str) -> Source:
 @router.post("/chat", response_model=ChatResponse)
 async def chat(payload: ChatRequest) -> ChatResponse:
     # LLM + search calls are blocking; keep the event loop free for other requests.
+    started = time.time()
     history = [t.model_dump() for t in payload.history]
     result = await asyncio.to_thread(answer_question, payload.message, payload.language or "auto", history)
     lang = result["language"]
+    _log_request("/api/chat", started, llm_used=result["llm_used"], cached=result.get("cached", False),
+                 llm_calls=result.get("llm_calls", 0), language=lang)
     return ChatResponse(
         answer=result["answer"],
         language=lang,
@@ -45,6 +66,7 @@ async def chat(payload: ChatRequest) -> ChatResponse:
 async def chat_stream(payload: ChatRequest) -> StreamingResponse:
     """NDJSON stream: {"type":"meta", sources...} then {"type":"delta","text"}* then {"type":"done"}.
     Sources arrive before the model starts writing, so the UI can show them immediately."""
+    started = time.time()
     history = [t.model_dump() for t in payload.history]
 
     def events():
@@ -59,6 +81,9 @@ async def chat_stream(payload: ChatRequest) -> StreamingResponse:
                 elif kind == "delta":
                     yield json.dumps({"type": "delta", "text": data}, ensure_ascii=False) + "\n"
                 else:
+                    _log_request("/api/chat/stream", started, llm_used=data.get("llm_used", False),
+                                 cached=data.get("cached", False), llm_calls=data.get("llm_calls", 0),
+                                 language=lang)
                     yield json.dumps({"type": "done", **data}, ensure_ascii=False) + "\n"
         except Exception:  # noqa: BLE001 - never leave the client hanging
             yield json.dumps({"type": "error"}) + "\n"
