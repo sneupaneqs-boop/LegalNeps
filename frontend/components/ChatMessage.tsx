@@ -9,18 +9,26 @@ export type Message = {
   sources?: Source[];
   llmUsed?: boolean;
   streaming?: boolean;
+  question?: string;
+  saved?: boolean;
+  saving?: boolean;
 };
 
 export default function ChatMessage({
   message,
   lang,
+  canSave,
+  onSave,
 }: {
   message: Message;
   lang: Lang;
+  canSave?: boolean;
+  onSave?: (m: Message) => void;
 }) {
   const t = strings[lang];
   const isUser = message.role === "user";
   const sources = message.sources ?? [];
+  const showSave = !isUser && !message.streaming && message.text && message.question && onSave;
 
   return (
     <div className={`bubble-row ${isUser ? "user" : "bot"}`}>
@@ -59,6 +67,23 @@ export default function ChatMessage({
                 </div>
               </details>
             ))}
+          </div>
+        )}
+
+        {showSave && (
+          <div className="save-row">
+            {message.saved ? (
+              <span className="saved-badge">✓ {t.savedResearch}</span>
+            ) : (
+              <button
+                className="save-button"
+                disabled={!canSave || message.saving}
+                title={canSave ? undefined : t.signInToSave}
+                onClick={() => onSave!(message)}
+              >
+                {message.saving ? "…" : t.saveResearch}
+              </button>
+            )}
           </div>
         )}
       </div>

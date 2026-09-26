@@ -98,3 +98,13 @@ PRECEDENT_K = int(os.getenv("RETRIEVAL_PRECEDENT_K", "2"))
 # chars of each passage sent to the model (the best-matching window)
 PASSAGE_CHARS = int(os.getenv("PASSAGE_CHARS", "700"))
 ANSWER_CACHE_SIZE = int(os.getenv("ANSWER_CACHE_SIZE", "512"))
+
+# S5: Supabase (auth + user data - the legal corpus itself stays file-based).
+# SUPABASE_SERVICE_ROLE_KEY bypasses RLS - used only server-side for cache/
+# quota writes and for validating a user's own token; never sent to the
+# frontend (which uses its own anon key directly, set as a separate env var
+# in Vercel, not read by this backend at all).
+SUPABASE_URL = os.getenv("SUPABASE_URL", "")
+SUPABASE_SERVICE_ROLE_KEY = os.getenv("SUPABASE_SERVICE_ROLE_KEY", "")
+DAILY_QUOTA_FREE = int(os.getenv("DAILY_QUOTA_FREE", "50"))  # answers/day for a logged-in free user
+IP_RATE_LIMIT_PER_HOUR = int(os.getenv("IP_RATE_LIMIT_PER_HOUR", "30"))  # per IP, anonymous or not

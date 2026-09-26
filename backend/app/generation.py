@@ -18,7 +18,7 @@ import re
 from collections import OrderedDict
 from threading import Lock
 
-from . import config, glossary, llm
+from . import config, glossary, llm, supa
 from .retrieval import get_index
 from .text_norm import detect_language, fold, guess_language, tokenize
 
@@ -119,6 +119,16 @@ _WS = re.compile(r"\s+")
 
 def _cache_key(message: str, lang: str) -> str:
     return lang + "|" + _WS.sub(" ", fold(message)).strip()
+
+
+def _answer_cache_key(message: str, lang: str) -> str:
+    # corpus_version prefix: an answer cached before the corpus changed must
+    # never be served after (docs/PROGRESS.md known issue #5). Only the
+    # answer cache needs this - analyze_query()'s output doesn't depend on
+    # corpus content, and coupling its cache key to get_index() would force
+    # the (slow, one-time) index build for every call site, including ones
+    # that never touch retrieval.
+    return get_index().digest + "|" + _cache_key(message, lang)
 
 
 GREETING_RE = re.compile(
@@ -392,8 +402,17 @@ def run(message: str, language: str = "auto", history: list[dict] | None = None)
     reply and no sources; legal ones get a grounded, cited answer, or the
     matching provisions if no model responds in time."""
     lang_hint = guess_language(message) if language == "auto" else language
-    ckey = _cache_key(message + "\x00" + _history_text(history), language)
+    ckey = _answer_cache_key(message + "\x00" + _history_text(history), language)
     cached = _answer_cache.get(ckey)
+    if cached is None and not history:
+        # L2: persistent cache, survives restarts/redeploys (in-memory L1
+        # above doesn't). Skipped for follow-ups - the key already includes
+        # history, so this would almost never hit anyway, and it's not worth
+        # a network round trip for messages that are cheap to just answer.
+        remote = supa.cache_get(ckey, get_index().digest)
+        if remote is not None:
+            cached = remote
+            _answer_cache.put(ckey, remote)  # warm L1 for this process too
     if cached is not None:
         yield "meta", {"language": cached["language"], "sources": cached["sources"], "analysis": cached.get("analysis")}
         yield "done", {"answer": cached["answer"], "llm_used": cached["llm_used"], "cached": True, "llm_calls": 0}
@@ -444,8 +463,11 @@ def run(message: str, language: str = "auto", history: list[dict] | None = None)
         answer = answer.rstrip() + "\n\n" + _extractive(sources, lang)
         llm_used = False
     if llm_used:
-        _answer_cache.put(ckey, {"answer": answer, "language": lang, "sources": sources,
-                                 "llm_used": True, "analysis": meta_analysis})
+        payload = {"answer": answer, "language": lang, "sources": sources,
+                  "llm_used": True, "analysis": meta_analysis}
+        _answer_cache.put(ckey, payload)
+        if not history:
+            supa.cache_put(ckey, get_index().digest, lang, message, payload)
     yield "done", {"answer": answer, "llm_used": llm_used, "cached": False, "llm_calls": llm_calls}
 
 

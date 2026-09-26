@@ -685,6 +685,153 @@ body {
   text-decoration: underline;
 }
 
+/* -- auth widget + saved research (S5) -------------------------------- */
+
+.auth-widget {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.auth-email {
+  font-size: 12px;
+  color: var(--text-dim);
+  max-width: 140px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.auth-signout {
+  background: none;
+  border: 1px solid var(--border);
+  color: var(--text-dim);
+  padding: 4px 10px;
+  border-radius: 999px;
+  font-size: 12px;
+  cursor: pointer;
+}
+
+.auth-signout:hover {
+  border-color: var(--accent-2);
+  color: var(--text);
+}
+
+.auth-popover {
+  position: absolute;
+  top: 32px;
+  right: 0;
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 12px;
+  width: 220px;
+  z-index: 20;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+}
+
+.auth-popover form {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.auth-popover input {
+  background: var(--panel-2);
+  border: 1px solid var(--border);
+  color: var(--text);
+  padding: 8px 10px;
+  border-radius: 8px;
+  font-size: 13px;
+  font-family: inherit;
+}
+
+.auth-popover input:focus {
+  outline: none;
+  border-color: var(--accent);
+}
+
+.auth-popover button {
+  background: var(--accent);
+  color: #1a1a1a;
+  border: none;
+  padding: 7px 10px;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  font-size: 13px;
+}
+
+.auth-popover button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.auth-hint {
+  font-size: 11.5px;
+  color: var(--text-dim);
+  margin: 0;
+  overflow-wrap: anywhere;
+}
+
+.auth-error {
+  color: #fca5a5;
+  font-size: 12px;
+  margin: 6px 0 0;
+}
+
+.save-row {
+  margin-top: 10px;
+}
+
+.save-button {
+  background: var(--panel-2);
+  border: 1px solid var(--border);
+  color: var(--accent-2);
+  padding: 5px 12px;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.save-button:hover:not(:disabled) {
+  border-color: var(--accent-2);
+}
+
+.save-button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.saved-badge {
+  font-size: 12px;
+  color: var(--accent-2);
+  font-weight: 600;
+}
+
+.saved-card {
+  cursor: default;
+}
+
+.saved-answer {
+  margin-top: 6px;
+  white-space: pre-wrap;
+}
+
+.saved-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 10px;
+}
+
+.saved-date {
+  font-size: 11.5px;
+  color: var(--text-dim);
+}
+
 @media (max-width: 480px) {
   .search-filters {
     gap: 10px;
@@ -692,5 +839,10 @@ body {
 
   .law-title {
     font-size: 18px;
+  }
+
+  .auth-popover {
+    width: 200px;
+    right: -8px;
   }
 }

@@ -48,6 +48,20 @@ type Strings = {
   docTypeDirective: string;
   docTypeTreaty: string;
   docTypeOther: string;
+  signIn: string;
+  signOut: string;
+  emailPlaceholder: string;
+  sendCode: string;
+  codeSentTo: string;
+  codePlaceholder: string;
+  verifyCode: string;
+  saveResearch: string;
+  savedResearch: string;
+  savedToResearch: string;
+  navSaved: string;
+  savedEmpty: string;
+  signInToSave: string;
+  deleteSaved: string;
 };
 
 export const strings: Record<Lang, Strings> = {
@@ -107,6 +121,20 @@ export const strings: Record<Lang, Strings> = {
     docTypeDirective: "Directive",
     docTypeTreaty: "Treaty",
     docTypeOther: "Other",
+    signIn: "Sign in",
+    signOut: "Sign out",
+    emailPlaceholder: "you@example.com",
+    sendCode: "Send code",
+    codeSentTo: "Code sent to",
+    codePlaceholder: "6-digit code",
+    verifyCode: "Verify",
+    saveResearch: "Save",
+    savedResearch: "Saved",
+    savedToResearch: "Saved to your research",
+    navSaved: "Saved",
+    savedEmpty: "Nothing saved yet. Save an answer from the chat to find it here later.",
+    signInToSave: "Sign in to save this answer for later.",
+    deleteSaved: "Delete",
   },
   ne: {
     appName: "कानूनी साथी",
@@ -163,5 +191,19 @@ export const strings: Record<Lang, Strings> = {
     docTypeDirective: "निर्देशिका",
     docTypeTreaty: "सन्धि",
     docTypeOther: "अन्य",
+    signIn: "साइन इन",
+    signOut: "साइन आउट",
+    emailPlaceholder: "you@example.com",
+    sendCode: "कोड पठाउनुहोस्",
+    codeSentTo: "कोड यहाँ पठाइयो:",
+    codePlaceholder: "६ अंकको कोड",
+    verifyCode: "प्रमाणित गर्नुहोस्",
+    saveResearch: "सेभ गर्नुहोस्",
+    savedResearch: "सेभ गरिएको",
+    savedToResearch: "तपाईंको अनुसन्धानमा सेभ भयो",
+    navSaved: "सेभ गरिएका",
+    savedEmpty: "अहिलेसम्म केही सेभ गरिएको छैन। पछि यहाँ भेट्टाउन च्याटबाट कुनै जवाफ सेभ गर्नुहोस्।",
+    signInToSave: "यो जवाफ पछिका लागि सेभ गर्न साइन इन गर्नुहोस्।",
+    deleteSaved: "मेटाउनुहोस्",
   },
 };

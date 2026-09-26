@@ -2,9 +2,11 @@
 
 import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
+import AuthWidget from "@/components/AuthWidget";
 import ChatMessage, { Message } from "@/components/ChatMessage";
-import { sendChatMessage, streamChatMessage, Turn, warmUp } from "@/lib/api";
+import { saveResearch, sendChatMessage, streamChatMessage, Turn, warmUp } from "@/lib/api";
 import { Lang, strings } from "@/lib/i18n";
+import { useAuth } from "@/lib/useAuth";
 
 export default function Home() {
   const [lang, setLang] = useState<Lang>("en");
@@ -12,6 +14,7 @@ export default function Home() {
   const [input, setInput] = useState("");
   const [loading, setLoading] = useState(false);
   const inputRef = useRef<HTMLTextAreaElement>(null);
+  const { session } = useAuth();
 
   useEffect(() => {
     warmUp();
@@ -35,6 +38,7 @@ export default function Home() {
     setLoading(true);
 
     const botId = newId();
+    const question = text;
     let started = false;
     const update = (patch: Partial<Message>) =>
       setMessages((prev) => prev.map((m) => (m.id === botId ? { ...m, ...patch } : m)));
@@ -45,7 +49,7 @@ export default function Home() {
           started = true;
           setMessages((prev) => [
             ...prev,
-            { id: botId, role: "bot", text: "", sources: meta.sources, llmUsed: true, streaming: true },
+            { id: botId, role: "bot", text: "", sources: meta.sources, llmUsed: true, streaming: true, question },
           ]);
         },
         onDelta: (piece) => {
@@ -64,7 +68,7 @@ export default function Home() {
           const res = await sendChatMessage(text, lang, history);
           setMessages((prev) => [
             ...prev,
-            { id: botId, role: "bot", text: res.answer, sources: res.sources, llmUsed: res.llm_used },
+            { id: botId, role: "bot", text: res.answer, sources: res.sources, llmUsed: res.llm_used, question },
           ]);
         } catch {
           setMessages((prev) => [...prev, { id: botId, role: "bot", text: t.error }]);
@@ -75,6 +79,22 @@ export default function Home() {
     } finally {
       setLoading(false);
       inputRef.current?.focus();
+    }
+  }
+
+  async function handleSaveResearch(m: Message) {
+    if (!session) return;
+    setMessages((prev) => prev.map((x) => (x.id === m.id ? { ...x, saving: true } : x)));
+    try {
+      await saveResearch(
+        session.access_token,
+        m.question || "",
+        { answer: m.text, language: lang, sources: m.sources ?? [], llm_used: !!m.llmUsed },
+        lang
+      );
+      setMessages((prev) => prev.map((x) => (x.id === m.id ? { ...x, saving: false, saved: true } : x)));
+    } catch {
+      setMessages((prev) => prev.map((x) => (x.id === m.id ? { ...x, saving: false } : x)));
     }
   }
 
@@ -96,6 +116,10 @@ export default function Home() {
           <Link className="nav-link" href="/search">
             {t.navSearch}
           </Link>
+          <Link className="nav-link" href="/saved">
+            {t.navSaved}
+          </Link>
+          <AuthWidget lang={lang} />
           <button
             className="lang-toggle"
             onClick={() => setLang(lang === "en" ? "ne" : "en")}
@@ -122,7 +146,7 @@ export default function Home() {
           </div>
         )}
         {messages.map((m) => (
-          <ChatMessage key={m.id} message={m} lang={lang} />
+          <ChatMessage key={m.id} message={m} lang={lang} canSave={!!session} onSave={handleSaveResearch} />
         ))}
         {loading && !messages.some((m) => m.streaming) && (
           <div className="bubble-row bot">

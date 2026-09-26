@@ -84,6 +84,20 @@ class LawSectionNeighbour(BaseModel):
     title_ne: Optional[str] = None
 
 
+class SavedResearchIn(BaseModel):
+    question: str = Field(..., min_length=1, max_length=2000)
+    answer: ChatResponse
+    language: Literal["en", "ne"]
+
+
+class SavedResearchOut(BaseModel):
+    id: str
+    question: str
+    answer: dict
+    language: str
+    created_at: str
+
+
 class LawSection(BaseModel):
     slug: str
     id: str

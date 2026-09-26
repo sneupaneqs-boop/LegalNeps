@@ -6,11 +6,156 @@ kickoff prompt.
 
 ## Next session
 
-**S5 — Supabase auth + DB.** See STRATEGY.md §4, week 1 table. Add-on: ask
-the user for SUPABASE_URL / anon key / service key **names only**, never
-values.
+**S6 — Action Plan engine.** See STRATEGY.md §4, week 2 table. Use the
+drafter subagent for playbook YAML, then verify every provision ID against
+the corpus yourself (citation test) - flag anything the drafter marks
+UNVERIFIED.
+
+**Before S6, or whenever picked up**: give the user the exact steps to (a)
+set `SUPABASE_SERVICE_ROLE_KEY` on the backend deploy and
+`NEXT_PUBLIC_SUPABASE_URL`/`NEXT_PUBLIC_SUPABASE_ANON_KEY` on the frontend
+deploy (see S5 notes below for the values/where to find them), and (b) do
+one real signed-in test of save-research end to end, since this session
+could only verify the pieces individually (see S5 "Verified" vs. "Not
+verified" below).
 
 ## Done
+
+### S5 — Supabase auth + DB (2026-09-26)
+
+A Supabase MCP connection became available mid-session, which changed the
+plan: instead of asking the user to click through the dashboard, found their
+already-created empty **"LegalNeps"** project (org `sneupaneqs-boop's Org`,
+region `ap-southeast-1`, project ref `agzvhessbwwhectuizko`) via
+`list_projects` and built directly against it through the MCP tools -
+migrations applied and verified live, not just written and assumed correct.
+The account also has 3 older, unrelated projects (`Sudin`, `MOCKLYY`,
+`BarXcut`) - not touched.
+
+**Schema** (4 migrations, all applied and confirmed via `list_tables`/
+`get_advisors`):
+- `profiles` (id, email, plan default 'free') - auto-created by an
+  `on_auth_user_created` trigger (`handle_new_user()`) whenever Supabase
+  Auth creates a new `auth.users` row.
+- `usage_daily` (user_id, day, request_count) - per-user daily quota.
+- `answer_cache` (cache_key, corpus_version, language, question, answer
+  jsonb, hit_count) - replaces the in-memory-only LRU cache (known issue #5:
+  lost on restart, not keyed by corpus_version). RLS enabled with **zero**
+  policies for anon/authenticated (backend-only, via service_role, which
+  bypasses RLS in Supabase) - the advisor's "RLS enabled, no policy" lint on
+  this table is expected, not a gap.
+- `saved_research` (id, user_id, question, answer jsonb, language,
+  created_at) - a logged-in user's saved answers; RLS: select/insert/delete
+  own rows only.
+- `increment_usage(user_id, daily_limit)` RPC: atomic check-and-increment
+  (`INSERT ... ON CONFLICT DO UPDATE ... RETURNING`) so two concurrent
+  requests from the same user can't both read "under quota" and both
+  proceed - a plain read-then-write from the backend would have this race.
+  Execute revoked from anon/authenticated (service_role only).
+- Security advisor flagged `handle_new_user()` as callable directly via
+  `/rest/v1/rpc/handle_new_user` by anon/authenticated - fixed by revoking
+  EXECUTE from those roles (the trigger itself still fires regardless, since
+  trigger invocation isn't gated by the invoking role's grants in Postgres).
+  Advisor re-run clean after (only the expected `answer_cache` INFO
+  remains).
+
+**Backend** (`app/supa.py`, new): talks to Supabase's REST/Auth API directly
+over `httpx` (already a dependency) rather than the `supabase-py` SDK, to
+avoid another heavy dependency tree after S1's pydantic lesson. `get_user()`
+validates a frontend access token via a round trip to Supabase's own
+`/auth/v1/user` (simpler and safer than reimplementing local JWT
+verification / key rotation). `check_and_increment_quota()` calls the RPC;
+fails open (never blocks) if Supabase is unreachable. `cache_get()`/
+`cache_put()` back the persistent answer cache, gated on `corpus_version`
+matching. `check_ip_rate_limit()` is a pure in-memory per-process sliding
+window (documented limitation: not shared across multiple backend
+instances - fine for a single free-tier instance, wrong for a
+horizontally-scaled deploy).
+- `generation.py`: added a corpus_version-prefixed `_answer_cache_key()`,
+  kept separate from the plain `_cache_key()` used by `analyze_query()`'s
+  cache (analysis output doesn't depend on corpus content - coupling it to
+  `get_index()` was a real bug I introduced and caught via a test that
+  suddenly took 16s instead of instant, see "Found while building" below).
+  `run()` now checks the Supabase cache (L2) behind the existing in-memory
+  LRU (L1) for first-turn messages, and writes through to both on a fresh
+  LLM answer.
+- `routes/chat.py`: `/api/chat` and `/api/chat/stream` now enforce the IP
+  rate limit (429) for every caller and the per-user daily quota (429) for
+  authenticated ones. New `POST/GET /api/research` and
+  `DELETE /api/research/{id}`, all requiring a valid bearer token
+  (`_require_user` dependency, 401 otherwise).
+- `config.py`: `SUPABASE_URL`, `SUPABASE_SERVICE_ROLE_KEY`,
+  `DAILY_QUOTA_FREE` (default 50/day), `IP_RATE_LIMIT_PER_HOUR` (default
+  30/hour) - all env-configurable.
+
+**Found while building** (both fixed): (1) `_cache_key()` originally called
+`get_index()` directly, which forced a full ~17s corpus index build the
+first time *any* cache key was computed - including from
+`tests/test_hot_path.py`, which has no retrieval fixture and doesn't need
+one. Caught because that specific test suddenly took 16.73s instead of
+instant; split into `_cache_key()` (no corpus dependency, used by
+`analyze_query()`) and `_answer_cache_key()` (corpus-version-prefixed, used
+only by the answer cache). (2) `check_ip_rate_limit()` and
+`check_and_increment_quota()` originally used
+`config.IP_RATE_LIMIT_PER_HOUR`/`config.DAILY_QUOTA_FREE` as Python default
+*parameter* values - evaluated once at import time, so a
+`monkeypatch.setattr(config, ...)` in a test (or any runtime config change)
+silently had no effect. A test written to prove the 429 behavior caught
+this immediately (asserted 429, got 200). Fixed by reading `config.*` inside
+the function body instead.
+
+**Frontend**: `lib/supabase.ts` (client + `signInWithOtp`/`verifyOtp`/
+`signOut`), `lib/useAuth.ts` (session hook), `components/AuthWidget.tsx`
+(email → 6-digit code sign-in popover, dropped into the header on all three
+pages). A "Save" button appears under any chat answer; disabled with a
+"sign in to save" tooltip when logged out. New `/saved` page lists and
+deletes saved research. Google sign-in **deferred at the user's choice**
+(needs a separate Google Cloud Console OAuth setup) - email OTP only for
+now; adding Google later doesn't touch the schema or this code.
+
+**Verified live against the real Supabase project** (via the MCP SQL tools,
+which only need project access, not the service_role key): the
+`on_auth_user_created` trigger fires and creates a `profiles` row
+(`plan: free`) when a test `auth.users` row is inserted; `increment_usage`
+correctly allows the first N calls and blocks the (N+1)th
+(`allowed: false`) while counting accurately; deleting the test user
+cascades to delete their `profiles` row (`on delete cascade` works); the
+REST API paths/params `app/supa.py` uses were checked directly against the
+live project with `curl` and the (non-secret) anon key - `/auth/v1/user`
+with a garbage token returns 403 (handled as "no user" by `get_user()`),
+`/rest/v1/answer_cache` with the right query-string shape returns `200 []`
+(RLS blocking anon, not a URL/param bug). All test data cleaned up
+afterward (verified 0 rows in every table again).
+
+**NOT verified**: the actual authenticated round trip through
+`app/supa.py`'s own code, running as a live backend process with
+`SUPABASE_SERVICE_ROLE_KEY` set. That key is a real secret I deliberately
+never fetched or asked for (Supabase's anon/publishable keys are meant to
+be public; service_role is not) - the user needs to set it directly as an
+env var in their deployment, never pasted into this chat. Until that
+happens and someone does one real signed-in save/list/delete through the
+actual running app, treat the backend↔Supabase write path as "individually
+verified, not end-to-end verified."
+
+**Env vars the user needs to set** (names only were requested; the two
+non-secret values are given directly since Supabase publishable/anon keys
+are meant to ship in client code):
+- Backend deploy (e.g. Render): `SUPABASE_URL=https://agzvhessbwwhectuizko.supabase.co`,
+  `SUPABASE_SERVICE_ROLE_KEY=<from Project Settings → API → service_role, kept secret>`
+- Frontend deploy (e.g. Vercel): `NEXT_PUBLIC_SUPABASE_URL=https://agzvhessbwwhectuizko.supabase.co`,
+  `NEXT_PUBLIC_SUPABASE_ANON_KEY=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImFnenZoZXNzYnd3aGVjdHVpemtvIiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTA0Mjc5ODAsImV4cCI6MjEwNjAwMzk4MH0.9kEUTIfY5ugnjxc8xpCmddbc9ElztCDl9kJDhQnbb_U`
+
+S5's own "done when" (STRATEGY.md): "a logged-in user saves a research item"
+- built and individually verified, not yet end-to-end tested (needs the
+service_role key, see above). "cache survives restart" - the Supabase-backed
+L2 cache does this by construction (it's a Postgres table), but again not
+yet exercised by a live request. "rate limit test" - `tests/test_supa.py`
+and `tests/test_api.py` cover this directly (IP window, per-IP isolation,
+window expiry, 429 propagation through `/api/chat`).
+
+97/97 backend tests pass (was 89; +8 for supa.py + auth/quota/rate-limit
+routes). Frontend `next build` succeeds; new `/saved` route and `AuthWidget`
+compile cleanly.
 
 ### S4 — Search + law browser UI (2026-09-26)
 
@@ -327,11 +472,17 @@ Frontend: `next build` succeeds.
 3. 20 MB corpus + 23 MB of source PDFs are committed to git (acceptable for
    now; avoid reading them directly in-session — go through the extraction
    code instead).
-4. No rate limiting on `/api/chat` — one caller in a loop can exhaust every
-   free-tier key.
-5. In-memory LRU caches (`_analysis_cache`, `_answer_cache` in
-   `generation.py`) are lost on every restart/deploy and aren't keyed by
-   `corpus_version` — S5 replaces this with the persistent Supabase cache.
+4. ~~No rate limiting on `/api/chat`~~ — **fixed in S5**: IP-hourly limit on
+   every request, per-user daily quota on authenticated ones
+   (`app/supa.py::check_ip_rate_limit`/`check_and_increment_quota`).
+   Individually verified (see S5 notes); not yet exercised by a live request
+   against the real deployment (needs `SUPABASE_SERVICE_ROLE_KEY` set).
+5. ~~In-memory LRU caches ... lost on every restart, not keyed by
+   corpus_version~~ — **fixed in S5**: `_analysis_cache` stays in-memory
+   (its output doesn't depend on corpus content, no need to persist it), but
+   `_answer_cache` now has a Supabase-backed L2 behind it, keyed by
+   `corpus_version`, surviving restarts. Same caveat as #4: not yet
+   exercised live.
 6. No LLM provider keys are configured in this build environment, so the
    query-understanding retrieval mode, the answer-generation path, and the
    "% queries with an LLM call" metric could not be measured live this

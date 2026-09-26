@@ -3,16 +3,51 @@ import json
 import logging
 import time
 
-from fastapi import APIRouter, HTTPException, Query
+from fastapi import APIRouter, Depends, Header, HTTPException, Query, Request
 from fastapi.responses import StreamingResponse
 from starlette.concurrency import iterate_in_threadpool
 
+from .. import supa
 from ..generation import answer_question, stream_answer
 from ..retrieval import corpus_stats, doc_slug, get_index
-from ..schemas import ChatRequest, ChatResponse, LawDoc, LawSection, SearchResponse, Source
+from ..schemas import (ChatRequest, ChatResponse, LawDoc, LawSection, SavedResearchIn, SavedResearchOut,
+                        SearchResponse, Source)
 
 router = APIRouter()
 reqlog = logging.getLogger("kanooni.request")
+
+
+def _client_ip(request: Request) -> str:
+    fwd = request.headers.get("x-forwarded-for")
+    if fwd:
+        return fwd.split(",")[0].strip()
+    return request.client.host if request.client else "unknown"
+
+
+async def _current_user(authorization: str | None = Header(None)) -> dict | None:
+    """None for an anonymous caller - most endpoints work without an account.
+    Only /api/research requires one (see require_user)."""
+    if not authorization or not authorization.lower().startswith("bearer "):
+        return None
+    token = authorization[7:].strip()
+    return await asyncio.to_thread(supa.get_user, token)
+
+
+async def _require_user(authorization: str | None = Header(None)) -> dict:
+    user = await _current_user(authorization)
+    if user is None:
+        raise HTTPException(status_code=401, detail="sign in required")
+    return user
+
+
+async def _enforce_limits(request: Request, user: dict | None) -> None:
+    ip = _client_ip(request)
+    if not await asyncio.to_thread(supa.check_ip_rate_limit, ip):
+        raise HTTPException(status_code=429, detail="too many requests from this address, try again later")
+    if user is not None:
+        allowed, _ = await asyncio.to_thread(supa.check_and_increment_quota, user["id"])
+        if not allowed:
+            raise HTTPException(status_code=429, detail="daily answer limit reached")
 
 
 def _log_request(endpoint: str, started: float, *, llm_used: bool, cached: bool, llm_calls: int,
@@ -48,8 +83,10 @@ def _to_source(n: int, hit: dict, lang: str) -> Source:
 
 
 @router.post("/chat", response_model=ChatResponse)
-async def chat(payload: ChatRequest) -> ChatResponse:
+async def chat(payload: ChatRequest, request: Request, authorization: str | None = Header(None)) -> ChatResponse:
     # LLM + search calls are blocking; keep the event loop free for other requests.
+    user = await _current_user(authorization)
+    await _enforce_limits(request, user)
     started = time.time()
     history = [t.model_dump() for t in payload.history]
     result = await asyncio.to_thread(answer_question, payload.message, payload.language or "auto", history)
@@ -67,9 +104,12 @@ async def chat(payload: ChatRequest) -> ChatResponse:
 
 
 @router.post("/chat/stream")
-async def chat_stream(payload: ChatRequest) -> StreamingResponse:
+async def chat_stream(payload: ChatRequest, request: Request,
+                      authorization: str | None = Header(None)) -> StreamingResponse:
     """NDJSON stream: {"type":"meta", sources...} then {"type":"delta","text"}* then {"type":"done"}.
     Sources arrive before the model starts writing, so the UI can show them immediately."""
+    user = await _current_user(authorization)
+    await _enforce_limits(request, user)
     started = time.time()
     history = [t.model_dump() for t in payload.history]
 
@@ -130,3 +170,24 @@ async def law_section(slug: str, section: str) -> LawSection:
 @router.get("/stats")
 async def stats() -> dict:
     return await asyncio.to_thread(corpus_stats)
+
+
+@router.post("/research", response_model=SavedResearchOut, status_code=201)
+async def save_research(payload: SavedResearchIn, user: dict = Depends(_require_user)) -> SavedResearchOut:
+    row = await asyncio.to_thread(
+        supa.saved_research_create, user["id"], payload.question, payload.answer.model_dump(), payload.language
+    )
+    if row is None:
+        raise HTTPException(status_code=503, detail="saved research is unavailable right now")
+    return SavedResearchOut(**row)
+
+
+@router.get("/research", response_model=list[SavedResearchOut])
+async def list_research(user: dict = Depends(_require_user)) -> list[SavedResearchOut]:
+    rows = await asyncio.to_thread(supa.saved_research_list, user["id"])
+    return [SavedResearchOut(**r) for r in rows]
+
+
+@router.delete("/research/{research_id}", status_code=204)
+async def delete_research(research_id: str, user: dict = Depends(_require_user)) -> None:
+    await asyncio.to_thread(supa.saved_research_delete, user["id"], research_id)

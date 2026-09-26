@@ -7,10 +7,13 @@ from fixtures import ENTRIES
 
 @pytest.fixture()
 def client(monkeypatch, tmp_path):
+    from app import supa
+
     retrieval.CACHE_DIR = tmp_path
     idx = retrieval.Index([dict(e) for e in ENTRIES], "api-test")
     monkeypatch.setattr(retrieval, "_index", idx)
     monkeypatch.setattr(generation, "get_index", lambda: idx)
+    supa._ip_hits.clear()  # every test starts with a clean IP rate-limit budget
     from app.main import app
     with TestClient(app) as c:
         yield c
@@ -77,6 +80,69 @@ def test_law_browser_doc_and_section_endpoints(client):
 
     assert client.get("/api/law/no-such-slug").status_code == 404
     assert client.get(f"/api/law/{slug}/no-such-section").status_code == 404
+
+
+def test_research_endpoints_require_auth(client):
+    assert client.get("/api/research").status_code == 401
+    assert client.post("/api/research", json={
+        "question": "x", "language": "ne",
+        "answer": {"answer": "a", "language": "ne", "sources": [], "llm_used": False},
+    }).status_code == 401
+    assert client.delete("/api/research/abc").status_code == 401
+    # garbage bearer token: supa.get_user() itself is unreachable/unconfigured
+    # in tests, so it correctly resolves to "no user" rather than raising
+    r = client.get("/api/research", headers={"Authorization": "Bearer not-a-real-token"})
+    assert r.status_code == 401
+
+
+def test_research_save_list_delete_roundtrip(client, monkeypatch):
+    from app import supa
+
+    monkeypatch.setattr(supa, "get_user", lambda token: {"id": "user-42", "email": "a@b.com"} if token == "good" else None)
+    store: dict[str, dict] = {}
+
+    def fake_create(user_id, question, answer, language):
+        row = {"id": "r1", "question": question, "answer": answer, "language": language, "created_at": "2026-01-01T00:00:00Z"}
+        store[row["id"]] = row
+        return row
+
+    monkeypatch.setattr(supa, "saved_research_create", fake_create)
+    monkeypatch.setattr(supa, "saved_research_list", lambda user_id: list(store.values()))
+    monkeypatch.setattr(supa, "saved_research_delete", lambda user_id, rid: store.pop(rid, None))
+
+    headers = {"Authorization": "Bearer good"}
+    body = {"question": "बाल विवाह सजाय?", "language": "ne",
+            "answer": {"answer": "जवाफ", "language": "ne", "sources": [], "llm_used": False}}
+    r = client.post("/api/research", json=body, headers=headers)
+    assert r.status_code == 201 and r.json()["id"] == "r1"
+
+    r = client.get("/api/research", headers=headers)
+    assert r.status_code == 200 and len(r.json()) == 1
+
+    r = client.delete("/api/research/r1", headers=headers)
+    assert r.status_code == 204
+    assert client.get("/api/research", headers=headers).json() == []
+
+
+def test_ip_rate_limit_returns_429(client, monkeypatch):
+    from app import config, supa
+
+    supa._ip_hits.clear()
+    monkeypatch.setattr(config, "IP_RATE_LIMIT_PER_HOUR", 2)
+    for _ in range(2):
+        assert client.post("/api/chat", json={"message": "बाल विवाह सजाय", "language": "ne"}).status_code == 200
+    r = client.post("/api/chat", json={"message": "बाल विवाह सजाय", "language": "ne"})
+    assert r.status_code == 429
+
+
+def test_per_user_daily_quota_returns_429(client, monkeypatch):
+    from app import supa
+
+    monkeypatch.setattr(supa, "get_user", lambda token: {"id": "user-9", "email": None} if token == "good" else None)
+    monkeypatch.setattr(supa, "check_and_increment_quota", lambda user_id, daily_limit=50: (False, 999))
+    r = client.post("/api/chat", json={"message": "बाल विवाह सजाय", "language": "ne"},
+                    headers={"Authorization": "Bearer good"})
+    assert r.status_code == 429
 
 
 def test_stats(client):

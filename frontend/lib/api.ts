@@ -88,6 +88,46 @@ export async function getLawDoc(slug: string): Promise<LawDoc | null> {
   return res.json();
 }
 
+export type SavedResearch = {
+  id: string;
+  question: string;
+  answer: ChatResponse;
+  language: string;
+  created_at: string;
+};
+
+export async function saveResearch(
+  accessToken: string,
+  question: string,
+  answer: ChatResponse,
+  language: "en" | "ne"
+): Promise<SavedResearch> {
+  const res = await fetch(`${API_URL}/api/research`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json", Authorization: `Bearer ${accessToken}` },
+    body: JSON.stringify({ question, answer, language }),
+  });
+  if (!res.ok) throw new Error(`Request failed with status ${res.status}`);
+  return res.json();
+}
+
+export async function listSavedResearch(accessToken: string): Promise<SavedResearch[]> {
+  const res = await fetch(`${API_URL}/api/research`, {
+    headers: { Authorization: `Bearer ${accessToken}` },
+    cache: "no-store",
+  });
+  if (!res.ok) throw new Error(`Request failed with status ${res.status}`);
+  return res.json();
+}
+
+export async function deleteSavedResearch(accessToken: string, id: string): Promise<void> {
+  const res = await fetch(`${API_URL}/api/research/${encodeURIComponent(id)}`, {
+    method: "DELETE",
+    headers: { Authorization: `Bearer ${accessToken}` },
+  });
+  if (!res.ok && res.status !== 404) throw new Error(`Request failed with status ${res.status}`);
+}
+
 export async function getLawSection(slug: string, section: string): Promise<LawSection | null> {
   const res = await fetch(
     `${API_URL}/api/law/${encodeURIComponent(slug)}/${encodeURIComponent(section)}`,

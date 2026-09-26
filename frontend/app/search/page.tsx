@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { useState } from "react";
+import AuthWidget from "@/components/AuthWidget";
 import { search, Source } from "@/lib/api";
 import { Lang, strings } from "@/lib/i18n";
 
@@ -94,6 +95,10 @@ export default function SearchPage() {
           <Link className="nav-link" href="/">
             {t.navChat}
           </Link>
+          <Link className="nav-link" href="/saved">
+            {t.navSaved}
+          </Link>
+          <AuthWidget lang={lang} />
           <button className="lang-toggle" onClick={() => setLang(lang === "en" ? "ne" : "en")}>
             {t.langToggle}
           </button>
