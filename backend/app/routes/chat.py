@@ -7,11 +7,11 @@ from fastapi import APIRouter, Depends, Header, HTTPException, Query, Request
 from fastapi.responses import StreamingResponse
 from starlette.concurrency import iterate_in_threadpool
 
-from .. import supa
+from .. import playbooks, supa
 from ..generation import answer_question, stream_answer
 from ..retrieval import corpus_stats, doc_slug, get_index
-from ..schemas import (ChatRequest, ChatResponse, LawDoc, LawSection, SavedResearchIn, SavedResearchOut,
-                        SearchResponse, Source)
+from ..schemas import (ChatRequest, ChatResponse, LawDoc, LawSection, Playbook, PlaybookSummary,
+                        SavedResearchIn, SavedResearchOut, SearchResponse, Source)
 
 router = APIRouter()
 reqlog = logging.getLogger("kanooni.request")
@@ -191,3 +191,17 @@ async def list_research(user: dict = Depends(_require_user)) -> list[SavedResear
 @router.delete("/research/{research_id}", status_code=204)
 async def delete_research(research_id: str, user: dict = Depends(_require_user)) -> None:
     await asyncio.to_thread(supa.saved_research_delete, user["id"], research_id)
+
+
+@router.get("/playbooks", response_model=list[PlaybookSummary])
+async def list_playbooks() -> list[PlaybookSummary]:
+    rows = await asyncio.to_thread(playbooks.list_playbooks)
+    return [PlaybookSummary(**r) for r in rows]
+
+
+@router.get("/playbooks/{playbook_id}", response_model=Playbook)
+async def get_playbook(playbook_id: str) -> Playbook:
+    pb = await asyncio.to_thread(playbooks.get_playbook, playbook_id)
+    if pb is None:
+        raise HTTPException(status_code=404, detail="playbook not found")
+    return Playbook(**{k: v for k, v in pb.items() if k != "_file"})

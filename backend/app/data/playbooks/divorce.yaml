@@ -1,0 +1,58 @@
+id: divorce
+area: family
+issue:
+  en: "I want a divorce from my spouse"
+  ne: "मलाई मेरो श्रीमान/श्रीमतीसँग सम्बन्ध विच्छेद गर्नु छ"
+fact_questions:
+  - en: "Does your spouse also agree to the divorce, or is it contested?"
+    ne: "तपाईंको श्रीमान/श्रीमतीले पनि सम्बन्ध विच्छेदमा सहमति जनाउनुहुन्छ, कि विवाद छ?"
+  - en: "Do you have children together, and if so, what arrangement do you want for their custody?"
+    ne: "तपाईंहरूका सन्तान छन्? भए, तिनको संरक्षणको लागि तपाईं के व्यवस्था चाहनुहुन्छ?"
+  - en: "Is there shared property that will need to be divided (अंशबण्डा)?"
+    ne: "अंशबण्डा गर्नुपर्ने साझा सम्पत्ति छ?"
+  - en: "Where is your spouse currently living, and in which district is your marital home?"
+    ne: "तपाईंको श्रीमान/श्रीमती हाल कहाँ बस्नुहुन्छ, र तपाईंको वैवाहिक घर कुन जिल्लामा छ?"
+provisions:
+  - law_title_ne: "मुलुकी देवानी संहिता, २०७४"
+    section: "96"
+    note:
+      en: "Either spouse wanting a divorce must file a written petition at the relevant District Court."
+      ne: "सम्बन्ध विच्छेद गर्न चाहने पति वा पत्नीले सम्बन्धित जिल्ला अदालतमा लिखित निवेदन दिनुपर्छ।"
+  - law_title_ne: "मुलुकी देवानी संहिता, २०७४"
+    section: "97"
+    note:
+      en: "The court must first attempt reconciliation between the spouses before granting a divorce."
+      ne: "सम्बन्ध विच्छेद स्वीकृत गर्नुअघि अदालतले पति-पत्नीलाई मेलमिलाप गराउने प्रयास गर्नुपर्छ।"
+  - law_title_ne: "मुलुकी देवानी संहिता, २०७४"
+    section: "98"
+    note:
+      en: "If reconciliation fails and continuing the marriage is not appropriate, the court grants the divorce."
+      ne: "मेलमिलाप हुन नसकेमा र विवाह कायम राख्नु उपयुक्त नदेखिएमा अदालतले सम्बन्ध विच्छेद गरिदिन्छ।"
+  - law_title_ne: "मुलुकी देवानी संहिता, २०७४"
+    section: "99"
+    note:
+      en: "Property division (अंशबण्डा) between the spouses is addressed before or alongside the divorce order."
+      ne: "सम्बन्ध विच्छेद हुनुअघि नै अंशबण्डा गर्नुपर्ने व्यवस्था छ।"
+evidence:
+  - en: "Marriage certificate"
+    ne: "विवाह दर्ता प्रमाणपत्र"
+  - en: "Proof of address / citizenship documents for both spouses"
+    ne: "दुवैको ठेगाना/नागरिकताका कागजात"
+  - en: "Details of shared property and children, if any"
+    ne: "साझा सम्पत्ति र सन्तानको विवरण, यदि छ भने"
+forum:
+  en: "The District Court of the area where you or your spouse resides."
+  ne: "तपाईं वा तपाईंको श्रीमान/श्रीमती बसोबास गर्ने क्षेत्रको जिल्ला अदालत।"
+limitation:
+  note:
+    en: "There is no fixed limitation period to file for divorce itself, but consult an advocate promptly about property and custody matters, which may have their own timelines."
+    ne: "सम्बन्ध विच्छेदको निवेदनको लागि आफैमा निश्चित हदम्याद तोकिएको छैन, तर सम्पत्ति र संरक्षणसम्बन्धी विषयको आफ्नै समयसीमा हुन सक्ने हुँदा चाँडै वकिलसँग सल्लाह लिनुहोस्।"
+  provision: null
+next_steps:
+  - en: "File a written petition for divorce at the District Court."
+    ne: "जिल्ला अदालतमा सम्बन्ध विच्छेदको लिखित निवेदन दिनुहोस्।"
+  - en: "Attend the court's reconciliation process; if it fails, the case proceeds."
+    ne: "अदालतको मेलमिलाप प्रक्रियामा सहभागी हुनुहोस्; असफल भएमा मुद्दा अगाडि बढ्छ।"
+  - en: "Discuss property division (अंश) and, if applicable, child custody arrangements with an advocate."
+    ne: "अंशबण्डा र, लागू हुने भए, सन्तान संरक्षणको व्यवस्थाबारे वकिलसँग छलफल गर्नुहोस्।"
+template_link: null

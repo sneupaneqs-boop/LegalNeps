@@ -322,6 +322,10 @@ class Index:
         if pos is None:
             return None
         entry = self.get(rows[pos])
+        if not entry.get("status"):
+            # pre-S2 corpus rows have no stored status; fall back to the
+            # computed array (same backfill doc() already does)
+            entry = {**entry, "status": self.status[rows[pos]]}
         prev_row = self.get(rows[pos - 1]) if pos > 0 else None
         next_row = self.get(rows[pos + 1]) if pos + 1 < len(rows) else None
         return {

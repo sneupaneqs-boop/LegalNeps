@@ -25,6 +25,9 @@ export default async function LawDocPage({ params }: { params: Promise<{ slug: s
           <Link className="nav-link" href="/search">
             {t.navSearch}
           </Link>
+          <Link className="nav-link" href="/action-plans">
+            {t.navPlaybooks}
+          </Link>
           <Link className="nav-link" href="/">
             {t.navChat}
           </Link>

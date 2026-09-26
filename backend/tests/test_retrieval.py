@@ -6,8 +6,17 @@ from fixtures import ENTRIES
 
 @pytest.fixture(scope="module")
 def idx(tmp_path_factory):
+    # module-scoped fixtures can't use the function-scoped monkeypatch
+    # fixture, so revert this by hand - a direct, unrevverted assignment
+    # here would leak into later test files and make the *real* corpus's
+    # get_index() (e.g. in test_playbooks.py) load from this now-deleted
+    # tmp dir, silently forcing a full ~17s rebuild instead of a cache hit
+    original = retrieval.CACHE_DIR
     retrieval.CACHE_DIR = tmp_path_factory.mktemp("cache")
-    return retrieval.Index([dict(e) for e in ENTRIES], "test-digest")
+    try:
+        yield retrieval.Index([dict(e) for e in ENTRIES], "test-digest")
+    finally:
+        retrieval.CACHE_DIR = original
 
 
 def test_nepali_query_finds_the_right_section(idx):

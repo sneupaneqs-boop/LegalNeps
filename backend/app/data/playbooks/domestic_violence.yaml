@@ -1,0 +1,57 @@
+id: domestic_violence
+area: family
+issue:
+  en: "I am facing domestic violence and need protection"
+  ne: "म घरेलु हिंसाको सामना गरिरहेको/गरिरहेकी छु र मलाई संरक्षण चाहिन्छ"
+fact_questions:
+  - en: "Are you in immediate danger right now?"
+    ne: "अहिले तपाईं तत्काल जोखिममा हुनुहुन्छ?"
+  - en: "Who is the person committing the violence, and what is your relationship to them?"
+    ne: "हिंसा गर्ने व्यक्ति को हो, र तपाईंसँग निजको के नाता छ?"
+  - en: "Has this happened before, and can you describe the most recent incident with dates?"
+    ne: "यो पहिले पनि भएको हो? पछिल्लो घटना कहिले भयो, विवरण दिन सक्नुहुन्छ?"
+  - en: "Do you need urgent shelter, medical care, or a protection order?"
+    ne: "तपाईंलाई तत्काल आश्रय, स्वास्थ्य उपचार, वा संरक्षण आदेश चाहिन्छ?"
+provisions:
+  - law_title_ne: "घरेलु हिंसा (कसूर र सजाय) ऐन, २०६६"
+    section: "3"
+    note:
+      en: "No one may commit, cause, or incite domestic violence; doing so is an offence under this Act."
+      ne: "कसैले पनि घरेलु हिंसा गर्न, गराउन वा दुरुत्साहन गर्न पाउँदैन; त्यसो गरेमा यस ऐन अन्तर्गतको कसूर हुन्छ।"
+  - law_title_ne: "घरेलु हिंसा (कसूर र सजाय) ऐन, २०६६"
+    section: "6"
+    note:
+      en: "The court can issue an immediate interim protection order for the victim while the complaint is still being investigated."
+      ne: "उजुरीको प्रारम्भिक छानबिनकै क्रममा पीडितलाई तत्काल संरक्षण दिन अदालतले अन्तरिम संरक्षणात्मक आदेश जारी गर्न सक्छ।"
+  - law_title_ne: "घरेलु हिंसा (कसूर र सजाय) ऐन, २०६६"
+    section: "12क"
+    note:
+      en: "A Protection Officer is designated to help receive complaints, coordinate protection, and support the victim."
+      ne: "उजुरी लिन, संरक्षणमा समन्वय गर्न र पीडितलाई सहयोग गर्न संरक्षण अधिकृतको व्यवस्था छ।"
+evidence:
+  - en: "Medical report if you were injured"
+    ne: "चोटपटक लागेको भए मेडिकल रिपोर्ट"
+  - en: "Photos of injuries or damaged property"
+    ne: "चोटपटक वा क्षति भएको सामानको फोटो"
+  - en: "Messages, call records, or witness statements (neighbours, family)"
+    ne: "म्यासेज, कल रेकर्ड, वा साक्षीको बयान (छिमेकी, परिवार)"
+forum:
+  en: "The nearest Police Office, Women and Children Service Directorate, or directly the District Court, all of which can involve the Protection Officer."
+  ne: "नजिकैको प्रहरी कार्यालय, महिला तथा बालबालिका सेवा निर्देशनालय, वा सिधै जिल्ला अदालत — सबैले संरक्षण अधिकृतलाई संलग्न गराउन सक्छन्।"
+limitation:
+  note:
+    en: "File your complaint within 90 days of the incident."
+    ne: "घटना भएको मितिले ९० दिनभित्र उजुरी दिनुहोस्।"
+  provision:
+    law_title_ne: "घरेलु हिंसा (कसूर र सजाय) ऐन, २०६६"
+    section: "14"
+next_steps:
+  - en: "If you are in immediate danger, go to a safe place and call the police first."
+    ne: "तत्काल जोखिममा हुनुहुन्छ भने पहिले सुरक्षित ठाउँमा जानुहोस् र प्रहरीलाई खबर गर्नुहोस्।"
+  - en: "File a written or verbal complaint with the police or a Protection Officer as soon as it's safe to do so."
+    ne: "सुरक्षित भएपछि प्रहरी वा संरक्षण अधिकृतसमक्ष लिखित वा मौखिक उजुरी दिनुहोस्।"
+  - en: "Ask about an interim protection order if you fear further harm while the case is pending."
+    ne: "मुद्दा विचाराधीन हुँदा थप हानिको डर भए अन्तरिम संरक्षणात्मक आदेशका बारे सोध्नुहोस्।"
+  - en: "Keep your evidence (medical reports, photos, messages) safely backed up."
+    ne: "आफ्ना प्रमाण (मेडिकल रिपोर्ट, फोटो, म्यासेज) सुरक्षित राख्नुहोस्।"
+template_link: null

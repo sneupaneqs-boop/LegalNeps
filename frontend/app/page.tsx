@@ -116,6 +116,9 @@ export default function Home() {
           <Link className="nav-link" href="/search">
             {t.navSearch}
           </Link>
+          <Link className="nav-link" href="/action-plans">
+            {t.navPlaybooks}
+          </Link>
           <Link className="nav-link" href="/saved">
             {t.navSaved}
           </Link>

@@ -1,0 +1,48 @@
+id: deposit_not_returned
+area: tenancy
+issue:
+  en: "My landlord won't return my rental deposit"
+  ne: "घरबेटीले मेरो धरौटी फिर्ता दिएको छैन"
+fact_questions:
+  - en: "How much deposit did you pay, and do you have a receipt or rental agreement?"
+    ne: "कति धरौटी बुझाउनुभएको थियो, र रसिद वा घरबहाल सम्झौता छ?"
+  - en: "Have you already vacated the house, and did you give notice before leaving?"
+    ne: "तपाईंले घर खाली गरिसक्नुभएको छ, र छाड्नुअघि सूचना दिनुभएको थियो?"
+  - en: "Does the landlord claim any damage or unpaid rent against the deposit?"
+    ne: "घरबेटीले धरौटी विरुद्ध कुनै क्षति वा बाँकी भाडाको दाबी गरेको छ?"
+provisions:
+  - law_title_ne: "मुलुकी देवानी संहिता, २०७४"
+    section: "400"
+    note:
+      en: "A tenant may leave the rented house before the term ends if the landlord fails to fulfil their own duties under the tenancy provisions."
+      ne: "घरधनीले आफ्नो दायित्व पूरा नगरेमा बहालवालाले बहालको अवधि समाप्त नहुँदै घर छाड्न सक्नेछ।"
+  - law_title_ne: "मुलुकी देवानी कार्यविधि संहिता, २०७४"
+    section: "90"
+    note:
+      en: "A civil claim (including one to recover a withheld deposit) must be filed in court within the legally prescribed limitation period."
+      ne: "धरौटी फिर्ताको दाबी लगायत जुनसुकै देवानी फिरादपत्र कानुनले तोकेको हदम्यादभित्रै अदालतमा दायर गर्नुपर्छ।"
+evidence:
+  - en: "Rental agreement and deposit receipt"
+    ne: "घरबहाल सम्झौता र धरौटी रसिद"
+  - en: "Photos/video of the house condition when vacated"
+    ne: "घर खाली गर्दाको अवस्थाको फोटो/भिडियो"
+  - en: "Written notice given to the landlord and any reply"
+    ne: "घरबेटीलाई दिइएको लिखित सूचना र त्यसको जवाफ (यदि छ भने)"
+forum:
+  en: "Nepali statute does not fix a specific number of days for deposit return in a general tenancy — check any timeline written in your own rental agreement first. Try to settle directly with the landlord (a written demand letter often works); if unresolved, a civil suit can be filed in the District Court where the house is located."
+  ne: "सामान्य घरबहालमा धरौटी फिर्ता दिने निश्चित दिन कानूनले तोकेको छैन — पहिले आफ्नो घरबहाल सम्झौतामा उल्लेखित समयसीमा हेर्नुहोस्। पहिले घरबेटीसँग सिधै मिलाउने प्रयास गर्नुहोस् (लिखित माग पत्रले प्रायः काम गर्छ)। समाधान नभएमा घर रहेको जिल्ला अदालतमा देवानी मुद्दा दायर गर्न सकिन्छ।"
+limitation:
+  note:
+    en: "Civil claims must be filed within the limitation period the law prescribes for that type of claim — don't delay; consult an advocate about the exact period for your situation."
+    ne: "देवानी दाबी कानुनले तोकेको हदम्यादभित्रै दायर गर्नुपर्छ — ढिलो नगर्नुहोस्; आफ्नो अवस्थाको ठ्याक्कै हदम्यादका लागि वकिलसँग सल्लाह लिनुहोस्।"
+  provision:
+    law_title_ne: "मुलुकी देवानी कार्यविधि संहिता, २०७४"
+    section: "90"
+next_steps:
+  - en: "Send a written demand letter to the landlord asking for the deposit back within a set number of days."
+    ne: "घरबेटीलाई निश्चित दिनभित्र धरौटी फिर्ता माग गर्ने लिखित पत्र पठाउनुहोस्।"
+  - en: "Keep copies of all communication and evidence of the house's condition."
+    ne: "सबै सञ्चार र घरको अवस्थाको प्रमाणका प्रतिलिपि राख्नुहोस्।"
+  - en: "If the landlord still refuses, consult an advocate about filing a civil claim at the District Court."
+    ne: "घरबेटीले अझै इन्कार गरे, जिल्ला अदालतमा देवानी दाबी दायर गर्न वकिलसँग सल्लाह लिनुहोस्।"
+template_link: null

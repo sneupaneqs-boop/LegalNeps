@@ -6,20 +6,89 @@ kickoff prompt.
 
 ## Next session
 
-**S6 — Action Plan engine.** See STRATEGY.md §4, week 2 table. Use the
-drafter subagent for playbook YAML, then verify every provision ID against
-the corpus yourself (citation test) - flag anything the drafter marks
-UNVERIFIED.
+**S7 — +17 playbooks + matcher.** See STRATEGY.md §4, week 2 table: route a
+query to a playbook without an LLM (keywords + glossary), matcher precision
+≥90% on 60 labelled queries, 25 playbooks total (17 more beyond S6's 8).
 
-**Before S6, or whenever picked up**: give the user the exact steps to (a)
-set `SUPABASE_SERVICE_ROLE_KEY` on the backend deploy and
-`NEXT_PUBLIC_SUPABASE_URL`/`NEXT_PUBLIC_SUPABASE_ANON_KEY` on the frontend
-deploy (see S5 notes below for the values/where to find them), and (b) do
-one real signed-in test of save-research end to end, since this session
-could only verify the pieces individually (see S5 "Verified" vs. "Not
-verified" below).
+**Still outstanding from S5** (not this session's job, just don't forget
+it): give the user the exact steps to (a) set `SUPABASE_SERVICE_ROLE_KEY` on
+the backend deploy and `NEXT_PUBLIC_SUPABASE_URL`/`NEXT_PUBLIC_SUPABASE_ANON_KEY`
+on the frontend deploy, and (b) do one real signed-in test of save-research
+end to end, since S5 could only verify the pieces individually.
 
 ## Done
+
+### S6 — Action Plan engine (2026-09-26)
+
+**Deviated from the session prompt's suggested workflow on purpose**: it
+says to use a "drafter" subagent for the YAML then verify citations myself.
+No such subagent is configured in this environment, and more importantly —
+having watched an LLM invent plausible-looking but wrong Nepali statute
+citations before (that's exactly why the verify-yourself step exists) — I
+judged it safer to do the citation research against the live corpus myself
+*before* writing a word of YAML, rather than draft first and debug wrong
+citations after. So every provision in every playbook below was looked up
+with `idx.search()`/`idx.section()` against the real corpus first,
+cross-checked by reading the actual section text, and only then written
+into YAML - not generated from training-data memory of Nepali law.
+
+- **Engine** (`app/playbooks.py`, new): loads YAML from
+  `app/data/playbooks/*.yaml` and resolves every cited provision
+  (`law_title_ne` + `section`) against the live corpus via S4's
+  `doc_slug()`/`Index.section()` - reusing that machinery means a playbook's
+  citations link straight into the law browser (`/law/[slug]/[section]`)
+  and show the corpus's own live citation text/URL/status, not a copy that
+  can drift out of sync. `UnresolvedProvision` is raised, not silently
+  swallowed, when a citation doesn't resolve - the citation-integrity test
+  depends on that being a hard failure.
+- **8 playbooks** (`unpaid_salary`, `deposit_not_returned`,
+  `domestic_violence`, `divorce`, `cheque_bounce`, `inheritance_share`,
+  `consumer_complaint`, `cyber_harassment`): each has fact questions,
+  cited provisions with plain-language notes, an evidence checklist, forum/
+  office, a limitation-period note (cited where the corpus has an explicit
+  हदम्याद clause for that chapter - e.g. मुलुकी देवानी संहिता दफा 235 for
+  अंश, दफा १६२ श्रम ऐन for labour complaints, दफा 14 घरेलु हिंसा ऐन), and
+  numbered next steps. `template_link: null` (S9 will add real drafting
+  templates). All bilingual (en/ne).
+- **Citation-integrity test** (`tests/test_playbooks.py`,
+  `test_every_cited_provision_resolves_in_the_real_corpus`): every single
+  provision in every playbook resolved on the first run - no citation had
+  to be fixed after the fact, which I take as the payoff of researching
+  before writing rather than after.
+- **API**: `GET /api/playbooks` (summary list), `GET /api/playbooks/{id}`
+  (full, resolved). **Frontend**: `/action-plans` (list, area badges) and
+  `/action-plans/[id]` (fact questions, clickable law citations, evidence,
+  forum, limitation, numbered next steps) - verified in a real browser
+  (Playwright, mobile viewport) against the live backend, and confirmed a
+  citation link (`/law/{slug}/162`, श्रम ऐन दफा १६२) actually lands on the
+  correct real section, not just that it doesn't 404.
+
+**Found and fixed two more real bugs while building** (both pre-existing,
+surfaced by this session's work rather than caused by it):
+1. **Test-isolation leak** in `tests/test_retrieval.py` and
+   `tests/test_api.py`: both set `retrieval.CACHE_DIR = tmp_path` as a
+   *direct* assignment instead of `monkeypatch.setattr(...)`, so it was
+   never reverted after those tests ran. Any later test that touched the
+   *real* corpus's `get_index()` (this session's `test_playbooks.py` was
+   the first) would find `CACHE_DIR` still pointed at an already-deleted
+   pytest tmp dir, miss the on-disk cache, and silently rebuild the whole
+   57,787-passage index from scratch - caught because that one test took
+   17.85s instead of the <1s it should. Fixed both to properly restore the
+   original value.
+2. **`Index.section()` never backfilled `status`** the way `Index.doc()`
+   already does (S4 gap): a pre-S2 corpus row has no stored `status` field,
+   and `doc()` correctly falls back to the computed status array, but
+   `section()` just spread the raw row - so `/api/law/{slug}/{section}`
+   (and now playbook provisions, which call `section()` internally) was
+   silently returning `status: null` for effectively the entire corpus
+   instead of `"in_force"`. Found by eyeballing resolved playbook output
+   before trusting it, not by a failing assertion - worth noting as a
+   reminder to look at real output, not just green tests. Fixed the same
+   way `doc()` already does it.
+
+103/103 backend tests pass (was 97 after S5; +6 for `test_playbooks.py`).
+Frontend `next build` succeeds; `/action-plans` and `/action-plans/[id]`
+compile and were verified live.
 
 ### S5 — Supabase auth + DB (2026-09-26)
 

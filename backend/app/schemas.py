@@ -115,3 +115,42 @@ class LawSection(BaseModel):
     status: Optional[str] = None
     prev: Optional[LawSectionNeighbour] = None
     next: Optional[LawSectionNeighbour] = None
+
+
+class Bilingual(BaseModel):
+    en: str
+    ne: str
+
+
+class PlaybookSummary(BaseModel):
+    id: str
+    area: Optional[str] = None
+    issue: Bilingual
+
+
+class ResolvedProvision(BaseModel):
+    law_title_ne: str
+    section: Optional[str] = None
+    slug: str
+    citation: str
+    url: Optional[str] = None
+    status: Optional[str] = None
+    note: dict = {}
+
+
+class PlaybookLimitation(BaseModel):
+    note: Bilingual
+    provision: Optional[ResolvedProvision] = None
+
+
+class Playbook(BaseModel):
+    id: str
+    area: Optional[str] = None
+    issue: Bilingual
+    fact_questions: List[Bilingual]
+    provisions: List[ResolvedProvision]
+    evidence: List[Bilingual]
+    forum: Bilingual
+    limitation: PlaybookLimitation
+    next_steps: List[Bilingual]
+    template_link: Optional[str] = None

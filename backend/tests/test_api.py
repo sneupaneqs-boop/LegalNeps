@@ -9,7 +9,7 @@ from fixtures import ENTRIES
 def client(monkeypatch, tmp_path):
     from app import supa
 
-    retrieval.CACHE_DIR = tmp_path
+    monkeypatch.setattr(retrieval, "CACHE_DIR", tmp_path)
     idx = retrieval.Index([dict(e) for e in ENTRIES], "api-test")
     monkeypatch.setattr(retrieval, "_index", idx)
     monkeypatch.setattr(generation, "get_index", lambda: idx)

@@ -832,6 +832,78 @@ body {
   color: var(--text-dim);
 }
 
+/* -- action plans (S6) -------------------------------------------------- */
+
+.playbook-card {
+  cursor: pointer;
+}
+
+.playbook-section {
+  margin-top: 22px;
+  padding-top: 14px;
+  border-top: 1px solid var(--border);
+}
+
+.playbook-section:first-of-type {
+  border-top: none;
+  margin-top: 10px;
+  padding-top: 0;
+}
+
+.playbook-section h3 {
+  margin: 0 0 10px;
+  font-size: 14px;
+  color: var(--accent);
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+}
+
+.bilingual-item {
+  margin-bottom: 10px;
+  line-height: 1.5;
+}
+
+.bilingual-ne {
+  color: var(--text-dim);
+  font-size: 13.5px;
+  margin-top: 2px;
+}
+
+.provision-note-ne {
+  color: var(--text-dim);
+}
+
+.provision-card {
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 10px 12px;
+  margin-bottom: 10px;
+  background: var(--panel);
+}
+
+.provision-top {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-bottom: 4px;
+}
+
+.provision-note {
+  font-size: 13px;
+  line-height: 1.5;
+  margin-top: 4px;
+}
+
+.next-steps-list {
+  margin: 0;
+  padding-left: 22px;
+}
+
+.next-steps-list li {
+  margin-bottom: 10px;
+}
+
 @media (max-width: 480px) {
   .search-filters {
     gap: 10px;

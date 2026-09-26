@@ -1,0 +1,50 @@
+id: unpaid_salary
+area: employment
+issue:
+  en: "My employer hasn't paid my salary"
+  ne: "मेरो रोजगारदाताले तलब वा पारिश्रमिक दिएको छैन"
+fact_questions:
+  - en: "How many months of salary are unpaid, and what is the total amount owed?"
+    ne: "कति महिनाको तलब बाँकी छ, र कुल कति रकम पाउनुपर्ने हो?"
+  - en: "Do you have an appointment letter or written employment contract?"
+    ne: "तपाईंसँग नियुक्तिपत्र वा लिखित रोजगार सम्झौता छ?"
+  - en: "Are you still employed there, or have you already left/been dismissed?"
+    ne: "तपाईं अझै त्यहाँ कार्यरत हुनुहुन्छ, वा पहिले नै छोड्नुभयो/हटाइनुभयो?"
+  - en: "Has it been more than 6 months since the unpaid salary became due?"
+    ne: "तलब नपाएको मितिले ६ महिनाभन्दा बढी भइसक्यो?"
+provisions:
+  - law_title_ne: "श्रम ऐन, २०७४"
+    section: "34"
+    note:
+      en: "Every worker is entitled to remuneration and benefits from the date work starts, not less than what the Act and its regulations prescribe."
+      ne: "हरेक श्रमिकले काम शुरु गरेको मितिदेखि पारिश्रमिक तथा सुविधा पाउने अधिकार हुन्छ, ऐन र नियमले तोकेभन्दा कम हुन पाउँदैन।"
+  - law_title_ne: "श्रम ऐन, २०७४"
+    section: "162"
+    note:
+      en: "A worker harmed by a violation of this Act may file a complaint with the deciding authority (Department/Labour Office) within 6 months of the violation."
+      ne: "यो ऐन विपरीत कार्यबाट मर्का परेको श्रमिकले सो कार्य भएको मितिले ६ महिनाभित्र सम्बन्धित निकाय (विभाग/श्रम कार्यालय) समक्ष उजुरी दिन सक्छ।"
+evidence:
+  - en: "Appointment letter, ID card, or any proof of employment"
+    ne: "नियुक्तिपत्र, परिचयपत्र, वा रोजगारीको अन्य कुनै प्रमाण"
+  - en: "Attendance records, salary slips, or bank statements showing (or missing) payments"
+    ne: "उपस्थिति विवरण, तलब पर्ची, वा तलब जम्मा भए/नभएको देखाउने बैंक विवरण"
+  - en: "Any written or message-based communication with the employer about the unpaid salary"
+    ne: "तलब नपाएको बारेमा रोजगारदातासँग भएको लिखित वा म्यासेजमार्फतको कुराकानी"
+forum:
+  en: "The Labour Office (श्रम कार्यालय) for your district; unresolved cases go to the Labour Court, with further appeal to the Supreme Court."
+  ne: "आफ्नो जिल्लाको श्रम कार्यालय; समाधान नभएमा श्रम अदालतमा जान सकिन्छ, र त्यसपछि सर्वोच्च अदालतमा पुनरावेदन गर्न सकिन्छ।"
+limitation:
+  note:
+    en: "File your complaint within 6 months of the date the salary became due — after that, the Labour Office may refuse to accept it."
+    ne: "तलब तिर्नुपर्ने मितिले ६ महिनाभित्र उजुरी दिनुहोस् — त्यसपछि श्रम कार्यालयले उजुरी नलिन सक्छ।"
+  provision:
+    law_title_ne: "श्रम ऐन, २०७४"
+    section: "162"
+next_steps:
+  - en: "Write a formal demand letter to your employer stating the amount owed and a deadline to pay."
+    ne: "रोजगारदातालाई बाँकी रकम र भुक्तानीको म्याद उल्लेख गरी औपचारिक माग पत्र लेख्नुहोस्।"
+  - en: "If unpaid after the deadline, file a written complaint at the Labour Office with your evidence."
+    ne: "म्याद नाघेपछि पनि तलब नपाएमा, प्रमाणसहित श्रम कार्यालयमा लिखित उजुरी दर्ता गर्नुहोस्।"
+  - en: "The Labour Office/Department will investigate and can order payment; if it doesn't resolve the matter, escalate to the Labour Court."
+    ne: "श्रम कार्यालय/विभागले जाँचबुझ गरी भुक्तानीको आदेश दिन सक्छ; समाधान नभएमा श्रम अदालतमा उजुर गर्नुहोस्।"
+template_link: null

@@ -1,0 +1,55 @@
+id: consumer_complaint
+area: consumer
+issue:
+  en: "I bought a defective product or was cheated as a consumer"
+  ne: "मैले किनेको सामान बिग्रेको छ वा उपभोक्ताको रूपमा ठगिएँ"
+fact_questions:
+  - en: "What did you buy, when, and do you have the receipt or bill?"
+    ne: "के किन्नुभयो, कहिले, र बिल वा रसिद छ?"
+  - en: "What exactly went wrong — defective product, wrong quantity, false advertising, overcharging?"
+    ne: "के भयो — बिग्रेको सामान, गलत परिमाण, झुटो विज्ञापन, वा बढी रकम असुली?"
+  - en: "Have you already contacted the seller/shop about it?"
+    ne: "तपाईंले पसल/बिक्रेतालाई यस बारे पहिले नै सम्पर्क गर्नुभएको छ?"
+  - en: "Did you suffer any financial, physical, or other loss because of this?"
+    ne: "यसबाट तपाईंलाई कुनै आर्थिक, शारीरिक, वा अन्य हानि भयो?"
+provisions:
+  - law_title_ne: "उपभोक्ता संरक्षण ऐन, २०७५"
+    section: "3"
+    note:
+      en: "Consumers have a legal right to safe, quality goods and services, accurate information, and protection from unfair trade practices."
+      ne: "उपभोक्ताको सुरक्षित र गुणस्तरीय वस्तु/सेवा, सही जानकारी, र अनुचित व्यापारिक क्रियाकलापबाट संरक्षण पाउने कानुनी अधिकार हुन्छ।"
+  - law_title_ne: "उपभोक्ता संरक्षण ऐन, २०७५"
+    section: "36"
+    note:
+      en: "Anyone with knowledge of a violation can file a complaint — written, oral, or electronic — with the Central Market Monitoring Committee, the Department, or an inspection officer."
+      ne: "उल्लंघनको जानकारी भएको जुनसुकै व्यक्तिले केन्द्रीय बजार अनुगमन समिति, विभाग, वा निरीक्षण अधिकृतसमक्ष लिखित, मौखिक, वा विद्युतीय माध्यमबाट उजुरी दिन सक्छ।"
+  - law_title_ne: "उपभोक्ता संरक्षण ऐन, २०७५"
+    section: "50"
+    note:
+      en: "A consumer who suffers physical, mental, financial, or other loss because of a seller's violation of this Act can claim compensation."
+      ne: "यस ऐन विपरीत भएको कारोबारबाट शारीरिक, मानसिक, आर्थिक वा अन्य हानि भएको उपभोक्ताले क्षतिपूर्तिको दाबी गर्न सक्छ।"
+evidence:
+  - en: "Purchase receipt or bill"
+    ne: "खरिद बिल वा रसिद"
+  - en: "Photos of the defective product or misleading advertisement/label"
+    ne: "बिग्रेको सामान वा भ्रामक विज्ञापन/लेबलको फोटो"
+  - en: "Any communication with the seller about the issue"
+    ne: "यस बारेमा बिक्रेतासँग भएको सञ्चार"
+forum:
+  en: "The Department of Commerce, Supplies and Consumer Protection, the Central Market Monitoring Committee, or a local inspection officer; unresolved cases can reach the court, with appeal to the High Court within 30 days of the decision."
+  ne: "वाणिज्य, आपूर्ति तथा उपभोक्ता संरक्षण विभाग, केन्द्रीय बजार अनुगमन समिति, वा स्थानीय निरीक्षण अधिकृत; समाधान नभएमा अदालतसम्म जान सकिन्छ, र निर्णयको ३० दिनभित्र उच्च अदालतमा पुनरावेदन गर्न सकिन्छ।"
+limitation:
+  note:
+    en: "The Act doesn't fix a single deadline for filing the initial complaint, but act promptly and keep all evidence — an appeal against a court decision must be filed within 30 days."
+    ne: "सुरुको उजुरी दिने एउटै निश्चित म्याद ऐनले तोकेको छैन, तर चाँडो कारबाही गर्नुहोस् र सबै प्रमाण सुरक्षित राख्नुहोस् — अदालतको निर्णय विरुद्धको पुनरावेदन ३० दिनभित्र गर्नुपर्छ।"
+  provision:
+    law_title_ne: "उपभोक्ता संरक्षण ऐन, २०७५"
+    section: "45"
+next_steps:
+  - en: "Contact the seller first with your evidence and ask for a refund, replacement, or fix."
+    ne: "पहिले प्रमाणसहित बिक्रेतालाई सम्पर्क गरी फिर्ता, साटो, वा सुधार माग गर्नुहोस्।"
+  - en: "If unresolved, file a written/oral/electronic complaint with the Department or Central Market Monitoring Committee."
+    ne: "समाधान नभएमा विभाग वा केन्द्रीय बजार अनुगमन समितिमा लिखित/मौखिक/विद्युतीय उजुरी दिनुहोस्।"
+  - en: "If you suffered a loss, include a compensation claim in your complaint."
+    ne: "हानि भएको भए उजुरीमा क्षतिपूर्तिको दाबी समेत राख्नुहोस्।"
+template_link: null

@@ -128,6 +128,46 @@ export async function deleteSavedResearch(accessToken: string, id: string): Prom
   if (!res.ok && res.status !== 404) throw new Error(`Request failed with status ${res.status}`);
 }
 
+export type Bilingual = { en: string; ne: string };
+
+export type PlaybookSummary = { id: string; area: string | null; issue: Bilingual };
+
+export type ResolvedProvision = {
+  law_title_ne: string;
+  section: string | null;
+  slug: string;
+  citation: string;
+  url: string | null;
+  status: string | null;
+  note: Partial<Bilingual>;
+};
+
+export type Playbook = {
+  id: string;
+  area: string | null;
+  issue: Bilingual;
+  fact_questions: Bilingual[];
+  provisions: ResolvedProvision[];
+  evidence: Bilingual[];
+  forum: Bilingual;
+  limitation: { note: Bilingual; provision: ResolvedProvision | null };
+  next_steps: Bilingual[];
+  template_link: string | null;
+};
+
+export async function listPlaybooks(): Promise<PlaybookSummary[]> {
+  const res = await fetch(`${API_URL}/api/playbooks`, { cache: "no-store" });
+  if (!res.ok) throw new Error(`Request failed with status ${res.status}`);
+  return res.json();
+}
+
+export async function getPlaybook(id: string): Promise<Playbook | null> {
+  const res = await fetch(`${API_URL}/api/playbooks/${encodeURIComponent(id)}`, { cache: "no-store" });
+  if (res.status === 404) return null;
+  if (!res.ok) throw new Error(`Request failed with status ${res.status}`);
+  return res.json();
+}
+
 export async function getLawSection(slug: string, section: string): Promise<LawSection | null> {
   const res = await fetch(
     `${API_URL}/api/law/${encodeURIComponent(slug)}/${encodeURIComponent(section)}`,

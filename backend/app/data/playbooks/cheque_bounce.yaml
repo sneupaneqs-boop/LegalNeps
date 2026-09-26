@@ -1,0 +1,58 @@
+id: cheque_bounce
+area: finance
+issue:
+  en: "A cheque given to me bounced (was dishonoured)"
+  ne: "मलाई दिइएको चेक अनादर (बाउन्स) भयो"
+fact_questions:
+  - en: "What was the cheque for, and what amount does it cover?"
+    ne: "चेक केको लागि थियो, र कति रकमको हो?"
+  - en: "Did the bank give you a written reason for dishonouring the cheque?"
+    ne: "बैंकले चेक अनादर गर्नुको लिखित कारण दिएको छ?"
+  - en: "Do you know the cheque issuer's bank account and address?"
+    ne: "चेक जारी गर्नेको बैंक खाता र ठेगाना थाहा छ?"
+provisions:
+  - law_title_ne: "विनिमेय अधिकारपत्र ऐन, २०३४"
+    section: "65"
+    note:
+      en: "A cheque is legally 'dishonoured' when the drawee bank refuses payment because the drawer failed to pay the amount due."
+      ne: "चेकको ड्रयीले भुक्तानी दिनुपर्ने रकम भुक्तानी नदिएमा त्यो चेक कानुनी रूपमा 'अनादर' भएको मानिन्छ।"
+  - law_title_ne: "बैङ्किङ्ग कसूर तथा सजाय ऐन, २०६४"
+    section: "3क"
+    note:
+      en: "Issuing a cheque without sufficient balance in the account to cover it is an offence under this Act."
+      ne: "आफ्नो खातामा पर्याप्त रकम मौज्दात नभएको अवस्थामा कसैलाई चेक जारी गर्नु यस ऐन अन्तर्गतको कसूर हो।"
+  - law_title_ne: "बैङ्किङ्ग कसूर तथा सजाय ऐन, २०६४"
+    section: "15 (1)"
+    note:
+      en: "If the cheque's dishonour is proven, the account holder who issued it must pay the cheque holder the amount plus interest from the date the cheque was issued, in addition to any fine/imprisonment."
+      ne: "चेक अनादर भएको प्रमाणित भएमा चेक जारी गर्ने खातावालाले धारकलाई चेकमा उल्लेखित रकम साथै चेक जारी भएको मितिदेखिको ब्याज समेत तिर्नुपर्छ, साथै जरिबाना/कैद हुन्छ।"
+  - law_title_ne: "बैङ्किङ्ग कसूर तथा सजाय ऐन, २०६४"
+    section: "17"
+    note:
+      en: "A complaint (जाहेरी) must be filed within 1 year of learning of the offence, and the case must reach the designated court within 6 months of that complaint."
+      ne: "कसूर भएको थाहा पाएको मितिले १ वर्षभित्र जाहेरी दिनुपर्छ, र जाहेरी परेको मितिले ६ महिनाभित्र तोकिएको अदालतमा मुद्दा दायर गर्नुपर्छ।"
+evidence:
+  - en: "The original dishonoured cheque"
+    ne: "अनादर भएको मूल चेक"
+  - en: "The bank's dishonour slip/notice stating the reason"
+    ne: "बैंकले दिएको अनादरको कारण खुलेको स्लिप/सूचना"
+  - en: "Any agreement or invoice the cheque was meant to settle"
+    ne: "चेकले तिर्नुपर्ने सम्झौता वा बिल/इनभ्वाइस"
+forum:
+  en: "File a complaint with the police or the court designated by Government of Nepal notice in the Nepal Gazette for banking-offence cases (ask your local police or an advocate which court currently holds this jurisdiction)."
+  ne: "प्रहरी वा बैंकिङ कसूर मुद्दाका लागि नेपाल सरकारले नेपाल राजपत्रमा सूचना प्रकाशन गरी तोकेको अदालतमा उजुरी दिनुहोस् (हाल कुन अदालतको क्षेत्राधिकार हो भनी स्थानीय प्रहरी वा वकिलसँग सोध्नुहोस्)।"
+limitation:
+  note:
+    en: "File your complaint (जाहेरी) within 1 year of learning that the cheque was dishonoured, and ensure the case is filed in court within 6 months after that."
+    ne: "चेक अनादर भएको थाहा पाएको मितिले १ वर्षभित्र जाहेरी दिनुहोस्, र त्यसपछि ६ महिनाभित्र अदालतमा मुद्दा दायर भएको सुनिश्चित गर्नुहोस्।"
+  provision:
+    law_title_ne: "बैङ्किङ्ग कसूर तथा सजाय ऐन, २०६४"
+    section: "17"
+next_steps:
+  - en: "Get the bank's official dishonour notice stating the reason (insufficient funds, etc.)."
+    ne: "बैंकबाट अनादरको आधिकारिक सूचना (रकम अपुग आदि कारणसहित) लिनुहोस्।"
+  - en: "Send a written demand to the cheque issuer for payment within a set period."
+    ne: "चेक जारी गर्नेलाई निश्चित समयभित्र भुक्तानी गर्न माग गर्दै लिखित पत्र पठाउनुहोस्।"
+  - en: "If still unpaid, file a complaint with the police/designated court with your evidence, well within the 1-year window."
+    ne: "अझै भुक्तानी नभए, १ वर्षको म्यादभित्रै प्रमाणसहित प्रहरी/तोकिएको अदालतमा उजुरी दिनुहोस्।"
+template_link: null

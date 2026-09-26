@@ -1,0 +1,55 @@
+id: inheritance_share
+area: family
+issue:
+  en: "I want my share (अंश) of family/ancestral property"
+  ne: "मलाई पारिवारिक/पैतृक सम्पत्तिमा मेरो अंश चाहिन्छ"
+fact_questions:
+  - en: "Has the family property ever been formally divided (अंशबण्डा) before?"
+    ne: "पारिवारिक सम्पत्ति पहिले कहिल्यै औपचारिक रूपमा अंशबण्डा भएको थियो?"
+  - en: "Who are the other coparceners (अंशियार), and is anyone disputing your share?"
+    ne: "अरू अंशियार को-को हुन्, र कसैले तपाईंको अंश विवाद गरिरहेको छ?"
+  - en: "Do you suspect any property has been hidden or concealed from the partition?"
+    ne: "कुनै सम्पत्ति लुकाइएको वा छिपाइएको शंका छ?"
+  - en: "If a division already happened, when did it happen, and do you disagree with it?"
+    ne: "पहिले नै बण्डा भइसकेको भए, कहिले भयो, र तपाईं त्योसँग असहमत हुनुहुन्छ?"
+provisions:
+  - law_title_ne: "मुलुकी देवानी संहिता, २०७४"
+    section: "206"
+    note:
+      en: "Every coparcener (अंशियार) is entitled to an equal share; a child born to a pregnant coparcener at the time of partition is also entitled."
+      ne: "प्रत्येक अंशियार अंशको समान हकदार हुन्छन्; बण्डाको बखत गर्भवती अंशियारबाट जन्मने सन्तान पनि हकदार हुन्छ।"
+  - law_title_ne: "मुलुकी देवानी संहिता, २०७४"
+    section: "222"
+    note:
+      en: "A coparcener can demand partition by bringing a full statement of the property (फाँटवारी) for division."
+      ne: "अंशियारले सम्पत्तिको पूर्ण फाँटवारी ल्याई अंशबण्डा गरी दिन माग गर्न सक्छ।"
+  - law_title_ne: "मुलुकी देवानी संहिता, २०७४"
+    section: "235"
+    note:
+      en: "Limitation: if partition never happened, claim any time; if you disagree with an already-completed partition, you have 3 months from that partition; if property was concealed, you can claim throughout the coparcener's lifetime."
+      ne: "हदम्याद: बण्डा नै नभएको भए जहिलेसुकै दाबी गर्न सकिन्छ; भइसकेको बण्डामा चित्त नबुझे बण्डा भएको मितिले ३ महिनाभित्र; सम्पत्ति लुकाएको/छिपाएको भए अंशियारको जीवनकालभर दाबी गर्न सकिन्छ।"
+evidence:
+  - en: "Land ownership certificates (लालपुर्जा) and land revenue records"
+    ne: "जग्गाको लालपुर्जा र मालपोत अभिलेख"
+  - en: "Family lineage / relationship records showing you are a coparcener"
+    ne: "तपाईं अंशियार भएको देखाउने वंशावली/नाता प्रमाणित कागजात"
+  - en: "Any earlier partition deed (अंशबण्डाको लिखत), if one exists"
+    ne: "पहिलेको अंशबण्डाको लिखत, यदि छ भने"
+forum:
+  en: "The District Court where the property is located; consult an advocate — partition cases usually require a detailed inventory (फाँटवारी) of all family property."
+  ne: "सम्पत्ति रहेको जिल्ला अदालत; अंशबण्डा मुद्दामा प्रायः सबै पारिवारिक सम्पत्तिको विस्तृत फाँटवारी चाहिने हुँदा वकिलसँग सल्लाह लिनुहोस्।"
+limitation:
+  note:
+    en: "If a partition already happened and you disagree with it, you must claim within 3 months of that partition. If no partition ever happened, there is no time limit."
+    ne: "बण्डा भइसकेको र त्यसमा असहमत भए बण्डा भएको मितिले ३ महिनाभित्र दाबी गर्नुपर्छ। बण्डा नै नभएको भए समय सीमा छैन।"
+  provision:
+    law_title_ne: "मुलुकी देवानी संहिता, २०७४"
+    section: "235"
+next_steps:
+  - en: "Gather documents proving your relationship to the family and the property records."
+    ne: "परिवारसँगको नाता र सम्पत्तिको अभिलेख प्रमाणित गर्ने कागजात जम्मा गर्नुहोस्।"
+  - en: "Try to negotiate an amicable partition (फाँटवारी तयार गरी) with other coparceners first."
+    ne: "पहिले अरू अंशियारसँग फाँटवारी तयार गरी मिलेर बण्डा गर्ने प्रयास गर्नुहोस्।"
+  - en: "If that fails, or if your share was denied, file a partition suit at the District Court with an advocate's help."
+    ne: "असफल भएमा, वा अंश इन्कार गरिएमा, वकिलको सहयोगमा जिल्ला अदालतमा अंशबण्डाको मुद्दा दायर गर्नुहोस्।"
+template_link: null

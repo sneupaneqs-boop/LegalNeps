@@ -1,0 +1,55 @@
+id: cyber_harassment
+area: cyber
+issue:
+  en: "Someone is harassing me online or shared my private information/photos without consent"
+  ne: "कसैले मलाई अनलाइनमा दुर्व्यवहार गरिरहेको छ वा मेरो निजी जानकारी/फोटो सहमति बिना सार्वजनिक गरेको छ"
+fact_questions:
+  - en: "What platform did this happen on (Facebook, WhatsApp, TikTok, etc.), and do you know who is responsible?"
+    ne: "यो कुन प्लेटफर्ममा भयो (फेसबुक, ह्वाट्सएप, टिकटक आदि), र जिम्मेवार व्यक्ति को हो थाहा छ?"
+  - en: "Is it ongoing harassment, a one-time post, or private content shared without your consent?"
+    ne: "यो निरन्तर दुर्व्यवहार हो, एकपटकको पोस्ट हो, वा सहमति बिना सार्वजनिक गरिएको निजी सामग्री हो?"
+  - en: "Have you already reported it to the platform (Facebook/TikTok report tools)?"
+    ne: "तपाईंले पहिले नै प्लेटफर्मलाई (फेसबुक/टिकटकको रिपोर्ट प्रणाली) जानकारी गराउनुभएको छ?"
+  - en: "Have you taken screenshots before anything could be deleted?"
+    ne: "केही मेटिनुअघि तपाईंले स्क्रिनसट लिनुभएको छ?"
+provisions:
+  - law_title_ne: "मुलुकी अपराध संहिता, २०७४"
+    section: "298"
+    note:
+      en: "Unauthorized access to, or breach of the privacy of, information stored or transmitted electronically (including private photos/messages) is a criminal offence."
+      ne: "विद्युतीय माध्यममा रहेको वा प्रवाह हुने सूचना (निजी फोटो/म्यासेज लगायत) अनधिकृत रूपमा प्राप्त गर्नु वा त्यसको गोपनीयता भङ्ग गर्नु फौजदारी कसूर हो।"
+  - law_title_ne: "मुलुकी अपराध संहिता, २०७४"
+    section: "307"
+    note:
+      en: "Defaming someone is punishable with up to 2 years' imprisonment or a fine; if done through electronic or mass-media means, the punishment is increased by up to 1 more year and a higher fine."
+      ne: "बेइज्जती गरेमा २ वर्षसम्म कैद वा जरिबाना हुन्छ; विद्युतीय वा अन्य सञ्चार माध्यमबाट गरेमा थप १ वर्षसम्म कैद र थप जरिबाना हुन्छ।"
+  - law_title_ne: "मुलुकी अपराध संहिता, २०७४"
+    section: "187"
+    note:
+      en: "General limitation clause for this part of the Criminal Code — check the exact period for your specific offence with the police or an advocate."
+      ne: "मुलुकी अपराध संहिताको यस भागको हदम्याद सम्बन्धी सामान्य व्यवस्था — आफ्नो विशिष्ट कसूरको ठ्याक्कै अवधि प्रहरी वा वकिलसँग जाँच्नुहोस्।"
+evidence:
+  - en: "Screenshots of the harassment, posts, or shared content, including the date/time and the account/profile involved"
+    ne: "दुर्व्यवहार, पोस्ट, वा सार्वजनिक गरिएको सामग्रीको स्क्रिनसट, मिति/समय र संलग्न खाता/प्रोफाइल सहित"
+  - en: "The URL/link of the content, if still online"
+    ne: "सामग्री अझै अनलाइन छ भने त्यसको URL/लिंक"
+  - en: "Any prior messages or threats from the person responsible"
+    ne: "जिम्मेवार व्यक्तिबाट आएको पहिलेको म्यासेज वा धम्की"
+forum:
+  en: "The Nepal Police Cyber Bureau (साइबर ब्यूरो), or your nearest District Police Office, which can escalate to the Cyber Bureau."
+  ne: "नेपाल प्रहरी साइबर ब्यूरो, वा नजिकैको जिल्ला प्रहरी कार्यालय, जसले साइबर ब्यूरोमा पठाउन सक्छ।"
+limitation:
+  note:
+    en: "Report as soon as possible — evidence on social media can disappear, and criminal complaints have their own time limits that vary by offence."
+    ne: "जति सक्दो चाँडो उजुरी दिनुहोस् — सामाजिक सञ्जालमा प्रमाण हराउन सक्छ, र फौजदारी उजुरीको आफ्नै हदम्याद कसूरअनुसार फरक हुन्छ।"
+  provision:
+    law_title_ne: "मुलुकी अपराध संहिता, २०७४"
+    section: "187"
+next_steps:
+  - en: "Take screenshots of everything immediately, including timestamps and usernames."
+    ne: "तुरुन्तै समय र प्रयोगकर्ता नाम सहित सबैको स्क्रिनसट लिनुहोस्।"
+  - en: "Report the content to the platform itself (Facebook/TikTok/etc. reporting tools) to get it taken down."
+    ne: "सामग्री हटाउनका लागि प्लेटफर्मलाई नै (फेसबुक/टिकटक आदिको रिपोर्ट प्रणाली) जानकारी गराउनुहोस्।"
+  - en: "File a complaint with the Cyber Bureau or your local police station with your evidence."
+    ne: "प्रमाणसहित साइबर ब्यूरो वा स्थानीय प्रहरी कार्यालयमा उजुरी दिनुहोस्।"
+template_link: null

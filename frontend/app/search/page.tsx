@@ -95,6 +95,9 @@ export default function SearchPage() {
           <Link className="nav-link" href="/">
             {t.navChat}
           </Link>
+          <Link className="nav-link" href="/action-plans">
+            {t.navPlaybooks}
+          </Link>
           <Link className="nav-link" href="/saved">
             {t.navSaved}
           </Link>

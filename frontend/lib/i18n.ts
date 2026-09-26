@@ -62,6 +62,22 @@ type Strings = {
   savedEmpty: string;
   signInToSave: string;
   deleteSaved: string;
+  navPlaybooks: string;
+  playbooksTitle: string;
+  playbooksEmpty: string;
+  factQuestionsLabel: string;
+  provisionsLabel: string;
+  evidenceLabel: string;
+  forumLabel: string;
+  limitationLabel: string;
+  nextStepsLabel: string;
+  backToPlaybooks: string;
+  areaEmployment: string;
+  areaTenancy: string;
+  areaFamily: string;
+  areaFinance: string;
+  areaConsumer: string;
+  areaCyber: string;
 };
 
 export const strings: Record<Lang, Strings> = {
@@ -135,6 +151,22 @@ export const strings: Record<Lang, Strings> = {
     savedEmpty: "Nothing saved yet. Save an answer from the chat to find it here later.",
     signInToSave: "Sign in to save this answer for later.",
     deleteSaved: "Delete",
+    navPlaybooks: "Action Plans",
+    playbooksTitle: "Action Plans",
+    playbooksEmpty: "No action plans available right now.",
+    factQuestionsLabel: "Questions to think through",
+    provisionsLabel: "Relevant law",
+    evidenceLabel: "Evidence to gather",
+    forumLabel: "Where to go",
+    limitationLabel: "Time limit",
+    nextStepsLabel: "Next steps",
+    backToPlaybooks: "← All action plans",
+    areaEmployment: "Employment",
+    areaTenancy: "Tenancy",
+    areaFamily: "Family",
+    areaFinance: "Finance",
+    areaConsumer: "Consumer",
+    areaCyber: "Cyber",
   },
   ne: {
     appName: "कानूनी साथी",
@@ -205,5 +237,21 @@ export const strings: Record<Lang, Strings> = {
     savedEmpty: "अहिलेसम्म केही सेभ गरिएको छैन। पछि यहाँ भेट्टाउन च्याटबाट कुनै जवाफ सेभ गर्नुहोस्।",
     signInToSave: "यो जवाफ पछिका लागि सेभ गर्न साइन इन गर्नुहोस्।",
     deleteSaved: "मेटाउनुहोस्",
+    navPlaybooks: "कार्य योजना",
+    playbooksTitle: "कार्य योजनाहरू",
+    playbooksEmpty: "अहिले कुनै कार्य योजना उपलब्ध छैन।",
+    factQuestionsLabel: "विचार गर्नुपर्ने प्रश्नहरू",
+    provisionsLabel: "सम्बन्धित कानून",
+    evidenceLabel: "जुटाउनुपर्ने प्रमाण",
+    forumLabel: "कहाँ जाने",
+    limitationLabel: "समय सीमा",
+    nextStepsLabel: "अर्को कदम",
+    backToPlaybooks: "← सबै कार्य योजना",
+    areaEmployment: "रोजगारी",
+    areaTenancy: "घरबहाल",
+    areaFamily: "पारिवारिक",
+    areaFinance: "वित्तीय",
+    areaConsumer: "उपभोक्ता",
+    areaCyber: "साइबर",
   },
 };
