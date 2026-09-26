@@ -48,3 +48,10 @@ def test_unknown_terms_return_nothing(idx):
 def test_cache_roundtrip(idx):
     again = retrieval.Index([dict(e) for e in ENTRIES], "test-digest")
     assert again.W.shape == idx.W.shape and again.vocab == idx.vocab
+
+
+def test_draft_bills_are_excluded_from_default_search(idx):
+    ids = [h["id"] for h in idx.search(["बाल विवाह कैद सजाय"], top_k=10)]
+    assert "law-bill-1" not in ids
+    ids = [h["id"] for h in idx.search(["बाल विवाह कैद सजाय"], top_k=10, include_bills=True)]
+    assert "law-bill-1" in ids

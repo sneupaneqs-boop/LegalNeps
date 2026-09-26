@@ -28,6 +28,7 @@ from typing import Iterable, Iterator
 import numpy as np
 from scipy import sparse
 
+from .doc_meta import classify_status, extract_doc_meta
 from .text_norm import detect_language, fold, tokenize  # noqa: F401  (re-exported)
 
 DATA_DIR = Path(__file__).parent / "data"
@@ -36,7 +37,7 @@ LEGACY_CORPUS = DATA_DIR / "corpus.json"
 CACHE_DIR = DATA_DIR / "index_cache"
 
 # bump when tokenisation/weighting changes so stale on-disk caches are rebuilt
-INDEX_VERSION = 2
+INDEX_VERSION = 3
 K1, B = 1.4, 0.72
 AUTHORITY = {
     "constitution": 1.18, "act": 1.12, "rule": 1.04, "precedent": 1.05, "order": 0.97,
@@ -61,6 +62,20 @@ def _prior(e: dict) -> float:
     if any(d in doc for d in _LOW_VALUE_DOCS):
         p *= 0.45  # the Commission's own annual reports mention every topic in passing
     return p
+
+
+def _entry_status(e: dict, doc_status_cache: dict[str, str]) -> str:
+    status = e.get("status")
+    if status:
+        return status
+    if e.get("category") != "law":
+        return "in_force"  # precedents etc. aren't subject to bill/enactment status
+    title = e.get("doc_title_ne") or ""
+    cached = doc_status_cache.get(title)
+    if cached is None:
+        meta = extract_doc_meta(e.get("text_ne") or "")
+        cached = doc_status_cache[title] = classify_status(title, meta)
+    return cached
 
 
 def _text_key(e: dict) -> int:
@@ -126,6 +141,7 @@ class Index:
             self.category = meta["category"].tolist()
             self.doc_type = meta["doc_type"].tolist()
             self.doc_title = meta["doc_title"].tolist()
+            self.status = meta["status"].tolist()
             return self.W.shape[0] == len(self.ids)
         except Exception:  # noqa: BLE001 - stale/corrupt cache: rebuild
             return False
@@ -142,7 +158,14 @@ class Index:
         vocab: dict[str, int] = {}
         # compact C arrays: millions of Python ints in lists would double peak memory
         rows, cols, vals, lengths = array("i"), array("i"), array("f"), array("i")
-        prior, keys, ids, cats, dtypes, titles = [], [], [], [], [], []
+        prior, keys, ids, cats, dtypes, titles, statuses = [], [], [], [], [], [], []
+        # corpus shards built before doc-level status existed carry no
+        # "status" field; compute it lazily from each doc's first chunk (its
+        # header/preamble) the same way build_corpus.py does, so bills are
+        # still excluded without a full corpus rebuild. law_entries() writes
+        # a document's chunks consecutively, so the first entry seen for a
+        # given title is always that document's first chunk.
+        doc_status_cache: dict[str, str] = {}
         batch = []
         for i, e in enumerate(entries):
             counts: dict[int, int] = defaultdict(int)
@@ -162,6 +185,7 @@ class Index:
             cats.append(e.get("category") or "law")
             dtypes.append(e.get("doc_type") or "")
             titles.append(e.get("doc_title_ne") or e.get("title_ne") or e["id"])
+            statuses.append(_entry_status(e, doc_status_cache))
             batch.append((i + 1, json.dumps(e, ensure_ascii=False)))
             if len(batch) >= 2000:
                 con.executemany("INSERT INTO p VALUES (?, ?)", batch)
@@ -192,13 +216,15 @@ class Index:
         self.prior = np.array(prior, dtype=np.float32)
         self.text_key = np.array(keys, dtype=np.int64)
         self.ids, self.category, self.doc_type, self.doc_title = ids, cats, dtypes, titles
+        self.status = statuses
 
         tmp_db.replace(dbpath)
         try:
             sparse.save_npz(mpath, self.W, compressed=False)
             vpath.write_text(json.dumps(vocab, ensure_ascii=False), encoding="utf-8")
             np.savez(metapath, prior=self.prior, text_key=self.text_key, ids=np.array(ids),
-                     category=np.array(cats), doc_type=np.array(dtypes), doc_title=np.array(titles))
+                     category=np.array(cats), doc_type=np.array(dtypes), doc_title=np.array(titles),
+                     status=np.array(statuses))
         except OSError:
             pass  # read-only deploy: in-memory index still works for this process
 
@@ -233,6 +259,7 @@ class Index:
         boost_titles: Iterable[str] = (),
         category: str | None = None,
         per_doc_cap: int = 3,
+        include_bills: bool = False,
     ) -> list[dict]:
         weighted: dict[str, float] = {}
         for q in queries:
@@ -271,6 +298,8 @@ class Index:
                 break
             if category and self.category[i] != category:
                 continue
+            if not include_bills and self.status[i] == "bill":
+                continue  # a draft bill was never enacted: never cite it by default
             doc_key = self.doc_title[i]
             cap = 1 if self.doc_type[i] == "other" else per_doc_cap  # reports/dictionaries: one passage
             if per_doc[doc_key] >= cap:
@@ -317,6 +346,10 @@ def corpus_stats() -> dict:
     by: dict[str, int] = defaultdict(int)
     for t, c in zip(idx.doc_type, idx.category):
         by[t or c] += 1
+    by_status: dict[str, int] = defaultdict(int)
+    for s, c in zip(idx.status, idx.category):
+        if c == "law":
+            by_status[s] += 1
     docs = len({t for t, c in zip(idx.doc_title, idx.category) if c == "law"})
-    return {"entries": len(idx), "by_type": dict(by), "law_documents": docs,
-            "vocab": len(idx.vocab), "digest": idx.digest}
+    return {"entries": len(idx), "by_type": dict(by), "by_status": dict(by_status), "law_documents": docs,
+            "vocab": len(idx.vocab), "digest": idx.digest, "corpus_version": idx.digest}

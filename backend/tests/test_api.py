@@ -50,6 +50,8 @@ def test_validation(client):
 def test_stats(client):
     s = client.get("/api/stats").json()
     assert s["entries"] == len(ENTRIES) and s["by_type"]["precedent"] == 1
+    assert s["corpus_version"] == "api-test"
+    assert s["by_status"]["bill"] == 1
 
 
 def test_text_citations_are_mapped_to_numbered_sources():

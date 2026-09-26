@@ -26,6 +26,9 @@ import sys
 import time
 
 ROOT = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+sys.path.insert(0, os.path.join(ROOT, "backend"))
+from app.doc_meta import classify_status, extract_doc_meta  # noqa: E402
+
 LAW_DOCS = os.path.join(ROOT, "sources", "processed", "law_docs.jsonl")
 NKP_CASES = os.path.join(ROOT, "sources", "nkp", "cases.jsonl")
 CURATED = os.path.join(ROOT, "backend", "app", "data", "corpus.json")
@@ -134,6 +137,10 @@ def law_entries(title_en: dict[str, str]) -> list[dict]:
         dtype = _doc_type(doc)
         t_en = title_en.get(title, "")
         short = doc["sha256"][:10]
+        # status/dates come from the first chunk (header + preamble); every
+        # chunk of the document carries the same doc-level metadata
+        doc_meta = extract_doc_meta(doc["chunks"][0]["text"]) if doc["chunks"] else {}
+        status = classify_status(title, doc_meta)
         for i, ch in enumerate(doc["chunks"]):
             sec = ch.get("section")
             head = ch.get("heading") or ""
@@ -157,6 +164,12 @@ def law_entries(title_en: dict[str, str]) -> list[dict]:
                 "source_ne": source_ne,
                 "source_en": source_en,
                 "url": doc["url"] + (f"#page={ch['page']}" if ch.get("page") else ""),
+                "doc_id": short,
+                "provision_id": f"{short}:{sec}" if sec else short,
+                "status": status,
+                "enacted_bs": doc_meta.get("enacted_bs"),
+                "amended_by": doc_meta.get("amended_by") or [],
+                "consolidated_upto": doc_meta.get("consolidated_upto"),
             })
     return out
 
@@ -215,6 +228,8 @@ def curated_entries() -> list[dict]:
         e.setdefault("doc_type", "constitution" if e["id"].startswith("constitution") else "other")
         e.setdefault("url", "https://lawcommission.gov.np/")
         e.setdefault("section", None)
+        # hand-verified entries are all real, in-force provisions
+        e.setdefault("status", "in_force")
         e["curated"] = True
         out.append(e)
     return out
