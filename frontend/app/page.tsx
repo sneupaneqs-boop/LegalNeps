@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 import ChatMessage, { Message } from "@/components/ChatMessage";
 import { sendChatMessage, streamChatMessage, Turn, warmUp } from "@/lib/api";
@@ -91,12 +92,17 @@ export default function Home() {
           <h1>{t.appName}</h1>
           <p>{t.tagline}</p>
         </div>
-        <button
-          className="lang-toggle"
-          onClick={() => setLang(lang === "en" ? "ne" : "en")}
-        >
-          {t.langToggle}
-        </button>
+        <div className="header-actions">
+          <Link className="nav-link" href="/search">
+            {t.navSearch}
+          </Link>
+          <button
+            className="lang-toggle"
+            onClick={() => setLang(lang === "en" ? "ne" : "en")}
+          >
+            {t.langToggle}
+          </button>
+        </div>
       </div>
 
       <div className="disclaimer">{t.disclaimerBanner}</div>

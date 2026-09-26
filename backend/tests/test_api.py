@@ -41,10 +41,42 @@ def test_search_endpoint_and_category_filter(client):
     assert [s["id"] for s in r.json()["results"]] == ["nkp-1"]
 
 
+def test_search_doc_type_and_status_filters(client):
+    r = client.get("/api/search", params={"q": "कैद", "category": "law", "doc_type": "act"})
+    assert r.status_code == 200
+    assert r.json()["results"]
+    assert all(s["doc_type"] == "act" for s in r.json()["results"])
+    # a draft bill only shows up when explicitly asked for by status
+    r = client.get("/api/search", params={"q": "बाल विवाह", "status": "bill"})
+    assert any(s["id"] == "law-bill-1" for s in r.json()["results"])
+
+
 def test_validation(client):
     assert client.post("/api/chat", json={"message": ""}).status_code == 422
     assert client.post("/api/chat", json={"message": "x", "language": "fr"}).status_code == 422
     assert client.get("/api/search", params={"q": "x", "k": 500}).status_code == 422
+    assert client.get("/api/search", params={"q": "x", "status": "repealed"}).status_code == 422
+
+
+def test_law_browser_doc_and_section_endpoints(client):
+    from app.retrieval import doc_slug
+
+    slug = doc_slug("मुलुकी देवानी संहिता, २०७४")
+    r = client.get(f"/api/law/{slug}")
+    assert r.status_code == 200
+    body = r.json()
+    assert body["doc_title_ne"] == "मुलुकी देवानी संहिता, २०७४"
+    assert [s["section"] for s in body["sections"]] == ["99", "400"]
+
+    r = client.get(f"/api/law/{slug}/99")
+    assert r.status_code == 200
+    section = r.json()
+    assert section["id"] == "law-civ-99"
+    assert section["next"]["section"] == "400"
+    assert section["prev"] is None
+
+    assert client.get("/api/law/no-such-slug").status_code == 404
+    assert client.get(f"/api/law/{slug}/no-such-section").status_code == 404
 
 
 def test_stats(client):

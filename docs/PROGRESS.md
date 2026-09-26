@@ -6,9 +6,98 @@ kickoff prompt.
 
 ## Next session
 
-**S4 — Search + law browser UI.** See STRATEGY.md §4, week 1 table.
+**S5 — Supabase auth + DB.** See STRATEGY.md §4, week 1 table. Add-on: ask
+the user for SUPABASE_URL / anon key / service key **names only**, never
+values.
 
 ## Done
+
+### S4 — Search + law browser UI (2026-09-26)
+
+- **Backend**: `retrieval.py` gained a doc-browser layer on top of the
+  existing BM25 index — `doc_slug(title)` (stable hash-based id, works for
+  every entry whether or not it has S2's `doc_id`, since curated entries
+  never do), `Index.doc(slug)` (doc metadata + ordered section list) and
+  `Index.section(slug, section)` (one section + prev/next), both built from
+  parallel arrays already in memory (no extra storage). `doc()` backfills
+  `enacted_bs`/`amended_by` via `extract_doc_meta()` for pre-S2 corpus rows
+  the same way `_entry_status()` already backfills `status`, so the browser
+  shows real dates without a corpus rebuild. `search()` gained `doc_type`
+  and `status` filters (`status` takes precedence over the default
+  bill-exclusion, so `status=bill` explicitly asks for them back).
+  `INDEX_VERSION` 3→4. New routes: `GET /api/law/{slug}`,
+  `GET /api/law/{slug}/{section}`; `/api/search` gained `doc_type`/`status`
+  query params; `Source` gained `slug`/`section`/`status` so search results
+  can link straight into the browser.
+- **Frontend**: `/search` (query + category/doc-type/in-force filters,
+  result cards linking into the browser or the official source for
+  precedents), `/law/[slug]` (doc metadata, status pill, enactment date,
+  amendment list, official PDF link, section list), `/law/[slug]/[section]`
+  (full bilingual text, citation, prev/next nav). A bill's status pill and
+  red warning banner ("This is a draft bill...") show automatically wherever
+  `status !== "in_force"` — the S2/S3.1 trust-risk work now has a UI, not
+  just an API-level filter. Nav links added between chat/search/law pages.
+- **Verified in a real browser**, not just `next build`: started both dev
+  servers, drove `/search` with Playwright (mobile 390×844 viewport),
+  confirmed filters render and a real query returns result cards with
+  correct badges/citations, confirmed `/law/[slug]` and `/law/[slug]/[section]`
+  render real corpus content (dates, amendments, section nav) via
+  server-rendered HTML fetched directly from the running backend, and
+  confirmed the bill-warning banner actually renders for the curated bill
+  entry from S3.1. Screenshots reviewed, not just captured.
+- 89/89 backend tests pass (was 82; +7 for the law-browser retrieval methods
+  and API endpoints, +1 for the new search filters). Frontend `next build`
+  succeeds; new routes `/search`, `/law/[slug]`, `/law/[slug]/[section]`
+  compile as expected (static/dynamic split shown in the build output).
+
+**Embedding benchmark** (`eval/embedding_benchmark.py`, new): STRATEGY says
+ship a hybrid retriever only if it wins on the 150-question eval, so this
+measures it instead of assuming it either way. Downloaded
+`Xenova/multilingual-e5-small` (ONNX int8, 118MB — matches the ~120MB
+estimate) and re-ranked BM25's own top-50 candidates per question with
+cosine similarity, fused at a few weights. No hosted-embedding API key is
+available in this environment, so only the local e5-small arm was
+benchmarked (STRATEGY's other arm — "a hosted embedding API for queries" —
+is untested here).
+
+| Mode | hit@8 | hit@3 | MRR |
+|---|---|---|---|
+| BM25 only (this session's baseline) | 0.760 | 0.678 | 0.616 |
+| hybrid, alpha=0.3 | 0.801 | 0.719 | 0.634 |
+| **hybrid, alpha=0.5** | **0.808** | **0.726** | **0.636** |
+| hybrid, alpha=0.7 | 0.795 | 0.678 | 0.589 |
+| e5-small only (alpha=1) | 0.733 | 0.534 | 0.451 |
+
+**Hybrid wins clearly** (alpha 0.3–0.5: +4–5pt hit@8, +2pt MRR over BM25
+alone; e5 alone is worse than BM25 alone on every metric — this corpus's
+custom Nepali BM25 tokenisation is doing real work a generic multilingual
+embedding doesn't replace, it only complements it). **Not shipped this
+session** despite winning the quality test, for two reasons found while
+benchmarking, both about *how* to ship it rather than *whether*:
+
+1. **Latency**: embedding 50 BM25 candidates per request took ~730ms on
+   CPU (query embedding itself is ~3ms - it's re-embedding the candidate
+   passages on every request that's expensive). STRATEGY's own target is
+   p50 search < 300ms. As benchmarked (embed-candidates-at-request-time),
+   hybrid search would blow that budget by 2x+. The fix is precomputing and
+   storing embeddings for the corpus once (offline), leaving only the ~3ms
+   query embedding at request time - real engineering (storage format,
+   memory budget alongside the existing BM25 index, a rebuild step in
+   `build_corpus.py`), not a config flag.
+2. **Memory**: the ONNX model itself is 118MB, close to STRATEGY's own
+   flagged Render free-tier ceiling (512MB total, alongside the BM25 index,
+   FastAPI, everything else) - worth a real memory-budget check before
+   committing, not just "it downloaded fine here."
+
+Also a methodology caveat worth flagging rather than hiding: alpha was
+swept on the same 150-question set used everywhere else in this project's
+evals (there's no held-out set) — a real production decision should
+re-validate on different questions before trusting alpha=0.5 specifically,
+even though the *direction* of the result (hybrid > BM25 > nothing, e5
+alone < BM25 alone) is unambiguous enough across three alpha values to act
+on. Recommended as a follow-up session's task, not squeezed into S4:
+precompute corpus embeddings, measure real request latency and memory
+end-to-end, re-validate alpha on a fresh question set, then ship.
 
 ### S3.1 — bill-exclusion gap in curated entries (2026-09-26, pre-S4 check)
 

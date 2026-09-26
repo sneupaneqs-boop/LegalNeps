@@ -9,6 +9,9 @@ export type Source = {
   snippet: string;
   score: number;
   url?: string | null;
+  slug?: string | null;
+  section?: string | null;
+  status?: string | null;
 };
 
 export type ChatResponse = {
@@ -20,6 +23,80 @@ export type ChatResponse = {
 };
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:8000";
+
+export type SearchResponse = { query: string; results: Source[] };
+
+export async function search(
+  q: string,
+  opts: { category?: "law" | "precedent"; docType?: string; status?: "in_force" | "bill" | "unknown"; lang?: "en" | "ne" } = {}
+): Promise<SearchResponse> {
+  const params = new URLSearchParams({ q, k: "20", lang: opts.lang || "ne" });
+  if (opts.category) params.set("category", opts.category);
+  if (opts.docType) params.set("doc_type", opts.docType);
+  if (opts.status) params.set("status", opts.status);
+  const res = await fetch(`${API_URL}/api/search?${params.toString()}`, { cache: "no-store" });
+  if (!res.ok) throw new Error(`Request failed with status ${res.status}`);
+  return res.json();
+}
+
+export type Amendment = { name: string; date_bs: string };
+
+export type LawSectionSummary = {
+  id: string;
+  section: string | null;
+  title_ne: string | null;
+  title_en: string | null;
+  snippet: string;
+};
+
+export type LawDoc = {
+  slug: string;
+  doc_title_ne: string | null;
+  doc_title_en: string | null;
+  doc_type: string | null;
+  status: string;
+  enacted_bs: string | null;
+  amended_by: Amendment[];
+  consolidated_upto: string | null;
+  url: string | null;
+  sections: LawSectionSummary[];
+};
+
+export type LawSection = {
+  slug: string;
+  id: string;
+  section: string | null;
+  title_ne: string | null;
+  title_en: string | null;
+  text_ne: string | null;
+  text_en: string | null;
+  source_ne: string | null;
+  source_en: string | null;
+  url: string | null;
+  doc_title_ne: string | null;
+  doc_title_en: string | null;
+  doc_type: string | null;
+  status: string | null;
+  prev: { section: string | null; title_ne: string | null } | null;
+  next: { section: string | null; title_ne: string | null } | null;
+};
+
+export async function getLawDoc(slug: string): Promise<LawDoc | null> {
+  const res = await fetch(`${API_URL}/api/law/${encodeURIComponent(slug)}`, { cache: "no-store" });
+  if (res.status === 404) return null;
+  if (!res.ok) throw new Error(`Request failed with status ${res.status}`);
+  return res.json();
+}
+
+export async function getLawSection(slug: string, section: string): Promise<LawSection | null> {
+  const res = await fetch(
+    `${API_URL}/api/law/${encodeURIComponent(slug)}/${encodeURIComponent(section)}`,
+    { cache: "no-store" }
+  );
+  if (res.status === 404) return null;
+  if (!res.ok) throw new Error(`Request failed with status ${res.status}`);
+  return res.json();
+}
 
 export type Turn = { role: "user" | "bot"; text: string };
 

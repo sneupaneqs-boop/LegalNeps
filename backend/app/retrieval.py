@@ -37,7 +37,7 @@ LEGACY_CORPUS = DATA_DIR / "corpus.json"
 CACHE_DIR = DATA_DIR / "index_cache"
 
 # bump when tokenisation/weighting changes so stale on-disk caches are rebuilt
-INDEX_VERSION = 3
+INDEX_VERSION = 4
 K1, B = 1.4, 0.72
 AUTHORITY = {
     "constitution": 1.18, "act": 1.12, "rule": 1.04, "precedent": 1.05, "order": 0.97,
@@ -85,6 +85,14 @@ def _entry_status(e: dict, doc_status_cache: dict[str, str]) -> str:
         meta = extract_doc_meta(e.get("text_ne") or "")
         cached = doc_status_cache[title] = classify_status(title, meta)
     return cached
+
+
+def doc_slug(title: str) -> str:
+    """Stable, URL-safe id for a document's law-browser page, derived from
+    its title rather than a per-entry field - works uniformly whether or not
+    the entry carries S2's doc_id (scraped law_entries() only; curated
+    entries in corpus.json never do)."""
+    return hashlib.blake2b(title.encode("utf-8"), digest_size=6).hexdigest()
 
 
 def _text_key(e: dict) -> int:
@@ -151,6 +159,7 @@ class Index:
             self.doc_type = meta["doc_type"].tolist()
             self.doc_title = meta["doc_title"].tolist()
             self.status = meta["status"].tolist()
+            self.slug = meta["slug"].tolist()
             return self.W.shape[0] == len(self.ids)
         except Exception:  # noqa: BLE001 - stale/corrupt cache: rebuild
             return False
@@ -167,7 +176,7 @@ class Index:
         vocab: dict[str, int] = {}
         # compact C arrays: millions of Python ints in lists would double peak memory
         rows, cols, vals, lengths = array("i"), array("i"), array("f"), array("i")
-        prior, keys, ids, cats, dtypes, titles, statuses = [], [], [], [], [], [], []
+        prior, keys, ids, cats, dtypes, titles, statuses, slugs = [], [], [], [], [], [], [], []
         # corpus shards built before doc-level status existed carry no
         # "status" field; compute it lazily from each doc's first chunk (its
         # header/preamble) the same way build_corpus.py does, so bills are
@@ -195,6 +204,7 @@ class Index:
             dtypes.append(e.get("doc_type") or "")
             titles.append(e.get("doc_title_ne") or e.get("title_ne") or e["id"])
             statuses.append(_entry_status(e, doc_status_cache))
+            slugs.append(doc_slug(titles[-1]))
             batch.append((i + 1, json.dumps(e, ensure_ascii=False)))
             if len(batch) >= 2000:
                 con.executemany("INSERT INTO p VALUES (?, ?)", batch)
@@ -226,6 +236,7 @@ class Index:
         self.text_key = np.array(keys, dtype=np.int64)
         self.ids, self.category, self.doc_type, self.doc_title = ids, cats, dtypes, titles
         self.status = statuses
+        self.slug = slugs
 
         tmp_db.replace(dbpath)
         try:
@@ -233,7 +244,7 @@ class Index:
             vpath.write_text(json.dumps(vocab, ensure_ascii=False), encoding="utf-8")
             np.savez(metapath, prior=self.prior, text_key=self.text_key, ids=np.array(ids),
                      category=np.array(cats), doc_type=np.array(dtypes), doc_title=np.array(titles),
-                     status=np.array(statuses))
+                     status=np.array(statuses), slug=np.array(slugs))
         except OSError:
             pass  # read-only deploy: in-memory index still works for this process
 
@@ -254,6 +265,71 @@ class Index:
         """All passages (loads everything - for scripts/evals, not requests)."""
         return list(self.iter_entries())
 
+    # -- law browser --------------------------------------------------------
+    @property
+    def _doc_index(self) -> dict[str, list[int]]:
+        """slug -> row indices, in corpus order (which is section order for
+        scraped law_entries()), law entries only. Built once per process from
+        the parallel arrays already in memory; not persisted."""
+        cached = getattr(self, "_doc_index_cache", None)
+        if cached is None:
+            cached = defaultdict(list)
+            for i, (slug, cat) in enumerate(zip(self.slug, self.category)):
+                if cat == "law":
+                    cached[slug].append(i)
+            self._doc_index_cache = cached
+        return cached
+
+    def doc(self, slug: str, include_bills: bool = True) -> dict | None:
+        """Doc-level metadata plus its ordered section list, for /law/[doc]."""
+        rows = self._doc_index.get(slug)
+        if not rows:
+            return None
+        status = self.status[rows[0]]
+        if not include_bills and status == "bill":
+            return None
+        first = self.get(rows[0])
+        # pre-S2 corpus shards (built before status/enacted_bs/amended_by
+        # existed) carry status only via the in-memory fallback (self.status,
+        # computed in _build()); the stored row itself has no enacted_bs/
+        # amended_by at all. Backfill them here the same way, so the law
+        # browser shows real dates instead of blanks without a corpus rebuild.
+        if "enacted_bs" not in first and not first.get("curated"):
+            first = {**first, **extract_doc_meta(first.get("text_ne") or "")}
+        sections = []
+        for i in rows:
+            e = self.get(i)
+            sections.append({
+                "id": e["id"], "section": e.get("section"),
+                "title_ne": e.get("title_ne"), "title_en": e.get("title_en"),
+                "snippet": " ".join((e.get("text_ne") or "").split())[:160],
+            })
+        return {
+            "slug": slug, "doc_title_ne": first.get("doc_title_ne") or first.get("title_ne"),
+            "doc_title_en": first.get("doc_title_en"), "doc_type": first.get("doc_type"),
+            "status": first.get("status") or status, "enacted_bs": first.get("enacted_bs"),
+            "amended_by": first.get("amended_by") or [], "consolidated_upto": first.get("consolidated_upto"),
+            "url": first.get("url"), "sections": sections,
+        }
+
+    def section(self, slug: str, section: str) -> dict | None:
+        """One section's full entry plus neighbouring sections, for
+        /law/[doc]/[section]."""
+        rows = self._doc_index.get(slug)
+        if not rows:
+            return None
+        pos = next((k for k, i in enumerate(rows) if (self.get(i).get("section") or "") == section), None)
+        if pos is None:
+            return None
+        entry = self.get(rows[pos])
+        prev_row = self.get(rows[pos - 1]) if pos > 0 else None
+        next_row = self.get(rows[pos + 1]) if pos + 1 < len(rows) else None
+        return {
+            **entry, "slug": slug,
+            "prev": {"section": prev_row.get("section"), "title_ne": prev_row.get("title_ne")} if prev_row else None,
+            "next": {"section": next_row.get("section"), "title_ne": next_row.get("title_ne")} if next_row else None,
+        }
+
     # -- querying -----------------------------------------------------------
     def bm25(self, query: str) -> np.ndarray:
         ids = [self.vocab[t] for t in dict.fromkeys(tokenize(query)) if t in self.vocab]
@@ -269,6 +345,8 @@ class Index:
         category: str | None = None,
         per_doc_cap: int = 3,
         include_bills: bool = False,
+        doc_type: str | None = None,
+        status: str | None = None,
     ) -> list[dict]:
         weighted: dict[str, float] = {}
         for q in queries:
@@ -307,7 +385,12 @@ class Index:
                 break
             if category and self.category[i] != category:
                 continue
-            if not include_bills and self.status[i] == "bill":
+            if doc_type and self.doc_type[i] != doc_type:
+                continue
+            if status:
+                if self.status[i] != status:
+                    continue
+            elif not include_bills and self.status[i] == "bill":
                 continue  # a draft bill was never enacted: never cite it by default
             doc_key = self.doc_title[i]
             cap = 1 if self.doc_type[i] == "other" else per_doc_cap  # reports/dictionaries: one passage

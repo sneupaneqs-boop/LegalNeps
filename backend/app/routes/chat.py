@@ -3,13 +3,13 @@ import json
 import logging
 import time
 
-from fastapi import APIRouter, Query
+from fastapi import APIRouter, HTTPException, Query
 from fastapi.responses import StreamingResponse
 from starlette.concurrency import iterate_in_threadpool
 
 from ..generation import answer_question, stream_answer
-from ..retrieval import corpus_stats, get_index
-from ..schemas import ChatRequest, ChatResponse, SearchResponse, Source
+from ..retrieval import corpus_stats, doc_slug, get_index
+from ..schemas import ChatRequest, ChatResponse, LawDoc, LawSection, SearchResponse, Source
 
 router = APIRouter()
 reqlog = logging.getLogger("kanooni.request")
@@ -35,11 +35,15 @@ def _to_source(n: int, hit: dict, lang: str) -> Source:
     title = (hit.get("title_en") if en and hit.get("title_en") else hit.get("title_ne")) or hit.get("title_en") or ""
     citation = (hit.get("source_en") if en and hit.get("source_en") else hit.get("source_ne")) or ""
     text = (hit.get("text_en") if en and hit.get("text_en") else hit.get("text_ne")) or hit.get("text_en") or ""
+    category = hit.get("category", "law")
+    doc_title = hit.get("doc_title_ne") or hit.get("title_ne") or ""
     return Source(
-        n=n, id=hit["id"], category=hit.get("category", "law"), doc_type=hit.get("doc_type"),
+        n=n, id=hit["id"], category=category, doc_type=hit.get("doc_type"),
         topic=hit.get("topic") or "", title=title, citation=citation,
         snippet=" ".join(text.split())[:280], score=round(float(hit.get("score", 0.0)), 4),
         url=hit.get("url"),
+        slug=doc_slug(doc_title) if category == "law" and doc_title else None,
+        section=hit.get("section"), status=hit.get("status"),
     )
 
 
@@ -96,11 +100,31 @@ async def chat_stream(payload: ChatRequest) -> StreamingResponse:
 async def search(
     q: str = Query(..., min_length=1, max_length=500),
     category: str | None = Query(None, pattern="^(law|precedent)$"),
+    doc_type: str | None = Query(None, max_length=40),
+    status: str | None = Query(None, pattern="^(in_force|bill|unknown)$"),
     k: int = Query(10, ge=1, le=50),
     lang: str = Query("ne", pattern="^(en|ne)$"),
 ) -> SearchResponse:
-    hits = await asyncio.to_thread(lambda: get_index().search([q], top_k=k, category=category))
+    hits = await asyncio.to_thread(
+        lambda: get_index().search([q], top_k=k, category=category, doc_type=doc_type, status=status)
+    )
     return SearchResponse(query=q, results=[_to_source(i, h, lang) for i, h in enumerate(hits, 1)])
+
+
+@router.get("/law/{slug}", response_model=LawDoc)
+async def law_doc(slug: str) -> LawDoc:
+    d = await asyncio.to_thread(get_index().doc, slug, include_bills=True)
+    if d is None:
+        raise HTTPException(status_code=404, detail="document not found")
+    return LawDoc(**d)
+
+
+@router.get("/law/{slug}/{section}", response_model=LawSection)
+async def law_section(slug: str, section: str) -> LawSection:
+    s = await asyncio.to_thread(get_index().section, slug, section)
+    if s is None:
+        raise HTTPException(status_code=404, detail="section not found")
+    return LawSection(**s)
 
 
 @router.get("/stats")

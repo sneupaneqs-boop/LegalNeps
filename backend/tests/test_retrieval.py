@@ -64,3 +64,37 @@ def test_curated_bill_entry_without_doc_title_ne_is_still_excluded(idx):
     assert "national-debt-raising-bill-2083-section-2" not in ids
     ids = [h["id"] for h in idx.search(["राष्ट्र ऋण उठाउने"], top_k=10, include_bills=True)]
     assert "national-debt-raising-bill-2083-section-2" in ids
+
+
+def test_doc_type_filter(idx):
+    hits = idx.search(["कैद"], top_k=10, category="law", doc_type="act")
+    assert hits and all(h["doc_type"] == "act" for h in hits)
+
+
+def test_law_browser_doc_lists_its_sections_in_order(idx):
+    slug = retrieval.doc_slug("मुलुकी देवानी संहिता, २०७४")
+    d = idx.doc(slug)
+    assert d is not None
+    assert d["doc_title_ne"] == "मुलुकी देवानी संहिता, २०७४"
+    assert [s["section"] for s in d["sections"]] == ["99", "400"]
+
+
+def test_law_browser_unknown_slug_returns_none(idx):
+    assert idx.doc("nonexistent-slug") is None
+    assert idx.section("nonexistent-slug", "1") is None
+
+
+def test_law_browser_section_has_prev_next_neighbours(idx):
+    slug = retrieval.doc_slug("मुलुकी देवानी संहिता, २०७४")
+    first = idx.section(slug, "99")
+    assert first["prev"] is None
+    assert first["next"]["section"] == "400"
+    last = idx.section(slug, "400")
+    assert last["prev"]["section"] == "99"
+    assert last["next"] is None
+
+
+def test_law_browser_excludes_bill_doc_by_default(idx):
+    slug = retrieval.doc_slug("बाल विवाह विरुद्ध थप कडा सजाय सम्बन्धमा व्यवस्था गर्न बनेको विधेयक")
+    assert idx.doc(slug, include_bills=False) is None
+    assert idx.doc(slug, include_bills=True) is not None

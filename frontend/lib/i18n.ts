@@ -18,6 +18,36 @@ type Strings = {
   suggestions: string[];
   error: string;
   timeout: string;
+  navSearch: string;
+  navChat: string;
+  searchPlaceholder: string;
+  searchButton: string;
+  searchEmpty: string;
+  searchNoResults: string;
+  filterCategory: string;
+  filterAllCategories: string;
+  filterDocType: string;
+  filterAllDocTypes: string;
+  filterInForceOnly: string;
+  filterIncludeBills: string;
+  statusInForce: string;
+  statusBill: string;
+  statusUnknown: string;
+  billWarning: string;
+  unknownStatusNote: string;
+  enactedLabel: string;
+  amendedLabel: string;
+  officialPdf: string;
+  prevSection: string;
+  nextSection: string;
+  backToDoc: string;
+  docTypeAct: string;
+  docTypeRule: string;
+  docTypeConstitution: string;
+  docTypeOrder: string;
+  docTypeDirective: string;
+  docTypeTreaty: string;
+  docTypeOther: string;
 };
 
 export const strings: Record<Lang, Strings> = {
@@ -47,6 +77,36 @@ export const strings: Record<Lang, Strings> = {
     ],
     error: "Something went wrong reaching the server. Please try again.",
     timeout: "The server is taking too long to respond (it may have been waking up). Please send your question again.",
+    navSearch: "Search laws",
+    navChat: "Ask a question",
+    searchPlaceholder: "Search laws and precedents (e.g. deposit, divorce, cheque bounce)...",
+    searchButton: "Search",
+    searchEmpty: "Search Nepal's laws and Supreme Court precedents directly, browse by section, and open the official source.",
+    searchNoResults: "No matches. Try different words, or ask the question in the chat instead.",
+    filterCategory: "Type",
+    filterAllCategories: "Law + precedent",
+    filterDocType: "Document type",
+    filterAllDocTypes: "All",
+    filterInForceOnly: "In force only",
+    filterIncludeBills: "Include draft bills",
+    statusInForce: "In force",
+    statusBill: "Draft bill — not yet law",
+    statusUnknown: "Status not confirmed",
+    billWarning: "This is a draft bill. It has not been passed and has no legal force yet.",
+    unknownStatusNote: "We couldn't confirm this document's enactment date from its text — verify against the official source before relying on it.",
+    enactedLabel: "Enacted",
+    amendedLabel: "Amended by",
+    officialPdf: "Open official PDF",
+    prevSection: "Previous section",
+    nextSection: "Next section",
+    backToDoc: "Back to document",
+    docTypeAct: "Act",
+    docTypeRule: "Regulation",
+    docTypeConstitution: "Constitution",
+    docTypeOrder: "Order",
+    docTypeDirective: "Directive",
+    docTypeTreaty: "Treaty",
+    docTypeOther: "Other",
   },
   ne: {
     appName: "कानूनी साथी",
@@ -73,5 +133,35 @@ export const strings: Record<Lang, Strings> = {
     ],
     error: "सर्भरसँग जडान गर्दा समस्या भयो। कृपया फेरि प्रयास गर्नुहोस्।",
     timeout: "सर्भरले जवाफ दिन धेरै समय लगायो (सर्भर भर्खरै सुरु हुँदै थियो होला)। कृपया प्रश्न फेरि पठाउनुहोस्।",
+    navSearch: "कानून खोज्नुहोस्",
+    navChat: "प्रश्न सोध्नुहोस्",
+    searchPlaceholder: "कानून र नजिर खोज्नुहोस् (जस्तै: धरौटी, सम्बन्ध विच्छेद, चेक बाउन्स)...",
+    searchButton: "खोज्नुहोस्",
+    searchEmpty: "नेपालको कानून र सर्वोच्च अदालतका नजिरहरू सिधै खोज्नुहोस्, दफा अनुसार हेर्नुहोस्, र आधिकारिक स्रोत खोल्नुहोस्।",
+    searchNoResults: "कुनै मिल्दो नतिज्जा फेला परेन। अर्को शब्द प्रयोग गर्नुहोस्, वा च्याटमा प्रश्न सोध्नुहोस्।",
+    filterCategory: "प्रकार",
+    filterAllCategories: "कानून + नजिर",
+    filterDocType: "कागजातको किसिम",
+    filterAllDocTypes: "सबै",
+    filterInForceOnly: "हाल लागू कानून मात्र",
+    filterIncludeBills: "विधेयक पनि देखाउनुहोस्",
+    statusInForce: "हाल लागू",
+    statusBill: "विधेयक — अझै कानून बनेको छैन",
+    statusUnknown: "स्थिति पुष्टि भएको छैन",
+    billWarning: "यो एउटा विधेयक हो। यो अझै पारित भएको छैन र हाल कानूनी मान्यता छैन।",
+    unknownStatusNote: "यस कागजातको प्रमाणीकरण मिति यसको पाठबाट पुष्टि गर्न सकिएन — भर पर्नुअघि आधिकारिक स्रोतमा जाँच गर्नुहोस्।",
+    enactedLabel: "प्रमाणीकरण मिति",
+    amendedLabel: "संशोधन गर्ने ऐन",
+    officialPdf: "आधिकारिक PDF खोल्नुहोस्",
+    prevSection: "अघिल्लो दफा",
+    nextSection: "अर्को दफा",
+    backToDoc: "कागजातमा फर्कनुहोस्",
+    docTypeAct: "ऐन",
+    docTypeRule: "नियमावली",
+    docTypeConstitution: "संविधान",
+    docTypeOrder: "आदेश",
+    docTypeDirective: "निर्देशिका",
+    docTypeTreaty: "सन्धि",
+    docTypeOther: "अन्य",
   },
 };
