@@ -1,0 +1,15 @@
+{
+  "model": "sonnet",
+  "permissions": {
+    "deny": [
+      "Read(./backend/app/data/corpus/**)",
+      "Read(./backend/app/data/corpus.json)",
+      "Read(./backend/app/data/glossary.json)",
+      "Read(./backend/app/data/index_cache/**)",
+      "Read(./sources/**)",
+      "Read(./frontend/package-lock.json)",
+      "Read(./frontend/node_modules/**)",
+      "Read(./frontend/.next/**)"
+    ]
+  }
+}
