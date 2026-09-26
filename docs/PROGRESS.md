@@ -10,6 +10,48 @@ kickoff prompt.
 
 ## Done
 
+### S3.1 — bill-exclusion gap in curated entries (2026-09-26, pre-S4 check)
+
+Before starting S4, checked whether the S2 corpus/pipeline work was actually
+complete end-to-end rather than assuming it — found a real gap and fixed it.
+
+- **Confirmed**: `sources/processed/law_docs.jsonl`, `sources/nkp/cases.jsonl`,
+  and the raw scraped Law Commission/NKP PDFs are genuinely not present in
+  this checkout (as known issue #7 already said) - only 7 standalone PDFs
+  live directly in `sources/` (constitution, legal maxims, 5 finance
+  bills/acts from BS 2082-2083), meant for one-off ingestion via
+  `scripts/ingest_pdfs.py` (needs `GEMINI_API_KEY`, not run this session).
+  Of those 5: 2 (`राष्ट्र ऋण उठाउने विधेयक, २०८३` and `वैकल्पिक विकास वित्त
+  परिचालन ऐन, २०८२`) were already ingested into `backend/app/data/corpus.json`
+  in an earlier session; the other 3 (`आर्थिक विधेयक, २०८३`, `विनियोजन ऐन
+  २०८३`, `विशेष सेवा ऐन जगाउने ऐन`) have never been ingested - just sitting
+  as raw PDFs, not in the corpus at all. Not fixed this session (needs a key
+  this environment doesn't have); noted in Known issues.
+- **Bug found and fixed**: the already-ingested `राष्ट्र ऋण उठाउने विधेयक,
+  २०८३` curated entry - a literal draft bill for national debt, never
+  passed - had **no `status` field and no `doc_title_ne`**, and my S2
+  fallback (`retrieval.py::_entry_status`) only checked `doc_title_ne` for
+  curated entries, so it silently fell through to `in_force` and was fully
+  citable by default (curated entries also get a 1.08x authority-prior
+  boost, so this bill would rank *better* than average, not worse). Verified
+  end-to-end: before the fix, it appeared in default search; after, it's
+  excluded (still reachable with `include_bills=True`) and `by_status.bill`
+  in `/api/stats` went from 348 to 356 chunks.
+- **Root cause of the miss, for real**: even `e.get("doc_title_ne") or
+  e.get("title_ne") or e.get("source_ne")` isn't enough - this entry's
+  `title_ne` ("राष्ट्र ऋण उठाउन सक्ने") doesn't say "विधेयक" at all; only its
+  `source_ne` ("राष्ट्र ऋण उठाउने विधेयक, २०८३") does. An `or`-chain stops at
+  the first non-empty field, so it never reached `source_ne`. Fixed in both
+  `retrieval.py::_entry_status` and `build_corpus.py::curated_entries()` to
+  check all three fields, not just the first non-empty one - caught by a
+  fixture shaped exactly like the real entry
+  (`tests/fixtures.py::national-debt-raising-bill-2083-section-2`) plus a
+  regression test that failed against my first attempted fix before I found
+  the `or`-chain bug.
+- 82/82 tests pass (was 81; +1 curated-bill regression test). Retrieval eval
+  unchanged (hit@8 0.760, MRR 0.616 - identical to S2/S3, as expected since
+  this only touches bill-status classification, not ranking).
+
 ### S3 — LLM-free hot path (2026-09-26)
 
 - **Expanded intent regex** (`app/generation.py::quick_intent`): added
@@ -239,6 +281,12 @@ Frontend: `next build` succeeds.
    repeal graph (an act's own "खारेजी र बचाउ" section names what *it*
    repeals, not whether *it* was later repealed by something else), which is
    a separate research task.
+10. 3 of the 7 standalone PDFs in `sources/` (`आर्थिक विधेयक, २०८३`,
+    `विनियोजन ऐन २०८३`, `विशेष सेवा ऐन जगाउने ऐन`) have never been ingested —
+    they aren't in the corpus in any form, so questions about them get no
+    answer at all (not a wrong-answer risk, just a coverage gap). Needs
+    `scripts/ingest_pdfs.py` run with `GEMINI_API_KEY` set, which this
+    environment doesn't have.
 
 ## Later (ideas raised but out of scope for the current session)
 
@@ -248,3 +296,5 @@ Frontend: `next build` succeeds.
   documents as `act`.
 - Repealed-act detection (issue 9 above).
 - Treaty and OCR-damaged-header date extraction (issue 8 above).
+- Run `scripts/ingest_pdfs.py` for the 3 un-ingested finance PDFs once a
+  Gemini key is available (issue 10 above).

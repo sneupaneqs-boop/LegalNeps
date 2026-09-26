@@ -228,8 +228,15 @@ def curated_entries() -> list[dict]:
         e.setdefault("doc_type", "constitution" if e["id"].startswith("constitution") else "other")
         e.setdefault("url", "https://lawcommission.gov.np/")
         e.setdefault("section", None)
-        # hand-verified entries are all real, in-force provisions
-        e.setdefault("status", "in_force")
+        # hand-verified entries are almost all real, in-force provisions, but
+        # a few (e.g. the 2083 finance bills in sources/*.pdf) are drafts
+        # ingested for reference before passage - curated entries have no
+        # doc_title_ne/preamble to run classify_status() on, so catch "विधेयक"
+        # in any title/citation field the entry carries (it may only be in
+        # source_ne, not title_ne - e.g. title_ne "राष्ट्र ऋण उठाउन सक्ने" vs.
+        # source_ne "राष्ट्र ऋण उठाउने विधेयक, २०८३" for the same entry)
+        names = (e.get("doc_title_ne"), e.get("title_ne"), e.get("source_ne"))
+        e.setdefault("status", "bill" if any(n and "विधेयक" in n for n in names) else "in_force")
         e["curated"] = True
         out.append(e)
     return out

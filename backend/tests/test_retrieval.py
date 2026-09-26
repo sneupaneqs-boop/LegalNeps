@@ -55,3 +55,12 @@ def test_draft_bills_are_excluded_from_default_search(idx):
     assert "law-bill-1" not in ids
     ids = [h["id"] for h in idx.search(["बाल विवाह कैद सजाय"], top_k=10, include_bills=True)]
     assert "law-bill-1" in ids
+
+
+def test_curated_bill_entry_without_doc_title_ne_is_still_excluded(idx):
+    # a curated entry (backend/app/data/corpus.json) has no doc_title_ne and
+    # no status field - only title_ne/source_ne name it as a विधेयक (bill)
+    ids = [h["id"] for h in idx.search(["राष्ट्र ऋण उठाउने"], top_k=10)]
+    assert "national-debt-raising-bill-2083-section-2" not in ids
+    ids = [h["id"] for h in idx.search(["राष्ट्र ऋण उठाउने"], top_k=10, include_bills=True)]
+    assert "national-debt-raising-bill-2083-section-2" in ids

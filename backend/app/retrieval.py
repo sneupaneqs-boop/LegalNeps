@@ -70,7 +70,16 @@ def _entry_status(e: dict, doc_status_cache: dict[str, str]) -> str:
         return status
     if e.get("category") != "law":
         return "in_force"  # precedents etc. aren't subject to bill/enactment status
+    # curated entries (backend/app/data/corpus.json) have no doc_title_ne and
+    # no preamble/header to run extract_doc_meta on - they're one hand-picked
+    # section each - so a "विधेयक" (bill) title can only be caught by name,
+    # and it may only appear in the citation, not the (possibly untitled)
+    # section heading - e.g. title_ne "राष्ट्र ऋण उठाउन सक्ने" vs. source_ne
+    # "राष्ट्र ऋण उठाउने विधेयक, २०८३" for the same entry - so check all of them
     title = e.get("doc_title_ne") or ""
+    if e.get("curated"):
+        names = (e.get("doc_title_ne"), e.get("title_ne"), e.get("source_ne"))
+        return "bill" if any(n and "विधेयक" in n for n in names) else "in_force"
     cached = doc_status_cache.get(title)
     if cached is None:
         meta = extract_doc_meta(e.get("text_ne") or "")

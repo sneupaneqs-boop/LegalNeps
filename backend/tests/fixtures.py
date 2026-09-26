@@ -46,4 +46,13 @@ ENTRIES = [
      "source_en": "", "url": "https://lawcommission.gov.np/bill.pdf",
      "doc_id": "bill1234567", "provision_id": "bill1234567:1", "status": "bill",
      "enacted_bs": None, "amended_by": [], "consolidated_upto": None},
+    # shaped like a real curated entry (backend/app/data/corpus.json): no
+    # doc_title_ne, no status field, category=law, curated=True - a bill
+    # title only findable in title_ne/source_ne (see docs/PROGRESS.md S3.1)
+    {"id": "national-debt-raising-bill-2083-section-2", "category": "law", "doc_type": "other",
+     "topic": "Government/Finance Law", "title_en": "Authority to Raise National Debt",
+     "title_ne": "राष्ट्र ऋण उठाउन सक्ने", "text_en": "The Government of Nepal is authorized to raise national debt.",
+     "text_ne": "नेपाल सरकारले राष्ट्र ऋण उठाउन सक्नेछ।",
+     "source_en": "National Debt Raising Bill, 2083", "source_ne": "राष्ट्र ऋण उठाउने विधेयक, २०८३",
+     "url": "https://lawcommission.gov.np/", "section": None, "curated": True},
 ]
