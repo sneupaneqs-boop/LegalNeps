@@ -64,7 +64,7 @@ as a playbook), plus a `GET /api/calculators/...` endpoint each:
   the statute's own worked figures for Rs 50,000/100,000 before trusting
   the code). Separately: दफा ९७'s flat Rs 200 फिराद दस्तुर (always charged,
   not part of the दफा ६९ schedule) and दफा ७३'s 15% appeal surcharge.
-- **Labour Act calculators** (`labour.py`, श्रम ऐन २०७४): गratuity/उपदान
+- **Labour Act calculators** (`labour.py`, श्रम ऐन २०७४): gratuity/उपदान
   (दफा ५३: 8.33% of basic monthly pay per month of service), termination
   notice period + pay-in-lieu (दफा १४४: 1/7/30 days depending on whether
   service was ≤4 weeks / 4 weeks–1 year / >1 year), and retrenchment
