@@ -147,6 +147,58 @@ class PlaybookMatchResponse(BaseModel):
     playbook_id: Optional[str] = None
 
 
+class BsDate(BaseModel):
+    year: int
+    month: int
+    day: int
+
+
+class DateConversionResponse(BaseModel):
+    bs: BsDate
+    ad: str
+
+
+class LimitationCheckResponse(BaseModel):
+    claim_type: str
+    trigger_date: str
+    deadline: str
+    days_remaining: int
+    is_time_barred: bool
+    note: Bilingual
+    provision: ResolvedProvision
+
+
+class CourtFeeEstimateResponse(BaseModel):
+    claim_value: float
+    filing_fee_npr: float
+    filing_fee_provision: ResolvedProvision
+    court_fee_npr: float
+    court_fee_provision: ResolvedProvision
+    total_npr: float
+
+
+class CourtFeeAppealResponse(BaseModel):
+    disputed_value: float
+    appeal_fee_npr: float
+    provision: ResolvedProvision
+
+
+class GratuityResponse(BaseModel):
+    amount_npr: float
+    provision: ResolvedProvision
+
+
+class NoticeResponse(BaseModel):
+    notice_period_days: int
+    pay_in_lieu_npr: float
+    provision: ResolvedProvision
+
+
+class SeveranceResponse(BaseModel):
+    amount_npr: float
+    provision: ResolvedProvision
+
+
 class Playbook(BaseModel):
     id: str
     area: Optional[str] = None

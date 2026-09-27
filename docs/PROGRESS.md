@@ -6,10 +6,16 @@ kickoff prompt.
 
 ## Next session
 
-**S8 — Calculators.** See STRATEGY.md §4, week 2 table: BS↔AD date
-converter, limitation-period checker, court fee calculator, labour
-gratuity/notice/severance calculator (श्रम ऐन, २०७४), each result showing
-the statute section it's based on. Table-driven tests per calculator.
+**S9 — Drafting engine.** See STRATEGY.md §4, week 2 table: questionnaire →
+template (Jinja) → DOCX/PDF, bilingual. First 6 templates: legal notice
+(salary), legal notice (deposit), rental agreement, अख्तियारनामा, affidavit,
+consumer complaint. Done when: generated DOCX opens; snapshot tests.
+
+**Still outstanding from S8** (not blocking, just don't forget it): the 4
+calculators are backend-only (`GET /api/calculators/...`) - no frontend UI
+page yet. STRATEGY's S8 "done when" bar (table-driven tests per calculator)
+didn't require one, same reasoning as S7's matcher. Left for whichever
+session next touches frontend pages.
 
 **Still outstanding from S5** (not this session's job, just don't forget
 it): give the user the exact steps to (a) set `SUPABASE_SERVICE_ROLE_KEY` on
@@ -26,6 +32,60 @@ do yet. Left for whichever session next touches the chat UI/pipeline, since
 S7's own "done when" bar (25 playbooks, ≥90% precision) doesn't require it.
 
 ## Done
+
+### S8 — Calculators (2026-09-27)
+
+Four calculators (`app/calculators/`), each returning the specific corpus
+provision it's based on (re-resolved live against the corpus via a new
+public `playbooks.resolve_provision()`, same `UnresolvedProvision` guarantee
+as a playbook), plus a `GET /api/calculators/...` endpoint each:
+
+- **BS↔AD dates** (`dates.py`): thin wrapper over the `nepali_datetime`
+  package rather than a hand-rolled BS calendar table - Nepal's BS month
+  lengths follow an official almanac, not a fixed rule, so reimplementing
+  that table by hand is exactly the kind of thing that's quietly wrong in
+  an edge case nobody tests. `bs_to_ad`/`ad_to_bs`, range ~1975–2100 B.S.
+  (~1918–2044 A.D.), `UnsupportedDate` outside that range.
+- **Limitation-period checker** (`limitation.py`): मुलुकी देवानी कार्यविधि
+  संहिता दफा ४९ says there's no single general limitation period - each
+  claim type's own governing law sets its own. So this is a cited lookup
+  table, not one formula, reusing the exact citations S6/S7 already
+  verified for the matching playbooks: contract civil claim (मुलुकी देवानी
+  संहिता दफा ५२०, 2 years), partition disagreement (दफा २३५, 3 months),
+  labour dispute complaint (श्रम ऐन दफा १६२, 6 months), foreign employment
+  complaint (वैदेशिक रोजगार ऐन दफा ६०, 1 year), cheque dishonour complaint
+  (बैङ्किङ्ग कसूर तथा सजाय ऐन दफा १७, 1 year). `check()` returns deadline,
+  days remaining, and whether the claim is already time-barred.
+- **Court fee calculator** (`court_fee.py`): मुलुकी देवानी कार्यविधि संहिता
+  दफा ६९'s marginal-bracket schedule on claim value (बिगो) - flat Rs 500 for
+  the first Rs 25,000, then 5%/3.5%/2%/1.5%/1% on each further bracket,
+  computed the same way as an income-tax schedule (each bracket's rate
+  applies only to the slice of value inside it - verified by hand against
+  the statute's own worked figures for Rs 50,000/100,000 before trusting
+  the code). Separately: दफा ९७'s flat Rs 200 फिराद दस्तुर (always charged,
+  not part of the दफा ६९ schedule) and दफा ७३'s 15% appeal surcharge.
+- **Labour Act calculators** (`labour.py`, श्रम ऐन २०७४): गratuity/उपदान
+  (दफा ५३: 8.33% of basic monthly pay per month of service), termination
+  notice period + pay-in-lieu (दफा १४४: 1/7/30 days depending on whether
+  service was ≤4 weeks / 4 weeks–1 year / >1 year), and retrenchment
+  severance (दफा १४५(७): one month's basic pay per completed year of
+  service, pro-rated below 1 year - both cases reduce to one formula,
+  `basic_monthly_pay * years_of_service`).
+- **Research method**: same as S6/S7 - every new citation (दफा ४९/६८/६९/
+  ७०/७३/९७ of देवानी कार्यविधि संहिता; दफा ५२/५३/१४४/१४५(२) of श्रम ऐन) was
+  found with `idx.search()` and read in full with `idx.section()` against
+  the real corpus before being coded against, not written from memory. The
+  देवानी कार्यविधि संहिता दफा ६९ bracket schedule text itself was used to
+  hand-verify three of the seven test cases (Rs 50,000/100,000 claim
+  values) before the parametrized test table was written.
+- **Tests**: `tests/test_calculators.py`, table-driven per STRATEGY's "done
+  when" bar - 48 cases across all 4 calculators (BS↔AD round-trips against
+  independently-verified pairs, limitation deadlines/time-barred flags,
+  court-fee brackets against hand-derived figures, labour formulas), plus
+  an API-level test hitting the real corpus. Full backend suite: **156
+  passed** (was 107). Frontend `npm run build` re-verified clean (no
+  frontend changes this session - see "Next session" above for the UI gap
+  this leaves).
 
 ### S7 — +17 playbooks + matcher (2026-09-26)
 

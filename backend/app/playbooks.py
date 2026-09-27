@@ -93,6 +93,13 @@ def get_playbook(playbook_id: str) -> dict | None:
     return None
 
 
+def resolve_provision(ref: dict) -> dict:
+    """Public entry point for callers outside a playbook (S8's calculators)
+    that need to cite a single corpus provision without going through a
+    whole playbook - same UnresolvedProvision guarantee as playbook YAML."""
+    return _resolve_provision(ref)
+
+
 def all_playbooks_resolved() -> list[dict]:
     """Every playbook with every provision resolved - raises
     UnresolvedProvision on the first bad citation. Used by the citation

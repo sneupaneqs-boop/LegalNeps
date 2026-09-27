@@ -1,4 +1,5 @@
 import asyncio
+import datetime
 import json
 import logging
 import time
@@ -8,11 +9,17 @@ from fastapi.responses import StreamingResponse
 from starlette.concurrency import iterate_in_threadpool
 
 from .. import playbooks, supa
+from ..calculators import court_fee as court_fee_calc
+from ..calculators import dates as date_calc
+from ..calculators import labour as labour_calc
+from ..calculators import limitation as limitation_calc
 from ..generation import answer_question, stream_answer
 from ..playbook_matcher import match as match_playbook
 from ..retrieval import corpus_stats, doc_slug, get_index
-from ..schemas import (ChatRequest, ChatResponse, LawDoc, LawSection, Playbook, PlaybookMatchResponse,
-                        PlaybookSummary, SavedResearchIn, SavedResearchOut, SearchResponse, Source)
+from ..schemas import (BsDate, ChatRequest, ChatResponse, CourtFeeAppealResponse, CourtFeeEstimateResponse,
+                        DateConversionResponse, GratuityResponse, LawDoc, LawSection, LimitationCheckResponse,
+                        NoticeResponse, Playbook, PlaybookMatchResponse, PlaybookSummary, SavedResearchIn,
+                        SavedResearchOut, SearchResponse, SeveranceResponse, Source)
 
 router = APIRouter()
 reqlog = logging.getLogger("kanooni.request")
@@ -215,3 +222,88 @@ async def get_playbook(playbook_id: str) -> Playbook:
     if pb is None:
         raise HTTPException(status_code=404, detail="playbook not found")
     return Playbook(**{k: v for k, v in pb.items() if k != "_file"})
+
+
+# --------------------------------------------------------------- S8: calculators ---
+
+def _bad_input(exc: ValueError) -> HTTPException:
+    return HTTPException(status_code=400, detail=str(exc))
+
+
+@router.get("/calculators/date/bs-to-ad", response_model=DateConversionResponse)
+async def bs_to_ad(year: int, month: int, day: int) -> DateConversionResponse:
+    try:
+        ad = await asyncio.to_thread(date_calc.bs_to_ad, year, month, day)
+    except date_calc.UnsupportedDate as exc:
+        raise _bad_input(exc)
+    return DateConversionResponse(bs=BsDate(year=year, month=month, day=day), ad=ad.isoformat())
+
+
+@router.get("/calculators/date/ad-to-bs", response_model=DateConversionResponse)
+async def ad_to_bs(date: str) -> DateConversionResponse:
+    try:
+        ad_date = datetime.date.fromisoformat(date)
+        bs = await asyncio.to_thread(date_calc.ad_to_bs, ad_date)
+    except (ValueError, date_calc.UnsupportedDate) as exc:
+        raise _bad_input(exc)
+    return DateConversionResponse(bs=BsDate(year=bs.year, month=bs.month, day=bs.day), ad=ad_date.isoformat())
+
+
+@router.get("/calculators/limitation/claim-types", response_model=list[str])
+async def limitation_claim_types() -> list[str]:
+    return await asyncio.to_thread(limitation_calc.list_claim_types)
+
+
+@router.get("/calculators/limitation", response_model=LimitationCheckResponse)
+async def check_limitation(claim_type: str, trigger_date: str) -> LimitationCheckResponse:
+    try:
+        trigger = datetime.date.fromisoformat(trigger_date)
+        result = await asyncio.to_thread(limitation_calc.check, claim_type, trigger)
+    except (ValueError, limitation_calc.UnknownClaimType) as exc:
+        raise _bad_input(exc)
+    return LimitationCheckResponse(**result)
+
+
+@router.get("/calculators/court-fee", response_model=CourtFeeEstimateResponse)
+async def estimate_court_fee(claim_value: float) -> CourtFeeEstimateResponse:
+    try:
+        result = await asyncio.to_thread(court_fee_calc.estimate, claim_value)
+    except ValueError as exc:
+        raise _bad_input(exc)
+    return CourtFeeEstimateResponse(**result)
+
+
+@router.get("/calculators/court-fee/appeal", response_model=CourtFeeAppealResponse)
+async def estimate_appeal_fee(disputed_value: float) -> CourtFeeAppealResponse:
+    try:
+        result = await asyncio.to_thread(court_fee_calc.estimate_appeal, disputed_value)
+    except ValueError as exc:
+        raise _bad_input(exc)
+    return CourtFeeAppealResponse(**result)
+
+
+@router.get("/calculators/labour/gratuity", response_model=GratuityResponse)
+async def calc_gratuity(basic_monthly_pay: float, months_of_service: float) -> GratuityResponse:
+    try:
+        result = await asyncio.to_thread(labour_calc.gratuity, basic_monthly_pay, months_of_service)
+    except ValueError as exc:
+        raise _bad_input(exc)
+    return GratuityResponse(**result)
+
+
+@router.get("/calculators/labour/notice", response_model=NoticeResponse)
+async def calc_notice(service_days: int, daily_wage: float) -> NoticeResponse:
+    try:
+        result = await asyncio.to_thread(labour_calc.notice, service_days, daily_wage)
+    except ValueError as exc:
+        raise _bad_input(exc)
+    return NoticeResponse(**result)
+
+
+@router.get("/calculators/labour/severance", response_model=SeveranceResponse)
+async def calc_severance(basic_monthly_pay: float, years_of_service: float) -> SeveranceResponse:
+    try:
+        result = await asyncio.to_thread(labour_calc.severance, basic_monthly_pay, years_of_service)
+    except ValueError as exc:
+        raise _bad_input(exc)
+    return SeveranceResponse(**result)
