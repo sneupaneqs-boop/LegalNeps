@@ -353,6 +353,218 @@ CONSUMER_COMPLAINT = TemplateSpec(
     ],
 )
 
+EMPLOYMENT_CONTRACT = TemplateSpec(
+    id="employment_contract",
+    title={"en": "Employment contract", "ne": "रोजगार सम्झौता"},
+    description={
+        "en": "A written employment contract stating pay, benefits and terms, as Section 11 of the Labour Act requires.",
+        "ne": "श्रम ऐनको दफा ११ ले अनिवार्य गरेबमोजिम पारिश्रमिक, सुविधा र शर्त उल्लेख गरिएको रोजगार सम्झौता।",
+    },
+    fields=[
+        Field("employer_name", {"en": "Employer / company name", "ne": "रोजगारदाता / कम्पनीको नाम"}, "text"),
+        Field("employer_address", {"en": "Employer's address", "ne": "रोजगारदाताको ठेगाना"}, "text"),
+        Field("employee_name", {"en": "Employee's full name", "ne": "कर्मचारीको पूरा नाम"}, "text"),
+        Field("employee_address", {"en": "Employee's address", "ne": "कर्मचारीको ठेगाना"}, "text"),
+        Field("employee_citizenship_no", {"en": "Employee's citizenship number", "ne": "कर्मचारीको नागरिकता नम्बर"}, "text"),
+        Field("job_title", {"en": "Job title", "ne": "पद"}, "text"),
+        Field("start_date", {"en": "Start date", "ne": "काम शुरु हुने मिति"}, "date"),
+        Field("probation_months", {"en": "Probation period (months, up to 6)", "ne": "परीक्षणकाल (महिना, बढीमा ६)"}, "number", default=6),
+        Field("monthly_salary", {"en": "Monthly salary (NPR)", "ne": "मासिक तलब (रु.)"}, "number"),
+        Field("benefits", {"en": "Other benefits (e.g. insurance, leave)", "ne": "अन्य सुविधाहरू (जस्तै बीमा, बिदा)"}, "textarea", required=False, default=""),
+        Field("duties", {"en": "Key job duties", "ne": "मुख्य जिम्मेवारीहरू"}, "textarea"),
+    ],
+    paragraphs=[
+        Paragraph({"en": "Employment Contract", "ne": "रोजगार सम्झौता"}, bold=True, align="center"),
+        Paragraph({
+            "en": ("This contract is made on {{ today_bs }} B.S. between {{ employer_name }}, address "
+                   "{{ employer_address }} (\"Employer\"), and {{ employee_name }}, address "
+                   "{{ employee_address }}, citizenship no. {{ employee_citizenship_no }} (\"Employee\"), "
+                   "under Section 11 of the Labour Act, 2074 (श्रम ऐन, २०७४, दफा ११), which requires an "
+                   "employment contract stating the employee's remuneration, benefits and terms of "
+                   "employment."),
+            "ne": ("यो सम्झौता मिति {{ today_bs }} मा {{ employer_name }}, ठेगाना {{ employer_address }} "
+                   "(\"रोजगारदाता\") र {{ employee_name }}, ठेगाना {{ employee_address }}, नागरिकता नं. "
+                   "{{ employee_citizenship_no }} (\"कर्मचारी\") बीच श्रम ऐन, २०७४ को दफा ११ बमोजिम "
+                   "गरिएको छ, जसले कर्मचारीले पाउने पारिश्रमिक, सुविधा र रोजगारीको शर्त उल्लेख गर्नुपर्ने "
+                   "व्यवस्था गर्छ।"),
+        }),
+        Paragraph({"en": "1. Job title: {{ job_title }}", "ne": "१. पदः {{ job_title }}"}),
+        Paragraph({"en": "2. Start date: {{ start_date }}", "ne": "२. काम शुरु हुने मितिः {{ start_date }}"}),
+        Paragraph({
+            "en": ("3. Probation period: {{ probation_months }} months, under Section 13 of the Labour "
+                   "Act, 2074 (श्रम ऐन, २०७४, दफा १३), after which the Employee's employment is confirmed "
+                   "unless already ended for unsatisfactory performance."),
+            "ne": ("३. परीक्षणकालः {{ probation_months }} महिना, श्रम ऐन, २०७४ को दफा १३ बमोजिम, जसपछि "
+                   "काम सन्तोषजनक नभई सम्झौता अन्त्य नगरिएमा कर्मचारीको रोजगार सम्बन्ध स्वतः सदर "
+                   "भएको मानिनेछ।"),
+        }),
+        Paragraph({"en": "4. Monthly salary: NPR {{ monthly_salary }}", "ne": "४. मासिक तलबः रु. {{ monthly_salary }}"}),
+        Paragraph({"en": "5. Other benefits: {{ benefits }}", "ne": "५. अन्य सुविधाहरूः {{ benefits }}"}),
+        Paragraph({"en": "6. Key duties: {{ duties }}", "ne": "६. मुख्य जिम्मेवारीहरूः {{ duties }}"}),
+        Paragraph({
+            "en": ("Either party may end this employment relationship by giving notice as required by "
+                   "Section 144 of the Labour Act, 2074 (श्रम ऐन, २०७४, दफा १४४)."),
+            "ne": ("कुनै पनि पक्षले श्रम ऐन, २०७४ को दफा १४४ बमोजिम सूचना दिई यो रोजगार सम्बन्ध अन्त्य "
+                   "गर्न सक्नेछ।"),
+        }),
+        Paragraph({
+            "en": "Employer: {{ employer_name }}   Signature: ____________\nEmployee: {{ employee_name }}   Signature: ____________\nDate: {{ today_bs }} B.S. ({{ today_ad }} A.D.)",
+            "ne": "रोजगारदाताः {{ employer_name }}   दस्तखतः ____________\nकर्मचारीः {{ employee_name }}   दस्तखतः ____________\nमितिः {{ today_bs }} (अंग्रेजी मितिः {{ today_ad }})",
+        }),
+    ],
+    provisions=[
+        {"law_title_ne": "श्रम ऐन, २०७४", "section": "11"},
+        {"law_title_ne": "श्रम ऐन, २०७४", "section": "13"},
+        {"law_title_ne": "श्रम ऐन, २०७४", "section": "144"},
+    ],
+)
+
+NDA = TemplateSpec(
+    id="nda",
+    title={"en": "Non-disclosure agreement (NDA)", "ne": "गोपनीयता सम्झौता"},
+    description={
+        "en": "A confidentiality agreement between two parties, with a breach remedy grounded in contract law.",
+        "ne": "दुई पक्षबीचको गोपनीयता सम्झौता, करार कानूनमा आधारित उल्लंघन उपायसहित।",
+    },
+    fields=[
+        Field("party_a_name", {"en": "First party's name", "ne": "पहिलो पक्षको नाम"}, "text"),
+        Field("party_a_address", {"en": "First party's address", "ne": "पहिलो पक्षको ठेगाना"}, "text"),
+        Field("party_b_name", {"en": "Second party's name", "ne": "दोस्रो पक्षको नाम"}, "text"),
+        Field("party_b_address", {"en": "Second party's address", "ne": "दोस्रो पक्षको ठेगाना"}, "text"),
+        Field("purpose", {"en": "Purpose of sharing confidential information", "ne": "गोप्य जानकारी साझा गर्ने प्रयोजन"}, "text"),
+        Field("confidential_info_description", {"en": "What information is confidential", "ne": "के जानकारी गोप्य हो"}, "textarea"),
+        Field("duration_years", {"en": "Confidentiality duration (years)", "ne": "गोपनीयता कायम रहने अवधि (वर्ष)"}, "number", default=3),
+    ],
+    paragraphs=[
+        Paragraph({"en": "Non-Disclosure Agreement", "ne": "गोपनीयता सम्झौता"}, bold=True, align="center"),
+        Paragraph({
+            "en": ("This agreement is made on {{ today_bs }} B.S. between {{ party_a_name }}, address "
+                   "{{ party_a_address }}, and {{ party_b_name }}, address {{ party_b_address }}, for the "
+                   "purpose of {{ purpose }}. Under Section 504 of the National Civil Code, 2074 (मुलुकी "
+                   "देवानी संहिता, २०७४, दफा ५०४), once one party's proposal is accepted by the other, a "
+                   "binding contract exists between them."),
+            "ne": ("यो सम्झौता मिति {{ today_bs }} मा {{ party_a_name }}, ठेगाना {{ party_a_address }}, र "
+                   "{{ party_b_name }}, ठेगाना {{ party_b_address }} बीच {{ purpose }} प्रयोजनका लागि "
+                   "गरिएको छ। मुलुकी देवानी संहिता, २०७४ को दफा ५०४ बमोजिम एक पक्षको प्रस्तावमा अर्को "
+                   "पक्षले स्वीकृति जनाएपछि दुवैबीच बाध्यात्मक करार कायम हुन्छ।"),
+        }),
+        Paragraph({
+            "en": "Confidential information covered by this agreement: {{ confidential_info_description }}",
+            "ne": "यस सम्झौताले समेट्ने गोप्य जानकारीः {{ confidential_info_description }}",
+        }),
+        Paragraph({
+            "en": ("Neither party will disclose this confidential information to any third party, or use "
+                   "it for any purpose other than {{ purpose }}, for {{ duration_years }} years from the "
+                   "date of this agreement. Under Section 537 of the National Civil Code (मुलुकी देवानी "
+                   "संहिता, २०७४, दफा ५३७), a party that breaches this agreement is liable to compensate "
+                   "the other for the actual loss caused."),
+            "ne": ("कुनै पनि पक्षले यो सम्झौता भएको मितिले {{ duration_years }} वर्षसम्म यो गोप्य जानकारी "
+                   "तेस्रो पक्षलाई खुलासा गर्ने वा {{ purpose }} बाहेक अन्य प्रयोजनमा प्रयोग गर्ने छैन। "
+                   "मुलुकी देवानी संहिता, २०७४ को दफा ५३७ बमोजिम यो सम्झौता उल्लंघन गर्ने पक्षले अर्को "
+                   "पक्षलाई भएको वास्तविक हानिको क्षतिपूर्ति दिनुपर्नेछ।"),
+        }),
+        Paragraph({
+            "en": "{{ party_a_name }}   Signature: ____________\n{{ party_b_name }}   Signature: ____________\nDate: {{ today_bs }} B.S. ({{ today_ad }} A.D.)",
+            "ne": "{{ party_a_name }}   दस्तखतः ____________\n{{ party_b_name }}   दस्तखतः ____________\nमितिः {{ today_bs }} (अंग्रेजी मितिः {{ today_ad }})",
+        }),
+    ],
+    provisions=[
+        {"law_title_ne": "मुलुकी देवानी संहिता, २०७४", "section": "504"},
+        {"law_title_ne": "मुलुकी देवानी संहिता, २०७४", "section": "537"},
+    ],
+)
+
+SALE_AGREEMENT = TemplateSpec(
+    id="sale_agreement",
+    title={"en": "Sale agreement", "ne": "बिक्री सम्झौता"},
+    description={
+        "en": "An agreement transferring ownership of property from a seller to a buyer for a price.",
+        "ne": "बेच्नेबाट किन्नेलाई मूल्य लिई सम्पत्तिको स्वामित्व हस्तान्तरण गर्ने सम्झौता।",
+    },
+    fields=[
+        Field("seller_name", {"en": "Seller's name", "ne": "बेच्नेको नाम"}, "text"),
+        Field("seller_address", {"en": "Seller's address", "ne": "बेच्नेको ठेगाना"}, "text"),
+        Field("buyer_name", {"en": "Buyer's name", "ne": "किन्नेको नाम"}, "text"),
+        Field("buyer_address", {"en": "Buyer's address", "ne": "किन्नेको ठेगाना"}, "text"),
+        Field("item_description", {"en": "What is being sold", "ne": "के बिक्री गरिँदैछ"}, "textarea"),
+        Field("sale_price", {"en": "Sale price (NPR)", "ne": "बिक्री मूल्य (रु.)"}, "number"),
+        Field("payment_terms", {"en": "Payment terms", "ne": "भुक्तानीका शर्तहरू"}, "text"),
+        Field("delivery_date", {"en": "Delivery / handover date", "ne": "हस्तान्तरण मिति"}, "date"),
+    ],
+    paragraphs=[
+        Paragraph({"en": "Sale Agreement", "ne": "बिक्री सम्झौता"}, bold=True, align="center"),
+        Paragraph({
+            "en": ("This agreement is made on {{ today_bs }} B.S. between {{ seller_name }}, address "
+                   "{{ seller_address }} (\"Seller\"), and {{ buyer_name }}, address {{ buyer_address }} "
+                   "(\"Buyer\"). Under Section 414 of the National Civil Code, 2074 (मुलुकी देवानी संहिता, "
+                   "२०७४, दफा ४१४), the Seller, being competent to contract and the rightful owner, may "
+                   "transfer the property described below to the Buyer."),
+            "ne": ("यो सम्झौता मिति {{ today_bs }} मा {{ seller_name }}, ठेगाना {{ seller_address }} "
+                   "(\"बेच्ने\") र {{ buyer_name }}, ठेगाना {{ buyer_address }} (\"किन्ने\") बीच गरिएको छ। "
+                   "मुलुकी देवानी संहिता, २०७४ को दफा ४१४ बमोजिम करार गर्न सक्षम र हक स्वामित्ववाला "
+                   "बेच्नेले तल उल्लिखित सम्पत्ति किन्नेलाई हस्तान्तरण गर्न सक्नेछ।"),
+        }),
+        Paragraph({"en": "1. Item(s) sold: {{ item_description }}", "ne": "१. बिक्री हुने वस्तुः {{ item_description }}"}),
+        Paragraph({"en": "2. Sale price: NPR {{ sale_price }}", "ne": "२. बिक्री मूल्यः रु. {{ sale_price }}"}),
+        Paragraph({"en": "3. Payment terms: {{ payment_terms }}", "ne": "३. भुक्तानीका शर्तहरूः {{ payment_terms }}"}),
+        Paragraph({"en": "4. Delivery/handover date: {{ delivery_date }}", "ne": "४. हस्तान्तरण मितिः {{ delivery_date }}"}),
+        Paragraph({
+            "en": ("Under Section 416 of the National Civil Code (मुलुकी देवानी संहिता, २०७४, दफा ४१६), "
+                   "ownership of the above property passes to the Buyer from the date of transfer, and the "
+                   "Seller's ownership ends from that date."),
+            "ne": ("मुलुकी देवानी संहिता, २०७४ को दफा ४१६ बमोजिम उक्त सम्पत्तिको स्वामित्व हस्तान्तरण "
+                   "भएको मितिदेखि किन्नेको नाममा कायम हुनेछ, र बेच्नेको स्वामित्व सोही मितिदेखि "
+                   "समाप्त हुनेछ।"),
+        }),
+        Paragraph({
+            "en": "Seller: {{ seller_name }}   Signature: ____________\nBuyer: {{ buyer_name }}   Signature: ____________\nDate: {{ today_bs }} B.S. ({{ today_ad }} A.D.)",
+            "ne": "बेच्नेः {{ seller_name }}   दस्तखतः ____________\nकिन्नेः {{ buyer_name }}   दस्तखतः ____________\nमितिः {{ today_bs }} (अंग्रेजी मितिः {{ today_ad }})",
+        }),
+    ],
+    provisions=[
+        {"law_title_ne": "मुलुकी देवानी संहिता, २०७४", "section": "414"},
+        {"law_title_ne": "मुलुकी देवानी संहिता, २०७४", "section": "416"},
+    ],
+)
+
+REPLY_NOTICE = TemplateSpec(
+    id="reply_notice",
+    title={"en": "Reply to a legal notice", "ne": "कानूनी सूचनाको जवाफ"},
+    description={
+        "en": "A written response to a legal notice you received, accepting, disputing, or partly disputing its claims.",
+        "ne": "प्राप्त भएको कानूनी सूचनाको लिखित जवाफ, दाबी स्वीकार, अस्वीकार, वा आंशिक अस्वीकार गर्दै।",
+    },
+    fields=[
+        Field("sender_name", {"en": "Your full name", "ne": "तपाईंको पूरा नाम"}, "text"),
+        Field("sender_address", {"en": "Your address", "ne": "तपाईंको ठेगाना"}, "text"),
+        Field("recipient_name", {"en": "Name of the person/company who sent the original notice", "ne": "मूल सूचना पठाउनेको नाम"}, "text"),
+        Field("recipient_address", {"en": "Their address", "ne": "उनीहरूको ठेगाना"}, "text"),
+        Field("original_notice_date", {"en": "Date of the notice you received", "ne": "प्राप्त भएको सूचनाको मिति"}, "date"),
+        Field("original_notice_summary", {"en": "What the notice claimed", "ne": "सूचनाले के दाबी गरेको थियो"}, "text"),
+        Field("your_response", {"en": "Your response to each claim", "ne": "प्रत्येक दाबीमा तपाईंको जवाफ"}, "textarea"),
+    ],
+    paragraphs=[
+        Paragraph({"en": "श्री {{ recipient_name }}", "ne": "श्री {{ recipient_name }}"}, bold=True),
+        Paragraph({"en": "Address: {{ recipient_address }}", "ne": "ठेगानाः {{ recipient_address }}"}),
+        Paragraph({"en": "Date: {{ today_bs }} B.S.", "ne": "मितिः {{ today_bs }}"}),
+        Paragraph(
+            {"en": "Subject: Reply to your legal notice dated {{ original_notice_date }}",
+             "ne": "विषयः मिति {{ original_notice_date }} को कानूनी सूचनाको जवाफ"},
+            bold=True, align="center",
+        ),
+        Paragraph({
+            "en": ("I, {{ sender_name }}, residing at {{ sender_address }}, am in receipt of your notice "
+                   "dated {{ original_notice_date }}, in which you claimed: {{ original_notice_summary }}"),
+            "ne": ("म {{ sender_name }}, ठेगाना {{ sender_address }}, ले हजुरको मिति "
+                   "{{ original_notice_date }} को सूचना प्राप्त गरेको छु, जसमा हजुरले यसो भन्नुभएको "
+                   "थियोः {{ original_notice_summary }}"),
+        }),
+        Paragraph({"en": "My response: {{ your_response }}", "ne": "मेरो जवाफः {{ your_response }}"}),
+        _SIGNATURE_BLOCK,
+    ],
+    provisions=[],
+)
+
 TEMPLATES: dict[str, TemplateSpec] = {
     t.id: t for t in [
         LEGAL_NOTICE_SALARY,
@@ -361,5 +573,9 @@ TEMPLATES: dict[str, TemplateSpec] = {
         POWER_OF_ATTORNEY,
         AFFIDAVIT,
         CONSUMER_COMPLAINT,
+        EMPLOYMENT_CONTRACT,
+        NDA,
+        SALE_AGREEMENT,
+        REPLY_NOTICE,
     ]
 }

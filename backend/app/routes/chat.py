@@ -8,19 +8,21 @@ from fastapi import APIRouter, Depends, Header, HTTPException, Query, Request
 from fastapi.responses import Response, StreamingResponse
 from starlette.concurrency import iterate_in_threadpool
 
-from .. import playbooks, supa
+from .. import llm, playbooks, supa
 from ..calculators import court_fee as court_fee_calc
 from ..calculators import dates as date_calc
 from ..calculators import labour as labour_calc
 from ..calculators import limitation as limitation_calc
+from ..drafting import ai_fill as drafting_ai_fill
 from ..drafting import render as drafting_render
 from ..generation import answer_question, stream_answer
 from ..playbook_matcher import match as match_playbook
 from ..retrieval import corpus_stats, doc_slug, get_index
-from ..schemas import (BsDate, ChatRequest, ChatResponse, CourtFeeAppealResponse, CourtFeeEstimateResponse,
-                        DateConversionResponse, DraftingTemplateDetail, DraftingTemplateSummary, DraftRequest,
-                        GratuityResponse, LawDoc, LawSection, LimitationCheckResponse, NoticeResponse, Playbook,
-                        PlaybookMatchResponse, PlaybookSummary, SavedResearchIn, SavedResearchOut,
+from ..schemas import (AiFillRequest, AiFillResponse, BsDate, ChatRequest, ChatResponse, CourtFeeAppealResponse,
+                        CourtFeeEstimateResponse, DateConversionResponse, DraftingTemplateDetail,
+                        DraftingTemplateSummary, DraftRequest, DraftVersionOut, GratuityResponse, LawDoc,
+                        LawSection, LimitationCheckResponse, NoticeResponse, Playbook, PlaybookMatchResponse,
+                        PlaybookSummary, SavedDraftIn, SavedDraftOut, SavedResearchIn, SavedResearchOut,
                         SearchResponse, SeveranceResponse, Source)
 
 router = APIRouter()
@@ -343,3 +345,76 @@ async def draft_document(template_id: str, payload: DraftRequest) -> Response:
         media_type="application/vnd.openxmlformats-officedocument.wordprocessingml.document",
         headers={"Content-Disposition": f'attachment; filename="{template_id}.docx"'},
     )
+
+
+# --------------------------------------------------------- S10: AI fill + save ---
+
+@router.post("/drafting/templates/{template_id}/ai-fill", response_model=AiFillResponse)
+async def ai_fill_field(template_id: str, payload: AiFillRequest, user: dict = Depends(_require_user)) -> AiFillResponse:
+    """Expands a free-text field's short hint via the LLM. Signed-in only,
+    and metered against the same daily quota as chat answers (S13 gives
+    this its own cost-tracked ledger; until then, one shared per-user
+    budget is enough to stop runaway use)."""
+    allowed, _ = await asyncio.to_thread(supa.check_and_increment_quota, user["id"])
+    if not allowed:
+        raise HTTPException(status_code=429, detail="daily AI-fill limit reached")
+    try:
+        text = await asyncio.to_thread(
+            drafting_ai_fill.fill, template_id, payload.field_id, payload.hint, payload.language, payload.other_answers
+        )
+    except drafting_ai_fill.UnknownField as exc:
+        raise _bad_input(exc)
+    except ValueError as exc:
+        raise _bad_input(exc)
+    except llm.LLMUnavailable:
+        raise HTTPException(status_code=503, detail="AI fill is temporarily unavailable, try again shortly")
+    return AiFillResponse(text=text)
+
+
+@router.post("/drafting/drafts", response_model=SavedDraftOut, status_code=201)
+async def create_draft(payload: SavedDraftIn, user: dict = Depends(_require_user)) -> SavedDraftOut:
+    try:
+        drafting_render.get_template(payload.template_id)
+    except drafting_render.UnknownTemplate:
+        raise HTTPException(status_code=404, detail="drafting template not found")
+    row = await asyncio.to_thread(
+        supa.draft_create, user["id"], payload.template_id, payload.language, payload.answers, payload.title
+    )
+    if row is None:
+        raise HTTPException(status_code=503, detail="saving drafts is unavailable right now")
+    return SavedDraftOut(**row)
+
+
+@router.get("/drafting/drafts", response_model=list[SavedDraftOut])
+async def list_drafts(user: dict = Depends(_require_user)) -> list[SavedDraftOut]:
+    rows = await asyncio.to_thread(supa.draft_list, user["id"])
+    return [SavedDraftOut(**r) for r in rows]
+
+
+@router.get("/drafting/drafts/{draft_id}", response_model=SavedDraftOut)
+async def get_draft(draft_id: str, user: dict = Depends(_require_user)) -> SavedDraftOut:
+    row = await asyncio.to_thread(supa.draft_get, user["id"], draft_id)
+    if row is None:
+        raise HTTPException(status_code=404, detail="draft not found")
+    return SavedDraftOut(**row)
+
+
+@router.put("/drafting/drafts/{draft_id}", response_model=SavedDraftOut)
+async def update_draft(draft_id: str, payload: SavedDraftIn, user: dict = Depends(_require_user)) -> SavedDraftOut:
+    row = await asyncio.to_thread(
+        supa.draft_update, user["id"], draft_id, payload.language, payload.answers, payload.title
+    )
+    if row is None:
+        raise HTTPException(status_code=404, detail="draft not found")
+    return SavedDraftOut(**row)
+
+
+@router.delete("/drafting/drafts/{draft_id}", status_code=204)
+async def delete_draft(draft_id: str, user: dict = Depends(_require_user)) -> None:
+    await asyncio.to_thread(supa.draft_delete, user["id"], draft_id)
+
+
+@router.get("/drafting/drafts/{draft_id}/versions", response_model=list[DraftVersionOut])
+async def list_draft_versions(draft_id: str, user: dict = Depends(_require_user)) -> list[DraftVersionOut]:
+    versions = await asyncio.to_thread(supa.draft_versions_list, user["id"], draft_id)
+    return [DraftVersionOut(**v) for v in (versions or [])]

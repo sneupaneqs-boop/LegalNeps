@@ -27,6 +27,10 @@ EXPECTED_TEMPLATE_IDS = {
     "power_of_attorney",
     "affidavit",
     "consumer_complaint",
+    "employment_contract",
+    "nda",
+    "sale_agreement",
+    "reply_notice",
 }
 
 VALID_ANSWERS = {
@@ -65,10 +69,31 @@ VALID_ANSWERS = {
         complaint_details="किनेको एक हप्तामै फोन बन्द भयो, पसलले साट्न वा फिर्ता दिन मानेन।",
         relief_sought="रकम फिर्ता वा नयाँ फोनसाटी दिनुहोस्।",
     ),
+    "employment_contract": dict(
+        employer_name="ABC प्रा.लि.", employer_address="काठमाडौं",
+        employee_name="राम श्रेष्ठ", employee_address="ललितपुर", employee_citizenship_no="1-2-3",
+        job_title="सफ्टवेयर इन्जिनियर", start_date="2026-01-01", probation_months=6,
+        monthly_salary=80000, benefits="स्वास्थ्य बीमा", duties="सफ्टवेयर विकास र मर्मत",
+    ),
+    "nda": dict(
+        party_a_name="अ कम्पनी", party_a_address="काठमाडौं", party_b_name="ब व्यक्ति",
+        party_b_address="भक्तपुर", purpose="व्यापारिक साझेदारी छलफल",
+        confidential_info_description="वित्तीय विवरण र ग्राहक सूची", duration_years=3,
+    ),
+    "sale_agreement": dict(
+        seller_name="स", seller_address="काठमाडौं", buyer_name="द", buyer_address="ललितपुर",
+        item_description="मोटरसाइकल, चेसिस नं. १२३", sale_price=150000, payment_terms="नगदै",
+        delivery_date="2026-02-01",
+    ),
+    "reply_notice": dict(
+        sender_name="अ", sender_address="ब", recipient_name="स", recipient_address="द",
+        original_notice_date="2026-01-01", original_notice_summary="तलब भुक्तानी माग",
+        your_response="भुक्तानी गरिसकेको छु, रसिद संलग्न छ।",
+    ),
 }
 
 
-def test_registry_has_exactly_the_six_s9_templates():
+def test_registry_has_exactly_the_ten_s10_templates():
     assert set(TEMPLATES) == EXPECTED_TEMPLATE_IDS
 
 

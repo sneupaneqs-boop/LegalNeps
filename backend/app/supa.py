@@ -150,6 +150,98 @@ def saved_research_delete(user_id: str, research_id: str) -> None:
     r.raise_for_status()
 
 
+# ---------------------------------------------------------------- drafts (S10)
+# A draft's `answers`/`language` always reflect its latest saved state;
+# every save also writes an immutable snapshot to draft_versions, so a user
+# can see (and in future, restore) how a draft looked before.
+def draft_create(user_id: str, template_id: str, language: str, answers: dict, title: str | None = None) -> dict | None:
+    if not available():
+        return None
+    r = _http().post("/rest/v1/drafts", headers={"Prefer": "return=representation"}, json={
+        "user_id": user_id, "template_id": template_id, "language": language, "answers": answers,
+        "title": (title or "")[:200] or None,
+    })
+    r.raise_for_status()
+    draft = r.json()[0]
+    _draft_version_insert(user_id, draft["id"], 1, language, answers)
+    return draft
+
+
+def draft_update(user_id: str, draft_id: str, language: str, answers: dict, title: str | None = None) -> dict | None:
+    """Overwrites the draft's current state and appends a new version
+    snapshot; returns None if the draft doesn't exist (or isn't the
+    caller's)."""
+    if not available():
+        return None
+    versions = draft_versions_list(user_id, draft_id)
+    if versions is None:
+        return None
+    next_version = (versions[0]["version_number"] + 1) if versions else 1
+    patch: dict = {"language": language, "answers": answers, "updated_at": "now()"}
+    if title is not None:
+        patch["title"] = title[:200] or None
+    r = _http().patch(
+        "/rest/v1/drafts", params={"id": f"eq.{draft_id}", "user_id": f"eq.{user_id}"},
+        headers={"Prefer": "return=representation"}, json=patch,
+    )
+    r.raise_for_status()
+    rows = r.json()
+    if not rows:
+        return None
+    _draft_version_insert(user_id, draft_id, next_version, language, answers)
+    return rows[0]
+
+
+def _draft_version_insert(user_id: str, draft_id: str, version_number: int, language: str, answers: dict) -> None:
+    r = _http().post("/rest/v1/draft_versions", json={
+        "user_id": user_id, "draft_id": draft_id, "version_number": version_number,
+        "language": language, "answers": answers,
+    })
+    r.raise_for_status()
+
+
+def draft_list(user_id: str) -> list[dict]:
+    if not available():
+        return []
+    r = _http().get("/rest/v1/drafts", params={
+        "user_id": f"eq.{user_id}",
+        "select": "id,template_id,title,language,answers,created_at,updated_at",
+        "order": "updated_at.desc", "limit": "200",
+    })
+    r.raise_for_status()
+    return r.json()
+
+
+def draft_get(user_id: str, draft_id: str) -> dict | None:
+    if not available():
+        return None
+    r = _http().get("/rest/v1/drafts", params={"id": f"eq.{draft_id}", "user_id": f"eq.{user_id}", "select": "*"})
+    r.raise_for_status()
+    rows = r.json()
+    return rows[0] if rows else None
+
+
+def draft_delete(user_id: str, draft_id: str) -> None:
+    if not available():
+        return
+    r = _http().delete("/rest/v1/drafts", params={"id": f"eq.{draft_id}", "user_id": f"eq.{user_id}"})
+    r.raise_for_status()
+
+
+def draft_versions_list(user_id: str, draft_id: str) -> list[dict] | None:
+    """Newest first, or None if Supabase is unavailable (distinct from `[]`,
+    a draft that genuinely has no versions yet)."""
+    if not available():
+        return None
+    r = _http().get("/rest/v1/draft_versions", params={
+        "draft_id": f"eq.{draft_id}", "user_id": f"eq.{user_id}",
+        "select": "id,version_number,language,answers,created_at",
+        "order": "version_number.desc",
+    })
+    r.raise_for_status()
+    return r.json()
+
+
 # ---------------------------------------------------------------- IP rate limit
 # In-memory sliding window, per process. Good enough for a single-instance
 # free-tier deploy; would need a shared store (e.g. this same Postgres) to

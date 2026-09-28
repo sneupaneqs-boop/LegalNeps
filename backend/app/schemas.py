@@ -174,6 +174,42 @@ class DraftRequest(BaseModel):
     answers: dict = Field(default_factory=dict)
 
 
+class AiFillRequest(BaseModel):
+    field_id: str
+    hint: str = Field(..., min_length=1, max_length=2000)
+    language: Literal["en", "ne"] = "ne"
+    other_answers: dict = Field(default_factory=dict)
+
+
+class AiFillResponse(BaseModel):
+    text: str
+
+
+class SavedDraftIn(BaseModel):
+    template_id: str
+    language: Literal["en", "ne"] = "ne"
+    answers: dict = Field(default_factory=dict)
+    title: Optional[str] = None
+
+
+class SavedDraftOut(BaseModel):
+    id: str
+    template_id: str
+    title: Optional[str] = None
+    language: str
+    answers: dict
+    created_at: str
+    updated_at: str
+
+
+class DraftVersionOut(BaseModel):
+    id: str
+    version_number: int
+    language: str
+    answers: dict
+    created_at: str
+
+
 class BsDate(BaseModel):
     year: int
     month: int

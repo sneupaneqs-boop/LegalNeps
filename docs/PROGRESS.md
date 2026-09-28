@@ -6,10 +6,27 @@ kickoff prompt.
 
 ## Next session
 
-**S10 — Drafting + AI fill + save.** See STRATEGY.md §4, week 2 table: LLM
-only for free-text sections (tiered). +4 templates (employment contract,
-NDA, sale agreement, reply notice). Version history. Saved to user. Done
-when: 10 templates; AI fill is metered.
+STRATEGY.md marks S10 as **"Stop here for a 2-week free beta"** - week 2 of
+the plan is now complete (S1-S10). Before starting week 3:
+
+**S11 — Matter workspace lite.** See STRATEGY.md §4, week 3 table: Matter =
+client, facts, saved research, action plans, drafts, notes, tasks, uploaded
+files (Supabase storage, private). Done when: CRUD + RLS tests prove user B
+can't see user A's matter.
+
+**Still outstanding from S10** (not blocking, just don't forget it): (a)
+nobody has actually signed up on the live LegalNeps Supabase project yet
+(`select id from auth.users` returns empty), so `drafts`/`draft_versions`
+have only been verified structurally (schema applied, FK/RLS confirmed via
+`get_advisors` and a deliberate FK-violation probe) - a real signed-in
+save→list→version-history round trip is still unverified end-to-end, same
+gap S5 already flagged for `saved_research`. (b) AI fill is metered by
+reusing the existing per-user daily answer quota (`increment_usage` RPC) -
+STRATEGY's own dedicated `llm_usage` token-cost ledger is S13's job
+("AI gateway v2"), not this session's; don't mistake the shared-quota
+approach here for that later table already existing. (c) No frontend UI
+yet for AI-fill or the drafts list/version-history view, same backend-only
+scope as S7-S9.
 
 **Still outstanding from S9** (not blocking, just don't forget it): (a) PDF
 export isn't built - STRATEGY says "DOCX/PDF" but S9's own "done when" bar
@@ -43,6 +60,72 @@ do yet. Left for whichever session next touches the chat UI/pipeline, since
 S7's own "done when" bar (25 playbooks, ≥90% precision) doesn't require it.
 
 ## Done
+
+### S10 — Drafting + AI fill + save (2026-09-28)
+
+- **+4 templates**, bringing the total to 10: employment contract, NDA,
+  sale agreement, and a reply-to-a-legal-notice letter. Same
+  research-before-writing discipline as every session since S6 - new
+  citations found with `idx.search()` and read in full with `idx.section()`
+  before being coded: श्रम ऐन दफा ११/१३ (an employment contract is legally
+  required and must state pay/benefits/terms; the up-to-6-month probation
+  rule) for the employment contract; मुलुकी देवानी संहिता दफा ५०४/५३७
+  (general contract formation and breach-compensation) for the NDA, since
+  Nepali law has no NDA-specific statute; दफा ४१४/४१६ (right to transfer
+  owned property; ownership passes to the transferee) for the sale
+  agreement. `reply_notice` ships with no citation by design, same
+  reasoning as S9's `affidavit` - it's a response letter, not itself
+  created under a dedicated statute.
+- **AI fill** (`app/drafting/ai_fill.py`, new): expands a user's short
+  free-text hint (e.g. "our client list and pricing" for an NDA's
+  confidentiality-scope field) into 2-4 sentences of proper document
+  prose, in the target language. Deliberately scoped to `textarea` fields
+  only - a name or a date is exactly the kind of thing a user just types,
+  and routing it through an LLM would add latency and hallucination risk
+  for zero benefit. The system prompt explicitly forbids inventing names,
+  dates, amounts, or statute citations not present in the hint - citations
+  in a generated document only ever come from the template's own
+  corpus-verified paragraphs, never from this free-text fill. Tiered per
+  STRATEGY's requirement: calls `llm.complete(..., fast=True)`, the cheap/
+  low-latency tier S3 already built, not the stronger answer tier.
+- **Metering**: `POST /api/drafting/templates/{id}/ai-fill` requires a
+  signed-in user and calls the same `supa.check_and_increment_quota()`
+  (the `increment_usage` Postgres RPC) that `/api/chat` already uses - one
+  shared per-user daily budget across chat answers and AI-fill calls. This
+  satisfies S10's "AI fill is metered" bar without building the dedicated
+  token-cost `llm_usage` ledger STRATEGY reserves for S13's "AI gateway
+  v2" - see "Next session" for why that distinction matters.
+- **Save + version history**: new `drafts` and `draft_versions` tables,
+  applied as a real migration to the live LegalNeps Supabase project
+  (`agzvhessbwwhectuizko`) via the Supabase MCP tools available this
+  session - the first session in this build able to touch that project
+  directly rather than only writing code against it. Both tables FK to
+  `auth.users(id)` and have RLS enabled with the same `auth.uid() =
+  user_id` policy shape S5 used for `saved_research` (confirmed by reading
+  `saved_research`'s own constraint definition and matching it, not just
+  assuming the convention). `get_advisors` after applying showed no new
+  security findings (the one pre-existing `answer_cache` RLS-without-policy
+  finding is S5's, untouched here). A deliberate insert with a
+  nonexistent `user_id` was used to confirm the FK actually rejects bad
+  data, since no real user has signed up in the project yet to test with
+  (see "Next session"). `supa.py` gets `draft_create/update/list/get/
+  delete/versions_list`: every save writes both the draft's current state
+  and an immutable version snapshot, so `draft_update` always appends
+  rather than overwrites history.
+- **API**: `POST /api/drafting/templates/{id}/ai-fill`, `POST/GET/PUT/
+  DELETE /api/drafting/drafts[/{id}]`, `GET
+  /api/drafting/drafts/{id}/versions` - all `_require_user`-gated.
+- **Tests**: `tests/test_drafting.py`'s template set grew from 6 to 10 (40
+  cases, was 28). New `tests/test_s10_ai_and_save.py`: `ai_fill` unit tests
+  with `llm.complete` monkeypatched (no real LLM key in this build
+  environment, same limitation noted since S3), the metering/auth-gating
+  behavior at the API layer (a second AI-fill call gets 429 once a faked
+  quota check denies it), and the full drafts CRUD + version-history round
+  trip against a monkeypatched `supa` store (same pattern
+  `tests/test_api.py` already uses for `saved_research`, since Supabase
+  isn't configured as this backend process's own env in this build
+  environment). Full backend suite: **207 passed** (was 184). Frontend
+  `npm run build` re-verified clean (no frontend changes this session).
 
 ### S9 — Drafting engine (2026-09-28)
 
