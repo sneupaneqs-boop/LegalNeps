@@ -6,10 +6,21 @@ kickoff prompt.
 
 ## Next session
 
-**S9 — Drafting engine.** See STRATEGY.md §4, week 2 table: questionnaire →
-template (Jinja) → DOCX/PDF, bilingual. First 6 templates: legal notice
-(salary), legal notice (deposit), rental agreement, अख्तियारनामा, affidavit,
-consumer complaint. Done when: generated DOCX opens; snapshot tests.
+**S10 — Drafting + AI fill + save.** See STRATEGY.md §4, week 2 table: LLM
+only for free-text sections (tiered). +4 templates (employment contract,
+NDA, sale agreement, reply notice). Version history. Saved to user. Done
+when: 10 templates; AI fill is metered.
+
+**Still outstanding from S9** (not blocking, just don't forget it): (a) PDF
+export isn't built - STRATEGY says "DOCX/PDF" but S9's own "done when" bar
+only requires the DOCX to open, so PDF was left out rather than faked; a
+DOCX->PDF path (e.g. via a headless LibreOffice conversion) is real work for
+whichever session needs it. (b) No frontend UI page for the questionnaire ->
+draft flow yet, same reasoning as S7/S8's backend-only scope. (c) The
+`affidavit` template intentionally ships with zero cited provisions - it's
+a generic sworn-statement format, not itself created under one dedicated
+statute in the corpus (confirmed by `idx.search()` turning up nothing for
+"सपथपत्र" as a section heading) - don't read this as a missed citation.
 
 **Still outstanding from S8** (not blocking, just don't forget it): the 4
 calculators are backend-only (`GET /api/calculators/...`) - no frontend UI
@@ -32,6 +43,58 @@ do yet. Left for whichever session next touches the chat UI/pipeline, since
 S7's own "done when" bar (25 playbooks, ≥90% precision) doesn't require it.
 
 ## Done
+
+### S9 — Drafting engine (2026-09-28)
+
+New `app/drafting/` package: questionnaire answers → rendered DOCX,
+bilingual, for the first 6 templates STRATEGY names - legal notice (unpaid
+salary), legal notice (deposit not returned), rental agreement, अख्तियारनामा
+(power of attorney), affidavit, and a consumer complaint letter.
+
+- **Architecture**: each template (`registry.py`) is a list of paragraphs,
+  each holding a Jinja source string per language (`{"en": "...", "ne":
+  "..."}`) rather than a hand-authored `.docx` file with embedded Jinja tags
+  (the `docxtpl` approach) - that would mean constructing binary `.docx`
+  template files with no GUI in this environment, which is fragile to author
+  and review. `render.py` fills in the questionnaire's answers plus
+  always-available context (today's date in BS, via S8's `ad_to_bs()` - a
+  direct reuse of last session's work) and lays the rendered paragraphs out
+  as a real `.docx` with `python-docx`. A missing required answer raises
+  `MissingField` before any rendering happens, not a confusing Jinja
+  traceback.
+- **Citations**: every statute reference embedded in a template's Nepali
+  text was found with `idx.search()` and read in full with `idx.section()`
+  against the real corpus first, same discipline as S6/S7/S8. New
+  citations this session: श्रम ऐन दफा ३५ (wage-payment interval, for the
+  salary notice - found after दफा ६३ turned out to be about labour-supplier
+  licence cancellation, not general wage payment, and was discarded), मुलुकी
+  देवानी संहिता दफा ४९५/५०० (general obligation/compensation duty, reused
+  for the deposit notice since Nepali law has no deposit-specific statute -
+  same finding S7 already made for the `deposit_not_returned` playbook),
+  मुलुकी देवानी संहिता दफा ३८६/३८९/४०२ (the rental-agreement chapter - दफा
+  ३८६(१) turned out to list the exact mandatory clauses a written tenancy
+  agreement must contain, which the template's clause-by-clause structure
+  follows directly), and मुलुकी देवानी संहिता दफा ५९१/५९२ (agency/
+  representative appointment, the actual legal basis for अख्तियारनामा).
+  Each template's `provisions` list is re-resolved against the corpus via
+  `playbooks.resolve_provision()` (same as S8's calculators), tested
+  separately from the DOCX content itself. The `affidavit` template ships
+  with no citation by design - see "Next session" above.
+- **API**: `GET /api/drafting/templates`, `GET
+  /api/drafting/templates/{id}` (fields + resolved provisions, for a
+  frontend questionnaire to render), and `POST
+  /api/drafting/templates/{id}/draft` (returns the generated `.docx` as a
+  binary response with the right content type and a `Content-Disposition`
+  filename).
+- **Tests**: `tests/test_drafting.py`, table-driven per STRATEGY's "done
+  when" bar - every template's generated DOCX is opened with `python-docx`
+  and checked for non-empty content, in both languages (12 cases), plus
+  content-substitution checks (answers and citations actually appear in the
+  rendered text), a Jinja `{% if %}` conditional-field test (अख्तियारनामा's
+  optional `valid_until`), missing-field/unknown-template/bad-language error
+  cases, and an API test. Full backend suite: **184 passed** (was 156).
+  Frontend `npm run build` re-verified clean (no frontend changes this
+  session).
 
 ### S8 — Calculators (2026-09-27)
 

@@ -147,6 +147,33 @@ class PlaybookMatchResponse(BaseModel):
     playbook_id: Optional[str] = None
 
 
+class DraftingField(BaseModel):
+    id: str
+    label: Bilingual
+    type: str
+    required: bool = True
+    help: Optional[Bilingual] = None
+
+
+class DraftingTemplateSummary(BaseModel):
+    id: str
+    title: Bilingual
+    description: Bilingual
+
+
+class DraftingTemplateDetail(BaseModel):
+    id: str
+    title: Bilingual
+    description: Bilingual
+    fields: List[DraftingField]
+    provisions: List[ResolvedProvision]
+
+
+class DraftRequest(BaseModel):
+    language: Literal["en", "ne"] = "ne"
+    answers: dict = Field(default_factory=dict)
+
+
 class BsDate(BaseModel):
     year: int
     month: int

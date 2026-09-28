@@ -5,7 +5,7 @@ import logging
 import time
 
 from fastapi import APIRouter, Depends, Header, HTTPException, Query, Request
-from fastapi.responses import StreamingResponse
+from fastapi.responses import Response, StreamingResponse
 from starlette.concurrency import iterate_in_threadpool
 
 from .. import playbooks, supa
@@ -13,13 +13,15 @@ from ..calculators import court_fee as court_fee_calc
 from ..calculators import dates as date_calc
 from ..calculators import labour as labour_calc
 from ..calculators import limitation as limitation_calc
+from ..drafting import render as drafting_render
 from ..generation import answer_question, stream_answer
 from ..playbook_matcher import match as match_playbook
 from ..retrieval import corpus_stats, doc_slug, get_index
 from ..schemas import (BsDate, ChatRequest, ChatResponse, CourtFeeAppealResponse, CourtFeeEstimateResponse,
-                        DateConversionResponse, GratuityResponse, LawDoc, LawSection, LimitationCheckResponse,
-                        NoticeResponse, Playbook, PlaybookMatchResponse, PlaybookSummary, SavedResearchIn,
-                        SavedResearchOut, SearchResponse, SeveranceResponse, Source)
+                        DateConversionResponse, DraftingTemplateDetail, DraftingTemplateSummary, DraftRequest,
+                        GratuityResponse, LawDoc, LawSection, LimitationCheckResponse, NoticeResponse, Playbook,
+                        PlaybookMatchResponse, PlaybookSummary, SavedResearchIn, SavedResearchOut,
+                        SearchResponse, SeveranceResponse, Source)
 
 router = APIRouter()
 reqlog = logging.getLogger("kanooni.request")
@@ -307,3 +309,37 @@ async def calc_severance(basic_monthly_pay: float, years_of_service: float) -> S
     except ValueError as exc:
         raise _bad_input(exc)
     return SeveranceResponse(**result)
+
+
+# ------------------------------------------------------------------ S9: drafting ---
+
+@router.get("/drafting/templates", response_model=list[DraftingTemplateSummary])
+async def list_drafting_templates() -> list[DraftingTemplateSummary]:
+    rows = await asyncio.to_thread(drafting_render.list_templates)
+    return [DraftingTemplateSummary(**r) for r in rows]
+
+
+@router.get("/drafting/templates/{template_id}", response_model=DraftingTemplateDetail)
+async def get_drafting_template(template_id: str) -> DraftingTemplateDetail:
+    try:
+        detail = await asyncio.to_thread(drafting_render.get_template_detail, template_id)
+    except drafting_render.UnknownTemplate:
+        raise HTTPException(status_code=404, detail="drafting template not found")
+    return DraftingTemplateDetail(**detail)
+
+
+@router.post("/drafting/templates/{template_id}/draft")
+async def draft_document(template_id: str, payload: DraftRequest) -> Response:
+    try:
+        docx_bytes = await asyncio.to_thread(
+            drafting_render.render_docx, template_id, payload.answers, payload.language
+        )
+    except drafting_render.UnknownTemplate:
+        raise HTTPException(status_code=404, detail="drafting template not found")
+    except (drafting_render.MissingField, ValueError) as exc:
+        raise _bad_input(exc)
+    return Response(
+        content=docx_bytes,
+        media_type="application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+        headers={"Content-Disposition": f'attachment; filename="{template_id}.docx"'},
+    )
