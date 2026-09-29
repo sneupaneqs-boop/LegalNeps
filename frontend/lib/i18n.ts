@@ -1,3 +1,5 @@
+import { extraEn, extraNe } from "./i18n-extra";
+
 export type Lang = "en" | "ne";
 
 type Strings = {
@@ -80,7 +82,7 @@ type Strings = {
   areaCyber: string;
 };
 
-export const strings: Record<Lang, Strings> = {
+const baseStrings: Record<Lang, Strings> = {
   en: {
     appName: "Kanooni Sathi",
     tagline: "Your bilingual legal friend for Nepali law",
@@ -254,4 +256,9 @@ export const strings: Record<Lang, Strings> = {
     areaConsumer: "उपभोक्ता",
     areaCyber: "साइबर",
   },
+};
+
+export const strings: Record<Lang, Strings & typeof extraEn> = {
+  en: { ...baseStrings.en, ...extraEn },
+  ne: { ...baseStrings.ne, ...extraNe },
 };

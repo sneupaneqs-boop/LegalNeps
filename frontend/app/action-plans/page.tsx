@@ -1,5 +1,4 @@
 import Link from "next/link";
-import AuthWidget from "@/components/AuthWidget";
 import { listPlaybooks } from "@/lib/api";
 import { strings } from "@/lib/i18n";
 
@@ -15,26 +14,8 @@ export default async function ActionPlansPage() {
 
   return (
     <div className="page law-page">
-      <div className="header">
-        <div className="brand">
-          <h1>{t.appName}</h1>
-          <p>{t.playbooksTitle}</p>
-        </div>
-        <div className="header-actions">
-          <Link className="nav-link" href="/search">
-            {t.navSearch}
-          </Link>
-          <Link className="nav-link" href="/">
-            {t.navChat}
-          </Link>
-          <Link className="nav-link" href="/saved">
-            {t.navSaved}
-          </Link>
-          <AuthWidget lang="en" />
-        </div>
-      </div>
-
       <div className="law-body">
+        <h2 className="law-title">{t.playbooksTitle}</h2>
         {playbooks.length === 0 && <div className="empty-state">{t.playbooksEmpty}</div>}
         <div className="section-list">
           {playbooks.map((p) => (

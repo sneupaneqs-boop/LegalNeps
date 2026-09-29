@@ -1,15 +1,13 @@
 "use client";
 
-import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
-import AuthWidget from "@/components/AuthWidget";
 import ChatMessage, { Message } from "@/components/ChatMessage";
 import { saveResearch, sendChatMessage, streamChatMessage, Turn, warmUp } from "@/lib/api";
-import { Lang, strings } from "@/lib/i18n";
+import { useLang } from "@/lib/LangContext";
 import { useAuth } from "@/lib/useAuth";
 
 export default function Home() {
-  const [lang, setLang] = useState<Lang>("en");
+  const { lang, t } = useLang();
   const [messages, setMessages] = useState<Message[]>([]);
   const [input, setInput] = useState("");
   const [loading, setLoading] = useState(false);
@@ -20,7 +18,6 @@ export default function Home() {
     warmUp();
   }, []);
 
-  const t = strings[lang];
   const nextId = useRef(0);
   const newId = () => `m${nextId.current++}`;
 
@@ -113,36 +110,13 @@ export default function Home() {
 
   return (
     <div className="page">
-      <div className="header">
-        <div className="brand">
-          <h1>{t.appName}</h1>
-          <p>{t.tagline}</p>
-        </div>
-        <div className="header-actions">
-          <Link className="nav-link" href="/search">
-            {t.navSearch}
-          </Link>
-          <Link className="nav-link" href="/action-plans">
-            {t.navPlaybooks}
-          </Link>
-          <Link className="nav-link" href="/saved">
-            {t.navSaved}
-          </Link>
-          <AuthWidget lang={lang} />
-          <button
-            className="lang-toggle"
-            onClick={() => setLang(lang === "en" ? "ne" : "en")}
-          >
-            {t.langToggle}
-          </button>
-        </div>
-      </div>
-
       <div className="disclaimer">{t.disclaimerBanner}</div>
 
       <div className="messages">
         {messages.length === 0 && (
-          <div className="empty-state">
+          <div className="hero-wrap">
+            <h2 className="hero">{t.heroTitle}</h2>
+            <div className="empty-state">
             <p>{t.emptyState}</p>
             <div className="suggestions-label">{t.tryAsking}</div>
             <div className="suggestions">
@@ -151,6 +125,7 @@ export default function Home() {
                   {q}
                 </button>
               ))}
+            </div>
             </div>
           </div>
         )}

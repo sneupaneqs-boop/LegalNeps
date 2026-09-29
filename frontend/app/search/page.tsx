@@ -1,10 +1,9 @@
 "use client";
 
-import Link from "next/link";
 import { useState } from "react";
-import AuthWidget from "@/components/AuthWidget";
 import { search, Source } from "@/lib/api";
-import { Lang, strings } from "@/lib/i18n";
+import { strings } from "@/lib/i18n";
+import { useLang } from "@/lib/LangContext";
 
 const DOC_TYPES = ["act", "rule", "constitution", "order", "directive", "treaty", "other"] as const;
 
@@ -48,7 +47,7 @@ function ResultCard({ s, t }: { s: Source; t: Strings }) {
 }
 
 export default function SearchPage() {
-  const [lang, setLang] = useState<Lang>("en");
+  const { lang } = useLang();
   const [q, setQ] = useState("");
   const [category, setCategory] = useState<"" | "law" | "precedent">("");
   const [docType, setDocType] = useState("");
@@ -86,28 +85,6 @@ export default function SearchPage() {
 
   return (
     <div className="page">
-      <div className="header">
-        <div className="brand">
-          <h1>{t.appName}</h1>
-          <p>{t.tagline}</p>
-        </div>
-        <div className="header-actions">
-          <Link className="nav-link" href="/">
-            {t.navChat}
-          </Link>
-          <Link className="nav-link" href="/action-plans">
-            {t.navPlaybooks}
-          </Link>
-          <Link className="nav-link" href="/saved">
-            {t.navSaved}
-          </Link>
-          <AuthWidget lang={lang} />
-          <button className="lang-toggle" onClick={() => setLang(lang === "en" ? "ne" : "en")}>
-            {t.langToggle}
-          </button>
-        </div>
-      </div>
-
       <div className="search-body">
         <form className="search-form" onSubmit={handleSubmit}>
           <input

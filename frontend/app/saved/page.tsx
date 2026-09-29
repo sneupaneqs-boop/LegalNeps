@@ -1,14 +1,13 @@
 "use client";
 
-import Link from "next/link";
 import { useEffect, useState } from "react";
-import AuthWidget from "@/components/AuthWidget";
 import { deleteSavedResearch, listSavedResearch, SavedResearch } from "@/lib/api";
-import { Lang, strings } from "@/lib/i18n";
+import { strings } from "@/lib/i18n";
+import { useLang } from "@/lib/LangContext";
 import { useAuth } from "@/lib/useAuth";
 
 export default function SavedPage() {
-  const [lang, setLang] = useState<Lang>("en");
+  const { lang } = useLang();
   const { session, loading: authLoading } = useAuth();
   const [items, setItems] = useState<SavedResearch[] | null>(null);
   const [error, setError] = useState(false);
@@ -37,28 +36,8 @@ export default function SavedPage() {
 
   return (
     <div className="page">
-      <div className="header">
-        <div className="brand">
-          <h1>{t.appName}</h1>
-        </div>
-        <div className="header-actions">
-          <Link className="nav-link" href="/search">
-            {t.navSearch}
-          </Link>
-          <Link className="nav-link" href="/action-plans">
-            {t.navPlaybooks}
-          </Link>
-          <Link className="nav-link" href="/">
-            {t.navChat}
-          </Link>
-          <AuthWidget lang={lang} />
-          <button className="lang-toggle" onClick={() => setLang(lang === "en" ? "ne" : "en")}>
-            {t.langToggle}
-          </button>
-        </div>
-      </div>
-
       <div className="search-body">
+        <h2 className="law-title">{t.navSaved}</h2>
         {!authLoading && !session && <div className="empty-state">{t.signInToSave}</div>}
         {session && items === null && !error && <div className="empty-state">…</div>}
         {error && <div className="empty-state">{t.error}</div>}

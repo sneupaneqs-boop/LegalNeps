@@ -17,23 +17,6 @@ export default async function LawDocPage({ params }: { params: Promise<{ slug: s
 
   return (
     <div className="page law-page">
-      <div className="header">
-        <div className="brand">
-          <h1>{t.appName}</h1>
-        </div>
-        <div className="header-actions">
-          <Link className="nav-link" href="/search">
-            {t.navSearch}
-          </Link>
-          <Link className="nav-link" href="/action-plans">
-            {t.navPlaybooks}
-          </Link>
-          <Link className="nav-link" href="/">
-            {t.navChat}
-          </Link>
-        </div>
-      </div>
-
       <div className="law-body">
         <h2 className="law-title">{doc.doc_title_ne}</h2>
         {doc.doc_title_en && <div className="law-title-en">{doc.doc_title_en}</div>}
