@@ -16,23 +16,6 @@ export default async function LawSectionPage({
 
   return (
     <div className="page law-page">
-      <div className="header">
-        <div className="brand">
-          <h1>{t.appName}</h1>
-        </div>
-        <div className="header-actions">
-          <Link className="nav-link" href="/search">
-            {t.navSearch}
-          </Link>
-          <Link className="nav-link" href="/action-plans">
-            {t.navPlaybooks}
-          </Link>
-          <Link className="nav-link" href="/">
-            {t.navChat}
-          </Link>
-        </div>
-      </div>
-
       <div className="law-body">
         <Link className="back-link" href={`/law/${slug}`}>
           ← {s.doc_title_ne || t.backToDoc}

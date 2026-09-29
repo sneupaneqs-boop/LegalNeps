@@ -1,6 +1,5 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import AuthWidget from "@/components/AuthWidget";
 import { Bilingual, getPlaybook, ResolvedProvision } from "@/lib/api";
 import { strings } from "@/lib/i18n";
 
@@ -37,24 +36,6 @@ export default async function ActionPlanPage({ params }: { params: Promise<{ id:
 
   return (
     <div className="page law-page">
-      <div className="header">
-        <div className="brand">
-          <h1>{t.appName}</h1>
-        </div>
-        <div className="header-actions">
-          <Link className="nav-link" href="/search">
-            {t.navSearch}
-          </Link>
-          <Link className="nav-link" href="/">
-            {t.navChat}
-          </Link>
-          <Link className="nav-link" href="/saved">
-            {t.navSaved}
-          </Link>
-          <AuthWidget lang="en" />
-        </div>
-      </div>
-
       <div className="law-body">
         <Link className="back-link" href="/action-plans">
           {t.backToPlaybooks}

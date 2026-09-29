@@ -1,4 +1,6 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
+import Shell from "@/components/Shell";
+import { LangProvider } from "@/lib/LangContext";
 import "./globals.css";
 
 export const metadata: Metadata = {
@@ -7,6 +9,8 @@ export const metadata: Metadata = {
     "A bilingual (English/Nepali) AI assistant that explains Nepali civil law and precedents in plain language.",
 };
 
+export const viewport: Viewport = { width: "device-width", initialScale: 1 };
+
 export default function RootLayout({
   children,
 }: {
@@ -14,7 +18,11 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body>{children}</body>
+      <body>
+        <LangProvider>
+          <Shell>{children}</Shell>
+        </LangProvider>
+      </body>
     </html>
   );
 }
