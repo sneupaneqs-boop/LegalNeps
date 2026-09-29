@@ -18,11 +18,15 @@ import re
 from collections import OrderedDict
 from threading import Lock
 
-from . import config, glossary, llm, supa
+from . import config, glossary, llm, prompt_guard, supa, tiers
 from .retrieval import get_index
 from .text_norm import detect_language, fold, guess_language, tokenize
 
 log = logging.getLogger(__name__)
+
+# S13: bump when ANSWER_SYSTEM's wording changes materially, so llm_usage
+# rows say which prompt version produced an answer.
+ANSWER_PROMPT_VERSION = "answer_v1"
 
 DISCLAIMER_EN = (
     "This is general legal information, not a substitute for advice from a "
@@ -89,6 +93,9 @@ the Nepali provisions faithfully.
 - Reply entirely in the requested language (Nepali in natural Devanagari).
 - End with one empathetic line and the disclaimer that this is general information, not a \
 substitute for a licensed advocate."""
+
+ANSWER_SYSTEM += "\n\n" + prompt_guard.UNTRUSTED_TEXT_NOTICE
+ANALYZE_SYSTEM += "\n\n" + prompt_guard.UNTRUSTED_TEXT_NOTICE
 
 
 class _LRU:
@@ -239,7 +246,8 @@ def analyze_query(message: str, lang_hint: str, history: list[dict] | None = Non
         _analysis_cache.put(key, out)
         return out
     try:
-        prompt = (f"Earlier conversation:\n{hist}\n\n" if hist else "") + f"Latest message: {message}"
+        prompt = (f"Earlier conversation:\n{hist}\n\n" if hist else "") + \
+            f"Latest message: {prompt_guard.wrap_user_text(message)}"
         raw = llm.complete(ANALYZE_SYSTEM, prompt, fast=True, json_mode=True,
                            max_tokens=1000, temperature=0.1)
         data = llm.parse_json(raw)
@@ -390,17 +398,24 @@ def _prompt(message: str, analysis: dict, sources: list[dict], lang: str, histor
         f"Official sources:\n{context}\n\n"
         + (f"Earlier conversation (context only):\n{hist}\n\n" if hist else "")
         + f"Person's concern (as understood): {analysis.get('concern') or '-'}\n"
-        f"Person's message: {message}\n\n"
+        f"Person's message: {prompt_guard.wrap_user_text(message)}\n\n"
         f"{'Reply in English.' if lang == 'en' else 'Reply in Nepali (Devanagari).'}"
     )
 
 
-def run(message: str, language: str = "auto", history: list[dict] | None = None):
+def run(message: str, language: str = "auto", history: list[dict] | None = None, tier: str = "free"):
     """The whole pipeline as events: ("meta", {language, sources, analysis}),
     then ("delta", text)* while the answer is written, then ("done", {...}).
     Non-legal messages (greetings, thanks, off-topic, too vague) get a direct
     reply and no sources; legal ones get a grounded, cited answer, or the
-    matching provisions if no model responds in time."""
+    matching provisions if no model responds in time.
+
+    `tier` (S13): "free" uses the existing multi-provider free chain
+    (llm.stream, unchanged); "haiku"/"sonnet" bills a specific Anthropic
+    model directly (llm.paid_complete) for a paid-plan user - no streaming
+    mid-generation (the Anthropic SDK call is synchronous), but the "done"
+    event's `usage` lets the caller log a real cost per query. A cache hit
+    never re-runs the LLM regardless of tier, so it carries no usage."""
     lang_hint = guess_language(message) if language == "auto" else language
     ckey = _answer_cache_key(message + "\x00" + _history_text(history), language)
     cached = _answer_cache.get(ckey)
@@ -447,10 +462,18 @@ def run(message: str, language: str = "auto", history: list[dict] | None = None)
 
     llm_calls += 1
     parts: list[str] = []
+    usage: dict | None = None
+    prompt_text = _prompt(message, analysis, sources, lang, history)
     try:
-        for piece in llm.stream(ANSWER_SYSTEM, _prompt(message, analysis, sources, lang, history)):
-            parts.append(piece)
-            yield "delta", piece
+        if tier == "free":
+            for piece in llm.stream(ANSWER_SYSTEM, prompt_text):
+                parts.append(piece)
+                yield "delta", piece
+        else:
+            model = tiers.model_for_tier(tier)
+            text, usage = llm.paid_complete(model, ANSWER_SYSTEM, prompt_text, max_tokens=1800)
+            parts.append(text)
+            yield "delta", text
         answer = normalize_citations("".join(parts), sources)
         llm_used = True
     except Exception as e:  # noqa: BLE001
@@ -468,19 +491,24 @@ def run(message: str, language: str = "auto", history: list[dict] | None = None)
         _answer_cache.put(ckey, payload)
         if not history:
             supa.cache_put(ckey, get_index().digest, lang, message, payload)
-    yield "done", {"answer": answer, "llm_used": llm_used, "cached": False, "llm_calls": llm_calls}
+    yield "done", {"answer": answer, "llm_used": llm_used, "cached": False, "llm_calls": llm_calls,
+                   "tier": tier, "usage": usage, "prompt_version": ANSWER_PROMPT_VERSION,
+                   "flagged_injection": prompt_guard.looks_like_injection(message)}
 
 
-def stream_answer(message: str, language: str = "auto", history: list[dict] | None = None):
-    yield from run(message, language, history)
+def stream_answer(message: str, language: str = "auto", history: list[dict] | None = None, tier: str = "free"):
+    yield from run(message, language, history, tier=tier)
 
 
-def answer_question(message: str, language: str = "auto", history: list[dict] | None = None) -> dict:
+def answer_question(message: str, language: str = "auto", history: list[dict] | None = None,
+                    tier: str = "free") -> dict:
     result: dict = {"answer": "", "sources": [], "llm_used": False}
-    for kind, data in run(message, language, history):
+    for kind, data in run(message, language, history, tier=tier):
         if kind == "meta":
             result.update(language=data["language"], sources=data["sources"], analysis=data["analysis"])
         elif kind == "done":
             result.update(answer=data["answer"], llm_used=data["llm_used"], cached=data.get("cached", False),
-                          llm_calls=data.get("llm_calls", 0))
+                          llm_calls=data.get("llm_calls", 0), tier=data.get("tier", "free"),
+                          usage=data.get("usage"), prompt_version=data.get("prompt_version"),
+                          flagged_injection=data.get("flagged_injection", False))
     return result

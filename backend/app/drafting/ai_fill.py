@@ -14,9 +14,12 @@ not the kind of long-form reasoning the answer tier is for.
 """
 from __future__ import annotations
 
-from .. import llm
+from .. import llm, prompt_guard, tiers
 from .fields import TemplateSpec
 from .registry import TEMPLATES
+
+# S13: bump when _SYSTEM's wording changes materially.
+PROMPT_VERSION = "ai_fill_v1"
 
 _SYSTEM = {
     "en": (
@@ -47,11 +50,10 @@ def _get_field(spec: TemplateSpec, field_id: str):
     raise UnknownField(f"{field_id!r} is not a field of template {spec.id!r}")
 
 
-def fill(template_id: str, field_id: str, hint: str, language: str = "ne", other_answers: dict | None = None) -> str:
-    """Expand `hint` into fuller prose for `field_id` of `template_id`, in
-    `language`. Raises UnknownField for a bad field id, llm.LLMUnavailable
-    if no provider answers in time - callers should fall back to using
-    `hint` verbatim on that error, not fail the whole draft."""
+def _build(template_id: str, field_id: str, hint: str, language: str, other_answers: dict | None) -> tuple[str, str]:
+    """Returns (system, user) for the given field, or raises ValueError /
+    UnknownField. `hint` is wrapped as untrusted user text (S13) - it's the
+    one place free-form user input enters this prompt."""
     if language not in ("en", "ne"):
         raise ValueError("language must be 'en' or 'ne'")
     spec = TEMPLATES.get(template_id)
@@ -68,11 +70,33 @@ def fill(template_id: str, field_id: str, hint: str, language: str = "ne", other
             if f.id in other_answers and other_answers[f.id] and f.type != "textarea":
                 context_lines.append(f"{f.label.get(language, f.id)}: {other_answers[f.id]}")
     context_block = ("\n".join(context_lines) + "\n\n") if context_lines else ""
+    wrapped_hint = prompt_guard.wrap_user_text(hint)
 
     user = (
-        f"{context_block}Document section: {label}\nUser's note: {hint}"
+        f"{context_block}Document section: {label}\nUser's note: {wrapped_hint}"
         if language == "en"
-        else f"{context_block}कागजातको खण्डः {label}\nप्रयोगकर्ताको टिप्पणीः {hint}"
+        else f"{context_block}कागजातको खण्डः {label}\nप्रयोगकर्ताको टिप्पणीः {wrapped_hint}"
     )
-    text = llm.complete(_SYSTEM[language], user, fast=True, max_tokens=400, temperature=0.3)
+    system = _SYSTEM[language] + "\n\n" + prompt_guard.UNTRUSTED_TEXT_NOTICE
+    return system, user
+
+
+def fill(template_id: str, field_id: str, hint: str, language: str = "ne", other_answers: dict | None = None) -> str:
+    """Expand `hint` into fuller prose for `field_id` of `template_id`, in
+    `language`, via the free chain. Raises UnknownField for a bad field id,
+    llm.LLMUnavailable if no provider answers in time - callers should fall
+    back to using `hint` verbatim on that error, not fail the whole draft."""
+    system, user = _build(template_id, field_id, hint, language, other_answers)
+    text = llm.complete(system, user, fast=True, max_tokens=400, temperature=0.3)
     return text.strip()
+
+
+def fill_paid(template_id: str, field_id: str, hint: str, language: str, other_answers: dict | None,
+              tier: str) -> tuple[str, dict]:
+    """S13: same expansion, billed to a specific paid-tier model
+    (tiers.select_tier(plan, "draft") picks "sonnet" for any paid plan).
+    Returns (text, usage) so the caller can log a real cost per query."""
+    system, user = _build(template_id, field_id, hint, language, other_answers)
+    model = tiers.model_for_tier(tier)
+    text, usage = llm.paid_complete(model, system, user, max_tokens=800, temperature=0.3)
+    return text.strip(), usage

@@ -8,7 +8,7 @@ from fastapi import APIRouter, Depends, File, Header, HTTPException, Query, Requ
 from fastapi.responses import Response, StreamingResponse
 from starlette.concurrency import iterate_in_threadpool
 
-from .. import compliance, llm, playbooks, supa
+from .. import compliance, llm, playbooks, prompt_guard, supa, tiers
 from ..calculators import court_fee as court_fee_calc
 from ..calculators import dates as date_calc
 from ..calculators import labour as labour_calc
@@ -21,11 +21,12 @@ from ..retrieval import corpus_stats, doc_slug, get_index
 from ..schemas import (AiFillRequest, AiFillResponse, BsDate, ChatRequest, ChatResponse, CompanyProfileIn,
                         CompanyProfileOut, CourtFeeAppealResponse, CourtFeeEstimateResponse, DateConversionResponse,
                         DraftingTemplateDetail, DraftingTemplateSummary, DraftRequest, DraftVersionOut,
-                        GratuityResponse, LawDoc, LawSection, LimitationCheckResponse, MatterFileDownload,
-                        MatterFileOut, MatterIn, MatterNoteIn, MatterNoteOut, MatterOut, MatterTaskIn, MatterTaskOut,
-                        MatterTaskUpdateIn, MatterUpdateIn, NoticeResponse, ObligationDue, Playbook,
-                        PlaybookMatchResponse, PlaybookSummary, SavedDraftIn, SavedDraftOut, SavedResearchIn,
-                        SavedResearchOut, SearchResponse, SeveranceResponse, Source, UpcomingObligationsResponse)
+                        GratuityResponse, LawDoc, LawSection, LimitationCheckResponse, LlmUsageOut,
+                        MatterFileDownload, MatterFileOut, MatterIn, MatterNoteIn, MatterNoteOut, MatterOut,
+                        MatterTaskIn, MatterTaskOut, MatterTaskUpdateIn, MatterUpdateIn, NoticeResponse,
+                        ObligationDue, Playbook, PlaybookMatchResponse, PlaybookSummary, SavedDraftIn, SavedDraftOut,
+                        SavedResearchIn, SavedResearchOut, SearchResponse, SeveranceResponse, Source,
+                        UpcomingObligationsResponse)
 
 router = APIRouter()
 reqlog = logging.getLogger("kanooni.request")
@@ -54,29 +55,59 @@ async def _require_user(authorization: str | None = Header(None)) -> dict:
     return user
 
 
-async def _enforce_limits(request: Request, user: dict | None) -> None:
+async def _enforce_limits(request: Request, user: dict | None) -> str:
+    """Rate-limits by IP always, and by the user's own daily quota (S13:
+    plan-based - tiers.daily_quota_for()) when signed in. Returns the
+    caller's plan ("free" for anonymous callers), so the route can pick an
+    LLM tier from the same lookup instead of fetching it twice."""
     ip = _client_ip(request)
     if not await asyncio.to_thread(supa.check_ip_rate_limit, ip):
         raise HTTPException(status_code=429, detail="too many requests from this address, try again later")
-    if user is not None:
-        allowed, _ = await asyncio.to_thread(supa.check_and_increment_quota, user["id"])
-        if not allowed:
-            raise HTTPException(status_code=429, detail="daily answer limit reached")
+    if user is None:
+        return "free"
+    plan = await asyncio.to_thread(supa.profile_get_plan, user["id"])
+    allowed, _ = await asyncio.to_thread(supa.check_and_increment_quota, user["id"], tiers.daily_quota_for(plan))
+    if not allowed:
+        raise HTTPException(status_code=429, detail="daily answer limit reached")
+    return plan
 
 
 def _log_request(endpoint: str, started: float, *, llm_used: bool, cached: bool, llm_calls: int,
-                 language: str | None) -> None:
+                 language: str | None, tier: str = "free") -> None:
     # One structured line per request: what it cost (llm_calls, latency) and
     # whether it hit no provider at all (cache) or several (retries/fallback).
     reqlog.info(json.dumps({
         "endpoint": endpoint,
         "llm_calls": llm_calls,
-        "tier": "free",  # only tier that exists until S13's paid AI gateway
+        "tier": tier,
         "latency_ms": int((time.time() - started) * 1000),
         "cache_hit": cached,
         "llm_used": llm_used,
         "language": language,
     }, ensure_ascii=False))
+
+
+def _record_llm_usage_sync(user: dict | None, endpoint: str, result: dict) -> None:
+    """S13: writes one llm_usage row per real (non-cached, non-free-tier)
+    generation, with an estimated cost from real token counts. Free-tier
+    and cached answers aren't billed to a specific model, so they're not
+    logged here - request-level telemetry for those already goes through
+    _log_request(). Blocking (httpx sync client, same as the rest of
+    supa.py) - callers on the event loop must run it via asyncio.to_thread."""
+    tier = result.get("tier", "free")
+    if user is None or tier == "free" or result.get("cached"):
+        return
+    usage = result.get("usage") or {}
+    cost = tiers.estimate_cost_usd(tier, usage.get("input_tokens"), usage.get("output_tokens"))
+    supa.llm_usage_record(
+        user["id"], endpoint, tier, "anthropic", tiers.model_for_tier(tier),
+        result.get("prompt_version") or "unknown", usage.get("input_tokens"), usage.get("output_tokens"),
+        cost, result.get("flagged_injection", False),
+    )
+
+
+async def _log_llm_usage(user: dict | None, endpoint: str, result: dict) -> None:
+    await asyncio.to_thread(_record_llm_usage_sync, user, endpoint, result)
 
 
 def _to_source(n: int, hit: dict, lang: str) -> Source:
@@ -100,13 +131,15 @@ def _to_source(n: int, hit: dict, lang: str) -> Source:
 async def chat(payload: ChatRequest, request: Request, authorization: str | None = Header(None)) -> ChatResponse:
     # LLM + search calls are blocking; keep the event loop free for other requests.
     user = await _current_user(authorization)
-    await _enforce_limits(request, user)
+    plan = await _enforce_limits(request, user)
+    tier = tiers.select_tier(plan, "chat")
     started = time.time()
     history = [t.model_dump() for t in payload.history]
-    result = await asyncio.to_thread(answer_question, payload.message, payload.language or "auto", history)
+    result = await asyncio.to_thread(answer_question, payload.message, payload.language or "auto", history, tier)
     lang = result["language"]
     _log_request("/api/chat", started, llm_used=result["llm_used"], cached=result.get("cached", False),
-                 llm_calls=result.get("llm_calls", 0), language=lang)
+                 llm_calls=result.get("llm_calls", 0), language=lang, tier=tier)
+    await _log_llm_usage(user, "/api/chat", result)
     return ChatResponse(
         answer=result["answer"],
         language=lang,
@@ -123,14 +156,15 @@ async def chat_stream(payload: ChatRequest, request: Request,
     """NDJSON stream: {"type":"meta", sources...} then {"type":"delta","text"}* then {"type":"done"}.
     Sources arrive before the model starts writing, so the UI can show them immediately."""
     user = await _current_user(authorization)
-    await _enforce_limits(request, user)
+    plan = await _enforce_limits(request, user)
+    tier = tiers.select_tier(plan, "chat")
     started = time.time()
     history = [t.model_dump() for t in payload.history]
 
     def events():
         lang = "en"
         try:
-            for kind, data in stream_answer(payload.message, payload.language or "auto", history):
+            for kind, data in stream_answer(payload.message, payload.language or "auto", history, tier):
                 if kind == "meta":
                     lang = data["language"]
                     data = {**data, "sources": [_to_source(i, h, lang).model_dump()
@@ -141,7 +175,8 @@ async def chat_stream(payload: ChatRequest, request: Request,
                 else:
                     _log_request("/api/chat/stream", started, llm_used=data.get("llm_used", False),
                                  cached=data.get("cached", False), llm_calls=data.get("llm_calls", 0),
-                                 language=lang)
+                                 language=lang, tier=tier)
+                    _record_llm_usage_sync(user, "/api/chat/stream", data)
                     yield json.dumps({"type": "done", **data}, ensure_ascii=False) + "\n"
         except Exception:  # noqa: BLE001 - never leave the client hanging
             yield json.dumps({"type": "error"}) + "\n"
@@ -354,16 +389,32 @@ async def draft_document(template_id: str, payload: DraftRequest) -> Response:
 @router.post("/drafting/templates/{template_id}/ai-fill", response_model=AiFillResponse)
 async def ai_fill_field(template_id: str, payload: AiFillRequest, user: dict = Depends(_require_user)) -> AiFillResponse:
     """Expands a free-text field's short hint via the LLM. Signed-in only,
-    and metered against the same daily quota as chat answers (S13 gives
-    this its own cost-tracked ledger; until then, one shared per-user
-    budget is enough to stop runaway use)."""
-    allowed, _ = await asyncio.to_thread(supa.check_and_increment_quota, user["id"])
+    metered against the caller's plan-based daily quota, and (S13) billed to
+    Sonnet 5.5 for any paid plan - "drafting" per STRATEGY's tier-routing
+    rule - with the real cost logged to llm_usage; free-plan users keep
+    using the free chain, same as before S13."""
+    plan = await asyncio.to_thread(supa.profile_get_plan, user["id"])
+    allowed, _ = await asyncio.to_thread(supa.check_and_increment_quota, user["id"], tiers.daily_quota_for(plan))
     if not allowed:
         raise HTTPException(status_code=429, detail="daily AI-fill limit reached")
+    tier = tiers.select_tier(plan, "draft")
+    flagged = prompt_guard.looks_like_injection(payload.hint)
     try:
-        text = await asyncio.to_thread(
-            drafting_ai_fill.fill, template_id, payload.field_id, payload.hint, payload.language, payload.other_answers
-        )
+        if tier == "free":
+            text = await asyncio.to_thread(
+                drafting_ai_fill.fill, template_id, payload.field_id, payload.hint, payload.language, payload.other_answers
+            )
+        else:
+            text, usage = await asyncio.to_thread(
+                drafting_ai_fill.fill_paid, template_id, payload.field_id, payload.hint, payload.language,
+                payload.other_answers, tier,
+            )
+            cost = tiers.estimate_cost_usd(tier, usage.get("input_tokens"), usage.get("output_tokens"))
+            await asyncio.to_thread(
+                supa.llm_usage_record, user["id"], "/api/drafting/ai-fill", tier, "anthropic",
+                tiers.model_for_tier(tier), drafting_ai_fill.PROMPT_VERSION,
+                usage.get("input_tokens"), usage.get("output_tokens"), cost, flagged,
+            )
     except drafting_ai_fill.UnknownField as exc:
         raise _bad_input(exc)
     except ValueError as exc:
@@ -613,3 +664,15 @@ async def upcoming_obligations(within_days: int = Query(60, ge=1, le=365),
         ))
     due.sort(key=lambda o: o.due_date_ad)
     return UpcomingObligationsResponse(company_name=profile["company_name"], obligations=due)
+
+
+# ---------------------------------------------------------------- S13: AI gateway v2
+@router.get("/llm-usage")
+async def list_llm_usage(limit: int = Query(100, ge=1, le=500),
+                          user: dict = Depends(_require_user)) -> list[LlmUsageOut]:
+    """Cost-per-query visibility (STRATEGY's S13 "done when" bar): every
+    paid-tier (haiku/sonnet) call this user triggered, with its real token
+    counts and estimated USD cost. Free-tier calls aren't billed to a
+    specific model, so they never appear here (see _record_llm_usage_sync)."""
+    rows = await asyncio.to_thread(supa.llm_usage_list, user["id"], limit)
+    return [LlmUsageOut(**row) for row in rows]

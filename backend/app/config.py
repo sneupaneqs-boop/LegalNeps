@@ -115,3 +115,24 @@ IP_RATE_LIMIT_PER_HOUR = int(os.getenv("IP_RATE_LIMIT_PER_HOUR", "30"))  # per I
 RESEND_API_KEY = os.getenv("RESEND_API_KEY", "")
 RESEND_FROM_EMAIL = os.getenv("RESEND_FROM_EMAIL", "Kanooni Sathi <reminders@kanoonisathi.com>")
 COMPLIANCE_REMINDER_DAYS_AHEAD = int(os.getenv("COMPLIANCE_REMINDER_DAYS_AHEAD", "7"))
+
+# S13: AI gateway v2 - plan-based tier routing (STRATEGY.md §2: free chain for
+# free users, Haiku 4.5 for paid structured answers, Sonnet 5.5 only for paid
+# drafting/contract review). Model IDs and $/1M-token pricing per Anthropic's
+# first-party rates (checked 2026-09-25) - update MODEL_PRICING_PER_1M if
+# either model's price changes, so cost-per-query stays accurate rather than
+# silently stale.
+PAID_HAIKU_MODEL = os.getenv("PAID_HAIKU_MODEL", "claude-haiku-4-5")
+PAID_SONNET_MODEL = os.getenv("PAID_SONNET_MODEL", "claude-sonnet-5-5")
+MODEL_PRICING_PER_1M = {
+    PAID_HAIKU_MODEL: {"input": 1.00, "output": 5.00},
+    PAID_SONNET_MODEL: {"input": 2.00, "output": 10.00},
+}
+# Per-plan daily answer quotas (STRATEGY.md §5 pricing table). DAILY_QUOTA_FREE
+# above already existed pre-S13 (default 50) for the only plan that existed
+# then; STRATEGY's own pricing table specifies 5/day for the free plan, but
+# this code doesn't silently override whatever value is already configured
+# in production - see docs/PROGRESS.md's S13 entry.
+DAILY_QUOTA_INDIVIDUAL = int(os.getenv("DAILY_QUOTA_INDIVIDUAL", "40"))
+DAILY_QUOTA_PROFESSIONAL = int(os.getenv("DAILY_QUOTA_PROFESSIONAL", "200"))
+DAILY_QUOTA_FIRM = int(os.getenv("DAILY_QUOTA_FIRM", "200"))

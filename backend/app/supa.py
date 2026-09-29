@@ -87,6 +87,49 @@ def check_and_increment_quota(user_id: str, daily_limit: int | None = None) -> t
         return True, 0
 
 
+# ---------------------------------------------------------------- plan + llm usage (S13)
+def profile_get_plan(user_id: str) -> str:
+    """"free" if Supabase is unreachable or the profile row is somehow
+    missing - the same fail-open-to-the-cheapest-tier behavior as every
+    other optional integration here, and the safe default for billing."""
+    if not available():
+        return "free"
+    try:
+        r = _http().get("/rest/v1/profiles", params={"id": f"eq.{user_id}", "select": "plan", "limit": "1"})
+        r.raise_for_status()
+        rows = r.json()
+        return rows[0]["plan"] if rows else "free"
+    except Exception as e:  # noqa: BLE001
+        log.warning("supabase profile_get_plan failed: %s", str(e)[:200])
+        return "free"
+
+
+def llm_usage_record(user_id: str, endpoint: str, tier: str, provider: str | None, model: str | None,
+                      prompt_version: str, input_tokens: int | None, output_tokens: int | None,
+                      cost_usd: float, flagged_injection: bool = False) -> None:
+    if not available():
+        return
+    try:
+        r = _http().post("/rest/v1/llm_usage", json={
+            "user_id": user_id, "endpoint": endpoint, "tier": tier, "provider": provider, "model": model,
+            "prompt_version": prompt_version, "input_tokens": input_tokens, "output_tokens": output_tokens,
+            "cost_usd": cost_usd, "flagged_injection": flagged_injection,
+        })
+        r.raise_for_status()
+    except Exception as e:  # noqa: BLE001
+        log.warning("supabase llm_usage_record failed: %s", str(e)[:200])
+
+
+def llm_usage_list(user_id: str, limit: int = 100) -> list[dict]:
+    if not available():
+        return []
+    r = _http().get("/rest/v1/llm_usage", params={
+        "user_id": f"eq.{user_id}", "select": "*", "order": "created_at.desc", "limit": str(limit),
+    })
+    r.raise_for_status()
+    return r.json()
+
+
 # ---------------------------------------------------------------- answer cache
 def cache_get(cache_key: str, corpus_version: str) -> dict | None:
     """None on a miss OR if the cached row is from a stale corpus_version -

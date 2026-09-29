@@ -1,17 +1,17 @@
 # Graph Report - LegalNeps  (2026-09-29)
 
 ## Corpus Check
-- 96 files · ~136,347 words
+- 99 files · ~139,722 words
 - Verdict: corpus is large enough that graph structure adds value.
 - Unclassified: 8 file(s) not represented in the graph (top: (none) 2, .example 2, .gz 2)
 
 ## Summary
-- 1198 nodes · 2443 edges · 68 communities (52 shown, 16 thin omitted)
-- Extraction: 93% EXTRACTED · 7% INFERRED · 0% AMBIGUOUS · INFERRED: 170 edges (avg confidence: 0.92)
+- 1263 nodes · 2585 edges · 79 communities (60 shown, 19 thin omitted)
+- Extraction: 93% EXTRACTED · 7% INFERRED · 0% AMBIGUOUS · INFERRED: 178 edges (avg confidence: 0.92)
 - Token cost: 0 input · 0 output
 
 ## Graph Freshness
-- Built from commit: `fc330b68`
+- Built from commit: `40d4f40a`
 - Run `git rev-parse HEAD` and compare to check if the graph is stale.
 - Run `graphify update .` after code changes (no API cost).
 
@@ -26,7 +26,7 @@
 - test_api.py
 - PDF Text Extraction
 - supa.py
-- generation.py
+- run_eval.py
 - Graphify Tool Documentation
 - package.json
 - build_corpus.py
@@ -38,7 +38,7 @@
 - Project Strategy and Prompts
 - TypeScript Configuration
 - test_s10_ai_and_save.py
-- BM25 Retrieval Engine
+- retrieval.py
 - resolve_provision
 - compliance.py
 - render.py
@@ -49,10 +49,10 @@
 - Graph Query Documentation
 - Criminal Law Playbooks
 - Labor Law Playbooks
-- Legal Engine Roadmap
+- analyze_query
 - Personal Loan Playbooks
 - Sexual Harassment Playbooks
-- chat.py
+- _require_matter
 - Folder Watching Documentation
 - Git Hook Documentation
 - Incremental Update Documentation
@@ -75,23 +75,34 @@
 - Land Dispute Playbook
 - RTI Request Playbook
 - FakeMattersStore
-- get
+- chat.py
 - chat
 - scrape_lawcommission.py
 - limitation.py
 - post
 - ai_fill.py
-- text_norm.py
-- Playbook Matching Service
+- test_s13_ai_gateway.py
+- generation.py
+- main.py
+- config.py
+- ._build
+- fill_paid
+- ai_fill_field
+- _FakeAnthropicClient
+- doc_slug
+- test_chat_route_anonymous_caller_stays_on_free_tier
+- _LRU
+- _GZipExceptStreams
+- looks_like_injection
 
 ## God Nodes (most connected - your core abstractions)
-1. `available()` - 41 edges
-2. `_http()` - 38 edges
+1. `available()` - 45 edges
+2. `_http()` - 41 edges
 3. `get_index()` - 27 edges
 4. `complete()` - 24 edges
-5. `analyze_query()` - 21 edges
-6. `FakeMattersStore` - 21 edges
-7. `run()` - 20 edges
+5. `run()` - 23 edges
+6. `analyze_query()` - 22 edges
+7. `FakeMattersStore` - 21 edges
 8. `tokenize()` - 20 edges
 9. `resolve_provision()` - 19 edges
 10. `Index` - 19 edges
@@ -99,14 +110,14 @@
 ## Surprising Connections (you probably didn't know these)
 - `S8 — Calculators (2026-09-27)` --references--> `check()`  [INFERRED]
   docs/PROGRESS.md → backend/app/calculators/limitation.py
-- `S2 — Legal data engine v2 (2026-09-26)` --references--> `extract_doc_meta()`  [INFERRED]
-  docs/PROGRESS.md → backend/app/doc_meta.py
-- `S4 — Search + law browser UI (2026-09-26)` --references--> `extract_doc_meta()`  [INFERRED]
-  docs/PROGRESS.md → backend/app/doc_meta.py
-- `S2 — Legal data engine v2 (2026-09-26)` --references--> `classify_status()`  [INFERRED]
-  docs/PROGRESS.md → backend/app/doc_meta.py
-- `S5 — Supabase auth + DB (2026-09-26)` --references--> `_cache_key()`  [INFERRED]
+- `S5 — Supabase auth + DB (2026-09-26)` --references--> `analyze_query()`  [INFERRED]
   docs/PROGRESS.md → backend/app/generation.py
+- `S7 — +17 playbooks + matcher (2026-09-26)` --references--> `expand()`  [INFERRED]
+  docs/PROGRESS.md → backend/app/glossary.py
+- `Metrics (baseline, S1)` --references--> `complete()`  [INFERRED]
+  docs/PROGRESS.md → backend/app/llm.py
+- `S10 — Drafting + AI fill + save (2026-09-28)` --references--> `complete()`  [INFERRED]
+  docs/PROGRESS.md → backend/app/llm.py
 
 ## Import Cycles
 - None detected.
@@ -116,23 +127,19 @@
 - **Family Law Playbooks** — backend_app_data_playbooks_child_custody, backend_app_data_playbooks_divorce, backend_app_data_playbooks_domestic_violence, backend_app_data_playbooks_maintenance_alimony, backend_app_data_playbooks_inheritance_share [EXTRACTED 0.90]
 - **Employment Law Playbooks** — backend_app_data_playbooks_unpaid_salary, backend_app_data_playbooks_workplace_sexual_harassment, backend_app_data_playbooks_wrongful_termination [EXTRACTED 1.00]
 
-## Communities (68 total, 16 thin omitted)
+## Communities (79 total, 19 thin omitted)
 
 ### Community 0 - "schemas.py"
-Cohesion: 0.10
-Nodes (34): ai_fill_field(), get_playbook(), law_doc(), list_playbooks(), Expands a free-text field's short hint via the LLM. Signed-in only, and metered…, upcoming_obligations(), AiFillRequest, AiFillResponse (+26 more)
+Cohesion: 0.13
+Nodes (28): create_matter_note(), save_research(), Amendment, Analysis, Bilingual, CourtFeeAppealResponse, CourtFeeEstimateResponse, DraftingField (+20 more)
 
 ### Community 1 - "api.ts"
 Cohesion: 0.05
 Nodes (71): ActionPlanPage(), Bi(), ProvisionCard(), ActionPlansPage(), AREA_LABEL, frontend_app_globals, DOC_TYPE_LABEL, LawDocPage() (+63 more)
 
-### Community 2 - "test_retrieval.py"
-Cohesion: 0.10
-Nodes (9): doc_slug(), Stable, URL-safe id for a document's law-browser page, derived from its title…, test_law_browser_doc_and_section_endpoints(), idx(), fixture, test_cache_roundtrip(), test_law_browser_doc_lists_its_sections_in_order(), test_law_browser_excludes_bill_doc_by_default() (+1 more)
-
 ### Community 3 - "test_calculators.py"
-Cohesion: 0.16
-Nodes (17): appeal_fee(), court_fee(), estimate(), estimate_appeal(), Court fee (अदालती शुल्क) calculator (S8). मुलुकी देवानी कार्यविधि संहिता, २०७४…, The दफा ६९ अदालती शुल्क for a claim of this disclosed value., The दफा ७३ additional appeal fee for appealing a claim of this (portion of the)…, Filing fee + court fee for filing a plaint over `claim_value`, each with its… (+9 more)
+Cohesion: 0.12
+Nodes (25): appeal_fee(), court_fee(), estimate(), estimate_appeal(), Court fee (अदालती शुल्क) calculator (S8). मुलुकी देवानी कार्यविधि संहिता, २०७४…, The दफा ६९ अदालती शुल्क for a claim of this disclosed value., The दफा ७३ additional appeal fee for appealing a claim of this (portion of the)…, Filing fee + court fee for filing a plaint over `claim_value`, each with its… (+17 more)
 
 ### Community 4 - "test_drafting.py"
 Cohesion: 0.18
@@ -147,20 +154,20 @@ Cohesion: 0.08
 Nodes (35): _keyword_hit_fraction(), _keyword_weight(), Match, _playbook_keywords(), _query_tokens(), Non-LLM query -> playbook routing (S7). Scores each playbook's `keywords` list…, Longer, more specific phrases count for more than a bare one-word keyword, so a…, 1.0 for an exact phrase hit, else the fraction of the keyword's own words that… (+27 more)
 
 ### Community 7 - "test_api.py"
-Cohesion: 0.09
-Nodes (10): focus(), normalize_citations(), The part of a passage that matters for this question: the heading line plus the…, Models sometimes cite as "[Muluki Civil Code 2074, Section 400]" instead of…, client(), fixture, test_focus_keeps_heading_and_the_matching_clause(), test_research_save_list_delete_roundtrip() (+2 more)
+Cohesion: 0.10
+Nodes (7): normalize_citations(), Models sometimes cite as "[Muluki Civil Code 2074, Section 400]" instead of…, client(), fixture, test_research_save_list_delete_roundtrip(), test_text_citations_are_mapped_to_numbered_sources(), fastapi_testclient
 
 ### Community 8 - "PDF Text Extraction"
 Cohesion: 0.08
 Nodes (40): build_glyph_reference(), build_vocab(), chunk_document(), convert_legacy(), drop_redraw_passes(), extract_pdf(), find_sections(), _font_bytes() (+32 more)
 
 ### Community 9 - "supa.py"
-Cohesion: 0.07
-Nodes (72): _keys(), All keys from comma-separated env vars (GROQ_API_KEYS=k1,k2 and/or…, _require_user(), all_company_profiles(), available(), cache_get(), cache_put(), check_and_increment_quota() (+64 more)
+Cohesion: 0.08
+Nodes (66): all_company_profiles(), available(), cache_get(), cache_put(), check_and_increment_quota(), company_profile_get(), company_profile_upsert(), draft_create() (+58 more)
 
-### Community 10 - "generation.py"
-Cohesion: 0.05
-Nodes (74): analyze_needs_llm(), analyze_query(), _answer_cache_key(), answer_question(), build_queries(), _cache_key(), confidence(), _extractive() (+66 more)
+### Community 10 - "run_eval.py"
+Cohesion: 0.14
+Nodes (23): search(), parse_json(), get_index(), E5Small, _first_hit(), load_questions(), main(), ndarray (+15 more)
 
 ### Community 11 - "Graphify Tool Documentation"
 Cohesion: 0.08
@@ -172,23 +179,23 @@ Nodes (23): dependencies, next, react, react-dom, @supabase/supabase-js, devDepe
 
 ### Community 13 - "build_corpus.py"
 Cohesion: 0.08
-Nodes (39): _bs_date(), classify_status(), extract_doc_meta(), _find_enacted_date(), Doc-level status/date metadata shared by scripts/build_corpus.py (which…, First BS date following a certification/gazette-date trigger word, within the…, status/enacted_bs/amended_by/consolidated_upto for one document, from its first…, curated_entries() (+31 more)
+Nodes (43): _bs_date(), classify_status(), extract_doc_meta(), _find_enacted_date(), Doc-level status/date metadata shared by scripts/build_corpus.py (which…, First BS date following a certification/gazette-date trigger word, within the…, status/enacted_bs/amended_by/consolidated_upto for one document, from its first…, _entry_status() (+35 more)
 
 ### Community 14 - "Index"
-Cohesion: 0.23
-Nodes (4): Index, All passages (loads everything - for scripts/evals, not requests)., slug -> row indices, in corpus order (which is section order for scraped…, Connection
+Cohesion: 0.15
+Nodes (9): Index, ndarray, All passages (loads everything - for scripts/evals, not requests)., slug -> row indices, in corpus order (which is section order for scraped…, Doc-level metadata plus its ordered section list, for /law/[doc]., One section's full entry plus neighbouring sections, for /law/[doc]/[section]., _title_tokens(), test_cache_roundtrip() (+1 more)
 
 ### Community 15 - "Devanagari PDF Glyph Recovery"
 Cohesion: 0.13
 Nodes (20): build_glyph_table(), build_reference(), decode_span(), _outline_hash(), prepare(), Recovers correct Unicode text from Devanagari PDFs whose ToUnicode maps are…, glyphs: (unicode string, is_reph) per glyph, in visual order., chars: PyMuPDF texttrace char tuples (ucs, gid, origin, bbox). Returns None if… (+12 more)
 
 ### Community 16 - "test_s12_compliance_radar.py"
-Cohesion: 0.10
-Nodes (7): applies_to(), compliance_client(), FakeComplianceStore, fixture, S12: Compliance Radar lite - company profile, obligations, upcoming-due…, test_applies_to_gates_on_profile_fields(), test_reminder_job_dedups_via_reminders_sent()
+Cohesion: 0.12
+Nodes (5): compliance_client(), FakeComplianceStore, fixture, S12: Compliance Radar lite - company profile, obligations, upcoming-due…, test_reminder_job_dedups_via_reminders_sent()
 
 ### Community 17 - "tokenize"
-Cohesion: 0.24
-Nodes (12): ndarray, _title_tokens(), fold(), tokenize(), test_ba_va_and_halant_spelling_variants_match(), test_danda_is_not_part_of_a_word(), test_detect_language(), test_digits_and_vowel_length_fold_together() (+4 more)
+Cohesion: 0.16
+Nodes (22): focus(), The part of a passage that matters for this question: the heading line plus the…, detect_language(), fold(), guess_language(), Normalisation + tokenisation shared by indexing and querying. Nepali legal text…, Reply language for 'auto': Devanagari -> ne; Latin script counts as romanised…, Index term for one folded token ('' = drop it). (+14 more)
 
 ### Community 18 - "Web Crawler Implementation"
 Cohesion: 0.18
@@ -203,20 +210,20 @@ Cohesion: 0.11
 Nodes (18): compilerOptions, allowJs, esModuleInterop, incremental, isolatedModules, jsx, lib, module (+10 more)
 
 ### Community 21 - "test_s10_ai_and_save.py"
-Cohesion: 0.13
-Nodes (14): fill(), Expand `hint` into fuller prose for `field_id` of `template_id`, in `language`.…, requires_corpus, S10: LLM-assisted free-text fill for drafting templates, plus saving a draft…, test_ai_fill_endpoint_bad_field(), test_ai_fill_endpoint_requires_auth_and_is_metered(), test_ai_fill_expands_hint_via_llm(), test_ai_fill_includes_other_answers_as_context() (+6 more)
-
-### Community 22 - "BM25 Retrieval Engine"
 Cohesion: 0.14
-Nodes (12): array, corpus_source(), _index_text(), _prior(), BM25 search over the government-sourced corpus (laws + precedents). The corpus…, Backwards-compatible single-query search., Authority of the source x usefulness of this particular passage., retrieve() (+4 more)
+Nodes (14): fill(), Expand `hint` into fuller prose for `field_id` of `template_id`, in `language`,…, requires_corpus, S10: LLM-assisted free-text fill for drafting templates, plus saving a draft…, test_ai_fill_endpoint_bad_field(), test_ai_fill_endpoint_requires_auth_and_is_metered(), test_ai_fill_expands_hint_via_llm(), test_ai_fill_includes_other_answers_as_context() (+6 more)
+
+### Community 22 - "retrieval.py"
+Cohesion: 0.13
+Nodes (16): array, _index(), _key(), _norm_en(), Local English / romanised-Nepali -> statute-Nepali query expansion. Statutes…, size(), corpus_source(), BM25 search over the government-sourced corpus (laws + precedents). The corpus… (+8 more)
 
 ### Community 23 - "resolve_provision"
-Cohesion: 0.14
-Nodes (19): gratuity(), notice(), notice_period_days(), Labour Act, 2074 (श्रम ऐन, २०७४) calculators (S8): gratuity, termination…, दफा ५३: उपदान accrues at 8.33% of basic monthly pay for every month worked,…, दफा १४४(१): minimum notice before ending an employment relationship (either…, दफा १४४: the notice period owed, and the pay-in-lieu (दफा १४४(२)/(३)) if the…, दफा १४५(७): one month's basic pay per completed year of service as a lump-sum… (+11 more)
+Cohesion: 0.15
+Nodes (17): gratuity(), notice(), notice_period_days(), Labour Act, 2074 (श्रम ऐन, २०७४) calculators (S8): gratuity, termination…, दफा ५३: उपदान accrues at 8.33% of basic monthly pay for every month worked,…, दफा १४४(१): minimum notice before ending an employment relationship (either…, दफा १४४: the notice period owed, and the pay-in-lieu (दफा १४४(२)/(३)) if the…, दफा १४५(७): one month's basic pay per completed year of service as a lump-sum… (+9 more)
 
 ### Community 24 - "compliance.py"
-Cohesion: 0.22
-Nodes (17): add_bs_days(), add_bs_months(), _bs_date(), bs_month_end(), _due_date_ad(), due_date_for_fy_end_rule(), due_date_for_month_end_rule(), next_due() (+9 more)
+Cohesion: 0.18
+Nodes (20): add_bs_days(), add_bs_months(), applies_to(), _bs_date(), bs_month_end(), _due_date_ad(), due_date_for_fy_end_rule(), due_date_for_month_end_rule() (+12 more)
 
 ### Community 25 - "render.py"
 Cohesion: 0.17
@@ -250,9 +257,9 @@ Nodes (5): Child Marriage Protection Playbook, Cyber Harassment Playbook, Defama
 Cohesion: 0.40
 Nodes (5): Unpaid Salary Playbook, Wrongful Termination Playbook, Shram Ain, 2074 Section 144, Shram Ain, 2074 Section 162, Shram Ain, 2074 Section 34
 
-### Community 33 - "Legal Engine Roadmap"
-Cohesion: 0.29
-Nodes (8): _entry_status(), Doc-level metadata plus its ordered section list, for /law/[doc]., One section's full entry plus neighbouring sections, for /law/[doc]/[section]., Done, S2 — Legal data engine v2 (2026-09-26), S3.1 — bill-exclusion gap in curated entries (2026-09-26, pre-S4 check), S4 — Search + law browser UI (2026-09-26), S6 — Action Plan engine (2026-09-26)
+### Community 33 - "analyze_query"
+Cohesion: 0.13
+Nodes (25): analyze_needs_llm(), analyze_query(), build_queries(), confidence(), quick_intent(), Obvious non-legal messages, recognised without any LLM., How sure we are this message is a legal question we can search well without an…, Whether analyze_query() will reach a provider for this message - kept in sync… (+17 more)
 
 ### Community 34 - "Personal Loan Playbooks"
 Cohesion: 0.50
@@ -262,9 +269,9 @@ Nodes (4): Unpaid Personal Loan Playbook, Muluki Dewani Sanhita, 2074 Section 49
 Cohesion: 0.50
 Nodes (4): Workplace Sexual Harassment Playbook, Workplace Sexual Harassment (Prevention) Act, 2071 Section 15, Workplace Sexual Harassment (Prevention) Act, 2071 Section 5, Workplace Sexual Harassment (Prevention) Act, 2071 Section 7
 
-### Community 36 - "chat.py"
-Cohesion: 0.11
-Nodes (34): corpus_stats(), create_matter_task(), delete_draft(), delete_matter(), delete_matter_file(), delete_matter_note(), delete_matter_task(), delete_research() (+26 more)
+### Community 36 - "_require_matter"
+Cohesion: 0.12
+Nodes (19): delete_draft(), delete_matter(), delete_matter_file(), delete_matter_note(), delete_matter_task(), delete_research(), download_matter_file(), get_matter() (+11 more)
 
 ### Community 37 - "Folder Watching Documentation"
 Cohesion: 0.50
@@ -291,60 +298,96 @@ Cohesion: 0.67
 Nodes (3): Backend Dependencies, Script Dependencies, CI Workflow
 
 ### Community 59 - "FakeMattersStore"
-Cohesion: 0.05
-Nodes (19): asyncio, _GZipExceptStreams, health(), lifespan(), get, gzip buffers a streamed body until it ends, which would defeat…, root(), index_ready() (+11 more)
+Cohesion: 0.08
+Nodes (7): FakeMattersStore, matters_client(), fixture, S11: Matter workspace lite - matters, notes, tasks, files. Supabase isn't…, The API-layer proof: every sub-resource route 404s for a matter that isn't the…, In-memory stand-in for supa.py's matters/notes/tasks/files functions, keyed by…, test_user_b_cannot_see_user_a_matter_or_its_subresources()
 
-### Community 60 - "get"
-Cohesion: 0.11
-Nodes (26): ad_to_bs(), _bad_input(), bs_to_ad(), calc_gratuity(), calc_notice(), calc_severance(), check_limitation(), estimate_appeal_fee() (+18 more)
+### Community 60 - "chat.py"
+Cohesion: 0.10
+Nodes (42): corpus_stats(), ad_to_bs(), _bad_input(), bs_to_ad(), calc_gratuity(), calc_notice(), calc_severance(), check_limitation() (+34 more)
 
 ### Community 61 - "chat"
-Cohesion: 0.17
-Nodes (17): chat(), chat_stream(), events(), _client_ip(), _current_user(), _enforce_limits(), _log_request(), NDJSON stream: {"type":"meta", sources...} then {"type":"delta","text"}* then… (+9 more)
+Cohesion: 0.16
+Nodes (18): chat(), chat_stream(), events(), _client_ip(), _current_user(), _enforce_limits(), _log_request(), NDJSON stream: {"type":"meta", sources...} then {"type":"delta","text"}* then… (+10 more)
 
 ### Community 62 - "scrape_lawcommission.py"
 Cohesion: 0.05
 Nodes (61): argparse, main(), Builds backend/app/data/glossary.json: English and romanised-Nepali words…, add_entries(), ask_json(), ingest_acts(), ingest_constitution(), ingest_maxims() (+53 more)
 
 ### Community 63 - "limitation.py"
-Cohesion: 0.19
-Nodes (11): _add_period(), check(), LimitationRule, date, ValueError, Limitation-period (हदम्याद) checker (S8). मुलुकी देवानी कार्यविधि संहिता दफा ४९…, Deadline + days remaining for `claim_type`, whose limitation clock started on…, UnknownClaimType (+3 more)
+Cohesion: 0.25
+Nodes (6): LimitationRule, ValueError, Limitation-period (हदम्याद) checker (S8). मुलुकी देवानी कार्यविधि संहिता दफा ४९…, UnknownClaimType, calendar, dataclasses
 
 ### Community 64 - "post"
-Cohesion: 0.15
-Nodes (13): create_draft(), create_matter(), create_matter_note(), draft_document(), save_research(), DraftRequest, MatterIn, MatterNoteIn (+5 more)
+Cohesion: 0.10
+Nodes (22): create_draft(), create_matter(), create_matter_task(), draft_document(), list_matters(), put_company_profile(), update_draft(), update_matter() (+14 more)
 
 ### Community 65 - "ai_fill.py"
+Cohesion: 0.22
+Nodes (12): _build(), _get_field(), ValueError, LLM-assisted drafting for free-text fields (S10). Only `textarea` fields go…, Returns (system, user) for the given field, or raises ValueError /…, UnknownField, Field, Paragraph (+4 more)
+
+### Community 66 - "test_s13_ai_gateway.py"
+Cohesion: 0.13
+Nodes (14): daily_quota_for(), S13: plan-based tier routing and token-cost accounting. STRATEGY.md §2's…, `task` is "chat" (structured Q&A) or "draft" (AI-fill / document drafting).…, select_tier(), gateway_client(), fixture, S13: AI gateway v2 - plan-based tier routing, token-cost ledger, quota…, test_daily_quota_for_matches_plan_table() (+6 more)
+
+### Community 67 - "generation.py"
+Cohesion: 0.19
+Nodes (17): _answer_cache_key(), answer_question(), _cache_key(), _extractive(), _history_text(), _passage(), _prompt(), Question understanding -> retrieval -> grounded answer. 1. analyze_query: a… (+9 more)
+
+### Community 68 - "main.py"
 Cohesion: 0.24
-Nodes (10): _get_field(), ValueError, LLM-assisted drafting for free-text fields (S10). Only `textarea` fields go…, UnknownField, Field, Paragraph, Questionnaire field + document paragraph shapes shared by every drafting…, One paragraph of the generated document. `text` holds a Jinja source string per… (+2 more)
+Nodes (10): asyncio, health(), lifespan(), get, root(), index_ready(), contextlib, FastAPI (+2 more)
 
-### Community 66 - "text_norm.py"
-Cohesion: 0.38
-Nodes (6): Normalisation + tokenisation shared by indexing and querying. Nepali legal text…, Index term for one folded token ('' = drop it)., _stem_en(), _stem_ne(), _term(), unicodedata
+### Community 69 - "config.py"
+Cohesion: 0.22
+Nodes (8): _keys(), All keys from comma-separated env vars (GROQ_API_KEYS=k1,k2 and/or…, check_ip_rate_limit(), True if this IP is still under its hourly budget (and records the hit)., test_ip_rate_limit_blocks_after_the_hourly_budget(), test_ip_rate_limit_is_per_ip(), test_ip_rate_limit_window_expires(), dotenv
 
-### Community 68 - "Playbook Matching Service"
+### Community 70 - "._build"
+Cohesion: 0.22
+Nodes (5): _index_text(), _prior(), Authority of the source x usefulness of this particular passage., _text_key(), Connection
+
+### Community 71 - "fill_paid"
+Cohesion: 0.22
+Nodes (8): fill_paid(), S13: same expansion, billed to a specific paid-tier model…, paid_complete(), S13: a direct call to one specific Anthropic model, no fallback chain. Paid…, test_fill_paid_propagates_unknown_field(), test_fill_paid_wraps_hint_and_uses_the_tiered_model(), test_paid_complete_calls_the_named_model_and_returns_usage(), test_paid_complete_without_api_key_raises()
+
+### Community 72 - "ai_fill_field"
+Cohesion: 0.28
+Nodes (9): ai_fill_field(), _log_llm_usage(), Expands a free-text field's short hint via the LLM. Signed-in only, metered…, S13: writes one llm_usage row per real (non-cached, non-free-tier) generation,…, _record_llm_usage_sync(), AiFillRequest, AiFillResponse, estimate_cost_usd() (+1 more)
+
+### Community 73 - "_FakeAnthropicClient"
+Cohesion: 0.22
+Nodes (4): _FakeAnthropicClient, _FakeMessage, _FakeTextBlock, _FakeUsage
+
+### Community 74 - "doc_slug"
+Cohesion: 0.33
+Nodes (6): doc_slug(), Stable, URL-safe id for a document's law-browser page, derived from its title…, test_law_browser_doc_and_section_endpoints(), test_law_browser_doc_lists_its_sections_in_order(), test_law_browser_excludes_bill_doc_by_default(), test_law_browser_section_has_prev_next_neighbours()
+
+### Community 75 - "test_chat_route_anonymous_caller_stays_on_free_tier"
+Cohesion: 0.40
+Nodes (4): The core S13 wiring bug surface: a paid-plan user's /api/chat call must route…, test_chat_route_anonymous_caller_stays_on_free_tier(), test_chat_route_selects_tier_from_plan(), fake_answer_question()
+
+### Community 78 - "looks_like_injection"
 Cohesion: 0.67
-Nodes (3): match_playbooks(), Non-LLM keyword+glossary routing (S7): a confident hit lets the UI jump…, PlaybookMatchResponse
+Nodes (4): looks_like_injection(), parametrize, test_looks_like_injection_does_not_flag_ordinary_legal_questions(), test_looks_like_injection_flags_common_patterns()
 
 ## Knowledge Gaps
 - **154 isolated node(s):** `LimitationRule`, `built_at`, `curated`, `law_chunks`, `precedents` (+149 more)
-  These have ≤1 connection - possible missing edges or undocumented components. (Counts symbols only; 439 node(s) total have ≤1 connection when file, concept and rationale nodes are included.)
-- **16 thin communities (<3 nodes) omitted from report** — run `graphify query` to explore isolated nodes.
+  These have ≤1 connection - possible missing edges or undocumented components. (Counts symbols only; 459 node(s) total have ≤1 connection when file, concept and rationale nodes are included.)
+- **19 thin communities (<3 nodes) omitted from report** — run `graphify query` to explore isolated nodes.
 
 ## Suggested Questions
 _Questions this graph is uniquely positioned to answer:_
 
-- **Why does `S5 — Supabase auth + DB (2026-09-26)` connect `supa.py` to `Legal Engine Roadmap`, `generation.py`, `api.ts`?**
-  _High betweenness centrality (0.137) - this node is a cross-community bridge._
-- **Why does `AuthWidget()` connect `api.ts` to `supa.py`?**
-  _High betweenness centrality (0.111) - this node is a cross-community bridge._
-- **Why does `get_index()` connect `generation.py` to `schemas.py`, `Legal Engine Roadmap`, `chat.py`, `playbooks.py`, `supa.py`, `Index`, `BM25 Retrieval Engine`, `resolve_provision`, `FakeMattersStore`, `get`, `chat`?**
-  _High betweenness centrality (0.074) - this node is a cross-community bridge._
+- **Why does `S5 — Supabase auth + DB (2026-09-26)` connect `generation.py` to `analyze_query`, `api.ts`, `_require_matter`, `config.py`, `supa.py`, `run_eval.py`, `build_corpus.py`?**
+  _High betweenness centrality (0.127) - this node is a cross-community bridge._
+- **Why does `AuthWidget()` connect `api.ts` to `generation.py`?**
+  _High betweenness centrality (0.106) - this node is a cross-community bridge._
+- **Why does `get_index()` connect `run_eval.py` to `generation.py`, `main.py`, `playbooks.py`, `Index`, `retrieval.py`, `resolve_provision`, `chat.py`, `chat`?**
+  _High betweenness centrality (0.061) - this node is a cross-community bridge._
 - **Are the 3 inferred relationships involving `get_index()` (e.g. with `lifespan()` and `S5 — Supabase auth + DB (2026-09-26)`) actually correct?**
   _`get_index()` has 3 INFERRED edges - model-reasoned connections that need verification._
 - **What connects `LimitationRule`, `built_at`, `curated` to the rest of the system?**
   _154 weakly-connected nodes found - possible documentation gaps or missing edges._
 - **Should `schemas.py` be split into smaller, more focused modules?**
-  _Cohesion score 0.10252100840336134 - nodes in this community are weakly interconnected._
+  _Cohesion score 0.13054187192118227 - nodes in this community are weakly interconnected._
 - **Should `api.ts` be split into smaller, more focused modules?**
   _Cohesion score 0.05311542390194075 - nodes in this community are weakly interconnected._

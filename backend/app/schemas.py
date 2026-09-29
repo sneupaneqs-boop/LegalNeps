@@ -310,6 +310,20 @@ class UpcomingObligationsResponse(BaseModel):
     obligations: List[ObligationDue]
 
 
+class LlmUsageOut(BaseModel):
+    id: str
+    endpoint: str
+    tier: str
+    provider: Optional[str] = None
+    model: Optional[str] = None
+    prompt_version: Optional[str] = None
+    input_tokens: Optional[int] = None
+    output_tokens: Optional[int] = None
+    cost_usd: float
+    flagged_injection: bool = False
+    created_at: str
+
+
 class BsDate(BaseModel):
     year: int
     month: int

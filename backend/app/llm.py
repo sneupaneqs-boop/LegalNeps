@@ -384,6 +384,29 @@ def _groq_complete(system, user, json_mode, max_tokens, temperature, deadline) -
     return (r.choices[0].message.content or "").strip()
 
 
+def paid_complete(model: str, system: str, user: str, *, max_tokens: int = 1800, temperature: float = 0.2,
+                   budget_s: float | None = None) -> tuple[str, dict]:
+    """S13: a direct call to one specific Anthropic model, no fallback chain.
+    Paid tier means billing a specific model the plan promises (Haiku 4.5 /
+    Sonnet 5.5), not "whichever provider answers first" - so unlike
+    complete()/stream() above, this never falls through to a different
+    provider or model. Returns (text, usage) with real input/output token
+    counts so the caller can log an actual cost per query."""
+    import anthropic
+
+    if not config.ANTHROPIC_API_KEY:
+        raise LLMUnavailable("paid tier requires ANTHROPIC_API_KEY")
+    budget = budget_s if budget_s is not None else config.ANSWER_BUDGET_S
+    client = anthropic.Anthropic(api_key=config.ANTHROPIC_API_KEY, timeout=budget)
+    r = client.messages.create(
+        model=model, max_tokens=max_tokens, temperature=temperature,
+        system=system, messages=[{"role": "user", "content": user}],
+    )
+    text = "".join(b.text for b in r.content if b.type == "text").strip()
+    usage = {"input_tokens": r.usage.input_tokens, "output_tokens": r.usage.output_tokens}
+    return text, usage
+
+
 # ---------------------------------------------------------------- public API
 def complete(system: str, user: str, *, fast: bool = False, json_mode: bool = False,
              max_tokens: int = 1400, temperature: float = 0.2, budget_s: float | None = None) -> str:

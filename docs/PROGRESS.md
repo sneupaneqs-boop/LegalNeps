@@ -38,11 +38,27 @@ Vercel *preview*, never promoted. Fixed this session:
 
 ## Next session
 
-**S13 — AI gateway v2.** See STRATEGY.md §4, week 3 table: plan-based tier
-routing (free chain / Haiku 4.5 / Sonnet 5), an `llm_usage` table with
-token cost, quota enforcement, prompt versions, a prompt-injection guard
-for user-supplied text. Done when: cost per query is visible; quota blocks
-correctly.
+**S14 — Security + reliability.** See STRATEGY.md §4, week 3 table:
+`/security-review`, RLS audit, audit log, error boundaries, backups,
+secret handling, dependency audit. Done when: no high findings open.
+
+**Still outstanding from S13** (not blocking, just don't forget it): (a) no
+frontend UI for plan selection or a cost-history view. (b)
+`/api/chat/stream`'s paid tier yields the whole answer as one `delta`
+event instead of incrementally - real token streaming from Anthropic for
+paid users is unbuilt. (c) No live signed-in test of paid-tier routing,
+quota, or `llm_usage` logging against the production Supabase project -
+this sandbox has no `ANTHROPIC_API_KEY`, so not even one real paid-tier
+call has been made anywhere outside the mocked tests. (d)
+`DAILY_QUOTA_FREE`'s deployed default (50/day) still doesn't match
+STRATEGY §5's documented 5/day for the free plan - S13 added the other
+three plans' quotas correctly but deliberately left this mismatch alone
+rather than silently cutting an existing value in production; worth a
+deliberate decision (and an env var change on Render) from whoever
+touches pricing next. (e) Nothing sets a user's `plan` away from `"free"`
+yet - no payment flow exists (STRATEGY explicitly defers billing to week
+4), so `individual`/`professional`/`firm` routing is real and tested but
+currently unreachable by any real user.
 
 **Still outstanding from S12** (not blocking, just don't forget it): (a) no
 frontend UI yet for the company-profile form or the upcoming-obligations
@@ -119,6 +135,83 @@ do yet. Left for whichever session next touches the chat UI/pipeline, since
 S7's own "done when" bar (25 playbooks, ≥90% precision) doesn't require it.
 
 ## Done
+
+### S13 — AI gateway v2 (2026-09-29)
+
+- **Plan-based tier routing** (`app/tiers.py`, STRATEGY.md §2's exact rule):
+  `select_tier(plan, task)` returns `"free"` for a free-plan user on any
+  task; for any paid plan (individual/professional/firm - they route
+  identically, differing only in quota) `"haiku"` for `task="chat"`
+  (structured answers) and `"sonnet"` for `task="draft"` (AI-fill/drafting).
+  Free-tier keeps using the existing multi-provider fallback chain
+  unchanged; paid tiers go through a new `llm.paid_complete()` that calls
+  one named Anthropic model directly (`claude-haiku-4-5` /
+  `claude-sonnet-5-5`) with no fallback - a paid tier means billing the
+  model the plan promises, not "whichever provider answers first".
+  `profiles.plan` already existed in the schema since S1 but nothing read
+  it until now; added a `CHECK` constraint (`free`/`individual`/
+  `professional`/`firm`) since S13 is the first thing that routes on it.
+- **Token-cost ledger** (`llm_usage` table, new migration, RLS: a user sees
+  only their own rows): every paid-tier call logs real
+  `input_tokens`/`output_tokens` (from the Anthropic SDK's own
+  `response.usage`, not estimated) and a `cost_usd` computed from
+  `MODEL_PRICING_PER_1M` in `config.py` ($1/$5 per 1M for Haiku 4.5, $2/$10
+  for Sonnet 5.5 - Anthropic's first-party rates, checked 2026-09-25).
+  Free-tier and cache-hit answers aren't billed to a specific model, so
+  they're deliberately not logged here (see
+  `chat.py:_record_llm_usage_sync`) - `GET /api/llm-usage` gives a signed-in
+  user their own cost history, satisfying STRATEGY's "cost per query
+  visible" bar directly rather than only via server logs.
+- **Quota enforcement**: `check_and_increment_quota()` (S5, unchanged) now
+  takes a plan-based daily limit from `tiers.daily_quota_for()` instead of
+  always defaulting to the free-plan constant - wired into `/api/chat`,
+  `/api/chat/stream`, and the AI-fill route. New `DAILY_QUOTA_INDIVIDUAL`
+  (40), `DAILY_QUOTA_PROFESSIONAL` (200), `DAILY_QUOTA_FIRM` (200) env vars
+  match STRATEGY §5's pricing table. **Left alone deliberately**:
+  `DAILY_QUOTA_FREE`'s existing default (50) doesn't match STRATEGY's
+  documented 5/day for the free plan - that mismatch predates this session
+  and changing a quota users are already relying on wasn't this session's
+  call to make silently; flagged in "Next session" below instead of fixed.
+- **Prompt versions**: `ANSWER_PROMPT_VERSION` (`generation.py`) and
+  `ai_fill.PROMPT_VERSION`, logged on every `llm_usage` row - lets a future
+  session tell which prompt wording produced a given answer/cost when
+  tuning either prompt.
+- **Prompt-injection guard** (`app/prompt_guard.py`), applied everywhere
+  user-supplied free text enters an LLM prompt (chat message, AI-fill
+  hint): `wrap_user_text()` delimits the text with `<<<user_text>>>` /
+  `<<<end_user_text>>>` markers, and a fixed notice appended to
+  `ANSWER_SYSTEM`/`ANALYZE_SYSTEM`/AI-fill's system prompt tells the model
+  that delimited text is data, not instructions, and never to reveal the
+  system prompt. Deliberately **not** a hard block:
+  `looks_like_injection()` is a heuristic scan logged as
+  `flagged_injection` on paid-tier `llm_usage` rows for visibility only -
+  this app's threat model (a person trying to get more out of their own
+  session) makes a false positive on a real legal question ("the notice
+  told me to disregard my earlier claim...") far costlier than a false
+  negative.
+- **Tests**: `tests/test_s13_ai_gateway.py` - tier-routing table, cost
+  arithmetic against the documented per-model prices, the injection
+  heuristic against both attack strings and ordinary legal questions (no
+  false positives on the samples tried), `supa`'s fail-open behavior,
+  `llm.paid_complete()` against a mocked Anthropic client (model/messages
+  sent correctly, usage returned, raises without a key), `ai_fill.fill_paid`
+  wrapping and model selection, and API-layer wiring proving a paid-plan
+  user's `/api/chat` call actually selects `tier="haiku"` while an
+  anonymous caller stays on `"free"` (the concrete bug shape this kind of
+  routing change most often ships with). Full backend suite: **250
+  passed** (was 226).
+- **graphify**: re-ran `graphify update .` (1263 nodes, 2585 edges, 79
+  communities); labels are stale again (needs an LLM key), same as S12.
+- **Not done**: no frontend UI for plan selection, the cost-history view,
+  or a "you've been flagged" notice. `/api/chat/stream`'s paid-tier path
+  calls `llm.paid_complete()` synchronously and yields the whole answer as
+  one `delta` event rather than incrementally - true token-level streaming
+  from Anthropic for the paid tier is left for whichever session next
+  touches the streaming pipeline. No live signed-in test of paid-tier
+  routing or cost logging against the production Supabase project - same
+  "no real paid user exists yet" gap S10-S12 have each flagged for their
+  own tables, and this sandbox has no Anthropic API key to make one real
+  paid-tier call with either.
 
 ### S12 — Compliance Radar lite (2026-09-29)
 
