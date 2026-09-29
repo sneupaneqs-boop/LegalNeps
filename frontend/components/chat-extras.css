@@ -109,3 +109,16 @@
   color: #fcd34d;
   margin: 4px 0;
 }
+
+/* With number + type + status badges the citation had no room on phones and
+   wrapped one character per line; let the row wrap and give the citation a
+   full line of its own when it doesn't fit. */
+.source-item summary {
+  flex-wrap: wrap;
+  row-gap: 4px;
+}
+.source-item .citation {
+  flex: 1 1 180px;
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
