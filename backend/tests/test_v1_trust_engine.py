@@ -210,3 +210,13 @@ def test_lapsed_ordinances_never_returned_by_default():
     from app.retrieval import get_index
     res = get_index().search(["रेल्वे अध्यादेश"], top_k=20, category="law")
     assert not any(r.get("status") == "lapsed" for r in res)
+
+
+def test_regulator_directives_only_surface_for_banking_securities_company_questions():
+    from app.generation import _is_regulator_query, _REGULATOR_DOC
+    assert _REGULATOR_DOC.match("reg-nrb-3d2ed04c46-0") and _REGULATOR_DOC.match("reg-sebon-x-1")
+    assert not _REGULATOR_DOC.match("reg-lawcommission-8dc8911ba9-0")  # gap-filled acts are ordinary law
+    assert _is_regulator_query("बैंकले ब्याज दर कति लिन पाउँछ?", {})
+    assert _is_regulator_query("How do I apply for an IPO?", {})
+    assert not _is_regulator_query("घरबेटीले धरौटी फिर्ता गरेन", {})
+    assert not _is_regulator_query("My employer has not paid my salary", {})

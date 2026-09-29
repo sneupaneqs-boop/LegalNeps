@@ -153,7 +153,7 @@ def _answer_cache_key(message: str, lang: str) -> str:
 # Bump whenever answer construction changes (retrieval filters, pinned
 # playbook provisions, verifier), so answers cached by an older pipeline -
 # including the persistent Supabase answer_cache - are never served again.
-PIPELINE_VERSION = "p6"
+PIPELINE_VERSION = "p7"
 
 
 GREETING_RE = re.compile(
@@ -312,12 +312,27 @@ _FISCAL_QUERY = re.compile(
     r"आयकर|भ्याट|कर\b|करको|कर तिर|भन्सार|अन्तःशुल्क|राजस्व|बजेट|दामासाही|टीडीएस|अग्रिम कर)", re.I)
 _YEAR_TAIL = re.compile(r"([०-९0-9]{4})\s*$")
 _ANNUAL_ACT = re.compile(r"(आर्थिक ऐन|विनियोजन ऐन|राष्ट्र ऋण|ऋण तथा जमानत)")
+# regulator directives/circulars (NRB, SEBON, Company Registrar) only answer
+# banking, securities and company-filing questions; elsewhere they crowd out
+# the governing statute
+_REGULATOR_DOC = re.compile(r"^reg-(nrb|sebon|ocr)-")
+_REGULATOR_QUERY = re.compile(
+    r"(\bbank|\bbfi\b|\bnrb\b|rastra bank|loan|interest rate|foreign exchange|forex|remittance|kyc|\baml\b|"
+    r"microfinance|cooperative|securit|share|\bipo\b|sebon|broker|mutual fund|debenture|stock|"
+    r"company regist|annual return|\bocr\b|"
+    r"बैंक|राष्ट्र बैंक|ऋण|कर्जा|ब्याज|विदेशी विनिमय|सटही|रेमिट|लघुवित्त|वित्तीय संस्था|सहकारी|"
+    r"धितोपत्र|शेयर|सेयर|आईपीओ|ब्रोकर|दलाल|डिबेन्चर|म्युचुअल|कम्पनी रजिस्ट्रार|वार्षिक विवरण)", re.I)
 _NKP_YEAR = re.compile(r"ने\.?\s?का\.?\s?प\.?\s*([०-९0-9]{4})")
 
 
 def _is_fiscal_query(message: str, analysis: dict) -> bool:
     text = " ".join([message, analysis.get("question") or "", analysis.get("area") or ""])
     return bool(_FISCAL_QUERY.search(text))
+
+
+def _is_regulator_query(message: str, analysis: dict) -> bool:
+    text = " ".join([message, analysis.get("question") or "", analysis.get("area") or ""])
+    return bool(_REGULATOR_QUERY.search(text))
 
 
 def _bs_year(pattern: re.Pattern, text: str) -> int | None:
@@ -370,7 +385,11 @@ def search(message: str, analysis: dict, top_k: int | None = None, precedent_k: 
     boost = list(analysis.get("laws", [])) + [p.get("law_title_ne") for p in (playbook or {}).get("provisions", [])]
     laws = idx.search(queries, top_k=top_k + 6, boost_titles=[b for b in boost if b], category="law")
     if not _is_fiscal_query(message, analysis):
-        on_domain = [s for s in laws if not _FISCAL_DOC.search(s.get("doc_title_ne") or "")]
+        on_domain = [s for s in laws if not _FISCAL_DOC.search(s.get("doc_title_ne") or "")
+                     and not s["id"].startswith("reg-ird-")]
+        laws = on_domain or laws
+    if not _is_regulator_query(message, analysis):
+        on_domain = [s for s in laws if not _REGULATOR_DOC.match(s["id"])]
         laws = on_domain or laws
     seen = {p["id"] for p in pinned}
     # sections the curated plan marks as misleading for this situation

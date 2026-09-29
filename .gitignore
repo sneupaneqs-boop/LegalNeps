@@ -25,6 +25,11 @@ sources/lawcommission/
 # Scraped NKP precedents (large raw dump)
 sources/nkp/
 
+# Raw regulator downloads (PDFs, logs); the per-authority manifest.jsonl files stay tracked
+sources/regulators/*/files/
+sources/regulators/_logs/
+sources/regulators/_glyphref/
+
 # Intermediate extraction output and runtime index cache
 sources/processed/
 backend/app/data/index_cache/
