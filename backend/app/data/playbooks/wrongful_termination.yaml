@@ -20,13 +20,38 @@ provisions:
   - law_title_ne: "श्रम ऐन, २०७४"
     section: "144"
     note:
-      en: "Except for dismissal due to proven misconduct, the employer must give the worker written notice before ending employment — at least 1 day for under 4 weeks' service, longer for longer service."
-      ne: "खराब आचरणमा प्रमाणित कारबाही बाहेक, रोजगारदाताले रोजगार अन्त्य गर्नुअघि श्रमिकलाई लिखित सूचना दिनुपर्छ — चार हप्तासम्मको रोजगारीमा कम्तीमा १ दिन, बढी सेवा अवधिमा थप म्याद।"
+      en: "Except where employment ends through disciplinary action for misconduct, the employer must give the worker written notice before ending employment: at least 1 day for up to 4 weeks' service, 7 days for 4 weeks to 1 year, and 30 days for more than one year. If the employer gives no notice, it must pay the worker the pay for the notice period."
+      ne: "खराब आचरणमा कारबाही भई रोजगारी अन्त्य भएकोमा बाहेक रोजगार सम्बन्ध अन्त्य गर्नुअघि रोजगारदाताले सूचना दिनुपर्छ: चार हप्तासम्मको रोजगारीमा कम्तीमा १ दिन, चार हप्तादेखि एक वर्षसम्ममा ७ दिन र एक वर्षभन्दा बढीमा ३० दिन अगावै। सूचना नदिई रोजगारी अन्त्य गरे सूचना दिनुपर्ने अवधिको पारिश्रमिक श्रमिकलाई दिनुपर्छ।"
   - law_title_ne: "श्रम ऐन, २०७४"
     section: "162"
     note:
-      en: "A worker harmed by a violation of this Act (including improper dismissal) may file a complaint within 6 months of the violation."
-      ne: "यो ऐन विपरीत (अनुचित हटाइएको लगायत) कार्यबाट मर्का परेको श्रमिकले सो कार्य भएको मितिले ६ महिनाभित्र उजुरी दिन सक्छ।"
+      en: "A worker harmed by a breach of the Labour Act (including ending employment contrary to it) can complain to the deciding body (Department or Labour Office) within six months of the act. The Labour Office can direct an employer that ended employment contrary to the Act or rules."
+      ne: "श्रम ऐन वा नियम विपरीत कार्य (रोजगारी अन्त्य समेत) गरेमा मर्का पर्ने श्रमिकले सो कार्य भए गरेको मितिले छ महिनाभित्र निर्णय गर्ने निकाय (विभाग वा श्रम कार्यालय) समक्ष उजुरी दिन सक्छ। श्रम कार्यालयले ऐन वा नियम विपरीत रोजगारी अन्त्य गर्ने रोजगारदातालाई निर्देशन दिन सक्छ (दफा १६३(२)(च))।"
+  - law_title_ne: "श्रम ऐन, २०७४"
+    section: "139"
+    note:
+      en: "A worker's employment can be ended only as the Labour Act, its rules or the workplace regulations allow, and the employer must state a reasonable and sufficient reason for ending it."
+      ne: "यो ऐन, नियम वा विनियमावली बमोजिम बाहेक अन्य अवस्थामा कुनै पनि श्रमिकको रोजगारी अन्त्य गरिँदैन, र रोजगारी अन्त्य गर्दा उचित र पर्याप्त कारण खुलाउनुपर्छ।"
+  - law_title_ne: "श्रम ऐन, २०७४"
+    section: "131 (2)"
+    note:
+      en: "Dismissal is allowed only for the serious misconduct listed in section 131(4), such as violence at the workplace, bribery, theft, embezzlement, deliberate damage, more than 30 days' unapproved absence, disclosing secrets, working with a competitor, a conviction for a crime of moral turpitude, forged certificates, drink or drugs at work, or more than two punishments for misconduct within three years. Lesser misconduct (warnings, small pay deductions, holding a raise or promotion) is punished more lightly."
+      ne: "दफा १३१(४) मा उल्लिखित गम्भीर खराब आचरण मात्रमा सेवाबाट हटाउन सकिन्छ, जस्तै कार्यस्थलमा कुटपिट/हूलदङ्गा, घूस, चोरी, आर्थिक हिनामिना, जानाजानी क्षति, स्वीकृति बिना ३० दिनभन्दा बढी अनुपस्थिति, गोपनीयता भङ्ग, प्रतिस्पर्धीसँग मिली काम, नैतिक पतन देखिने फौजदारी कसूरमा दोषी ठहर, झुट्टा प्रमाणपत्र, कार्यसमयमा लागू/मादक पदार्थ सेवन, वा तीन वर्षभित्र दुई पटकभन्दा बढी सजाय। साना खराब आचरणमा नसिहत, थोरै पारिश्रमिक कट्टा, तलब वृद्धि वा बढुवा रोक्का जस्ता हल्का सजाय हुन्छ।"
+  - law_title_ne: "श्रम ऐन, २०७४"
+    section: "135"
+    note:
+      en: "Before punishing a worker for misconduct, the employer must state the alleged misconduct and the possible punishment clearly and give the worker seven days to give their explanation."
+      ne: "खराब आचरणमा सजाय दिनुभन्दा अघि सजाय गर्ने अधिकारीले खराब आचरणको तथ्य र सो प्रमाणित भएमा हुन सक्ने सजाय स्पष्ट उल्लेख गरी सात दिनको म्याद दिई सफाई पेश गर्ने मौका दिनुपर्छ।"
+  - law_title_ne: "श्रम ऐन, २०७४"
+    section: "148"
+    note:
+      en: "When employment ends for any reason, the employer must pay the worker all pay and benefits due within 15 days. If it does not, it must keep paying wages as if the worker were still employed until payment is made."
+      ne: "खराब आचरणको कारणले वा अन्य जुनसुकै तरिकाले रोजगारी अन्त्य हुँदा श्रमिकले पाउनुपर्ने पारिश्रमिक, सुविधा लगायत सम्पूर्ण रकम रोजगारी अन्त्य भएको १५ दिनभित्र दिनुपर्छ। नदिएमा रकम भुक्तानी नगरेसम्म सेवामा बहाल रहे सरह पारिश्रमिक दिनुपर्छ।"
+  - law_title_ne: "श्रम ऐन, २०७४"
+    section: "165"
+    note:
+      en: "A worker unhappy with the employer's decision to end their employment, or with a punishment for misconduct, can appeal to the Labour Court within 35 days of being notified of the decision. If the workplace regulations allow an internal appeal, that can be used first, and then the worker has 35 days from the internal decision (or 35 days after 60 days without a decision)."
+      ne: "रोजगारी अन्त्य गर्ने गरी रोजगारदाताले गरेको निर्णय वा खराब आचरणमा गरेको सजायमा चित्त नबुझ्ने श्रमिकले निर्णय वा सजायको सूचना पाएको मितिले ३५ दिनभित्र श्रम अदालतमा पुनरावेदन गर्न सक्छ। प्रतिष्ठानको विनियमावलीमा आन्तरिक पुनरावेदनको व्यवस्था भए पहिले त्यसमा जान सकिन्छ, र आन्तरिक निर्णयको सूचना पाएको (वा ६० दिनसम्म निर्णय नभए त्यसपछि) ३५ दिनभित्र श्रम अदालतमा पुनरावेदन गर्न सकिन्छ।"
 evidence:
   - en: "Appointment letter and any dismissal letter or notice"
     ne: "नियुक्तिपत्र र हटाइएको पत्र वा सूचना (यदि छ भने)"
@@ -35,20 +60,20 @@ evidence:
   - en: "Any written communication about the reason for dismissal"
     ne: "हटाइनुको कारणबारे भएको लिखित सञ्चार"
 forum:
-  en: "The Labour Office for your district; unresolved cases go to the Labour Court."
-  ne: "आफ्नो जिल्लाको श्रम कार्यालय; समाधान नभएमा श्रम अदालतमा जान सकिन्छ।"
+  en: "Appeal to the Labour Court within 35 days of being told of the dismissal (section 165(2); first through the workplace's internal appeal if its regulations provide one), or complain to the Labour Office of your district within 6 months (sections 162-163). Appeals against the Labour Office's decisions also go to the Labour Court within 35 days."
+  ne: "बर्खास्तीको सूचना पाएको ३५ दिनभित्र श्रम अदालतमा पुनरावेदन गर्नुहोस् (दफा १६५(२); विनियमावलीमा आन्तरिक पुनरावेदन भए पहिले त्यसमार्फत), वा ६ महिनाभित्र आफ्नो जिल्लाको श्रम कार्यालयमा उजुरी दिनुहोस् (दफा १६२-१६३)। श्रम कार्यालयको निर्णय उपर पनि ३५ दिनभित्र श्रम अदालतमा पुनरावेदन गर्न सकिन्छ।"
 limitation:
   note:
-    en: "File your complaint within 6 months of the date you were dismissed."
-    ne: "हटाइएको मितिले ६ महिनाभित्र उजुरी दिनुहोस्।"
+    en: "Two deadlines: appeal to the Labour Court within 35 days of being notified of the dismissal (Labour Act section 165(2)); and a complaint to the Labour Office within 6 months of the dismissal (section 162). The 35-day appeal is much shorter, so do not wait; ask an advocate which route suits you."
+    ne: "दुई म्याद: बर्खास्तीको सूचना पाएको ३५ दिनभित्र श्रम अदालतमा पुनरावेदन (श्रम ऐन दफा १६५(२)); र बर्खास्ती भएको ६ महिनाभित्र श्रम कार्यालयमा उजुरी (दफा १६२)। ३५ दिनको पुनरावेदन धेरै छोटो छ, त्यसैले ढिलो नगर्नुहोस्; कुन बाटो उपयुक्त छ भन्ने वकिलसँग सोध्नुहोस्।"
   provision:
     law_title_ne: "श्रम ऐन, २०७४"
-    section: "162"
+    section: "165"
 next_steps:
-  - en: "Request a written explanation for your dismissal if you don't have one."
-    ne: "हटाइनुको लिखित कारण नभए माग्नुहोस्।"
-  - en: "Gather your employment records and any evidence of the circumstances."
-    ne: "आफ्नो रोजगारीको अभिलेख र परिस्थितिको प्रमाण जम्मा गर्नुहोस्।"
-  - en: "File a written complaint at the Labour Office within 6 months."
-    ne: "६ महिनाभित्र श्रम कार्यालयमा लिखित उजुरी दिनुहोस्।"
+  - en: "Request a written explanation for your dismissal if you don't have one, and note the date you were told - the 35-day appeal period runs from it."
+    ne: "बर्खास्तीको लिखित कारण छैन भने माग्नुहोस्, र तपाईंलाई सूचना पाएको मिति टिप्नुहोस् - ३५ दिनको पुनरावेदन अवधि त्यहीँबाट गनिन्छ।"
+  - en: "Gather your employment records and evidence: contract, pay slips, any warning or charge letters, and whether you were given seven days to explain (section 135) or the notice required (section 144)."
+    ne: "रोजगारीका कागजात र प्रमाण जम्मा गर्नुहोस्: सम्झौता, तलब पर्ची, कुनै चेतावनी वा आरोपपत्र, र तपाईंलाई सफाईको लागि सात दिन (दफा १३५) वा आवश्यक सूचना (दफा १४४) दिइएको थियो कि थिएन।"
+  - en: "Appeal to the Labour Court within 35 days, or file a written complaint at the Labour Office within 6 months, ideally with an advocate's advice. Also claim your pay and benefits due within 15 days of termination (section 148)."
+    ne: "३५ दिनभित्र श्रम अदालतमा पुनरावेदन गर्नुहोस्, वा ६ महिनाभित्र श्रम कार्यालयमा लिखित उजुरी दिनुहोस्, सकेसम्म वकिलको सल्लाहमा। रोजगारी अन्त्य भएको १५ दिनभित्र तपाईंले पाउने पारिश्रमिक र सुविधा पनि माग्नुहोस् (दफा १४८)।"
 template_link: null

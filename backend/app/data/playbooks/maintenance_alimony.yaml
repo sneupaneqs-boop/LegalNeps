@@ -19,13 +19,33 @@ provisions:
   - law_title_ne: "मुलुकी देवानी संहिता, २०७४"
     section: "89"
     note:
-      en: "Spouses must provide each other with food/clothing and healthcare according to their means and status — this is the core maintenance duty between husband and wife."
-      ne: "पति-पत्नीले एक-अर्कालाई आफ्नो इज्जत र क्षमता अनुसार खान लाउन तथा स्वास्थ्योपचारको व्यवस्था गर्नुपर्छ — यही पति-पत्नीबीचको मुख्य भरणपोषण दायित्व हो।"
+      en: "Husband and wife must each provide the other with food, clothing and health care according to their standing and capacity."
+      ne: "पति वा पत्नीले एक अर्कालाई आफ्नो इज्जत र क्षमता अनुसार खान लगाउन तथा स्वास्थ्योपचारको व्यवस्था गर्नु वा गराउनुपर्छ।"
   - law_title_ne: "मुलुकी देवानी संहिता, २०७४"
     section: "101"
     note:
-      en: "If a divorced wife did not receive property in the partition and her former husband has income, the court can order him to pay her maintenance expenses based on his income."
-      ne: "सम्बन्ध विच्छेद भएकी पत्नीले अंशबण्डामा सम्पत्ति नपाएकी र पतिको आम्दानी भएमा, अदालतले पतिको आम्दानीको आधारमा खान लाउने खर्च भराइदिन सक्छ।"
+      en: "A divorced wife who has no property and got no share from her husband can ask the court for living expenses based on his income. She does not get this if she marries again, or if her own income is higher than his."
+      ne: "अंशबण्डा गर्दा कुनै सम्पत्ति नभई पतिबाट अंश नपाएकी पत्नीले पतिको आम्दानीको आधारमा खान लगाउने खर्च अदालतबाट भराउन सक्छ। अर्को विवाह गरेमा वा पतिको भन्दा पत्नीको आम्दानी बढी भएमा यो खर्च दिनुपर्दैन।"
+  - law_title_ne: "मुलुकी देवानी संहिता, २०७४"
+    section: "211"
+    note:
+      en: "Family members with joint property (husband, wife, parents, sons, daughters) must give each other food and clothing suited to their standing, and education and health care according to their means. If someone who has this duty does not perform it, the other can take their share and live separately."
+      ne: "सगोलको सम्पत्ति भएका पति, पत्नी, बाबु, आमा, छोरा, छोरीले एक अर्कालाई इज्जत आमद अनुसार खान लाउन दिन र आर्थिक हैसियत अनुसार शिक्षा र स्वास्थ्य उपचारको व्यवस्था गर्नुपर्छ। दायित्व पूरा नगरेमा अंशियारले आफ्नो अंश लिई भिन्न हुन सक्छ।"
+  - law_title_ne: "मुलुकी देवानी संहिता, २०७४"
+    section: "99"
+    note:
+      en: "In a divorce caused by the husband, the property is divided before the divorce. If the division will take long, the court can order the husband to pay the wife monthly expenses until it is done (she loses this if she remarries before division)."
+      ne: "पतिको कारणबाट सम्बन्ध विच्छेद हुने अवस्थामा सम्बन्ध विच्छेद हुनु अघि अंशबण्डा गर्नुपर्छ। अंशबण्डामा लामो समय लाग्ने देखिए अंशबण्डा नभएसम्म अदालतले पतिको सम्पत्ति र आयस्ताको आधारमा पतिबाट पत्नीलाई मासिक खर्च भराइदिन सक्छ (अंशबण्डा नहुँदै अर्को विवाह गरे पाउँदिन)।"
+  - law_title_ne: "मुलुकी देवानी संहिता, २०७४"
+    section: "100"
+    note:
+      en: "A wife who is being divorced and does not take a share can instead ask for a lump sum, or yearly or monthly payments, from her husband; the court decides based on his property or income. She gets nothing under this section if she marries again."
+      ne: "सम्बन्ध विच्छेद हुने पत्नीले अंश नलिई पतिसँग एकमुष्ठ रकम वा वार्षिक वा मासिक रकम वा खर्च लिन चाहेमा अदालतले पतिको सम्पत्ति वा आम्दानीको आधारमा भराइदिन सक्छ। अर्को विवाह गरे यो रकम दिनुपर्दैन।"
+  - law_title_ne: "स्थानीय सरकार सञ्‍चालन ऐन, २०७४"
+    section: "47 (1)"
+    note:
+      en: "The local level's Judicial Committee can decide disputes where a minor child, or a husband or wife, has not been given food, clothing or education according to their standing. Where no other time limit exists, apply within 35 days of the act."
+      ne: "नाबालक छोरा छोरी वा पति पत्नीलाई इज्जत आमद अनुसार खान लाउन वा शिक्षा दीक्षा नदिएको विवाद स्थानीय तहको न्यायिक समितिले निरूपण गर्न सक्छ। अन्य हदम्याद नतोकिएकोमा काम भए गरेको मितिले ३५ दिनभित्र निवेदन दिनुपर्छ।"
 evidence:
   - en: "Marriage certificate and any divorce documentation"
     ne: "विवाह प्रमाणपत्र र सम्बन्ध विच्छेदको कागजात, यदि छ भने"
@@ -34,18 +54,20 @@ evidence:
   - en: "Your own expenses and financial needs"
     ne: "आफ्नो खर्च र आर्थिक आवश्यकता"
 forum:
-  en: "The District Court, often alongside a divorce case."
-  ne: "जिल्ला अदालत, प्रायः सम्बन्ध विच्छेद मुद्दासँगै।"
+  en: "The local level's Judicial Committee (for failure to provide food, clothing or education to a spouse or minor children), or the District Court, usually alongside a divorce or partition case (the court fixes maintenance in those cases under sections 99-101)."
+  ne: "स्थानीय तहको न्यायिक समिति (पति पत्नी वा नाबालक छोराछोरीलाई खान लाउन वा शिक्षा नदिएको विवादमा), वा जिल्ला अदालत, सामान्यतया सम्बन्ध विच्छेद वा अंशबण्डाको मुद्दासँगै (ती मुद्दामा अदालतले दफा ९९-१०१ अनुसार खर्च तोक्छ)।"
 limitation:
   note:
-    en: "Raise a maintenance claim as early as possible, ideally as part of the divorce/partition proceedings, so the court can address income and property together."
-    ne: "सकेसम्म चाँडो, राम्रो भए सम्बन्ध विच्छेद/अंशबण्डा प्रक्रियासँगै भरणपोषणको दाबी उठाउनुहोस्, ताकि अदालतले आम्दानी र सम्पत्ति सँगै हेर्न सकोस्।"
-  provision: null
+    en: "The Civil Code sets a 3-month time limit for suits over the duties of husband and wife (section 92, counted from the act complained of) and over divorce-related claims (section 104). It is unclear how these apply to continuing failure to pay support, so raise the claim as early as possible, ideally with any divorce or partition case. An application to the local Judicial Committee must be made within 35 days if no other limit applies (Local Government Operation Act section 47(4))."
+    ne: "देवानी संहितामा पति पत्नीको दायित्वसम्बन्धी नालिस (दफा ९२, गरिएको कामकारबाही भएको मितिबाट) र सम्बन्ध विच्छेदसम्बन्धी दाबी (दफा १०४) मा ३ महिनाको हदम्याद छ। खर्च नदिने काम निरन्तर भइरहेको अवस्थामा यी कसरी लागू हुन्छन् स्पष्ट छैन, त्यसैले सकेसम्म चाँडो, सम्बन्ध विच्छेद वा अंशबण्डाको मुद्दासँगै दाबी उठाउनुहोस्। स्थानीय तहको न्यायिक समितिमा अन्य हदम्याद नभए ३५ दिनभित्र निवेदन दिनुपर्छ (स्थानीय सरकार सञ्चालन ऐन दफा ४७(४))।"
+  provision:
+    law_title_ne: "मुलुकी देवानी संहिता, २०७४"
+    section: "92"
 next_steps:
-  - en: "Gather evidence of your spouse's income and your own financial needs."
-    ne: "श्रीमान/श्रीमतीको आम्दानी र आफ्नो आर्थिक आवश्यकताको प्रमाण जम्मा गर्नुहोस्।"
-  - en: "Raise the maintenance issue directly, ideally alongside any divorce or partition case."
-    ne: "राम्रो भए सम्बन्ध विच्छेद वा अंशबण्डा मुद्दासँगै भरणपोषणको विषय उठाउनुहोस्।"
-  - en: "Consult an advocate about filing a claim at the District Court if it isn't resolved directly."
-    ne: "सिधै समाधान नभए जिल्ला अदालतमा दाबी दायर गर्न वकिलसँग सल्लाह लिनुहोस्।"
+  - en: "Gather evidence of your spouse's income and property and of your own needs, and any proof they stopped supporting you or threw you out."
+    ne: "पति/पत्नीको आम्दानी र सम्पत्ति, आफ्नो आवश्यकता र उनले खर्च दिन छाडेको वा घरबाट निकालेको प्रमाण जम्मा गर्नुहोस्।"
+  - en: "If support has stopped, apply to your local level's Judicial Committee (35 days if no other limit applies) or raise maintenance in a divorce or partition case at the District Court."
+    ne: "खर्च दिन छाडिएको भए स्थानीय तहको न्यायिक समितिमा (अन्य हदम्याद नभए ३५ दिनभित्र) निवेदन दिनुहोस् वा जिल्ला अदालतमा सम्बन्ध विच्छेद वा अंशबण्डाको मुद्दामा खर्चको माग उठाउनुहोस्।"
+  - en: "Ask an advocate which deadline applies to you (3 months under the Code's chapter limits) and act quickly."
+    ne: "तपाईंलाई कुन हदम्याद लाग्छ (संहिताका परिच्छेदगत ३ महिना) भन्ने वकिलसँग सोध्नुहोस् र चाँडो कारबाही गर्नुहोस्।"
 template_link: null

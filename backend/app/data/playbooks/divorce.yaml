@@ -21,23 +21,41 @@ provisions:
   - law_title_ne: "मुलुकी देवानी संहिता, २०७४"
     section: "96"
     note:
-      en: "Either spouse wanting a divorce must file a written petition at the relevant District Court."
-      ne: "सम्बन्ध विच्छेद गर्न चाहने पति वा पत्नीले सम्बन्धित जिल्ला अदालतमा लिखित निवेदन दिनुपर्छ।"
+      en: "The spouse who wants a divorce must file a petition at the concerned District Court."
+      ne: "सम्बन्ध विच्छेद गर्न चाहने पति वा पत्नीले सम्बन्धित जिल्ला अदालतमा निवेदन दिनुपर्छ।"
   - law_title_ne: "मुलुकी देवानी संहिता, २०७४"
     section: "97"
     note:
-      en: "The court must first attempt reconciliation between the spouses before granting a divorce."
-      ne: "सम्बन्ध विच्छेद स्वीकृत गर्नुअघि अदालतले पति-पत्नीलाई मेलमिलाप गराउने प्रयास गर्नुपर्छ।"
+      en: "Once the petition is filed, the court must try, as far as possible, to explain to both sides and bring about reconciliation."
+      ne: "निवेदन परेपछि अदालतले दुवै पक्षलाई भरसक सम्झाई बुझाई मेलमिलाप गराउनुपर्छ।"
   - law_title_ne: "मुलुकी देवानी संहिता, २०७४"
     section: "98"
     note:
-      en: "If reconciliation fails and continuing the marriage is not appropriate, the court grants the divorce."
-      ne: "मेलमिलाप हुन नसकेमा र विवाह कायम राख्नु उपयुक्त नदेखिएमा अदालतले सम्बन्ध विच्छेद गरिदिन्छ।"
+      en: "If reconciliation fails and the court finds divorce more appropriate than keeping the marriage, it must grant the divorce. If despite the court's efforts the spouses still do not agree to reconcile, the court must grant the divorce one year after the petition."
+      ne: "सम्झाउँदा बुझाउँदा पनि मेलमिलाप हुन नसकी विवाह कायम राख्नुभन्दा सम्बन्ध विच्छेद उपयुक्त देखिएमा अदालतले सम्बन्ध विच्छेद गरिदिनुपर्छ। अदालतले सम्झाउँदा बुझाउँदा पनि पति पत्नीले मञ्जुर नगरेमा निवेदन परेको एक वर्षपछि अदालतले सम्बन्ध विच्छेद गराइदिनुपर्छ।"
   - law_title_ne: "मुलुकी देवानी संहिता, २०७४"
     section: "99"
     note:
-      en: "Property division (अंशबण्डा) between the spouses is addressed before or alongside the divorce order."
-      ne: "सम्बन्ध विच्छेद हुनुअघि नै अंशबण्डा गर्नुपर्ने व्यवस्था छ।"
+      en: "Joint property must be divided between the spouses before the divorce. If the divorce is due to the husband's fault (a wife's petition on the grounds of section 95(ख)-(च) counts as this) and the wife asks, the court must have the property divided first. If division will take long, the court can order the husband to pay the wife monthly expenses until it is done; she loses this if she remarries first. A husband who divorces on grounds 94(ख), (ग) or (घ) does not have to give a share or expenses."
+      ne: "सम्बन्ध विच्छेद हुनु अघि सगोलको सम्पत्तिको अंशबण्डा गर्नुपर्छ। पतिको कारणबाट सम्बन्ध विच्छेद हुने अवस्थामा (दफा ९५ को खण्ड (ख)-(च) को आधारमा पत्नीले निवेदन गरेको यस्तै मानिन्छ) पत्नीले माग गरे अदालतले पहिले अंशबण्डा गर्न लगाउनुपर्छ। अंशबण्डामा लामो समय लाग्ने भए अंशबण्डा नभएसम्म अदालतले पतिबाट पत्नीलाई मासिक खर्च भराइदिन सक्छ; त्यसअघि अर्को विवाह गरे पाउँदैन। पतिले दफा ९४ को खण्ड (ख), (ग) वा (घ) को आधारमा निवेदन गरेकोमा पतिले अंश वा खर्च दिनुपर्दैन।"
+  - law_title_ne: "मुलुकी देवानी संहिता, २०७४"
+    section: "93"
+    note:
+      en: "If both spouses want a divorce, they can divorce at any time."
+      ne: "पति पत्नी दुवैले चाहेमा जहिलेसुकै पनि सम्बन्ध विच्छेद गर्न सक्छन्।"
+  - law_title_ne: "मुलुकी देवानी संहिता, २०७४"
+    section: "94"
+    note:
+      en: "A husband can divorce without his wife's consent only on these grounds: she has lived apart for 3 years or more continuously without his consent (unless they live apart legally after a share or maintenance arrangement); she refused to feed and clothe him or threw him out of the house; she caused him serious bodily or mental harm by an act or scheme; or she is found to have had a sexual relationship with another man."
+      ne: "पतिले पत्नीको मञ्जुरी नभए पनि यी अवस्थामा मात्र सम्बन्ध विच्छेद गर्न सक्छ: पत्नी पतिको मञ्जुरी बिना लगातार ३ वर्ष वा बढी अलग बसेमा (कानून बमोजिम अंश लिई वा मानो छुट्टिई भिन्न बसेको बाहेक); पत्नीले पतिलाई खान लगाउन नदिएमा वा घरबाट निकालेमा; पतिलाई अङ्गभङ्ग वा ठूलो शारीरिक/मानसिक कष्ट हुने काम वा जालप्रपञ्च गरेमा; वा अन्य पुरुषसँग यौन सम्बन्ध राखेको ठहरेमा।"
+  - law_title_ne: "मुलुकी देवानी संहिता, २०७४"
+    section: "95"
+    note:
+      en: "A wife can divorce without her husband's consent on these grounds: he has lived apart for 3 years or more continuously without her consent (unless they live apart legally after a share or maintenance arrangement); he refused to feed and clothe her or threw her out; he caused her serious bodily or mental harm by an act or scheme; he married again; he is found to have had a sexual relationship with another woman; or he raped her."
+      ne: "पत्नीले पतिको मञ्जुरी नभए पनि यी अवस्थामा सम्बन्ध विच्छेद गर्न सक्छिन्: पति पत्नीको मञ्जुरी बिना लगातार ३ वर्ष वा बढी अलग बसेमा (कानून बमोजिम अंश लिई वा मानो छुट्टिई भिन्न बसेको बाहेक); पतिले खान लगाउन नदिएमा वा घरबाट निकालेमा; अङ्गभङ्ग वा ठूलो शारीरिक/मानसिक कष्ट हुने काम वा जालप्रपञ्च गरेमा; अर्को विवाह गरेमा; अन्य महिलासँग यौन सम्बन्ध राखेको ठहरेमा; वा जबरजस्ती करणी गरेमा।"
+exclude_provisions:
+  - law_title_ne: "मुलुकी देवानी संहिता, २०७४"
+    section: "706"
 evidence:
   - en: "Marriage certificate"
     ne: "विवाह दर्ता प्रमाणपत्र"
@@ -46,18 +64,20 @@ evidence:
   - en: "Details of shared property and children, if any"
     ne: "साझा सम्पत्ति र सन्तानको विवरण, यदि छ भने"
 forum:
-  en: "The District Court of the area where you or your spouse resides."
-  ne: "तपाईं वा तपाईंको श्रीमान/श्रीमती बसोबास गर्ने क्षेत्रको जिल्ला अदालत।"
+  en: "The concerned District Court (section 96). Which District Court is the 'concerned' one depends on the court-jurisdiction rules; ask an advocate, usually the court where you or your spouse lives. The court first tries reconciliation, and must grant the divorce one year after the petition if the spouses still refuse to reconcile."
+  ne: "सम्बन्धित जिल्ला अदालत (दफा ९६)। कुन जिल्ला अदालत 'सम्बन्धित' हुने भन्ने अदालतको क्षेत्राधिकारसम्बन्धी नियमले तय गर्छ; वकिलसँग सोध्नुहोस्, सामान्यतया तपाईं वा तपाईंको पति/पत्नी बस्ने ठाउँको अदालत। अदालतले पहिले मेलमिलाप गराउने प्रयास गर्छ, र पति पत्नीले अझै मञ्जुर नगरे निवेदन परेको एक वर्षपछि सम्बन्ध विच्छेद गराइदिनुपर्छ।"
 limitation:
   note:
-    en: "There is no fixed limitation period to file for divorce itself, but consult an advocate promptly about property and custody matters, which may have their own timelines."
-    ne: "सम्बन्ध विच्छेदको निवेदनको लागि आफैमा निश्चित हदम्याद तोकिएको छैन, तर सम्पत्ति र संरक्षणसम्बन्धी विषयको आफ्नै समयसीमा हुन सक्ने हुँदा चाँडै वकिलसँग सल्लाह लिनुहोस्।"
-  provision: null
+    en: "The Code has a three-month limit (section 104) for suits over acts done under the divorce chapter, counted from when the cause arose or you learned of it. It is unclear whether this limit applies to a divorce petition itself or only to related claims such as property division and expenses, so do not delay and ask an advocate."
+    ne: "संहिताको सम्बन्ध विच्छेद सम्बन्धी परिच्छेदमा भए गरेको कामकारबाहीबाट मर्का पर्ने व्यक्तिले मुद्दा गर्नुपर्ने कारण उत्पन्न भएको वा थाहा पाएको मितिले तीन महिनाभित्र नालिस गर्नुपर्ने हदम्याद छ (दफा १०४)। यो हदम्याद सम्बन्ध विच्छेदको निवेदनमा नै लागू हुन्छ वा अंशबण्डा र खर्च जस्ता सम्बन्धित दाबीमा मात्र भन्ने स्पष्ट छैन, त्यसैले ढिलो नगर्नुहोस् र वकिलसँग सल्लाह लिनुहोस्।"
+  provision:
+    law_title_ne: "मुलुकी देवानी संहिता, २०७४"
+    section: "104"
 next_steps:
-  - en: "File a written petition for divorce at the District Court."
-    ne: "जिल्ला अदालतमा सम्बन्ध विच्छेदको लिखित निवेदन दिनुहोस्।"
-  - en: "Attend the court's reconciliation process; if it fails, the case proceeds."
-    ne: "अदालतको मेलमिलाप प्रक्रियामा सहभागी हुनुहोस्; असफल भएमा मुद्दा अगाडि बढ्छ।"
-  - en: "Discuss property division (अंश) and, if applicable, child custody arrangements with an advocate."
-    ne: "अंशबण्डा र, लागू हुने भए, सन्तान संरक्षणको व्यवस्थाबारे वकिलसँग छलफल गर्नुहोस्।"
+  - en: "Check whether both of you agree (section 93) or whether you rely on one of the grounds in section 94 (husband) or 95 (wife)."
+    ne: "तपाईं दुवै सहमत हुनुहुन्छ (दफा ९३) वा दफा ९४ (पति) वा ९५ (पत्नी) का आधारमध्ये कुनै आधारमा निवेदन दिँदै हुनुहुन्छ भन्ने हेर्नुहोस्।"
+  - en: "File a written petition for divorce at the District Court and attend the court's reconciliation efforts; if reconciliation fails, the case proceeds."
+    ne: "जिल्ला अदालतमा सम्बन्ध विच्छेदको लिखित निवेदन दिनुहोस् र अदालतको मेलमिलाप प्रक्रियामा उपस्थित हुनुहोस्; मेलमिलाप नभए मुद्दा अगाडि बढ्छ।"
+  - en: "Discuss property division (अंश), the wife's maintenance and, where there are children, custody arrangements (see the child custody guide) with an advocate before the divorce is granted."
+    ne: "सम्बन्ध विच्छेद हुनुअघि अंशबण्डा, पत्नीको खर्च र सन्तान भए कस्टडीको व्यवस्था (कस्टडी सम्बन्धी मार्गदर्शन हेर्नुहोस्) बारे वकिलसँग सल्लाह लिनुहोस्।"
 template_link: null

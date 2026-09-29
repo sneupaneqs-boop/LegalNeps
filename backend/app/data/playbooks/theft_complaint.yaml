@@ -19,13 +19,38 @@ provisions:
   - law_title_ne: "मुलुकी अपराध संहिता, २०७४"
     section: "242"
     note:
-      en: "Theft is a criminal offence with imprisonment and/or a fine, generally scaled to the value of what was stolen."
-      ne: "चोरी फौजदारी कसूर हो र सामान्यतया चोरी भएको मूल्य अनुसार कैद र/वा जरिबाना हुन्छ।"
+      en: "Theft is punished with up to 3 years' imprisonment and a fine of up to Rs 30,000. In the listed aggravated cases the punishment is 2 to 7 years and a fine of Rs 20,000 to Rs 70,000: stealing government, public or religious-place property; stealing after making someone drunk, drugged or unconscious; stealing during an earthquake, fire, flood, riot or accident; stealing from your own employer or the person you serve; or stealing in a vehicle used to carry people or goods. The punishment is not scaled by the value of the item in this section."
+      ne: "चोरी गरेमा ३ वर्षसम्म कैद र ३०,००० रुपैयाँसम्म जरिबाना हुन्छ। सरकारी, सार्वजनिक वा धार्मिक स्थानको सम्पत्ति चोरी, मादक/लागू पदार्थ खुवाई वा बेहोस पारी चोरी, भूकम्प/आगलागी/बाढी/हूलदङ्गा/दुर्घटनाको मौका छोपी चोरी, आफ्नो सेवामा रहेको कार्यालय वा व्यक्तिको सम्पत्ति चोरी वा मानिस/वस्तु ढुवानी गर्ने सवारीमा चोरी गरेमा २ देखि ७ वर्षसम्म कैद र २०,००० देखि ७०,००० रुपैयाँसम्म जरिबाना हुन्छ। यस दफामा सजाय चोरी गरिएको वस्तुको मूल्यअनुसार फरक हुँदैन।"
   - law_title_ne: "मुलुकी फौजदारी कार्यविधि संहिता, २०७४"
     section: "4 (1)"
     note:
-      en: "Anyone who knows about a crime like this happening can file a written, oral, or electronic report (जाहेरी) with the police, including whatever evidence they have."
-      ne: "यस्तो कसूर भएको थाहा पाउने जुनसुकै व्यक्तिले आफूसँग भएको प्रमाणसहित प्रहरीमा लिखित, मौखिक, वा विद्युतीय माध्यमबाट जाहेरी दिन सक्छ।"
+      en: "Anyone who knows that a Schedule 1 offence (one prosecuted by the state) has happened must report it as soon as possible to the nearest police office, in writing, orally or electronically, with the evidence they have; the police must register it and give a receipt. If the police refuse, see the guide on a refused FIR."
+      ne: "अनुसूची-१ मा उल्लिखित (राज्यले चलाउने) कसूर भएको थाहा पाउने व्यक्तिले आफूसँग भएको प्रमाण खुलाई लिखित, मौखिक वा विद्युतीय माध्यमबाट नजिकको प्रहरी कार्यालयमा यथाशीघ्र जाहेरी दिनुपर्छ; प्रहरीले दर्ता गरी भरपाई दिनुपर्छ। प्रहरीले इन्कार गरे 'जाहेरी दर्ता नगरेको' मार्गदर्शन हेर्नुहोस्।"
+  - law_title_ne: "मुलुकी अपराध संहिता, २०७४"
+    section: "241"
+    note:
+      en: "Theft means dishonestly taking, or moving, movable property that is in another person's ownership, possession, control or care, without their consent, in order to make it your own, use it or consume it. Consent from a child under 18 or a person not in their senses does not count."
+      ne: "अन्य व्यक्तिको स्वामित्व, कब्जा, नियन्त्रण वा जिम्मामा रहेको चल सम्पत्ति आफ्नो बनाउने, उपभोग गर्ने वा लिन खानका लागि निजको मञ्जुरी विना बेइमानीका नियतले लिएमा वा स्थान परिवर्तन गरेमा चोरी हो। अठार वर्ष नपुगेका बालबालिका वा होस ठेगानमा नभएको व्यक्तिको मञ्जुरीलाई मञ्जुरी मानिँदैन।"
+  - law_title_ne: "मुलुकी अपराध संहिता, २०७४"
+    section: "243"
+    note:
+      en: "Burglary (entering a house by breaking the main door or by any way other than the main door to steal, or leaving that way after stealing) is punished with 3 to 5 years' imprisonment and a fine of Rs 30,000 to Rs 50,000."
+      ne: "घरको मूल ढोका फोरी वा मूल ढोका बाहेक अन्य बाटोबाट प्रवेश गरी चोरी गरेमा वा चोरी गरिसकेपछि त्यसरी निस्केमा नकवजनी चोरी हुन्छ, र ३ देखि ५ वर्षसम्म कैद र ३०,००० देखि ५०,००० रुपैयाँसम्म जरिबाना हुन्छ।"
+  - law_title_ne: "मुलुकी अपराध संहिता, २०७४"
+    section: "244"
+    note:
+      en: "Robbery with violence (dakaiti) - stealing while killing or seriously hurting someone, tying or confining them, threatening to do so, carrying a dangerous weapon, or extorting money by threat - is punished with 7 to 14 years and a fine of Rs 70,000 to Rs 1.4 lakh; stealing by ambush on a road or in the jungle with a weapon, or stealing as a group of three or more, with 5 to 10 years and a fine of Rs 50,000 to Rs 1 lakh."
+      ne: "चोरी गर्दा वा गरेपछि कसैको ज्यान लिएमा, गम्भीर चोट पुर्याएमा, बाँधछाँद वा थुनछेक गरेमा, त्यसको डर त्रास देखाएमा, जोखिमी हतियार लिई चोरी गरेमा वा धम्की देखाई रकम लिएमा डाँका हो, र ७ देखि १४ वर्षसम्म कैद र ७०,००० देखि १,४०,००० रुपैयाँसम्म जरिबाना हुन्छ; बाटो, एकान्त स्थल वा जङ्गलमा ढुकी हतियारसहित वा तीन जना वा बढीको जमात भई चोरी गरेमा ५ देखि १० वर्षसम्म कैद र ५०,००० देखि १,००,००० रुपैयाँसम्म जरिबाना हुन्छ।"
+  - law_title_ne: "मुलुकी अपराध संहिता, २०७४"
+    section: "247"
+    note:
+      en: "The court must have the stolen property (or its value) returned to the owner. Recovered property that is identified as yours is returned to you; unclaimed recovered goods are kept for three months against a notice before other arrangements are made."
+      ne: "अदालतले चोरी भएको बिगो जफत गरी सम्पत्ति धनीलाई भराइदिनुपर्छ; कसूरदारले मासिसकेको भए सोको मूल्य बराबरको सम्पत्ति भराइदिनुपर्छ। बरामद भएको मालमध्ये चिन्ह वा प्रमाणबाट तपाईंको ठहरेको जति तपाईंलाई फिर्ता हुन्छ; धनी पत्ता नलागेको माल तीन महिनाको अवधि दिई सूचना जारी गरी धरौटमा राखिन्छ।"
+exclude_provisions:
+  - law_title_ne: "विद्युत चोरी नियन्त्रण ऐन, २०५८"
+    section: "6"
+  - law_title_ne: "विद्युत चोरी नियन्त्रण ऐन, २०५८"
+    section: "10"
 evidence:
   - en: "Proof of ownership of the stolen item (receipt, photos)"
     ne: "चोरी भएको सामानको स्वामित्व प्रमाण (रसिद, फोटो)"
@@ -38,9 +63,11 @@ forum:
   ne: "नजिकैको प्रहरी कार्यालय (सकेसम्म चाँडो जानकारी गराउनुहोस्)।"
 limitation:
   note:
-    en: "Report as soon as possible — delayed reports make it harder to recover property and investigate."
-    ne: "सकेसम्म चाँडो जानकारी गराउनुहोस् — ढिलो गरे सामान फिर्ता ल्याउन र अनुसन्धान गर्न गाह्रो हुन्छ।"
-  provision: null
+    en: "For theft, burglary and robbery a complaint cannot be filed after six months from the date you learned of the offence (Criminal Code section 248). Report as soon as possible: delay also makes it harder to recover the property."
+    ne: "चोरी, नकवजनी र डाँकामा कसूर भएको कुरा थाहा पाएको मितिले छ महिना नाघेपछि उजुर लाग्दैन (अपराध संहिता दफा २४८)। सकेसम्म चाँडो जाहेरी दिनुहोस्: ढिलाइले सामान बरामद गर्न पनि गाह्रो हुन्छ।"
+  provision:
+    law_title_ne: "मुलुकी अपराध संहिता, २०७४"
+    section: "248"
 next_steps:
   - en: "Note down exactly what was taken, when, and where."
     ne: "के, कहिले, र कहाँ चोरी भयो ठ्याक्कै लेख्नुहोस्।"

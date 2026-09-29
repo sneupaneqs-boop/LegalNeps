@@ -22,18 +22,28 @@ provisions:
   - law_title_ne: "उपभोक्ता संरक्षण ऐन, २०७५"
     section: "3"
     note:
-      en: "Consumers have a legal right to safe, quality goods and services, accurate information, and protection from unfair trade practices."
-      ne: "उपभोक्ताको सुरक्षित र गुणस्तरीय वस्तु/सेवा, सही जानकारी, र अनुचित व्यापारिक क्रियाकलापबाट संरक्षण पाउने कानुनी अधिकार हुन्छ।"
+      en: "Every consumer has the right to quality goods and services, to be informed of price, quantity, purity and quality, to be protected from harmful goods, to take action against unfair trade practices, to get compensation for loss, and to be heard by the competent authority."
+      ne: "प्रत्येक उपभोक्तालाई गुणस्तरीय वस्तु वा सेवा पाउने, मूल्य, परिमाण, शुद्धता र गुणस्तरबारे सूचित हुने, हानिकारक वस्तुबाट सुरक्षित हुने, अनुचित व्यापारिक क्रियाकलापविरुद्ध कारबाही गराउने, हानिको क्षतिपूर्ति पाउने र अधिकारप्राप्त निकायबाट सुनुवाई पाउने अधिकार छ।"
   - law_title_ne: "उपभोक्ता संरक्षण ऐन, २०७५"
     section: "36"
     note:
-      en: "Anyone with knowledge of a violation can file a complaint — written, oral, or electronic — with the Central Market Monitoring Committee, the Department, or an inspection officer."
-      ne: "उल्लंघनको जानकारी भएको जुनसुकै व्यक्तिले केन्द्रीय बजार अनुगमन समिति, विभाग, वा निरीक्षण अधिकृतसमक्ष लिखित, मौखिक, वा विद्युतीय माध्यमबाट उजुरी दिन सक्छ।"
+      en: "Anyone who knows of a violation can complain, in writing, orally or electronically, with the evidence they have, to the Central Market Monitoring Committee, the Department, or an inspection officer. The complainant's name is kept confidential if they ask."
+      ne: "उपभोक्ता हित विरुद्ध वा ऐन विपरीत काम भएको थाहा पाउने जुनसुकै व्यक्तिले आफूसँग भएको प्रमाणसहित केन्द्रीय बजार अनुगमन समिति, विभाग वा निरीक्षण अधिकृतसमक्ष लिखित, मौखिक वा विद्युतीय माध्यमबाट उजुरी दिन सक्छ। चाहेमा उजुरकर्ताको नाम गोप्य राखिन्छ।"
   - law_title_ne: "उपभोक्ता संरक्षण ऐन, २०७५"
     section: "50"
     note:
-      en: "A consumer who suffers physical, mental, financial, or other loss because of a seller's violation of this Act can claim compensation."
-      ne: "यस ऐन विपरीत भएको कारोबारबाट शारीरिक, मानसिक, आर्थिक वा अन्य हानि भएको उपभोक्ताले क्षतिपूर्तिको दाबी गर्न सक्छ।"
+      en: "A consumer who suffers physical, mental, financial or other loss because goods or services were sold or supplied in breach of the Act (or from a defective product) can claim compensation from the person responsible by going to the court within six months of the date the loss occurred. The consumer, a consumer organisation on their behalf, or their heirs may file."
+      ne: "यस ऐन विपरीत वस्तु वा सेवा बिक्री वितरण वा प्रदान गरेको कारणबाट वा वस्तुको त्रुटिपूर्ण उत्पादनबाट शारीरिक, मानसिक, आर्थिक वा अन्य हानि नोक्सानी भएमा उपभोक्ता आफैँले, उनको तर्फबाट उपभोक्ता संस्थाले वा हकवालाले हानि पुगेको मितिले छ महिनाभित्र अदालतमा उजुरी गरी जिम्मेवार व्यक्तिबाट क्षतिपूर्ति भराइपाउन सक्छ।"
+  - law_title_ne: "उपभोक्ता संरक्षण ऐन, २०७५"
+    section: "14"
+    note:
+      en: "If you are not satisfied with goods you bought, you can return them to the seller within 7 days (15 days if sealed and the seal is unbroken) and take either a replacement of the same value or your money back. The seller cannot deduct anything or charge extra, and you must show the bill or receipt. You cannot return goods you have already used, altered, or that are perishable (milk, fruit, meat) or past their use-by period."
+      ne: "खरिद गरेको वस्तुमा चित्त नबुझे सात दिनभित्र (सिलबन्दी र सिल नतोडिएको भए पन्ध्र दिनभित्र) बिक्रेतालाई फिर्ता गरी सोही मूल्यको अर्को वस्तु वा तिरेको रकम फिर्ता लिन सकिन्छ। बिक्रेताले कटौती वा थप शुल्क लिन पाउँदैन, र बिल वा रसिद देखाउनुपर्छ। प्रयोग गरिसकेको, गुणस्तर वा परिमाण फेरिएको, सडीगल्ने (दूध, फलफूल, मासु) वा उपभोग अवधि नाघेको वस्तु फिर्ता गर्न मिल्दैन।"
+  - law_title_ne: "उपभोक्ता संरक्षण ऐन, २०७५"
+    section: "16 (1)"
+    note:
+      en: "Unfair trade practices are barred, including hiding or misrepresenting the real quality, quantity or price of goods, false or misleading advertising, selling inferior goods as high-quality, and selling old or rebuilt goods as new."
+      ne: "अनुचित व्यापारिक क्रियाकलाप निषेध छ, जसमा वस्तुको वास्तविक गुणस्तर, परिमाण वा मूल्य ढाँटी वा लुकाई बिक्री, झुठा वा भ्रमपूर्ण विज्ञापन, कमसल वस्तुलाई उच्च गुणस्तरको भनी वा पुरानो/पुनर्निर्मित वस्तुलाई नयाँ भनी बिक्री समावेश छ।"
 evidence:
   - en: "Purchase receipt or bill"
     ne: "खरिद बिल वा रसिद"
@@ -42,20 +52,20 @@ evidence:
   - en: "Any communication with the seller about the issue"
     ne: "यस बारेमा बिक्रेतासँग भएको सञ्चार"
 forum:
-  en: "The Department of Commerce, Supplies and Consumer Protection, the Central Market Monitoring Committee, or a local inspection officer; unresolved cases can reach the court, with appeal to the High Court within 30 days of the decision."
-  ne: "वाणिज्य, आपूर्ति तथा उपभोक्ता संरक्षण विभाग, केन्द्रीय बजार अनुगमन समिति, वा स्थानीय निरीक्षण अधिकृत; समाधान नभएमा अदालतसम्म जान सकिन्छ, र निर्णयको ३० दिनभित्र उच्च अदालतमा पुनरावेदन गर्न सकिन्छ।"
+  en: "For a refund or replacement, go to the seller first (within the section 14 period). To complain about a violation, go to the Department of Commerce, Supplies and Consumer Protection, the Central Market Monitoring Committee, or a local inspection officer (section 36). A compensation claim is filed in court (section 50; the Act provides for consumer courts set up by Government notice under section 41), with appeal to the High Court within 30 days (section 45)."
+  ne: "रकम फिर्ता वा सट्टा वस्तुका लागि पहिले बिक्रेतासँग (दफा १४ को अवधिभित्र) सम्पर्क गर्नुहोस्। ऐन उल्लङ्घनको उजुरी वाणिज्य, आपूर्ति तथा उपभोक्ता संरक्षण विभाग, केन्द्रीय बजार अनुगमन समिति वा स्थानीय निरीक्षण अधिकृतसमक्ष दिनुहोस् (दफा ३६)। क्षतिपूर्तिको दाबी अदालतमा दायर हुन्छ (दफा ५०; ऐनले दफा ४१ अनुसार सरकारले राजपत्रमा सूचना प्रकाशन गरी उपभोक्ता अदालत गठन गर्ने व्यवस्था गरेको छ), र ३० दिनभित्र उच्च अदालतमा पुनरावेदन गर्न सकिन्छ (दफा ४५)।"
 limitation:
   note:
-    en: "The Act doesn't fix a single deadline for filing the initial complaint, but act promptly and keep all evidence — an appeal against a court decision must be filed within 30 days."
-    ne: "सुरुको उजुरी दिने एउटै निश्चित म्याद ऐनले तोकेको छैन, तर चाँडो कारबाही गर्नुहोस् र सबै प्रमाण सुरक्षित राख्नुहोस् — अदालतको निर्णय विरुद्धको पुनरावेदन ३० दिनभित्र गर्नुपर्छ।"
+    en: "Three time limits to watch. Returning goods for a refund or replacement: within 7 days of purchase (15 days if sealed and unopened) (section 14). A compensation claim in court: within 6 months of the date the loss occurred (section 50). An appeal against the court's decision to the High Court: within 30 days (section 45). Complaining to the Department or inspection officer (section 36) has no deadline in the Act, but act promptly and keep the bill."
+    ne: "ध्यान दिनुपर्ने तीन म्याद। सामान फिर्ता गरी रकम वा सट्टा वस्तु लिन: खरिद गरेको ७ दिनभित्र (सिलबन्दी र नखोलेको भए १५ दिन) (दफा १४)। अदालतमा क्षतिपूर्तिको उजुरी: हानि नोक्सानी पुगेको मितिले ६ महिनाभित्र (दफा ५०)। अदालतको निर्णय उपर उच्च अदालतमा पुनरावेदन: ३० दिनभित्र (दफा ४५)। विभाग वा निरीक्षण अधिकृतसमक्ष उजुरी (दफा ३६) दिने निश्चित म्याद ऐनमा छैन, तर चाँडो कारबाही गर्नुहोस् र बिल सुरक्षित राख्नुहोस्।"
   provision:
     law_title_ne: "उपभोक्ता संरक्षण ऐन, २०७५"
-    section: "45"
+    section: "50"
 next_steps:
-  - en: "Contact the seller first with your evidence and ask for a refund, replacement, or fix."
-    ne: "पहिले प्रमाणसहित बिक्रेतालाई सम्पर्क गरी फिर्ता, साटो, वा सुधार माग गर्नुहोस्।"
-  - en: "If unresolved, file a written/oral/electronic complaint with the Department or Central Market Monitoring Committee."
-    ne: "समाधान नभएमा विभाग वा केन्द्रीय बजार अनुगमन समितिमा लिखित/मौखिक/विद्युतीय उजुरी दिनुहोस्।"
-  - en: "If you suffered a loss, include a compensation claim in your complaint."
-    ne: "हानि भएको भए उजुरीमा क्षतिपूर्तिको दाबी समेत राख्नुहोस्।"
+  - en: "Contact the seller first with your bill and evidence and ask for a refund, replacement or repair; if the goods are unused you may return them within 7 days (15 if sealed)."
+    ne: "पहिले बिक्रेतालाई बिल र प्रमाणसहित सम्पर्क गरी रकम फिर्ता, सट्टा वस्तु वा मर्मत माग्नुहोस्; सामान प्रयोग नगरेको भए ७ दिनभित्र (सिलबन्दी भए १५ दिन) फिर्ता गर्न सकिन्छ।"
+  - en: "If unresolved, file a written, oral or electronic complaint with the Department, the Central Market Monitoring Committee or a local inspection officer."
+    ne: "समाधान नभए विभाग, केन्द्रीय बजार अनुगमन समिति वा स्थानीय निरीक्षण अधिकृतसमक्ष लिखित, मौखिक वा विद्युतीय उजुरी दिनुहोस्।"
+  - en: "If you suffered a loss, ask an advocate about a compensation claim in court, which must be filed within 6 months of the loss (this is separate from the complaint to the Department)."
+    ne: "हानि नोक्सानी भएको भए अदालतमा क्षतिपूर्तिको उजुरी (हानि भएको ६ महिनाभित्र, विभागमा दिने उजुरीभन्दा फरक) बारे वकिलसँग सल्लाह लिनुहोस्।"
 template_link: null

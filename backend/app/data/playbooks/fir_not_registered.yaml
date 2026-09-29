@@ -19,13 +19,18 @@ provisions:
   - law_title_ne: "मुलुकी फौजदारी कार्यविधि संहिता, २०७४"
     section: "4 (1)"
     note:
-      en: "Anyone who knows about a crime can file a written, oral, or electronic report (जाहेरी) with the police, along with whatever evidence they have."
-      ne: "कसूर भएको थाहा पाउने जुनसुकै व्यक्तिले आफूसँग भएको प्रमाणसहित प्रहरीमा लिखित, मौखिक, वा विद्युतीय माध्यमबाट जाहेरी दिन सक्छ।"
+      en: "Anyone who knows that a Schedule 1 offence (one prosecuted by the state) has happened, is happening or is about to happen must report it as soon as possible to the nearest police office - in writing, orally or electronically - with whatever evidence they have. If the report is given in person, by post, through someone else or electronically, the police must register it and give a receipt (and reply by the same electronic channel). Police must also write up a report themselves if they learn of such an offence from any other source."
+      ne: "अनुसूची-१ मा उल्लिखित (राज्यले चलाउने) कुनै कसूर भएको, भइरहेको वा हुन लागेको थाहा पाउने व्यक्तिले आफूसँग भएको सबुद प्रमाण खुलाई लिखित जाहेरी दरखास्त वा मौखिक वा विद्युतीय सूचना नजिकको प्रहरी कार्यालयमा यथाशीघ्र दिनुपर्छ। आफैँ उपस्थित भई, हुलाक, अर्को व्यक्ति मार्फत वा विद्युतीय माध्यमबाट दिएको जाहेरी वा सूचना प्रहरी कार्यालयले दर्ता गरी भरपाई दिनुपर्छ (विद्युतीय माध्यमबाट दिएकोमा सोही माध्यमबाट जानकारी दिनुपर्छ)। अन्य स्रोतबाट थाहा पाए पनि प्रहरीले आफैँ प्रतिवेदन खडा गर्नुपर्छ।"
   - law_title_ne: "मुलुकी फौजदारी कार्यविधि संहिता, २०७४"
     section: "5"
     note:
-      en: "If the police office refuses to register your complaint, you can raise this with the District Government Attorney's Office (or send the complaint by post/electronic means), naming the refusal."
-      ne: "प्रहरी कार्यालयले जाहेरी दर्ता गर्न इन्कार गरेमा, त्यो कुरा उल्लेख गरी सम्बन्धित जिल्ला सरकारी वकिल कार्यालयमा उजुर गर्न वा हुलाक/विद्युतीय माध्यमबाट पठाउन सकिन्छ।"
+      en: "If the police office refuses to register a report of a Schedule 1 offence, you can complain, stating the refusal and attaching your report, to the District Government Attorney's Office or to a police office above the one that refused. That office must record the complaint and send the report on to the concerned police office, which must then register it and act. If an authority refuses to register a Schedule 2 notice, you can complain to the Chief District Officer (or, if the CDO is the investigator and refuses, to the Home Ministry), who must decide within three days."
+      ne: "अनुसूची-१ को कसूरको जाहेरी दरखास्त वा सूचना प्रहरी कार्यालयले दर्ता गर्न इन्कार गरेमा इन्कार गरेको व्यहोरा खुलाई जाहेरी सहित जिल्ला सरकारी वकिल कार्यालय वा इन्कार गर्ने कार्यालयभन्दा माथिल्लो तहको प्रहरी कार्यालयमा उजुर गर्न सकिन्छ। त्यस कार्यालयले अभिलेख राखी जाहेरी सम्बन्धित प्रहरी कार्यालयमा पठाउनुपर्छ र प्रहरीले दर्ता गरी कारबाही गर्नुपर्छ। अनुसूची-२ को सूचना दर्ता गर्न इन्कार गरेमा प्रमुख जिल्ला अधिकारी (प्रमुख जिल्ला अधिकारी नै अनुसन्धान अधिकारी भई इन्कार गरे गृह मन्त्रालय) समक्ष उजुर गर्न सकिन्छ, जसले तीन दिनभित्र निर्णय गर्नुपर्छ।"
+  - law_title_ne: "मुलुकी फौजदारी कार्यविधि संहिता, २०७४"
+    section: "4 (2)"
+    note:
+      en: "For Schedule 2 offences (those not prosecuted by the state on its own), a person who wants to report gives the notice to the office or officer authorised to investigate that offence. If that cannot be done at once, it can also be given to the nearest police office, which must register it and send it on within three days."
+      ne: "अनुसूची-२ मा उल्लिखित कसूरको सूचना दिन चाहने व्यक्तिले अनुसन्धान गर्न अधिकार प्राप्त कार्यालय वा अधिकारी समक्ष सूचना दिनुपर्छ। तत्काल सम्भव नभए नजिकको प्रहरी कार्यालयमा पनि दिन सकिन्छ, जसले दर्ता गरी तीन दिनभित्र सम्बन्धित कार्यालय वा अधिकारी समक्ष पठाउनुपर्छ।"
 evidence:
   - en: "A copy of your written complaint, if you submitted one"
     ne: "बुझाउनुभएको भए लिखित उजुरीको प्रति"
@@ -34,18 +39,18 @@ evidence:
   - en: "Any evidence of the original crime you were trying to report"
     ne: "उजुरी दिन खोजेको मूल कसूरको कुनै प्रमाण"
 forum:
-  en: "The District Government Attorney's Office (जिल्ला सरकारी वकिल कार्यालय), or send your complaint by post or electronic means as the law allows."
-  ne: "जिल्ला सरकारी वकिल कार्यालय, वा कानूनले अनुमति दिए बमोजिम हुलाक वा विद्युतीय माध्यमबाट उजुरी पठाउनुहोस्।"
+  en: "Give the report to the nearest police office and get a receipt. If it refuses to register, complain to the District Government Attorney's Office or to a higher police office (section 5); for offences investigated by another authority, complain to the Chief District Officer, then the Home Ministry (section 5(4)). You may send the report by post, through someone else or electronically (section 4(3))."
+  ne: "नजिकको प्रहरी कार्यालयमा जाहेरी दिई भरपाई लिनुहोस्। दर्ता गर्न इन्कार गरेमा जिल्ला सरकारी वकिल कार्यालय वा माथिल्लो तहको प्रहरी कार्यालयमा उजुर गर्नुहोस् (दफा ५); अन्य निकायले अनुसन्धान गर्ने कसूरमा प्रमुख जिल्ला अधिकारी, त्यसपछि गृह मन्त्रालयमा उजुर गर्नुहोस् (दफा ५(४))। जाहेरी हुलाक, अर्को व्यक्ति मार्फत वा विद्युतीय माध्यमबाट पनि पठाउन सकिन्छ (दफा ४(३))।"
 limitation:
   note:
-    en: "Act quickly — the underlying crime you're trying to report may have its own limitation period, so don't let the registration refusal cause you to miss it."
-    ne: "चाँडो कारबाही गर्नुहोस् — उजुरी दिन खोजेको मूल कसूरको आफ्नै हदम्याद हुन सक्छ, दर्ता इन्कारका कारण त्यो नबित्न दिनुहोस्।"
+    en: "The Criminal Procedure Code gives no deadline for reporting or for complaining about a refusal to register, but the underlying offence may have its own complaint deadline (often only 3 months or less for lesser offences), so report as soon as possible and do not let the refusal use up that time; keep the date of your first attempt in writing."
+    ne: "फौजदारी कार्यविधि संहितामा जाहेरी दिने वा जाहेरी दर्ता नगरेको उजुर गर्ने निश्चित म्याद तोकिएको छैन, तर मूल कसूरको आफ्नै उजुरीको म्याद हुन सक्छ (साना कसूरमा प्रायः ३ महिना वा कम), त्यसैले सकेसम्म चाँडो जाहेरी दिनुहोस् र इन्कारले त्यो समय खर्च नहोस्; पहिलो पटक जाहेरी दिन खोजेको मिति लिखित रूपमा राख्नुहोस्।"
   provision: null
 next_steps:
-  - en: "Ask the police in writing for the reason they won't register your complaint."
-    ne: "प्रहरीलाई किन दर्ता नगरेको लिखित कारण सोध्नुहोस्।"
-  - en: "Submit your complaint in writing (or by post/electronic means) to the District Government Attorney's Office, describing the refusal."
-    ne: "इन्कारको विवरणसहित जिल्ला सरकारी वकिल कार्यालयमा लिखित (वा हुलाक/विद्युतीय माध्यमबाट) उजुरी बुझाउनुहोस्।"
-  - en: "Consult an advocate if the matter is urgent or serious."
-    ne: "विषय जरुरी वा गम्भीर भए वकिलसँग सल्लाह लिनुहोस्।"
+  - en: "Give the report in writing (or by post or electronically) and ask the police for the receipt they must give when they register it; if they refuse, ask them in writing for the reason."
+    ne: "जाहेरी लिखित रूपमा (वा हुलाक वा विद्युतीय माध्यमबाट) दिनुहोस् र दर्ता गर्दा प्रहरीले दिनुपर्ने भरपाई माग्नुहोस्; इन्कार गरे लिखित कारण सोध्नुहोस्।"
+  - en: "If they refuse, complain in writing to the District Government Attorney's Office or a higher police office, stating the refusal and attaching your report."
+    ne: "इन्कार गरेमा इन्कारको व्यहोरा खुलाई जाहेरी सहित जिल्ला सरकारी वकिल कार्यालय वा माथिल्लो तहको प्रहरी कार्यालयमा लिखित उजुर गर्नुहोस्।"
+  - en: "Consult an advocate if the matter is urgent or serious, and note any complaint deadline for the underlying offence."
+    ne: "मामिला जरुरी वा गम्भीर भए वकिलसँग सल्लाह लिनुहोस् र मूल कसूरको उजुरी म्याद टिप्नुहोस्।"
 template_link: null

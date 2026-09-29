@@ -20,13 +20,23 @@ provisions:
   - law_title_ne: "मुलुकी अपराध संहिता, २०७४"
     section: "306 (1)"
     note:
-      en: "No one may defame another person — making a statement intending or knowing it could harm someone's reputation, in writing, speech, gesture, or otherwise, counts as defamation."
-      ne: "कसैले पनि अर्काको बेइज्जती गर्न पाउँदैन — इज्जतमा धक्का पुर्‍याउने नियतले वा जानीजानी लेखेर, बोलेर, वा आचरणद्वारा गरेको कार्य बेइज्जती मानिन्छ।"
+      en: "No one may defame another person. Defamation means writing, conduct, signs, publicity or any other way, directly or indirectly, with intent to harm someone's reputation (or knowing or having reason to believe it can), to lower their personal character, conduct, morality or standing in others' eyes, or to blame them for a shameful physical condition, including spreading or publishing such an accusation."
+      ne: "कसैले कसैको बेइज्जती गर्न हुँदैन। अरुको इज्जतमा धक्का पुर्याउने नियतले (वा धक्का पुग्न सक्छ भन्ने जानीजानी वा विश्वास गर्ने मनासिब कारणसहित) लेखेर, आचरण, चिह्न वा प्रचारप्रसारद्वारा प्रत्यक्ष वा अप्रत्यक्ष रूपमा कसैको चरित्र, आचरण, नैतिकता वा ख्यातिलाई अरुको दृष्टिमा होच्याउने गरी चरित्र हत्या गर्ने, वा शरीर घृणित अवस्थामा छ भन्ने दोष लगाउने, वा त्यस्तो दोष प्रचार प्रसार वा प्रकाशन गर्ने काम बेइज्जती हो।"
   - law_title_ne: "मुलुकी अपराध संहिता, २०७४"
     section: "307"
     note:
-      en: "Defamation is punishable with up to 2 years' imprisonment or a fine; if done through electronic or mass-media means, the punishment is higher (up to 1 additional year and a higher fine)."
-      ne: "बेइज्जती गरेमा २ वर्षसम्म कैद वा जरिबाना हुन्छ; विद्युतीय वा अन्य सञ्चार माध्यमबाट गरेमा थप सजाय (थप १ वर्षसम्म कैद र थप जरिबाना) हुन्छ।"
+      en: "Defamation is punishable with up to 2 years' imprisonment or a fine of up to Rs 20,000, or both; if done through electronic or other mass-media means, up to 1 more year and Rs 10,000 more. The court must also order the offender to pay reasonable compensation to the person defamed (taking the seriousness and the harm to reputation into account) and their case costs."
+      ne: "बेइज्जती गरे वा गराएमा २ वर्षसम्म कैद वा २०,००० रुपैयाँसम्म जरिबाना वा दुवै सजाय हुन्छ; विद्युतीय वा अन्य आम सञ्चारका माध्यमबाट गरेमा थप १ वर्षसम्म कैद र १०,००० रुपैयाँसम्म जरिबाना हुन्छ। अदालतले कसूरको गम्भीरता र प्रतिष्ठामा परेको असर विचार गरी कसूरदारबाट मनासिब क्षतिपूर्ति र मुद्दामा लागेको खर्च पनि भराइदिनुपर्छ।"
+  - law_title_ne: "मुलुकी अपराध संहिता, २०७४"
+    section: "308"
+    note:
+      en: "For defamation offences, a complaint cannot be filed after three months from the date you learned of the offence."
+      ne: "गाली बेइज्जतीसम्बन्धी कसूर भएको कुरा थाहा पाएको मितिले तीन महिना नाघेपछि उजुर लाग्दैन।"
+  - law_title_ne: "मुलुकी अपराध संहिता, २०७४"
+    section: "306 (2)"
+    note:
+      en: "These acts are NOT defamation: publishing a true fact about a person, with evidence, for the public good; good-faith and dignified comment on a public servant's or public figure's public conduct; honest opinion on something put before the public; a good-faith complaint about someone's conduct by a person with a legal or contractual right over them; a lawful accusation in a criminal investigation; warning someone in their own or the public's interest; and good-faith comment or satire for public interest with reasons. So truth alone is not a complete defence: it must be for the public good and backed by evidence."
+      ne: "यी कामलाई बेइज्जती मानिँदैन: सर्वसाधारणको हितको लागि प्रमाण र आधारसहित कुनै व्यक्तिसँग सम्बन्धित साँचो कुरा प्रकाशन वा प्रसारण गर्नु; राष्ट्रसेवक वा सार्वजनिक पदको आचरणबारे असल नियतले मर्यादित ढङ्गबाट राय प्रकट गर्नु; सर्वसाधारणको रायको लागि पेश गरिएको कुराको गुण दोषबारे असल नियतले राय दिनु; कानून वा करारद्वारा अधिकार भएको व्यक्तिले असल नियतले आचरणमा खोट लगाउनु; कानून बमोजिम कसूरको अनुसन्धान वा अभियोग लगाउनु; कसैलाई सतर्क गराउनु; सार्वजनिक हित, सदाचार वा नैतिकताको लागि असल नियतले कारणसहित टिप्पणी वा व्यङ्ग्य गर्नु। त्यसैले साँचो हुनु मात्र पूर्ण बचाउ होइन: सर्वसाधारणको हितको लागि र प्रमाणसहित हुनुपर्छ।"
 evidence:
   - en: "Screenshots, recordings, or written copies of the defamatory statement"
     ne: "बदनाम गर्ने भनाइको स्क्रिनसट, रेकर्डिङ, वा लिखित प्रति"
@@ -35,18 +45,20 @@ evidence:
   - en: "Evidence of harm caused (e.g. lost work, damaged relationships)"
     ne: "भएको हानिको प्रमाण (जस्तै गुमेको काम, बिग्रिएको सम्बन्ध)"
 forum:
-  en: "File a complaint with the police, or directly with the District Court."
-  ne: "प्रहरी वा सिधै जिल्ला अदालतमा उजुरी दिन सकिन्छ।"
+  en: "Defamation is a criminal offence under sections 306-307 of the Criminal Code, and the court can also order compensation and costs. Whether you should complain to the police or file directly at the District Court depends on how the offence is classified in the Criminal Procedure Code schedules, which our corpus does not show; ask an advocate before choosing."
+  ne: "बेइज्जती अपराध संहिताको दफा ३०६-३०७ अन्तर्गतको फौजदारी कसूर हो, र अदालतले क्षतिपूर्ति र खर्च पनि भराउन सक्छ। प्रहरीमा उजुरी दिने कि जिल्ला अदालतमै मुद्दा दायर गर्ने भन्ने कुरा फौजदारी कार्यविधि संहिताको अनुसूचीमा यो कसूर कुन वर्गमा पर्छ भन्नेमा निर्भर छ, जुन हाम्रो संग्रहमा देखिँदैन; छनोट गर्नुअघि वकिलसँग सोध्नुहोस्।"
 limitation:
   note:
-    en: "Nepali criminal cases generally have their own limitation period depending on the offence — check with the police or an advocate promptly rather than assuming you have unlimited time."
-    ne: "नेपाली फौजदारी मुद्दाको सामान्यतया कसूरअनुसार आफ्नै हदम्याद हुन्छ — असीमित समय छ भन्ने नठानी चाँडै प्रहरी वा वकिलसँग जाँच्नुहोस्।"
-  provision: null
+    en: "A complaint about defamation cannot be filed once three months have passed from the date you learned of the offence (Criminal Code section 308). Act within that time, not later. If the same statement was made online, a shorter or different deadline may apply to the online offence (see the cyber harassment guide)."
+    ne: "बेइज्जती भएको कुरा थाहा पाएको मितिले तीन महिना नाघेपछि उजुर लाग्दैन (अपराध संहिता दफा ३०८)। सोही अवधिभित्र कारबाही गर्नुहोस्। सोही कुरा अनलाइन भएको भए अनलाइन कसूरमा छोटो वा फरक म्याद लाग्न सक्छ (साइबर उत्पीडन मार्गदर्शन हेर्नुहोस्)।"
+  provision:
+    law_title_ne: "मुलुकी अपराध संहिता, २०७४"
+    section: "308"
 next_steps:
-  - en: "Save evidence of the statement immediately (screenshots with dates, witness names)."
-    ne: "तुरुन्तै भनाइको प्रमाण (मितिसहित स्क्रिनसट, साक्षीको नाम) सुरक्षित राख्नुहोस्।"
+  - en: "Save evidence of the statement immediately (screenshots with dates, witness names) - and note the date you first learned of it, since the 3-month limit runs from then."
+    ne: "बेइज्जती गरेको कुराको प्रमाण तुरुन्तै सुरक्षित गर्नुहोस् (मिति सहितको स्क्रिनसट, साक्षीको नाम) - र पहिलो पटक थाहा पाएको मिति टिप्नुहोस्, किनकि ३ महिनाको म्याद त्यहीँबाट गनिन्छ।"
   - en: "If it's online, also report it to the platform to have it taken down."
-    ne: "अनलाइन भए हटाउनका लागि प्लेटफर्मलाई पनि जानकारी दिनुहोस्।"
-  - en: "File a complaint with the police or the District Court."
-    ne: "प्रहरी वा जिल्ला अदालतमा उजुरी दिनुहोस्।"
+    ne: "अनलाइन भए हटाउन प्लेटफर्ममा पनि रिपोर्ट गर्नुहोस्।"
+  - en: "Ask an advocate whether to complain to the police or file at the District Court, and do it within 3 months of learning of the statement."
+    ne: "प्रहरीमा उजुरी दिने कि जिल्ला अदालतमा मुद्दा हाल्ने भन्नेबारे वकिलसँग सल्लाह लिई सो कुरा थाहा पाएको ३ महिनाभित्र गर्नुहोस्।"
 template_link: null

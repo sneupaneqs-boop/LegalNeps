@@ -22,18 +22,33 @@ provisions:
   - law_title_ne: "मुलुकी अपराध संहिता, २०७४"
     section: "298"
     note:
-      en: "Unauthorized access to, or breach of the privacy of, information stored or transmitted electronically (including private photos/messages) is a criminal offence."
-      ne: "विद्युतीय माध्यममा रहेको वा प्रवाह हुने सूचना (निजी फोटो/म्यासेज लगायत) अनधिकृत रूपमा प्राप्त गर्नु वा त्यसको गोपनीयता भङ्ग गर्नु फौजदारी कसूर हो।"
+      en: "Unauthorised obtaining, breaching the confidentiality of, or passing on to others, information or correspondence stored or sent electronically is an offence: up to 2 years' imprisonment or a fine of up to Rs 20,000, or both."
+      ne: "विद्युतीय माध्यममा रहेको वा प्रवाह हुने सूचना, जानकारी वा पत्राचार अनधिकृत रूपमा प्राप्त गर्न, गोपनीयता भङ्ग गर्न वा अनधिकृत रूपमा अरुलाई हस्तान्तरण गर्न हुँदैन: २ वर्षसम्म कैद वा २०,००० रुपैयाँसम्म जरिबाना वा दुवै सजाय।"
   - law_title_ne: "मुलुकी अपराध संहिता, २०७४"
     section: "307"
     note:
-      en: "Defaming someone is punishable with up to 2 years' imprisonment or a fine; if done through electronic or mass-media means, the punishment is increased by up to 1 more year and a higher fine."
-      ne: "बेइज्जती गरेमा २ वर्षसम्म कैद वा जरिबाना हुन्छ; विद्युतीय वा अन्य सञ्चार माध्यमबाट गरेमा थप १ वर्षसम्म कैद र थप जरिबाना हुन्छ।"
-  - law_title_ne: "मुलुकी अपराध संहिता, २०७४"
-    section: "187"
+      en: "Defaming (insulting the reputation of) someone is punishable with up to 2 years' imprisonment or a fine of up to Rs 20,000, or both; if done by electronic or other mass-media means, up to 1 more year and Rs 10,000 more. The court must also order reasonable compensation and the case costs."
+      ne: "कसैको बेइज्जती गरे वा गराएमा २ वर्षसम्म कैद वा २०,००० रुपैयाँसम्म जरिबाना वा दुवै सजाय हुन्छ; विद्युतीय वा अन्य आम सञ्चार माध्यमबाट गरेमा थप १ वर्षसम्म कैद र १०,००० रुपैयाँसम्म जरिबाना हुन्छ। अदालतले मनासिब क्षतिपूर्ति र मुद्दाको खर्च पनि भराइदिनुपर्छ।"
+  - law_title_ne: "विद्युतीय (इलेक्ट्रोनिक) कारोबार ऐन, २०६३"
+    section: "47"
     note:
-      en: "General limitation clause for this part of the Criminal Code — check the exact period for your specific offence with the police or an advocate."
-      ne: "मुलुकी अपराध संहिताको यस भागको हदम्याद सम्बन्धी सामान्य व्यवस्था — आफ्नो विशिष्ट कसूरको ठ्याक्कै अवधि प्रहरी वा वकिलसँग जाँच्नुहोस्।"
+      en: "Publishing or showing material on a computer or the internet that is barred by law or against public morality, spreads hatred, or teasing, harassing or insulting women or similar improper conduct online, is punishable with a fine of up to Rs 1 lakh, up to 5 years' imprisonment, or both; repeat offences are punished 1.5 times as heavily."
+      ne: "कम्प्युटर वा इन्टरनेट जस्ता विद्युतीय माध्यममा कानूनले रोक लगाएका वा सार्वजनिक नैतिकता विरुद्धका वा घृणा फैलाउने सामग्री प्रकाशन वा प्रदर्शन गर्ने, महिलालाई जिस्क्याउने, हैरान गर्ने, अपमान गर्ने वा यस्तै अमर्यादित कार्य गर्ने वा गराउने व्यक्तिलाई एक लाख रुपैयाँसम्म जरिबाना वा पाँच वर्षसम्म कैद वा दुवै सजाय हुन्छ; पटक पटक गरेमा अघिल्लो सजायको डेढी सजाय हुन्छ।"
+  - law_title_ne: "मुलुकी अपराध संहिता, २०७४"
+    section: "296"
+    note:
+      en: "It is an offence to give, sell, publish or circulate a person's photo without their permission, or to publish it to threaten, harass or extract an improper benefit from them: up to 3 years' imprisonment or a fine of up to Rs 30,000, or both."
+      ne: "कसैको तस्वीर निजको अनुमति बिना अरुलाई दिन, बिक्री गर्न, वा निजलाई झिझ्याउन, सताउन, हैरान पार्न वा अनुचित फाइदा लिन प्रकाशन वा प्रचार गर्न हुँदैन: ३ वर्षसम्म कैद वा ३०,००० रुपैयाँसम्म जरिबाना वा दुवै सजाय।"
+  - law_title_ne: "मुलुकी अपराध संहिता, २०७४"
+    section: "300"
+    note:
+      en: "Threatening, tormenting, insulting or otherwise treating someone improperly by letter, written material or electronic means, with bad intent to frighten, harass or humiliate them, is an offence: up to 1 year's imprisonment or a fine of up to Rs 10,000, or both."
+      ne: "कसैलाई डर, त्रास, दुःख वा हैरानी दिने वा अपमान गर्ने बदनियतले पत्र, लिखत वा विद्युतीय माध्यमद्वारा धम्की दिने, सताउने, जिस्क्याउने वा अनुचित व्यवहार गर्न हुँदैन: १ वर्षसम्म कैद वा १०,००० रुपैयाँसम्म जरिबाना वा दुवै सजाय।"
+  - law_title_ne: "विद्युतीय (इलेक्ट्रोनिक) कारोबार ऐन, २०६३"
+    section: "74"
+    note:
+      en: "A complaint about an offence under the Electronic Transactions Act must be made within 90 days of learning of the violation or offence."
+      ne: "विद्युतीय कारोबार ऐन अन्तर्गतको उल्लङ्घन वा कसूर भएको थाहा पाएको मितिले नब्बे दिनभित्र उजुर गर्नुपर्छ।"
 evidence:
   - en: "Screenshots of the harassment, posts, or shared content, including the date/time and the account/profile involved"
     ne: "दुर्व्यवहार, पोस्ट, वा सार्वजनिक गरिएको सामग्रीको स्क्रिनसट, मिति/समय र संलग्न खाता/प्रोफाइल सहित"
@@ -42,20 +57,20 @@ evidence:
   - en: "Any prior messages or threats from the person responsible"
     ne: "जिम्मेवार व्यक्तिबाट आएको पहिलेको म्यासेज वा धम्की"
 forum:
-  en: "The Nepal Police Cyber Bureau (साइबर ब्यूरो), or your nearest District Police Office, which can escalate to the Cyber Bureau."
-  ne: "नेपाल प्रहरी साइबर ब्यूरो, वा नजिकैको जिल्ला प्रहरी कार्यालय, जसले साइबर ब्यूरोमा पठाउन सक्छ।"
+  en: "The Nepal Police Cyber Bureau (साइबर ब्यूरो) or your nearest police office, which can pass the case to the Cyber Bureau. Offences under the Electronic Transactions Act are prosecuted by the government (section 75), and compensation can be ordered by the tribunal (section 58क). For Privacy Act complaints, the District Court is the forum (Privacy Act sections 30 and 31)."
+  ne: "नेपाल प्रहरीको साइबर ब्यूरो वा नजिकको प्रहरी कार्यालय, जसले मुद्दा साइबर ब्यूरोमा पठाउन सक्छ। विद्युतीय कारोबार ऐन अन्तर्गतका कसूरमा सरकार वादी हुन्छ (दफा ७५) र क्षतिपूर्ति न्यायाधिकरणले भराउन सक्छ (दफा ५८क)। वैयक्तिक गोपनीयता ऐन अन्तर्गतको उजुरी जिल्ला अदालतमा दिइन्छ (वैयक्तिक गोपनीयता ऐन दफा ३० र ३१)।"
 limitation:
   note:
-    en: "Report as soon as possible — evidence on social media can disappear, and criminal complaints have their own time limits that vary by offence."
-    ne: "जति सक्दो चाँडो उजुरी दिनुहोस् — सामाजिक सञ्जालमा प्रमाण हराउन सक्छ, र फौजदारी उजुरीको आफ्नै हदम्याद कसूरअनुसार फरक हुन्छ।"
+    en: "Complaint deadlines are short and differ by offence: 90 days from learning of it for offences under the Electronic Transactions Act (section 74); 3 months from the date of the act for the Criminal Code privacy offences (section 304); and 3 months from learning of it for defamation (section 308). Treat 3 months as the outer limit, report at once, and save evidence immediately."
+    ne: "उजुरीको म्याद छोटो छ र कसूर अनुसार फरक हुन्छ: विद्युतीय कारोबार ऐन अन्तर्गतका कसूरमा थाहा पाएको मितिले ९० दिन (दफा ७४); अपराध संहिताका गोपनीयता सम्बन्धी कसूरमा कसूर भएको मितिले ३ महिना (दफा ३०४); र बेइज्जतीमा थाहा पाएको मितिले ३ महिना (दफा ३०८)। ३ महिनालाई अन्तिम सीमा मान्नुहोस्, तुरुन्तै उजुरी दिनुहोस् र प्रमाण तुरुन्त सुरक्षित गर्नुहोस्।"
   provision:
-    law_title_ne: "मुलुकी अपराध संहिता, २०७४"
-    section: "187"
+    law_title_ne: "विद्युतीय (इलेक्ट्रोनिक) कारोबार ऐन, २०६३"
+    section: "74"
 next_steps:
-  - en: "Take screenshots of everything immediately, including timestamps and usernames."
-    ne: "तुरुन्तै समय र प्रयोगकर्ता नाम सहित सबैको स्क्रिनसट लिनुहोस्।"
-  - en: "Report the content to the platform itself (Facebook/TikTok/etc. reporting tools) to get it taken down."
-    ne: "सामग्री हटाउनका लागि प्लेटफर्मलाई नै (फेसबुक/टिकटक आदिको रिपोर्ट प्रणाली) जानकारी गराउनुहोस्।"
-  - en: "File a complaint with the Cyber Bureau or your local police station with your evidence."
-    ne: "प्रमाणसहित साइबर ब्यूरो वा स्थानीय प्रहरी कार्यालयमा उजुरी दिनुहोस्।"
+  - en: "Take screenshots of everything immediately, including timestamps and usernames; do not delete the messages or the original files."
+    ne: "सबै कुराको समय र प्रयोगकर्ता नाम देखिने गरी तुरुन्तै स्क्रिनसट लिनुहोस्; सन्देश वा मूल फाइल नमेट्नुहोस्।"
+  - en: "Report the content to the platform itself (Facebook/TikTok/etc.) to get it taken down."
+    ne: "सामग्री हटाउन प्लेटफर्म (फेसबुक/टिकटक आदि) मै रिपोर्ट गर्नुहोस्।"
+  - en: "File a complaint with the Cyber Bureau or your local police station with your evidence within 90 days (3 months at most) of learning of it."
+    ne: "थाहा पाएको ९० दिनभित्र (बढीमा ३ महिना) प्रमाणसहित साइबर ब्यूरो वा स्थानीय प्रहरीमा उजुरी दिनुहोस्।"
 template_link: null

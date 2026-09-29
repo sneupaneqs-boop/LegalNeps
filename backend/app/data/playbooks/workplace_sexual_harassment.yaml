@@ -21,18 +21,38 @@ provisions:
   - law_title_ne: "कार्यस्थलमा हुने यौनजन्य दुर्व्यवहार ( निवारण) ऐन, २०७१"
     section: "5"
     note:
-      en: "Every workplace manager has a duty to prevent sexual harassment and to take action when it's reported."
-      ne: "हरेक कार्यस्थलका व्यवस्थापकको यौनजन्य दुर्व्यवहार रोक्ने र उजुरी परेमा कारबाही गर्ने दायित्व हुन्छ।"
+      en: "The manager must prevent sexual harassment: make the needed service-rules provisions, alert staff and service users, take corrective measures to stop it recurring, give counselling to the victim where needed, keep a complaint box, and clearly tell the victim the complaint period, procedure and who hears complaints."
+      ne: "व्यवस्थापकले यौनजन्य दुर्व्यवहार हुन नदिन सेवा शर्तसम्बन्धी व्यवस्था गर्ने, कर्मचारी र सेवाग्राहीलाई सजग गराउने, दोहोरिन नदिन सुधारात्मक उपाय अपनाउने, पीडितलाई आवश्यक मनोविमर्श दिने, गुनासो पेटिका राख्ने, र उजूरीको अवधि, कार्यविधि र सुन्ने अधिकारीबारे पीडितलाई स्पष्ट जानकारी दिनुपर्छ।"
   - law_title_ne: "कार्यस्थलमा हुने यौनजन्य दुर्व्यवहार ( निवारण) ऐन, २०७१"
     section: "7"
     note:
-      en: "A victim can file a complaint with the workplace itself, or with the police or another designated authority."
-      ne: "पीडितले कार्यस्थल, प्रहरी, वा अन्य तोकिएको निकायमा उजूरी दिन सक्छ।"
+      en: "You can also complain, with evidence, to the complaint-hearing authority within 90 days of the harassment. If the manager does not settle your complaint in time, or you are unhappy with the manager's decision, you have 70 days from the end of that period or the decision to complain to the authority. You can also complain if the manager does not do the duties under the Act."
+      ne: "यौनजन्य दुर्व्यवहार भए गरेको मितिले ९० दिनभित्र प्रमाणसहित उजूरी सुन्ने अधिकारी समक्ष उजूरी दिन सकिन्छ। व्यवस्थापकले गुनासो निर्धारित अवधिभित्र टुङ्गो नलगाएमा वा निर्णयमा चित्त नबुझेमा सो अवधि समाप्त भएको वा निर्णय भएको मितिले ७० दिनभित्र उजूरी सुन्ने अधिकारी समक्ष उजूरी दिन सकिन्छ। व्यवस्थापकले ऐन बमोजिमको दायित्व पालना नगरेमा पनि उजूरी दिन सकिन्छ।"
   - law_title_ne: "कार्यस्थलमा हुने यौनजन्य दुर्व्यवहार ( निवारण) ऐन, २०७१"
-    section: "15"
+    section: "4"
     note:
-      en: "The complaint must be investigated and heard through a defined procedure."
-      ne: "उजूरी तोकिएको कार्यविधि अनुसार जाँचबुझ र सुनुवाई हुनुपर्छ।"
+      en: "Sexual harassment means, by abusing position, power or authority, or using pressure, influence or inducement, doing any of these to an employee or service user at the workplace: touching or trying to touch a body part with sexual intent; showing or using obscene or sexual words, pictures, media or material; showing sexual intent in writing, speech or gestures; proposing sexual activity; or teasing or harassing with sexual intent."
+      ne: "आफ्नो पद, शक्ति वा अधिकारको दुरुपयोग गरी वा दबाव, प्रभाव वा प्रलोभनमा पारी कुनै कर्मचारी वा सेवाग्राहीलाई कार्यस्थलमा यी कार्य गर्नु यौनजन्य दुर्व्यवहार हो: यौनजन्य आशयले शरीरको अङ्ग छुने वा छुने प्रयास गर्ने; अश्लील वा यौनजन्य शब्द, चित्र, श्रव्यदृश्य वा सामग्री प्रयोग वा प्रदर्शन गर्ने; लेखेर, बोलेर वा इशाराले अश्लील/यौनजन्य आशय प्रकट गर्ने; यौनजन्य क्रियाकलापको प्रस्ताव गर्ने; यौनजन्य आशयले जिस्काउने वा हैरानी दिने।"
+  - law_title_ne: "कार्यस्थलमा हुने यौनजन्य दुर्व्यवहार ( निवारण) ऐन, २०७१"
+    section: "6"
+    note:
+      en: "You can make a written or oral complaint to the manager within 15 days of the harassment (or someone can do so on your behalf). The manager must investigate at once and decide within 15 days; if harassment is found the manager can arrange reconciliation (if both agree), an apology, a warning, reasonable compensation and departmental action."
+      ne: "पीडित कर्मचारी वा सेवाग्राही (वा निजको तर्फबाट जोसुकै) ले यौनजन्य दुर्व्यवहार भएको १५ दिनभित्र व्यवस्थापक समक्ष लिखित वा मौखिक गुनासो गर्न सक्छ। व्यवस्थापकले तुरुन्त छानबिन गरी १५ दिनभित्र टुङ्गो लगाउनुपर्छ; दुर्व्यवहार देखिए मेलमिलाप (दुवै मञ्जुर भए), माफी, सचेत गराउने, मनासिब क्षतिपूर्ति र विभागीय कारबाही गर्न सक्छ।"
+  - law_title_ne: "कार्यस्थलमा हुने यौनजन्य दुर्व्यवहार ( निवारण) ऐन, २०७१"
+    section: "14"
+    note:
+      en: "The complaint-hearing authority that hears the complaint at first instance and decides it is the Chief District Officer of the district (for a complaint against the Chief District Officer, the Chief Secretary of the province). It follows the summary procedure, and holds the hearing in closed court if the victim asks in writing (section 15)."
+      ne: "यस ऐन बमोजिमको उजूरीको शुरु कारबाही र किनारा गर्ने अधिकार सम्बन्धित जिल्लाको प्रमुख जिल्ला अधिकारीलाई हुन्छ (प्रमुख जिल्ला अधिकारीविरुद्धको उजूरीमा प्रदेशको प्रमुख सचिवलाई)। संक्षिप्त कार्यविधि अपनाइन्छ, र पीडितले लिखित अनुरोध गरेमा सुनुवाई बन्द इजलासमा हुन्छ (दफा १५)।"
+  - law_title_ne: "कार्यस्थलमा हुने यौनजन्य दुर्व्यवहार ( निवारण) ऐन, २०७१"
+    section: "12"
+    note:
+      en: "A person found guilty of sexual harassment is punished with up to 6 months' imprisonment, a fine of up to Rs 50,000, or both (double for repeat). A manager who does not perform the duties under the Act is fined up to Rs 25,000. A knowingly false complaint is fined up to Rs 10,000."
+      ne: "यौनजन्य दुर्व्यवहार गरेको ठहरिएमा कसूरको प्रकृति हेरी ६ महिनासम्म कैद वा ५०,००० रुपैयाँसम्म जरिबाना वा दुवै सजाय हुन्छ (पटक पटक गरे दोब्बर)। व्यवस्थापकले ऐन बमोजिमको दायित्व पालना नगरेमा २५,००० रुपैयाँसम्म जरिबाना हुन्छ। जानीजानी झुट्टा उजूरी दिएमा १०,००० रुपैयाँसम्म जरिबाना हुन्छ।"
+  - law_title_ne: "कार्यस्थलमा हुने यौनजन्य दुर्व्यवहार ( निवारण) ऐन, २०७१"
+    section: "16"
+    note:
+      en: "A person unhappy with the authority's decision can appeal to the District Court within 35 days of the decision."
+      ne: "उजूरी सुन्ने अधिकारीको निर्णयमा चित्त नबुझ्ने व्यक्तिले निर्णय भएको मितिले पैंतीस दिनभित्र सम्बन्धित जिल्ला अदालतमा पुनरावेदन गर्न सक्छ।"
 evidence:
   - en: "Messages, emails, or notes documenting incidents with dates and times"
     ne: "मिति र समयसहित घटना उल्लेख भएको म्यासेज, इमेल, वा नोट"
@@ -41,18 +61,20 @@ evidence:
   - en: "Any prior complaint you made to the employer and their response"
     ne: "रोजगारदातालाई पहिले गरेको उजुरी र निजको जवाफ, यदि छ भने"
 forum:
-  en: "Your workplace's internal complaint mechanism (if one exists), the police, or the Labour Office."
-  ne: "कार्यस्थलको आन्तरिक उजुरी संयन्त्र (भए), प्रहरी, वा श्रम कार्यालय।"
+  en: "Your workplace manager first (a complaint within 15 days, section 6), or directly the Chief District Officer of your district, who is the complaint-hearing authority under this Act (within 90 days, sections 7 and 14). Appeals go to the District Court (section 16). The Labour Act (section 132) also bars sexual harassment at work and lets the employer dismiss the harasser; if the harasser is the employer or chief executive, the union, the victim or a family member can complain as the law provides."
+  ne: "पहिले आफ्नो कार्यस्थलको व्यवस्थापक (१५ दिनभित्र गुनासो, दफा ६), वा सिधै जिल्लाको प्रमुख जिल्ला अधिकारी, जो यस ऐन अन्तर्गत उजूरी सुन्ने अधिकारी हुन् (९० दिनभित्र, दफा ७ र १४)। पुनरावेदन जिल्ला अदालतमा (दफा १६)। श्रम ऐन (दफा १३२) ले पनि कार्यस्थलमा यौनजन्य दुर्व्यवहार निषेध गर्छ र रोजगारदाताले दुर्व्यवहार गर्ने श्रमिकलाई सेवाबाट हटाउन सक्छ; रोजगारदाता वा कार्यकारी प्रमुखले गरेमा युनियन, पीडित वा परिवारको सदस्यले कानून बमोजिम उजुरी गर्न सक्छ।"
 limitation:
   note:
-    en: "Report as soon as you can — evidence and witness memory fade with time, and different forums may have their own deadlines."
-    ne: "सकेसम्म चाँडो उजुरी दिनुहोस् — समयसँगै प्रमाण र साक्षीको सम्झना कमजोर हुन्छ, र फरक निकायको आफ्नै म्याद हुन सक्छ।"
-  provision: null
+    en: "Short deadlines: a complaint to the manager within 15 days of the harassment (section 6); a complaint to the complaint-hearing authority (the Chief District Officer) within 90 days of the harassment, or within 70 days after the manager fails to settle it or decides (section 7); appeal to the District Court within 35 days (section 16). These rules do not stop a separate criminal case under other law (section 19)."
+    ne: "छोटो म्याद: यौनजन्य दुर्व्यवहार भएको १५ दिनभित्र व्यवस्थापकसमक्ष गुनासो (दफा ६); दुर्व्यवहार भएको ९० दिनभित्र, वा व्यवस्थापकले टुङ्गो नलगाएको वा निर्णय गरेको ७० दिनभित्र, उजूरी सुन्ने अधिकारी (प्रमुख जिल्ला अधिकारी) समक्ष उजूरी (दफा ७); जिल्ला अदालतमा ३५ दिनभित्र पुनरावेदन (दफा १६)। यी व्यवस्थाले प्रचलित अन्य कानून बमोजिम छुट्टै फौजदारी मुद्दा चलाउन बाधा पुर्याउँदैनन् (दफा १९)।"
+  provision:
+    law_title_ne: "कार्यस्थलमा हुने यौनजन्य दुर्व्यवहार ( निवारण) ऐन, २०७१"
+    section: "7"
 next_steps:
-  - en: "Write down what happened as soon as possible, with dates, times, and any witnesses."
-    ne: "के भयो भन्ने कुरा मिति, समय, र साक्षीसहित सकेसम्म चाँडो लेखेर राख्नुहोस्।"
-  - en: "Report to your workplace's designated complaint officer or management, in writing if possible."
-    ne: "सकेसम्म लिखित रूपमा कार्यस्थलको तोकिएको उजुरी अधिकारी वा व्यवस्थापनलाई जानकारी दिनुहोस्।"
-  - en: "If the workplace doesn't act, or you don't feel safe reporting there, go to the police."
-    ne: "कार्यस्थलले कारबाही नगरे, वा त्यहाँ उजुरी दिन सुरक्षित महसुस नभए, प्रहरीमा जानुहोस्।"
+  - en: "Write down what happened as soon as possible, with dates, times, and any witnesses, and keep messages or other evidence."
+    ne: "के भयो सकेसम्म चाँडो मिति, समय र साक्षीसहित लेख्नुहोस्, र सन्देश वा अन्य प्रमाण सुरक्षित राख्नुहोस्।"
+  - en: "Complain to your workplace manager in writing within 15 days (the manager must decide within 15 days), unless the manager is the person harassing you."
+    ne: "व्यवस्थापक आफैँ आरोपित नभए १५ दिनभित्र कार्यस्थलको व्यवस्थापकलाई लिखित गुनासो दिनुहोस् (व्यवस्थापकले १५ दिनभित्र टुङ्गो लगाउनुपर्छ)।"
+  - en: "Or complain, with evidence, to the Chief District Officer within 90 days of the harassment (70 days after a manager fails to settle or decides); you can also seek protection if you feel unsafe."
+    ne: "वा दुर्व्यवहार भएको ९० दिनभित्र (व्यवस्थापकले टुङ्गो नलगाएको/निर्णय गरेको ७० दिनभित्र) प्रमाणसहित प्रमुख जिल्ला अधिकारीलाई उजूरी दिनुहोस्; असुरक्षित लागे सुरक्षा पनि माग्न सक्नुहुन्छ।"
 template_link: null

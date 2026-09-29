@@ -20,20 +20,40 @@ fact_questions:
     ne: "तपाईंलाई तत्काल आश्रय, स्वास्थ्य उपचार, वा संरक्षण आदेश चाहिन्छ?"
 provisions:
   - law_title_ne: "घरेलु हिंसा (कसूर र सजाय) ऐन, २०६६"
-    section: "3"
-    note:
-      en: "No one may commit, cause, or incite domestic violence; doing so is an offence under this Act."
-      ne: "कसैले पनि घरेलु हिंसा गर्न, गराउन वा दुरुत्साहन गर्न पाउँदैन; त्यसो गरेमा यस ऐन अन्तर्गतको कसूर हुन्छ।"
-  - law_title_ne: "घरेलु हिंसा (कसूर र सजाय) ऐन, २०६६"
     section: "6"
     note:
-      en: "The court can issue an immediate interim protection order for the victim while the complaint is still being investigated."
-      ne: "उजुरीको प्रारम्भिक छानबिनकै क्रममा पीडितलाई तत्काल संरक्षण दिन अदालतले अन्तरिम संरक्षणात्मक आदेश जारी गर्न सक्छ।"
+      en: "On a preliminary look at the complaint, the court can issue an interim protective order until the final decision: let the victim keep living in the house, and be fed and clothed, without being beaten; pay for treatment; make the offender live separately while providing the victim's upkeep; stop insults, threats and harassment at the victim's separate residence, on the road, at work or by any means of communication; and other necessary protection. The court can extend protection to the victim's minor children and dependants."
+      ne: "उजुरीको प्रारम्भिक छानबिनबाट तत्काल संरक्षण दिन आवश्यक देखिएमा अदालतले अन्तिम निर्णय नभएसम्म पीडकलाई यी आदेश दिन सक्छ: पीडितलाई बसेको घरमा बस्न, खान लाउन दिन र कुटपिट नगर्न; उपचार गराउन वा उपचार खर्च दिन; अलग बस्न लगाई पीडितको भरणपोषणको व्यवस्था गर्न; गाली बेइज्जती, धम्की वा पीडित बसेको ठाउँ, बाटो, कार्यालय वा सञ्चार माध्यमबाट सताउने काम नगर्न; र अन्य आवश्यक संरक्षण। पीडितका नाबालक सन्तान र आश्रितलाई पनि यस्तो संरक्षण दिन सकिन्छ।"
   - law_title_ne: "घरेलु हिंसा (कसूर र सजाय) ऐन, २०६६"
     section: "12क"
     note:
-      en: "A Protection Officer is designated to help receive complaints, coordinate protection, and support the victim."
-      ne: "उजुरी लिन, संरक्षणमा समन्वय गर्न र पीडितलाई सहयोग गर्न संरक्षण अधिकृतको व्यवस्था छ।"
+      en: "A local level can appoint a Protection Officer to help control domestic violence and protect victims; whether one is in place depends on your local level."
+      ne: "स्थानीय तहले घरेलु हिंसा नियन्त्रण र पीडितको संरक्षणका लागि संरक्षण अधिकृत तोक्न सक्छ; तपाईंको स्थानीय तहमा छ कि छैन त्यो स्थानीय तहमा भर पर्छ।"
+  - law_title_ne: "घरेलु हिंसा (कसूर र सजाय) ऐन, २०६६"
+    section: "14"
+    note:
+      en: "A complaint for an offence under this Act must be filed within 90 days of the date of the act."
+      ne: "यस ऐन बमोजिमको कसूरमा भए गरेको मितिले नब्बे दिनभित्र उजुरी दिनुपर्छ।"
+  - law_title_ne: "घरेलु हिंसा (कसूर र सजाय) ऐन, २०६६"
+    section: "2 (1)"
+    note:
+      en: "Domestic violence means physical, mental, sexual or economic torture by a person against someone in a 'domestic relationship': family by descent, marriage or adoption, members of a joint family, dependants or household workers living in the same family, couples living together, and spouses living apart (with or without a share of property)."
+      ne: "घरेलु हिंसा भन्नाले घरेलु सम्बन्ध भएको व्यक्तिलाई दिइएको शारीरिक, मानसिक, यौनजन्य वा आर्थिक यातना हो। घरेलु सम्बन्धमा वंशज, विवाह वा धर्मपुत्र/धर्मपुत्री सम्बन्ध, संयुक्त परिवारका सदस्य, एकै परिवारमा बस्ने आश्रित वा कामदार, सँगै बसेका जोडी र अंश लिई वा नलिई भिन्न बसेका पति पत्नी समेत पर्छन्।"
+  - law_title_ne: "घरेलु हिंसा (कसूर र सजाय) ऐन, २०६६"
+    section: "4 (1)"
+    note:
+      en: "Anyone who knows domestic violence has happened, is happening or is about to happen can complain, in writing or orally, to a police office, the National Women's Commission or the local level. If the complaint goes to the police or local level, they must summon the offender within 24 hours (excluding travel time) and take their statement. If domestic violence appears to have occurred and the victim wants it, they must attempt conciliation within 30 days, otherwise they must send the complaint and file to the court within 15 days more."
+      ne: "घरेलु हिंसा भएको, भइरहेको वा हुन लागेको थाहा पाउने जुनसुकै व्यक्तिले प्रहरी कार्यालय, राष्ट्रिय महिला आयोग वा स्थानीय तहसमक्ष लिखित वा मौखिक उजुरी दिन सक्छ। प्रहरी वा स्थानीय तहमा उजुरी परे बाटोको म्याद बाहेक २४ घण्टाभित्र पीडकलाई झिकाई बयान गराउनुपर्छ। घरेलु हिंसा भएको देखिएमा र पीडितले चाहेमा ३० दिनभित्र मेलमिलाप गराउने प्रयास गर्नुपर्छ, नभए थप १५ दिनभित्र उजुरी र मिसिल अदालतमा पठाउनुपर्छ।"
+  - law_title_ne: "घरेलु हिंसा (कसूर र सजाय) ऐन, २०६६"
+    section: "5"
+    note:
+      en: "The court acts on complaints sent to it by the police or local level; the victim can also file the complaint directly in court, without going through the police first."
+      ne: "प्रहरी वा स्थानीय तहबाट अदालतमा पठाइएको उजुरीमा अदालतले कारबाही गर्छ; पीडितले चाहेमा प्रहरी मार्फत नगई सोझै अदालतमा उजुरी दिन सक्छ।"
+  - law_title_ne: "घरेलु हिंसा (कसूर र सजाय) ऐन, २०६६"
+    section: "13"
+    note:
+      en: "Domestic violence other than serious bodily injury or sexual torture is punishable with a fine of Rs 3,000 to Rs 25,000, or up to 6 months' jail, or both (double for repeat offences; 10 percent extra for a public official offending against a wife, senior citizen, disabled person, minor or pregnant woman). Disobeying a court's interim protective order is punishable with a fine of Rs 2,000-15,000 or up to 4 months' jail, or both. Serious injury (disfigurement, chemical burns) or sexual torture is punished under other law."
+      ne: "अङ्गभङ्ग, रासायनिक पदार्थले पोल्ने/कुरूप पार्ने जस्ता गम्भीर शारीरिक यातना वा यौनजन्य यातना बाहेकको घरेलु हिंसामा ३,००० देखि २५,००० रुपैयाँसम्म जरिबाना वा ६ महिनासम्म कैद वा दुवै सजाय हुन्छ (पटक पटक गरे दोब्बर; सार्वजनिक जवाफदेहीको पदमा बहाल व्यक्तिले पत्नी, ज्येष्ठ नागरिक, अपाङ्गता भएको व्यक्ति, नाबालक वा गर्भवतीविरुद्ध गरे थप १० प्रतिशत)। अदालतको अन्तरिम संरक्षणात्मक आदेश उल्लङ्घन गरे २,००० देखि १५,००० रुपैयाँसम्म जरिबाना वा ४ महिनासम्म कैद वा दुवै हुन्छ। गम्भीर चोट वा यौनजन्य यातनामा प्रचलित अन्य कानून बमोजिम सजाय हुन्छ।"
 evidence:
   - en: "Medical report if you were injured"
     ne: "चोटपटक लागेको भए मेडिकल रिपोर्ट"
@@ -42,22 +62,22 @@ evidence:
   - en: "Messages, call records, or witness statements (neighbours, family)"
     ne: "म्यासेज, कल रेकर्ड, वा साक्षीको बयान (छिमेकी, परिवार)"
 forum:
-  en: "The nearest Police Office, Women and Children Service Directorate, or directly the District Court, all of which can involve the Protection Officer."
-  ne: "नजिकैको प्रहरी कार्यालय, महिला तथा बालबालिका सेवा निर्देशनालय, वा सिधै जिल्ला अदालत — सबैले संरक्षण अधिकृतलाई संलग्न गराउन सक्छन्।"
+  en: "A police office, the National Women's Commission or your local level (municipality/rural municipality) - any of them can receive the complaint (section 4) - or you can file directly in the District Court (section 5). The court can order interim protection (section 6). A police complaint can also be made directly for serious bodily or sexual violence (section 5क)."
+  ne: "प्रहरी कार्यालय, राष्ट्रिय महिला आयोग वा स्थानीय तह (नगरपालिका/गाउँपालिका) - जुनसुकैमा उजुरी दिन सकिन्छ (दफा ४) - वा सोझै जिल्ला अदालतमा उजुरी दिन सकिन्छ (दफा ५)। अदालतले अन्तरिम संरक्षणको आदेश दिन सक्छ (दफा ६)। गम्भीर शारीरिक वा यौनजन्य हिंसामा प्रहरीमा सोझै जाहेरी पनि दिन सकिन्छ (दफा ५क)।"
 limitation:
   note:
-    en: "File your complaint within 90 days of the incident."
-    ne: "घटना भएको मितिले ९० दिनभित्र उजुरी दिनुहोस्।"
+    en: "Complain within 90 days of the act (section 14). For serious bodily injury (loss of a limb, chemical burns, disfigurement) or sexual torture, anyone can instead file a police report and the government prosecutes under other law (sections 5क, 12ग, 13(1)); the 90-day limit is not stated for that route, but do not delay."
+    ne: "घटना भएको मितिले ९० दिनभित्र उजुरी दिनुहोस् (दफा १४)। अङ्गभङ्ग, रासायनिक पदार्थले पोल्ने वा कुरूप पार्ने जस्ता गम्भीर शारीरिक यातना वा यौनजन्य यातनामा जुनसुकै व्यक्तिले प्रहरीमा जाहेरी दिन सक्छ र सरकारवादी भई प्रचलित कानून बमोजिम मुद्दा चल्छ (दफा ५क, १२ग, १३(१)); त्यस बाटोमा ९० दिनको हद यहाँ उल्लेख छैन, तर ढिलो नगर्नुहोस्।"
   provision:
     law_title_ne: "घरेलु हिंसा (कसूर र सजाय) ऐन, २०६६"
     section: "14"
 next_steps:
-  - en: "If you are in immediate danger, go to a safe place and call the police first."
-    ne: "तत्काल जोखिममा हुनुहुन्छ भने पहिले सुरक्षित ठाउँमा जानुहोस् र प्रहरीलाई खबर गर्नुहोस्।"
-  - en: "File a written or verbal complaint with the police or a Protection Officer as soon as it's safe to do so."
-    ne: "सुरक्षित भएपछि प्रहरी वा संरक्षण अधिकृतसमक्ष लिखित वा मौखिक उजुरी दिनुहोस्।"
-  - en: "Ask about an interim protection order if you fear further harm while the case is pending."
-    ne: "मुद्दा विचाराधीन हुँदा थप हानिको डर भए अन्तरिम संरक्षणात्मक आदेशका बारे सोध्नुहोस्।"
+  - en: "If you are in immediate danger, go to a safe place and call the police first; a service centre can give shelter and treatment support."
+    ne: "तत्काल खतरामा भए सुरक्षित ठाउँमा गई पहिले प्रहरीलाई फोन गर्नुहोस्; सेवा केन्द्रले आश्रय र उपचारमा सहयोग गर्न सक्छ।"
+  - en: "File a written or verbal complaint with the police, the National Women's Commission or your local level within 90 days of the incident, or go directly to the District Court."
+    ne: "घटना भएको ९० दिनभित्र प्रहरी, राष्ट्रिय महिला आयोग वा स्थानीय तहमा लिखित वा मौखिक उजुरी दिनुहोस्, वा सोझै जिल्ला अदालतमा जानुहोस्।"
+  - en: "Ask the court for an interim protection order (section 6) if you fear further harm while the case is pending."
+    ne: "मुद्दा चलिरहेको बेला थप हानिको डर छ भने अदालतसँग अन्तरिम संरक्षणात्मक आदेश (दफा ६) माग्नुहोस्।"
   - en: "Keep your evidence (medical reports, photos, messages) safely backed up."
-    ne: "आफ्ना प्रमाण (मेडिकल रिपोर्ट, फोटो, म्यासेज) सुरक्षित राख्नुहोस्।"
+    ne: "आफ्ना प्रमाण (मेडिकल रिपोर्ट, फोटो, सन्देश) सुरक्षित रूपमा ब्याकअप राख्नुहोस्।"
 template_link: null

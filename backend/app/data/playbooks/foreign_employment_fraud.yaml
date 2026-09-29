@@ -20,18 +20,23 @@ provisions:
   - law_title_ne: "वैदेशिक रोजगार ऐन, २०६४"
     section: "36"
     note:
-      en: "A worker who suffers loss because of a licensed agency's violation can file a complaint for compensation."
-      ne: "इजाजतपत्रवालाको त्रुटिबाट हानि नोक्सानी भएको कामदारले क्षतिपूर्तिको लागि उजुरी गर्न सक्छ।"
+      en: "If the employer or agency does not provide the employment on the terms in the contract, the worker or their representative can complain to the Department of Foreign Employment with proof; if the complaint is found reasonable the Department can order the licensed agency to pay compensation for the whole cost of going for foreign employment."
+      ne: "रोजगारदाता संस्थाले सम्झौतामा तोकिएको शर्त अनुसार रोजगार उपलब्ध नगराएमा कामदार वा निजको प्रतिनिधिले प्रमाणसहित विभागमा क्षतिपूर्तिका लागि उजुरी गर्न सक्छ; व्यहोरा मनासिब देखिए विभागले इजाजतपत्रवालालाई वैदेशिक रोजगारमा जान लागेको सम्पूर्ण खर्चको क्षतिपूर्ति भराइदिने आदेश दिन सक्छ।"
   - law_title_ne: "वैदेशिक रोजगार ऐन, २०६४"
-    section: "51"
+    section: "44"
     note:
-      en: "It is a punishable offence for an agency to refuse to refund money or pay compensation it owes a worker."
-      ne: "कामदारलाई तिर्नुपर्ने रकम फिर्ता गर्न वा क्षतिपूर्ति दिन इन्कार गर्नु सजायसहितको कसूर हो।"
+      en: "A licensed agency that takes money on a false promise of a foreign job and does not send the worker abroad must return the money plus 50 percent of it, and is fined Rs 3 lakh to Rs 5 lakh, jailed for 3 to 7 years, and has its licence cancelled."
+      ne: "इजाजतपत्रवालाले वैदेशिक रोजगारमा लगाइदिने भनी झुट्टो आश्वासन दिई वा प्रलोभन देखाई रकम लिई विदेश नपठाएमा लिएको रकम र सोको ५० प्रतिशत थप रकम भराइन्छ, ३ लाखदेखि ५ लाख रुपैयाँसम्म जरिबाना र ३ देखि ७ वर्षसम्म कैद हुन्छ, र इजाजतपत्र रद्द हुन्छ।"
+  - law_title_ne: "वैदेशिक रोजगार ऐन, २०६४"
+    section: "43"
+    note:
+      en: "If a person WITHOUT a licence runs a foreign employment business, or takes money by false assurance or inducement to send someone abroad, the money taken plus 50 percent is recovered, the cost of going and returning is also paid to the victim, and the offender is fined Rs 3 lakh to Rs 5 lakh and jailed for 3 to 7 years (half the punishment if the person was not actually sent abroad)."
+      ne: "इजाजतपत्र नलिई वैदेशिक रोजगार व्यवसाय सञ्चालन गर्ने वा झुट्टो आश्वासन दिई वा प्रलोभन देखाई रकम लिएर विदेश पठाउने/नपठाउनेबाट लिएको रकम र सोको ५० प्रतिशत हर्जाना असुल गरी विदेश जान र आउन लागेको खर्च समेत भराइन्छ र ३ लाखदेखि ५ लाख रुपैयाँसम्म जरिबाना तथा ३ देखि ७ वर्षसम्म कैद हुन्छ (विदेश पठाइ नसकेको भए आधा सजाय)।"
   - law_title_ne: "वैदेशिक रोजगार ऐन, २०६४"
     section: "64"
     note:
-      en: "Foreign employment disputes are heard by the Foreign Employment Tribunal."
-      ne: "वैदेशिक रोजगारसम्बन्धी विवाद वैदेशिक रोजगार न्यायाधिकरणले सुन्छ।"
+      en: "Criminal cases under this Act (other than those the Department punishes itself) are heard by the Foreign Employment Tribunal; until the Tribunal is formed, the District Court does this work. Cases are brought by the government as plaintiff (section 63) after the Department's investigation (section 61)."
+      ne: "यस ऐनमा विभागले सजाय गर्ने भनिएकोबाहेक अन्य मुद्दाको कारबाही र किनारा वैदेशिक रोजगार न्यायाधिकरणले गर्छ; न्यायाधिकरण गठन नभएसम्म सम्बन्धित जिल्ला अदालतले गर्छ। मुद्दा विभागको अनुसन्धान (दफा ६१) पछि सरकारवादी भई चल्छ (दफा ६३)।"
 evidence:
   - en: "Payment receipts, contract, and any promotional material from the agency"
     ne: "भुक्तानी रसिद, सम्झौता, र एजेन्सीले दिएको प्रचार सामग्री"
@@ -40,20 +45,20 @@ evidence:
   - en: "Any communication with the agency"
     ne: "एजेन्सीसँग भएको सञ्चार"
 forum:
-  en: "The Department of Foreign Employment, or directly the Foreign Employment Tribunal for compensation claims."
-  ne: "वैदेशिक रोजगार विभाग, वा क्षतिपूर्तिको दाबीका लागि सिधै वैदेशिक रोजगार न्यायाधिकरण।"
+  en: "The Department of Foreign Employment (complaint for refund or compensation, section 36; by post or electronically, or through the Chief District Officer, section 21क). For the crime of taking money on a false promise, the Department investigates and the government prosecutes; the case is heard by the Foreign Employment Tribunal (District Court until it is formed) (sections 61, 63, 64). The Department's decisions can be appealed to the government, and the Tribunal's to the Supreme Court, within 35 days (section 66)."
+  ne: "वैदेशिक रोजगार विभाग (रकम फिर्ता वा क्षतिपूर्तिको उजुरी, दफा ३६; हुलाक वा विद्युतीय माध्यमबाट वा प्रमुख जिल्ला अधिकारी मार्फत, दफा २१क)। झुट्टो आश्वासन दिई रकम लिने कसूरमा विभागले अनुसन्धान गर्छ र सरकार वादी भई मुद्दा चल्छ; मुद्दा वैदेशिक रोजगार न्यायाधिकरणमा (गठन नभएसम्म जिल्ला अदालतमा) हेरिन्छ (दफा ६१, ६३, ६४)। विभागको निर्णय उपर सरकार समक्ष र न्यायाधिकरणको निर्णय उपर सर्वोच्च अदालतमा ३५ दिनभित्र पुनरावेदन गर्न सकिन्छ (दफा ६६)।"
 limitation:
   note:
-    en: "File your complaint within 1 year of the incident (or, if you were abroad, within 1 year of returning to Nepal)."
-    ne: "घटना भएको मितिले १ वर्षभित्र (वा विदेशमा हुनुभएको भए नेपाल फर्किएको मितिले १ वर्षभित्र) उजुरी दिनुहोस्।"
+    en: "Complaining about a manpower agency: for most offences, the complaint must be made within 1 year of the act, or within 1 year of returning home if you went abroad (section 60). But sections 43-47, which include taking money on a false promise of a foreign job, are outside that 1-year rule. Do not rely on being late: complain to the Department as soon as you can, and check any other deadline with an advocate."
+    ne: "म्यानपावर एजेन्सीविरुद्ध उजुरी: अधिकांश कसूरमा सो कार्य भएको मितिले १ वर्षभित्र, वा विदेश गएको भए स्वदेश फर्किएको मितिले १ वर्षभित्र उजुरी दिनुपर्छ (दफा ६०)। तर दफा ४३-४७ (झुट्टो आश्वासन दिई रकम लिने कसूर समेत) यो १ वर्षको हदबाट बाहिर छन्। ढिलाइमा भर नपर्नुहोस्: सकेसम्म चाँडो विभागमा उजुरी दिनुहोस् र अन्य म्यादबारे वकिलसँग सोध्नुहोस्।"
   provision:
     law_title_ne: "वैदेशिक रोजगार ऐन, २०६४"
     section: "60"
 next_steps:
-  - en: "Gather all receipts, contracts, and communication with the agency."
-    ne: "सबै रसिद, सम्झौता, र एजेन्सीसँगको सञ्चार जम्मा गर्नुहोस्।"
-  - en: "File a complaint with the Department of Foreign Employment."
-    ne: "वैदेशिक रोजगार विभागमा उजुरी दिनुहोस्।"
-  - en: "If unresolved, pursue your claim at the Foreign Employment Tribunal."
-    ne: "समाधान नभएमा वैदेशिक रोजगार न्यायाधिकरणमा दाबी अगाडि बढाउनुहोस्।"
+  - en: "Gather all receipts, contracts, and communication with the agency, and check whether the agency has a valid licence."
+    ne: "सबै रसिद, करार र एजेन्सीसँगको सञ्चार जम्मा गर्नुहोस् र एजेन्सीको इजाजतपत्र वैध छ कि छैन जाँच्नुहोस्।"
+  - en: "File a complaint with the Department of Foreign Employment (or the Chief District Officer) asking for a refund (money plus 50 percent, or 25 percent a year if not sent within 3 months) or compensation."
+    ne: "वैदेशिक रोजगार विभाग (वा प्रमुख जिल्ला अधिकारी) मा उजुरी दिई रकम फिर्ता (रकम र ५० प्रतिशत थप, वा ३ महिनाभित्र नपठाएमा वार्षिक २५ प्रतिशत) वा क्षतिपूर्ति माग्नुहोस्।"
+  - en: "If the agency took money on a false promise, ask the Department to investigate the offence so the government can prosecute it before the Foreign Employment Tribunal."
+    ne: "एजेन्सीले झुट्टो आश्वासन दिई रकम लिएको भए विभागलाई कसूरको अनुसन्धान गर्न भनी सरकारले वैदेशिक रोजगार न्यायाधिकरणमा मुद्दा चलाउने व्यवस्था गर्न अनुरोध गर्नुहोस्।"
 template_link: null

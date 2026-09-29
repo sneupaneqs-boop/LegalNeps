@@ -19,33 +19,47 @@ provisions:
   - law_title_ne: "नेपालको संविधान"
     section: "11"
     note:
-      en: "A person becomes a Nepali citizen by descent under the conditions set out in the Constitution and the Citizenship Act."
-      ne: "संविधान र नागरिकता ऐनमा तोकिएको सर्त अनुसार व्यक्ति वंशजको आधारमा नेपाली नागरिक हुन्छ।"
+      en: "Article 11 says who is a citizen by descent: a person born when the father or mother is a Nepali citizen (11(2)(ख)). It also covers children found in Nepal with unknown parents (11(4)), and a child of a Nepali mother born and living in Nepal whose father cannot be identified (11(5)). A person born to a Nepali mother and foreign father gets naturalised citizenship (11(7)) unless both parents were Nepali citizens."
+      ne: "धारा ११ ले वंशजको आधारमा नागरिक को हुन् भन्ने तोक्छ: जन्म हुँदा बाबु वा आमा नेपाली नागरिक रहेको व्यक्ति (११(२)(ख))। नेपालमा फेला परेको पितृत्व/मातृत्व नखुलेको नाबालक (११(४)) र नेपाली आमाबाट नेपालमा जन्मी नेपालमै बसेको तर बाबुको पहिचान नभएको व्यक्ति (११(५)) पनि समेटिन्छन्। नेपाली आमा र विदेशी बाबुबाट जन्मिएको व्यक्तिले अङ्गीकृत नागरिकता पाउँछ (११(७)), तर आमा बाबु दुवै नेपाली नागरिक रहेछन् भने होइन।"
   - law_title_ne: "नेपाल नागरिकता ऐन, २०६३"
     section: "3 (1)"
     note:
-      en: "A person whose mother or father was a Nepali citizen at the time of the person's birth acquires Nepali citizenship by descent."
-      ne: "व्यक्तिको जन्मको समयमा आमा वा बाबु नेपाली नागरिक भएमा, त्यस्तो व्यक्तिले वंशजको आधारमा नेपाली नागरिकता प्राप्त गर्छ।"
+      en: "A person is a Nepali citizen by descent if the mother or the father was a Nepali citizen at the time of the person's birth. The exception (sub-section 2): a child born to a Nepali woman married to a foreign man is dealt with under section 5(2), i.e. naturalised citizenship, not descent."
+      ne: "व्यक्तिको जन्म हुँदा आमा वा बाबु नेपालको नागरिक भएमा त्यस्तो व्यक्ति वंशजको नाताले नेपाली नागरिक हुन्छ। अपवाद (उपदफा २): विदेशी नागरिकसँग विवाह गरेकी नेपाली महिलाबाट जन्मिएका सन्तानको हकमा दफा ५(२) बमोजिम (अङ्गीकृत नागरिकता) हुन्छ।"
+  - law_title_ne: "नेपाल नागरिकता ऐन, २०६३"
+    section: "8 (1)"
+    note:
+      en: "To get a citizenship certificate by descent, a person who has completed 16 years of age applies to the prescribed officer with a copy of the citizenship certificate of the father or mother (or of a relative within three generations on the paternal/descent line) and a recommendation from the local municipality/rural municipality stating birthplace and relationship. When both parents' citizenship is needed (sub-section 1क), copies of both parents' certificates are required."
+      ne: "वंशजको नाताले नागरिकताको प्रमाणपत्र लिन चाहने सोह्र वर्ष उमेर पूरा भएको व्यक्तिले तोकिएको अधिकारी समक्ष बाबु वा आमा (वा वंशतर्फका तीन पुस्ताभित्रका नातेदार) को नेपाली नागरिकताको प्रमाणपत्रको प्रतिलिपि र जन्मस्थान तथा नाता खुल्ने गरी गाउँपालिका/नगरपालिकाको सिफारिस सहित निवेदन दिनुपर्छ। दुवै आमा बाबुको नागरिकता चाहिने अवस्थामा (उपदफा १क) दुवैको प्रमाणपत्रको प्रतिलिपि संलग्न गर्नुपर्छ।"
+  - law_title_ne: "नेपाल नागरिकता ऐन, २०६३"
+    section: "8 (2)"
+    note:
+      en: "If the required proof cannot be produced, the officer can summon a family member to identify the applicant; if that is not possible, the officer can inquire on the spot and issue the certificate on the identification of at least two citizens living in the same ward and a local official or member, plus the ward committee's recommendation. If the officer finds the applicant not eligible, the applicant must be told the decision within the prescribed period."
+      ne: "आवश्यक प्रमाण पेश हुन नसके तोकिएको अधिकारीले परिवारको सदस्यलाई झिकाई सनाखत गराउँछ; त्यो पनि नभए स्थलगत सरजमिन गरी सोही वडाका कम्तीमा दुई जना नागरिकताप्राप्त व्यक्ति र स्थानीय तहको एक जना पदाधिकारी/सदस्यको सनाखत र वडा समितिको सिफारिसको आधारमा प्रमाणपत्र दिन सक्छ। योग्य नदेखिए तोकिएको अवधिभित्र निर्णय गरी निवेदकलाई जानकारी दिनुपर्छ।"
+  - law_title_ne: "नेपाल नागरिकता ऐन, २०६३"
+    section: "5 (1)"
+    note:
+      en: "For children of a Nepali mother and a foreign father: if they live permanently in Nepal and have not taken foreign citizenship through the father, they can be given naturalised citizenship, applying with the mother's citizenship certificate, the local body's recommendation of permanent residence and a self-declaration that no foreign citizenship was taken."
+      ne: "विदेशी नागरिकसँग विवाह गरेकी नेपाली महिलाका सन्तान नेपालमा स्थायी बसोबास गरेका र बाबुको नागरिकताको आधारमा विदेशी नागरिकता नलिएका भए अङ्गीकृत नागरिकता दिन सकिन्छ; निवेदनसाथ आमाको नागरिकताको प्रमाणपत्र, स्थानीय तहको स्थायी बसोबासको सिफारिस र विदेशी नागरिकता नलिएको स्वघोषणा चाहिन्छ।"
 evidence:
-  - en: "Parents' citizenship certificates"
-    ne: "अभिभावकको नागरिकता प्रमाणपत्र"
-  - en: "Child's birth registration certificate"
-    ne: "सन्तानको जन्म दर्ता प्रमाणपत्र"
-  - en: "Marriage certificate of the parents, if applicable"
-    ne: "अभिभावकको विवाह दर्ता प्रमाणपत्र, लागू भए"
+  - en: "Father's or mother's Nepali citizenship certificate (or that of a relative within three generations on the descent line)"
+    ne: "बाबु वा आमाको (वा वंशतर्फका तीन पुस्ताभित्रका नातेदारको) नेपाली नागरिकताको प्रमाणपत्र"
+  - en: "Local municipality/rural municipality recommendation stating birthplace and relationship"
+    ne: "जन्मस्थान र नाता खुल्ने गाउँपालिका/नगरपालिकाको सिफारिस"
+  - en: "Birth registration certificate and, if applicable, the parents' marriage certificate"
+    ne: "जन्म दर्ता प्रमाणपत्र र लागू भए अभिभावकको विवाह दर्ता प्रमाणपत्र"
 forum:
-  en: "The District Administration Office (जिल्ला प्रशासन कार्यालय) in the applicant's district, which issues citizenship certificates."
-  ne: "आवेदकको जिल्लाको जिल्ला प्रशासन कार्यालय, जसले नागरिकता प्रमाणपत्र जारी गर्छ।"
+  en: "The prescribed officer under the Citizenship Act, in practice the District Administration Office (जिल्ला प्रशासन कार्यालय) of the applicant's district, with a recommendation from the local municipality or rural municipality. If refused, you can apply within 35 days to the Home Ministry Secretary (through the District Administration Office or directly)."
+  ne: "नागरिकता ऐन अन्तर्गतको तोकिएको अधिकारी, व्यवहारमा आवेदकको जिल्लाको जिल्ला प्रशासन कार्यालय, स्थानीय गाउँपालिका/नगरपालिकाको सिफारिससहित। अस्वीकृत भए ३५ दिनभित्र (जिल्ला प्रशासन कार्यालय मार्फत वा सोझै) गृह मन्त्रालयका सचिव समक्ष निवेदन दिन सकिन्छ।"
 limitation:
   note:
-    en: "There's no deadline to apply for citizenship, but obtaining it early makes access to education, banking, travel, and other services much easier."
-    ne: "नागरिकताको लागि निवेदन दिने निश्चित म्याद छैन, तर चाँडै प्राप्त गर्दा शिक्षा, बैंकिङ, यात्रा, र अन्य सेवामा पहुँच सजिलो हुन्छ।"
-  provision: null
+    en: "The Citizenship Act fixes no deadline for applying, but the applicant must have completed 16 years of age (section 8(1)), so a younger child cannot yet apply. If an officer's decision goes against you, you have 35 days from learning of the order to apply to the Home Ministry Secretary (Citizenship Act section 18), whose decision is final."
+    ne: "नागरिकता ऐनमा निवेदन दिने निश्चित म्याद तोकिएको छैन, तर निवेदकले सोह्र वर्ष उमेर पूरा गरेको हुनुपर्छ (दफा ८(१)), त्यसैले सानो बालकले अहिले नै निवेदन दिन सक्दैन। अधिकारीको निर्णय विपरीत भए आदेश थाहा पाएको ३५ दिनभित्र गृह मन्त्रालयका सचिव समक्ष निवेदन दिन सकिन्छ (नागरिकता ऐन दफा १८), जसको निर्णय अन्तिम हुन्छ।"
 next_steps:
-  - en: "Gather the parents' citizenship certificates and the applicant's birth registration."
-    ne: "अभिभावकको नागरिकता प्रमाणपत्र र आवेदकको जन्म दर्ता जम्मा गर्नुहोस्।"
-  - en: "Submit an application at the District Administration Office of the applicant's district."
-    ne: "आवेदकको जिल्लाको जिल्ला प्रशासन कार्यालयमा निवेदन दिनुहोस्।"
-  - en: "If the application is refused, ask for the reason in writing and consult an advocate about next steps."
-    ne: "निवेदन अस्वीकृत भए लिखित कारण माग्नुहोस् र अर्को कदमका लागि वकिलसँग सल्लाह लिनुहोस्।"
+  - en: "Check whether the applicant is 16 or older, and whether a Nepali father or mother (not only a Nepali mother with a foreign father) is the basis of the claim."
+    ne: "आवेदक १६ वर्ष वा माथिका हुन् र दाबी नेपाली बाबु वा आमामा आधारित छ (विदेशी बाबु र नेपाली आमा मात्र होइन) भन्ने जाँच गर्नुहोस्।"
+  - en: "Gather the parent's citizenship certificate and the local body's recommendation on birthplace and relationship."
+    ne: "अभिभावकको नागरिकता प्रमाणपत्र र जन्मस्थान तथा नाताबारे स्थानीय तहको सिफारिस जम्मा गर्नुहोस्।"
+  - en: "Submit the application at the District Administration Office of your district; if refused, ask for the decision in writing and appeal to the Home Ministry Secretary within 35 days, with an advocate's advice."
+    ne: "आफ्नो जिल्लाको जिल्ला प्रशासन कार्यालयमा निवेदन दिनुहोस्; अस्वीकृत भए निर्णय लिखित माग्नुहोस् र वकिलको सल्लाहमा ३५ दिनभित्र गृह मन्त्रालयका सचिव समक्ष निवेदन दिनुहोस्।"
 template_link: null
