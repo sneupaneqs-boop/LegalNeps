@@ -38,11 +38,24 @@ Vercel *preview*, never promoted. Fixed this session:
 
 ## Next session
 
-**S15 — QA + launch.** See STRATEGY.md §4, week 3 table: full eval + 40
-adversarial questions (bills, repealed law, out-of-scope, injection),
-Playwright smoke tests, landing + pricing page with manual payment flow,
-deploy checklist. Done when: the metrics in STRATEGY §6 are met or
-documented.
+**The plan changed: follow `docs/STRATEGY_V2.md` from here** (written
+2026-09-29 after a live audit + the founder's two research reports; paste
+the master prompt from `docs/SESSION_PROMPTS_V2.md`). STRATEGY v1's S15
+(QA + launch) is folded into V21–V22.
+
+**V1 — Answer-quality triage.** Fix `status: null` on every chat source;
+add a retrieval domain filter; turn the two live failures in STRATEGY_V2
+§1.2.1 (tenancy-deposit query surfacing income-tax acts and misapplying
+Civil Code notice rules; unpaid-salary query presenting a BS 2027 precedent
+under repealed law as current and inventing a "criminal complaint" remedy)
+plus 28 more real queries into eval cases; build a 50-question held-out
+set; record baselines. Done when: both queries return only on-domain,
+status-labelled sources, and baselines are written here.
+
+S14's deploy is fully live: Render `dep-datlfsgu01pc73fe6co0` live, and the
+Vercel build (Next 15 / React 19) was checked on preview (`/`, `/search`,
+`/action-plans`, `/saved` all 200) and then promoted to production
+(`dpl_6U6zLHNSAAirHQF1y2ajgBkUhvtp`, aliased to kanooni-sathi.vercel.app).
 
 **Two S14 items need a human decision, not more code** (see S14's entry
 above for the full reasoning): (a) **Supabase backups** - the org is on

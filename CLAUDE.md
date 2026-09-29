@@ -1,3 +1,9 @@
+## Plan
+
+The build plan is `docs/STRATEGY_V2.md` (sessions V1–V22); the kickoff prompt and per-session
+add-ons are in `docs/SESSION_PROMPTS_V2.md`; current state and the next session are in
+`docs/PROGRESS.md`. `docs/STRATEGY.md` (S1–S15) is history.
+
 ## graphify
 
 This project has a knowledge graph at graphify-out/ with god nodes, community structure, and cross-file relationships.
