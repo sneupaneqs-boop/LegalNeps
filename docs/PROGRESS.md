@@ -4,6 +4,38 @@ Tracks what's done, current metrics, and the next session to run. See
 `docs/STRATEGY.md` for the full plan and `docs/SESSION_PROMPTS.md` for the
 kickoff prompt.
 
+## Live deployment (2026-09-28/29 audit)
+
+Until this audit, the public site (`kanooni-sathi.vercel.app`) had never
+actually served any of S1-S10 - both the Vercel production alias and the
+Render backend were wired to a separate, earlier branch
+(`claude/ecstatic-hopper-3yaiot`, a smaller chat-only app), and every deploy
+from this branch (`claude/dreamy-hawking-4y5lgf`) had only ever landed as a
+Vercel *preview*, never promoted. Fixed this session:
+
+- **Backend**: new Render service `kanooni-sathi-api`
+  (https://kanooni-sathi-api.onrender.com), tracking this branch, auto-deploy
+  on push. The old `kanooni-sathi-backend` service (still on the broken
+  branch) is unused now but was left running rather than deleted.
+- **Frontend**: `NEXT_PUBLIC_API_URL` on Vercel points at the new backend;
+  a fresh production deploy was pushed live at `kanooni-sathi.vercel.app`.
+- **Supabase**: `NEXT_PUBLIC_SUPABASE_URL`/`NEXT_PUBLIC_SUPABASE_ANON_KEY`
+  added to Vercel (S5 had never set these, so sign-in silently did nothing
+  in production). `SUPABASE_SERVICE_ROLE_KEY` (new `sb_secret_...` format)
+  and `SUPABASE_URL` added to the Render backend, so saved research, drafts,
+  version history, and the daily quota now actually persist.
+- **LLM keys**: Gemini, Groq, OpenRouter, and Cohere API keys added to the
+  Render backend (`GEMINI_API_KEY(S)`, `GROQ_API_KEY(S)`,
+  `OPENROUTER_API_KEY(S)`, `COHERE_API_KEY`) - chat now answers with a real
+  generative summary (`llm_used: true`) instead of the extractive fallback.
+- Verified end-to-end against the live production URL: home, search, law
+  browser (doc + section pages), all 25 playbooks, LLM-backed chat with
+  correct citations, all 4 calculators, DOCX drafting generation, CORS from
+  the production origin. All green.
+- Not done (infra-only, not blocking): the GitHub repo's default branch is
+  still `claude/ecstatic-hopper-3yaiot` (cosmetic - doesn't affect what's
+  deployed); the old Render service could be deleted whenever wanted.
+
 ## Next session
 
 STRATEGY.md marks S10 as **"Stop here for a 2-week free beta"** - week 2 of
