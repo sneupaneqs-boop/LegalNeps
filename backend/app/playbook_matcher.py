@@ -48,6 +48,17 @@ def _query_tokens(query: str) -> set[str]:
     return toks
 
 
+# Function words carry no topic signal; counting them let "right to
+# information" half-match "fundamental rights under the constitution".
+_STOP = {"a", "an", "the", "to", "of", "in", "on", "for", "and", "or", "is", "are", "my", "me", "i",
+         "from", "with", "by", "not", "no", "be", "it", "at", "as", "your", "their", "has", "have",
+         "को", "का", "की", "मा", "ले", "लाई", "र", "छ", "छैन", "भएको", "गर्ने", "दिने", "पनि", "तथा"}
+
+
+_GENERIC = {"हक", "अधिकार", "right", "rights", "law", "laws", "कानून", "कानुन", "ऐन", "act", "legal",
+            "court", "अदालत", "case", "मुद्दा", "नेपाल", "nepal", "सरकारी", "government", "office", "कार्यालय"}
+
+
 def _keyword_hit_fraction(kw: str, kw_tokens: set[str], q_tokens: set[str], q_lower: str) -> float:
     """1.0 for an exact phrase hit, else the fraction of the keyword's own
     words that appear anywhere in the query - so a query that only echoes
@@ -55,9 +66,15 @@ def _keyword_hit_fraction(kw: str, kw_tokens: set[str], q_tokens: set[str], q_lo
     of an all-or-nothing miss."""
     if kw.lower() in q_lower:
         return 1.0
-    if not kw_tokens:
+    content = kw_tokens - _STOP
+    if not content:
         return 0.0
-    return len(kw_tokens & q_tokens) / len(kw_tokens)
+    shared = content & q_tokens
+    if len(shared) < len(content) and not (shared - _GENERIC):
+        # a partial match made only of generic legal words ("हक" = right,
+        # "law", "court") is not evidence of any specific situation
+        return 0.0
+    return len(shared) / len(content)
 
 
 def score_playbooks(query: str) -> list[Match]:

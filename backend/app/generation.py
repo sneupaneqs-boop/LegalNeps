@@ -153,7 +153,7 @@ def _answer_cache_key(message: str, lang: str) -> str:
 # Bump whenever answer construction changes (retrieval filters, pinned
 # playbook provisions, verifier), so answers cached by an older pipeline -
 # including the persistent Supabase answer_cache - are never served again.
-PIPELINE_VERSION = "p5"
+PIPELINE_VERSION = "p6"
 
 
 GREETING_RE = re.compile(
