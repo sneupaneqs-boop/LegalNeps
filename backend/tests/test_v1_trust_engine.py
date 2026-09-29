@@ -180,3 +180,9 @@ def test_nepali_verb_chha_is_not_read_as_six():
 def test_restated_user_fact_is_not_a_legal_claim():
     _, rep = verifier.verify("I understand four months without income is very hard for you.", [LABOUR])
     assert rep["claims"] == 0
+
+
+def test_supreme_court_claim_citing_only_a_statute_is_flagged():
+    ans = "सुप्रीम कोर्टले लिखित प्रमाणको महत्त्वलाई जोड दिएको छ [1]।"
+    _, rep = verifier.verify(ans, [LABOUR], "ne")
+    assert rep["unverified"][0]["reason"] == "court_claim_cites_statute"

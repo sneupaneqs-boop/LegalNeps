@@ -24,7 +24,7 @@ from .text_norm import DEV_DIGITS
 _CITE = re.compile(r"\[(\d{1,2})\]")
 _SENT = re.compile(r"(?<=[.।!?])\s+(?=\S)|\n+")
 _LAW_REF = re.compile(
-    r"(ऐन|संहिता|नियमावली|दफा|धारा|नियम\s*[०-९0-9]|ने\.?\s?का\.?\s?प|नजिर|सर्वोच्च अदालत|"
+    r"(ऐन|संहिता|नियमावली|दफा|धारा|नियम\s*[०-९0-9]|ने\.?\s?का\.?\s?प|नजिर|सर्वोच्च अदालत|सुप्रि?ी?म कोर्ट|"
     r"\bAct\b|\bCode\b|\bSection\b|\bRule\s*\d|\bArticle\b|\bRegulations?\b|precedent|Supreme Court)",
     re.I,
 )
@@ -105,6 +105,9 @@ def _sections(sentence: str) -> set[str]:
     return {m.group(1).translate(DEV_DIGITS) for m in _SECTION_REF.finditer(_CITE.sub(" ", sentence))}
 
 
+_COURT_CLAIM = re.compile(r"(Supreme Court|सर्वोच्च अदालत|सुप्रिम कोर्ट|सुप्रीम कोर्ट|नजिर|precedent|ने\.?\s?का\.?\s?प)", re.I)
+
+
 def check_sentence(sentence: str, sources: list[dict], numbers: list[set[str]]) -> str | None:
     """None if the claim is supported, else a short reason code."""
     cites = [int(c) for c in _CITE.findall(sentence)]
@@ -113,6 +116,8 @@ def check_sentence(sentence: str, sources: list[dict], numbers: list[set[str]]) 
     if any(c < 1 or c > len(sources) for c in cites):
         return "bad_citation"
     cited = [c - 1 for c in cites]
+    if _COURT_CLAIM.search(sentence) and not any(sources[i].get("category") == "precedent" for i in cited):
+        return "court_claim_cites_statute"
     pool: set[str] = set().union(*(numbers[i] for i in cited))
     for q in _quantities(sentence):
         if q not in pool:
