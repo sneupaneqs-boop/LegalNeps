@@ -43,19 +43,28 @@ Vercel *preview*, never promoted. Fixed this session:
 the master prompt from `docs/SESSION_PROMPTS_V2.md`). STRATEGY v1's S15
 (QA + launch) is folded into V21–V22.
 
-**V1 — Answer-quality triage.** Fix `status: null` on every chat source;
-add a retrieval domain filter; turn the two live failures in STRATEGY_V2
-§1.2.1 (tenancy-deposit query surfacing income-tax acts and misapplying
-Civil Code notice rules; unpaid-salary query presenting a BS 2027 precedent
-under repealed law as current and inventing a "criminal complaint" remedy)
-plus 28 more real queries into eval cases; build a 50-question held-out
-set; record baselines. Done when: both queries return only on-domain,
-status-labelled sources, and baselines are written here.
+**V2 — Hybrid retrieval**, then **V6 — Deep Research (Pro)** (STRATEGY_V2 §6).
+V1, V3, V4 (ordinance part), V5, V7–V11 (UI) and V12–V13 (Document AI) were
+done in one combined session on 2026-09-29 — see "V-batch 1" under Done.
+Before V2: confirm the founder has set the Render build command below
+(memory headroom for vectors depends on the prebuilt index).
 
-S14's deploy is fully live: Render `dep-datlfsgu01pc73fe6co0` live, and the
-Vercel build (Next 15 / React 19) was checked on preview (`/`, `/search`,
-`/action-plans`, `/saved` all 200) and then promoted to production
-(`dpl_6U6zLHNSAAirHQF1y2ajgBkUhvtp`, aliased to kanooni-sathi.vercel.app).
+**Founder action (30 seconds, blocks faster cold starts):** Render →
+kanooni-sathi-api → Settings → Build Command:
+`cd backend && pip install -r requirements.txt && python scripts/prebuild_index.py`
+(index loads in 0.7s / 168MB instead of rebuilding for ~45s / 312MB peak
+after every wake; the MCP tools here can't edit build settings).
+
+**Still outstanding from V-batch 1:** (a) the 50-question held-out eval set
+and the 30 new real-query eval cases were NOT built — every number below is
+on the original 150 questions, which were also used to tune; (b) nothing
+signed-in (contract audit, matters, drafts, compliance, account) has run
+against the real backend with a real login, and the contract audit's LLM
+extraction has never run against a real model — only a regex stand-in;
+(c) the playbook matcher still misses some natural phrasings (e.g.
+"manpower le thagyo", "harassing me on Facebook") — add keywords from real
+query logs; (d) `docs/PLAYBOOK_AUDIT.md` lists 64 NEEDS-ADVOCATE-REVIEW
+items for the founder's advocate.
 
 **Two S14 items need a human decision, not more code** (see S14's entry
 above for the full reasoning): (a) **Supabase backups** - the org is on
@@ -182,6 +191,74 @@ do yet. Left for whichever session next touches the chat UI/pipeline, since
 S7's own "done when" bar (25 playbooks, ≥90% precision) doesn't require it.
 
 ## Done
+
+### V-batch 1 — trust engine, full UI, Document AI (2026-09-29)
+
+One long session covering V1, V3, V4 (partial), V5, V7–V11 and V12–V13 of
+STRATEGY_V2, with Sonnet subagents in isolated worktrees for the UI, the
+contract audit, the playbook legal audit and regulator scraping.
+
+- **The two audited failures are fixed live.** Unpaid salary now cites
+  Labour Act s.162 (complaint to the Labour Office within 6 months, which
+  the statute spells as "छ महिनाभित्र"); the invented "criminal complaint"
+  is gone; BS 2027/2030 precedents are labelled "older law". Deposit now
+  cites Civil Code ss.386/389/402 + civil procedure s.90 and says honestly
+  that the Code has no dedicated deposit-return section.
+- **Playbook-first retrieval** (`generation.search`): a confident playbook
+  match pins its hand-verified provisions at the top of the evidence, feeds
+  its steps/forum/evidence to the prompt as uncitable guidance, and can
+  `exclude_provisions` known to mislead (deposit excludes s.400).
+- **Fiscal-domain filter**: tax/finance/insolvency acts are dropped from
+  non-tax questions. **Stale-precedent flag**: precedents decided before the
+  governing act are marked, sorted last and labelled in prompt + UI
+  (annual Finance/Appropriation Acts ignored when computing the governing year).
+- **Deterministic citation verifier** (`app/verifier.py`): legal claims
+  must cite a retrieved passage; every quantity must appear in the cited
+  passage (Devanagari digits and Nepali/English number words normalised);
+  named sections must match; quantified rules resting only on stale
+  precedents, and "Supreme Court held" lines citing only statutes, are
+  flagged. Flagged claims get an inline ⚠ and are counted in an Evidence
+  check block. Live salary answer: 4 of 7 claims supported, 3 honestly
+  flagged (unsourced procedural advice).
+- **Status on every source** (was always null). **Ordinances**: 23
+  अध्यादेश docs were `in_force`; now older-than-last-year ones are `lapsed`
+  (273 chunks, excluded like bills) and recent/undated ones `ordinance`
+  (136 chunks, labelled temporary). Two Law Commission studies mistyped as
+  constitution/act are now `other`. `INDEX_VERSION` 5.
+- Nepali answers get 3,000 max tokens (were truncated), trailing empty
+  headings dropped, statute "धारा" corrected to "दफा", answer cache
+  versioned (`PIPELINE_VERSION`) so bad cached answers are never re-served.
+- **Playbook legal audit** (subagent): all 24 other playbooks re-checked
+  against section text; serious errors fixed (loan limitation s.520→s.492,
+  foreign-employment fraud's wrong 1-year bar, tenant eviction's s.400,
+  cyber harassment citing a homicide limitation clause, land boundary built
+  on the municipal-boundary section). Report: `docs/PLAYBOOK_AUDIT.md`
+  (64 advocate-review items). Matcher no longer credits function words or
+  generic legal words ("हक", "law") in partial matches — "What are my
+  fundamental rights?" had been matching the RTI playbook.
+- **Retrieval eval (150 q, same set as always):** hit@8 0.760 → **0.849**,
+  hit@3 0.678 → 0.712, MRR 0.616 → **0.663**, median ~70ms.
+- **UI for everything** (subagent, merged): app shell + nav, Drafting
+  Studio, Matters, Tools (calculators + Preeti→Unicode converter, 48/48 on
+  a published test set), Compliance (profile, deadlines, .ics), Account,
+  and in chat: Action Plan card, fact-question chips, status/core/older-law
+  badges, Evidence check. Playwright smoke tests (`frontend/e2e`),
+  mocked signed-in tests (`frontend/e2e-mock`).
+- **Document AI** (subagent, merged): `POST /api/documents/audit` — PDF/DOCX
+  extraction, legacy-font/scan detection, clause segmentation, one LLM
+  extraction call → deterministic rules from YAML checklists for 5 contract
+  types (54 verified checks; 5 excluded because the corpus doesn't contain
+  the rule), cited findings, DOCX report, `/audit` page. Seeded-defect
+  recall 36/36 with a regex LLM stand-in — real-model accuracy unmeasured.
+- Fixed along the way: law links for sub-sections like "517 (1)" 404'd
+  (Next 15 params arrive percent-encoded); citations wrapped one character
+  per line on phones; matter task due dates couldn't be cleared.
+- **Verified live:** both audited queries on production; chat UI end to end
+  in Chromium against the live API (plan card, 4 chips, evidence block,
+  badges, no console errors); all 16 frontend routes 200 on production;
+  `/api/documents/checklists` live. **Not verified live:** anything behind
+  sign-in, and the contract audit with a real model.
+- Tests: 390 backend tests pass.
 
 ### S14 — Security + reliability (2026-09-29)
 
