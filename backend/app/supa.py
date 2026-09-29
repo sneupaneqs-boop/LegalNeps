@@ -12,8 +12,10 @@ key), not something the backend depends on.
 from __future__ import annotations
 
 import logging
+import re
 import threading
 import time
+import uuid
 
 import httpx
 
@@ -458,13 +460,34 @@ def matter_task_delete(user_id: str, matter_id: str, task_id: str) -> None:
 MATTER_FILES_BUCKET = "matter-files"
 
 
+_UNSAFE_NAME = re.compile(r"[^\w.\- ()\u0900-\u097F]+")
+
+
+def safe_filename(filename: str) -> str:
+    """A display-safe file name: no directory parts, no "..", no control or
+    path characters, bounded length."""
+    name = (filename or "").replace("\\", "/").split("/")[-1]
+    name = _UNSAFE_NAME.sub("_", name).strip(" .")
+    name = re.sub(r"\.{2,}", ".", name)
+    return (name or "file")[:120]
+
+
 def matter_file_create(user_id: str, matter_id: str, filename: str, content: bytes, content_type: str) -> dict | None:
     """Uploads the bytes to Storage, then records the metadata row. Storage
     upload happens first so a failed metadata insert never leaves an
-    orphaned DB row pointing at nothing."""
+    orphaned DB row pointing at nothing.
+
+    The storage key never contains the client's filename: this call uses the
+    service-role key (bypassing storage RLS), so a name like "../../<other
+    user>/x" must not be able to steer the write outside the caller's
+    folder. The sanitized name is kept only as display metadata."""
     if not available():
         return None
-    storage_path = f"{user_id}/{matter_id}/{filename}"
+    filename = safe_filename(filename)
+    ext = ("." + filename.rsplit(".", 1)[-1].lower()) if "." in filename else ""
+    if not re.fullmatch(r"\.[a-z0-9]{1,8}", ext):
+        ext = ""
+    storage_path = f"{user_id}/{matter_id}/{uuid.uuid4().hex}{ext}"
     upload = _http().post(
         f"/storage/v1/object/{MATTER_FILES_BUCKET}/{storage_path}",
         headers={"Content-Type": content_type or "application/octet-stream"},

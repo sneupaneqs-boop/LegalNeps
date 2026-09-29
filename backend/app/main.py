@@ -51,6 +51,21 @@ class _GZipExceptStreams:
         return await self.gzip(scope, receive, send)
 
 
+_PRIVATE_PATHS = ("/api/matters", "/api/research", "/api/drafting/drafts", "/api/company-profile",
+                  "/api/llm-usage", "/api/documents")
+
+
+@app.middleware("http")
+async def _security_headers(request: Request, call_next):
+    response = await call_next(request)
+    response.headers.setdefault("X-Content-Type-Options", "nosniff")
+    response.headers.setdefault("X-Frame-Options", "DENY")
+    response.headers.setdefault("Referrer-Policy", "no-referrer")
+    if request.url.path.startswith(_PRIVATE_PATHS):
+        response.headers.setdefault("Cache-Control", "no-store")  # user data: never cache in shared proxies
+    return response
+
+
 @app.middleware("http")
 async def _reject_oversized_bodies(request: Request, call_next):
     content_length = request.headers.get("content-length")

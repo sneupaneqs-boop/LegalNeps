@@ -126,3 +126,25 @@ def test_matter_file_upload_over_cap_is_rejected_without_buffering_whole_body(mo
             files={"file": ("big.bin", oversized, "application/octet-stream")},
         )
     assert r.status_code == 413
+
+
+def test_uploaded_filename_cannot_steer_the_storage_path(monkeypatch):
+    fake = _FakeHttp()
+    monkeypatch.setattr(supa, "available", lambda: True)
+    monkeypatch.setattr(supa, "_http", lambda: fake)
+    supa.matter_file_create("user-a", "matter-1", "../../user-b/matter-9/evil.pdf", b"%PDF", "application/pdf")
+    upload_path = fake.calls[0][1]
+    key = upload_path.split("/storage/v1/object/matter-files/", 1)[1]
+    parts = key.split("/")
+    assert parts[:2] == ["user-a", "matter-1"] and len(parts) == 3
+    assert ".." not in key and "evil" not in key and parts[2].endswith(".pdf")
+    row = fake.calls[1][2]
+    assert row["filename"] == "evil.pdf" and row["storage_path"] == key
+
+
+@pytest.mark.parametrize("name,expected", [
+    ("a/b/c.docx", "c.docx"), ("..\\..\\x.pdf", "x.pdf"), (".hidden", "hidden"),
+    ("सम्झौता पत्र.pdf", "सम्झौता पत्र.pdf"), ("a<script>.pdf", "a_script_.pdf"), ("", "file"),
+])
+def test_safe_filename(name, expected):
+    assert supa.safe_filename(name) == expected
