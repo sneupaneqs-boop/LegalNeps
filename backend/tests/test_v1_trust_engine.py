@@ -193,3 +193,20 @@ def test_playbook_excluded_provision_never_reaches_the_evidence():
     q = "घरबेटीले deposit फिर्ता दिएन, के गर्ने?"
     res = generation.search(q, dict(RAW), playbook=generation._match_playbook(q, dict(RAW)))
     assert not any(r.get("source_ne") == "मुलुकी देवानी संहिता, २०७४, दफा 400" for r in res)
+
+
+def test_old_ordinances_are_lapsed_and_recent_ones_temporary():
+    from app.retrieval import _current_bs_year, _temporal_status
+    y = _current_bs_year()
+    assert _temporal_status("रेल्वे अध्यादेश, २०७८", "act", "in_force") == ("act", "lapsed")
+    assert _temporal_status(f"कुनै अध्यादेश, {y}", "act", "in_force") == ("act", "ordinance")
+    assert _temporal_status("संविधान सभा सदस्य निर्वाचन अध्यादेश, २०७०", "constitution", "in_force") == ("act", "lapsed")
+    assert _temporal_status("मध्यस्थता ऐन, २०५५ को संशोधन सम्बन्धी अध्ययन", "act", "unknown") == ("other", "unknown")
+    assert _temporal_status("श्रम ऐन, २०७४", "act", "in_force") == ("act", "in_force")
+
+
+@requires_corpus
+def test_lapsed_ordinances_never_returned_by_default():
+    from app.retrieval import get_index
+    res = get_index().search(["रेल्वे अध्यादेश"], top_k=20, category="law")
+    assert not any(r.get("status") == "lapsed" for r in res)

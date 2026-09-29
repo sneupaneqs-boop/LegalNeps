@@ -17,6 +17,7 @@ from __future__ import annotations
 import gzip
 import hashlib
 import json
+import re
 import sqlite3
 import threading
 from array import array
@@ -37,7 +38,7 @@ LEGACY_CORPUS = DATA_DIR / "corpus.json"
 CACHE_DIR = DATA_DIR / "index_cache"
 
 # bump when tokenisation/weighting changes so stale on-disk caches are rebuilt
-INDEX_VERSION = 4
+INDEX_VERSION = 5
 K1, B = 1.4, 0.72
 AUTHORITY = {
     "constitution": 1.18, "act": 1.12, "rule": 1.04, "precedent": 1.05, "order": 0.97,
@@ -85,6 +86,38 @@ def _entry_status(e: dict, doc_status_cache: dict[str, str]) -> str:
         meta = extract_doc_meta(e.get("text_ne") or "")
         cached = doc_status_cache[title] = classify_status(title, meta)
     return cached
+
+
+_ORDINANCE = re.compile(r"अध्यादेश")
+_STUDY = re.compile(r"(अध्ययन|प्रतिवेदन|आवश्यकता)$|सम्बन्धी अध्ययन")
+_TITLE_YEAR = re.compile(r"([०-९0-9]{4})\s*$")
+_DEV_DIGITS = str.maketrans("०१२३४५६७८९", "0123456789")
+
+
+def _current_bs_year() -> int:
+    try:
+        import nepali_datetime
+        return nepali_datetime.date.today().year
+    except Exception:  # noqa: BLE001
+        import datetime
+        return datetime.date.today().year + 57  # BS runs ~56.7 years ahead of AD
+
+
+def _temporal_status(title: str, doc_type: str, status: str) -> tuple[str, str]:
+    """Corrects status/type the source metadata gets wrong for law that isn't
+    permanent. An अध्यादेश (ordinance) is temporary: under the Constitution
+    it lapses 60 days after the House next meets unless Parliament replaces
+    it, so one from before last year is certainly no longer law. Law
+    Commission studies/reports filed under a statute category aren't law."""
+    if _STUDY.search(title) and doc_type in ("constitution", "act", "rule"):
+        return "other", "unknown"
+    if _ORDINANCE.search(title) and doc_type in ("act", "constitution", "rule", "order"):
+        m = _TITLE_YEAR.search(title)
+        year = int(m.group(1).translate(_DEV_DIGITS)) if m else None
+        if year is not None and year < _current_bs_year() - 1:
+            return "act", "lapsed"
+        return "act", "ordinance"  # recent or undated: temporary, may or may not still apply
+    return doc_type, status
 
 
 def doc_slug(title: str) -> str:
@@ -201,9 +234,13 @@ class Index:
             keys.append(_text_key(e))
             ids.append(e["id"])
             cats.append(e.get("category") or "law")
-            dtypes.append(e.get("doc_type") or "")
-            titles.append(e.get("doc_title_ne") or e.get("title_ne") or e["id"])
-            statuses.append(_entry_status(e, doc_status_cache))
+            title = e.get("doc_title_ne") or e.get("title_ne") or e["id"]
+            dtype, status = _temporal_status(title, e.get("doc_type") or "", _entry_status(e, doc_status_cache))
+            if status != e.get("status") or dtype != e.get("doc_type"):
+                e = {**e, "doc_type": dtype, "status": status}  # stored row matches the index
+            dtypes.append(dtype)
+            titles.append(title)
+            statuses.append(status)
             slugs.append(doc_slug(titles[-1]))
             batch.append((i + 1, json.dumps(e, ensure_ascii=False)))
             if len(batch) >= 2000:
@@ -406,8 +443,8 @@ class Index:
             if status:
                 if self.status[i] != status:
                     continue
-            elif not include_bills and self.status[i] == "bill":
-                continue  # a draft bill was never enacted: never cite it by default
+            elif not include_bills and self.status[i] in ("bill", "lapsed"):
+                continue  # never cite a draft bill or a lapsed ordinance by default
             doc_key = self.doc_title[i]
             cap = 1 if self.doc_type[i] == "other" else per_doc_cap  # reports/dictionaries: one passage
             if per_doc[doc_key] >= cap:

@@ -29,7 +29,10 @@ const x = {
     counts: (l: number, p: number) => `${l} law ${l === 1 ? "section" : "sections"} · ${p} ${p === 1 ? "precedent" : "precedents"} cited`,
     unverified: (n: number) =>
       `${n} ${n === 1 ? "claim" : "claims"} could not be matched to a source and ${n === 1 ? "is" : "are"} marked ⚠ — confirm with an advocate before relying on ${n === 1 ? "it" : "them"}.`,
-    status: { in_force: "In force", bill: "Bill — not law", repealed: "Repealed", unknown: "Status unverified" } as Record<string, string>,
+    status: {
+      in_force: "In force", bill: "Bill — not law", repealed: "Repealed", lapsed: "Lapsed ordinance",
+      ordinance: "Ordinance — temporary", unknown: "Status unverified",
+    } as Record<string, string>,
     core: "Core law",
     older: (y?: number | null) => `Older law${y ? ` · BS ${y}` : ""}`,
     olderTip: "Decided before the law that now governs this topic — historical context, not the current rule.",
@@ -43,7 +46,10 @@ const x = {
     supported: (s: number, n: number) => `${n} मध्ये ${s} कानुनी भनाइ उद्धृत आधिकारिक स्रोतले पुष्टि गर्छ`,
     counts: (l: number, p: number) => `${l} कानुनी दफा · ${p} नजिर उद्धृत`,
     unverified: (n: number) => `${n} भनाइ स्रोतसँग मिलाउन सकिएन र ⚠ चिन्ह लगाइएको छ — भर पर्नुअघि अधिवक्तासँग पुष्टि गर्नुहोस्।`,
-    status: { in_force: "लागू", bill: "विधेयक — कानुन होइन", repealed: "खारेज", unknown: "स्थिति अपुष्ट" } as Record<string, string>,
+    status: {
+      in_force: "लागू", bill: "विधेयक — कानुन होइन", repealed: "खारेज", lapsed: "निष्क्रिय अध्यादेश",
+      ordinance: "अध्यादेश — अस्थायी", unknown: "स्थिति अपुष्ट",
+    } as Record<string, string>,
     core: "मुख्य कानुन",
     older: (y?: number | null) => `पुरानो कानुन${y ? ` · वि.सं. ${y}` : ""}`,
     olderTip: "यो विषय अहिले नियन्त्रण गर्ने कानुन आउनुअघिको निर्णय — ऐतिहासिक सन्दर्भ मात्र, हालको नियम होइन।",
@@ -52,7 +58,7 @@ const x = {
 
 function statusClass(status?: string | null) {
   if (status === "in_force") return "ok";
-  if (status === "bill" || status === "repealed") return "bad";
+  if (status === "bill" || status === "repealed" || status === "lapsed") return "bad";
   return "warn";
 }
 

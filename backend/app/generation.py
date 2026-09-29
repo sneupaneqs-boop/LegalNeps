@@ -86,7 +86,8 @@ suggest what to ask a lawyer or which office to approach.
 - Passages marked "verified as governing this situation" are the core law for this question: build \
 the answer on them first. Passages marked "OLDER LAW" may only be mentioned as history - never \
 present their deadlines, amounts or procedures as the current rule. Never present a passage whose \
-status is "bill" or "repealed" as current law.
+status is "bill", "repealed" or "lapsed" as current law. A passage with status "ordinance" is a \
+temporary ordinance: say so, and say it lapses unless Parliament replaces it.
 - Every number you state (days, months, years, rupees, percentages, section numbers) must appear in \
 the passage you cite for it. If you are not sure of a number, don't state it.
 - Don't state a legal remedy, offence or procedure that no passage mentions (e.g. don't suggest a \
@@ -152,7 +153,7 @@ def _answer_cache_key(message: str, lang: str) -> str:
 # Bump whenever answer construction changes (retrieval filters, pinned
 # playbook provisions, verifier), so answers cached by an older pipeline -
 # including the persistent Supabase answer_cache - are never served again.
-PIPELINE_VERSION = "p4"
+PIPELINE_VERSION = "p5"
 
 
 GREETING_RE = re.compile(
