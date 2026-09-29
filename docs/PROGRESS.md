@@ -192,6 +192,34 @@ S7's own "done when" bar (25 playbooks, ≥90% precision) doesn't require it.
 
 ## Done
 
+### V-batch 2 — regulator corpus, official drafting formats, tools, prod fixes (2026-09-29)
+
+- **Corpus +14,002 passages / 128 docs** (`part-002`, `scripts/scrape_regulators.py`,
+  `scripts/ingest_regulators.py`): NRB Unified Directives/Circular 2082 and FY 2082/83–83/84
+  circulars, IRD consolidated Income Tax/VAT/Excise Acts, Rules, directives and 2083/84 rate
+  notices, 37 SEBON instruments, 2 Law Commission gap acts. NRB/SEBON/OCR passages surface only
+  for banking/securities/company queries (`_REGULATOR_QUERY`), IRD only for tax queries.
+  Retrieval eval: hit@8 0.849 → 0.863, MRR 0.663 → 0.668. Live: 71,789 passages, 982 law docs.
+  Not ingested: ~90 scanned PDFs (most SEBON regulations, OCR notices, PPMO) need OCR;
+  NIA, MoLESS, Rajpatra unreachable from the sandbox (scrapers exist).
+- **Drafting: 44 templates** (was 10). 22 reproduce official अनुसूची forms (CPC 1/9/13/21,
+  District Court Rules 2/9, High Court Rules 1/2, Mediation 5/11, CrPC 5/21/42/45, RTI appeal,
+  Consumer 9, Domestic Violence 1, personal-event registration 2–6); 22 standard formats labelled
+  as such. Real layout (right blocks, hanging numbering, thumbprint tables, check-boxes), A4
+  Kalimati, DOCX + PDF (`pymupdf`, bundled Noto Sans Devanagari). Gaps: citizenship application
+  (rules not in corpus), notary formats.
+- **Tools:** `limitation_periods.yaml` 229 entries / 52 laws, each period phrase checked against
+  the section text by tests; BS-month deadline maths (CPC s.62); labour (overtime, leave,
+  festival allowance, PF/gratuity, notice), interest cap, income tax slabs + TDS, court fee,
+  BS date/age calculators. 17 entries flagged `needs_review`. SSF rate not in corpus.
+- **Prod fixes:** Render defaulted to Python 3.14 (ignores `backend/runtime.txt`); numpy's
+  source build there made BM25 return zero hits, so live answers only had playbook-pinned
+  sources. Pinned 3.11.9 via root `.python-version`. Answer cache key contained `\x00` which
+  Postgres rejects: every `answer_cache` write had failed with 400; fixed + NUL-stripping on
+  Supabase writes. Sign-in email link now returns to the site (`emailRedirectTo`);
+  still needs Supabase Site URL/Redirect URLs set in the dashboard.
+- Tests: 1,383 backend passing.
+
 ### V-batch 1 — trust engine, full UI, Document AI (2026-09-29)
 
 One long session covering V1, V3, V4 (partial), V5, V7–V11 and V12–V13 of
