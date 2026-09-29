@@ -157,3 +157,21 @@ def test_answer_cache_strips_nul_characters_postgres_jsonb_rejects(monkeypatch):
     supa.cache_put("k", "v", "ne", "q\x00", {"answer": "a\x00b", "sources": [{"text": "x\x00"}], "n": 1})
     body = fake.calls[0][2]
     assert body["question"] == "q" and body["answer"] == {"answer": "ab", "sources": [{"text": "x"}], "n": 1}
+
+
+def test_answer_cache_key_has_no_nul_postgres_text_rejects(monkeypatch):
+    from app import generation
+
+    seen = []
+
+    class _Stop(Exception):
+        pass
+
+    def capture(message, lang):
+        seen.append(message)
+        raise _Stop
+
+    monkeypatch.setattr(generation, "_answer_cache_key", capture)
+    with pytest.raises(_Stop):
+        generation.answer_question("tenant deposit not returned", history=[{"role": "user", "content": "hi"}])
+    assert seen and "\x00" not in seen[0]

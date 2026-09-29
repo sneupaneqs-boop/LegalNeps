@@ -589,7 +589,7 @@ def run(message: str, language: str = "auto", history: list[dict] | None = None,
     event's `usage` lets the caller log a real cost per query. A cache hit
     never re-runs the LLM regardless of tier, so it carries no usage."""
     lang_hint = guess_language(message) if language == "auto" else language
-    ckey = _answer_cache_key(message + "\x00" + _history_text(history), language)
+    ckey = _answer_cache_key(message + " \u2016 " + _history_text(history), language)
     cached = _answer_cache.get(ckey)
     if cached is None and not history:
         # L2: persistent cache, survives restarts/redeploys (in-memory L1

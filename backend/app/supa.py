@@ -158,7 +158,7 @@ def cache_get(cache_key: str, corpus_version: str) -> dict | None:
         return None
     try:
         r = _http().get("/rest/v1/answer_cache", params={
-            "cache_key": f"eq.{cache_key}", "select": "answer,corpus_version", "limit": "1",
+            "cache_key": f"eq.{jsonb_safe(cache_key)}", "select": "answer,corpus_version", "limit": "1",
         })
         r.raise_for_status()
         rows = r.json()
@@ -187,7 +187,7 @@ def cache_put(cache_key: str, corpus_version: str, language: str, question: str,
         return
     try:
         r = _http().post("/rest/v1/answer_cache", headers={"Prefer": "resolution=merge-duplicates"}, json={
-            "cache_key": cache_key, "corpus_version": corpus_version, "language": language,
+            "cache_key": jsonb_safe(cache_key), "corpus_version": corpus_version, "language": language,
             "question": jsonb_safe(question[:2000]), "answer": jsonb_safe(answer),
         })
         r.raise_for_status()
