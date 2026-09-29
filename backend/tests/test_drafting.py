@@ -93,13 +93,16 @@ VALID_ANSWERS = {
 }
 
 
-def test_registry_has_exactly_the_ten_s10_templates():
-    assert set(TEMPLATES) == EXPECTED_TEMPLATE_IDS
+def test_registry_keeps_the_original_ten_templates_and_adds_the_prescribed_formats():
+    # the original ten still exist (same ids, same required fields - see VALID_ANSWERS below);
+    # test_drafting_formats.py covers the prescribed-format templates added since
+    assert EXPECTED_TEMPLATE_IDS <= set(TEMPLATES)
+    assert len(TEMPLATES) >= 30
 
 
 def test_list_templates_matches_registry():
     ids = {t["id"] for t in render.list_templates()}
-    assert ids == EXPECTED_TEMPLATE_IDS
+    assert ids == set(TEMPLATES)
 
 
 @pytest.mark.parametrize("template_id", sorted(EXPECTED_TEMPLATE_IDS))
@@ -185,7 +188,7 @@ def test_drafting_api_endpoints():
     with TestClient(app) as c:
         r = c.get("/api/drafting/templates")
         assert r.status_code == 200
-        assert {t["id"] for t in r.json()} == EXPECTED_TEMPLATE_IDS
+        assert {t["id"] for t in r.json()} == set(TEMPLATES)
 
         r = c.get("/api/drafting/templates/legal_notice_salary")
         assert r.status_code == 200

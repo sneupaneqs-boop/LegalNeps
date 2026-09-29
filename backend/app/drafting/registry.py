@@ -16,7 +16,8 @@ _SIGNATURE_BLOCK = Paragraph(
     text={
         "en": "\nSincerely,\n{{ sender_name }}\n{{ sender_address }}\nDate: {{ today_bs }} B.S. ({{ today_ad }} A.D.)",
         "ne": "\nभवदीय,\n{{ sender_name }}\n{{ sender_address }}\nमितिः {{ today_bs }} (अंग्रेजी मितिः {{ today_ad }})",
-    }
+    },
+    align="right",
 )
 
 LEGAL_NOTICE_SALARY = TemplateSpec(
@@ -297,62 +298,6 @@ AFFIDAVIT = TemplateSpec(
     provisions=[],
 )
 
-CONSUMER_COMPLAINT = TemplateSpec(
-    id="consumer_complaint",
-    title={"en": "Consumer complaint letter", "ne": "उपभोक्ता गुनासो पत्र"},
-    description={
-        "en": "A written complaint to the consumer protection authority about a defective product or unfair trade practice.",
-        "ne": "बिग्रेको सामान वा अनुचित व्यापारिक क्रियाकलापका बारे उपभोक्ता संरक्षण निकायलाई दिइने लिखित गुनासो।",
-    },
-    fields=[
-        Field("complainant_name", {"en": "Your full name", "ne": "तपाईंको पूरा नाम"}, "text"),
-        Field("complainant_address", {"en": "Your address", "ne": "तपाईंको ठेगाना"}, "text"),
-        Field("complainant_phone", {"en": "Your phone number", "ne": "तपाईंको फोन नम्बर"}, "text"),
-        Field("seller_name", {"en": "Seller / business name", "ne": "पसल / व्यवसायको नाम"}, "text"),
-        Field("seller_address", {"en": "Seller's address", "ne": "पसलको ठेगाना"}, "text"),
-        Field("product_or_service", {"en": "Product or service involved", "ne": "सम्बन्धित वस्तु वा सेवा"}, "text"),
-        Field("purchase_date", {"en": "Date of purchase", "ne": "किनेको मिति"}, "date"),
-        Field("amount_involved", {"en": "Amount paid (NPR)", "ne": "तिरेको रकम (रु.)"}, "number"),
-        Field("complaint_details", {"en": "What went wrong", "ne": "के समस्या भयो"}, "textarea"),
-        Field("relief_sought", {"en": "What you want done about it", "ne": "के समाधान चाहनुहुन्छ"}, "textarea"),
-    ],
-    paragraphs=[
-        Paragraph({"en": "To: Department of Commerce, Supplies and Consumer Protection",
-                    "ne": "श्री वाणिज्य, आपूर्ति तथा उपभोक्ता संरक्षण विभाग"}, bold=True),
-        Paragraph({"en": "Date: {{ today_bs }} B.S.", "ne": "मितिः {{ today_bs }}"}),
-        Paragraph({"en": "Subject: Consumer complaint", "ne": "विषयः उपभोक्ता गुनासो"}, bold=True, align="center"),
-        Paragraph({
-            "en": ("I, {{ complainant_name }}, address {{ complainant_address }}, phone "
-                   "{{ complainant_phone }}, purchased {{ product_or_service }} from {{ seller_name }} "
-                   "({{ seller_address }}) on {{ purchase_date }} for NPR {{ amount_involved }}. "
-                   "{{ complaint_details }}"),
-            "ne": ("म {{ complainant_name }}, ठेगाना {{ complainant_address }}, फोन {{ complainant_phone }}, "
-                   "ले मिति {{ purchase_date }} मा {{ seller_name }} ({{ seller_address }}) बाट "
-                   "{{ product_or_service }} रु. {{ amount_involved }} मा किनेको थिएँ। {{ complaint_details }}"),
-        }),
-        Paragraph({
-            "en": ("Under Section 3 of the Consumer Protection Act, 2075 (उपभोक्ता संरक्षण ऐन, २०७५, दफा ३), "
-                   "I am entitled to safe, quality goods and services and protection from unfair trade "
-                   "practices. Under Section 36 (दफा ३६), I am filing this written complaint with your office, "
-                   "and under Section 50 (दफा ५०), I am entitled to compensation for the loss this has caused "
-                   "me."),
-            "ne": ("उपभोक्ता संरक्षण ऐन, २०७५ को दफा ३ बमोजिम मलाई सुरक्षित र गुणस्तरीय वस्तु/सेवा तथा अनुचित "
-                   "व्यापारिक क्रियाकलापबाट संरक्षण पाउने अधिकार छ। दफा ३६ बमोजिम यो लिखित उजुरी हजुरको "
-                   "कार्यालयमा दिइरहेको छु, र दफा ५० बमोजिम यसबाट भएको हानिको क्षतिपूर्ति पाउने हकदार छु।"),
-        }),
-        Paragraph({"en": "What I am requesting: {{ relief_sought }}", "ne": "मेरो अनुरोधः {{ relief_sought }}"}),
-        Paragraph({
-            "en": "\nComplainant: {{ complainant_name }}   Signature: ____________\nDate: {{ today_bs }} B.S. ({{ today_ad }} A.D.)",
-            "ne": "\nगुनासोकर्ताः {{ complainant_name }}   दस्तखतः ____________\nमितिः {{ today_bs }} (अंग्रेजी मितिः {{ today_ad }})",
-        }),
-    ],
-    provisions=[
-        {"law_title_ne": "उपभोक्ता संरक्षण ऐन, २०७५", "section": "3"},
-        {"law_title_ne": "उपभोक्ता संरक्षण ऐन, २०७५", "section": "36"},
-        {"law_title_ne": "उपभोक्ता संरक्षण ऐन, २०७५", "section": "50"},
-    ],
-)
-
 EMPLOYMENT_CONTRACT = TemplateSpec(
     id="employment_contract",
     title={"en": "Employment contract", "ne": "रोजगार सम्झौता"},
@@ -565,17 +510,31 @@ REPLY_NOTICE = TemplateSpec(
     provisions=[],
 )
 
-TEMPLATES: dict[str, TemplateSpec] = {
-    t.id: t for t in [
-        LEGAL_NOTICE_SALARY,
-        LEGAL_NOTICE_DEPOSIT,
-        RENTAL_AGREEMENT,
-        POWER_OF_ATTORNEY,
-        AFFIDAVIT,
-        CONSUMER_COMPLAINT,
-        EMPLOYMENT_CONTRACT,
-        NDA,
-        SALE_AGREEMENT,
-        REPLY_NOTICE,
-    ]
-}
+# The original ten templates keep their text; `restyle.polish` brings their layout up to
+# Nepali letter / contract convention (centred underlined titles, right-aligned date, justified
+# body, a real signature block with thumbprint boxes and witnesses). consumer_complaint is now the
+# prescribed Schedule-9 form and lives in forms_office.
+_ORIGINAL = [
+    LEGAL_NOTICE_SALARY,
+    LEGAL_NOTICE_DEPOSIT,
+    RENTAL_AGREEMENT,
+    POWER_OF_ATTORNEY,
+    AFFIDAVIT,
+    EMPLOYMENT_CONTRACT,
+    NDA,
+    SALE_AGREEMENT,
+    REPLY_NOTICE,
+]
+
+from .restyle import polish  # noqa: E402
+
+TEMPLATES: dict[str, TemplateSpec] = {t.id: polish(t) for t in _ORIGINAL}
+
+# --- prescribed-format templates (each module exposes TEMPLATES) -------------
+from . import (  # noqa: E402
+    forms_court, forms_court_more, forms_criminal, forms_deeds, forms_notices, forms_office, forms_standard,
+)
+
+for _mod in (forms_court, forms_court_more, forms_criminal, forms_office, forms_notices, forms_standard, forms_deeds):
+    for _t in _mod.TEMPLATES:
+        TEMPLATES[_t.id] = _t

@@ -373,18 +373,19 @@ async def get_drafting_template(template_id: str) -> DraftingTemplateDetail:
 
 @router.post("/drafting/templates/{template_id}/draft")
 async def draft_document(template_id: str, payload: DraftRequest) -> Response:
+    """The drafted document as DOCX (default) or PDF (`format: "pdf"`)."""
     try:
-        docx_bytes = await asyncio.to_thread(
-            drafting_render.render_docx, template_id, payload.answers, payload.language
+        data, media_type, ext = await asyncio.to_thread(
+            drafting_render.render_file, template_id, payload.answers, payload.language, payload.format
         )
     except drafting_render.UnknownTemplate:
         raise HTTPException(status_code=404, detail="drafting template not found")
     except (drafting_render.MissingField, ValueError) as exc:
         raise _bad_input(exc)
     return Response(
-        content=docx_bytes,
-        media_type="application/vnd.openxmlformats-officedocument.wordprocessingml.document",
-        headers={"Content-Disposition": f'attachment; filename="{template_id}.docx"'},
+        content=data,
+        media_type=media_type,
+        headers={"Content-Disposition": f'attachment; filename="{template_id}.{ext}"'},
     )
 
 

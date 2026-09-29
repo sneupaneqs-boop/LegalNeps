@@ -1,0 +1,73 @@
+/* Drafting catalogue: category groups, search box, official-format badges. Uses the global theme tokens. */
+
+.draft-search {
+  margin: 0 0 18px;
+}
+
+.draft-search .input {
+  width: 100%;
+  max-width: 560px;
+}
+
+.draft-group {
+  margin: 0 0 22px;
+}
+
+.draft-group-title {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+  margin: 0 0 10px;
+  font-size: 1.05rem;
+}
+
+.draft-group-title .draft-count {
+  color: var(--text-dim);
+  font-size: 0.8rem;
+  font-weight: 400;
+}
+
+.draft-badge {
+  display: inline-block;
+  margin-top: 8px;
+  padding: 2px 8px;
+  border-radius: 6px;
+  font-size: 0.78rem;
+  line-height: 1.5;
+  overflow-wrap: anywhere;
+}
+
+.draft-badge.official {
+  background: rgba(127, 176, 160, 0.16);
+  color: var(--accent-2);
+  border: 1px solid rgba(127, 176, 160, 0.4);
+}
+
+.draft-badge.standard {
+  background: var(--panel-2);
+  color: var(--text-dim);
+  border: 1px dashed var(--border);
+}
+
+.draft-format {
+  margin: 0 0 16px;
+}
+
+.draft-format .draft-badge {
+  margin-top: 0;
+  font-size: 0.85rem;
+}
+
+.draft-format p {
+  margin: 8px 0 0;
+}
+
+.draft-format a {
+  color: var(--accent-2);
+}
+
+.draft-note {
+  margin: 8px 0 0;
+  color: var(--text-dim);
+  font-size: 0.85rem;
+}
