@@ -2,15 +2,25 @@ import asyncio
 import logging
 from contextlib import asynccontextmanager
 
-from fastapi import FastAPI
+from fastapi import FastAPI, Request
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.middleware.gzip import GZipMiddleware
+from fastapi.responses import JSONResponse
 
 from . import config
 from .retrieval import get_index, index_ready
 from .routes.chat import router as chat_router
 
 logging.basicConfig(level=logging.INFO)
+log = logging.getLogger(__name__)
+
+# S14: no route needs a body bigger than this (the one binary upload,
+# matter files, already enforces its own 20MB cap while streaming - see
+# routes/chat.py:upload_matter_file); this is the outer backstop so an
+# oversized body on ANY route (including ones that don't expect binary
+# data at all) is rejected off a header, before the framework starts
+# buffering/parsing it.
+MAX_REQUEST_BODY_BYTES = 25 * 1024 * 1024
 
 
 @asynccontextmanager
@@ -38,6 +48,18 @@ class _GZipExceptStreams:
         if scope["type"] == "http" and scope["path"].endswith("/stream"):
             return await self.plain(scope, receive, send)
         return await self.gzip(scope, receive, send)
+
+
+@app.middleware("http")
+async def _reject_oversized_bodies(request: Request, call_next):
+    content_length = request.headers.get("content-length")
+    if content_length is not None:
+        try:
+            if int(content_length) > MAX_REQUEST_BODY_BYTES:
+                return JSONResponse({"detail": "request body too large"}, status_code=413)
+        except ValueError:
+            pass  # malformed header: let the framework itself reject it
+    return await call_next(request)
 
 
 app.add_middleware(_GZipExceptStreams)

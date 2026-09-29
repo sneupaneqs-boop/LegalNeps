@@ -87,6 +87,23 @@ def check_and_increment_quota(user_id: str, daily_limit: int | None = None) -> t
         return True, 0
 
 
+# ---------------------------------------------------------------- audit log (S14)
+def audit_log(user_id: str, action: str, target_type: str, target_id: str, metadata: dict | None = None) -> None:
+    """Best-effort record of an irreversible user action (a delete, so far -
+    see draft_delete/matter_delete below). Never raises: an audit-log write
+    failing must not block or roll back the action it's recording."""
+    if not available():
+        return
+    try:
+        r = _http().post("/rest/v1/audit_log", json={
+            "user_id": user_id, "action": action, "target_type": target_type,
+            "target_id": target_id, "metadata": metadata or {},
+        })
+        r.raise_for_status()
+    except Exception as e:  # noqa: BLE001
+        log.warning("supabase audit_log failed: %s", str(e)[:200])
+
+
 # ---------------------------------------------------------------- plan + llm usage (S13)
 def profile_get_plan(user_id: str) -> str:
     """"free" if Supabase is unreachable or the profile row is somehow
@@ -269,6 +286,7 @@ def draft_delete(user_id: str, draft_id: str) -> None:
         return
     r = _http().delete("/rest/v1/drafts", params={"id": f"eq.{draft_id}", "user_id": f"eq.{user_id}"})
     r.raise_for_status()
+    audit_log(user_id, "delete", "draft", draft_id)
 
 
 def draft_versions_list(user_id: str, draft_id: str) -> list[dict] | None:
@@ -346,6 +364,7 @@ def matter_delete(user_id: str, matter_id: str) -> None:
         return
     r = _http().delete("/rest/v1/matters", params={"id": f"eq.{matter_id}", "user_id": f"eq.{user_id}"})
     r.raise_for_status()
+    audit_log(user_id, "delete", "matter", matter_id)
 
 
 def matter_note_create(user_id: str, matter_id: str, body: str) -> dict | None:

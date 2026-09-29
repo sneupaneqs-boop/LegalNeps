@@ -582,9 +582,23 @@ async def delete_matter_task(matter_id: str, task_id: str, user: dict = Depends(
 async def upload_matter_file(matter_id: str, file: UploadFile = File(...),
                               user: dict = Depends(_require_user)) -> MatterFileOut:
     await _require_matter(matter_id, user)
-    content = await file.read()
-    if len(content) > 20 * 1024 * 1024:
-        raise HTTPException(status_code=413, detail="file too large (20MB limit)")
+    # S14: read in bounded chunks rather than file.read() - an oversized
+    # upload used to be buffered in full (spooled to disk past Starlette's
+    # threshold, but still fully consumed) before this check ever ran,
+    # so a large-enough request body was itself a resource-exhaustion path
+    # independent of the 20MB limit it was meant to enforce.
+    max_bytes = 20 * 1024 * 1024
+    chunks: list[bytes] = []
+    total = 0
+    while True:
+        chunk = await file.read(1024 * 1024)
+        if not chunk:
+            break
+        total += len(chunk)
+        if total > max_bytes:
+            raise HTTPException(status_code=413, detail="file too large (20MB limit)")
+        chunks.append(chunk)
+    content = b"".join(chunks)
     row = await asyncio.to_thread(
         supa.matter_file_create, user["id"], matter_id, file.filename or "upload",
         content, file.content_type or "application/octet-stream",

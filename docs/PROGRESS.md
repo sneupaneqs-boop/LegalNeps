@@ -38,9 +38,43 @@ Vercel *preview*, never promoted. Fixed this session:
 
 ## Next session
 
-**S14 — Security + reliability.** See STRATEGY.md §4, week 3 table:
-`/security-review`, RLS audit, audit log, error boundaries, backups,
-secret handling, dependency audit. Done when: no high findings open.
+**S15 — QA + launch.** See STRATEGY.md §4, week 3 table: full eval + 40
+adversarial questions (bills, repealed law, out-of-scope, injection),
+Playwright smoke tests, landing + pricing page with manual payment flow,
+deploy checklist. Done when: the metrics in STRATEGY §6 are met or
+documented.
+
+**Two S14 items need a human decision, not more code** (see S14's entry
+above for the full reasoning): (a) **Supabase backups** - the org is on
+the free tier, which has zero automated backups or point-in-time
+recovery; fixing this means upgrading to the Pro plan (~$25/mo) at
+supabase.com/dashboard/org/_/billing, a real recurring cost only the user
+can approve. (b) **Leaked password protection** is disabled in Supabase
+Auth - toggle it at Authentication → Policies → Password Security in the
+Supabase dashboard (or `PATCH /v1/projects/{ref}/config/auth` with
+`password_hibp_enabled: true` via the Management API) - free, but no MCP
+tool in this session could flip it.
+
+**Still outstanding from S14** (not blocking, just don't forget it): (a)
+`starlette`'s several CVEs (Host-header/`request.url` reconstruction, a
+`FileResponse` Range-header DoS, others) aren't patched - `fastapi`
+caps `starlette<0.47.0` even at its own latest 0.115.x patch, and the
+fixes are all at `>=0.47.2`; a `fastapi` major-version bump needs its own
+session with a real regression-test pass, not something to do inside a
+broader S14 sweep. None of the four are currently reachable by this app's
+actual routes (checked and documented above), so this is real but not
+urgent. (b) `postcss`'s high-severity finding remains, bundled inside
+`next`'s own dependency tree - only fixable by the Next 16 jump the user
+declined this session; low real risk since this app never processes
+untrusted CSS at runtime. (c) No Playwright/browser smoke test exists yet
+for the Next 15 + React 19 upgrade beyond `next build` succeeding and
+`next start` serving three routes as 200s - a full click-through (chat,
+saved research, drafting, sign-in) is still owed, and S15 already has
+"Playwright smoke tests" on its own list, so it's a natural fit there
+rather than a second pass now. (d) The audit log only covers matter and
+draft deletion - if a future session adds another destructive action
+(e.g. deleting a company profile, bulk-clearing saved research), wire
+`supa.audit_log()` into it too rather than treating logging as optional.
 
 **Still outstanding from S13** (not blocking, just don't forget it): (a) no
 frontend UI for plan selection or a cost-history view. (b)
@@ -135,6 +169,113 @@ do yet. Left for whichever session next touches the chat UI/pipeline, since
 S7's own "done when" bar (25 playbooks, ≥90% precision) doesn't require it.
 
 ## Done
+
+### S14 — Security + reliability (2026-09-29)
+
+- **RLS audit found and fixed a real, live vulnerability (HIGH)**: pulled
+  every policy on every `public` table (`pg_policies`) and read each one
+  against what it should allow. `"profiles: user can update own row"`
+  (`auth.uid() = id`, S1-era) had no `with_check` restricting which
+  *columns* could change - so any signed-in user could `UPDATE` their own
+  `profiles` row directly via PostgREST (anon key + their own JWT,
+  bypassing the backend entirely) and set `plan = 'professional'`
+  themselves. S13 made `plan` billing-relevant the same week (it picks the
+  paid LLM tier and daily quota), turning a stale policy into a live
+  free-upgrade-to-the-most-expensive-tier path. Confirmed no frontend code
+  touches `profiles` directly (nothing needed this policy), then dropped it
+  in a migration; also tried `revoke update (plan) on profiles from
+  authenticated, anon` as defense in depth, but role-inherited privileges
+  meant `has_column_privilege()` still returned true after the revoke -
+  RLS is what's actually enforced here, not the column grant, so the
+  policy drop is the real fix. **Verified live**, not just applied: ran
+  the exact PostgREST-equivalent check via `SET LOCAL ROLE authenticated;
+  SET LOCAL request.jwt.claims` impersonating the one real signed-up user
+  and attempting the escalation inside a rolled-back transaction - the
+  `UPDATE` matched 0 rows both times (before checking, confirmed the
+  policy list no longer had an UPDATE entry). `answer_cache`'s
+  `rls_enabled_no_policy` INFO finding (S1) was left alone - the table has
+  no `user_id` column, so "no policies" means fully deny-all for
+  clients, which is the correct posture already, not a gap.
+- **Dependency audit, backend** (`pip-audit`): `python-dotenv` (symlink
+  path-traversal in `set_key()`/`unset_key()` - this app only calls
+  `load_dotenv()`, so it was never exploitable here, patched anyway) and
+  `python-multipart` (several real DoS vectors in multipart parsing -
+  directly relevant, since the matter-file upload route accepts real
+  multipart bodies) bumped to 1.2.3 / 0.0.32. `starlette`'s several CVEs
+  (Host-header-into-`request.url`, a `FileResponse` Range-header DoS,
+  `HTTPEndpoint` method dispatch, Windows `StaticFiles` UNC paths) are
+  **not fixed**: the installed `fastapi==0.115.6` caps `starlette<0.47.0`
+  even at its own latest patch (0.115.14), and every fix landed at
+  `starlette>=0.47.2`, so patching means a `fastapi` major-version jump
+  this session didn't have the regression-test budget for - and checked
+  against how this app actually uses the framework, none of the four are
+  currently reachable (no `FileResponse`/`StaticFiles` mount, no
+  class-based `HTTPEndpoint` views, not Windows-hosted, and nothing here
+  branches on `request.url`). Left for a dedicated `fastapi` upgrade
+  session - flagged below, not silently dropped.
+- **Dependency audit, frontend** (`npm audit`): `next@14.2.35` (already
+  its line's latest patch) had several real CVEs including RCE-class
+  advisories - **the user was asked rather than this being decided
+  silently**, since a major-version bump risked breaking the live site
+  without a full click-through test pass; they chose upgrading to Next 15
+  over staying on 14 or jumping straight to 16. Bumped `next` to 15.5.26
+  and `react`/`react-dom` to 19.2.0 (Next 15 requires React 19). Verified:
+  a clean `next build` with zero errors on the first attempt, then
+  `next start` actually serving `/`, `/search`, and `/action-plans` as
+  200s. One `postcss` high-severity finding remains, bundled inside
+  Next's own dependency tree (not a direct dependency this repo pins) -
+  only fixable by the Next 16 jump the user explicitly declined for now;
+  lower real risk here since this app never processes untrusted CSS at
+  runtime, only its own repo source at build time.
+- **Error boundaries**: Next.js App Router had none - `frontend/app/error.tsx`
+  (route-segment errors) and `frontend/app/global-error.tsx` (a crash in
+  the root layout itself, which `error.tsx` can't catch) added, both with
+  a "try again" action instead of the framework's bare default page.
+  Backend already returns a generic 500 with no stack trace on an
+  unhandled exception (FastAPI's own default, `debug` is never set) -
+  confirmed, not changed.
+- **A concrete resource-exhaustion bug, found while reading the upload
+  route for the dependency audit**: `POST /api/matters/{id}/files` read
+  the *entire* upload via `await file.read()` before checking it against
+  the 20MB cap - so an oversized request was fully consumed (spooled to
+  disk past Starlette's threshold, but still) before ever being rejected.
+  Fixed to read in 1MB chunks and abort the instant the running total
+  passes the cap. Added a second, general backstop in `main.py`: a
+  `Content-Length`-checking middleware rejects (413) any request body over
+  25MB on *any* route, before the framework starts buffering or parsing
+  it - not just the one upload endpoint.
+- **Audit log**: new `audit_log` table (service-role-written, RLS: a user
+  reads only their own rows), wired into `supa.matter_delete()` and
+  `supa.draft_delete()` - the app's only currently-irreversible user
+  actions. A failed audit write logs a warning and never blocks or rolls
+  back the delete it's recording.
+- **Secret handling**: `git grep` across history for common API-key
+  shapes (`sk-`, `AIza`, `gsk_`, `sb_secret_`) found nothing committed;
+  `.gitignore` already covers every `.env*` path. No change needed.
+- **Backups - flagged, not fixed**: the Supabase org is on the free tier,
+  which Supabase docs confirm ships with **no automated backups or
+  point-in-time recovery at all** (daily backups start on the Pro plan,
+  ~$25/mo; PITR is a further add-on). This means the entire production
+  database - every user's saved research, drafts, matters, company
+  profiles - has no recovery path if it's ever lost or corrupted. This is
+  a real gap this session cannot close without spending the user's money,
+  so it's a decision for them, not a silent default - see "Next session"
+  below.
+- **Also flagged, not fixed**: Supabase Auth's "leaked password
+  protection" (checks new passwords against HaveIBeenPwned) is disabled -
+  a dashboard/Auth-API-only toggle with no MCP tool exposing it in this
+  session; exact steps in "Next session" below.
+- **Tests**: `tests/test_s14_security.py` - audit_log fail-open and its
+  wiring into matter/draft delete (including that a failed audit write
+  doesn't block the delete), the request-body-size middleware (rejects
+  26MB, allows an ordinary request through), and the chunked file-upload
+  cap (a 21MB upload is rejected without `matter_file_create` ever being
+  called - proving the bytes were never fully buffered downstream). The
+  live RLS-escalation proof isn't a pytest test (it needs the real
+  Supabase project) - see above. Full backend suite: **257 passed** (was
+  250).
+- **graphify**: re-ran `graphify update .` (1293 nodes, 2642 edges, 89
+  communities).
 
 ### S13 — AI gateway v2 (2026-09-29)
 
