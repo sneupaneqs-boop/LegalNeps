@@ -82,7 +82,9 @@ export type LawSection = {
 };
 
 export async function getLawDoc(slug: string): Promise<LawDoc | null> {
-  const res = await fetch(`${API_URL}/api/law/${encodeURIComponent(slug)}`, { cache: "no-store" });
+  // The corpus is static between deploys, so cache reference pages instead
+  // of hitting the backend on every visit - cuts most page loads to a CDN hit.
+  const res = await fetch(`${API_URL}/api/law/${encodeURIComponent(slug)}`, { next: { revalidate: 3600 } });
   if (res.status === 404) return null;
   if (!res.ok) throw new Error(`Request failed with status ${res.status}`);
   return res.json();
@@ -156,13 +158,13 @@ export type Playbook = {
 };
 
 export async function listPlaybooks(): Promise<PlaybookSummary[]> {
-  const res = await fetch(`${API_URL}/api/playbooks`, { cache: "no-store" });
+  const res = await fetch(`${API_URL}/api/playbooks`, { next: { revalidate: 3600 } });
   if (!res.ok) throw new Error(`Request failed with status ${res.status}`);
   return res.json();
 }
 
 export async function getPlaybook(id: string): Promise<Playbook | null> {
-  const res = await fetch(`${API_URL}/api/playbooks/${encodeURIComponent(id)}`, { cache: "no-store" });
+  const res = await fetch(`${API_URL}/api/playbooks/${encodeURIComponent(id)}`, { next: { revalidate: 3600 } });
   if (res.status === 404) return null;
   if (!res.ok) throw new Error(`Request failed with status ${res.status}`);
   return res.json();
@@ -171,7 +173,7 @@ export async function getPlaybook(id: string): Promise<Playbook | null> {
 export async function getLawSection(slug: string, section: string): Promise<LawSection | null> {
   const res = await fetch(
     `${API_URL}/api/law/${encodeURIComponent(slug)}/${encodeURIComponent(section)}`,
-    { cache: "no-store" }
+    { next: { revalidate: 3600 } }
   );
   if (res.status === 404) return null;
   if (!res.ok) throw new Error(`Request failed with status ${res.status}`);
