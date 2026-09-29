@@ -22,7 +22,10 @@ def _first_chunk_by_title() -> dict[str, dict]:
         with gzip.open(os.path.join(CORPUS_DIR, name), "rt", encoding="utf-8") as f:
             for line in f:
                 d = json.loads(line)
-                if d.get("category") == "law":
+                # regulator shard (ingest_regulators.py, `reg-` ids): directives/circulars carry an
+                # explicit `status` field and no Law Commission certification header, so the
+                # header-regex checks below are about the Law Commission documents only
+                if d.get("category") == "law" and not d["id"].startswith("reg-"):
                     out.setdefault(d.get("doc_title_ne") or "", d)
     return out
 
