@@ -42,10 +42,10 @@
     "semantic_hash": "0ee198b5af7cc9b30eb0f96f83ea274c"
   },
   "backend/app/config.py": {
-    "mtime": 1790434945.3844986,
-    "seen": 1790653748.0074499,
-    "ast_hash": "47c14aaa8e027029bd68d78f504f690f",
-    "semantic_hash": "47c14aaa8e027029bd68d78f504f690f"
+    "mtime": 1790655359.0243611,
+    "seen": 1790655627.2925868,
+    "ast_hash": "2c081af8b1f5355a115ef10437228b89",
+    "semantic_hash": ""
   },
   "backend/app/data/corpus.json": {
     "mtime": 1790324730.2438607,
@@ -150,21 +150,21 @@
     "semantic_hash": "d41d8cd98f00b204e9800998ecf8427e"
   },
   "backend/app/routes/chat.py": {
-    "mtime": 1790654352.8443012,
-    "seen": 1790654615.6498194,
-    "ast_hash": "1fbf858b759253a84ad8aeec1febb3c3",
+    "mtime": 1790655439.4923658,
+    "seen": 1790655627.2925994,
+    "ast_hash": "aac7fd1b52602938880313c4916ffdab",
     "semantic_hash": ""
   },
   "backend/app/schemas.py": {
-    "mtime": 1790654308.0482986,
-    "seen": 1790654615.6498213,
-    "ast_hash": "e70fa7744a342c1d6dc419d291f8dfa5",
+    "mtime": 1790655411.700364,
+    "seen": 1790655627.2926004,
+    "ast_hash": "e52e735e307581eb3c8a94ccbc0bb31b",
     "semantic_hash": ""
   },
   "backend/app/supa.py": {
-    "mtime": 1790654295.9642978,
-    "seen": 1790654615.6498222,
-    "ast_hash": "1ee4e203c478f1cfea701e153daf3080",
+    "mtime": 1790655406.604364,
+    "seen": 1790655627.292601,
+    "ast_hash": "bd6951792e8cebac937c447e1a862cc7",
     "semantic_hash": ""
   },
   "backend/app/text_norm.py": {
@@ -708,10 +708,10 @@
     "semantic_hash": ""
   },
   "docs/PROGRESS.md": {
-    "mtime": 1790651503.7078536,
-    "seen": 1790653800.1426952,
-    "ast_hash": "51127cf162f27179077d9cd1763523c4",
-    "semantic_hash": "51127cf162f27179077d9cd1763523c4"
+    "mtime": 1790654664.6963198,
+    "seen": 1790655627.2926664,
+    "ast_hash": "bf45a6eac6e1b1ea2d1abdc901df7662",
+    "semantic_hash": ""
   },
   "docs/SESSION_PROMPTS.md": {
     "mtime": 1790430561.951241,
@@ -771,6 +771,24 @@
     "mtime": 1790654443.3523066,
     "seen": 1790654615.6498485,
     "ast_hash": "2b7feaa5a8b1af9c5fe9077facd0f3bb",
+    "semantic_hash": ""
+  },
+  "backend/app/compliance.py": {
+    "mtime": 1790655374.888362,
+    "seen": 1790655627.2925851,
+    "ast_hash": "20d354165d08e0292322c236836f408b",
+    "semantic_hash": ""
+  },
+  "backend/scripts/send_compliance_reminders.py": {
+    "mtime": 1790655467.6923676,
+    "seen": 1790655627.2926097,
+    "ast_hash": "11fc840905a96a7cd6f3054e52d98393",
+    "semantic_hash": ""
+  },
+  "backend/tests/test_s12_compliance_radar.py": {
+    "mtime": 1790655571.8843737,
+    "seen": 1790655627.2926214,
+    "ast_hash": "6df21e805a347421d4aa106ed192002c",
     "semantic_hash": ""
   }
 }

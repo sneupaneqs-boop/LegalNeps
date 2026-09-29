@@ -272,6 +272,44 @@ class MatterFileDownload(BaseModel):
     url: str
 
 
+class CompanyProfileIn(BaseModel):
+    company_name: str = Field(..., min_length=1, max_length=200)
+    entity_type: Literal["private_limited", "public_limited", "partnership", "sole_proprietorship"]
+    pan_vat_registered: bool = False
+    has_employees: bool = False
+    reminder_email: Optional[str] = Field(None, max_length=320)
+
+
+class CompanyProfileOut(BaseModel):
+    id: str
+    company_name: str
+    entity_type: str
+    pan_vat_registered: bool
+    has_employees: bool
+    reminder_email: Optional[str] = None
+    created_at: str
+    updated_at: str
+
+
+class ObligationDue(BaseModel):
+    id: str
+    title_en: str
+    title_ne: str
+    category: str
+    frequency: str
+    citation: str
+    source_url: Optional[str] = None
+    period: str
+    due_date_bs: str
+    due_date_ad: str
+    days_remaining: int
+
+
+class UpcomingObligationsResponse(BaseModel):
+    company_name: str
+    obligations: List[ObligationDue]
+
+
 class BsDate(BaseModel):
     year: int
     month: int

@@ -108,3 +108,10 @@ SUPABASE_URL = os.getenv("SUPABASE_URL", "")
 SUPABASE_SERVICE_ROLE_KEY = os.getenv("SUPABASE_SERVICE_ROLE_KEY", "")
 DAILY_QUOTA_FREE = int(os.getenv("DAILY_QUOTA_FREE", "50"))  # answers/day for a logged-in free user
 IP_RATE_LIMIT_PER_HOUR = int(os.getenv("IP_RATE_LIMIT_PER_HOUR", "30"))  # per IP, anonymous or not
+
+# S12: Compliance Radar reminder emails (Resend free tier - 100 emails/day,
+# 3000/month, no card required). Unset in dev/test: the reminder job then
+# fails open (logs and skips sending) same as every other optional integration.
+RESEND_API_KEY = os.getenv("RESEND_API_KEY", "")
+RESEND_FROM_EMAIL = os.getenv("RESEND_FROM_EMAIL", "Kanooni Sathi <reminders@kanoonisathi.com>")
+COMPLIANCE_REMINDER_DAYS_AHEAD = int(os.getenv("COMPLIANCE_REMINDER_DAYS_AHEAD", "7"))

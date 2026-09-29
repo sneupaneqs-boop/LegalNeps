@@ -465,6 +465,78 @@ def matter_file_delete(user_id: str, matter_id: str, file_id: str) -> None:
     })
 
 
+# ---------------------------------------------------------------- compliance radar (S12)
+def company_profile_get(user_id: str) -> dict | None:
+    if not available():
+        return None
+    r = _http().get("/rest/v1/company_profiles", params={"user_id": f"eq.{user_id}", "select": "*"})
+    r.raise_for_status()
+    rows = r.json()
+    return rows[0] if rows else None
+
+
+def company_profile_upsert(user_id: str, company_name: str, entity_type: str, pan_vat_registered: bool,
+                            has_employees: bool, reminder_email: str | None = None) -> dict | None:
+    """One profile per user - create it if missing, otherwise overwrite it."""
+    if not available():
+        return None
+    body = {
+        "user_id": user_id, "company_name": company_name[:200], "entity_type": entity_type,
+        "pan_vat_registered": pan_vat_registered, "has_employees": has_employees,
+        "reminder_email": reminder_email, "updated_at": "now()",
+    }
+    r = _http().post(
+        "/rest/v1/company_profiles",
+        params={"on_conflict": "user_id"},
+        headers={"Prefer": "return=representation,resolution=merge-duplicates"},
+        json=body,
+    )
+    r.raise_for_status()
+    rows = r.json()
+    return rows[0] if rows else None
+
+
+def obligations_list() -> list[dict]:
+    """The full seeded obligation catalogue - public reference data, not
+    scoped to any user."""
+    if not available():
+        return []
+    r = _http().get("/rest/v1/obligations", params={"select": "*", "order": "category,id"})
+    r.raise_for_status()
+    return r.json()
+
+
+def all_company_profiles() -> list[dict]:
+    """Used only by the reminder job (backend/scripts/send_compliance_reminders.py),
+    which runs with the service-role key outside any single user's request."""
+    if not available():
+        return []
+    r = _http().get("/rest/v1/company_profiles", params={"select": "*"})
+    r.raise_for_status()
+    return r.json()
+
+
+def reminder_already_sent(user_id: str, obligation_id: str, period: str) -> bool:
+    if not available():
+        return False
+    r = _http().get("/rest/v1/obligation_reminders_sent", params={
+        "user_id": f"eq.{user_id}", "obligation_id": f"eq.{obligation_id}", "period": f"eq.{period}",
+        "select": "id", "limit": "1",
+    })
+    r.raise_for_status()
+    return bool(r.json())
+
+
+def reminder_record_sent(user_id: str, obligation_id: str, period: str, due_date_bs: str, due_date_ad: str) -> None:
+    if not available():
+        return
+    r = _http().post("/rest/v1/obligation_reminders_sent", json={
+        "user_id": user_id, "obligation_id": obligation_id, "period": period,
+        "due_date_bs": due_date_bs, "due_date_ad": due_date_ad,
+    })
+    r.raise_for_status()
+
+
 # ---------------------------------------------------------------- IP rate limit
 # In-memory sliding window, per process. Good enough for a single-instance
 # free-tier deploy; would need a shared store (e.g. this same Postgres) to

@@ -8,7 +8,7 @@ from fastapi import APIRouter, Depends, File, Header, HTTPException, Query, Requ
 from fastapi.responses import Response, StreamingResponse
 from starlette.concurrency import iterate_in_threadpool
 
-from .. import llm, playbooks, supa
+from .. import compliance, llm, playbooks, supa
 from ..calculators import court_fee as court_fee_calc
 from ..calculators import dates as date_calc
 from ..calculators import labour as labour_calc
@@ -18,14 +18,14 @@ from ..drafting import render as drafting_render
 from ..generation import answer_question, stream_answer
 from ..playbook_matcher import match as match_playbook
 from ..retrieval import corpus_stats, doc_slug, get_index
-from ..schemas import (AiFillRequest, AiFillResponse, BsDate, ChatRequest, ChatResponse, CourtFeeAppealResponse,
-                        CourtFeeEstimateResponse, DateConversionResponse, DraftingTemplateDetail,
-                        DraftingTemplateSummary, DraftRequest, DraftVersionOut, GratuityResponse, LawDoc,
-                        LawSection, LimitationCheckResponse, MatterFileDownload, MatterFileOut, MatterIn,
-                        MatterNoteIn, MatterNoteOut, MatterOut, MatterTaskIn, MatterTaskOut, MatterTaskUpdateIn,
-                        MatterUpdateIn, NoticeResponse, Playbook, PlaybookMatchResponse, PlaybookSummary,
-                        SavedDraftIn, SavedDraftOut, SavedResearchIn, SavedResearchOut, SearchResponse,
-                        SeveranceResponse, Source)
+from ..schemas import (AiFillRequest, AiFillResponse, BsDate, ChatRequest, ChatResponse, CompanyProfileIn,
+                        CompanyProfileOut, CourtFeeAppealResponse, CourtFeeEstimateResponse, DateConversionResponse,
+                        DraftingTemplateDetail, DraftingTemplateSummary, DraftRequest, DraftVersionOut,
+                        GratuityResponse, LawDoc, LawSection, LimitationCheckResponse, MatterFileDownload,
+                        MatterFileOut, MatterIn, MatterNoteIn, MatterNoteOut, MatterOut, MatterTaskIn, MatterTaskOut,
+                        MatterTaskUpdateIn, MatterUpdateIn, NoticeResponse, ObligationDue, Playbook,
+                        PlaybookMatchResponse, PlaybookSummary, SavedDraftIn, SavedDraftOut, SavedResearchIn,
+                        SavedResearchOut, SearchResponse, SeveranceResponse, Source, UpcomingObligationsResponse)
 
 router = APIRouter()
 reqlog = logging.getLogger("kanooni.request")
@@ -563,3 +563,53 @@ async def download_matter_file(matter_id: str, file_id: str, user: dict = Depend
 async def delete_matter_file(matter_id: str, file_id: str, user: dict = Depends(_require_user)) -> None:
     await _require_matter(matter_id, user)
     await asyncio.to_thread(supa.matter_file_delete, user["id"], matter_id, file_id)
+
+
+# ---------------------------------------------------------------- S12: compliance radar
+@router.put("/company-profile")
+async def put_company_profile(payload: CompanyProfileIn, user: dict = Depends(_require_user)) -> CompanyProfileOut:
+    profile = await asyncio.to_thread(
+        supa.company_profile_upsert, user["id"], payload.company_name, payload.entity_type,
+        payload.pan_vat_registered, payload.has_employees, payload.reminder_email,
+    )
+    if profile is None:
+        raise HTTPException(status_code=503, detail="not configured")
+    return profile
+
+
+@router.get("/company-profile")
+async def get_company_profile(user: dict = Depends(_require_user)) -> CompanyProfileOut:
+    profile = await asyncio.to_thread(supa.company_profile_get, user["id"])
+    if profile is None:
+        raise HTTPException(status_code=404, detail="no company profile - create one with PUT /company-profile")
+    return profile
+
+
+@router.get("/obligations/upcoming")
+async def upcoming_obligations(within_days: int = Query(60, ge=1, le=365),
+                                user: dict = Depends(_require_user)) -> UpcomingObligationsResponse:
+    profile = await asyncio.to_thread(supa.company_profile_get, user["id"])
+    if profile is None:
+        raise HTTPException(status_code=404, detail="no company profile - create one with PUT /company-profile")
+    all_obligations = await asyncio.to_thread(supa.obligations_list)
+    today = datetime.date.today()
+    horizon = today + datetime.timedelta(days=within_days)
+    due: list[ObligationDue] = []
+    for ob in all_obligations:
+        if not compliance.applies_to(ob["applies_if"], profile):
+            continue
+        result = compliance.next_due(ob, today)
+        if result is None:
+            continue
+        period, due_bs = result
+        due_ad = date_calc.bs_to_ad(due_bs.year, due_bs.month, due_bs.day)
+        if due_ad > horizon:
+            continue
+        due.append(ObligationDue(
+            id=ob["id"], title_en=ob["title_en"], title_ne=ob["title_ne"], category=ob["category"],
+            frequency=ob["frequency"], citation=ob["citation"], source_url=ob.get("source_url"),
+            period=period, due_date_bs=str(due_bs), due_date_ad=due_ad.isoformat(),
+            days_remaining=(due_ad - today).days,
+        ))
+    due.sort(key=lambda o: o.due_date_ad)
+    return UpcomingObligationsResponse(company_name=profile["company_name"], obligations=due)

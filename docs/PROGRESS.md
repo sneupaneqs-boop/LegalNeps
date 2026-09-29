@@ -38,10 +38,29 @@ Vercel *preview*, never promoted. Fixed this session:
 
 ## Next session
 
-**S12 — Compliance Radar lite.** See STRATEGY.md §4, week 3 table: company
-profile → obligations from a small, cited, verified seed (IRD/VAT/TDS, OCR
-annual, SSF, labour) → BS calendar → email reminders (Resend free tier).
-Done when: each obligation has a source; reminder job runs.
+**S13 — AI gateway v2.** See STRATEGY.md §4, week 3 table: plan-based tier
+routing (free chain / Haiku 4.5 / Sonnet 5), an `llm_usage` table with
+token cost, quota enforcement, prompt versions, a prompt-injection guard
+for user-supplied text. Done when: cost per query is visible; quota blocks
+correctly.
+
+**Still outstanding from S12** (not blocking, just don't forget it): (a) no
+frontend UI yet for the company-profile form or the upcoming-obligations
+list, same backend-only scope as S7-S11. (b) The reminder job
+(`backend/scripts/send_compliance_reminders.py`) isn't wired to an actual
+scheduler yet - needs `RESEND_API_KEY` set plus either a paid Render cron
+job or an external free scheduler hitting a small trigger endpoint; same
+"no free Render cron tier" wall hit earlier when trying to fix cold
+starts, and the job itself has never actually been run against the live
+project (see its S12 entry above - this sandbox didn't have the raw
+service-role key). (c) No real company profile has been created on the
+live site either - the full create-profile → get-upcoming →
+reminder-sent path is verified by tests, not end-to-end against
+production. (d) The SSF 15-day citation
+(Contribution Based Social Security Act 2074, Section 7) may be stale if
+the unverified "extended to 25 days in July 2025" claim turns out to be
+real - whoever next touches this should try to confirm it against the SSF
+Regulations directly (ssf.gov.np) rather than a blog.
 
 **Still outstanding from S11** (not blocking, just don't forget it): (a) no
 frontend UI yet for the matter workspace (list/detail/notes/tasks/files),
@@ -100,6 +119,90 @@ do yet. Left for whichever session next touches the chat UI/pipeline, since
 S7's own "done when" bar (25 playbooks, ≥90% precision) doesn't require it.
 
 ## Done
+
+### S12 — Compliance Radar lite (2026-09-29)
+
+- **Schema**: `obligations` (a small, hand-verified seed of 6 recurring
+  Nepali compliance deadlines - publicly readable, no RLS restriction since
+  it's reference data, not user data), `company_profiles` (one per user:
+  entity type, VAT/PAN registration, has_employees - the flags each
+  obligation's `applies_if` gates on), and `obligation_reminders_sent` (a
+  dedup log keyed on `(user_id, obligation_id, period)` so the reminder job
+  can re-run any number of times without double-emailing). Applied as two
+  real migrations to the live LegalNeps Supabase project.
+- **Each obligation has a real, checked citation** (STRATEGY's own "done
+  when" bar): every row was verified by fetching the actual statutory text
+  or a corroborating primary/professional source, not guessed from
+  training-data recall -
+  - VAT monthly return: VAT Act 2052, Section 18 (25 days after month end)
+  - TDS monthly statement + payment: Income Tax Act 2058, Section 90 -
+    fetched the actual section text ("...within Fifteen days of expiration
+    of each month..."); several tax-advisory blogs claim a 25-day e-TDS
+    deadline in practice, but the seed cites the statute's own 15-day text
+  - Annual income tax return: Income Tax Act 2058, Section 96(1) (3 months
+    after income-year end)
+  - OCR annual return: Companies Act 2063, Section 80 (6 months after FY
+    end, for private/public companies)
+  - Monthly SSF contribution: Contribution Based Social Security Act 2074,
+    Section 7 (15 days after month end) - one source claimed a July-2025
+    amendment extending this to 25 days, but it wasn't independently
+    corroborated, so the seed keeps the statute's own 15-day text rather
+    than cite an unverified change
+  - Annual bonus distribution: Bonus Act 2030, Section 9 (8 months after FY
+    end) - a Labour Act "annual report" obligation was considered for the
+    labour category instead but dropped: no specific section with a fixed,
+    well-documented deadline could be verified, and STRATEGY's own bar
+    ("each obligation has a source") rules out shipping a guessed citation
+- **BS due-date math** (`app/compliance.py`): wraps the existing
+  `nepali_datetime` dependency (already used by the date calculator, S8).
+  Note for anyone touching this later: `bs_date - datetime.timedelta(...)`
+  does **not** roll over months correctly in this library (subtracting a
+  day from `date(2082,3,1)` returns the non-existent `2082-03-32` instead
+  of normalizing into month 2) - `compliance.py` walks dates via
+  `date.fromordinal()` round-trips instead, which does normalize correctly.
+  Verified against the library's own calendar table that Ashad 2082 really
+  does have 32 days, so `bs_month_end` returning day 32 there is correct,
+  not a bug. `next_due()` checks a small window of neighbouring BS
+  periods and returns the nearest one that hasn't passed - handles the
+  BS/AD month-boundary drift without needing a lookup table.
+- **API**: `PUT/GET /api/company-profile` (one profile per user, upsert),
+  `GET /api/obligations/upcoming?within_days=N` (default 60) - returns only
+  the obligations that apply to the caller's profile, each with its next
+  due date (BS and AD), days remaining, and citation, sorted soonest-first.
+  404s until a profile exists.
+- **Reminder job**: `backend/scripts/send_compliance_reminders.py` - for
+  every company profile with a `reminder_email`, finds obligations due
+  within `COMPLIANCE_REMINDER_DAYS_AHEAD` days (default 7) not already in
+  `obligation_reminders_sent`, and emails via Resend
+  (`https://api.resend.com/emails`, free tier: 100/day, 3000/month, no
+  card). Same fail-open pattern as every other optional integration in this
+  codebase: with no `RESEND_API_KEY` set it logs and skips sending rather
+  than erroring, so it's safe to deploy/run before that key exists. **Not
+  yet wired to an actual scheduler** - Render's free tier has no cron job
+  plan (hit this same wall in an earlier session trying to fix cold
+  starts), so someone needs to either add `RESEND_API_KEY` and a paid
+  Render cron job, or point an external free scheduler (e.g.
+  cron-job.org) at a small triggering endpoint. **Not run live**: this
+  sandbox has `mcp__Supabase__*` tool access to the live project but not
+  the raw `SUPABASE_SERVICE_ROLE_KEY` the script itself needs (it isn't
+  in this session's environment as plaintext) - so unlike the schema and
+  seed data (applied and confirmed live via `execute_sql`/`get_advisors`),
+  the job's own `python3 backend/scripts/send_compliance_reminders.py
+  --dry-run` was only exercised through pytest's monkeypatched store, not
+  actually run against production. Whoever has that key should run it
+  once for real before relying on it.
+- **Tests**: `tests/test_s12_compliance_radar.py` - every seeded obligation
+  has a citation + https source (asserted directly, not just eyeballed);
+  BS month-end/FY-end arithmetic (including the Ashad-32-days and
+  December-rollover cases); `applies_to()` gating; `next_due()` always
+  returns a non-past date and correctly advances to the next period once
+  the current one passes; full API-layer CRUD + the `applies_if` filtering
+  end to end; the reminder job's dedup behavior. Full backend suite: **226
+  passed** (was 214).
+- **graphify**: re-ran `graphify update .` after this session's changes
+  (1198 nodes, 2443 edges, 68 communities); community labels are now stale
+  (`graphify label` needs an LLM key) - left as-is per the existing
+  fail-open pattern rather than spending one to relabel.
 
 ### S11 — Matter workspace lite (2026-09-29)
 
