@@ -1,4 +1,4 @@
-from typing import List, Literal, Optional
+from typing import Any, List, Literal, Optional
 
 from pydantic import BaseModel, Field
 
@@ -153,31 +153,56 @@ class PlaybookMatchResponse(BaseModel):
     playbook_id: Optional[str] = None
 
 
+class DraftingFieldOption(BaseModel):
+    value: str
+    label: Bilingual
+
+
 class DraftingField(BaseModel):
     id: str
     label: Bilingual
-    type: str
+    type: str  # text | textarea | number | date | select
     required: bool = True
     help: Optional[Bilingual] = None
+    options: Optional[List[DraftingFieldOption]] = None  # for type == "select"
+    default: Optional[Any] = None
+
+
+class DraftingSource(BaseModel):
+    """Where a template's layout comes from. For an "official" template this
+    names the schedule it was transcribed from (with the page in the official
+    PDF); for a "standard" one, `note` says no schedule prescribes the form."""
+    law_title_ne: str = ""
+    law_title_en: Optional[str] = None
+    schedule: Optional[str] = None  # e.g. "अनुसूची–१"
+    relates_to: Optional[str] = None  # e.g. "दफा ९५"
+    form_title: Optional[str] = None
+    url: Optional[str] = None
+    page: Optional[int] = None
+    note: Optional[Bilingual] = None
 
 
 class DraftingTemplateSummary(BaseModel):
     id: str
     title: Bilingual
     description: Bilingual
+    category: str = "notices"  # court | police | office | deeds | notices
+    kind: Literal["official", "standard"] = "standard"
+    source: Optional[DraftingSource] = None
+    languages: List[str] = Field(default_factory=lambda: ["en", "ne"])
+    keywords: List[str] = Field(default_factory=list)
 
 
-class DraftingTemplateDetail(BaseModel):
-    id: str
-    title: Bilingual
-    description: Bilingual
+class DraftingTemplateDetail(DraftingTemplateSummary):
     fields: List[DraftingField]
     provisions: List[ResolvedProvision]
+    formats: List[str] = Field(default_factory=lambda: ["docx"])
 
 
 class DraftRequest(BaseModel):
     language: Literal["en", "ne"] = "ne"
     answers: dict = Field(default_factory=dict)
+    format: Literal["docx", "pdf"] = "docx"
 
 
 class AiFillRequest(BaseModel):

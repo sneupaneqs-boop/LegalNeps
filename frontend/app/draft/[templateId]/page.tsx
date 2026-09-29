@@ -9,18 +9,24 @@ import {
   ApiError,
   createDraft,
   DraftAnswers,
-  DraftingField,
-  DraftingTemplateDetail,
   DraftVersion,
   getDraft,
-  getDraftingTemplate,
   listDraftVersions,
-  renderDraftDocx,
   updateDraft,
 } from "@/lib/api";
+import {
+  DraftField as DraftingField,
+  DraftFormat,
+  DraftTemplateDetail as DraftingTemplateDetail,
+  draftUi,
+  getTemplate,
+  officialLine,
+  renderDraftFile,
+} from "@/lib/drafting";
 import { saveBlob } from "@/lib/download";
 import { useLang } from "@/lib/LangContext";
 import { useAuth } from "@/lib/useAuth";
+import "../draft.css";
 
 export default function TemplatePage() {
   // useSearchParams needs a Suspense boundary for static rendering
@@ -47,6 +53,7 @@ function TemplateForm() {
   const router = useRouter();
   const draftParam = searchParams.get("draft");
   const { lang, t } = useLang();
+  const ui = draftUi[lang];
   const { session, loading: authLoading } = useAuth();
   const token = session?.access_token;
 
@@ -58,7 +65,7 @@ function TemplateForm() {
   const [draftId, setDraftId] = useState<string | null>(draftParam);
   const [draftMissing, setDraftMissing] = useState(false);
   const [showErrors, setShowErrors] = useState(false);
-  const [busy, setBusy] = useState<"" | "download" | "save">("");
+  const [busy, setBusy] = useState<"" | "download" | "pdf" | "save">("");
   const [msg, setMsg] = useState<Msg>(null);
   const [aiBusy, setAiBusy] = useState<string | null>(null);
   const [aiMsg, setAiMsg] = useState<{ field: string; text: string; kind: "error" | "success" } | null>(null);
@@ -77,8 +84,18 @@ function TemplateForm() {
   const loadTemplate = useCallback(() => {
     setTplError(null);
     setTpl(null);
-    getDraftingTemplate(templateId)
-      .then(setTpl)
+    getTemplate(templateId)
+      .then((d) => {
+        setTpl(d);
+        // preset select fields that have a default (e.g. "print the schedule heading: yes")
+        const defaults: DraftAnswers = {};
+        for (const f of d.fields) if (f.type === "select" && f.default != null) defaults[f.id] = String(f.default);
+        setAnswers((prev) => ({ ...defaults, ...prev }));
+        if (!d.languages.includes("en")) {
+          langTouched.current = true;
+          setDocLang("ne");
+        }
+      })
       .catch((e) => setTplError({ e }));
   }, [templateId]);
   useEffect(loadTemplate, [loadTemplate]);
@@ -132,7 +149,7 @@ function TemplateForm() {
     return out;
   }
 
-  async function handleDownload() {
+  async function handleDownload(format: DraftFormat = "docx") {
     setMsg(null);
     if (missingFields().length > 0) {
       setShowErrors(true);
@@ -142,10 +159,10 @@ function TemplateForm() {
       });
       return;
     }
-    setBusy("download");
+    setBusy(format === "pdf" ? "pdf" : "download");
     try {
-      const blob = await renderDraftDocx(templateId, cleanAnswers(), docLang);
-      saveBlob(blob, `${templateId}.docx`);
+      const blob = await renderDraftFile(templateId, cleanAnswers(), docLang, format);
+      saveBlob(blob, `${templateId}.${format}`);
       setMsg({ kind: "success", text: t.draftDownloaded });
     } catch (e) {
       setMsg({ kind: "error", text: errorText(e, t) });
@@ -241,6 +258,33 @@ function TemplateForm() {
         <h2>{tpl.title[lang]}</h2>
         <p className="lede">{tpl.description[lang]}</p>
 
+        {tpl.kind === "official" && tpl.source ? (
+          <section className="card draft-format" aria-label={ui.formatBoxTitle} data-testid="format-box">
+            <span className="draft-badge official" data-testid="official-format">
+              {officialLine(tpl.source, lang)}
+            </span>
+            {(tpl.source.relates_to || tpl.source.form_title) && (
+              <p className="muted">
+                {tpl.source.relates_to ? `(${tpl.source.relates_to} सँग सम्बन्धित) ` : ""}
+                {tpl.source.form_title ?? ""}
+              </p>
+            )}
+            {tpl.source.url && (
+              <p>
+                <a href={tpl.source.url} target="_blank" rel="noopener noreferrer">
+                  {ui.openOfficial}
+                  {tpl.source.page ? ` (${ui.page} ${tpl.source.page})` : ""}
+                </a>
+              </p>
+            )}
+          </section>
+        ) : (
+          <section className="card draft-format" aria-label={ui.formatBoxTitle} data-testid="format-box">
+            <span className="draft-badge standard">{ui.standardFormatLong}</span>
+            {tpl.source?.note && <p className="draft-note">{tpl.source.note[lang]}</p>}
+          </section>
+        )}
+
         <section className="card" aria-label={t.basedOn}>
           <h3>{t.basedOn}</h3>
           {tpl.provisions.length === 0 && <div className="muted">{t.draftNoProvisions}</div>}
@@ -262,16 +306,20 @@ function TemplateForm() {
           }}
           noValidate
         >
-          <div className="field">
-            <label htmlFor="doc-lang">{t.draftLanguage}</label>
-            <select id="doc-lang" className="select" value={docLang} onChange={(e) => {
-                langTouched.current = true;
-                setDocLang(e.target.value as "en" | "ne");
-              }}>
-              <option value="en">{t.draftLangEn}</option>
-              <option value="ne">{t.draftLangNe}</option>
-            </select>
-          </div>
+          {tpl.languages.includes("en") ? (
+            <div className="field">
+              <label htmlFor="doc-lang">{t.draftLanguage}</label>
+              <select id="doc-lang" className="select" value={docLang} onChange={(e) => {
+                  langTouched.current = true;
+                  setDocLang(e.target.value as "en" | "ne");
+                }}>
+                <option value="en">{t.draftLangEn}</option>
+                <option value="ne">{t.draftLangNe}</option>
+              </select>
+            </div>
+          ) : (
+            <div className="notice" data-testid="nepali-only">{ui.nepaliOnly}</div>
+          )}
 
           {tpl.fields.map((f) => {
             const value = answers[f.id] ?? "";
@@ -289,7 +337,23 @@ function TemplateForm() {
                     <span className="muted"> ({t.optional})</span>
                   )}
                 </label>
-                {f.type === "textarea" ? (
+                {f.type === "select" ? (
+                  <select
+                    id={id}
+                    className={`select${invalid ? " invalid" : ""}`}
+                    value={value}
+                    onChange={(e) => setAnswer(f.id, e.target.value)}
+                    aria-required={f.required}
+                    aria-invalid={invalid}
+                  >
+                    <option value="">{ui.choose}</option>
+                    {(f.options ?? []).map((o) => (
+                      <option key={o.value} value={o.value}>
+                        {o.label[lang]}
+                      </option>
+                    ))}
+                  </select>
+                ) : f.type === "textarea" ? (
                   <textarea
                     id={id}
                     className={`textarea${invalid ? " invalid" : ""}`}
@@ -363,6 +427,8 @@ function TemplateForm() {
             </div>
           )}
 
+          {tpl.formats.includes("pdf") && <div className="draft-note">{ui.pdfNote}</div>}
+
           {msg && (
             <div className={`notice ${msg.kind}`} role={msg.kind === "error" ? "alert" : "status"}>
               {msg.text}
@@ -371,8 +437,19 @@ function TemplateForm() {
 
           <div className="row">
             <button type="submit" className="btn btn-primary" disabled={busy !== ""} data-testid="download-docx">
-              {busy === "download" ? t.draftDownloading : t.draftDownload}
+              {busy === "download" ? ui.downloading : ui.downloadDocx}
             </button>
+            {tpl.formats.includes("pdf") && (
+              <button
+                type="button"
+                className="btn btn-primary"
+                disabled={busy !== ""}
+                onClick={() => handleDownload("pdf")}
+                data-testid="download-pdf"
+              >
+                {busy === "pdf" ? ui.downloading : ui.downloadPdf}
+              </button>
+            )}
             {session ? (
               <button type="button" className="btn" disabled={busy !== ""} onClick={handleSave}>
                 {busy === "save" ? t.saving : draftId ? t.draftUpdateDraft : t.draftSaveDraft}
