@@ -82,15 +82,18 @@ def test_limitation_unknown_claim_type_raises():
 
 
 def test_limitation_deadline_math_months():
-    # 6-month period from 2026-01-31 should land on 2026-07-31 (no corpus needed for the date math itself)
+    # Months are Bikram Sambat months (Civil Procedure Code s. 62): 2026-01-31 AD is 2082-10-17 B.S.,
+    # so 6 months on is 2083-04-17 B.S. = 2026-08-02 AD (no corpus needed for the date math itself)
     from app.calculators.limitation import _add_period
-    assert _add_period(datetime.date(2026, 1, 31), 6, "months") == datetime.date(2026, 7, 31)
+    assert _add_period(datetime.date(2026, 1, 31), 6, "months") == datetime.date(2026, 8, 2)
 
 
 def test_limitation_deadline_math_clips_short_month():
     from app.calculators.limitation import _add_period
-    # 1 month from Jan 31 lands on Feb 28/29, not an invalid Feb 31
-    assert _add_period(datetime.date(2025, 1, 31), 1, "months") == datetime.date(2025, 2, 28)
+    # 31 Bhadra 2081 B.S. + 1 month: Ashwin 2081 has only 30 days, so it lands on 30 Ashwin, not an invalid 31
+    start = dates.bs_to_ad(2081, 5, 31)
+    end = _add_period(start, 1, "months")
+    assert (dates.ad_to_bs(end).year, dates.ad_to_bs(end).month, dates.ad_to_bs(end).day) == (2081, 6, 30)
 
 
 # ------------------------------------------------------------- court fee ----

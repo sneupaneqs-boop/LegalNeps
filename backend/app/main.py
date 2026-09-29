@@ -11,6 +11,7 @@ from . import config
 from .retrieval import get_index, index_ready
 from .routes.chat import router as chat_router
 from .routes.documents import router as documents_router
+from .routes.tools import router as tools_router
 
 logging.basicConfig(level=logging.INFO)
 log = logging.getLogger(__name__)
@@ -90,6 +91,7 @@ app.add_middleware(
 
 app.include_router(chat_router, prefix="/api")
 app.include_router(documents_router, prefix="/api")
+app.include_router(tools_router, prefix="/api")
 
 
 @app.get("/")

@@ -1,0 +1,5680 @@
+# Limitation periods (हदम्याद) database.
+#
+# Every entry cites a section of the corpus and is checked at test time:
+#   - the citation must resolve (app.playbooks.resolve_provision), and
+#   - `period_phrase_ne` (copied from the section text) must appear in that section's text, and the
+#     number and unit in it must equal `period.value` / `period.unit`.
+# `period.kind`: fixed (a number of days/months/years), none (the text says no limitation applies),
+# special (a rule that is not a plain period - see period.text).
+# `needs_review: true` marks entries where the section's wording was ambiguous (e.g. the start date is not
+# stated); they are still cited, but read the section before relying on them.
+version: 1
+general_rules:
+- id: cpc_47_what_is_limitation
+  citation:
+    law_title_ne: मुलुकी देवानी कार्यविधि संहिता, २०७४
+    section: '47'
+  phrase_ne: हदम्यादको व्यवस्था भएको मानिनेछ
+  text:
+    en: Any fixed time a law gives for filing a plaint counts as a limitation period. You must file within it; a plaint filed outside it is not registered (and is dismissed if it slipped through).
+    ne: फिरादपत्र दायर गर्न कानूनले तोकेको निश्चित समयावधि हदम्याद मानिन्छ। सोही हदम्यादभित्र फिरादपत्र दायर गर्नुपर्छ; अन्यथा दर्ता हुँदैन र दर्ता भए पनि खारेज हुन्छ।
+- id: cpc_49_when_it_starts
+  citation:
+    law_title_ne: मुलुकी देवानी कार्यविधि संहिता, २०७४
+    section: '49'
+  phrase_ne: फिराद गर्नु पर्ने कारण परेको मितिले हदम्याद प्रारम्भ भएको
+  text:
+    en: The clock starts as the law that sets the period says. If that law says nothing about the start, it starts on the date the cause of action arose.
+    ne: हदम्याद जुन कानूनमा तोकिएको छ सोही कानून बमोजिम प्रारम्भ हुन्छ; प्रारम्भ हुने कानूनी व्यवस्था नभएमा फिराद गर्नु पर्ने कारण परेको मितिले प्रारम्भ हुन्छ।
+- id: cpc_55_joint_claims
+  citation:
+    law_title_ne: मुलुकी देवानी कार्यविधि संहिता, २०७४
+    section: '55'
+  phrase_ne: हदम्याद स्थगन
+  text:
+    en: Where several people must sue together, time is not suspended for the others just because one of them is a minor or not of sound mind; that person may sue separately later.
+    ne: संयुक्त रूपमा फिराद गर्नुपर्ने व्यक्तिहरूमध्ये नाबालक वा होस ठेगानमा नरहेको व्यक्तिबाहेक अन्यको हकमा हदम्याद स्थगन हुँदैन।
+- id: cpc_56_foreign_transactions
+  citation:
+    law_title_ne: मुलुकी देवानी कार्यविधि संहिता, २०७४
+    section: '56'
+  phrase_ne: नेपालभित्र नै भए गरे सरह मानी
+  text:
+    en: An act or transaction abroad that a Nepali court can hear is treated as if it happened in Nepal, and these limitation rules apply to it.
+    ne: विदेशमा भएको काम, कारबाही वा कारोबार नेपालभित्र नै भए गरे सरह मानी यी हदम्याद सम्बन्धी व्यवस्था लागू हुन्छन्।
+- id: cpc_59_proof_of_reason
+  citation:
+    law_title_ne: मुलुकी देवानी कार्यविधि संहिता, २०७४
+    section: '59'
+  phrase_ne: त्यसलाई पुष्टि गर्न आवश्यक पर्ने प्रमाण सहित अदालतमा निवेदन दिनु पर्नेछ
+  text:
+    en: To rely on the extensions for late filing you must apply to the court with evidence of why you could not file in time (the court may give up to 15 days to bring the evidence).
+    ne: हदम्यादभित्र फिराद गर्न नसकेको कुरा पुष्टि गर्न आवश्यक प्रमाण सहित अदालतमा निवेदन दिनुपर्छ (प्रमाण पेश गर्न अदालतले १५ दिनसम्म म्याद दिन सक्छ)।
+- id: cpc_60_prior_approval
+  citation:
+    law_title_ne: मुलुकी देवानी कार्यविधि संहिता, २०७४
+    section: '60'
+  phrase_ne: स्वीकृतिको सूचना प्राप्त गरेको मितिबाट
+  text:
+    en: If a law requires someone's approval before you sue a person, office or officer, the limitation starts from the date you were notified of the approval.
+    ne: कुनै व्यक्ति, संस्था वा पदाधिकारी उपर फिराद गर्नुअघि कानून बमोजिम स्वीकृति लिनुपर्ने भए स्वीकृतिको सूचना प्राप्त गरेको मितिबाट हदम्याद प्रारम्भ हुन्छ।
+- id: cpc_62_counting
+  citation:
+    law_title_ne: मुलुकी देवानी कार्यविधि संहिता, २०७४
+    section: '62'
+  phrase_ne: सक्रान्तिको हिसाबले
+  text:
+    en: Days are counted as calendar days starting the day after the limitation starts. Months are counted by Bikram Sambat months (sankranti), however many days each month has. A year is 12 such months.
+    ne: दिन गन्तीमा तोकिएको हदम्याद हदम्याद प्रारम्भ भएको भोलिपल्टदेखि गणना गरिन्छ। महिनामा तोकिएको हदम्याद जति दिनको महिना भए पनि संक्रान्तिको हिसाबले (वि.सं. महिना अनुसार) गणना गरिन्छ। वर्षमा तोकिएको हदम्याद बाह्र महिनाको एक वर्ष मानी गणना
+      गरिन्छ।
+- id: cpc_90_state_the_law
+  citation:
+    law_title_ne: मुलुकी देवानी कार्यविधि संहिता, २०७४
+    section: '90'
+  phrase_ne: कुन कानून बमोजिमको हदम्यादभित्र फिराद गरेको हो सो कुरा फिरादपत्रमा खुलाउनु पर्नेछ
+  text:
+    en: The plaint must say which law's limitation it relies on; a plaint filed out of time is returned.
+    ne: फिरादपत्रमा कुन कानून बमोजिमको हदम्यादभित्र फिराद गरेको हो सो कुरा खुलाउनुपर्छ; हदम्याद नाघेको फिरादपत्र दरपीठ गरी फिर्ता दिइन्छ।
+- id: cpc_131_time_bar_defence
+  citation:
+    law_title_ne: मुलुकी देवानी कार्यविधि संहिता, २०७४
+    section: '131'
+  phrase_ne: फिरादपत्र हदम्यादभित्र दायर नभएको
+  text:
+    en: The defendant can plead in the reply that the plaint was not filed within the limitation.
+    ne: प्रतिबादीले प्रतिउत्तरपत्रमा फिरादपत्र हदम्यादभित्र दायर नभएको जिकिर लिन सक्छ।
+- id: crpc_51_1_decide_first
+  citation:
+    law_title_ne: मुलुकी फौजदारी कार्यविधि संहिता, २०७४
+    section: '51'
+  phrase_ne: हदम्याद नभएको भन्ने प्रश्न उठाएमा
+  text:
+    en: If the accused says the case is out of time, the court must decide that first before going further.
+    ne: अभियुक्तले हदम्याद नभएको भन्ने प्रश्न उठाएमा अदालतले पहिले सो प्रश्नमा निर्णय गरेर मात्र मुद्दाको अन्य कारबाही अगाडि बढाउनुपर्छ।
+- id: crpc_rules_85_counting
+  citation:
+    law_title_ne: मुलुकी फौजदारी कार्यविधि नियमावली, २०७५
+    section: '85'
+  phrase_ne: संक्रान्तिको हिसाबले
+  text:
+    en: 'The same counting rule applies to criminal limitation periods: calendar days from the next day; months by Bikram Sambat months; a year is 12 months.'
+    ne: 'फौजदारी मुद्दाको हदम्यादमा पनि सोही गणना नियम लागू हुन्छ: दिन भोलिपल्टदेखि; महिना संक्रान्तिको हिसाबले; वर्ष बाह्र महिना।'
+- id: crpc_rules_87_challenge
+  citation:
+    law_title_ne: मुलुकी फौजदारी कार्यविधि नियमावली, २०७५
+    section: '87'
+  phrase_ne: पुनरावेदन सरहको उजूर दिनु पर्ने
+  text:
+    en: A ruling that the case is out of time (or without jurisdiction) is challenged with a complaint like an appeal to the appellate court.
+    ne: मुद्दामा अधिकारक्षेत्र वा हदम्याद नभएको भन्ने निर्णय उपरको उजूर पुनरावेदन सरहको उजूर हुन्छ।
+categories:
+- id: civil
+  name:
+    en: Civil rights & persons
+    ne: देवानी अधिकार तथा व्यक्ति
+- id: family
+  name:
+    en: Family & inheritance
+    ne: पारिवारिक तथा अपुताली
+- id: property
+  name:
+    en: Property & land
+    ne: सम्पत्ति तथा जग्गा
+- id: contract
+  name:
+    en: Contracts & obligations
+    ne: करार तथा दायित्व
+- id: criminal
+  name:
+    en: Criminal offences
+    ne: फौजदारी कसूर
+- id: labour
+  name:
+    en: Labour & employment
+    ne: श्रम तथा रोजगार
+- id: consumer
+  name:
+    en: Consumer
+    ne: उपभोक्ता
+- id: banking
+  name:
+    en: Banking, cheques & finance
+    ne: बैङ्किङ, चेक तथा वित्त
+- id: cyber
+  name:
+    en: Electronic / cyber
+    ne: विद्युतीय / साइबर
+- id: corporate
+  name:
+    en: Companies, securities, co-operatives & insurance
+    ne: कम्पनी, धितोपत्र, सहकारी तथा बीमा
+- id: rights
+  name:
+    en: Rights & protection
+    ne: अधिकार तथा संरक्षण
+- id: health
+  name:
+    en: Health
+    ne: स्वास्थ्य
+- id: tax
+  name:
+    en: Tax
+    ne: कर
+- id: procurement
+  name:
+    en: Public procurement
+    ne: सार्वजनिक खरिद
+- id: procedure
+  name:
+    en: Court procedure & appeals
+    ne: अदालती कार्यविधि तथा पुनरावेदन
+- id: public
+  name:
+    en: Government, security & other special laws
+    ne: सरकारी, सुरक्षा तथा अन्य विशेष कानून
+laws:
+  मुलुकी देवानी संहिता, २०७४:
+    en: Muluki Civil Code, 2074 B.S.
+  मुलुकी अपराध संहिता, २०७४:
+    en: Muluki Criminal Code, 2074 B.S.
+  मुलुकी देवानी कार्यविधि संहिता, २०७४:
+    en: Muluki Civil Procedure Code, 2074 B.S.
+  मुलुकी फौजदारी कार्यविधि संहिता, २०७४:
+    en: Muluki Criminal Procedure Code, 2074 B.S.
+  श्रम ऐन, २०७४:
+    en: Labour Act, 2074 B.S.
+  बोनस ऐन, २०३०:
+    en: Bonus Act, 2030 B.S.
+  ट्रेड यूनियन ऐन, २०४९:
+    en: Trade Union Act, 2049 B.S.
+  श्रमजीवी पत्रकार सम्बन्धी ऐन, २०५१:
+    en: Working Journalists Act, 2051 B.S.
+  रोजगारीको हक सम्बन्धी ऐन, २०७५:
+    en: Right to Employment Act, 2075 B.S.
+  बाल श्रम (निषेध र नियमित गर्ने) ऐन, २०५६:
+    en: Child Labour (Prohibition and Regulation) Act, 2056 B.S.
+  वैदेशिक रोजगार ऐन, २०६४:
+    en: Foreign Employment Act, 2064 B.S.
+  कार्यस्थलमा हुने यौनजन्य दुर्व्यवहार ( निवारण) ऐन, २०७१:
+    en: Workplace Sexual Harassment (Prevention) Act, 2071 B.S.
+  उपभोक्ता संरक्षण ऐन, २०७५:
+    en: Consumer Protection Act, 2075 B.S.
+  वस्तुको प्रत्यक्ष बिक्री (व्यवस्थापन तथा नियमन गर्ने) ऐन, २०७४:
+    en: Direct Selling of Goods (Management and Regulation) Act, 2074 B.S.
+  बैङ्किङ्ग कसूर तथा सजाय ऐन, २०६४:
+    en: Banking Offence and Punishment Act, 2064 B.S.
+  विनिमेय अधिकारपत्र ऐन, २०३४:
+    en: Negotiable Instruments Act, 2034 B.S.
+  सम्पत्ति शुद्धीकरण (मनी लाउन्डरिङ्ग) निवारण ऐन, २०६४:
+    en: Asset (Money) Laundering Prevention Act, 2064 B.S.
+  वस्तु विनियम बजार सम्बन्धी ऐन, २०७४:
+    en: Commodity Exchange Market Act, 2074 B.S.
+  विद्युतीय (इलेक्ट्रोनिक) कारोबार ऐन, २०६३:
+    en: Electronic Transactions Act, 2063 B.S.
+  कम्पनी ऐन, २०६३:
+    en: Companies Act, 2063 B.S.
+  धितोपत्र सम्बन्धी ऐन, २०६३:
+    en: Securities Act, 2063 B.S.
+  सहकारी ऐन, २०७४:
+    en: Cooperatives Act, 2074 B.S.
+  बीमा ऐन २०७९:
+    en: Insurance Act, 2079 B.S.
+  आयकर ऐन, २०५८:
+    en: Income Tax Act, 2058 B.S.
+  सार्वजनिक खरिद ऐन, २०६३:
+    en: Public Procurement Act, 2063 B.S.
+  घरेलु हिंसा (कसूर र सजाय) ऐन, २०६६:
+    en: Domestic Violence (Offence and Punishment) Act, 2066 B.S.
+  बालबालिका सम्बन्धी ऐन, २०७५:
+    en: Act Relating to Children, 2075 B.S.
+  अपाङ्गता भएका व्यक्तिको अधिकार सम्बन्धी ऐन, २०७४:
+    en: Act Relating to Rights of Persons with Disabilities, 2074 B.S.
+  बोक्सीको आरोप (कसूर र सजाय) ऐन, २०७२:
+    en: Witchcraft Accusation (Offence and Punishment) Act, 2072 B.S.
+  जातीय तथा अन्य सामाजिक छुवाछूत र भेदभाव (कसूर र सजाय) ऐन, २०६८:
+    en: Caste-based and Other Social Untouchability and Discrimination (Offence and Punishment) Act, 2068 B.S.
+  सुरक्षित मातृत्व तथा प्रजनन् स्वास्थ्य अधिकार ऐन, २०७५:
+    en: Safe Motherhood and Reproductive Health Rights Act, 2075 B.S.
+  वैयक्तिक गोपनीयता सम्बन्धी ऐन, २०७५:
+    en: Privacy Act, 2075 B.S.
+  सामाजिक व्यवहार (सुधार) ऐन, २०३३:
+    en: Social Practices (Reform) Act, 2033 B.S.
+  संयुक्त आवासको स्वामित्व सम्बन्धी ऐन, २०५४:
+    en: Joint Housing Ownership Act, 2054 B.S.
+  प्रतिलिपि अधिकार ऐन, २०५९:
+    en: Copyright Act, 2059 B.S.
+  सामाजिक सुरक्षा ऐन, २०७५:
+    en: Social Security Act, 2075 B.S.
+  खोप ऐन, २०७२:
+    en: Vaccination Act, 2072 B.S.
+  स्वास्थ्यकर्मी तथा स्वास्थ्य संस्थाको सुरक्षा सम्बन्धी ऐन, २०६६:
+    en: Health Workers and Health Institutions Protection Act, 2066 B.S.
+  स्वास्थ्य बीमा ऐन, २०७४:
+    en: Health Insurance Act, 2074 B.S.
+  सैनिक ऐन, २०६३:
+    en: Army Act, 2063 B.S.
+  प्रहरी ऐन, २०१२:
+    en: Police Act, 2012 B.S.
+  निजामती सेवा ऐन, २०४९:
+    en: Civil Service Act, 2049 B.S.
+  नेपाल रेल्वे ऐन, २०७९:
+    en: Nepal Railway Act, 2079 B.S.
+  सवारी तथा यातायात व्यवस्था ऐन, २०४९:
+    en: Vehicle and Transport Management Act, 2049 B.S.
+  मालसामानको बहुविधिक ढुवानी ऐन, २०६३:
+    en: Multimodal Transport of Goods Act, 2063 B.S.
+  रेडियोधर्मी पदार्थ (उपयोग तथा नियमन) ऐन, २०७७:
+    en: Radioactive Substances (Use and Regulation) Act, 2077 B.S.
+  विपद् जोखिम न्यूनिकरण तथा व्यवस्थापन ऐन, २०७४:
+    en: Disaster Risk Reduction and Management Act, 2074 B.S.
+  सङ्गठित अपराध निवारण ऐन, २०७०:
+    en: Organised Crime Prevention Act, 2070 B.S.
+  कालोबजार तथा केही अन्य सामाजिक अपराध तथा सजाय ऐन, २०३२:
+    en: Black-marketing and Some Other Social Offences and Punishment Act, 2032 B.S.
+  नोटरी पब्लिक सम्बन्धी ऐन, २०६३:
+    en: Notary Public Act, 2063 B.S.
+  अख्तियार दुरूपयोग अनुसन्धान आयोग ऐन, २०४८:
+    en: Commission for the Investigation of Abuse of Authority Act, 2048 B.S.
+  जग्गा (नाप जाँच) ऐन, २०१९:
+    en: Land (Survey and Measurement) Act, 2019 B.S.
+entries:
+- id: civil_29_detained
+  category: civil
+  name:
+    en: 'Violation of civil rights: person arrested or detained'
+    ne: 'नागरिक अधिकार हनन: गिरफ्तार वा थुनिएको व्यक्ति'
+  period:
+    kind: none
+  period_phrase_ne: जहिलेसुकै
+  notes:
+    en: Where the person was arrested or detained, a claim for the wrong can be filed at any time.
+    ne: गिरफ्तार वा थुनिएको हकमा जहिलेसुकै नालिस गर्न सकिन्छ।
+  citation:
+    law_title_ne: मुलुकी देवानी संहिता, २०७४
+    section: '29'
+  keywords:
+  - arrest
+  - detention
+  - civil liberties
+  - गिरफ्तार
+  - थुना
+- id: civil_29_other
+  category: civil
+  name:
+    en: 'Violation of civil rights: all other cases'
+    ne: 'नागरिक अधिकार हनन: अन्य अवस्था'
+  period:
+    kind: fixed
+    value: 6
+    unit: months
+  period_phrase_ne: छ महिनाभित्र
+  start:
+    kind: act
+    en: the date the act or offence took place
+    ne: काम वा कसूर भए गरेको मितिदेखि
+  citation:
+    law_title_ne: मुलुकी देवानी संहिता, २०७४
+    section: '29'
+  keywords:
+  - civil liberties
+  - privacy
+  - compensation
+  - क्षतिपूर्ति
+- id: civil_41_a_body_exam
+  category: civil
+  name:
+    en: Medical examination / organ change without proper consent (s. 36)
+    ne: शरीर परीक्षण वा अङ्ग परिवर्तन सम्बन्धी दफा ३६ को विषय
+  period:
+    kind: fixed
+    value: 3
+    unit: months
+  period_phrase_ne: तीन महिनाभित्र
+  start:
+    kind: act
+    en: the date the act or offence took place
+    ne: काम वा कसूर भए गरेको मितिदेखि
+  citation:
+    law_title_ne: मुलुकी देवानी संहिता, २०७४
+    section: '41'
+    clause: (क)
+  keywords:
+  - organ
+  - medical
+  - consent
+  - अङ्ग
+  - शरीर परीक्षण
+- id: civil_41_b_death_declaration
+  category: civil
+  name:
+    en: Setting aside or amending a court declaration of death (s. 40(5))
+    ne: मृत्युको न्यायिक घोषणा बदर वा संशोधन (दफा ४०(५))
+  period:
+    kind: fixed
+    value: 1
+    unit: years
+  period_phrase_ne: एक वर्षभित्र
+  start:
+    kind: knowledge
+    en: the date you came to know of the act done under the declaration
+    ne: त्यस्तो काम कारबाही भएको थाहा पाएको मितिदेखि
+  citation:
+    law_title_ne: मुलुकी देवानी संहिता, २०७४
+    section: '41'
+    clause: (ख)
+  keywords:
+  - missing person
+  - declared dead
+  - बेपत्ता
+  - मृत घोषणा
+- id: civil_41_c_other
+  category: civil
+  name:
+    en: 'Natural persons: all other matters under the chapter'
+    ne: प्राकृतिक व्यक्ति सम्बन्धी अन्य विषय
+  period:
+    kind: fixed
+    value: 6
+    unit: months
+  period_phrase_ne: छ महिनाभित्र
+  start:
+    kind: act
+    en: the date the act or offence took place
+    ne: काम वा कसूर भए गरेको मितिदेखि
+  citation:
+    law_title_ne: मुलुकी देवानी संहिता, २०७४
+    section: '41'
+    clause: (ग)
+  keywords:
+  - capacity
+  - legal personality
+  - सक्षमता
+- id: civil_53_a_conflict_decision
+  category: civil
+  name:
+    en: 'Legal persons: decision where a member had a conflict of interest (s. 50)'
+    ne: 'कानूनी व्यक्ति: स्वार्थ बाझिने सदस्यले भाग लिएको निर्णय (दफा ५०)'
+  period:
+    kind: fixed
+    value: 3
+    unit: months
+  period_phrase_ne: तीन महिनाभित्र
+  start:
+    kind: knowledge
+    en: the date you came to know the act was done
+    ne: काम कारबाही भए गरेको थाहा पाएको मितिदेखि
+  citation:
+    law_title_ne: मुलुकी देवानी संहिता, २०७४
+    section: '53'
+    clause: (दफा ५० को अवस्था)
+  keywords:
+  - company
+  - organisation
+  - conflict of interest
+  - संस्था
+  - स्वार्थ
+- id: civil_53_b_other
+  category: civil
+  name:
+    en: 'Legal persons: all other matters under the chapter'
+    ne: कानूनी व्यक्ति सम्बन्धी अन्य विषय
+  period:
+    kind: fixed
+    value: 6
+    unit: months
+  period_phrase_ne: छ महिनाभित्र
+  start:
+    kind: act
+    en: the date the act or offence took place
+    ne: काम वा कसूर भए गरेको मितिदेखि
+  citation:
+    law_title_ne: मुलुकी देवानी संहिता, २०७४
+    section: '53'
+  keywords:
+  - company
+  - organisation
+  - संस्था
+- id: civil_66_a_insolvency_start
+  category: civil
+  name:
+    en: Starting insolvency (दामासाही) proceedings (s. 54)
+    ne: दामासाही कारबाही प्रारम्भ गर्ने (दफा ५४)
+  period:
+    kind: fixed
+    value: 3
+    unit: years
+  period_phrase_ne: तीन वर्षभित्र
+  start:
+    kind: cause
+    en: the date the ground for starting insolvency proceedings arose
+    ne: दामासाहीको कारबाही प्रारम्भ गर्नु परेको कारण परेको मितिदेखि
+  citation:
+    law_title_ne: मुलुकी देवानी संहिता, २०७४
+    section: '66'
+    clause: (क)
+  keywords:
+  - insolvency
+  - bankruptcy
+  - दामासाही
+  - बैंकरप्सी
+- id: civil_66_b_hidden_assets
+  category: civil
+  name:
+    en: 'Insolvency: inflated creditor claims or hidden assets (ss. 62, 64)'
+    ne: 'दामासाही: बढी ऋण देखाएको वा जायजेथा लुकाएको (दफा ६२, ६४)'
+  period:
+    kind: fixed
+    value: 2
+    unit: years
+  period_phrase_ne: दुई वर्षभित्र
+  start:
+    kind: knowledge
+    en: the date you came to know of it
+    ne: थाहा पाएको मितिदेखि
+  citation:
+    law_title_ne: मुलुकी देवानी संहिता, २०७४
+    section: '66'
+    clause: (ख)
+  keywords:
+  - insolvency
+  - hidden property
+  - दामासाही
+  - जायजेथा
+- id: civil_66_c_other
+  category: civil
+  name:
+    en: 'Insolvency: all other matters'
+    ne: 'दामासाही: अन्य विषय'
+  period:
+    kind: fixed
+    value: 6
+    unit: months
+  period_phrase_ne: छ महिनाभित्र
+  start:
+    kind: act
+    en: the date the act or offence took place
+    ne: काम वा कसूर भए गरेको मितिदेखि
+  citation:
+    law_title_ne: मुलुकी देवानी संहिता, २०७४
+    section: '66'
+    clause: (ग)
+  keywords:
+  - insolvency
+  - दामासाही
+- id: civil_84_marriage
+  category: family
+  name:
+    en: 'Marriage (chapter 1): any claim from an act under the chapter'
+    ne: विवाह सम्बन्धी परिच्छेदअन्तर्गतका काम कारबाही
+  period:
+    kind: fixed
+    value: 3
+    unit: months
+  period_phrase_ne: तीन महिनाभित्र
+  start:
+    kind: act
+    en: the date the act or offence took place
+    ne: काम वा कसूर भए गरेको मितिदेखि
+  citation:
+    law_title_ne: मुलुकी देवानी संहिता, २०७४
+    section: '84'
+  keywords:
+  - marriage
+  - void marriage
+  - विवाह
+  - विवाह बदर
+- id: civil_92_marriage_effects
+  category: family
+  name:
+    en: 'Consequences of marriage (chapter 2): any claim'
+    ne: विवाहको परिणाम सम्बन्धी परिच्छेदअन्तर्गतका काम कारबाही
+  period:
+    kind: fixed
+    value: 3
+    unit: months
+  period_phrase_ne: तीन महिनाभित्र
+  start:
+    kind: act
+    en: the date the act or offence took place
+    ne: काम वा कसूर भए गरेको मितिदेखि
+  citation:
+    law_title_ne: मुलुकी देवानी संहिता, २०७४
+    section: '92'
+  keywords:
+  - spouse
+  - maintenance
+  - property of spouses
+  - पति पत्नी
+- id: civil_104_divorce
+  category: family
+  name:
+    en: 'Divorce (chapter 3): any claim'
+    ne: सम्बन्ध विच्छेद सम्बन्धी परिच्छेदअन्तर्गतका दाबी
+  period:
+    kind: fixed
+    value: 3
+    unit: months
+  period_phrase_ne: तीन महिनाभित्र
+  start:
+    kind: cause
+    en: the date the cause of the case arose, or the date you came to know of it
+    ne: मुद्दा गर्नु पर्ने कारण उत्पन्न भएको वा थाहा पाएको मितिदेखि
+  citation:
+    law_title_ne: मुलुकी देवानी संहिता, २०७४
+    section: '104'
+  keywords:
+  - divorce
+  - separation
+  - custody
+  - सम्बन्ध विच्छेद
+  - छुटाछुट्टी
+- id: civil_123_parent_child
+  category: family
+  name:
+    en: 'Parents and children (chapter 4): general period'
+    ne: आमा, बाबु तथा छोरा, छोरीको सम्बन्ध सम्बन्धी दाबी
+  period:
+    kind: fixed
+    value: 6
+    unit: months
+  period_phrase_ne: छ महिनाभित्र
+  start:
+    kind: act
+    en: the date the act or offence took place
+    ne: काम वा कसूर भए गरेको मितिदेखि
+  notes:
+    en: If the chapter states a different period for a particular claim, that period applies instead; this is the general period for the chapter.
+    ne: यस परिच्छेदमा कुनै दाबीको छुट्टै हदम्याद तोकिएको भए सोही लागू हुन्छ; यो परिच्छेदको सामान्य हदम्याद हो।
+  citation:
+    law_title_ne: मुलुकी देवानी संहिता, २०७४
+    section: '123'
+  keywords:
+  - paternity
+  - parentage
+  - birth registration
+  - child
+  - सन्तान
+- id: civil_134_parental_authority
+  category: family
+  name:
+    en: Maternal and paternal authority (chapter 5)
+    ne: मातृक तथा पैत्रिक अख्तियारी सम्बन्धी दाबी
+  period:
+    kind: fixed
+    value: 6
+    unit: months
+  period_phrase_ne: छ महिनाभित्र
+  start:
+    kind: act
+    en: the date the act or offence took place
+    ne: काम वा कसूर भए गरेको मितिदेखि
+  citation:
+    law_title_ne: मुलुकी देवानी संहिता, २०७४
+    section: '134'
+  keywords:
+  - custody
+  - parental authority
+  - अख्तियारी
+- id: civil_152_guardianship
+  category: family
+  name:
+    en: Guardianship (chapter 6)
+    ne: संरक्षकत्व सम्बन्धी दाबी
+  period:
+    kind: fixed
+    value: 6
+    unit: months
+  period_phrase_ne: छ महिनाभित्र
+  start:
+    kind: knowledge
+    en: the date you came to know of it
+    ne: थाहा पाएको मितिदेखि
+  citation:
+    law_title_ne: मुलुकी देवानी संहिता, २०७४
+    section: '152'
+  keywords:
+  - guardian
+  - ward
+  - संरक्षक
+- id: civil_168_curatorship
+  category: family
+  name:
+    en: Curatorship / माथवर (chapter 7)
+    ne: माथवर सम्बन्धी दाबी
+  period:
+    kind: fixed
+    value: 6
+    unit: months
+  period_phrase_ne: छ महिनाभित्र
+  start:
+    kind: knowledge
+    en: the date you came to know of it
+    ne: थाहा पाएको मितिदेखि
+  citation:
+    law_title_ne: मुलुकी देवानी संहिता, २०७४
+    section: '168'
+  keywords:
+  - curator
+  - माथवर
+- id: civil_187_adoption
+  category: family
+  name:
+    en: Adoption (chapter 8)
+    ne: धर्मपुत्र वा धर्मपुत्री सम्बन्धी दाबी
+  period:
+    kind: fixed
+    value: 1
+    unit: years
+  period_phrase_ne: एक वर्षभित्र
+  start:
+    kind: act
+    en: the date the act or offence took place
+    ne: काम वा कसूर भए गरेको मितिदेखि
+  citation:
+    law_title_ne: मुलुकी देवानी संहिता, २०७४
+    section: '187'
+  keywords:
+  - adoption
+  - धर्मपुत्र
+- id: civil_204_intercountry_adoption
+  category: family
+  name:
+    en: Inter-country adoption (chapter 9)
+    ne: अन्तरदेशीय धर्मपुत्र वा धर्मपुत्री सम्बन्धी दाबी
+  period:
+    kind: fixed
+    value: 1
+    unit: years
+  period_phrase_ne: एक वर्षभित्र
+  start:
+    kind: act
+    en: the date the act or offence took place
+    ne: काम वा कसूर भए गरेको मितिदेखि
+  notes:
+    en: If the chapter states a different period for a particular claim, that period applies instead; this is the general period for the chapter.
+    ne: यस परिच्छेदमा कुनै दाबीको छुट्टै हदम्याद तोकिएको भए सोही लागू हुन्छ; यो परिच्छेदको सामान्य हदम्याद हो।
+  citation:
+    law_title_ne: मुलुकी देवानी संहिता, २०७४
+    section: '204'
+  keywords:
+  - adoption
+  - foreign adoption
+  - अन्तरदेशीय धर्मपुत्र
+- id: civil_235_a_no_partition
+  category: family
+  name:
+    en: 'Partition: no partition made / partition with a deed or accounted-for use'
+    ne: 'अंशबण्डा: बण्डा नभएको वा गोश्वारा/हिसाब भई भोग भएको'
+  period:
+    kind: none
+  period_phrase_ne: जहिलेसुकै
+  notes:
+    en: Where no partition was ever made, or a partition deed (गोश्वारा) exists, or both sides used the property after accounting, a claim can be filed at any time.
+    ne: अंशबण्डा नै नभएको, बण्डा हुँदा गोश्वाराको लिखत भएको वा लिखत नभए पनि हिसाब गरी दुवै पक्षले भोग गरेकोमा जहिलेसुकै नालिस गर्न सकिन्छ।
+  citation:
+    law_title_ne: मुलुकी देवानी संहिता, २०७४
+    section: '235'
+    clause: (क)
+  keywords:
+  - partition
+  - ansha
+  - inheritance
+  - अंश
+  - अंशबण्डा
+- id: partition_disagreement
+  category: family
+  name:
+    en: 'Partition: dissatisfaction with a partition already made'
+    ne: 'अंशबण्डा: भइसकेको बण्डामा चित्त नबुझेमा'
+  period:
+    kind: fixed
+    value: 3
+    unit: months
+  period_phrase_ne: तीन महिनाभित्र
+  start:
+    kind: act
+    en: the date the partition took place
+    ne: बण्डा भएको मितिदेखि
+  notes:
+    en: If a property partition (अंशबण्डा) already happened and you disagree with it, you must claim within 3 months of that partition.
+    ne: अंशबण्डा भइसकेको र त्यसमा असहमत भए बण्डा भएको मितिले ३ महिनाभित्र दाबी गर्नुपर्छ।
+  citation:
+    law_title_ne: मुलुकी देवानी संहिता, २०७४
+    section: '235'
+    clause: (ख)
+  keywords:
+  - partition
+  - ansha
+  - inheritance
+  - अंश
+  - अंशबण्डा
+- id: civil_235_c_hidden_property
+  category: family
+  name:
+    en: 'Partition: property concealed or hidden by a co-heir'
+    ne: 'अंशबण्डा: सम्पत्ति लुकाए वा छिपाएको'
+  period:
+    kind: special
+    text:
+      en: 'No fixed period: the claim can be made as long as the co-heir (अंशियार) is alive.'
+      ne: 'निश्चित अवधि छैन: सम्बन्धित अंशियारको जीवनकाल रहेसम्म नालिस गर्न सकिन्छ।'
+  period_phrase_ne: जीवनकाल रहेसम्म
+  citation:
+    law_title_ne: मुलुकी देवानी संहिता, २०७४
+    section: '235'
+    clause: (ग)
+  keywords:
+  - partition
+  - concealed property
+  - अंश
+  - सम्पत्ति लुकाएको
+- id: civil_235_d_other
+  category: family
+  name:
+    en: 'Partition chapter: all other matters'
+    ne: अंशबण्डा सम्बन्धी अन्य विषय
+  period:
+    kind: fixed
+    value: 6
+    unit: months
+  period_phrase_ne: छ महिनाभित्र
+  start:
+    kind: act
+    en: the date the act or offence took place
+    ne: काम वा कसूर भए गरेको मितिदेखि
+  citation:
+    law_title_ne: मुलुकी देवानी संहिता, २०७४
+    section: '235'
+    clause: (घ)
+  keywords:
+  - partition
+  - अंशबण्डा
+- id: civil_250_succession
+  category: family
+  name:
+    en: 'Succession (अपुताली): claim over an estate'
+    ne: अपुताली सम्बन्धी दाबी
+  period:
+    kind: fixed
+    value: 3
+    unit: years
+  period_phrase_ne: तीन वर्षभित्र
+  start:
+    kind: other
+    en: the date the succession opened (अपुताली खुला भएको)
+    ne: अपुताली खुला भएको मितिदेखि
+  notes:
+    en: Where another limitation is stated elsewhere in the same chapter, that period applies; otherwise 3 years from the opening of the succession.
+    ne: यस परिच्छेदमा अन्यत्र हदम्याद लेखिएकोमा सोही हदम्यादभित्र; अन्यमा अपुताली खुला भएको मितिले तीन वर्षभित्र।
+  citation:
+    law_title_ne: मुलुकी देवानी संहिता, २०७४
+    section: '250'
+  keywords:
+  - inheritance
+  - succession
+  - heir
+  - estate
+  - अपुताली
+  - हकवाला
+- id: civil_265_property_general
+  category: property
+  name:
+    en: 'Property: general provisions (chapter 1)'
+    ne: सम्पत्ति सम्बन्धी सामान्य व्यवस्था
+  period:
+    kind: fixed
+    value: 6
+    unit: months
+  period_phrase_ne: छ महिनाभित्र
+  start:
+    kind: act
+    en: the date the act or offence took place
+    ne: काम वा कसूर भए गरेको मितिदेखि
+  citation:
+    law_title_ne: मुलुकी देवानी संहिता, २०७४
+    section: '265'
+  keywords:
+  - property
+  - सम्पत्ति
+- id: civil_275_ownership
+  category: property
+  name:
+    en: Ownership and rights of use (chapter 2)
+    ne: स्वामित्व र भोगाधिकार सम्बन्धी दाबी
+  period:
+    kind: fixed
+    value: 1
+    unit: years
+  period_phrase_ne: एक वर्षभित्र
+  start:
+    kind: knowledge
+    en: the date you came to know of it
+    ne: थाहा पाएको मितिदेखि
+  citation:
+    law_title_ne: मुलुकी देवानी संहिता, २०७४
+    section: '275'
+  keywords:
+  - ownership
+  - possession
+  - स्वामित्व
+  - भोगाधिकार
+- id: civil_286_use_of_property
+  category: property
+  name:
+    en: Use of property, co-owned property (chapter 3)
+    ne: सम्पत्तिको उपभोग सम्बन्धी दाबी
+  period:
+    kind: fixed
+    value: 6
+    unit: months
+  period_phrase_ne: छ महिनाभित्र
+  start:
+    kind: knowledge
+    en: the date you came to know of it
+    ne: थाहा पाएको मितिदेखि
+  citation:
+    law_title_ne: मुलुकी देवानी संहिता, २०७४
+    section: '286'
+  keywords:
+  - co-ownership
+  - use of property
+  - उपभोग
+- id: civil_298_land_registration
+  category: property
+  name:
+    en: Land settlement, occupation and registration (chapter 4)
+    ne: जग्गा आवाद, भोगचलन तथा दर्ता सम्बन्धी दाबी
+  period:
+    kind: fixed
+    value: 6
+    unit: months
+  period_phrase_ne: छ महिनाभित्र
+  start:
+    kind: knowledge
+    en: the date you came to know of it
+    ne: थाहा पाएको मितिदेखि
+  citation:
+    law_title_ne: मुलुकी देवानी संहिता, २०७४
+    section: '298'
+  keywords:
+  - land
+  - registration
+  - mutation
+  - जग्गा
+  - दर्ता
+  - नामसारी
+- id: civil_313_a_public_property
+  category: property
+  name:
+    en: 'Government, public and community property: registering, occupying, or building on it (ss. 305-307)'
+    ne: सरकारी, सार्वजनिक वा सामुदायिक सम्पत्ति आफ्नो नाममा दर्ता, कब्जा वा संरचना (दफा ३०५, ३०६, ३०७)
+  period:
+    kind: none
+  period_phrase_ne: जहिलेसुकै
+  notes:
+    en: A claim about ss. 305, 306 and 307 can be brought at any time.
+    ne: दफा ३०५, ३०६ र ३०७ को सम्बन्धमा जहिलेसुकै नालिस गर्न सकिन्छ।
+  citation:
+    law_title_ne: मुलुकी देवानी संहिता, २०७४
+    section: '313'
+    clause: (दफा ३०५, ३०६, ३०७)
+  keywords:
+  - public land
+  - government land
+  - encroachment
+  - सार्वजनिक जग्गा
+  - सरकारी जग्गा
+  - अतिक्रमण
+- id: civil_313_b_other
+  category: property
+  name:
+    en: 'Government, public and community property: all other matters'
+    ne: सरकारी, सार्वजनिक तथा सामुदायिक सम्पत्ति सम्बन्धी अन्य दाबी
+  period:
+    kind: fixed
+    value: 1
+    unit: years
+  period_phrase_ne: एक वर्षभित्र
+  start:
+    kind: act
+    en: the date the act or offence took place
+    ne: काम वा कसूर भए गरेको मितिदेखि
+  citation:
+    law_title_ne: मुलुकी देवानी संहिता, २०७४
+    section: '313'
+  keywords:
+  - public property
+  - community property
+  - सामुदायिक सम्पत्ति
+- id: civil_351_a_guthi_no_limit
+  category: property
+  name:
+    en: 'Guthi (trust): misappropriation, forgery, embezzlement, breach of terms, or recovery of trust property'
+    ne: 'गुठी: सम्पत्ति हिनामिना, जालसाजी, मासेखाएको, शर्त विपरीत फाइदा वा फिर्ता'
+  period:
+    kind: none
+  period_phrase_ne: कुनै हदम्याद लाग्ने छैन
+  notes:
+    en: 'No limitation applies for claims about: misappropriating trust property; forging documents about it; consuming it; a manager profiting against the deed; recovering the property, its value or income.'
+    ne: गुठीको सम्पत्ति हिनामिना, सम्बन्धित लिखत जालसाजी/कीर्ते, मासेखाएको, सञ्चालकले शर्त विपरीत फाइदा लिएको र सम्पत्ति/मूल्य/आय फिर्ता गराउनु परेको विषयमा हदम्याद लाग्दैन।
+  citation:
+    law_title_ne: मुलुकी देवानी संहिता, २०७४
+    section: '351'
+    clause: (१)
+  keywords:
+  - guthi
+  - trust
+  - गुठी
+- id: civil_351_b_guthi_other
+  category: property
+  name:
+    en: 'Guthi (trust): all other matters'
+    ne: 'गुठी: अन्य विषय'
+  period:
+    kind: fixed
+    value: 6
+    unit: months
+  period_phrase_ne: छ महिनाभित्र
+  start:
+    kind: cause
+    en: the date the cause of action arose
+    ne: मुद्दा गर्नु पर्ने कारण उत्पन्न भएको मितिदेखि
+  citation:
+    law_title_ne: मुलुकी देवानी संहिता, २०७४
+    section: '351'
+    clause: (२)
+  keywords:
+  - guthi
+  - trust
+  - गुठी
+- id: civil_367_usufruct
+  category: property
+  name:
+    en: Usufruct (life-interest) (chapter 7)
+    ne: फलोपभोग सम्बन्धी दाबी
+  period:
+    kind: fixed
+    value: 6
+    unit: months
+  period_phrase_ne: छ महिनाभित्र
+  start:
+    kind: knowledge
+    en: the date you came to know of it
+    ne: थाहा पाएको मितिदेखि
+  citation:
+    law_title_ne: मुलुकी देवानी संहिता, २०७४
+    section: '367'
+  keywords:
+  - usufruct
+  - फलोपभोग
+- id: civil_382_easement
+  category: property
+  name:
+    en: Easements and servitudes (chapter 8)
+    ne: सुविधाभार सम्बन्धी दाबी
+  period:
+    kind: fixed
+    value: 6
+    unit: months
+  period_phrase_ne: ६ महिनाभित्र
+  start:
+    kind: knowledge
+    en: the date you came to know of it
+    ne: थाहा पाएको मितिदेखि
+  citation:
+    law_title_ne: मुलुकी देवानी संहिता, २०७४
+    section: '382'
+  keywords:
+  - easement
+  - right of way
+  - water
+  - सुविधाभार
+  - बाटो
+- id: civil_405_house_rent
+  category: property
+  name:
+    en: House rent / tenancy (chapter 9)
+    ne: घर बहाल सम्बन्धी दाबी
+  period:
+    kind: fixed
+    value: 6
+    unit: months
+  period_phrase_ne: छ महिनाभित्र
+  start:
+    kind: act
+    en: the date the act or offence took place
+    ne: काम वा कसूर भए गरेको मितिदेखि
+  citation:
+    law_title_ne: मुलुकी देवानी संहिता, २०७४
+    section: '405'
+  keywords:
+  - rent
+  - tenant
+  - landlord
+  - eviction
+  - बहाल
+  - भाडा
+  - घरधनी
+- id: civil_412_a_gift_rights
+  category: property
+  name:
+    en: 'Gifts: your own right to a gift received, or a gift that could not be revoked'
+    ne: 'दान बकस: पाएको दानमा हक वा दिन नहुने दान बकस'
+  period:
+    kind: fixed
+    value: 2
+    unit: years
+  period_phrase_ne: दुई वर्षभित्र
+  start:
+    kind: other
+    en: 'the date your right vested (for a non-revocable gift: the date the recipient''s right vested and possession began)'
+    ne: आफूले दान वा बकस पाएको कुरामा हक पुगेको मिति; दिन नहुने दान बकसमा पाउनेको हक पुगी भोग चलन गरेको मितिदेखि
+  notes:
+    en: A separately stated period in the chapter applies instead.
+    ne: यस परिच्छेदमा छुट्टै हदम्याद तोकिएमा सोही बमोजिम।
+  citation:
+    law_title_ne: मुलुकी देवानी संहिता, २०७४
+    section: '412'
+  keywords:
+  - gift
+  - donation
+  - दान
+  - बकस
+- id: civil_412_b_gift_other
+  category: property
+  name:
+    en: 'Gifts: all other matters'
+    ne: 'दान बकस: अन्य विषय'
+  period:
+    kind: fixed
+    value: 1
+    unit: years
+  period_phrase_ne: एक वर्षभित्र
+  start:
+    kind: knowledge
+    en: the date you came to know of it
+    ne: थाहा पाएको मितिदेखि
+  citation:
+    law_title_ne: मुलुकी देवानी संहिता, २०७४
+    section: '412'
+  keywords:
+  - gift
+  - donation
+  - दान
+  - बकस
+- id: civil_434_a_foreigner_property
+  category: property
+  name:
+    en: Transfer of immovable property to a foreigner (s. 432)
+    ne: विदेशीलाई अचल सम्पत्ति हस्तान्तरण (दफा ४३२)
+  period:
+    kind: none
+  period_phrase_ne: जहिलेसुकै
+  notes:
+    en: For s. 432 a claim can be brought at any time; a separately stated period elsewhere in the chapter prevails otherwise.
+    ne: दफा ४३२ को हकमा जहिलेसुकै; अन्यत्र छुट्टै हदम्याद तोकिएकोमा सोही बमोजिम।
+  citation:
+    law_title_ne: मुलुकी देवानी संहिता, २०७४
+    section: '434'
+    clause: (दफा ४३२)
+  keywords:
+  - foreigner
+  - transfer of property
+  - विदेशी
+  - अचल सम्पत्ति
+- id: civil_434_b_transfer_other
+  category: property
+  name:
+    en: 'Transfer and acquisition of property (chapter 11): general period'
+    ne: 'सम्पत्तिको हस्तान्तरण तथा प्राप्ति: सामान्य हदम्याद'
+  period:
+    kind: fixed
+    value: 6
+    unit: months
+  period_phrase_ne: छ महिनाभित्र
+  start:
+    kind: knowledge
+    en: the date you came to know of it
+    ne: थाहा पाएको मितिदेखि
+  notes:
+    en: If the chapter states a different period for a particular claim, that period applies instead; this is the general period for the chapter.
+    ne: यस परिच्छेदमा कुनै दाबीको छुट्टै हदम्याद तोकिएको भए सोही लागू हुन्छ; यो परिच्छेदको सामान्य हदम्याद हो।
+  citation:
+    law_title_ne: मुलुकी देवानी संहिता, २०७४
+    section: '434'
+  keywords:
+  - sale of land
+  - transfer
+  - बिक्री
+  - हस्तान्तरण
+- id: civil_453_mortgage
+  category: property
+  name:
+    en: 'Mortgage of immovable property (chapter 12): general period'
+    ne: अचल सम्पत्तिको बन्धकी सम्बन्धी दाबी
+  period:
+    kind: fixed
+    value: 1
+    unit: years
+  period_phrase_ne: एक वर्षभित्र
+  start:
+    kind: act
+    en: the date the act or offence took place
+    ne: काम वा कसूर भए गरेको मितिदेखि
+  notes:
+    en: If the chapter states a different period for a particular claim, that period applies instead; this is the general period for the chapter.
+    ne: यस परिच्छेदमा कुनै दाबीको छुट्टै हदम्याद तोकिएको भए सोही लागू हुन्छ; यो परिच्छेदको सामान्य हदम्याद हो।
+  citation:
+    law_title_ne: मुलुकी देवानी संहिता, २०७४
+    section: '453'
+  keywords:
+  - mortgage
+  - pledge
+  - बन्धकी
+  - धितो
+- id: civil_462_a_preemption
+  category: property
+  name:
+    en: 'Pre-emption (हकसफा): right of neighbouring / co-owner to buy a sold plot'
+    ne: 'हकसफा: बिक्री भएको अचल सम्पत्ति हकसफा गर्न पाउने'
+  period:
+    kind: fixed
+    value: 35
+    unit: days
+  period_phrase_ne: पैँतीस दिनभित्र
+  start:
+    kind: knowledge
+    en: the date you came to know of it
+    ne: थाहा पाएको मितिदेखि
+  long_stop:
+    value: 6
+    unit: months
+    period_phrase_ne: छ महिनासम्ममा
+    start:
+      en: the date the instrument was passed
+      ne: लिखत पारित भएको मितिदेखि
+  notes:
+    en: File within 35 days of knowing of the sale, but in any case no later than 6 months after the instrument was passed.
+    ne: थाहा पाएको मितिले ३५ दिनभित्र, तर लिखत पारित भएको मितिले छ महिनाभन्दा बढी नहुने गरी नालिस दिनुपर्छ।
+  citation:
+    law_title_ne: मुलुकी देवानी संहिता, २०७४
+    section: '462'
+  keywords:
+  - pre-emption
+  - haksafa
+  - right of first refusal
+  - हकसफा
+- id: civil_462_b_tenant_preemption
+  category: property
+  name:
+    en: Pre-emption by a tenant (मोही) after the landowner's period ends
+    ne: 'मोहीको हकसफा: जग्गाधनीले निखन्न पाउने मिति समाप्त भएपछि'
+  period:
+    kind: fixed
+    value: 35
+    unit: days
+  period_phrase_ne: पैँतीस दिनभित्र
+  start:
+    kind: other
+    en: the date the landowner's period to exercise pre-emption expired
+    ne: जग्गाधनीले निखन्न पाउने मिति समाप्त भएको मितिदेखि
+  citation:
+    law_title_ne: मुलुकी देवानी संहिता, २०७४
+    section: '462'
+  keywords:
+  - pre-emption
+  - tenant
+  - mohi
+  - मोही
+  - हकसफा
+- id: civil_473_a_instrument_registration
+  category: property
+  name:
+    en: Passing / registering instruments (chapter 14)
+    ne: लिखत पारित सम्बन्धी दाबी
+  period:
+    kind: fixed
+    value: 1
+    unit: years
+  period_phrase_ne: एक वर्षभित्र
+  start:
+    kind: act
+    en: the date the act or offence took place
+    ne: काम वा कसूर भए गरेको मितिदेखि
+  citation:
+    law_title_ne: मुलुकी देवानी संहिता, २०७४
+    section: '473'
+    clause: (१)
+  keywords:
+  - registration
+  - deed
+  - sale deed
+  - लिखत
+  - रजिस्ट्रेशन
+- id: civil_473_b_other_office
+  category: property
+  name:
+    en: 'Instrument passed at another locality''s office: from receipt of the copy'
+    ne: अर्को इलाकाको कार्यालयबाट लिखत पारित भएकोमा प्रति प्राप्त भएपछि
+  period:
+    kind: fixed
+    value: 1
+    unit: years
+  period_phrase_ne: एक वर्षभित्र
+  start:
+    kind: other
+    en: the date the copy of the instrument reached the concerned office
+    ne: सम्बन्धित कार्यालयमा लिखतको प्रति प्राप्त भएको मितिदेखि
+  citation:
+    law_title_ne: मुलुकी देवानी संहिता, २०७४
+    section: '473'
+    clause: (२)
+  keywords:
+  - registration
+  - deed
+  - लिखत
+- id: civil_492_a_exploitative_lending
+  category: contract
+  name:
+    en: 'Lending: exploiting an incapacitated / semi-capacitated person, interest on interest, or interest above 10%'
+    ne: 'लेनदेन: असक्षम/अर्धसक्षमको सम्पत्ति आफ्नो गराउन, ब्याजको ब्याज वा १०% भन्दा बढी ब्याज'
+  period:
+    kind: none
+  period_phrase_ne: हदम्याद लाग्ने छैन
+  notes:
+    en: 'No limitation applies to claims about: dealings to take over or damage the property of an incapacitated or semi-capacitated person; interest on interest; or interest above the 10% cap.'
+    ne: असक्षम वा अर्धसक्षम व्यक्तिको सम्पत्ति आफ्नो गराउन, हिनामिना वा नोक्सान गर्न गरिएको लेनदेन, ब्याजको ब्याज वा दश प्रतिशतभन्दा बढी ब्याज लिएको विषयमा हदम्याद लाग्दैन।
+  citation:
+    law_title_ne: मुलुकी देवानी संहिता, २०७४
+    section: '492'
+    clause: (१)
+  keywords:
+  - interest
+  - usury
+  - loan
+  - moneylender
+  - ब्याज
+  - ऋण
+  - साहू
+- id: civil_492_b_lending_other
+  category: contract
+  name:
+    en: 'Lending and borrowing (chapter 15): claim to recover a loan or other dealing'
+    ne: 'लेनदेन व्यवहार: ऋण असुली र अन्य दाबी'
+  period:
+    kind: fixed
+    value: 1
+    unit: years
+  period_phrase_ne: एक वर्षभित्र
+  start:
+    kind: other
+    en: the date the term stated in the instrument expired; with no instrument (or otherwise) the date the cause of action arose
+    ne: लिखतमा उल्लेख भएको अवधि नाघेको मिति; लिखत नभएको वा अन्य अवस्थामा मुद्दा गर्नु पर्ने कारण परेको मितिदेखि
+  notes:
+    en: A separately stated period in this chapter applies instead.
+    ne: यस परिच्छेदमा छुट्टै हदम्याद तोकिएकोमा सोही बमोजिम।
+  citation:
+    law_title_ne: मुलुकी देवानी संहिता, २०७४
+    section: '492'
+    clause: (२)(ख)
+  keywords:
+  - loan
+  - debt
+  - recover money
+  - ऋण
+  - लेनदेन
+  - साँवा
+  - ब्याज
+- id: civil_503_liability_general
+  category: contract
+  name:
+    en: General provisions on liability (chapter 1)
+    ne: दायित्व सम्बन्धी सामान्य व्यवस्था
+  period:
+    kind: fixed
+    value: 2
+    unit: years
+  period_phrase_ne: दुई वर्षभित्र
+  start:
+    kind: cause
+    en: the date the cause of action arose
+    ne: मुद्दा गर्नु पर्ने कारण उत्पन्न भएको मितिदेखि
+  citation:
+    law_title_ne: मुलुकी देवानी संहिता, २०७४
+    section: '503'
+  keywords:
+  - liability
+  - obligation
+  - दायित्व
+- id: civil_516_contract_formation
+  category: contract
+  name:
+    en: Making of contracts (chapter 2)
+    ne: करार सम्पन्न गर्ने व्यवस्था सम्बन्धी दाबी
+  period:
+    kind: fixed
+    value: 2
+    unit: years
+  period_phrase_ne: दुई वर्षभित्र
+  start:
+    kind: cause
+    en: the date the cause of action arose
+    ne: मुद्दा गर्नु पर्ने कारण उत्पन्न भएको मितिदेखि
+  citation:
+    law_title_ne: मुलुकी देवानी संहिता, २०७४
+    section: '516'
+  keywords:
+  - contract formation
+  - offer and acceptance
+  - करार
+- id: civil_520_a_void_contract
+  category: contract
+  name:
+    en: 'Void contracts: declaring a contract void'
+    ne: बदर हुने करारको हकमा
+  period:
+    kind: none
+  period_phrase_ne: जहिलेसुकै
+  notes:
+    en: For a contract that is void, a claim can be brought at any time.
+    ne: बदर हुने करारको हकमा जहिलेसुकै नालिस गर्न सकिन्छ।
+  citation:
+    law_title_ne: मुलुकी देवानी संहिता, २०७४
+    section: '520'
+    clause: बदर हुने करार
+  keywords:
+  - void contract
+  - invalid contract
+  - बदर हुने करार
+- id: civil_520_b_voidable_contract
+  category: contract
+  name:
+    en: 'Voidable contracts: having the contract set aside'
+    ne: बदर गराउन सकिने करार बदर गराउन
+  period:
+    kind: fixed
+    value: 1
+    unit: years
+  period_phrase_ne: एक वर्ष
+  start:
+    kind: cause
+    en: the date the ground to set the contract aside arose
+    ne: करार बदर गराउन पर्ने कारण उत्पन्न भएको मितिदेखि
+  citation:
+    law_title_ne: मुलुकी देवानी संहिता, २०७४
+    section: '520'
+    clause: बदर गराउन सकिने करार
+  keywords:
+  - voidable contract
+  - coercion
+  - fraud
+  - misrepresentation
+  - करार बदर
+- id: contract_civil_claim
+  category: contract
+  name:
+    en: Contract and other civil claims (any other contract)
+    ne: करार सम्बन्धी अन्य देवानी दाबी (अन्य करार)
+  period:
+    kind: fixed
+    value: 2
+    unit: years
+  period_phrase_ne: दुई वर्षभित्र
+  start:
+    kind: cause
+    en: the date the cause of action arose
+    ne: मुद्दा गर्नु पर्ने कारण उत्पन्न भएको मितिदेखि
+  notes:
+    en: Most civil claims arising from a contract (e.g. an unpaid personal loan) must be filed within 2 years of when the cause of action arose.
+    ne: करारबाट उत्पन्न अधिकांश देवानी दाबी (जस्तै तिरेको ऋण नफिर्ता भएको) दाबी गर्नुपर्ने कारण उत्पन्न भएको मितिले २ वर्षभित्र दायर गर्नुपर्छ।
+  citation:
+    law_title_ne: मुलुकी देवानी संहिता, २०७४
+    section: '520'
+    clause: अन्य करार
+  keywords:
+  - contract
+  - breach
+  - unpaid loan
+  - money
+  - agreement
+  - करार
+  - ऋण
+- id: civil_534_contract_performance
+  category: contract
+  name:
+    en: Performance of contracts (chapter 4)
+    ne: करारको परिपालना सम्बन्धी दाबी
+  period:
+    kind: fixed
+    value: 2
+    unit: years
+  period_phrase_ne: दुई वर्षभित्र
+  start:
+    kind: cause
+    en: the date the cause of action arose
+    ne: मुद्दा गर्नु पर्ने कारण उत्पन्न भएको मितिदेखि
+  citation:
+    law_title_ne: मुलुकी देवानी संहिता, २०७४
+    section: '534'
+  keywords:
+  - performance
+  - contract
+  - करार परिपालना
+- id: civil_544_breach_remedies
+  category: contract
+  name:
+    en: Breach of contract and remedies (chapter 5)
+    ne: करारको उल्लङ्घन र उपचार सम्बन्धी दाबी
+  period:
+    kind: fixed
+    value: 2
+    unit: years
+  period_phrase_ne: दुई वर्षभित्र
+  start:
+    kind: cause
+    en: the date the cause of action arose
+    ne: मुद्दा गर्नु पर्ने कारण उत्पन्न भएको मितिदेखि
+  citation:
+    law_title_ne: मुलुकी देवानी संहिता, २०७४
+    section: '544'
+  keywords:
+  - breach of contract
+  - damages
+  - करार उल्लङ्घन
+  - क्षतिपूर्ति
+- id: civil_562_sale_of_goods
+  category: contract
+  name:
+    en: Sale of goods (chapter 6)
+    ne: वस्तु बिक्री करार सम्बन्धी दाबी
+  period:
+    kind: fixed
+    value: 2
+    unit: years
+  period_phrase_ne: दुई वर्षभित्र
+  start:
+    kind: cause
+    en: the date the cause of action arose
+    ne: मुद्दा गर्नु पर्ने कारण उत्पन्न भएको मितिदेखि
+  citation:
+    law_title_ne: मुलुकी देवानी संहिता, २०७४
+    section: '562'
+  keywords:
+  - sale of goods
+  - buyer
+  - seller
+  - वस्तु बिक्री
+- id: civil_574_guarantee
+  category: contract
+  name:
+    en: Contract of guarantee (chapter 7)
+    ne: जमानत करार सम्बन्धी दाबी
+  period:
+    kind: fixed
+    value: 2
+    unit: years
+  period_phrase_ne: दुई वर्षभित्र
+  start:
+    kind: cause
+    en: the date the cause of action arose
+    ne: मुद्दा गर्नु पर्ने कारण उत्पन्न भएको मितिदेखि
+  citation:
+    law_title_ne: मुलुकी देवानी संहिता, २०७४
+    section: '574'
+  keywords:
+  - guarantee
+  - surety
+  - जमानत
+- id: civil_584_bailment
+  category: contract
+  name:
+    en: Deposit / bailment (chapter 8)
+    ne: नासो करार सम्बन्धी दाबी
+  period:
+    kind: fixed
+    value: 2
+    unit: years
+  period_phrase_ne: दुई वर्षभित्र
+  start:
+    kind: cause
+    en: the date the cause of action arose
+    ne: मुद्दा गर्नु पर्ने कारण उत्पन्न भएको मितिदेखि
+  citation:
+    law_title_ne: मुलुकी देवानी संहिता, २०७४
+    section: '584'
+  keywords:
+  - bailment
+  - deposit
+  - नासो
+- id: civil_590_pledge
+  category: contract
+  name:
+    en: Pledge and security deposit (chapter 9)
+    ne: धितो वा धरौट करार सम्बन्धी दाबी
+  period:
+    kind: fixed
+    value: 2
+    unit: years
+  period_phrase_ne: दुई वर्षभित्र
+  start:
+    kind: cause
+    en: the date the cause of action arose
+    ne: मुद्दा गर्नु पर्ने कारण उत्पन्न भएको मितिदेखि
+  citation:
+    law_title_ne: मुलुकी देवानी संहिता, २०७४
+    section: '590'
+  keywords:
+  - pledge
+  - security
+  - धितो
+  - धरौट
+- id: civil_601_agency
+  category: contract
+  name:
+    en: Agency contracts (chapter 10)
+    ne: एजेन्सी करार सम्बन्धी दाबी
+  period:
+    kind: fixed
+    value: 2
+    unit: years
+  period_phrase_ne: दुई वर्षभित्र
+  start:
+    kind: cause
+    en: the date the cause of action arose
+    ne: मुद्दा गर्नु पर्ने कारण उत्पन्न भएको मितिदेखि
+  citation:
+    law_title_ne: मुलुकी देवानी संहिता, २०७४
+    section: '601'
+  keywords:
+  - agency
+  - agent
+  - एजेन्सी
+- id: civil_609_carriage_of_goods
+  category: contract
+  name:
+    en: Carriage of goods (chapter 11)
+    ne: वस्तु ढुवानी करार सम्बन्धी दाबी
+  period:
+    kind: fixed
+    value: 2
+    unit: years
+  period_phrase_ne: दुई वर्षभित्र
+  start:
+    kind: cause
+    en: the date the cause of action arose
+    ne: मुद्दा गर्नु पर्ने कारण उत्पन्न भएको मितिदेखि
+  citation:
+    law_title_ne: मुलुकी देवानी संहिता, २०७४
+    section: '609'
+  keywords:
+  - transport
+  - carriage
+  - freight
+  - ढुवानी
+- id: civil_623_lease
+  category: contract
+  name:
+    en: Lease (chapter 12)
+    ne: लिज करार सम्बन्धी दाबी
+  period:
+    kind: fixed
+    value: 2
+    unit: years
+  period_phrase_ne: दुई वर्षभित्र
+  start:
+    kind: cause
+    en: the date the cause of action arose
+    ne: मुद्दा गर्नु पर्ने कारण उत्पन्न भएको मितिदेखि
+  citation:
+    law_title_ne: मुलुकी देवानी संहिता, २०७४
+    section: '623'
+  keywords:
+  - lease
+  - लिज
+- id: civil_639_hire_purchase
+  category: contract
+  name:
+    en: Hire purchase (chapter 13)
+    ne: हायर पर्चेज करार सम्बन्धी दाबी
+  period:
+    kind: fixed
+    value: 2
+    unit: years
+  period_phrase_ne: दुई वर्षभित्र
+  start:
+    kind: cause
+    en: the date the cause of action arose
+    ne: मुद्दा गर्नु पर्ने कारण उत्पन्न भएको मितिदेखि
+  citation:
+    law_title_ne: मुलुकी देवानी संहिता, २०७४
+    section: '639'
+  keywords:
+  - hire purchase
+  - instalment
+  - हायर पर्चेज
+  - किस्ता
+- id: civil_647_a_domestic_helper
+  category: labour
+  name:
+    en: 'Wages and labour contracts: domestic helper (s. 644)'
+    ne: 'ज्याला मजुरी: घरेलु सहायक (दफा ६४४)'
+  period:
+    kind: fixed
+    value: 3
+    unit: months
+  period_phrase_ne: तीन महिनाभित्र
+  start:
+    kind: cause
+    en: the date the cause of action arose
+    ne: मुद्दा गर्नु पर्ने कारण उत्पन्न भएको मितिदेखि
+  citation:
+    law_title_ne: मुलुकी देवानी संहिता, २०७४
+    section: '647'
+    clause: (दफा ६४४)
+  keywords:
+  - domestic worker
+  - maid
+  - wages
+  - घरेलु सहायक
+  - ज्याला
+- id: civil_647_b_wages_other
+  category: labour
+  name:
+    en: 'Wages and labour contracts: all other matters'
+    ne: 'ज्याला मजुरी: अन्य विषय'
+  period:
+    kind: fixed
+    value: 35
+    unit: days
+  period_phrase_ne: पैँतीस दिनभित्र
+  start:
+    kind: cause
+    en: the date of the cause of the claim (the exact start is not restated in the section)
+    ne: नालिस गर्नु पर्ने कारण (सो दफामा सुरु मिति स्पष्ट रूपमा दोहोर्याइएको छैन)
+  citation:
+    law_title_ne: मुलुकी देवानी संहिता, २०७४
+    section: '647'
+  keywords:
+  - wages
+  - unpaid wages
+  - labourer
+  - ज्याला
+  - मजुरी
+  needs_review: true
+- id: civil_663_quasi_contract
+  category: contract
+  name:
+    en: Implied / quasi-contract (chapter 15)
+    ne: अप्रत्यक्ष वा अर्ध करार सम्बन्धी दाबी
+  period:
+    kind: fixed
+    value: 2
+    unit: years
+  period_phrase_ne: दुई वर्षभित्र
+  start:
+    kind: cause
+    en: the date the cause of action arose
+    ne: मुद्दा गर्नु पर्ने कारण उत्पन्न भएको मितिदेखि
+  citation:
+    law_title_ne: मुलुकी देवानी संहिता, २०७४
+    section: '663'
+  keywords:
+  - quasi contract
+  - implied contract
+  - अर्ध करार
+- id: civil_671_unjust_enrichment
+  category: contract
+  name:
+    en: Unjust enrichment (chapter 16)
+    ne: अनुचित सम्वृद्धि सम्बन्धी दाबी
+  period:
+    kind: fixed
+    value: 2
+    unit: years
+  period_phrase_ne: दुई वर्षभित्र
+  start:
+    kind: cause
+    en: the date the cause of action arose
+    ne: मुद्दा गर्नु पर्ने कारण उत्पन्न भएको मितिदेखि
+  citation:
+    law_title_ne: मुलुकी देवानी संहिता, २०७४
+    section: '671'
+  keywords:
+  - unjust enrichment
+  - restitution
+  - अनुचित सम्वृद्धि
+- id: civil_684_tort
+  category: civil
+  name:
+    en: 'Torts (civil wrongs) (chapter 17): damages claims'
+    ne: 'दुष्कृति (टर्ट): क्षतिपूर्ति दाबी'
+  period:
+    kind: fixed
+    value: 6
+    unit: months
+  period_phrase_ne: छ महिनाभित्र
+  start:
+    kind: act
+    en: the date the act or offence took place
+    ne: काम वा कसूर भए गरेको मितिदेखि
+  citation:
+    law_title_ne: मुलुकी देवानी संहिता, २०७४
+    section: '684'
+  keywords:
+  - tort
+  - negligence
+  - defamation
+  - nuisance
+  - damages
+  - दुष्कृति
+  - क्षतिपूर्ति
+- id: civil_691_defective_product
+  category: consumer
+  name:
+    en: Liability for defective products (chapter 18)
+    ne: त्रुटिपूर्ण उत्पादन वापतको दायित्व
+  period:
+    kind: fixed
+    value: 1
+    unit: years
+  period_phrase_ne: एक वर्षभित्र
+  start:
+    kind: act
+    en: the date the act or offence took place
+    ne: काम वा कसूर भए गरेको मितिदेखि
+  citation:
+    law_title_ne: मुलुकी देवानी संहिता, २०७४
+    section: '691'
+  keywords:
+  - defective product
+  - product liability
+  - consumer
+  - त्रुटिपूर्ण उत्पादन
+  - उपभोक्ता
+- id: criminal_37_attempt_abetment
+  category: criminal
+  name:
+    en: 'Conspiracy, attempt, abetment and complicity: same limitation as the offence itself'
+    ne: 'कसूरको षड्यन्त्र, उद्योग, दुरुत्साहन वा मतियार: उही हदम्याद'
+  period:
+    kind: special
+    text:
+      en: The limitation the Code gives for an offence also applies to conspiring, attempting, abetting or being an accessory to it.
+      ne: यस संहितामा कुनै कसूरका सम्बन्धमा तोकिएको उजुर गर्ने हदम्याद त्यस्तो कसूरको षड्यन्त्र, उद्योग, दुरुत्साहन वा मतियारको सम्बन्धमा समेत लागू हुन्छ।
+  period_phrase_ne: षड्यन्त्र, उद्योग, दुरुत्साहन वा मतियारको सम्बन्धमा समेत लागू
+  citation:
+    law_title_ne: मुलुकी अपराध संहिता, २०७४
+    section: '37'
+  keywords:
+  - attempt
+  - conspiracy
+  - abetment
+  - accomplice
+  - accessory
+  - उद्योग
+  - षड्यन्त्र
+  - मतियार
+- id: criminal_59_1_state_offences
+  category: criminal
+  name:
+    en: 'Offences against the State: sovereignty, sedition, national interest, genocide, war on Nepal, attack on the President (ss. 49-53, 57)'
+    ne: 'राज्य विरुद्धका कसूर: सार्वभौमसत्ता, राजद्रोह, राष्ट्रहित, जातिहत्या, नेपाल विरुद्ध युद्ध, राष्ट्रपति उपर आक्रमण (दफा ४९, ५०, ५१, ५२, ५३, ५७)'
+  period:
+    kind: none
+  period_phrase_ne: जहिले सुकै
+  notes:
+    en: A complaint can be filed at any time for these offences.
+    ne: यी कसूरमा जहिलेसुकै उजुर लाग्न सक्छ।
+  citation:
+    law_title_ne: मुलुकी अपराध संहिता, २०७४
+    section: '59'
+    clause: (१)
+  keywords:
+  - treason
+  - sedition
+  - genocide
+  - राजद्रोह
+  - जातिहत्या
+- id: criminal_59_2_state_other
+  category: criminal
+  name:
+    en: 'Other offences against the State: war on a friendly state, inciting soldiers or police, spying, threatening the President or Parliament (ss. 54-56, 58)'
+    ne: 'राज्य विरुद्धका अन्य कसूर: मित्र राष्ट्र विरुद्ध युद्ध, सैनिक/प्रहरीलाई भड्काउने, जासुसी, राष्ट्रपति/संसदलाई धम्की (दफा ५४, ५५, ५६, ५८)'
+  period:
+    kind: fixed
+    value: 2
+    unit: years
+  period_phrase_ne: दुई वर्ष
+  start:
+    kind: knowledge
+    en: the date you came to know of it
+    ne: थाहा पाएको मितिदेखि
+  notes:
+    en: Under the Criminal Code the complaint (उजुर) is barred once the period has passed; complaints made within it are in time.
+    ne: अपराध संहिता अनुसार यो अवधि नाघेपछि उजुर लाग्दैन; अवधिभित्र दिएको उजुर म्यादभित्र मानिन्छ।
+  citation:
+    law_title_ne: मुलुकी अपराध संहिता, २०७४
+    section: '59'
+    clause: (२)
+  keywords:
+  - espionage
+  - spying
+  - जासुसी
+- id: criminal_74_public_peace
+  category: criminal
+  name:
+    en: 'Offences against public peace: unlawful assembly, riot, curfew breach, rumours, etc. (ss. 60-73)'
+    ne: 'सार्वजनिक शान्ति विरुद्धको कसूर: गैरकानूनी भेला, हूलदङ्गा, कर्फ्यू उल्लङ्घन, झुठ्ठा अफवाह आदि (दफा ६०-७३)'
+  period:
+    kind: fixed
+    value: 3
+    unit: months
+  period_phrase_ne: तीन महिना
+  start:
+    kind: act
+    en: the date the act or offence took place
+    ne: काम वा कसूर भए गरेको मितिदेखि
+  notes:
+    en: Under the Criminal Code the complaint (उजुर) is barred once the period has passed; complaints made within it are in time.
+    ne: अपराध संहिता अनुसार यो अवधि नाघेपछि उजुर लाग्दैन; अवधिभित्र दिएको उजुर म्यादभित्र मानिन्छ।
+  citation:
+    law_title_ne: मुलुकी अपराध संहिता, २०७४
+    section: '74'
+  keywords:
+  - riot
+  - unlawful assembly
+  - curfew
+  - rumour
+  - हूलदङ्गा
+  - अफवाह
+- id: criminal_88_a_summons_documents
+  category: criminal
+  name:
+    en: 'Defying public authority: tearing up summons (s. 78), refusing to produce a document (s. 80), refusing to answer (s. 83)'
+    ne: 'सार्वजनिक अधिकारीको अख्तियारीको अवज्ञा: समाह्वान च्यात्ने (दफा ७८), लिखत पेश गर्न इन्कार (दफा ८०), जवाफ दिन इन्कार (दफा ८३)'
+  period:
+    kind: fixed
+    value: 3
+    unit: months
+  period_phrase_ne: तीन महिना
+  start:
+    kind: knowledge
+    en: the date you came to know of it
+    ne: थाहा पाएको मितिदेखि
+  notes:
+    en: Under the Criminal Code the complaint (उजुर) is barred once the period has passed; complaints made within it are in time.
+    ne: अपराध संहिता अनुसार यो अवधि नाघेपछि उजुर लाग्दैन; अवधिभित्र दिएको उजुर म्यादभित्र मानिन्छ।
+  citation:
+    law_title_ne: मुलुकी अपराध संहिता, २०७४
+    section: '88'
+    clause: (दफा ७८, ८०, ८३)
+  keywords:
+  - summons
+  - contempt
+  - समाह्वान
+- id: criminal_88_b_other
+  category: criminal
+  name:
+    en: 'Defying public authority: all other offences in the chapter (ss. 75-87)'
+    ne: 'सार्वजनिक अधिकारीको अख्तियारीको अवज्ञा: यस परिच्छेदका अन्य कसूर'
+  period:
+    kind: fixed
+    value: 3
+    unit: months
+  period_phrase_ne: तीन महिना
+  start:
+    kind: act
+    en: the date the act or offence took place
+    ne: काम वा कसूर भए गरेको मितिदेखि
+  notes:
+    en: Under the Criminal Code the complaint (उजुर) is barred once the period has passed; complaints made within it are in time.
+    ne: अपराध संहिता अनुसार यो अवधि नाघेपछि उजुर लाग्दैन; अवधिभित्र दिएको उजुर म्यादभित्र मानिन्छ।
+  citation:
+    law_title_ne: मुलुकी अपराध संहिता, २०७४
+    section: '88'
+  keywords:
+  - contempt
+  - obstructing public servant
+  - अवज्ञा
+- id: criminal_103_1_escape
+  category: criminal
+  name:
+    en: 'Offences against public justice: resisting arrest, escaping custody, rescuing a prisoner (ss. 101, 102)'
+    ne: 'सार्वजनिक न्याय विरुद्ध: पक्राउको बाधा विरोध, थुनाबाट भाग्ने, उम्काउने (दफा १०१, १०२)'
+  period:
+    kind: none
+  period_phrase_ne: जहिलेसुकै
+  notes:
+    en: A complaint can be filed at any time.
+    ne: जहिलेसुकै उजुर लाग्नेछ।
+  citation:
+    law_title_ne: मुलुकी अपराध संहिता, २०७४
+    section: '103'
+    clause: (१)
+  keywords:
+  - escape from custody
+  - prison break
+  - थुनाबाट भाग्ने
+- id: criminal_103_2_a_bail_breach
+  category: criminal
+  name:
+    en: Absconding in breach of bail conditions (s. 100)
+    ne: जमानतको शर्त विपरीत अनुपस्थित हुने (दफा १००)
+  period:
+    kind: fixed
+    value: 3
+    unit: months
+  period_phrase_ne: तीन महिना
+  start:
+    kind: act
+    en: the date the act or offence took place
+    ne: काम वा कसूर भए गरेको मितिदेखि
+  notes:
+    en: Under the Criminal Code the complaint (उजुर) is barred once the period has passed; complaints made within it are in time.
+    ne: अपराध संहिता अनुसार यो अवधि नाघेपछि उजुर लाग्दैन; अवधिभित्र दिएको उजुर म्यादभित्र मानिन्छ।
+  citation:
+    law_title_ne: मुलुकी अपराध संहिता, २०७४
+    section: '103'
+    clause: (२)
+  keywords:
+  - bail
+  - absconding
+  - जमानत
+- id: criminal_103_2_b_other
+  category: criminal
+  name:
+    en: 'Public justice: all other offences, e.g. false evidence, false complaint, concealing evidence (ss. 89-99)'
+    ne: 'सार्वजनिक न्याय विरुद्ध: झुठ्ठा प्रमाण, झुठ्ठा उजुरी, प्रमाण दबाउने आदि अन्य कसूर'
+  period:
+    kind: fixed
+    value: 3
+    unit: months
+  period_phrase_ne: तीन महिना
+  start:
+    kind: knowledge
+    en: the date you came to know of it
+    ne: थाहा पाएको मितिदेखि
+  notes:
+    en: Under the Criminal Code the complaint (उजुर) is barred once the period has passed; complaints made within it are in time.
+    ne: अपराध संहिता अनुसार यो अवधि नाघेपछि उजुर लाग्दैन; अवधिभित्र दिएको उजुर म्यादभित्र मानिन्छ।
+  citation:
+    law_title_ne: मुलुकी अपराध संहिता, २०७४
+    section: '103'
+    clause: (२)
+  keywords:
+  - false evidence
+  - perjury
+  - false complaint
+  - झुठ्ठा उजुरी
+  - झुठ्ठा प्रमाण
+- id: criminal_128_1_death
+  category: criminal
+  name:
+    en: Public health, safety and morality offences that caused a death
+    ne: सार्वजनिक हित, स्वास्थ्य, सुरक्षा र नैतिकता विरुद्धको कसूरबाट ज्यान मरेको
+  period:
+    kind: none
+  period_phrase_ne: जहिलेसुकै
+  notes:
+    en: Where the offence caused a person's death, a complaint can be filed at any time.
+    ne: यस परिच्छेदको कुनै कसूरबाट ज्यान मरेकोमा जहिलेसुकै उजुर गर्न सकिन्छ।
+  citation:
+    law_title_ne: मुलुकी अपराध संहिता, २०७४
+    section: '128'
+    clause: (१)
+  keywords:
+  - negligence causing death
+  - ज्यान मरेको
+- id: criminal_128_2_a_public_safety
+  category: criminal
+  name:
+    en: 'Public safety and decency: hazards on public roads, negligent handling of poison/explosives, unsafe buildings, stray animals, indecency, prostitution-related acts, obscenity (ss. 113-122)'
+    ne: सार्वजनिक बाटोमा खतरा, विषालु/विष्फोटक पदार्थ, घर निर्माणमा लापरबाही, पशुपंक्षी, अभद्र व्यवहार, वेश्यावृत्ति, अश्लील सामग्री (दफा ११३-१२२)
+  period:
+    kind: fixed
+    value: 3
+    unit: months
+  period_phrase_ne: तीन महिना
+  start:
+    kind: act
+    en: the date the act or offence took place
+    ne: काम वा कसूर भए गरेको मितिदेखि
+  notes:
+    en: Under the Criminal Code the complaint (उजुर) is barred once the period has passed; complaints made within it are in time.
+    ne: अपराध संहिता अनुसार यो अवधि नाघेपछि उजुर लाग्दैन; अवधिभित्र दिएको उजुर म्यादभित्र मानिन्छ।
+  citation:
+    law_title_ne: मुलुकी अपराध संहिता, २०७४
+    section: '128'
+    clause: (२)
+  keywords:
+  - obscenity
+  - indecency
+  - negligence
+  - अश्लील
+  - लापरबाही
+- id: criminal_128_2_b_other
+  category: criminal
+  name:
+    en: 'Public health and morality: other offences (spreading disease, HIV, food adulteration, misleading sales, pollution, gambling, etc.) (ss. 104-112, 123-126क)'
+    ne: 'सार्वजनिक स्वास्थ्य र नैतिकता: सङ्क्रामक रोग, एच.आई.भी., खाद्य मिसावट, झुक्याएर बिक्री, प्रदूषण, जुवा आदि अन्य कसूर'
+  period:
+    kind: fixed
+    value: 6
+    unit: months
+  period_phrase_ne: छ महिना
+  start:
+    kind: knowledge
+    en: the date you came to know of it
+    ne: थाहा पाएको मितिदेखि
+  notes:
+    en: Under the Criminal Code the complaint (उजुर) is barred once the period has passed; complaints made within it are in time.
+    ne: अपराध संहिता अनुसार यो अवधि नाघेपछि उजुर लाग्दैन; अवधिभित्र दिएको उजुर म्यादभित्र मानिन्छ।
+  citation:
+    law_title_ne: मुलुकी अपराध संहिता, २०७४
+    section: '128'
+    clause: (२)
+  keywords:
+  - food adulteration
+  - pollution
+  - gambling
+  - infectious disease
+  - खाद्य मिसावट
+  - प्रदूषण
+  - जुवा
+- id: criminal_137_a_arms_no_licence
+  category: criminal
+  name:
+    en: Carrying or keeping arms without a licence (s. 132)
+    ne: इजाजतपत्र विना हातहतियार राख्न वा लिएर हिँड्ने (दफा १३२)
+  period:
+    kind: fixed
+    value: 3
+    unit: months
+  period_phrase_ne: तीन महिना
+  start:
+    kind: act
+    en: the date the act or offence took place
+    ne: काम वा कसूर भए गरेको मितिदेखि
+  notes:
+    en: Under the Criminal Code the complaint (उजुर) is barred once the period has passed; complaints made within it are in time.
+    ne: अपराध संहिता अनुसार यो अवधि नाघेपछि उजुर लाग्दैन; अवधिभित्र दिएको उजुर म्यादभित्र मानिन्छ।
+  citation:
+    law_title_ne: मुलुकी अपराध संहिता, २०७४
+    section: '137'
+    clause: (दफा १३२)
+  keywords:
+  - weapon
+  - gun
+  - firearm
+  - हातहतियार
+- id: criminal_137_b_arms_other
+  category: criminal
+  name:
+    en: 'Arms and ammunition: all other offences (ss. 129-131, 133-135)'
+    ne: 'हातहतियार तथा खरखजाना: अन्य कसूर'
+  period:
+    kind: fixed
+    value: 6
+    unit: months
+  period_phrase_ne: छ महिना
+  start:
+    kind: knowledge
+    en: the date you came to know of it
+    ne: थाहा पाएको मितिदेखि
+  notes:
+    en: Under the Criminal Code the complaint (उजुर) is barred once the period has passed; complaints made within it are in time.
+    ne: अपराध संहिता अनुसार यो अवधि नाघेपछि उजुर लाग्दैन; अवधिभित्र दिएको उजुर म्यादभित्र मानिन्छ।
+  citation:
+    law_title_ne: मुलुकी अपराध संहिता, २०७४
+    section: '137'
+  keywords:
+  - weapon
+  - ammunition
+  - arms trade
+  - खरखजाना
+- id: criminal_146_a_explosive_transport
+  category: criminal
+  name:
+    en: Unsafe transport or storage of explosives (s. 143)
+    ne: विष्फोटक पदार्थको ओसारपसार, ढुवानी वा भण्डारण (दफा १४३)
+  period:
+    kind: fixed
+    value: 3
+    unit: months
+  period_phrase_ne: तीन महिना
+  start:
+    kind: act
+    en: the date the act or offence took place
+    ne: काम वा कसूर भए गरेको मितिदेखि
+  notes:
+    en: Under the Criminal Code the complaint (उजुर) is barred once the period has passed; complaints made within it are in time.
+    ne: अपराध संहिता अनुसार यो अवधि नाघेपछि उजुर लाग्दैन; अवधिभित्र दिएको उजुर म्यादभित्र मानिन्छ।
+  citation:
+    law_title_ne: मुलुकी अपराध संहिता, २०७४
+    section: '146'
+    clause: (दफा १४३)
+  keywords:
+  - explosive
+  - विष्फोटक
+- id: criminal_146_b_explosive_other
+  category: criminal
+  name:
+    en: 'Explosives: all other offences (ss. 138-142, 144-145)'
+    ne: 'विष्फोटक पदार्थ: अन्य कसूर'
+  period:
+    kind: fixed
+    value: 6
+    unit: months
+  period_phrase_ne: छ महिना
+  start:
+    kind: knowledge
+    en: the date you came to know of it
+    ne: थाहा पाएको मितिदेखि
+  notes:
+    en: Under the Criminal Code the complaint (उजुर) is barred once the period has passed; complaints made within it are in time.
+    ne: अपराध संहिता अनुसार यो अवधि नाघेपछि उजुर लाग्दैन; अवधिभित्र दिएको उजुर म्यादभित्र मानिन्छ।
+  citation:
+    law_title_ne: मुलुकी अपराध संहिता, २०७४
+    section: '146'
+  keywords:
+  - explosive
+  - landmine
+  - विष्फोटक
+  - बारुदी सुरुङ्ग
+- id: criminal_154_1_public_property
+  category: criminal
+  name:
+    en: Taking over public buildings, heritage or natural resources (ss. 147, 148, 149)
+    ne: सार्वजनिक घर, जग्गा, सम्पदा वा प्राकृतिक सम्पदा आफ्नो बनाउने (दफा १४७, १४८, १४९)
+  period:
+    kind: none
+  period_phrase_ne: जहिलेसुकै
+  notes:
+    en: A complaint can be filed at any time.
+    ne: जहिलेसुकै उजुर गर्न सकिन्छ।
+  citation:
+    law_title_ne: मुलुकी अपराध संहिता, २०७४
+    section: '154'
+    clause: (दफा १४७, १४८, १४९)
+  keywords:
+  - encroachment
+  - heritage
+  - public land
+  - अतिक्रमण
+  - सम्पदा
+- id: criminal_154_2_other
+  category: criminal
+  name:
+    en: 'Public structures and national symbols: other offences (ss. 150-152)'
+    ne: सार्वजनिक भौतिक संरचना, राष्ट्रिय गान/झण्डा आदि अन्य कसूर
+  period:
+    kind: fixed
+    value: 6
+    unit: months
+  period_phrase_ne: छ महिना
+  start:
+    kind: act
+    en: the date the act or offence took place
+    ne: काम वा कसूर भए गरेको मितिदेखि
+  notes:
+    en: Under the Criminal Code the complaint (उजुर) is barred once the period has passed; complaints made within it are in time.
+    ne: अपराध संहिता अनुसार यो अवधि नाघेपछि उजुर लाग्दैन; अवधिभित्र दिएको उजुर म्यादभित्र मानिन्छ।
+  citation:
+    law_title_ne: मुलुकी अपराध संहिता, २०७४
+    section: '154'
+  keywords:
+  - national flag
+  - anthem
+  - झण्डा
+- id: criminal_159_a_conversion
+  category: criminal
+  name:
+    en: Religious conversion (s. 158)
+    ne: धर्म परिवर्तन गराउने (दफा १५८)
+  period:
+    kind: fixed
+    value: 6
+    unit: months
+  period_phrase_ne: छ महिना
+  start:
+    kind: knowledge
+    en: the date you came to know of it
+    ne: थाहा पाएको मितिदेखि
+  notes:
+    en: Under the Criminal Code the complaint (उजुर) is barred once the period has passed; complaints made within it are in time.
+    ne: अपराध संहिता अनुसार यो अवधि नाघेपछि उजुर लाग्दैन; अवधिभित्र दिएको उजुर म्यादभित्र मानिन्छ।
+  citation:
+    law_title_ne: मुलुकी अपराध संहिता, २०७४
+    section: '159'
+    clause: (दफा १५८)
+  keywords:
+  - conversion
+  - proselytism
+  - धर्म परिवर्तन
+- id: criminal_159_b_religion_other
+  category: criminal
+  name:
+    en: 'Religious offences: damaging holy places, hurting religious feelings, obstructing rites (ss. 155-157)'
+    ne: धार्मिकस्थल क्षति, धार्मिक भावनामा आघात, रीति-स्थितिमा बाधा (दफा १५५-१५७)
+  period:
+    kind: fixed
+    value: 3
+    unit: months
+  period_phrase_ne: तीन महिना
+  start:
+    kind: act
+    en: the date the act or offence took place
+    ne: काम वा कसूर भए गरेको मितिदेखि
+  notes:
+    en: Under the Criminal Code the complaint (उजुर) is barred once the period has passed; complaints made within it are in time.
+    ne: अपराध संहिता अनुसार यो अवधि नाघेपछि उजुर लाग्दैन; अवधिभित्र दिएको उजुर म्यादभित्र मानिन्छ।
+  citation:
+    law_title_ne: मुलुकी अपराध संहिता, २०७४
+    section: '159'
+  keywords:
+  - religious feelings
+  - temple
+  - धार्मिक भावना
+- id: criminal_170_1_slavery
+  category: criminal
+  name:
+    en: Forced labour, enslavement and bonded labour (ss. 163, 164)
+    ne: दास बनाउने, बन्धक बनाउने वा बाँधा राख्ने (दफा १६३, १६४)
+  period:
+    kind: none
+  period_phrase_ne: जहिले सुकै
+  notes:
+    en: A complaint can be filed at any time.
+    ne: जहिलेसुकै उजुर लाग्नेछ।
+  citation:
+    law_title_ne: मुलुकी अपराध संहिता, २०७४
+    section: '170'
+    clause: (१)
+  keywords:
+  - slavery
+  - bonded labour
+  - haliya
+  - kamaiya
+  - दास
+  - बाँधा श्रम
+- id: criminal_170_2_a_torture
+  category: criminal
+  name:
+    en: Torture (s. 167)
+    ne: यातना दिने (दफा १६७)
+  period:
+    kind: fixed
+    value: 6
+    unit: months
+  period_phrase_ne: छ महिना
+  start:
+    kind: other
+    en: the date the offence took place, or the date the victim was released from arrest, custody, detention or imprisonment
+    ne: कसूर भएको वा पीडित पक्राउ, नियन्त्रण, हिरासत, थुना, कैद वा नजरबन्दबाट मुक्त भएको मितिदेखि
+  notes:
+    en: Under the Criminal Code the complaint (उजुर) is barred once the period has passed; complaints made within it are in time.
+    ne: अपराध संहिता अनुसार यो अवधि नाघेपछि उजुर लाग्दैन; अवधिभित्र दिएको उजुर म्यादभित्र मानिन्छ।
+  citation:
+    law_title_ne: मुलुकी अपराध संहिता, २०७४
+    section: '170'
+    clause: (२)
+  keywords:
+  - torture
+  - custodial violence
+  - यातना
+- id: criminal_170_2_b_other
+  category: criminal
+  name:
+    en: 'Discrimination, untouchability and degrading treatment: other offences (ss. 160-162, 165, 166, 168)'
+    ne: 'भेदभाव, छुवाछुत तथा अपमानजन्य व्यवहार: अन्य कसूर'
+  period:
+    kind: fixed
+    value: 6
+    unit: months
+  period_phrase_ne: छ महिना
+  start:
+    kind: knowledge
+    en: the date you came to know of it
+    ne: थाहा पाएको मितिदेखि
+  notes:
+    en: Under the Criminal Code the complaint (उजुर) is barred once the period has passed; complaints made within it are in time.
+    ne: अपराध संहिता अनुसार यो अवधि नाघेपछि उजुर लाग्दैन; अवधिभित्र दिएको उजुर म्यादभित्र मानिन्छ।
+  citation:
+    law_title_ne: मुलुकी अपराध संहिता, २०७४
+    section: '170'
+    clause: (२)
+  keywords:
+  - discrimination
+  - untouchability
+  - caste
+  - भेदभाव
+  - छुवाछुत
+  - जातपात
+- id: criminal_176_marriage
+  category: criminal
+  name:
+    en: 'Marriage offences: forced marriage, marriage within prohibited relationships, child marriage, dowry, polygamy (ss. 171-175)'
+    ne: 'विवाह सम्बन्धी कसूर: मञ्जुरी विना, हाडनाता, बाल विवाह, लेनदेन, बहुविवाह (दफा १७१-१७५)'
+  period:
+    kind: fixed
+    value: 3
+    unit: months
+  period_phrase_ne: तीन महिना
+  start:
+    kind: knowledge
+    en: the date you came to know of it
+    ne: थाहा पाएको मितिदेखि
+  notes:
+    en: Under the Criminal Code the complaint (उजुर) is barred once the period has passed; complaints made within it are in time.
+    ne: अपराध संहिता अनुसार यो अवधि नाघेपछि उजुर लाग्दैन; अवधिभित्र दिएको उजुर म्यादभित्र मानिन्छ।
+  citation:
+    law_title_ne: मुलुकी अपराध संहिता, २०७४
+    section: '176'
+  keywords:
+  - child marriage
+  - polygamy
+  - dowry
+  - forced marriage
+  - बाल विवाह
+  - बहुविवाह
+  - दहेज
+- id: criminal_187_1_a_culprit_identified
+  category: criminal
+  name:
+    en: 'Homicide (ss. 177-182, 184(3)): where the culprit is proved or himself confesses'
+    ne: 'ज्यान सम्बन्धी कसूर (दफा १७७-१८२, १८४): कसूरदार आफैँ साबित भई पोलेको'
+  period:
+    kind: none
+  period_phrase_ne: जहिलेसुकै
+  notes:
+    en: Where the culprit is established or himself confesses, a complaint can be filed at any time.
+    ne: कसूरदार आफैँ साबित भई पोलेकोमा जहिलेसुकै उजुर लाग्छ।
+  citation:
+    law_title_ne: मुलुकी अपराध संहिता, २०७४
+    section: '187'
+    clause: (१)
+  keywords:
+  - murder
+  - homicide
+  - killing
+  - ज्यान
+  - हत्या
+  needs_review: true
+- id: criminal_187_1_b_unidentified
+  category: criminal
+  name:
+    en: 'Homicide: complaint about the killing filed but the culprit not found'
+    ne: 'ज्यान सम्बन्धी कसूर: कर्तव्यको उजुरी परेको तर कर्तव्यवाला पत्ता नलागेको'
+  period:
+    kind: fixed
+    value: 20
+    unit: years
+  period_phrase_ne: बीस वर्ष
+  start:
+    kind: act
+    en: (the section does not say exactly; read it with the incident date)
+    ne: (दफामा स्पष्ट खुलाइएको छैन; वारदात भएको मितिलाई आधार मानिएको)
+  notes:
+    en: If a complaint about the killing was filed but the investigation did not find who did it, no complaint lies after 20 years.
+    ne: कर्तव्यको उजुरी परेकोमा अनुसन्धानबाट कर्तव्यवाला पत्ता नलागेको अवस्थामा बीस वर्षपछि उजुरी लाग्दैन।
+  citation:
+    law_title_ne: मुलुकी अपराध संहिता, २०७४
+    section: '187'
+    clause: (१)
+  keywords:
+  - murder
+  - unsolved
+  - ज्यान
+  needs_review: true
+- id: criminal_187_1_c_no_complaint
+  category: criminal
+  name:
+    en: 'Homicide: no complaint about the killing was filed'
+    ne: 'ज्यान सम्बन्धी कसूर: कर्तव्यको उजुर नपरेको'
+  period:
+    kind: fixed
+    value: 2
+    unit: years
+  period_phrase_ne: दुई वर्ष
+  start:
+    kind: act
+    en: the date the incident took place
+    ne: वारदात भएको मितिदेखि
+  notes:
+    en: If no complaint about the killing was filed, no complaint lies two years after the incident.
+    ne: कर्तव्यको उजुर नपरेकोमा वारदात भएको दुई वर्षपछि उजुरी लाग्दैन।
+  citation:
+    law_title_ne: मुलुकी अपराध संहिता, २०७४
+    section: '187'
+    clause: (१)
+  keywords:
+  - murder
+  - ज्यान
+  needs_review: true
+- id: criminal_187_2_other
+  category: criminal
+  name:
+    en: 'Homicide chapter: all other offences (attempt, abetting suicide, abandoning a person in your care, etc.)'
+    ne: ज्यान सम्बन्धी अन्य कसूर (उद्योग, आत्महत्या दुरुत्साहन, संरक्षकत्वमा रहेको व्यक्तिलाई परित्याग आदि)
+  period:
+    kind: fixed
+    value: 6
+    unit: months
+  period_phrase_ne: छ महिना
+  start:
+    kind: knowledge
+    en: the date you came to know of it
+    ne: थाहा पाएको मितिदेखि
+  notes:
+    en: Under the Criminal Code the complaint (उजुर) is barred once the period has passed; complaints made within it are in time.
+    ne: अपराध संहिता अनुसार यो अवधि नाघेपछि उजुर लाग्दैन; अवधिभित्र दिएको उजुर म्यादभित्र मानिन्छ।
+  citation:
+    law_title_ne: मुलुकी अपराध संहिता, २०७४
+    section: '187'
+    clause: (२)
+  keywords:
+  - attempted murder
+  - suicide
+  - abandonment
+  - ज्यान मार्ने उद्योग
+  - आत्महत्या
+- id: criminal_190_abortion
+  category: criminal
+  name:
+    en: Abortion-related offences (ss. 188, 189)
+    ne: 'गर्भ संरक्षण विरुद्धको कसूर: गर्भपतन (दफा १८८, १८९)'
+  period:
+    kind: fixed
+    value: 6
+    unit: months
+  period_phrase_ne: छ महिना
+  start:
+    kind: knowledge
+    en: the date you came to know of it
+    ne: थाहा पाएको मितिदेखि
+  notes:
+    en: Under the Criminal Code the complaint (उजुर) is barred once the period has passed; complaints made within it are in time.
+    ne: अपराध संहिता अनुसार यो अवधि नाघेपछि उजुर लाग्दैन; अवधिभित्र दिएको उजुर म्यादभित्र मानिन्छ।
+  citation:
+    law_title_ne: मुलुकी अपराध संहिता, २०७४
+    section: '190'
+  keywords:
+  - abortion
+  - miscarriage
+  - गर्भपतन
+- id: criminal_199_a_criminal_force
+  category: criminal
+  name:
+    en: Use of criminal force (s. 196)
+    ne: आपराधिक बल प्रयोग (दफा १९६)
+  period:
+    kind: fixed
+    value: 3
+    unit: months
+  period_phrase_ne: तीन महिना
+  start:
+    kind: act
+    en: the date the act or offence took place
+    ne: काम वा कसूर भए गरेको मितिदेखि
+  notes:
+    en: Under the Criminal Code the complaint (उजुर) is barred once the period has passed; complaints made within it are in time.
+    ne: अपराध संहिता अनुसार यो अवधि नाघेपछि उजुर लाग्दैन; अवधिभित्र दिएको उजुर म्यादभित्र मानिन्छ।
+  citation:
+    law_title_ne: मुलुकी अपराध संहिता, २०७४
+    section: '199'
+    clause: (दफा १९६)
+  keywords:
+  - assault
+  - criminal force
+  - बल प्रयोग
+- id: criminal_199_b_unconsciousness
+  category: criminal
+  name:
+    en: Rendering someone unconscious with intent to commit an offence (s. 197)
+    ne: कसूर गर्ने नियतले बेहोस पार्ने (दफा १९७)
+  period:
+    kind: fixed
+    value: 6
+    unit: months
+  period_phrase_ne: छ महिना
+  start:
+    kind: other
+    en: the date the victim regained consciousness
+    ne: त्यस्तो व्यक्तिको होस आएको मितिदेखि
+  notes:
+    en: Under the Criminal Code the complaint (उजुर) is barred once the period has passed; complaints made within it are in time.
+    ne: अपराध संहिता अनुसार यो अवधि नाघेपछि उजुर लाग्दैन; अवधिभित्र दिएको उजुर म्यादभित्र मानिन्छ।
+  citation:
+    law_title_ne: मुलुकी अपराध संहिता, २०७४
+    section: '199'
+    clause: (दफा १९७)
+  keywords:
+  - drugging
+  - unconscious
+  - बेहोस
+- id: criminal_199_c_assault_other
+  category: criminal
+  name:
+    en: 'Beating and maiming (incl. acid attacks): all other offences in the chapter (ss. 191-195)'
+    ne: 'कुटपिट वा अङ्गभङ्ग (तेजाबसमेत): अन्य कसूर (दफा १९१-१९५)'
+  period:
+    kind: fixed
+    value: 1
+    unit: years
+  period_phrase_ne: एक वर्ष
+  start:
+    kind: act
+    en: the date the act or offence took place
+    ne: काम वा कसूर भए गरेको मितिदेखि
+  notes:
+    en: Under the Criminal Code the complaint (उजुर) is barred once the period has passed; complaints made within it are in time.
+    ne: अपराध संहिता अनुसार यो अवधि नाघेपछि उजुर लाग्दैन; अवधिभित्र दिएको उजुर म्यादभित्र मानिन्छ।
+  citation:
+    law_title_ne: मुलुकी अपराध संहिता, २०७४
+    section: '199'
+  keywords:
+  - assault
+  - beating
+  - acid attack
+  - maiming
+  - कुटपिट
+  - अङ्गभङ्ग
+  - तेजाब
+- id: criminal_205_a_secret_detention
+  category: criminal
+  name:
+    en: Bad-faith detention (s. 200(3))
+    ne: बदनियतपूर्वक थुनछेक (दफा २००(३))
+  period:
+    kind: fixed
+    value: 3
+    unit: months
+  period_phrase_ne: तीन महिना
+  start:
+    kind: act
+    en: the date the act or offence took place
+    ne: काम वा कसूर भए गरेको मितिदेखि
+  notes:
+    en: Under the Criminal Code the complaint (उजुर) is barred once the period has passed; complaints made within it are in time.
+    ne: अपराध संहिता अनुसार यो अवधि नाघेपछि उजुर लाग्दैन; अवधिभित्र दिएको उजुर म्यादभित्र मानिन्छ।
+  citation:
+    law_title_ne: मुलुकी अपराध संहिता, २०७४
+    section: '205'
+    clause: (दफा २००(३))
+  keywords:
+  - illegal detention
+  - गैरकानूनी थुना
+- id: criminal_205_b_detention_other
+  category: criminal
+  name:
+    en: 'Unlawful detention: all other offences (ss. 200-203)'
+    ne: 'गैरकानूनी थुना: अन्य कसूर'
+  period:
+    kind: fixed
+    value: 3
+    unit: months
+  period_phrase_ne: तीन महिना
+  start:
+    kind: other
+    en: the date the detained person was released from detention
+    ne: थुनामा परेको व्यक्ति थुनाबाट मुक्त भएको मितिदेखि
+  notes:
+    en: Under the Criminal Code the complaint (उजुर) is barred once the period has passed; complaints made within it are in time.
+    ne: अपराध संहिता अनुसार यो अवधि नाघेपछि उजुर लाग्दैन; अवधिभित्र दिएको उजुर म्यादभित्र मानिन्छ।
+  citation:
+    law_title_ne: मुलुकी अपराध संहिता, २०७४
+    section: '205'
+  keywords:
+  - illegal detention
+  - wrongful confinement
+  - गैरकानूनी थुना
+  - थुनछेक
+- id: criminal_210_a_disappearance
+  category: criminal
+  name:
+    en: Enforced disappearance (s. 206)
+    ne: व्यक्ति बेपत्ता पार्ने (दफा २०६)
+  period:
+    kind: fixed
+    value: 6
+    unit: months
+  period_phrase_ne: छ महिना
+  start:
+    kind: knowledge
+    en: the date the offence became known, or the date the disappeared person became public / was found
+    ne: कसूर भएको थाहा भएको वा बेपत्ता पारिएको व्यक्ति सार्वजनिक भएको वा गरिएको मितिदेखि
+  notes:
+    en: Under the Criminal Code the complaint (उजुर) is barred once the period has passed; complaints made within it are in time.
+    ne: अपराध संहिता अनुसार यो अवधि नाघेपछि उजुर लाग्दैन; अवधिभित्र दिएको उजुर म्यादभित्र मानिन्छ।
+  citation:
+    law_title_ne: मुलुकी अपराध संहिता, २०७४
+    section: '210'
+    clause: (मुख्य)
+  keywords:
+  - disappearance
+  - missing person
+  - बेपत्ता
+- id: criminal_210_b_court_permission
+  category: criminal
+  name:
+    en: 'Enforced disappearance: complaint late because filing was impossible (with court permission)'
+    ne: 'व्यक्ति बेपत्ता पार्ने: उजुर गर्न सकिने परिस्थिति नभएको कारण अदालतको अनुमतिले'
+  period:
+    kind: special
+    text:
+      en: If you could not file earlier, you may file at any time after showing the reason, with the court's permission and evidence.
+      ne: उजुर गर्न सकिने परिस्थिति नभएको कारण खुलाई अदालतको अनुमति लिई प्रमाण सहित उजुर गरेमा जहिलेसुकै उजुर लाग्छ।
+  period_phrase_ne: जहिलेसुकै उजुर लाग्नेछ
+  citation:
+    law_title_ne: मुलुकी अपराध संहिता, २०७४
+    section: '210'
+    clause: (तर)
+  keywords:
+  - disappearance
+  - late complaint
+  - बेपत्ता
+- id: criminal_218_1_abduction_death
+  category: criminal
+  name:
+    en: Abduction or hostage-taking that caused a death
+    ne: अपहरण वा शरीर बन्धकबाट ज्यान लिएको
+  period:
+    kind: none
+  period_phrase_ne: जहिले सुकै
+  notes:
+    en: A complaint can be filed at any time.
+    ne: जहिलेसुकै उजुर गर्न सकिन्छ।
+  citation:
+    law_title_ne: मुलुकी अपराध संहिता, २०७४
+    section: '218'
+    clause: (१)
+  keywords:
+  - kidnapping
+  - hostage
+  - अपहरण
+  - शरीर बन्धक
+- id: criminal_218_2_a_abduction
+  category: criminal
+  name:
+    en: 'Abduction and hostage-taking: general offences in the chapter (ss. 213-217)'
+    ne: 'अपहरण वा शरीर बन्धक: अन्य कसूर'
+  period:
+    kind: fixed
+    value: 2
+    unit: years
+  period_phrase_ne: दुई वर्ष
+  start:
+    kind: act
+    en: the date the act or offence took place
+    ne: काम वा कसूर भए गरेको मितिदेखि
+  notes:
+    en: Under the Criminal Code the complaint (उजुर) is barred once the period has passed; complaints made within it are in time.
+    ne: अपराध संहिता अनुसार यो अवधि नाघेपछि उजुर लाग्दैन; अवधिभित्र दिएको उजुर म्यादभित्र मानिन्छ।
+  citation:
+    law_title_ne: मुलुकी अपराध संहिता, २०७४
+    section: '218'
+    clause: (२)
+  keywords:
+  - kidnapping
+  - abduction
+  - अपहरण
+- id: criminal_218_2_b_release
+  category: criminal
+  name:
+    en: 'Abduction (s. 211) and taking a person hostage (s. 212): time runs from release'
+    ne: 'अपहरण (दफा २११) र शरीर बन्धक (दफा २१२): मुक्त भएको मितिदेखि'
+  period:
+    kind: fixed
+    value: 6
+    unit: months
+  period_phrase_ne: छ महिना
+  start:
+    kind: other
+    en: the date the victim was released from the offence
+    ne: सम्बन्धित व्यक्ति त्यस्तो कसूरबाट मुक्त भएको मितिदेखि
+  notes:
+    en: Under the Criminal Code the complaint (उजुर) is barred once the period has passed; complaints made within it are in time.
+    ne: अपराध संहिता अनुसार यो अवधि नाघेपछि उजुर लाग्दैन; अवधिभित्र दिएको उजुर म्यादभित्र मानिन्छ।
+  citation:
+    law_title_ne: मुलुकी अपराध संहिता, २०७४
+    section: '218'
+    clause: (२)
+  keywords:
+  - kidnapping
+  - hostage
+  - अपहरण
+  - शरीर बन्धक
+- id: criminal_229_1_incest
+  category: criminal
+  name:
+    en: Incest (sex between prohibited relatives) (s. 220)
+    ne: हाडनातामा करणी (दफा २२०)
+  period:
+    kind: none
+  period_phrase_ne: जहिले सुकै
+  notes:
+    en: A complaint can be filed at any time.
+    ne: जहिलेसुकै उजुर गर्न सकिन्छ।
+  citation:
+    law_title_ne: मुलुकी अपराध संहिता, २०७४
+    section: '229'
+    clause: (१)
+  keywords:
+  - incest
+  - हाडनाता करणी
+- id: criminal_229_2_a_child_victim
+  category: criminal
+  name:
+    en: Rape and sexual offences against a child (ss. 219, 221-226(3), 227क(1))
+    ne: बालबालिका विरुद्ध जबर्जस्ती करणी र यौन कसूर (दफा २१९, २२१-२२६(३), २२७क(१))
+  period:
+    kind: fixed
+    value: 3
+    unit: years
+  period_phrase_ne: तीन वर्ष
+  start:
+    kind: other
+    en: the date the child turned 18 years old
+    ne: बालबालिकाको अठार वर्ष पूरा भएको मितिदेखि
+  notes:
+    en: For these offences committed against a child, a complaint can be made within 3 years of the child's 18th birthday.
+    ne: यी कसूर बालबालिका विरुद्ध भएकोमा निजको अठार वर्ष पूरा भएको मितिले तीन वर्षभित्र उजुर गर्न सकिन्छ।
+  citation:
+    law_title_ne: मुलुकी अपराध संहिता, २०७४
+    section: '229'
+    clause: (२)
+  keywords:
+  - rape
+  - child sexual abuse
+  - sexual assault
+  - जबर्जस्ती करणी
+  - बालयौन दुरुपयोग
+  - करणी
+- id: criminal_229_2_b_vulnerable_victim
+  category: criminal
+  name:
+    en: Same offences against a fully disabled, mentally slow or 70+ year-old victim
+    ne: ती कसूर पूर्ण अशक्त अपाङ्गता भएका, सुस्त मनस्थिति भएका वा सत्तरी वर्षभन्दा बढी उमेरका व्यक्ति विरुद्ध
+  period:
+    kind: fixed
+    value: 3
+    unit: years
+  period_phrase_ne: तीन वर्ष
+  start:
+    kind: act
+    en: the date the act or offence took place
+    ne: काम वा कसूर भए गरेको मितिदेखि
+  citation:
+    law_title_ne: मुलुकी अपराध संहिता, २०७४
+    section: '229'
+    clause: (२)
+  keywords:
+  - rape
+  - disability
+  - elderly victim
+  - जबर्जस्ती करणी
+  - अपाङ्गता
+- id: criminal_229_2_c_other_victim
+  category: criminal
+  name:
+    en: Rape and the same sexual offences against other victims
+    ne: अन्य व्यक्ति विरुद्ध जबर्जस्ती करणी र ती यौन कसूर
+  period:
+    kind: fixed
+    value: 2
+    unit: years
+  period_phrase_ne: दुई वर्ष
+  start:
+    kind: act
+    en: the date the act or offence took place
+    ne: काम वा कसूर भए गरेको मितिदेखि
+  notes:
+    en: Read the section itself for which victims and offences fall here; the wording of "others" (अन्यको हकमा) is compressed.
+    ne: कुन पीडित र कसूर यस अन्तर्गत पर्छन् भन्ने दफा आफैँ पढ्नुहोस्; "अन्यको हकमा" भन्ने वाक्यांश संक्षिप्त छ।
+  citation:
+    law_title_ne: मुलुकी अपराध संहिता, २०७४
+    section: '229'
+    clause: (२)
+  keywords:
+  - rape
+  - sexual assault
+  - जबर्जस्ती करणी
+  needs_review: true
+- id: criminal_229_2_d_other_offences
+  category: criminal
+  name:
+    en: 'Sexual offences chapter: other offences'
+    ne: करणी सम्बन्धी अन्य कसूर
+  period:
+    kind: fixed
+    value: 3
+    unit: months
+  period_phrase_ne: तीन महिना
+  start:
+    kind: knowledge
+    en: the date you came to know of it
+    ne: थाहा पाएको मितिदेखि
+  notes:
+    en: Under the Criminal Code the complaint (उजुर) is barred once the period has passed; complaints made within it are in time.
+    ne: अपराध संहिता अनुसार यो अवधि नाघेपछि उजुर लाग्दैन; अवधिभित्र दिएको उजुर म्यादभित्र मानिन्छ।
+  citation:
+    law_title_ne: मुलुकी अपराध संहिता, २०७४
+    section: '229'
+    clause: (२)
+  keywords:
+  - sexual offence
+  - करणी
+- id: criminal_229_proviso_custody
+  category: criminal
+  name:
+    en: 'Sexual offences against a person in custody, or abducted / held hostage: time runs from release'
+    ne: 'थुना, नियन्त्रण, अपहरण वा शरीर बन्धकमा रहेको व्यक्ति विरुद्ध कसूर: मुक्ति पाएको मितिदेखि'
+  period:
+    kind: fixed
+    value: 3
+    unit: months
+  period_phrase_ne: तीन महिना
+  start:
+    kind: other
+    en: the date the victim was freed from custody, control, abduction or hostage-taking
+    ne: थुना, नियन्त्रण, अपहरण वा शरीर बन्धकबाट मुक्ति पाएको मितिदेखि
+  notes:
+    en: Under the Criminal Code the complaint (उजुर) is barred once the period has passed; complaints made within it are in time.
+    ne: अपराध संहिता अनुसार यो अवधि नाघेपछि उजुर लाग्दैन; अवधिभित्र दिएको उजुर म्यादभित्र मानिन्छ।
+  citation:
+    law_title_ne: मुलुकी अपराध संहिता, २०७४
+    section: '229'
+    clause: (तर)
+  keywords:
+  - custodial rape
+  - थुनामा करणी
+- id: criminal_240_1_treatment_death
+  category: criminal
+  name:
+    en: Medical offences causing death (ss. 230(4), 231, 232, 233(4), 235, 238(4))
+    ne: इलाज सम्बन्धी कसूरबाट ज्यान मरेको (दफा २३०(४), २३१, २३२, २३३(४), २३५, २३८(४))
+  period:
+    kind: special
+    text:
+      en: Where the act caused death, the same limitation as s. 187(1) (homicide) applies; see the homicide entries.
+      ne: ज्यान मरेकोमा दफा १८७ को उपदफा (१) को हदम्याद लाग्छ; ज्यान सम्बन्धी प्रविष्टि हेर्नुहोस्।
+  period_phrase_ne: दफा १८७ को उपदफा (१) मा उल्लिखित हदम्याद
+  citation:
+    law_title_ne: मुलुकी अपराध संहिता, २०७४
+    section: '240'
+    clause: (१)
+  keywords:
+  - medical negligence
+  - doctor
+  - malpractice
+  - इलाज
+  - लापरबाही
+- id: criminal_240_2_a_unlicensed_treatment
+  category: criminal
+  name:
+    en: Treating patients without a licence (s. 230(1))
+    ne: इजाजत प्राप्त नगरी इलाज गर्ने (दफा २३०(१))
+  period:
+    kind: fixed
+    value: 1
+    unit: years
+  period_phrase_ne: एक वर्ष
+  start:
+    kind: knowledge
+    en: the date you came to know of it
+    ne: थाहा पाएको मितिदेखि
+  notes:
+    en: Under the Criminal Code the complaint (उजुर) is barred once the period has passed; complaints made within it are in time.
+    ne: अपराध संहिता अनुसार यो अवधि नाघेपछि उजुर लाग्दैन; अवधिभित्र दिएको उजुर म्यादभित्र मानिन्छ।
+  citation:
+    law_title_ne: मुलुकी अपराध संहिता, २०७४
+    section: '240'
+    clause: (२)
+  keywords:
+  - quack
+  - unlicensed doctor
+  - इजाजत
+- id: criminal_240_2_b_treatment_other
+  category: criminal
+  name:
+    en: 'Medical treatment chapter: all other offences (bad-faith or negligent treatment, human experiments, harmful/adulterated/expired medicines, false reports)'
+    ne: इलाज सम्बन्धी अन्य कसूर (बदनियत वा लापरबाही इलाज, परीक्षण, जोखिमपूर्ण/मिसावट/म्याद नाघेको औषधि, झुठ्ठा प्रतिवेदन)
+  period:
+    kind: fixed
+    value: 6
+    unit: months
+  period_phrase_ne: छ महिना
+  start:
+    kind: act
+    en: the date the act or offence took place
+    ne: काम वा कसूर भए गरेको मितिदेखि
+  notes:
+    en: Under the Criminal Code the complaint (उजुर) is barred once the period has passed; complaints made within it are in time.
+    ne: अपराध संहिता अनुसार यो अवधि नाघेपछि उजुर लाग्दैन; अवधिभित्र दिएको उजुर म्यादभित्र मानिन्छ।
+  citation:
+    law_title_ne: मुलुकी अपराध संहिता, २०७४
+    section: '240'
+    clause: (२)
+  keywords:
+  - medical negligence
+  - adulterated medicine
+  - expired medicine
+  - औषधि
+  - मिसावट
+- id: criminal_248_a_burglary
+  category: criminal
+  name:
+    en: Carrying tools for theft (s. 245) and burglary (s. 246)
+    ne: चोरीमा प्रयोग हुने औजार लिएर हिँड्ने र बगली मार्ने (दफा २४५, २४६)
+  period:
+    kind: fixed
+    value: 3
+    unit: months
+  period_phrase_ne: तीन महिना
+  start:
+    kind: act
+    en: the date the act or offence took place
+    ne: काम वा कसूर भए गरेको मितिदेखि
+  notes:
+    en: Under the Criminal Code the complaint (उजुर) is barred once the period has passed; complaints made within it are in time.
+    ne: अपराध संहिता अनुसार यो अवधि नाघेपछि उजुर लाग्दैन; अवधिभित्र दिएको उजुर म्यादभित्र मानिन्छ।
+  citation:
+    law_title_ne: मुलुकी अपराध संहिता, २०७४
+    section: '248'
+    clause: (दफा २४५, २४६)
+  keywords:
+  - burglary
+  - house-breaking
+  - बगली
+- id: criminal_248_b_theft
+  category: criminal
+  name:
+    en: Theft, burglary-theft (नकबजनी) and dacoity (ss. 241-244)
+    ne: चोरी, नकबजनी चोरी र डाँका (दफा २४१-२४४)
+  period:
+    kind: fixed
+    value: 6
+    unit: months
+  period_phrase_ne: छ महिना
+  start:
+    kind: knowledge
+    en: the date you came to know of it
+    ne: थाहा पाएको मितिदेखि
+  notes:
+    en: Under the Criminal Code the complaint (उजुर) is barred once the period has passed; complaints made within it are in time.
+    ne: अपराध संहिता अनुसार यो अवधि नाघेपछि उजुर लाग्दैन; अवधिभित्र दिएको उजुर म्यादभित्र मानिन्छ।
+  citation:
+    law_title_ne: मुलुकी अपराध संहिता, २०७४
+    section: '248'
+  keywords:
+  - theft
+  - robbery
+  - dacoity
+  - stolen
+  - चोरी
+  - डाँका
+  - नकबजनी
+- id: criminal_255_fraud
+  category: criminal
+  name:
+    en: Cheating, criminal breach of trust, criminal misappropriation and extortion (ss. 249-253)
+    ne: ठगी, आपराधिक विश्वासघात, सम्पत्तिको आपराधिक उपयोग, आपराधिक लाभ (एक्सटर्सन) (दफा २४९-२५३)
+  period:
+    kind: fixed
+    value: 1
+    unit: years
+  period_phrase_ne: एक वर्ष
+  start:
+    kind: knowledge
+    en: the date you came to know of it
+    ne: थाहा पाएको मितिदेखि
+  notes:
+    en: Under the Criminal Code the complaint (उजुर) is barred once the period has passed; complaints made within it are in time.
+    ne: अपराध संहिता अनुसार यो अवधि नाघेपछि उजुर लाग्दैन; अवधिभित्र दिएको उजुर म्यादभित्र मानिन्छ।
+  citation:
+    law_title_ne: मुलुकी अपराध संहिता, २०७४
+    section: '255'
+  keywords:
+  - fraud
+  - cheating
+  - breach of trust
+  - extortion
+  - ठगी
+  - विश्वासघात
+- id: criminal_266_currency
+  category: criminal
+  name:
+    en: Counterfeit currency and currency offences (ss. 256-264)
+    ne: 'मुद्रा सम्बन्धी कसूर: खोटा मुद्रा आदि'
+  period:
+    kind: fixed
+    value: 1
+    unit: years
+  period_phrase_ne: एक वर्ष
+  start:
+    kind: knowledge
+    en: the date you came to know of it
+    ne: थाहा पाएको मितिदेखि
+  notes:
+    en: Under the Criminal Code the complaint (उजुर) is barred once the period has passed; complaints made within it are in time.
+    ne: अपराध संहिता अनुसार यो अवधि नाघेपछि उजुर लाग्दैन; अवधिभित्र दिएको उजुर म्यादभित्र मानिन्छ।
+  citation:
+    law_title_ne: मुलुकी अपराध संहिता, २०७४
+    section: '266'
+  keywords:
+  - counterfeit
+  - fake note
+  - खोटा मुद्रा
+- id: criminal_272_stamps
+  category: criminal
+  name:
+    en: 'Stamp offences: forged or reused stamps (ss. 267-271)'
+    ne: 'टिकट सम्बन्धी कसूर: खोटा टिकट आदि'
+  period:
+    kind: fixed
+    value: 1
+    unit: years
+  period_phrase_ne: एक वर्ष
+  start:
+    kind: knowledge
+    en: the date you came to know of it
+    ne: थाहा पाएको मितिदेखि
+  notes:
+    en: Under the Criminal Code the complaint (उजुर) is barred once the period has passed; complaints made within it are in time.
+    ne: अपराध संहिता अनुसार यो अवधि नाघेपछि उजुर लाग्दैन; अवधिभित्र दिएको उजुर म्यादभित्र मानिन्छ।
+  citation:
+    law_title_ne: मुलुकी अपराध संहिता, २०७४
+    section: '272'
+  keywords:
+  - forged stamp
+  - टिकट
+- id: criminal_275_weights_measures
+  category: criminal
+  name:
+    en: Weights and measures offences (ss. 273-274)
+    ne: नापतौल सम्बन्धी कसूर
+  period:
+    kind: fixed
+    value: 3
+    unit: months
+  period_phrase_ne: तीन महिना
+  start:
+    kind: knowledge
+    en: the date you came to know of it
+    ne: थाहा पाएको मितिदेखि
+  notes:
+    en: Under the Criminal Code the complaint (उजुर) is barred once the period has passed; complaints made within it are in time.
+    ne: अपराध संहिता अनुसार यो अवधि नाघेपछि उजुर लाग्दैन; अवधिभित्र दिएको उजुर म्यादभित्र मानिन्छ।
+  citation:
+    law_title_ne: मुलुकी अपराध संहिता, २०७४
+    section: '275'
+  keywords:
+  - false weight
+  - measure
+  - नापतौल
+- id: criminal_283_a_public_document_forgery
+  category: criminal
+  name:
+    en: Forging a public document
+    ne: सार्वजनिक लिखत कीर्ते गरेको
+  period:
+    kind: fixed
+    value: 2
+    unit: years
+  period_phrase_ne: दुई वर्ष
+  start:
+    kind: knowledge
+    en: the date you came to know of it
+    ne: थाहा पाएको मितिदेखि
+  notes:
+    en: Under the Criminal Code the complaint (उजुर) is barred once the period has passed; complaints made within it are in time.
+    ne: अपराध संहिता अनुसार यो अवधि नाघेपछि उजुर लाग्दैन; अवधिभित्र दिएको उजुर म्यादभित्र मानिन्छ।
+  citation:
+    law_title_ne: मुलुकी अपराध संहिता, २०७४
+    section: '283'
+  keywords:
+  - forgery
+  - fake document
+  - कीर्ते
+  - जालसाजी
+- id: criminal_283_b_documents_other
+  category: criminal
+  name:
+    en: 'Document offences: all other offences (forgery of private documents, fraud with documents) (ss. 276-282)'
+    ne: लिखत सम्बन्धी अन्य कसूर (कीर्ते, जालसाजी)
+  period:
+    kind: fixed
+    value: 6
+    unit: months
+  period_phrase_ne: छ महिना
+  start:
+    kind: knowledge
+    en: the date you came to know of it
+    ne: थाहा पाएको मितिदेखि
+  notes:
+    en: Under the Criminal Code the complaint (उजुर) is barred once the period has passed; complaints made within it are in time.
+    ne: अपराध संहिता अनुसार यो अवधि नाघेपछि उजुर लाग्दैन; अवधिभित्र दिएको उजुर म्यादभित्र मानिन्छ।
+  citation:
+    law_title_ne: मुलुकी अपराध संहिता, २०७४
+    section: '283'
+  keywords:
+  - forgery
+  - fake document
+  - कीर्ते
+  - जालसाजी
+- id: criminal_288_a_trespass
+  category: criminal
+  name:
+    en: Criminal trespass (s. 284) and criminal mischief (s. 285)
+    ne: आपराधिक प्रवेश र आपराधिक उपद्रव (दफा २८४, २८५)
+  period:
+    kind: fixed
+    value: 6
+    unit: months
+  period_phrase_ne: छ महिना
+  start:
+    kind: act
+    en: the date the act or offence took place
+    ne: काम वा कसूर भए गरेको मितिदेखि
+  notes:
+    en: Under the Criminal Code the complaint (उजुर) is barred once the period has passed; complaints made within it are in time.
+    ne: अपराध संहिता अनुसार यो अवधि नाघेपछि उजुर लाग्दैन; अवधिभित्र दिएको उजुर म्यादभित्र मानिन्छ।
+  citation:
+    law_title_ne: मुलुकी अपराध संहिता, २०७४
+    section: '288'
+    clause: (दफा २८४, २८५)
+  keywords:
+  - trespass
+  - mischief
+  - property damage
+  - प्रवेश
+  - उपद्रव
+- id: criminal_288_b_looting
+  category: criminal
+  name:
+    en: Looting and plunder (s. 286)
+    ne: लुटपिट (दफा २८६)
+  period:
+    kind: fixed
+    value: 3
+    unit: months
+  period_phrase_ne: तीन महिना
+  start:
+    kind: act
+    en: the date the act or offence took place
+    ne: काम वा कसूर भए गरेको मितिदेखि
+  notes:
+    en: Under the Criminal Code the complaint (उजुर) is barred once the period has passed; complaints made within it are in time.
+    ne: अपराध संहिता अनुसार यो अवधि नाघेपछि उजुर लाग्दैन; अवधिभित्र दिएको उजुर म्यादभित्र मानिन्छ।
+  citation:
+    law_title_ne: मुलुकी अपराध संहिता, २०७४
+    section: '288'
+    clause: (दफा २८६)
+  keywords:
+  - looting
+  - लुटपिट
+- id: criminal_288_c_other
+  category: criminal
+  name:
+    en: 'Trespass chapter: all other offences (s. 287)'
+    ne: 'आपराधिक प्रवेश तथा उपद्रव: अन्य कसूर'
+  period:
+    kind: fixed
+    value: 3
+    unit: months
+  period_phrase_ne: तीन महिना
+  start:
+    kind: knowledge
+    en: the date you came to know of it
+    ne: थाहा पाएको मितिदेखि
+  notes:
+    en: Under the Criminal Code the complaint (उजुर) is barred once the period has passed; complaints made within it are in time.
+    ne: अपराध संहिता अनुसार यो अवधि नाघेपछि उजुर लाग्दैन; अवधिभित्र दिएको उजुर म्यादभित्र मानिन्छ।
+  citation:
+    law_title_ne: मुलुकी अपराध संहिता, २०७४
+    section: '288'
+  keywords:
+  - stolen property
+  - receiving
+- id: criminal_292_a_animal_cruelty
+  category: criminal
+  name:
+    en: Cruelty to animals and birds (s. 290)
+    ne: पशुपक्षी प्रति निर्दयी व्यवहार (दफा २९०)
+  period:
+    kind: fixed
+    value: 3
+    unit: months
+  period_phrase_ne: तीन महिना
+  start:
+    kind: act
+    en: the date the act or offence took place
+    ne: काम वा कसूर भए गरेको मितिदेखि
+  notes:
+    en: Under the Criminal Code the complaint (उजुर) is barred once the period has passed; complaints made within it are in time.
+    ne: अपराध संहिता अनुसार यो अवधि नाघेपछि उजुर लाग्दैन; अवधिभित्र दिएको उजुर म्यादभित्र मानिन्छ।
+  citation:
+    law_title_ne: मुलुकी अपराध संहिता, २०७४
+    section: '292'
+    clause: (दफा २९०)
+  keywords:
+  - animal cruelty
+  - पशुपक्षी
+  - निर्दयी
+- id: criminal_292_b_animals_other
+  category: criminal
+  name:
+    en: 'Animals and birds: other offences (killing or beating a cow or ox, killing animals in public places) (ss. 289, 291)'
+    ne: पशुपक्षी सम्बन्धी अन्य कसूर (गाई, गोरु मार्न वा कुट्न, सार्वजनिक स्थलमा पशु मार्न) (दफा २८९, २९१)
+  period:
+    kind: fixed
+    value: 3
+    unit: months
+  period_phrase_ne: तीन महिना
+  start:
+    kind: knowledge
+    en: the date you came to know of it
+    ne: थाहा पाएको मितिदेखि
+  notes:
+    en: Under the Criminal Code the complaint (उजुर) is barred once the period has passed; complaints made within it are in time.
+    ne: अपराध संहिता अनुसार यो अवधि नाघेपछि उजुर लाग्दैन; अवधिभित्र दिएको उजुर म्यादभित्र मानिन्छ।
+  citation:
+    law_title_ne: मुलुकी अपराध संहिता, २०७४
+    section: '292'
+  keywords:
+  - cow
+  - ox
+  - animal
+  - गाई
+  - गोरु
+- id: criminal_304_privacy
+  category: criminal
+  name:
+    en: 'Privacy offences: eavesdropping, disclosing secrets, taking photos, reading letters, electronic privacy breaches, body search, trespass into a home (ss. 293-302)'
+    ne: गोपनीयता विरुद्धका कसूर (दफा २९३-३०२)
+  period:
+    kind: fixed
+    value: 3
+    unit: months
+  period_phrase_ne: तीन महिना
+  start:
+    kind: act
+    en: the date the act or offence took place
+    ne: काम वा कसूर भए गरेको मितिदेखि
+  notes:
+    en: Under the Criminal Code the complaint (उजुर) is barred once the period has passed; complaints made within it are in time.
+    ne: अपराध संहिता अनुसार यो अवधि नाघेपछि उजुर लाग्दैन; अवधिभित्र दिएको उजुर म्यादभित्र मानिन्छ।
+  citation:
+    law_title_ne: मुलुकी अपराध संहिता, २०७४
+    section: '304'
+  keywords:
+  - privacy
+  - photo without consent
+  - eavesdropping
+  - गोपनीयता
+  - तस्वीर
+- id: criminal_308_defamation
+  category: criminal
+  name:
+    en: Abuse and defamation (insult, slander) (ss. 305-307)
+    ne: गाली बेइज्जती सम्बन्धी कसूर (दफा ३०५-३०७)
+  period:
+    kind: fixed
+    value: 3
+    unit: months
+  period_phrase_ne: तीन महिना
+  start:
+    kind: knowledge
+    en: the date you came to know of it
+    ne: थाहा पाएको मितिदेखि
+  notes:
+    en: Under the Criminal Code the complaint (उजुर) is barred once the period has passed; complaints made within it are in time.
+    ne: अपराध संहिता अनुसार यो अवधि नाघेपछि उजुर लाग्दैन; अवधिभित्र दिएको उजुर म्यादभित्र मानिन्छ।
+  citation:
+    law_title_ne: मुलुकी अपराध संहिता, २०७४
+    section: '308'
+  keywords:
+  - defamation
+  - insult
+  - abuse
+  - slander
+  - गाली
+  - बेइज्जती
+- id: cpc_48_no_period
+  category: procedure
+  name:
+    en: 'No limitation stated by any law: plaint can be filed at any time'
+    ne: कानूनमा हदम्याद उल्लेख नभएको विषयमा जहिलेसुकै फिराद गर्न सकिने
+  period:
+    kind: none
+  period_phrase_ne: जहिले सुकै
+  notes:
+    en: If no law sets a limitation for a civil claim, the plaint can be filed at any time. (Where a law sets one, s. 49 says it starts from that law; otherwise from the date the cause of action arose.)
+    ne: कुनै विषयमा कानूनमा हदम्याद उल्लेख नभएमा जहिलेसुकै फिराद गर्न सकिन्छ। (हदम्याद भएकोमा दफा ४९ अनुसार सोही कानून बमोजिम, नभए फिराद गर्नु पर्ने कारण परेको मितिबाट सुरु हुन्छ।)
+  citation:
+    law_title_ne: मुलुकी देवानी कार्यविधि संहिता, २०७४
+    section: '48'
+  keywords:
+  - no limitation
+  - any time
+  - जहिलेसुकै
+- id: cpc_50_hidden_facts
+  category: procedure
+  name:
+    en: Late plaint because fraud, forgery, conspiracy or concealment hid the facts
+    ne: धोका, कीर्ते, जालसाजी वा गोप्य कामले थाहा नपाई हदम्याद गुज्रेको
+  period:
+    kind: fixed
+    value: 90
+    unit: days
+  period_phrase_ne: नब्बे दिनभित्र
+  start:
+    kind: knowledge
+    en: the date you came to know of it
+    ne: थाहा पाएको मितिदेखि
+  notes:
+    en: If fraud, forgery, conspiracy or secret conduct stopped you from knowing, and the limitation passed meanwhile, you can still file within 90 days of learning of it, stating that reason.
+    ne: धोका, कीर्ते, जालसाजी, षड्यन्त्र वा गोप्य कामका कारण थाहा पाउन नसक्दा हदम्याद गुज्रेकोमा थाहा पाएको मितिले ९० दिनभित्र सोही व्यहोरा उल्लेख गरी फिराद गर्न सकिन्छ।
+  citation:
+    law_title_ne: मुलुकी देवानी कार्यविधि संहिता, २०७४
+    section: '50'
+  keywords:
+  - fraud
+  - concealment
+  - late filing
+  - delay
+  - condonation
+  - धोका
+  - जालसाजी
+  - हदम्याद गुज्रेको
+- id: cpc_52_1_minor
+  category: procedure
+  name:
+    en: 'Minor plaintiff: limitation starts when the minor becomes an adult'
+    ne: 'नाबालकको हदम्याद: बालिग भएको दिनदेखि प्रारम्भ'
+  period:
+    kind: special
+    text:
+      en: The limitation period does not run against a minor; it starts on the day the person becomes an adult (18 years, Civil Code s. 32).
+      ne: नाबालकको हकमा निज बालिग भएको दिनदेखि हदम्याद प्रारम्भ हुन्छ।
+  period_phrase_ne: बालिग भएको दिनदेखि
+  citation:
+    law_title_ne: मुलुकी देवानी कार्यविधि संहिता, २०७४
+    section: '52'
+    clause: (१)
+  keywords:
+  - minor
+  - child
+  - adult
+  - नाबालक
+  - बालिग
+- id: cpc_52_2_unsound_mind
+  category: procedure
+  name:
+    en: 'Person not of sound mind: limitation starts when they recover'
+    ne: 'होस ठेगानमा नरहेको व्यक्ति: होस ठेगानमा आएको दिनदेखि प्रारम्भ'
+  period:
+    kind: special
+    text:
+      en: Where the person was not of sound mind before the period began, it starts on the day they recover.
+      ne: हदम्याद प्रारम्भ हुनुअघि नै होस ठेगानमा नरहेमा होस ठेगानमा आएको दिनदेखि हदम्याद प्रारम्भ हुन्छ।
+  period_phrase_ne: होस ठेगानमा आएको दिनदेखि
+  citation:
+    law_title_ne: मुलुकी देवानी कार्यविधि संहिता, २०७४
+    section: '52'
+    clause: (२)
+  keywords:
+  - mental illness
+  - unsound mind
+  - होस ठेगान
+- id: cpc_52_3_min_remaining
+  category: procedure
+  name:
+    en: 'Person who lost sound mind after time began: minimum 15 days left on recovery'
+    ne: 'हदम्याद प्रारम्भ भएपछि होस ठेगानमा नरहेको: होस आएपछि कम्तीमा १५ दिन'
+  period:
+    kind: special
+    text:
+      en: The period the person was not of sound mind is added back; if fewer than 15 days would remain, 15 days are treated as remaining.
+      ne: होस ठेगानमा नरहेको अवधि थप गरी गणना हुन्छ; बाँकी अवधि पन्ध्र दिनभन्दा कम भए पन्ध्र दिन बाँकी मानिन्छ।
+  period_phrase_ne: पन्ध्र दिन
+  citation:
+    law_title_ne: मुलुकी देवानी कार्यविधि संहिता, २०७४
+    section: '52'
+    clause: (३)
+  keywords:
+  - mental illness
+  - extension
+  - होस ठेगान
+- id: cpc_53_2_heirs_of_minor
+  category: procedure
+  name:
+    en: Heirs of a minor who dies after coming of age with under 35 days left
+    ne: 'बालिग भएपछि ३५ दिनभन्दा कम बाँकी रहँदा नाबालकको मृत्यु: हकवालाको म्याद'
+  period:
+    kind: fixed
+    value: 35
+    unit: days
+  period_phrase_ne: पैँतीस दिनभित्र
+  start:
+    kind: other
+    en: the date of the person's death
+    ne: निजको मृत्यु भएको मितिदेखि
+  notes:
+    en: If a minor dies after turning 18 with less than 35 days of the period left, the heirs get 35 days from the death; otherwise the remaining period.
+    ne: बालिग भएपछि पैँतीस दिनभन्दा कम अवधि बाँकी रहँदा मृत्यु भएमा हकवालाले मृत्यु भएको मितिले पैँतीस दिनभित्र फिराद गर्न पाउँछ।
+  citation:
+    law_title_ne: मुलुकी देवानी कार्यविधि संहिता, २०७४
+    section: '53'
+    clause: (२)
+  keywords:
+  - heirs
+  - death
+  - hakwala
+  - हकवाला
+- id: cpc_57_wrong_court
+  category: procedure
+  name:
+    en: 'Plaint filed in a court without jurisdiction: remaining time is preserved'
+    ne: 'अधिकारक्षेत्र नभएको अदालतमा फिराद दायर: बाँकी हदम्याद कायम'
+  period:
+    kind: special
+    text:
+      en: You keep the time that was left when you first filed; if less than 7 days were left, you get 7 days. This does not apply if the court dismissed the plaint at once for lack of jurisdiction, or if you concealed that the limitation had
+        already passed.
+      ne: अदालतले कारबाही टुङ्ग्याएको मितिबाट फिराद गर्दा जति हदम्याद बाँकी थियो त्यति अवधि कायम रहन्छ; ७ दिनभन्दा कम बाँकी भए ७ दिन कायम रहन्छ।
+  period_phrase_ne: सात दिनभन्दा कम
+  citation:
+    law_title_ne: मुलुकी देवानी कार्यविधि संहिता, २०७४
+    section: '57'
+  keywords:
+  - wrong court
+  - jurisdiction
+  - अधिकारक्षेत्र
+- id: cpc_58_a_bereavement
+  category: procedure
+  name:
+    en: 'Late plaint: you had to observe mourning rites after a death'
+    ne: 'काबु बाहिरको परिस्थिति: कोही मृत्यु भई किरिया/शोकवरण'
+  period:
+    kind: fixed
+    value: 7
+    unit: days
+  period_phrase_ne: सात दिन
+  start:
+    kind: other
+    en: the date 15 days after the death (the mourning period)
+    ne: मृत्यु भएको पन्ध्र दिन पुगेको मितिदेखि
+    offset_days: 15
+  notes:
+    en: Travel time is excluded.
+    ne: बाटोको म्याद बाहेक।
+  citation:
+    law_title_ne: मुलुकी देवानी कार्यविधि संहिता, २०७४
+    section: '58'
+    clause: (क)
+  keywords:
+  - mourning
+  - death
+  - extension
+  - किरिया
+  - शोक
+- id: cpc_58_b_childbirth
+  category: procedure
+  name:
+    en: 'Late plaint: the plaintiff (a woman) gave birth'
+    ne: 'काबु बाहिरको परिस्थिति: महिला सुत्केरी भएको'
+  period:
+    kind: fixed
+    value: 60
+    unit: days
+  period_phrase_ne: साठी दिन
+  start:
+    kind: other
+    en: the date of childbirth
+    ne: सुत्केरी भएको मितिदेखि
+  notes:
+    en: Travel time is excluded.
+    ne: बाटोको म्याद बाहेक।
+  citation:
+    law_title_ne: मुलुकी देवानी कार्यविधि संहिता, २०७४
+    section: '58'
+    clause: (ख)
+  keywords:
+  - childbirth
+  - maternity
+  - extension
+  - सुत्केरी
+- id: cpc_58_c_transport_blocked
+  category: procedure
+  name:
+    en: 'Late plaint: roads blocked (landslide, snow), curfew, or no public transport'
+    ne: 'काबु बाहिरको परिस्थिति: खोलो, पहिरो, हिउँ, कफ्र्यू वा यातायात बन्द'
+  period:
+    kind: fixed
+    value: 15
+    unit: days
+  period_phrase_ne: पन्ध्र दिन
+  start:
+    kind: other
+    en: the date the road reopened or public transport resumed
+    ne: बाटो खुलेको वा सार्वजनिक यातायातको साधन चलेको मितिदेखि
+  notes:
+    en: Travel time is excluded.
+    ne: बाटोको म्याद बाहेक।
+  citation:
+    law_title_ne: मुलुकी देवानी कार्यविधि संहिता, २०७४
+    section: '58'
+    clause: (ग)
+  keywords:
+  - landslide
+  - curfew
+  - strike
+  - transport
+  - पहिरो
+  - कफ्र्यू
+- id: cpc_58_d_kidnapped
+  category: procedure
+  name:
+    en: 'Late plaint: the plaintiff was kidnapped or held hostage'
+    ne: 'काबु बाहिरको परिस्थिति: अपहरण वा शरीर बन्धक'
+  period:
+    kind: fixed
+    value: 15
+    unit: days
+  period_phrase_ne: पन्ध्र दिन
+  start:
+    kind: other
+    en: the date the plaintiff was freed
+    ne: अपहरण वा बन्धकबाट मुक्त भएको मितिदेखि
+  notes:
+    en: Travel time is excluded.
+    ne: बाटोको म्याद बाहेक।
+  citation:
+    law_title_ne: मुलुकी देवानी कार्यविधि संहिता, २०७४
+    section: '58'
+    clause: (घ)
+  keywords:
+  - kidnapping
+  - hostage
+  - अपहरण
+- id: cpc_58_e_disaster
+  category: procedure
+  name:
+    en: 'Late plaint: earthquake, volcano or similar disaster'
+    ne: 'काबु बाहिरको परिस्थिति: भूकम्प वा ज्वालामुखी आदि विपद्'
+  period:
+    kind: fixed
+    value: 10
+    unit: days
+  period_phrase_ne: दश दिन
+  start:
+    kind: other
+    en: the date the disaster occurred
+    ne: विपद् परेको मितिदेखि
+  notes:
+    en: Travel time is excluded.
+    ne: बाटोको म्याद बाहेक।
+  citation:
+    law_title_ne: मुलुकी देवानी कार्यविधि संहिता, २०७४
+    section: '58'
+    clause: (ङ)
+  keywords:
+  - earthquake
+  - disaster
+  - भूकम्प
+  - विपद्
+- id: cpc_58_f_hospitalised
+  category: procedure
+  name:
+    en: 'Late plaint: plaintiff was unconscious or hospitalised after an accident or sudden illness'
+    ne: 'काबु बाहिरको परिस्थिति: दुर्घटना वा अचानक रोगले अचेत/अस्पताल भर्ना'
+  period:
+    kind: fixed
+    value: 15
+    unit: days
+  period_phrase_ne: पन्ध्र दिन
+  start:
+    kind: other
+    en: the date the plaintiff was admitted to hospital
+    ne: अस्पतालमा भर्ना भएको मितिदेखि
+  notes:
+    en: Travel time is excluded.
+    ne: बाटोको म्याद बाहेक।
+  citation:
+    law_title_ne: मुलुकी देवानी कार्यविधि संहिता, २०७४
+    section: '58'
+    clause: (च)
+  keywords:
+  - hospital
+  - accident
+  - illness
+  - अस्पताल
+  - दुर्घटना
+- id: cpc_61_authority_designated
+  category: procedure
+  name:
+    en: Claim where the government must first designate an officer, court or body
+    ne: मुद्दा हेर्ने अधिकारी, अदालत वा निकाय सरकारले तोक्नुपर्ने अवस्था
+  period:
+    kind: fixed
+    value: 35
+    unit: days
+  period_phrase_ne: पैँतीस दिनभित्र
+  start:
+    kind: other
+    en: the date the officer, court or body was designated
+    ne: अधिकारी, अदालत वा निकाय तोकिएको मितिदेखि
+  citation:
+    law_title_ne: मुलुकी देवानी कार्यविधि संहिता, २०७४
+    section: '61'
+  keywords:
+  - designated authority
+  - tribunal
+- id: cpc_118_default_judgment
+  category: procedure
+  name:
+    en: Appeal-like reply by a defendant who lost a one-sided (ex parte) judgment
+    ne: एकतर्फी फैसला परेको प्रतिबादीको प्रतिउत्तरपत्र सरहको पुनरावेदन
+  period:
+    kind: fixed
+    value: 35
+    unit: days
+  period_phrase_ne: पैँतीस दिनभित्र
+  start:
+    kind: knowledge
+    en: the date you came to know of it
+    ne: थाहा पाएको मितिदेखि
+  long_stop:
+    value: 6
+    unit: months
+    period_phrase_ne: छ महिनाभित्रमा
+    start:
+      en: the date of the one-sided judgment
+      ne: एकतर्फी फैसला भएको मितिदेखि
+  notes:
+    en: A defendant who could not defend because of another party's fraud can appeal, treating the appeal as their reply, within 35 days of knowing of the judgment and within 6 months of it.
+    ne: प्रतिवादी छल गरिएको कारण प्रतिरक्षा गर्न नपाई एकतर्फी फैसला भएमा फैसला भएको ६ महिनाभित्र थाहा पाएको मितिले ३५ दिनभित्र प्रतिउत्तरपत्र सरहको पुनरावेदन गर्न सक्छ।
+  citation:
+    law_title_ne: मुलुकी देवानी कार्यविधि संहिता, २०७४
+    section: '118'
+  keywords:
+  - ex parte
+  - default judgment
+  - एकतर्फी फैसला
+- id: cpc_157_interlocutory
+  category: procedure
+  name:
+    en: Challenging an interim (interlocutory) order of a lower court
+    ne: तल्लो अदालतको अन्तरकालीन आदेश उपर निवेदन
+  period:
+    kind: fixed
+    value: 15
+    unit: days
+  period_phrase_ne: पन्ध्र दिनभित्र
+  start:
+    kind: other
+    en: the date of the order
+    ne: आदेश भएको मितिदेखि
+  citation:
+    law_title_ne: मुलुकी देवानी कार्यविधि संहिता, २०७४
+    section: '157'
+  keywords:
+  - interim order
+  - interlocutory
+  - अन्तरकालीन आदेश
+- id: cpc_205_civil_appeal
+  category: procedure
+  name:
+    en: Appeal against a first-instance civil judgment
+    ne: शुरु मुद्दा हेर्ने अदालतको फैसला उपर पुनरावेदन
+  period:
+    kind: fixed
+    value: 30
+    unit: days
+  period_phrase_ne: तीस दिनभित्र
+  start:
+    kind: knowledge
+    en: the date you knew of the judgment (heard it in court, or notice served)
+    ne: फैसला भएको थाहा पाएको मितिदेखि (सुनिपाएको कागज गरेको वा सूचना तामेल भएको मितिदेखि)
+  notes:
+    en: If you did not hear the judgment and no notice was served, 30 days run from the date you got a copy, within 6 months of certification of the judgment (s. 205(4)).
+    ne: फैसला सुनी पाएको कागज नगरेको वा सूचना तामेल नभएको भए फैसला प्रमाणीकरण भएको छ महिनासम्ममा नक्कल लिएको मितिले ३० दिनभित्र पुनरावेदन गर्न सकिन्छ।
+  citation:
+    law_title_ne: मुलुकी देवानी कार्यविधि संहिता, २०७४
+    section: '205'
+    clause: (१), (२)
+  keywords:
+  - appeal
+  - punarabedan
+  - judgment
+  - पुनरावेदन
+  - फैसला
+- id: cpc_250_execution_complaint
+  category: procedure
+  name:
+    en: Complaint against court staff's action in executing a judgment
+    ne: फैसला कार्यान्वयनमा कर्मचारीको काम कारबाही उपर उजुर
+  period:
+    kind: fixed
+    value: 15
+    unit: days
+  period_phrase_ne: पन्ध्र दिनभित्र
+  start:
+    kind: act
+    en: the date of the action complained of (start not spelled out in the section)
+    ne: काम कारबाही भएको मितिदेखि (दफामा स्पष्ट उल्लेख छैन)
+  citation:
+    law_title_ne: मुलुकी देवानी कार्यविधि संहिता, २०७४
+    section: '250'
+    clause: (१)
+  keywords:
+  - execution
+  - enforcement of judgment
+  - फैसला कार्यान्वयन
+  needs_review: true
+- id: cpc_259_government_claims
+  category: procedure
+  name:
+    en: Civil claim brought by the government / province / local level
+    ne: नेपाल सरकार, प्रदेश वा स्थानीय तहको तर्फबाट देवानी नालिस
+  period:
+    kind: fixed
+    value: 2
+    unit: years
+  period_phrase_ne: दुई वर्षभित्र
+  start:
+    kind: knowledge
+    en: the date the government body knew the cause of action arose (knowledge of its concerned officer counts)
+    ne: नालिस गर्नु पर्ने कारण सृजना भएको कुरा सरकारलाई थाहा भएको मितिदेखि
+  notes:
+    en: Applies where no other limitation is stated; where the law says no limitation applies, a claim can be filed at any time.
+    ne: अन्य हदम्याद तोकिएको नभएमा यो लागू हुन्छ; हदम्याद नलाग्ने भनिएकोमा जहिलेसुकै नालिस लाग्न सक्छ।
+  citation:
+    law_title_ne: मुलुकी देवानी कार्यविधि संहिता, २०७४
+    section: '259'
+    clause: (१)
+  keywords:
+  - government claim
+  - state
+  - सरकार
+- id: cpc_264_govt_after_notice
+  category: procedure
+  name:
+    en: Suing the government after the mandatory notice
+    ne: 'नेपाल सरकार उपर नालिस: सूचना दिएपछि'
+  period:
+    kind: fixed
+    value: 35
+    unit: days
+  period_phrase_ne: पैँतीस दिनभित्र
+  start:
+    kind: other
+    en: the date the 30-day reply period lapsed, or the date the office replied that no suit is needed
+    ne: ३० दिनको अवधि नाघेको वा मुद्दा गर्नु नपर्ने भनी जानकारी प्राप्त भएको मितिदेखि
+  notes:
+    en: You must first give notice to the concerned government office; it has 30 days to reply.
+    ne: पहिले सम्बन्धित कार्यालयलाई सूचना दिनुपर्छ; कार्यालयले ३० दिनभित्र जवाफ दिनुपर्छ।
+  citation:
+    law_title_ne: मुलुकी देवानी कार्यविधि संहिता, २०७४
+    section: '264'
+    clause: (४)
+  keywords:
+  - suing the government
+  - notice
+  - सरकार उपर नालिस
+- id: crpc_169ka_no_period
+  category: procedure
+  name:
+    en: 'Criminal case where no limitation is stated: any time'
+    ne: 'हदम्याद नतोकिएको फौजदारी मुद्दा: जहिलेसुकै'
+  period:
+    kind: none
+  period_phrase_ne: जहिलेसुकै
+  notes:
+    en: Where another law sets a limitation, that applies; where none is set, a criminal case can be filed at any time.
+    ne: प्रचलित कानूनमा हदम्याद तोकिएकोमा सोही बमोजिम र नतोकिएकोमा जहिलेसुकै मुद्दा गर्न सकिन्छ।
+  citation:
+    law_title_ne: मुलुकी फौजदारी कार्यविधि संहिता, २०७४
+    section: 169क
+  keywords:
+  - no limitation
+  - any time
+  - criminal case
+- id: crpc_50_2_wrong_court
+  category: procedure
+  name:
+    en: 'Complaint dismissed for lack of jurisdiction: re-file within 15 days'
+    ne: 'अधिकार क्षेत्र नभएको कारणले उजुरी दरपीठ: पुनः दर्ता'
+  period:
+    kind: fixed
+    value: 15
+    unit: days
+  period_phrase_ne: पन्ध्र दिनभित्र
+  start:
+    kind: other
+    en: the date the complaint was dismissed
+    ne: दरपीठ भएको दिनदेखि
+  notes:
+    en: Travel time is excluded.
+    ne: बाटोको म्याद बाहेक।
+  citation:
+    law_title_ne: मुलुकी फौजदारी कार्यविधि संहिता, २०७४
+    section: '50'
+    clause: (२)
+  keywords:
+  - wrong court
+  - jurisdiction
+  - अधिकार क्षेत्र
+- id: crpc_51_2_jurisdiction_ruling
+  category: procedure
+  name:
+    en: Appeal against a ruling on jurisdiction / limitation
+    ne: अधिकार क्षेत्र र हदम्याद सम्बन्धी निर्णय उपर उजुर
+  period:
+    kind: fixed
+    value: 30
+    unit: days
+  period_phrase_ne: तीस दिनभित्र
+  start:
+    kind: other
+    en: the date of the ruling
+    ne: निर्णय भएको मितिदेखि
+  citation:
+    law_title_ne: मुलुकी फौजदारी कार्यविधि संहिता, २०७४
+    section: '51'
+    clause: (२)
+  keywords:
+  - limitation ruling
+  - jurisdiction
+  - हदम्याद
+- id: crpc_52_2_damages_complaint
+  category: procedure
+  name:
+    en: Separate complaint for compensation after the charge sheet
+    ne: अभियोगपत्र पेश भएपछि क्षति पूर्तिको छुट्टै उजुरी
+  period:
+    kind: fixed
+    value: 60
+    unit: days
+  period_phrase_ne: साठी दिनभित्र
+  start:
+    kind: other
+    en: the date the charge sheet was filed
+    ne: अभियोगपत्र पेश गरेको मितिदेखि
+  notes:
+    en: A person harmed by an offence, or a public servant posted away or abroad, can file a separate complaint for compensation within 60 days of the charge sheet.
+    ne: कसूरबाट क्षति पुगेको व्यक्ति वा अन्यत्र खटिएको राष्ट्रसेवकले अभियोगपत्र पेश गरेको साठी दिनभित्र क्षतिपूर्तिको छुट्टै उजुरी दिन सक्छ।
+  citation:
+    law_title_ne: मुलुकी फौजदारी कार्यविधि संहिता, २०७४
+    section: 52 (2)
+  keywords:
+  - compensation
+  - victim
+  - charge sheet
+  - क्षतिपूर्ति
+  - अभियोगपत्र
+- id: crpc_134_appeal_govt
+  category: procedure
+  name:
+    en: 'Criminal appeal: cases where the government is plaintiff'
+    ne: 'फौजदारी पुनरावेदन: नेपाल सरकार वादी हुने मुद्दा'
+  period:
+    kind: fixed
+    value: 70
+    unit: days
+  period_phrase_ne: सत्तरी दिन
+  start:
+    kind: knowledge
+    en: 'the date you knew of the judgment (for the government: when it received notice under s. 132(4))'
+    ne: फैसला भएको थाहा पाएको मितिदेखि (सरकारको हकमा दफा १३२(४) अनुसार जानकारी प्राप्त भएको मितिदेखि)
+  citation:
+    law_title_ne: मुलुकी फौजदारी कार्यविधि संहिता, २०७४
+    section: '134'
+    clause: (१)
+  keywords:
+  - criminal appeal
+  - government plaintiff
+  - पुनरावेदन
+  - सरकार वादी
+- id: crpc_134_appeal_other
+  category: procedure
+  name:
+    en: 'Criminal appeal: all other cases'
+    ne: 'फौजदारी पुनरावेदन: अन्य मुद्दा'
+  period:
+    kind: fixed
+    value: 30
+    unit: days
+  period_phrase_ne: तीस दिनभित्र
+  start:
+    kind: knowledge
+    en: the date you knew of the judgment (deemed known if you or your lawyer was present on the day)
+    ne: फैसला भएको थाहा पाएको मितिदेखि (आफू वा कानून व्यवसायी उपस्थित भएको दिन फैसला भए थाहा पाएको मानिन्छ)
+  notes:
+    en: The appeal court may extend the time by up to 30 more days if the reason for delay is reasonable; a year after judgment you are deemed to know of it.
+    ne: पुनरावेदन गर्न नसकेको मनासिब कारण भए पुनरावेदन सुन्ने अदालतले बढीमा तीस दिन म्याद थामिदिन सक्छ; फैसला भएको एक वर्षपछि थाहा पाएको मानिन्छ।
+  citation:
+    law_title_ne: मुलुकी फौजदारी कार्यविधि संहिता, २०७४
+    section: '134'
+    clause: (१)
+  keywords:
+  - criminal appeal
+  - conviction
+  - acquittal
+  - पुनरावेदन
+  - सजाय
+- id: crpc_168ka_court_staff
+  category: procedure
+  name:
+    en: Complaint against court staff's conduct in a criminal case
+    ne: अदालतका कर्मचारीको काम कारबाही उपर उजुर (फौजदारी)
+  period:
+    kind: fixed
+    value: 15
+    unit: days
+  period_phrase_ne: पन्ध्र दिनभित्र
+  start:
+    kind: act
+    en: the date of the action complained of (start not spelled out in the section)
+    ne: काम कारबाही भएको मितिदेखि (दफामा स्पष्ट उल्लेख छैन)
+  citation:
+    law_title_ne: मुलुकी फौजदारी कार्यविधि संहिता, २०७४
+    section: 168क
+    clause: (१)
+  keywords:
+  - court staff
+  - complaint
+  - अदालतका कर्मचारी
+  needs_review: true
+- id: labour_dispute_complaint
+  category: labour
+  name:
+    en: Complaint of breach of the Labour Act (unpaid wages, wrongful action)
+    ne: श्रम ऐन विपरीतको कार्यमा उजुरी (तलब नपाएको, गलत कार्य आदि)
+  period:
+    kind: fixed
+    value: 6
+    unit: months
+  period_phrase_ne: छ महिनाभित्र
+  start:
+    kind: act
+    en: the date the act or offence took place
+    ne: काम वा कसूर भए गरेको मितिदेखि
+  notes:
+    en: A labour complaint (unpaid wages, wrongful termination, bonus, etc.) must be filed within 6 months of the act complained of.
+    ne: श्रम सम्बन्धी उजुरी (तलब नपाएको, गलत तरिकाले हटाइएको, बोनस आदि) सो कार्य भएको मितिले ६ महिनाभित्र दिनुपर्छ।
+  citation:
+    law_title_ne: श्रम ऐन, २०७४
+    section: '162'
+  keywords:
+  - labour
+  - worker
+  - wages
+  - salary
+  - termination
+  - श्रम
+  - तलब
+  - पारिश्रमिक
+- id: labour_146_3_reinstatement
+  category: labour
+  name:
+    en: Retrenched worker not recalled when the establishment restarts
+    ne: कटौतीमा परेको श्रमिकलाई पुनः रोजगारीमा नराखेमा श्रम अदालतमा निवेदन
+  period:
+    kind: fixed
+    value: 35
+    unit: days
+  period_phrase_ne: पैँतीस दिनभित्र
+  start:
+    kind: act
+    en: the date the employer failed to give notice or to re-employ (start not spelled out)
+    ne: रोजगारदाताले सूचना नदिएको वा रोजगारीमा नराखेको मितिदेखि (दफामा स्पष्ट उल्लेख छैन)
+  notes:
+    en: If the establishment restarts within two years of retrenchment, retrenched workers have first priority for re-employment.
+    ne: कटौती भएको दुई वर्षभित्र प्रतिष्ठान पुनः सञ्चालन भएमा कटौतीमा परेका श्रमिकले रोजगारीमा प्राथमिकता पाउँछन्।
+  citation:
+    law_title_ne: श्रम ऐन, २०७४
+    section: '146'
+    clause: (३)
+  keywords:
+  - retrenchment
+  - layoff
+  - re-employment
+  - कटौती
+  - 'पुन: रोजगारी'
+  needs_review: true
+- id: labour_161_supreme_court
+  category: labour
+  name:
+    en: Appeal from a Labour Court first-instance decision to the Supreme Court
+    ne: श्रम अदालतको शुरु आदेश वा फैसला उपर सर्वोच्च अदालतमा पुनरावेदन
+  period:
+    kind: fixed
+    value: 35
+    unit: days
+  period_phrase_ne: पैँतीस दिनभित्र
+  start:
+    kind: knowledge
+    en: the date you heard the order or judgment
+    ne: आदेश वा फैसला सुनी पाएको मितिदेखि
+  citation:
+    law_title_ne: श्रम ऐन, २०७४
+    section: '161'
+    clause: (१)
+  keywords:
+  - labour court
+  - appeal
+  - supreme court
+  - श्रम अदालत
+  - पुनरावेदन
+- id: labour_165_1_department_decision
+  category: labour
+  name:
+    en: Appeal to the Labour Court against a Labour Office / Department decision
+    ne: श्रम कार्यालय वा विभागको आदेश/निर्णय उपर श्रम अदालतमा पुनरावेदन
+  period:
+    kind: fixed
+    value: 35
+    unit: days
+  period_phrase_ne: पैँतीस दिनभित्र
+  start:
+    kind: other
+    en: the date of the decision (start not spelled out in this clause)
+    ne: आदेश वा निर्णय भएको मितिदेखि (यो उपदफामा स्पष्ट उल्लेख छैन)
+  citation:
+    law_title_ne: श्रम ऐन, २०७४
+    section: '165'
+    clause: (१)
+  keywords:
+  - labour office
+  - appeal
+  - श्रम कार्यालय
+  - पुनरावेदन
+  needs_review: true
+- id: labour_165_2_dismissal_appeal
+  category: labour
+  name:
+    en: Appeal against dismissal or disciplinary punishment by the employer
+    ne: रोजगारी अन्त्य वा खराब आचरणको सजाय उपर श्रम अदालतमा पुनरावेदन
+  period:
+    kind: fixed
+    value: 35
+    unit: days
+  period_phrase_ne: पैँतीस दिनभित्र
+  start:
+    kind: knowledge
+    en: the date you were notified of the decision or punishment
+    ne: निर्णय वा सजायको सूचना पाएको मितिदेखि
+  notes:
+    en: If the establishment has an internal appeal, use it; you then have 35 days from its decision (or from day 60 without decision) (s. 165(3)-(4)).
+    ne: प्रतिष्ठानमा आन्तरिक पुनरावेदनको व्यवस्था भए सोही बमोजिम गर्न सकिन्छ; त्यसपछि निर्णयको सूचना पाएको वा ६० दिनसम्म निर्णय नपाएको मितिले ३५ दिनभित्र श्रम अदालतमा पुनरावेदन गर्न सकिन्छ।
+  citation:
+    law_title_ne: श्रम ऐन, २०७४
+    section: '165'
+    clause: (२)
+  keywords:
+  - dismissal
+  - termination
+  - fired
+  - misconduct
+  - disciplinary
+  - wrongful dismissal
+  - बर्खास्त
+  - रोजगारी अन्त्य
+  - खराब आचरण
+- id: bonus_10_3_distribution
+  category: labour
+  name:
+    en: Objection to distribution of a deceased worker's bonus
+    ne: मृत कर्मचारीको बोनस वितरण उपर श्रम अदालतमा उजुर
+  period:
+    kind: fixed
+    value: 35
+    unit: days
+  period_phrase_ne: पैँतीस दिनभित्र
+  start:
+    kind: other
+    en: the date the bonus was distributed
+    ne: बोनस वितरण भएको मितिदेखि
+  citation:
+    law_title_ne: बोनस ऐन, २०३०
+    section: '10'
+    clause: (३)
+  keywords:
+  - bonus
+  - deceased worker
+  - बोनस
+- id: trade_union_22_2_contract
+  category: labour
+  name:
+    en: Dispute over a contract between a trade union and an establishment
+    ne: ट्रेड यूनियन र प्रतिष्ठानबीचको करारको विवाद
+  period:
+    kind: fixed
+    value: 3
+    unit: months
+  period_phrase_ne: तीन महिनाभित्र
+  start:
+    kind: cause
+    en: the date the dispute arose or the cause of action arose
+    ne: विवाद उत्पन्न भएको वा मुद्दा गर्नुपर्ने कारण भएको मितिदेखि
+  citation:
+    law_title_ne: ट्रेड यूनियन ऐन, २०४९
+    section: '22'
+    clause: (२)
+  keywords:
+  - trade union
+  - labour court
+  - ट्रेड यूनियन
+  - श्रम अदालत
+- id: trade_union_27ka_general
+  category: labour
+  name:
+    en: Suit under the Trade Union Act for acts contrary to it
+    ne: ट्रेड यूनियन ऐन विपरीतको काम कारबाही सम्बन्धी मुद्दा
+  period:
+    kind: fixed
+    value: 3
+    unit: months
+  period_phrase_ne: तीन महिनाभित्र
+  start:
+    kind: act
+    en: the date the act took place, or the date the cause of the suit arose
+    ne: काम भए गरेको वा मुद्दा चलाउनु पर्ने कारण भएको मितिदेखि
+  citation:
+    law_title_ne: ट्रेड यूनियन ऐन, २०४९
+    section: 27क
+  keywords:
+  - trade union
+  - ट्रेड यूनियन
+- id: working_journalist_24_1
+  category: labour
+  name:
+    en: Working journalist not paid dues by the media house
+    ne: श्रमजीवी पत्रकारले सुविधा वा रकम नपाएमा प्रेस रजिष्ट्रार समक्ष उजुरी
+  period:
+    kind: fixed
+    value: 35
+    unit: days
+  period_phrase_ne: पैंतीस दिन भित्र
+  start:
+    kind: act
+    en: the date the entitlement was withheld (start not spelled out)
+    ne: सुविधा वा रकम नपाएको मितिदेखि (दफामा स्पष्ट उल्लेख छैन)
+  citation:
+    law_title_ne: श्रमजीवी पत्रकार सम्बन्धी ऐन, २०५१
+    section: '24'
+    clause: (१)
+  keywords:
+  - journalist
+  - press registrar
+  - media worker
+  - पत्रकार
+  needs_review: true
+- id: right_to_employment_24
+  category: labour
+  name:
+    en: Complaint about an offence under the Right to Employment Act
+    ne: रोजगारीको हक सम्बन्धी ऐन अन्तर्गतको कसूरमा उजूरी
+  period:
+    kind: fixed
+    value: 35
+    unit: days
+  period_phrase_ne: पैँतीस दिनभित्र
+  start:
+    kind: knowledge
+    en: the date you came to know of the offence (start not spelled out)
+    ne: कसूर गरेको वा गर्नलागेको थाहा पाएको मितिदेखि (दफामा स्पष्ट उल्लेख छैन)
+  citation:
+    law_title_ne: रोजगारीको हक सम्बन्धी ऐन, २०७५
+    section: '24'
+    clause: (१)
+  keywords:
+  - right to employment
+  - unemployment allowance
+  - रोजगारीको हक
+  - बेरोजगार भत्ता
+  needs_review: true
+- id: child_labour_20_2
+  category: labour
+  name:
+    en: Complaint about employing a child in breach of the Child Labour Act
+    ne: बाल श्रम ऐन अन्तर्गतको कसूरमा उजूरी
+  period:
+    kind: fixed
+    value: 1
+    unit: years
+  period_phrase_ne: एक वर्षभित्र
+  start:
+    kind: act
+    en: the date the act or offence took place
+    ne: काम वा कसूर भए गरेको मितिदेखि
+  citation:
+    law_title_ne: बाल श्रम (निषेध र नियमित गर्ने) ऐन, २०५६
+    section: '20'
+    clause: (२)
+  keywords:
+  - child labour
+  - बाल श्रम
+  - बालक
+- id: foreign_employment_complaint
+  category: labour
+  name:
+    en: Foreign employment complaint (recruitment agent, fraud, unpaid wages abroad)
+    ne: वैदेशिक रोजगार सम्बन्धी उजुरी
+  period:
+    kind: fixed
+    value: 1
+    unit: years
+  period_phrase_ne: एक वर्षभित्र
+  start:
+    kind: act
+    en: 'the date of the act (for a worker who was abroad: the date he or she reached Nepal)'
+    ne: कसूर भए गरेको मितिदेखि (विदेशमा रहेको कामदारको हकमा स्वदेश आइपुगेको मितिदेखि)
+  notes:
+    en: A foreign-employment complaint must be filed within 1 year of the incident, or within 1 year of returning to Nepal if you were abroad. The 1-year limit does not apply to the offences in ss. 43-47.
+    ne: वैदेशिक रोजगार सम्बन्धी उजुरी घटना भएको मितिले (वा विदेशमा हुनुभएको भए नेपाल फर्किएको मितिले) १ वर्षभित्र दिनुपर्छ। दफा ४३-४७ का कसूरमा यो हदम्याद लाग्दैन।
+  citation:
+    law_title_ne: वैदेशिक रोजगार ऐन, २०६४
+    section: '60'
+  keywords:
+  - foreign employment
+  - migrant worker
+  - manpower agency
+  - recruitment
+  - वैदेशिक रोजगार
+  - म्यानपावर
+  - कामदार
+- id: foreign_employment_60_serious
+  category: labour
+  name:
+    en: 'Serious foreign-employment offences (ss. 43-47): not covered by the 1-year limit'
+    ne: 'वैदेशिक रोजगारका गम्भीर कसूर (दफा ४३-४७): १ वर्षको हदम्याद लाग्दैन'
+  period:
+    kind: special
+    text:
+      en: Section 60 sets its 1-year bar for all other offences and expressly leaves ss. 43-47 outside it. This section states no other period for them; check the Act and the Criminal Code before assuming a limit.
+      ne: दफा ६० को एक वर्षको हदम्याद दफा ४३-४७ का कसूरमा लाग्दैन; यस दफामा ती कसूरको अर्को हदम्याद तोकिएको छैन।
+  period_phrase_ne: दफा ४३, ४४, ४५, ४६ र ४७ अन्तर्गत सजाय हुने कसूर गरेकोमा बाहेक
+  citation:
+    law_title_ne: वैदेशिक रोजगार ऐन, २०६४
+    section: '60'
+  keywords:
+  - foreign employment
+  - human trafficking
+  - वैदेशिक रोजगार
+  needs_review: true
+- id: workplace_harassment_7_1
+  category: rights
+  name:
+    en: 'Sexual harassment at the workplace: complaint to the complaints officer'
+    ne: 'कार्यस्थलमा यौनजन्य दुर्व्यवहार: उजूरी सुन्ने अधिकारीमा उजूरी'
+  period:
+    kind: fixed
+    value: 90
+    unit: days
+  period_phrase_ne: नब्बे दिनभित्र
+  start:
+    kind: act
+    en: the date the act or offence took place
+    ne: काम वा कसूर भए गरेको मितिदेखि
+  notes:
+    en: Filed with evidence with the complaints officer. If the manager did not resolve a complaint in time, or a party disputes the manager's decision, 70 days apply from that date (s. 7(2)).
+    ne: प्रमाण सहित उजूरी सुन्ने अधिकारी समक्ष दिइन्छ। व्यवस्थापकले समयमा टुङ्गो नलगाएमा वा निर्णयमा चित्त नबुझेमा त्यस्तो मितिले ७० दिनभित्र उजूरी दिन सकिन्छ (दफा ७(२))।
+  citation:
+    law_title_ne: कार्यस्थलमा हुने यौनजन्य दुर्व्यवहार ( निवारण) ऐन, २०७१
+    section: '7'
+    clause: (१)
+  keywords:
+  - sexual harassment
+  - workplace
+  - POSH
+  - यौनजन्य दुर्व्यवहार
+  - कार्यस्थल
+- id: workplace_harassment_7_2
+  category: rights
+  name:
+    en: 'Sexual harassment at the workplace: after the manager''s delay or decision'
+    ne: 'कार्यस्थलमा यौनजन्य दुर्व्यवहार: व्यवस्थापकको ढिलाइ वा निर्णय पछि'
+  period:
+    kind: fixed
+    value: 70
+    unit: days
+  period_phrase_ne: सत्तरी दिनभित्र
+  start:
+    kind: other
+    en: the date the time for the manager to decide expired, or the date of the manager's decision
+    ne: निर्धारित अवधि समाप्त भएको मिति वा व्यवस्थापकको निर्णय भएको मितिदेखि
+  citation:
+    law_title_ne: कार्यस्थलमा हुने यौनजन्य दुर्व्यवहार ( निवारण) ऐन, २०७१
+    section: '7'
+    clause: (२)
+  keywords:
+  - sexual harassment
+  - workplace
+  - यौनजन्य दुर्व्यवहार
+- id: consumer_50_compensation
+  category: consumer
+  name:
+    en: Consumer's claim for compensation for harm from goods or services
+    ne: उपभोक्ताको क्षतिपूर्तिको दाबी
+  period:
+    kind: fixed
+    value: 6
+    unit: months
+  period_phrase_ne: छ महिनाभित्र
+  start:
+    kind: act
+    en: the date the harm or loss was caused
+    ne: हानि, नोक्सानी पुगेको मितिदेखि
+  notes:
+    en: Consumer, consumer group or heir can claim compensation from the person responsible for the harmful goods or service in court within 6 months.
+    ne: उपभोक्ता, उपभोक्ता संस्था वा हकवालाले हानि नोक्सानी पुगेको मितिले छ महिनाभित्र अदालत समक्ष क्षतिपूर्तिको उजुरी गर्न सक्छ।
+  citation:
+    law_title_ne: उपभोक्ता संरक्षण ऐन, २०७५
+    section: '50'
+  keywords:
+  - consumer
+  - compensation
+  - defective goods
+  - bad service
+  - उपभोक्ता
+  - क्षतिपूर्ति
+- id: consumer_40_2_appeal
+  category: consumer
+  name:
+    en: Appeal to the District Court against the Director General's penalty
+    ne: विभागको महानिर्देशकको सजायको निर्णय उपर जिल्ला अदालतमा पुनरावेदन
+  period:
+    kind: fixed
+    value: 35
+    unit: days
+  period_phrase_ne: पैँतीस दिनभित्र
+  start:
+    kind: other
+    en: the date of the decision (start not spelled out)
+    ne: निर्णय भएको मितिदेखि (दफामा स्पष्ट उल्लेख छैन)
+  citation:
+    law_title_ne: उपभोक्ता संरक्षण ऐन, २०७५
+    section: '40'
+    clause: (२)
+  keywords:
+  - consumer penalty
+  - appeal
+  - सजाय
+  - पुनरावेदन
+  needs_review: true
+- id: consumer_45_high_court
+  category: consumer
+  name:
+    en: Appeal to the High Court against a court decision under the Consumer Protection Act
+    ne: उपभोक्ता संरक्षण ऐन अन्तर्गत अदालतको निर्णय उपर उच्च अदालतमा पुनरावेदन
+  period:
+    kind: fixed
+    value: 30
+    unit: days
+  period_phrase_ne: तीस दिनभित्र
+  start:
+    kind: other
+    en: the date of the decision (start not spelled out)
+    ne: निर्णय भएको मितिदेखि (दफामा स्पष्ट उल्लेख छैन)
+  citation:
+    law_title_ne: उपभोक्ता संरक्षण ऐन, २०७५
+    section: '45'
+  keywords:
+  - consumer
+  - high court
+  - appeal
+  - उच्च अदालत
+  - पुनरावेदन
+  needs_review: true
+- id: direct_selling_38_1
+  category: consumer
+  name:
+    en: Complaint about unlawful direct selling / pyramid schemes
+    ne: वस्तुको प्रत्यक्ष बिक्री सम्बन्धी कसूरमा उजुरी
+  period:
+    kind: fixed
+    value: 90
+    unit: days
+  period_phrase_ne: नब्बे दिनभित्र
+  start:
+    kind: knowledge
+    en: the date you came to know of the act (start not spelled out)
+    ne: कार्य भएको वा हुन लागेको थाहा पाएको मितिदेखि (दफामा स्पष्ट उल्लेख छैन)
+  citation:
+    law_title_ne: वस्तुको प्रत्यक्ष बिक्री (व्यवस्थापन तथा नियमन गर्ने) ऐन, २०७४
+    section: '38'
+    clause: (१)
+  keywords:
+  - direct selling
+  - network marketing
+  - pyramid
+  - प्रत्यक्ष बिक्री
+  needs_review: true
+- id: cheque_dishonour_complaint
+  category: banking
+  name:
+    en: Bounced (dishonoured) cheque complaint
+    ne: चेक अनादर भएको उजुरी (जाहेरी)
+  period:
+    kind: fixed
+    value: 1
+    unit: years
+  period_phrase_ne: एक वर्षभित्र
+  start:
+    kind: other
+    en: the date the dishonour was certified (चेक अनादर भएको प्रमाणित भएको मिति)
+    ne: चेक अनादर गरेको प्रमाणित भएको मितिदेखि
+  notes:
+    en: A dishonoured-cheque complaint must be filed within 1 year of the dishonour being certified; the case must then be filed in the District Court within 6 months of the complaint.
+    ne: चेक अनादर भएको उजुरी चेक अनादर प्रमाणित भएको मितिले १ वर्षभित्र दिनुपर्छ; जाहेरी परेको मितिले ६ महिनाभित्र जिल्ला अदालतमा मुद्दा दायर गरिसक्नुपर्छ।
+  citation:
+    law_title_ne: बैङ्किङ्ग कसूर तथा सजाय ऐन, २०६४
+    section: '17'
+    clause: (१क)
+  keywords:
+  - cheque
+  - bounced cheque
+  - dishonoured cheque
+  - check
+  - चेक
+  - चेक अनादर
+- id: banking_17_1_offences
+  category: banking
+  name:
+    en: 'Banking offences: complaint (जाहेरी) about an offence under the Act'
+    ne: 'बैङ्किङ्ग कसूर: जाहेरी दिने अवधि'
+  period:
+    kind: fixed
+    value: 1
+    unit: years
+  period_phrase_ne: एक वर्षभित्र
+  start:
+    kind: knowledge
+    en: the date you came to know of it
+    ne: थाहा पाएको मितिदेखि
+  notes:
+    en: After the complaint, the case must be filed in court within 6 months.
+    ne: जाहेरी परेको मितिले ६ महिनाभित्र मुद्दा दायर गरिसक्नु पर्छ।
+  citation:
+    law_title_ne: बैङ्किङ्ग कसूर तथा सजाय ऐन, २०६४
+    section: '17'
+    clause: (१)
+  keywords:
+  - banking offence
+  - bank fraud
+  - बैङ्किङ्ग कसूर
+- id: banking_17_2_bank_staff
+  category: banking
+  name:
+    en: Bank or financial-institution staff who misappropriated the institution's property
+    ne: बैङ्क वा वित्तीय संस्थाको सम्पत्ति हिनामिना गर्ने कर्मचारी वा पदाधिकारी
+  period:
+    kind: none
+  period_phrase_ne: जहिलेसुकै पनि
+  notes:
+    en: A case can be brought at any time, even after the person has left office.
+    ne: जहिलेसुकै पनि मुद्दा चलाउन सकिन्छ र अवकाश प्राप्त गरेपछि पनि बाधा पर्दैन।
+  citation:
+    law_title_ne: बैङ्किङ्ग कसूर तथा सजाय ऐन, २०६४
+    section: '17'
+    clause: (२)
+  keywords:
+  - bank staff
+  - embezzlement
+  - कर्मचारी
+  - हिनामिना
+- id: negotiable_instruments_108
+  category: banking
+  name:
+    en: Suit on a negotiable instrument (promissory note, bill of exchange, cheque)
+    ne: विनिमेय अधिकारपत्र सम्बन्धी मुद्दा
+  period:
+    kind: fixed
+    value: 5
+    unit: years
+  period_phrase_ne: पाँच वर्षभित्र
+  start:
+    kind: cause
+    en: the date the cause of action arose
+    ne: मुद्दा गर्नु पर्ने कारण उत्पन्न भएको मितिदेखि
+  citation:
+    law_title_ne: विनिमेय अधिकारपत्र ऐन, २०३४
+    section: '108'
+  keywords:
+  - negotiable instrument
+  - promissory note
+  - bill of exchange
+  - विनिमेय अधिकारपत्र
+  - भाखापत्र
+- id: money_laundering_23
+  category: banking
+  name:
+    en: Money laundering and terrorist financing cases
+    ne: सम्पत्ति शुद्धीकरण तथा आतङ्ककारी कार्यमा वित्तीय लगानी सम्बन्धी मुद्दा
+  period:
+    kind: none
+  period_phrase_ne: हदम्याद लाग्ने छैन
+  notes:
+    en: No limitation applies.
+    ne: हदम्याद लाग्दैन।
+  citation:
+    law_title_ne: सम्पत्ति शुद्धीकरण (मनी लाउन्डरिङ्ग) निवारण ऐन, २०६४
+    section: '23'
+  keywords:
+  - money laundering
+  - terror financing
+  - सम्पत्ति शुद्धीकरण
+- id: commodity_exchange_38
+  category: banking
+  name:
+    en: 'Commodity exchange offences: complaint'
+    ne: 'वस्तु विनियम बजार सम्बन्धी कसूर: उजुरी'
+  period:
+    kind: fixed
+    value: 1
+    unit: years
+  period_phrase_ne: एक वर्षभित्र
+  start:
+    kind: knowledge
+    en: the date you came to know of it
+    ne: थाहा पाएको मितिदेखि
+  notes:
+    en: After the complaint, the case must be filed in court within 6 months.
+    ne: उजुरी परेको मितिले ६ महिनाभित्र मुद्दा दायर गरिसक्नु पर्छ।
+  citation:
+    law_title_ne: वस्तु विनियम बजार सम्बन्धी ऐन, २०७४
+    section: '38'
+    clause: (१)
+  keywords:
+  - commodity
+  - वस्तु विनियम
+- id: electronic_transactions_74
+  category: cyber
+  name:
+    en: 'Electronic transactions / cyber offences: complaint'
+    ne: विद्युतीय कारोबार सम्बन्धी उल्लङ्घन वा कसूरमा उजुर
+  period:
+    kind: fixed
+    value: 90
+    unit: days
+  period_phrase_ne: नब्बे दिनभित्र
+  start:
+    kind: knowledge
+    en: the date you came to know of it
+    ne: थाहा पाएको मितिदेखि
+  notes:
+    en: Applies to breaches of the Electronic Transactions Act or its rules and to offences under it.
+    ne: यो ऐन वा नियमको उल्लङ्घन वा यस ऐन बमोजिम कसूर ठहर्ने कुनै कुरामा लागू हुन्छ।
+  citation:
+    law_title_ne: विद्युतीय (इलेक्ट्रोनिक) कारोबार ऐन, २०६३
+    section: '74'
+  keywords:
+  - cyber crime
+  - online
+  - electronic
+  - hacking
+  - social media
+  - साइबर
+  - विद्युतीय
+- id: company_159_6_general
+  category: corporate
+  name:
+    en: 'Company Act: complaint on any matter without its own limitation'
+    ne: 'कम्पनी ऐन: छुट्टै हदम्याद नतोकिएका विषयमा उजूरी'
+  period:
+    kind: fixed
+    value: 2
+    unit: years
+  period_phrase_ne: दुई वर्षभित्र
+  start:
+    kind: knowledge
+    en: the date you came to know of the cause of the suit
+    ne: मुद्दा गर्नुपर्ने कारण थाहा पाएको मितिदेखि
+  citation:
+    law_title_ne: कम्पनी ऐन, २०६३
+    section: '159'
+    clause: (६)
+  keywords:
+  - company
+  - shareholder
+  - director
+  - कम्पनी
+  - शेयरधनी
+- id: securities_33_3_prospectus
+  category: corporate
+  name:
+    en: Investor's claim over a false prospectus
+    ne: विवरणपत्र झुट्टा भएको कारण लगानीकर्ताको क्षतिपूर्ति दाबी
+  period:
+    kind: fixed
+    value: 35
+    unit: days
+  period_phrase_ne: पैंतीस दिनभित्र
+  start:
+    kind: knowledge
+    en: the date you came to know of it
+    ne: थाहा पाएको मितिदेखि
+  long_stop:
+    value: 1
+    unit: years
+    period_phrase_ne: एक वर्षभित्रमा
+    start:
+      en: the date of the investment
+      ne: लगानी गरेको मितिदेखि
+  notes:
+    en: File in the District Court within 35 days of knowing, and within 1 year of investing.
+    ne: लगानी गरेको एक वर्षभित्रमा आफूलाई थाहा भएको मितिले ३५ दिनभित्र जिल्ला अदालतमा उजुर गर्नुपर्छ।
+  citation:
+    law_title_ne: धितोपत्र सम्बन्धी ऐन, २०६३
+    section: '33'
+    clause: (३)
+  keywords:
+  - securities
+  - IPO
+  - prospectus
+  - investor
+  - shares
+  - धितोपत्र
+  - विवरणपत्र
+  - लगानीकर्ता
+- id: cooperative_132_1
+  category: corporate
+  name:
+    en: 'Cooperatives: complaint about an offence (s. 124)'
+    ne: 'सहकारी ऐन: कसूर गरेको उजुरी (दफा १२४)'
+  period:
+    kind: fixed
+    value: 1
+    unit: years
+  period_phrase_ne: एक वर्षभित्र
+  start:
+    kind: knowledge
+    en: the date you came to know of it
+    ne: थाहा पाएको मितिदेखि
+  citation:
+    law_title_ne: सहकारी ऐन, २०७४
+    section: '132'
+    clause: (१)
+  keywords:
+  - cooperative
+  - savings and credit
+  - सहकारी
+- id: cooperative_132_2
+  category: corporate
+  name:
+    en: 'Cooperatives: complaint about an act attracting a fine (s. 125), to the Registrar'
+    ne: 'सहकारी ऐन: जरिबाना हुने कार्यको उजुरी (दफा १२५), रजिष्ट्रारमा'
+  period:
+    kind: fixed
+    value: 90
+    unit: days
+  period_phrase_ne: नब्बे दिनभित्र
+  start:
+    kind: knowledge
+    en: the date you came to know of it
+    ne: थाहा पाएको मितिदेखि
+  citation:
+    law_title_ne: सहकारी ऐन, २०७४
+    section: '132'
+    clause: (२)
+  keywords:
+  - cooperative
+  - registrar
+  - सहकारी
+  - रजिष्ट्रार
+- id: insurance_145
+  category: corporate
+  name:
+    en: 'Insurance Act offences: complaint to the Insurance Authority'
+    ne: 'बीमा ऐन: कसुरमा उजुरी दिने हदम्याद'
+  period:
+    kind: fixed
+    value: 6
+    unit: months
+  period_phrase_ne: छ महिनाभित्र
+  start:
+    kind: knowledge
+    en: the date the Authority learned of the act, or the date the act was proved by inspection or investigation
+    ne: प्राधिकरणलाई कार्यको जानकारी भएको वा निरीक्षण/अनुसन्धानबाट प्रमाणित भएको मितिदेखि
+  notes:
+    en: After the complaint, the case must be filed in court within 3 months.
+    ne: उजुरी परेको मितिले ३ महिनाभित्र अदालतमा मुद्दा दायर गरिसक्नु पर्छ।
+  citation:
+    law_title_ne: बीमा ऐन २०७९
+    section: '145'
+  keywords:
+  - insurance
+  - policy
+  - बीमा
+- id: income_tax_113_4_refund
+  category: tax
+  name:
+    en: 'Income tax: application for refund of excess tax paid'
+    ne: 'आयकर: बढी तिरेको कर फिर्ताको निवेदन'
+  period:
+    kind: fixed
+    value: 5
+    unit: years
+  period_phrase_ne: पाँच वर्षभित्र
+  start:
+    kind: other
+    en: 'the latest of: end of the income year of the excess, the date of the excess payment, or the date of the court judgment'
+    ne: बढी रकम उत्पत्ति भएको आय वर्ष समाप्त भएको, बढी दाखिला गरेको वा मुद्दा फैसला भएको मध्ये पछिल्लो मितिदेखि
+  citation:
+    law_title_ne: आयकर ऐन, २०५८
+    section: '113'
+    clause: (४)
+  keywords:
+  - tax refund
+  - excess tax
+  - income tax
+  - कर फिर्ता
+  - आयकर
+- id: procurement_47_3_review_head
+  category: procurement
+  name:
+    en: 'Bid challenge: request to the head of the public body to review a procurement decision'
+    ne: सार्वजनिक निकायका प्रमुख समक्ष पुनरावलोकनको निवेदन
+  period:
+    kind: fixed
+    value: 7
+    unit: days
+  period_phrase_ne: सात दिनभित्र
+  start:
+    kind: knowledge
+    en: the date the bidder learned of the error or failure by the public body (where the Act sets no other period)
+    ne: बोलपत्रदाता/प्रस्तावदाताले त्रुटि वा कर्तव्य पालना नगरेको थाहा पाएको मितिदेखि
+  citation:
+    law_title_ne: सार्वजनिक खरिद ऐन, २०६३
+    section: '47'
+    clause: (३)
+  keywords:
+  - tender
+  - bid
+  - procurement
+  - बोलपत्र
+  - खरिद
+- id: procurement_50_1_a_review_committee
+  category: procurement
+  name:
+    en: 'Bid challenge: application to the Review Committee (after the entity head''s decision)'
+    ne: पुनरावलोकन समिति समक्ष निवेदन (निकायका प्रमुखको निर्णयपछि)
+  period:
+    kind: fixed
+    value: 7
+    unit: days
+  period_phrase_ne: सात दिनभित्र
+  start:
+    kind: other
+    en: the date of the head's decision, or of the lapse of his time to decide (start not spelled out)
+    ne: निकाय प्रमुखको निर्णय भएको वा निर्णय गर्ने अवधि नाघेको मितिदेखि (दफामा स्पष्ट उल्लेख छैन)
+  citation:
+    law_title_ne: सार्वजनिक खरिद ऐन, २०६३
+    section: 50 (1)
+    clause: (दफा ४९ को खण्ड (क))
+  keywords:
+  - tender
+  - review committee
+  - पुनरावलोकन समिति
+  needs_review: true
+- id: procurement_50_1_b_contract
+  category: procurement
+  name:
+    en: Review Committee application about a procurement contract
+    ne: खरिद सम्झौताको विषयमा पुनरावलोकन समितिमा निवेदन
+  period:
+    kind: fixed
+    value: 30
+    unit: days
+  period_phrase_ne: तीस दिनको अवधिभित्र
+  start:
+    kind: other
+    en: the date the contract was signed
+    ne: सम्झौता भएको मितिदेखि
+  citation:
+    law_title_ne: सार्वजनिक खरिद ऐन, २०६३
+    section: 50 (1)
+    clause: (दफा ४९ को खण्ड (ख))
+  keywords:
+  - tender
+  - contract
+  - review committee
+  - खरिद सम्झौता
+- id: domestic_violence_14
+  category: rights
+  name:
+    en: 'Domestic violence: complaint'
+    ne: 'घरेलु हिंसा: उजुरी'
+  period:
+    kind: fixed
+    value: 90
+    unit: days
+  period_phrase_ne: नब्बे दिनभित्र
+  start:
+    kind: act
+    en: the date the act or offence took place
+    ne: काम वा कसूर भए गरेको मितिदेखि
+  notes:
+    en: A complaint about domestic violence must be filed within 90 days of the act.
+    ne: घरेलु हिंसाको उजुरी भए गरेको मितिले ९० दिनभित्र दिनुपर्छ।
+  citation:
+    law_title_ne: घरेलु हिंसा (कसूर र सजाय) ऐन, २०६६
+    section: '14'
+  keywords:
+  - domestic violence
+  - wife beating
+  - abuse
+  - घरेलु हिंसा
+  - कुटपिट
+- id: children_act_74_1
+  category: rights
+  name:
+    en: 'Offences against children under the Children''s Act: filing the case'
+    ne: 'बालबालिका विरुद्धको कसूर: मुद्दा दायर (दफा ६६)'
+  period:
+    kind: fixed
+    value: 1
+    unit: years
+  period_phrase_ne: एक वर्षभित्र
+  start:
+    kind: act
+    en: the date the act or offence took place
+    ne: काम वा कसूर भए गरेको मितिदेखि
+  notes:
+    en: Where another law sets a period, that applies; otherwise 1 year from the offence.
+    ne: प्रचलित कानूनमा हदम्याद तोकिएकोमा सोही; नतोकिएकोमा कसूर भए गरेको मितिले एक वर्षभित्र।
+  citation:
+    law_title_ne: बालबालिका सम्बन्धी ऐन, २०७५
+    section: '74'
+    clause: (१)
+  keywords:
+  - children
+  - child abuse
+  - बालबालिका
+  - बाल दुर्व्यवहार
+- id: children_act_74_2
+  category: rights
+  name:
+    en: 'Offences against a child: extended time after the child turns 18'
+    ne: 'बालबालिका विरुद्धको कसूर: बालबालिकाको अठार वर्ष पूरा भएपछि'
+  period:
+    kind: fixed
+    value: 1
+    unit: years
+  period_phrase_ne: एक वर्षसम्म
+  start:
+    kind: other
+    en: the date the child turned 18 years old
+    ne: बालबालिकाको अठार वर्ष पूरा भएको मितिदेखि
+  citation:
+    law_title_ne: बालबालिका सम्बन्धी ऐन, २०७५
+    section: '74'
+    clause: (२)
+  keywords:
+  - children
+  - child abuse
+  - बालबालिका
+- id: disability_rights_56
+  category: rights
+  name:
+    en: 'Disability Rights Act offences: filing the case'
+    ne: 'अपाङ्गता भएका व्यक्तिको अधिकार सम्बन्धी कसूर: मुद्दा दायर'
+  period:
+    kind: fixed
+    value: 3
+    unit: months
+  period_phrase_ne: तीन महिनाभित्र
+  start:
+    kind: act
+    en: the date the act or offence took place
+    ne: काम वा कसूर भए गरेको मितिदेखि
+  citation:
+    law_title_ne: अपाङ्गता भएका व्यक्तिको अधिकार सम्बन्धी ऐन, २०७४
+    section: '56'
+  keywords:
+  - disability
+  - accessibility
+  - अपाङ्गता
+- id: witchcraft_accusation_17
+  category: rights
+  name:
+    en: 'Witchcraft accusation (बोक्सी): complaint or information'
+    ne: 'बोक्सीको आरोप सम्बन्धी कसूर: जाहेरी दरखास्त वा सूचना'
+  period:
+    kind: fixed
+    value: 90
+    unit: days
+  period_phrase_ne: नब्बे दिनभित्र
+  start:
+    kind: act
+    en: the date the act or offence took place
+    ne: काम वा कसूर भए गरेको मितिदेखि
+  citation:
+    law_title_ne: बोक्सीको आरोप (कसूर र सजाय) ऐन, २०७२
+    section: '17'
+  keywords:
+  - witchcraft
+  - boksi
+  - बोक्सी
+- id: caste_discrimination_10
+  category: rights
+  name:
+    en: 'Caste-based discrimination and untouchability: filing the case'
+    ne: 'जातीय छुवाछूत र भेदभाव सम्बन्धी कसूर: मुद्दा दायर'
+  period:
+    kind: fixed
+    value: 3
+    unit: months
+  period_phrase_ne: तीन महिनाभित्र
+  start:
+    kind: act
+    en: the date the act or offence took place
+    ne: काम वा कसूर भए गरेको मितिदेखि
+  citation:
+    law_title_ne: जातीय तथा अन्य सामाजिक छुवाछूत र भेदभाव (कसूर र सजाय) ऐन, २०६८
+    section: '10'
+  keywords:
+  - caste
+  - dalit
+  - untouchability
+  - discrimination
+  - जातीय
+  - छुवाछूत
+  - दलित
+- id: safe_motherhood_37
+  category: health
+  name:
+    en: Safe Motherhood and Reproductive Health Act offences
+    ne: सुरक्षित मातृत्व तथा प्रजनन् स्वास्थ्य अधिकार सम्बन्धी कसूर
+  period:
+    kind: fixed
+    value: 6
+    unit: months
+  period_phrase_ne: छ महिना
+  start:
+    kind: knowledge
+    en: the date you came to know of it
+    ne: थाहा पाएको मितिदेखि
+  notes:
+    en: Complaints are barred once this period has passed.
+    ne: यो अवधि नाघेपछि उजूर लाग्दैन।
+  citation:
+    law_title_ne: सुरक्षित मातृत्व तथा प्रजनन् स्वास्थ्य अधिकार ऐन, २०७५
+    section: '37'
+  keywords:
+  - safe abortion
+  - maternal health
+  - reproductive rights
+  - सुरक्षित मातृत्व
+  - गर्भपतन
+- id: privacy_act_30_2
+  category: rights
+  name:
+    en: 'Privacy Act offences: complaint in the District Court'
+    ne: 'वैयक्तिक गोपनीयता सम्बन्धी ऐन: जिल्ला अदालतमा उजूर'
+  period:
+    kind: fixed
+    value: 3
+    unit: months
+  period_phrase_ne: तीन महिनाभित्र
+  start:
+    kind: act
+    en: the date the act or offence took place
+    ne: काम वा कसूर भए गरेको मितिदेखि
+  citation:
+    law_title_ne: वैयक्तिक गोपनीयता सम्बन्धी ऐन, २०७५
+    section: '30'
+    clause: (२)
+  keywords:
+  - privacy
+  - personal data
+  - गोपनीयता
+- id: social_practices_18
+  category: rights
+  name:
+    en: 'Social Practices Reform Act (dowry, wedding customs etc.): filing the case'
+    ne: 'सामाजिक व्यवहार (सुधार) ऐन: मुद्दा दायर'
+  period:
+    kind: fixed
+    value: 35
+    unit: days
+  period_phrase_ne: पैंतीस दिन भित्र
+  start:
+    kind: act
+    en: the date the Act or rules were violated
+    ne: उल्लङ्घन गरेको मितिदेखि
+  citation:
+    law_title_ne: सामाजिक व्यवहार (सुधार) ऐन, २०३३
+    section: '18'
+  keywords:
+  - dowry
+  - social customs
+  - wedding
+  - दाइजो
+  - सामाजिक व्यवहार
+- id: joint_housing_31
+  category: property
+  name:
+    en: 'Joint housing (condominium) ownership offences: complaint'
+    ne: 'संयुक्त आवासको स्वामित्व सम्बन्धी कसूर: उजूर'
+  period:
+    kind: fixed
+    value: 3
+    unit: months
+  period_phrase_ne: तीन महिनाभित्र
+  start:
+    kind: knowledge
+    en: the date you came to know of it
+    ne: थाहा पाएको मितिदेखि
+  long_stop:
+    value: 1
+    unit: years
+    period_phrase_ne: एक वर्षभित्र
+    start:
+      en: the date the offence took place
+      ne: कसूर भए गरेको मितिदेखि
+  notes:
+    en: File within 3 months of knowing, and within 1 year of the offence.
+    ne: कसूर भए गरेको मितिले एक वर्षभित्र, थाहा पाएको मितिले तीन महिनाभित्र उजूर गर्नुपर्छ।
+  citation:
+    law_title_ne: संयुक्त आवासको स्वामित्व सम्बन्धी ऐन, २०५४
+    section: '31'
+  keywords:
+  - condominium
+  - apartment
+  - joint housing
+  - संयुक्त आवास
+- id: copyright_38
+  category: rights
+  name:
+    en: 'Copyright infringement: complaint'
+    ne: 'प्रतिलिपि अधिकार उल्लङ्घन: उजुरी'
+  period:
+    kind: fixed
+    value: 3
+    unit: months
+  period_phrase_ne: तीन महिनाभित्र
+  start:
+    kind: knowledge
+    en: the date you came to know of it
+    ne: थाहा पाएको मितिदेखि
+  citation:
+    law_title_ne: प्रतिलिपि अधिकार ऐन, २०५९
+    section: '38'
+  keywords:
+  - copyright
+  - piracy
+  - प्रतिलिपि अधिकार
+- id: social_security_24_appeal
+  category: rights
+  name:
+    en: Appeal against a local Judicial Committee's social-security decision
+    ne: सामाजिक सुरक्षा सम्बन्धी न्यायिक समितिको निर्णय उपर पुनरावेदन
+  period:
+    kind: fixed
+    value: 35
+    unit: days
+  period_phrase_ne: पैँतीस दिनभित्र
+  start:
+    kind: knowledge
+    en: the date you were informed of the decision
+    ne: निर्णयको जानकारी पाएको मितिदेखि
+  citation:
+    law_title_ne: सामाजिक सुरक्षा ऐन, २०७५
+    section: '24'
+  keywords:
+  - social security allowance
+  - old age allowance
+  - सामाजिक सुरक्षा भत्ता
+- id: vaccination_27
+  category: health
+  name:
+    en: 'Vaccination Act offences: complaint to the Committee'
+    ne: 'खोप ऐन: समिति समक्ष उजूरी'
+  period:
+    kind: fixed
+    value: 35
+    unit: days
+  period_phrase_ne: पैतीस दिनभित्र
+  start:
+    kind: act
+    en: the date the act or offence took place
+    ne: काम वा कसूर भए गरेको मितिदेखि
+  citation:
+    law_title_ne: खोप ऐन, २०७२
+    section: '27'
+    clause: (१)
+  keywords:
+  - vaccine
+  - vaccination
+  - खोप
+- id: health_workers_17
+  category: health
+  name:
+    en: 'Attacks on health workers or health institutions: complaint'
+    ne: 'स्वास्थ्यकर्मी वा स्वास्थ्य संस्था विरुद्धको कसुर: उजुरी'
+  period:
+    kind: fixed
+    value: 35
+    unit: days
+  period_phrase_ne: पैँतीस दिनभित्र
+  start:
+    kind: act
+    en: the date the act or offence took place
+    ne: काम वा कसूर भए गरेको मितिदेखि
+  citation:
+    law_title_ne: स्वास्थ्यकर्मी तथा स्वास्थ्य संस्थाको सुरक्षा सम्बन्धी ऐन, २०६६
+    section: '17'
+  keywords:
+  - health worker
+  - doctor
+  - hospital
+  - स्वास्थ्यकर्मी
+- id: health_insurance_31
+  category: health
+  name:
+    en: 'Health insurance: complaint against a service provider'
+    ne: 'स्वास्थ्य बीमा: सेवा प्रदायक उपर उजुरी'
+  period:
+    kind: fixed
+    value: 90
+    unit: days
+  period_phrase_ne: नब्बे दिनभित्र
+  start:
+    kind: act
+    en: the date the provider failed to serve, delayed, or gave sub-standard service
+    ne: सेवा प्रदान नगरेको, ढिला सुस्ती गरेको वा न्यून गुणस्तरको सेवा दिएको मितिदेखि
+  citation:
+    law_title_ne: स्वास्थ्य बीमा ऐन, २०७४
+    section: '31'
+    clause: (१)
+  keywords:
+  - health insurance
+  - insured
+  - स्वास्थ्य बीमा
+- id: army_71_court_martial
+  category: public
+  name:
+    en: 'Army Act: starting a case in a military court'
+    ne: 'सैनिक ऐन: सैनिक अदालतमा मुद्दा चलाउने'
+  period:
+    kind: fixed
+    value: 3
+    unit: years
+  period_phrase_ne: तीन वर्ष
+  start:
+    kind: act
+    en: the date the act or offence took place
+    ne: काम वा कसूर भए गरेको मितिदेखि
+  notes:
+    en: Excludes time as a prisoner of war, or under enemy control, or absconding. Serious offences under ss. 39, 42, 46, 49, 55, 56, 62 are excluded from this limit.
+    ne: युद्धबन्दी, शत्रुको इलाकामा रहेको वा कसूर गरी पक्राउमा नपरी बसेको समय गणना हुँदैन। दफा ३९, ४२, ४६, ४९, ५५, ५६ र ६२ का कसूरमा यो हदम्याद लाग्दैन।
+  citation:
+    law_title_ne: सैनिक ऐन, २०६३
+    section: '71'
+    clause: (१)
+  keywords:
+  - army
+  - military court
+  - सैनिक
+- id: police_38_suit
+  category: public
+  name:
+    en: Suit against a Chief District Officer or police officer for acts done in office
+    ne: प्रमुख जिल्ला अधिकारी वा प्रहरी कर्मचारी उपर मुद्दा
+  period:
+    kind: fixed
+    value: 8
+    unit: months
+  period_phrase_ne: ८ महिनाभित्र
+  start:
+    kind: cause
+    en: the date the cause of action arose
+    ne: मुद्दा गर्नु पर्ने कारण उत्पन्न भएको मितिदेखि
+  notes:
+    en: A written notice must first be given (and one month must pass) before the suit.
+    ne: मुद्दा चलाउनुअघि लिखित नोटिस दिई १ महिना नाघ्नु पर्छ।
+  citation:
+    law_title_ne: प्रहरी ऐन, २०१२
+    section: '38'
+  keywords:
+  - police
+  - CDO
+  - suit against police
+  - प्रहरी
+- id: civil_service_57_suit
+  category: public
+  name:
+    en: Civil suit against a civil servant for an official act
+    ne: निजामती कर्मचारी उपर सरकारी कामको सम्बन्धमा देवानी मुद्दा
+  period:
+    kind: fixed
+    value: 8
+    unit: months
+  period_phrase_ne: आठ महिनाभित्र
+  start:
+    kind: cause
+    en: the date the cause of action arose
+    ne: मुद्दा गर्नु पर्ने कारण उत्पन्न भएको मितिदेखि
+  notes:
+    en: A written notice must first be given and 2 months must pass before the suit.
+    ne: मुद्दा चलाउनुअघि लिखित सूचना दिई दुई महिना नाघ्नु पर्छ।
+  citation:
+    law_title_ne: निजामती सेवा ऐन, २०४९
+    section: '57'
+    clause: (२)(ख)
+  keywords:
+  - civil servant
+  - government employee
+  - निजामती कर्मचारी
+- id: railway_72_1
+  category: public
+  name:
+    en: 'Railway Act: offences under s. 62(क)'
+    ne: 'रेल्वे ऐन: दफा ६२ को खण्ड (क) अन्तर्गतको कसुर'
+  period:
+    kind: none
+  period_phrase_ne: जहिलेसुकै
+  notes:
+    en: A complaint can be filed at any time.
+    ne: जहिलेसुकै उजुर लाग्नेछ।
+  citation:
+    law_title_ne: नेपाल रेल्वे ऐन, २०७९
+    section: '72'
+    clause: (१)
+  keywords:
+  - railway
+  - रेल्वे
+- id: railway_72_2
+  category: public
+  name:
+    en: 'Railway Act: offences under s. 62(ख), (ग), (घ), (ङ)'
+    ne: 'रेल्वे ऐन: दफा ६२ को खण्ड (ख), (ग), (घ), (ङ) अन्तर्गतको कसुर'
+  period:
+    kind: fixed
+    value: 6
+    unit: months
+  period_phrase_ne: छ महिना
+  start:
+    kind: knowledge
+    en: the date you came to know of it
+    ne: थाहा पाएको मितिदेखि
+  citation:
+    law_title_ne: नेपाल रेल्वे ऐन, २०७९
+    section: '72'
+    clause: (२)
+  keywords:
+  - railway
+  - रेल्वे
+- id: railway_72_3
+  category: public
+  name:
+    en: 'Railway Act: all other offences'
+    ne: 'रेल्वे ऐन: अन्य कसुर'
+  period:
+    kind: fixed
+    value: 3
+    unit: months
+  period_phrase_ne: तीन महिना
+  start:
+    kind: act
+    en: the date the act or offence took place
+    ne: काम वा कसूर भए गरेको मितिदेखि
+  citation:
+    law_title_ne: नेपाल रेल्वे ऐन, २०७९
+    section: '72'
+    clause: (३)
+  keywords:
+  - railway
+  - रेल्वे
+- id: vehicle_172_1_other
+  category: public
+  name:
+    en: 'Vehicle and Transport Act: complaint about other offences'
+    ne: 'सवारी तथा यातायात व्यवस्था ऐन: अन्य कसूरमा उजुर'
+  period:
+    kind: fixed
+    value: 30
+    unit: days
+  period_phrase_ne: तीस दिनभित्र
+  start:
+    kind: act
+    en: the date the act or offence took place
+    ne: काम वा कसूर भए गरेको मितिदेखि
+  citation:
+    law_title_ne: सवारी तथा यातायात व्यवस्था ऐन, २०४९
+    section: '172'
+    clause: (१)
+  keywords:
+  - vehicle
+  - traffic
+  - accident
+  - driving
+  - सवारी
+  - यातायात
+  - दुर्घटना
+- id: vehicle_172_1_serious
+  category: public
+  name:
+    en: Vehicle accidents causing death (s. 161) or injury (s. 162)
+    ne: सवारी दुर्घटनाबाट ज्यान (दफा १६१) वा चोट (दफा १६२)
+  period:
+    kind: special
+    text:
+      en: For death the Criminal Code chapter 12 (homicide) periods apply; for injury, chapter 14 (assault) periods apply. See those entries.
+      ne: दफा १६१ मा अपराध संहिताको ज्यान सम्बन्धी (परिच्छेद १२) र दफा १६२ मा कुटपिट सम्बन्धी (परिच्छेद १४) को म्याद लाग्छ।
+  period_phrase_ne: मुलुकी अपराध संहिताको भाग–२ को परिच्छेद–१२
+  citation:
+    law_title_ne: सवारी तथा यातायात व्यवस्था ऐन, २०४९
+    section: '172'
+    clause: (१)
+  keywords:
+  - road accident
+  - death by vehicle
+  - सवारी दुर्घटना
+- id: vehicle_172_2_appeal
+  category: public
+  name:
+    en: 'Vehicle and Transport Act: appeal against a decision or order'
+    ne: 'सवारी तथा यातायात व्यवस्था ऐन: निर्णय वा आदेश उपर पुनरावेदन'
+  period:
+    kind: fixed
+    value: 35
+    unit: days
+  period_phrase_ne: पैंतीस दिनभित्र
+  start:
+    kind: knowledge
+    en: the date you received notice of the decision or order
+    ne: निर्णय वा आदेशको सूचना पाएको मितिदेखि
+  citation:
+    law_title_ne: सवारी तथा यातायात व्यवस्था ऐन, २०४९
+    section: '172'
+    clause: (२)
+  keywords:
+  - traffic fine
+  - licence
+  - appeal
+  - सवारी
+  - पुनरावेदन
+- id: multimodal_transport_29
+  category: public
+  name:
+    en: 'Multimodal transport of goods: complaint about the carriage'
+    ne: 'बहुविधिक ढुवानी: ढुवानीको काम सम्बन्धी उजुरी'
+  period:
+    kind: fixed
+    value: 6
+    unit: months
+  period_phrase_ne: छ महिनाभित्र
+  start:
+    kind: other
+    en: 'the earliest of: date of delivery to the transporter, the date goods were due to be delivered, or the date goods are deemed lost (s. 20)'
+    ne: मालसामान हस्तान्तरण गरेको मिति, बुझाउनु पर्ने मिति वा हराएको मानिने मितिदेखि
+  citation:
+    law_title_ne: मालसामानको बहुविधिक ढुवानी ऐन, २०६३
+    section: '29'
+  keywords:
+  - cargo
+  - shipping
+  - goods lost
+  - मालसामान
+  - ढुवानी
+- id: radioactive_53_death
+  category: public
+  name:
+    en: Radioactive Substances Act offences that caused a death
+    ne: 'रेडियोधर्मी पदार्थ ऐन: कसूरबाट ज्यान गएको'
+  period:
+    kind: none
+  period_phrase_ne: जहिलेसुकै
+  notes:
+    en: A case can be filed at any time.
+    ne: जहिलेसुकै मुद्दा दायर गर्न सकिन्छ।
+  citation:
+    law_title_ne: रेडियोधर्मी पदार्थ (उपयोग तथा नियमन) ऐन, २०७७
+    section: '53'
+  keywords:
+  - radioactive
+  - radiation
+  - रेडियोधर्मी
+- id: radioactive_53_other
+  category: public
+  name:
+    en: 'Radioactive Substances Act: all other offences'
+    ne: 'रेडियोधर्मी पदार्थ ऐन: अन्य अवस्थामा मुद्दा'
+  period:
+    kind: fixed
+    value: 1
+    unit: years
+  period_phrase_ne: एक वर्षभित्रमा
+  start:
+    kind: knowledge
+    en: the date you came to know of it
+    ne: थाहा पाएको मितिदेखि
+  citation:
+    law_title_ne: रेडियोधर्मी पदार्थ (उपयोग तथा नियमन) ऐन, २०७७
+    section: '53'
+  keywords:
+  - radioactive
+  - radiation
+  - रेडियोधर्मी
+- id: radioactive_50_3_injury_compensation
+  category: public
+  name:
+    en: 'Radioactive Substances Act: compensation for death or bodily injury'
+    ne: 'रेडियोधर्मी पदार्थ: मृत्यु वा शारीरिक क्षतिको क्षतिपूर्ति'
+  period:
+    kind: fixed
+    value: 30
+    unit: years
+  period_phrase_ne: तीस वर्षभित्र
+  start:
+    kind: act
+    en: the date of the death or injury
+    ne: मृत्यु भएको वा शारीरिक क्षति लागेको मितिदेखि
+  citation:
+    law_title_ne: रेडियोधर्मी पदार्थ (उपयोग तथा नियमन) ऐन, २०७७
+    section: '50'
+    clause: (३)
+  keywords:
+  - radiation
+  - compensation
+  - क्षतिपूर्ति
+  needs_review: true
+- id: radioactive_50_3_other_loss
+  category: public
+  name:
+    en: 'Radioactive Substances Act: compensation for other loss'
+    ne: 'रेडियोधर्मी पदार्थ: अन्य हानि नोक्सानीको क्षतिपूर्ति'
+  period:
+    kind: fixed
+    value: 1
+    unit: years
+  period_phrase_ne: एक वर्षभित्र
+  start:
+    kind: knowledge
+    en: the date you came to know of it
+    ne: थाहा पाएको मितिदेखि
+  citation:
+    law_title_ne: रेडियोधर्मी पदार्थ (उपयोग तथा नियमन) ऐन, २०७७
+    section: '50'
+    clause: (३)
+  keywords:
+  - radiation
+  - compensation
+  - क्षतिपूर्ति
+- id: disaster_26
+  category: public
+  name:
+    en: 'Disaster Management Act offences: filing the case'
+    ne: 'विपद् जोखिम व्यवस्थापन ऐन: कसूरमा मुद्दा दायर'
+  period:
+    kind: fixed
+    value: 30
+    unit: days
+  period_phrase_ne: तीस दिनभित्र
+  start:
+    kind: act
+    en: the date the act or offence took place
+    ne: काम वा कसूर भए गरेको मितिदेखि
+  citation:
+    law_title_ne: विपद् जोखिम न्यूनिकरण तथा व्यवस्थापन ऐन, २०७४
+    section: '26'
+  keywords:
+  - disaster
+  - relief
+  - विपद्
+- id: organised_crime_58
+  category: public
+  name:
+    en: Organised crime cases
+    ne: सङ्गठित अपराधको मुद्दा
+  period:
+    kind: none
+  period_phrase_ne: हदम्याद लाग्ने छैन
+  notes:
+    en: No limitation applies.
+    ne: हदम्याद लाग्दैन।
+  citation:
+    law_title_ne: सङ्गठित अपराध निवारण ऐन, २०७०
+    section: '58'
+  keywords:
+  - organised crime
+  - सङ्गठित अपराध
+- id: black_marketing_14_3
+  category: public
+  name:
+    en: 'Black-marketing and certain social offences: filing the case'
+    ne: 'कालोबजार तथा केही सामाजिक अपराध: मुद्दा दायर'
+  period:
+    kind: fixed
+    value: 90
+    unit: days
+  period_phrase_ne: 9० दिनभित्र
+  start:
+    kind: other
+    en: the date the offence took place or was discovered
+    ne: अपराध भएको वा पत्ता लागेको मितिदेखि
+  citation:
+    law_title_ne: कालोबजार तथा केही अन्य सामाजिक अपराध तथा सजाय ऐन, २०३२
+    section: '14'
+    clause: (३)
+  keywords:
+  - black marketing
+  - hoarding
+  - profiteering
+  - कालोबजार
+- id: notary_32_1
+  category: public
+  name:
+    en: 'Notary Public: complaint of professional misconduct to the Council'
+    ne: 'नोटरी पब्लिकको पदीय दुराचरण: परिषद्समक्ष उजुरी'
+  period:
+    kind: fixed
+    value: 2
+    unit: years
+  period_phrase_ne: दुई वर्षभित्र
+  start:
+    kind: act
+    en: the date the act or offence took place
+    ne: काम वा कसूर भए गरेको मितिदेखि
+  citation:
+    law_title_ne: नोटरी पब्लिक सम्बन्धी ऐन, २०६३
+    section: '32'
+    clause: (१)
+  keywords:
+  - notary
+  - नोटरी
+- id: notary_34_1
+  category: public
+  name:
+    en: 'Notary Public: suit for compensation for misconduct'
+    ne: 'नोटरी पब्लिकको पदीय दुराचरण: क्षतिपूर्तिको नालिस'
+  period:
+    kind: fixed
+    value: 2
+    unit: years
+  period_phrase_ne: दुई वर्षभित्र
+  start:
+    kind: act
+    en: the date the act or offence took place
+    ne: काम वा कसूर भए गरेको मितिदेखि
+  citation:
+    law_title_ne: नोटरी पब्लिक सम्बन्धी ऐन, २०६३
+    section: '34'
+    clause: (१)
+  keywords:
+  - notary
+  - compensation
+  - नोटरी
+  - क्षतिपूर्ति
+- id: ciaa_8_public_interest
+  category: public
+  name:
+    en: 'CIAA complaint: improper acts harming the public interest'
+    ne: 'अख्तियार: सार्वजनिक हित वा सरोकारमा असर पर्ने अनुचित कार्यको उजुरी'
+  period:
+    kind: none
+  period_phrase_ne: जहिलेसुकै पनि
+  notes:
+    en: Where the improper act affects the public interest, a complaint can be filed at any time.
+    ne: सार्वजनिक हित वा सरोकारको विषयमा असर पर्ने अनुचित कार्यमा जहिलेसुकै उजुरी गर्न सकिन्छ।
+  citation:
+    law_title_ne: अख्तियार दुरूपयोग अनुसन्धान आयोग ऐन, २०४८
+    section: '8'
+    clause: (३)
+  keywords:
+  - CIAA
+  - corruption
+  - abuse of authority
+  - अख्तियार
+  - भ्रष्टाचार
+- id: ciaa_8_private
+  category: public
+  name:
+    en: 'CIAA complaint: improper acts affecting you personally'
+    ne: 'अख्तियार: निजी रूपमा प्रतिकूल असर पर्ने अनुचित कार्यको उजुरी'
+  period:
+    kind: fixed
+    value: 35
+    unit: days
+  period_phrase_ne: पैंतीस दिनभित्र
+  start:
+    kind: knowledge
+    en: the date you came to know of it
+    ne: थाहा पाएको मितिदेखि
+  citation:
+    law_title_ne: अख्तियार दुरूपयोग अनुसन्धान आयोग ऐन, २०४८
+    section: '8'
+    clause: (३)
+  keywords:
+  - CIAA
+  - corruption
+  - अख्तियार
+  - भ्रष्टाचार
+- id: land_survey_6_6ka
+  category: property
+  name:
+    en: 'Land survey: objection to a registration made in your absence'
+    ne: 'जग्गा नापजाँच: अनुपस्थितिमा गरिएको दर्तामा चित्त नबुझेमा अदालतमा उजुर'
+  period:
+    kind: fixed
+    value: 6
+    unit: months
+  period_phrase_ne: ६ महिनाभित्र
+  start:
+    kind: knowledge
+    en: the date you came to know of it
+    ne: थाहा पाएको मितिदेखि
+  citation:
+    law_title_ne: जग्गा (नाप जाँच) ऐन, २०१९
+    section: 6 (4)
+    clause: (६क)
+  keywords:
+  - land survey
+  - land registration
+  - नापी
+  - जग्गा दर्ता
