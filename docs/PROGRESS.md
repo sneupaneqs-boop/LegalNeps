@@ -38,13 +38,21 @@ Vercel *preview*, never promoted. Fixed this session:
 
 ## Next session
 
-STRATEGY.md marks S10 as **"Stop here for a 2-week free beta"** - week 2 of
-the plan is now complete (S1-S10). Before starting week 3:
+**S12 — Compliance Radar lite.** See STRATEGY.md §4, week 3 table: company
+profile → obligations from a small, cited, verified seed (IRD/VAT/TDS, OCR
+annual, SSF, labour) → BS calendar → email reminders (Resend free tier).
+Done when: each obligation has a source; reminder job runs.
 
-**S11 — Matter workspace lite.** See STRATEGY.md §4, week 3 table: Matter =
-client, facts, saved research, action plans, drafts, notes, tasks, uploaded
-files (Supabase storage, private). Done when: CRUD + RLS tests prove user B
-can't see user A's matter.
+**Still outstanding from S11** (not blocking, just don't forget it): (a) no
+frontend UI yet for the matter workspace (list/detail/notes/tasks/files),
+same backend-only scope as S7-S10 - `POST/GET/PUT/DELETE /api/matters...`
+all work and are tested, but nobody's built the page. (b) `saved_research`
+and `drafts` got a nullable `matter_id` column this session so they *can*
+be linked to a matter, but no API endpoint sets it yet - `POST
+/api/research` and the drafting save endpoints still don't accept a
+`matter_id` param. (c) File uploads are capped at 20MB in the route
+handler (`app/routes/chat.py`); nothing enforces a total-storage quota per
+user or per matter yet.
 
 **Still outstanding from S10** (not blocking, just don't forget it): (a)
 nobody has actually signed up on the live LegalNeps Supabase project yet
@@ -92,6 +100,68 @@ do yet. Left for whichever session next touches the chat UI/pipeline, since
 S7's own "done when" bar (25 playbooks, ≥90% precision) doesn't require it.
 
 ## Done
+
+### S11 — Matter workspace lite (2026-09-29)
+
+A real user (`s.neupaneqs@gmail.com`) signed in on the live site between
+S10 and this session - confirmed via `select * from public.profiles`,
+which now has 1 row. That closes S10's "nobody has signed up yet" gap on
+its own; the S10-era `drafts`/`saved_research` structural-only caveat can
+be retired once that user actually saves something.
+
+- **Schema**: `matters` (client_name, facts, status) plus `matter_notes`,
+  `matter_tasks`, and `matter_files` (metadata only; bytes live in a new
+  private Supabase Storage bucket `matter-files` under
+  `{user_id}/{matter_id}/{filename}`, with `storage.objects` RLS policies
+  scoping access to that path prefix). `saved_research` and `drafts` each
+  got a nullable `matter_id` FK so they *can* be linked to a matter later
+  (see "Next session" - no endpoint sets it yet). Applied as two real
+  migrations to the live LegalNeps Supabase project, same as S10.
+- **Real RLS proof, not just structural**: this is the first session able
+  to actually test isolation end-to-end, because a service-role secret key
+  now exists to drive it. Created two throwaway Supabase auth users via the
+  Admin API, signed in as each to get real per-user JWTs, and hit
+  PostgREST directly with the anon key (i.e. exactly how RLS is meant to be
+  exercised, not through the backend's own service-role bypass): user A
+  creates a matter, user B's SELECT/UPDATE/DELETE against it all correctly
+  return empty/0-rows. **This caught a real gap**: `matter_notes`' insert
+  policy only checked `auth.uid() = user_id` on the note's own row, not
+  that the referenced `matter_id` actually belonged to that user - so user
+  B could attach a note to user A's `matter_id` (B still couldn't read
+  A's real data through this, since every read stays scoped to `user_id =
+  B`, but it's cross-tenant row injection at the DB level). Fixed with a
+  second migration adding an `exists (select 1 from matters where id =
+  matter_id and user_id = auth.uid())` check to the insert policies on
+  `matter_notes`, `matter_tasks`, and `matter_files`; re-ran the same live
+  probe and confirmed B now gets a 403. Test users and their data were
+  deleted afterward (`auth.users` back to the 1 real signup,
+  `matters`/`matter_notes` back to 0 rows).
+- **App-layer ownership check**: the backend talks to Supabase with the
+  service-role key, which bypasses RLS entirely - so DB-level RLS alone
+  doesn't protect the backend's own API surface. Every note/task/file route
+  in `app/routes/chat.py` calls a `_require_matter()` dependency first,
+  which 404s (not 403, so a stranger's matter ID and a nonexistent one look
+  identical) before touching anything scoped to a `matter_id` that isn't
+  the caller's.
+- **File upload**: `POST /api/matters/{id}/files` accepts a real multipart
+  upload (added `python-multipart` to requirements.txt, without which
+  FastAPI silently can't parse form data), streams the bytes to the private
+  Storage bucket via `supa.matter_file_create()`, then records metadata.
+  20MB size cap in the route handler. Download is a signed, time-limited
+  URL (`matter_file_signed_url()`, 5 min default) rather than the backend
+  proxying file bytes itself.
+- **API**: full CRUD on `/api/matters`, `/api/matters/{id}/notes`,
+  `/api/matters/{id}/tasks`, `/api/matters/{id}/files` - all
+  `_require_user`-gated. No frontend UI yet (see "Next session").
+- **Tests**: `tests/test_s11_matters.py` - fail-open-without-Supabase
+  checks, a full CRUD round trip per resource type (including a real
+  multipart file upload against the test client), and the API-layer
+  ownership proof (every sub-resource route 404s for user B on user A's
+  matter). Full backend suite: **214 passed** (was 207).
+- **graphify**: re-ran `graphify update .` (code) and `graphify label .`
+  (community naming) after this session's changes - the committed graph
+  now covers the matters/notes/tasks/files code too (1136 nodes, 2290
+  edges, 69 communities).
 
 ### S10 — Drafting + AI fill + save (2026-09-28)
 

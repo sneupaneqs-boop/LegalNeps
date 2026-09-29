@@ -210,6 +210,68 @@ class DraftVersionOut(BaseModel):
     created_at: str
 
 
+class MatterIn(BaseModel):
+    client_name: str = Field(..., min_length=1, max_length=200)
+    facts: Optional[str] = None
+
+
+class MatterUpdateIn(BaseModel):
+    client_name: Optional[str] = Field(None, min_length=1, max_length=200)
+    facts: Optional[str] = None
+    status: Optional[Literal["open", "closed"]] = None
+
+
+class MatterOut(BaseModel):
+    id: str
+    client_name: str
+    facts: Optional[str] = None
+    status: str
+    created_at: str
+    updated_at: str
+
+
+class MatterNoteIn(BaseModel):
+    body: str = Field(..., min_length=1, max_length=10000)
+
+
+class MatterNoteOut(BaseModel):
+    id: str
+    body: str
+    created_at: str
+
+
+class MatterTaskIn(BaseModel):
+    title: str = Field(..., min_length=1, max_length=500)
+    due_date: Optional[str] = None
+
+
+class MatterTaskUpdateIn(BaseModel):
+    title: Optional[str] = Field(None, min_length=1, max_length=500)
+    done: Optional[bool] = None
+    due_date: Optional[str] = None
+
+
+class MatterTaskOut(BaseModel):
+    id: str
+    title: str
+    done: bool
+    due_date: Optional[str] = None
+    created_at: str
+    updated_at: str
+
+
+class MatterFileOut(BaseModel):
+    id: str
+    filename: str
+    content_type: Optional[str] = None
+    size_bytes: Optional[int] = None
+    created_at: str
+
+
+class MatterFileDownload(BaseModel):
+    url: str
+
+
 class BsDate(BaseModel):
     year: int
     month: int

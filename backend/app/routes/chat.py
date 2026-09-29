@@ -4,7 +4,7 @@ import json
 import logging
 import time
 
-from fastapi import APIRouter, Depends, Header, HTTPException, Query, Request
+from fastapi import APIRouter, Depends, File, Header, HTTPException, Query, Request, UploadFile
 from fastapi.responses import Response, StreamingResponse
 from starlette.concurrency import iterate_in_threadpool
 
@@ -21,9 +21,11 @@ from ..retrieval import corpus_stats, doc_slug, get_index
 from ..schemas import (AiFillRequest, AiFillResponse, BsDate, ChatRequest, ChatResponse, CourtFeeAppealResponse,
                         CourtFeeEstimateResponse, DateConversionResponse, DraftingTemplateDetail,
                         DraftingTemplateSummary, DraftRequest, DraftVersionOut, GratuityResponse, LawDoc,
-                        LawSection, LimitationCheckResponse, NoticeResponse, Playbook, PlaybookMatchResponse,
-                        PlaybookSummary, SavedDraftIn, SavedDraftOut, SavedResearchIn, SavedResearchOut,
-                        SearchResponse, SeveranceResponse, Source)
+                        LawSection, LimitationCheckResponse, MatterFileDownload, MatterFileOut, MatterIn,
+                        MatterNoteIn, MatterNoteOut, MatterOut, MatterTaskIn, MatterTaskOut, MatterTaskUpdateIn,
+                        MatterUpdateIn, NoticeResponse, Playbook, PlaybookMatchResponse, PlaybookSummary,
+                        SavedDraftIn, SavedDraftOut, SavedResearchIn, SavedResearchOut, SearchResponse,
+                        SeveranceResponse, Source)
 
 router = APIRouter()
 reqlog = logging.getLogger("kanooni.request")
@@ -418,3 +420,146 @@ async def delete_draft(draft_id: str, user: dict = Depends(_require_user)) -> No
 async def list_draft_versions(draft_id: str, user: dict = Depends(_require_user)) -> list[DraftVersionOut]:
     versions = await asyncio.to_thread(supa.draft_versions_list, user["id"], draft_id)
     return [DraftVersionOut(**v) for v in (versions or [])]
+
+
+# --------------------------------------------------------------- S11: matters ---
+# The backend talks to Supabase with the service-role key, which bypasses
+# RLS - so unlike a direct client, ownership here is enforced in this route
+# layer, not just by the database. Every note/task/file endpoint below
+# first confirms the matter belongs to the caller (404, not 403, so a
+# stranger's matter ID looks identical to a nonexistent one) before
+# touching anything scoped to it.
+async def _require_matter(matter_id: str, user: dict) -> dict:
+    matter = await asyncio.to_thread(supa.matter_get, user["id"], matter_id)
+    if matter is None:
+        raise HTTPException(status_code=404, detail="matter not found")
+    return matter
+
+
+@router.post("/matters", response_model=MatterOut, status_code=201)
+async def create_matter(payload: MatterIn, user: dict = Depends(_require_user)) -> MatterOut:
+    row = await asyncio.to_thread(supa.matter_create, user["id"], payload.client_name, payload.facts)
+    if row is None:
+        raise HTTPException(status_code=503, detail="matters are unavailable right now")
+    return MatterOut(**row)
+
+
+@router.get("/matters", response_model=list[MatterOut])
+async def list_matters(user: dict = Depends(_require_user)) -> list[MatterOut]:
+    rows = await asyncio.to_thread(supa.matter_list, user["id"])
+    return [MatterOut(**r) for r in rows]
+
+
+@router.get("/matters/{matter_id}", response_model=MatterOut)
+async def get_matter(matter_id: str, user: dict = Depends(_require_user)) -> MatterOut:
+    return MatterOut(**await _require_matter(matter_id, user))
+
+
+@router.put("/matters/{matter_id}", response_model=MatterOut)
+async def update_matter(matter_id: str, payload: MatterUpdateIn, user: dict = Depends(_require_user)) -> MatterOut:
+    await _require_matter(matter_id, user)
+    row = await asyncio.to_thread(
+        supa.matter_update, user["id"], matter_id, payload.client_name, payload.facts, payload.status
+    )
+    if row is None:
+        raise HTTPException(status_code=404, detail="matter not found")
+    return MatterOut(**row)
+
+
+@router.delete("/matters/{matter_id}", status_code=204)
+async def delete_matter(matter_id: str, user: dict = Depends(_require_user)) -> None:
+    await asyncio.to_thread(supa.matter_delete, user["id"], matter_id)
+
+
+@router.post("/matters/{matter_id}/notes", response_model=MatterNoteOut, status_code=201)
+async def create_matter_note(matter_id: str, payload: MatterNoteIn, user: dict = Depends(_require_user)) -> MatterNoteOut:
+    await _require_matter(matter_id, user)
+    row = await asyncio.to_thread(supa.matter_note_create, user["id"], matter_id, payload.body)
+    if row is None:
+        raise HTTPException(status_code=503, detail="matters are unavailable right now")
+    return MatterNoteOut(**row)
+
+
+@router.get("/matters/{matter_id}/notes", response_model=list[MatterNoteOut])
+async def list_matter_notes(matter_id: str, user: dict = Depends(_require_user)) -> list[MatterNoteOut]:
+    await _require_matter(matter_id, user)
+    rows = await asyncio.to_thread(supa.matter_note_list, user["id"], matter_id)
+    return [MatterNoteOut(**r) for r in rows]
+
+
+@router.delete("/matters/{matter_id}/notes/{note_id}", status_code=204)
+async def delete_matter_note(matter_id: str, note_id: str, user: dict = Depends(_require_user)) -> None:
+    await _require_matter(matter_id, user)
+    await asyncio.to_thread(supa.matter_note_delete, user["id"], matter_id, note_id)
+
+
+@router.post("/matters/{matter_id}/tasks", response_model=MatterTaskOut, status_code=201)
+async def create_matter_task(matter_id: str, payload: MatterTaskIn, user: dict = Depends(_require_user)) -> MatterTaskOut:
+    await _require_matter(matter_id, user)
+    row = await asyncio.to_thread(supa.matter_task_create, user["id"], matter_id, payload.title, payload.due_date)
+    if row is None:
+        raise HTTPException(status_code=503, detail="matters are unavailable right now")
+    return MatterTaskOut(**row)
+
+
+@router.get("/matters/{matter_id}/tasks", response_model=list[MatterTaskOut])
+async def list_matter_tasks(matter_id: str, user: dict = Depends(_require_user)) -> list[MatterTaskOut]:
+    await _require_matter(matter_id, user)
+    rows = await asyncio.to_thread(supa.matter_task_list, user["id"], matter_id)
+    return [MatterTaskOut(**r) for r in rows]
+
+
+@router.put("/matters/{matter_id}/tasks/{task_id}", response_model=MatterTaskOut)
+async def update_matter_task(matter_id: str, task_id: str, payload: MatterTaskUpdateIn,
+                              user: dict = Depends(_require_user)) -> MatterTaskOut:
+    await _require_matter(matter_id, user)
+    row = await asyncio.to_thread(
+        supa.matter_task_update, user["id"], matter_id, task_id, payload.title, payload.done, payload.due_date
+    )
+    if row is None:
+        raise HTTPException(status_code=404, detail="task not found")
+    return MatterTaskOut(**row)
+
+
+@router.delete("/matters/{matter_id}/tasks/{task_id}", status_code=204)
+async def delete_matter_task(matter_id: str, task_id: str, user: dict = Depends(_require_user)) -> None:
+    await _require_matter(matter_id, user)
+    await asyncio.to_thread(supa.matter_task_delete, user["id"], matter_id, task_id)
+
+
+@router.post("/matters/{matter_id}/files", response_model=MatterFileOut, status_code=201)
+async def upload_matter_file(matter_id: str, file: UploadFile = File(...),
+                              user: dict = Depends(_require_user)) -> MatterFileOut:
+    await _require_matter(matter_id, user)
+    content = await file.read()
+    if len(content) > 20 * 1024 * 1024:
+        raise HTTPException(status_code=413, detail="file too large (20MB limit)")
+    row = await asyncio.to_thread(
+        supa.matter_file_create, user["id"], matter_id, file.filename or "upload",
+        content, file.content_type or "application/octet-stream",
+    )
+    if row is None:
+        raise HTTPException(status_code=503, detail="matters are unavailable right now")
+    return MatterFileOut(**row)
+
+
+@router.get("/matters/{matter_id}/files", response_model=list[MatterFileOut])
+async def list_matter_files(matter_id: str, user: dict = Depends(_require_user)) -> list[MatterFileOut]:
+    await _require_matter(matter_id, user)
+    rows = await asyncio.to_thread(supa.matter_file_list, user["id"], matter_id)
+    return [MatterFileOut(**r) for r in rows]
+
+
+@router.get("/matters/{matter_id}/files/{file_id}/download", response_model=MatterFileDownload)
+async def download_matter_file(matter_id: str, file_id: str, user: dict = Depends(_require_user)) -> MatterFileDownload:
+    await _require_matter(matter_id, user)
+    url = await asyncio.to_thread(supa.matter_file_signed_url, user["id"], matter_id, file_id)
+    if url is None:
+        raise HTTPException(status_code=404, detail="file not found")
+    return MatterFileDownload(url=url)
+
+
+@router.delete("/matters/{matter_id}/files/{file_id}", status_code=204)
+async def delete_matter_file(matter_id: str, file_id: str, user: dict = Depends(_require_user)) -> None:
+    await _require_matter(matter_id, user)
+    await asyncio.to_thread(supa.matter_file_delete, user["id"], matter_id, file_id)
