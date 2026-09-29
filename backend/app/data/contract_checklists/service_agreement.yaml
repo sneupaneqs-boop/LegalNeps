@@ -1,0 +1,144 @@
+# Service / consultancy agreement checklist. Source: मुलुकी देवानी संहिता, २०७४
+# Part 4 (करार सम्बन्धी व्यवस्था) and मध्यस्थता ऐन, २०५५. The Civil Code has no
+# section that requires a service contract to contain specific numbers, so the
+# checks here are mostly `best_practice` (flag silence) or catch a clause that
+# the Code itself makes void (दफा ५१७).
+id: service_agreement
+title: {en: "Service / consultancy agreement", ne: "सेवा / परामर्श सम्झौता"}
+keywords:
+  - "service agreement"
+  - "services agreement"
+  - "service provider"
+  - "consultancy"
+  - "consultant"
+  - "scope of work"
+  - "scope of services"
+  - "deliverables"
+  - "statement of work"
+  - "independent contractor"
+  - "सेवा सम्झौता"
+  - "सेवा प्रदायक"
+  - "सेवा प्रदायकले"
+  - "परामर्श"
+  - "परामर्शदाता"
+  - "कार्यक्षेत्र"
+facts:
+  has_scope_of_services: {type: boolean, description: "The contract describes the services/deliverables clearly enough to know what must be done."}
+  has_fee_and_payment_terms: {type: boolean, description: "The contract states the fee (amount or formula) and when it is paid."}
+  has_termination_clause: {type: boolean, description: "The contract says how either party can end it (notice period, or for breach)."}
+  has_damages_or_liability_clause: {type: boolean, description: "The contract addresses compensation, liquidated damages or limits of liability for breach."}
+  governing_law: {type: string, description: "The governing law the contract names (e.g. 'laws of Nepal'); null if none."}
+  dispute_resolution: {type: string, description: "How disputes are resolved (arbitration, courts, mediation, seat/venue); null if the contract has no dispute-resolution clause."}
+  has_noncompete_clause: {type: boolean, description: "The contract stops a party from doing similar business or serving competitors (non-compete / exclusivity)."}
+  noncompete_duration_months: {type: number, description: "How long the non-compete lasts, in MONTHS (null if it has no stated duration)."}
+  has_force_majeure_clause: {type: boolean, description: "The contract has a force majeure / events-beyond-control clause."}
+  states_signatory_authority: {type: boolean, description: "For a company or organisation party, the contract states who signs and in what capacity/authority (e.g. director, authorised signatory)."}
+checks:
+  - id: scope_defined
+    title: {en: "Scope of services is clear", ne: "सेवाको कार्यक्षेत्र स्पष्ट छ"}
+    extract: [has_scope_of_services]
+    rule: {field: has_scope_of_services, required: true}
+    severity: warning
+    basis: best_practice
+    recommendation:
+      en: "Describe the services and deliverables precisely. A contract whose subject matter is vague or cannot reasonably be interpreted is void under the Civil Code."
+      ne: "सेवा तथा प्रतिफल (डेलिभरेबल) स्पष्ट रूपमा वर्णन गर्नुहोस्। करारको विषयवस्तुको मनासिब अर्थ दिन नसक्ने गरी अस्पष्ट रहेको करार देवानी संहिताअनुसार बदर हुन्छ।"
+    provision: {law_title_ne: "मुलुकी देवानी संहिता, २०७४", section: "517 (2)"}
+    verify: ["अस्पष्ट रहेको करार"]
+    verified: true
+  - id: fee_and_payment
+    title: {en: "Fee and payment terms are stated", ne: "पारिश्रमिक र भुक्तानी शर्त उल्लेख गरिएको"}
+    extract: [has_fee_and_payment_terms]
+    rule: {field: has_fee_and_payment_terms, required: true}
+    severity: warning
+    basis: best_practice
+    recommendation:
+      en: "State the fee (or how it is calculated) and the payment dates. A contract whose subject matter the parties cannot make certain is void."
+      ne: "पारिश्रमिक (वा गणना विधि) र भुक्तानी मिति खुलाउनुहोस्। पक्षहरूलाई यकिन नभएको विषयवस्तुमा भएको करार बदर हुन सक्छ।"
+    provision: {law_title_ne: "मुलुकी देवानी संहिता, २०७४", section: "517 (2)"}
+    verify: ["यकिन"]
+    verified: true
+  - id: termination_terms
+    title: {en: "Termination terms are present", ne: "करार अन्त्य गर्ने व्यवस्था छ"}
+    extract: [has_termination_clause]
+    rule: {field: has_termination_clause, required: true}
+    severity: warning
+    basis: best_practice
+    recommendation:
+      en: "Add how each party can end the agreement (notice period, cure period for breach). Without it, the Civil Code only lets a party cancel on written notice for a substantial breach by the other."
+      ne: "दुवै पक्षले करार कसरी अन्त्य गर्न सक्ने (सूचना अवधि, उल्लङ्घन सच्याउने समय) थप्नुहोस्। नखुलाएमा देवानी संहिताअनुसार अर्को पक्षले सारभूत रूपमा उल्लङ्घन गरेमा मात्र सूचना दिई रद्द गर्न सकिन्छ।"
+    provision: {law_title_ne: "मुलुकी देवानी संहिता, २०७४", section: "535"}
+    verify: ["सारभूत रूपमा"]
+    verified: true
+  - id: damages_clause
+    title: {en: "Compensation for breach is addressed", ne: "उल्लङ्घन भए क्षतिपूर्ति सम्बन्धी व्यवस्था छ"}
+    extract: [has_damages_or_liability_clause]
+    rule: {field: has_damages_or_liability_clause, required: true}
+    severity: info
+    basis: best_practice
+    recommendation:
+      en: "Consider stating agreed damages or a liability cap. Where a fixed sum is agreed in advance, a court will only award a reasonable amount not exceeding it; otherwise only direct and actual loss is recoverable."
+      ne: "पूर्वनिर्धारित क्षतिपूर्ति वा दायित्वको सीमा उल्लेख गर्ने विचार गर्नुहोस्। निश्चित रकम पहिल्यै तोकिएको भए त्यसभन्दा नबढ्ने गरी मनासिब रकम मात्र भराइन्छ; नतोकिएको भए प्रत्यक्ष र वास्तविक हानि नोक्सानी मात्र भराइन्छ।"
+    provision: {law_title_ne: "मुलुकी देवानी संहिता, २०७४", section: "537"}
+    verify: ["मनासिब रकम"]
+    verified: true
+  - id: governing_law
+    title: {en: "Governing law is named", ne: "लागू हुने कानून उल्लेख गरिएको"}
+    extract: [governing_law]
+    rule: {field: governing_law, required: true}
+    severity: info
+    basis: best_practice
+    recommendation:
+      en: "Name the governing law (usually the laws of Nepal). Parties may choose it; a contract made in Nepal is in any case governed by Nepali law."
+      ne: "लागू हुने कानून (सामान्यतः नेपाल कानून) उल्लेख गर्नुहोस्। पक्षहरूले कानून निर्धारण गर्न सक्छन्; नेपालमा सम्पन्न करार नेपाल कानूनबाटै नियमित हुन्छ।"
+    provision: {law_title_ne: "मुलुकी देवानी संहिता, २०७४", section: "709"}
+    verify: ["गभर्निङ्ग ल", "नेपाल कानूनबाट"]
+    verified: true
+  - id: dispute_resolution
+    title: {en: "Dispute-resolution clause is present", ne: "विवाद समाधान सम्बन्धी व्यवस्था छ"}
+    extract: [dispute_resolution]
+    rule: {field: dispute_resolution, required: true}
+    severity: warning
+    basis: best_practice
+    recommendation:
+      en: "Add a dispute-resolution clause (for example arbitration under the Arbitration Act, 2055, with the seat and number of arbitrators). A written agreement to arbitrate is enforced under that Act."
+      ne: "विवाद समाधान सम्बन्धी व्यवस्था थप्नुहोस् (जस्तै मध्यस्थता ऐन, २०५५ अनुसारको मध्यस्थता, स्थान र मध्यस्थको सङ्ख्यासहित)। सम्झौतामा मध्यस्थताद्वारा विवाद समाधान गर्ने लिखित व्यवस्था भएमा सोही ऐन बमोजिम समाधान गरिन्छ।"
+    provision: {law_title_ne: "मध्यस्थता ऐन, २०५५", section: "3"}
+    verify: ["मध्यस्थताद्वारा विवाद समाधान"]
+    verified: true
+  - id: noncompete_has_duration
+    title: {en: "Any non-compete has a fixed duration", ne: "प्रतिस्पर्धा निषेध भए निश्चित अवधि तोकिएको"}
+    extract: [has_noncompete_clause, noncompete_duration_months]
+    rule: {field: noncompete_duration_months, required_if: {field: has_noncompete_clause, truthy: true}}
+    severity: warning
+    basis: statutory
+    recommendation:
+      en: "A clause that bars someone from a lawful profession, trade or business is void, except in limited cases such as a fixed period after service or the sale of a business. Give any non-compete a defined, reasonable duration."
+      ne: "कानूनले निषेध नगरेको पेशा, व्यापार वा व्यवसाय गर्नबाट रोक लगाइएको करार बदर हुन्छ; निश्चित अवधिसम्म रोक लगाउने जस्ता सीमित अपवाद मात्र छन्। प्रतिस्पर्धा निषेध राख्ने भए निश्चित र मनासिब अवधि तोक्नुहोस्।"
+    provision: {law_title_ne: "मुलुकी देवानी संहिता, २०७४", section: "517 (1)"}
+    verify: ["निश्चित अवधिसम्म"]
+    verified: true
+  - id: force_majeure
+    title: {en: "Force majeure is addressed", ne: "बाध्यकारी परिस्थिति सम्बन्धी व्यवस्था छ"}
+    extract: [has_force_majeure_clause]
+    rule: {field: has_force_majeure_clause, required: true}
+    severity: info
+    basis: best_practice
+    recommendation:
+      en: "Add a force majeure clause. By default the Civil Code excuses performance only when a fundamental change (war, flood, landslide, fire, earthquake, loss of the subject matter) makes performance impossible; mere difficulty or extra tax does not count."
+      ne: "बाध्यकारी परिस्थिति (फोर्स मेजर) सम्बन्धी व्यवस्था थप्नुहोस्। देवानी संहिताअनुसार युद्ध, बाढी, पहिरो, आगलागी, भूकम्प जस्ता कारणले पालना असम्भव भएमा मात्र करार पूरा गर्नु पर्दैन; कठिनाइ वा थप कर पर्नु मात्र पर्याप्त हुँदैन।"
+    provision: {law_title_ne: "मुलुकी देवानी संहिता, २०७४", section: "531 (1)"}
+    verify: ["आगलागी"]
+    verified: true
+  - id: signatory_authority
+    title: {en: "Signatory authority is stated for company parties", ne: "संस्थाको तर्फबाट हस्ताक्षर गर्ने अधिकार उल्लेख गरिएको"}
+    extract: [states_signatory_authority]
+    rule: {field: states_signatory_authority, required: true}
+    severity: info
+    basis: best_practice
+    recommendation:
+      en: "For a company or organisation, state who signs and in what capacity. A legal person contracts through its directors or a person they have authorised."
+      ne: "कम्पनी वा संस्थाको तर्फबाट कसले कुन हैसियतमा हस्ताक्षर गर्ने हो खुलाउनुहोस्। कानूनी व्यक्तिको तर्फबाट सञ्चालक वा निजको अख्तियार प्राप्त व्यक्तिले मात्र करार गर्न सक्छ।"
+    provision: {law_title_ne: "मुलुकी देवानी संहिता, २०७४", section: "506"}
+    verify: ["अख्तियार प्राप्त व्यक्ति"]
+    verified: true

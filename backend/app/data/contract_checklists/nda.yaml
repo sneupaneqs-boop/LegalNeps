@@ -1,0 +1,113 @@
+# Non-disclosure agreement checklist. Nepali statutes contain no NDA-specific
+# rule set, so these checks rest on the general contract rules of मुलुकी देवानी
+# संहिता, २०७४ (validity, दफा ५१७; remedies, दफा ५३७/५४१) and मध्यस्थता ऐन,
+# २०५५. Most are `best_practice`: they flag silence, not illegality.
+id: nda
+title: {en: "Non-disclosure agreement (NDA)", ne: "गोपनीयता सम्झौता (एनडीए)"}
+keywords:
+  - "non-disclosure"
+  - "nondisclosure"
+  - "confidentiality agreement"
+  - "confidential information"
+  - "disclosing party"
+  - "receiving party"
+  - "trade secret"
+  - "गोपनीयता सम्झौता"
+  - "गोपनीय जानकारी"
+  - "गोप्य जानकारी"
+  - "गोपनीयता"
+  - "एनडीए"
+facts:
+  has_confidential_info_definition: {type: boolean, description: "The contract defines what counts as confidential information (and ideally what is excluded, e.g. public information)."}
+  confidentiality_duration_years: {type: number, description: "How long the confidentiality obligation lasts, in YEARS (null if the contract states no duration; treat 'perpetual/indefinite' as null)."}
+  has_legal_disclosure_exception: {type: boolean, description: "The contract allows disclosure required by law, a court order or a regulator."}
+  has_noncompete_clause: {type: boolean, description: "The contract also bars a party from doing similar business or serving competitors (non-compete / non-solicit of business)."}
+  noncompete_duration_months: {type: number, description: "How long the non-compete lasts, in MONTHS (null if no stated duration)."}
+  has_remedies_clause: {type: boolean, description: "The contract addresses remedies for breach (damages, injunction, or agreed compensation)."}
+  governing_law: {type: string, description: "The governing law the contract names; null if none."}
+  dispute_resolution: {type: string, description: "How disputes are resolved (arbitration, courts, mediation, seat/venue); null if the contract has no dispute-resolution clause."}
+checks:
+  - id: confidential_info_defined
+    title: {en: "Confidential information is defined", ne: "गोपनीय जानकारीको परिभाषा छ"}
+    extract: [has_confidential_info_definition]
+    rule: {field: has_confidential_info_definition, required: true}
+    severity: warning
+    basis: best_practice
+    recommendation:
+      en: "Define what is confidential and what is not (public information, independently developed, already known). A contract whose subject matter is vague or cannot be reasonably interpreted is void."
+      ne: "के गोपनीय हो र के होइन (सार्वजनिक जानकारी, स्वतन्त्र रूपमा विकसित, पहिल्यै थाहा भएको) स्पष्ट परिभाषित गर्नुहोस्। विषयवस्तुको मनासिब अर्थ दिन नसक्ने गरी अस्पष्ट करार बदर हुन्छ।"
+    provision: {law_title_ne: "मुलुकी देवानी संहिता, २०७४", section: "517 (2)"}
+    verify: ["अस्पष्ट रहेको करार"]
+    verified: true
+  - id: duration_stated
+    title: {en: "Confidentiality period is stated", ne: "गोपनीयता कायम रहने अवधि उल्लेख गरिएको"}
+    extract: [confidentiality_duration_years]
+    rule: {field: confidentiality_duration_years, required: true}
+    severity: info
+    basis: best_practice
+    recommendation:
+      en: "State how long the duty of confidentiality lasts (for example 3-5 years after the agreement ends, longer for trade secrets). The parties are free to choose the terms."
+      ne: "गोपनीयताको दायित्व कति अवधिसम्म रहने हो उल्लेख गर्नुहोस् (जस्तै सम्झौता अन्त्यपछि ३-५ वर्ष, व्यापारिक गोप्य कुराका लागि लामो)। करारका शर्त पक्षहरू आफैँले निर्धारण गर्न स्वायत्त हुन्छन्।"
+    provision: {law_title_ne: "मुलुकी देवानी संहिता, २०७४", section: "507"}
+    verify: ["स्वायत्त हुने"]
+    verified: true
+  - id: legal_disclosure_exception
+    title: {en: "Disclosure required by law is allowed", ne: "कानूनले अनिवार्य गरेको खुलासा गर्न पाइने"}
+    extract: [has_legal_disclosure_exception]
+    rule: {field: has_legal_disclosure_exception, required: true}
+    severity: info
+    basis: best_practice
+    recommendation:
+      en: "Add an exception for disclosures required by law, a court or a regulator. A contract term that goes against the law is void."
+      ne: "कानून, अदालत वा नियामक निकायले अनिवार्य गरेको खुलासालाई अपवादका रूपमा राख्नुहोस्। कानूनको विरुद्धमा भएको करार बदर हुन्छ।"
+    provision: {law_title_ne: "मुलुकी देवानी संहिता, २०७४", section: "517 (1)"}
+    verify: ["प्रचलित कानूनले निषेध गरेको"]
+    verified: true
+  - id: noncompete_has_duration
+    title: {en: "Any non-compete has a fixed duration", ne: "प्रतिस्पर्धा निषेध भए निश्चित अवधि तोकिएको"}
+    extract: [has_noncompete_clause, noncompete_duration_months]
+    rule: {field: noncompete_duration_months, required_if: {field: has_noncompete_clause, truthy: true}}
+    severity: warning
+    basis: statutory
+    recommendation:
+      en: "A clause that bars someone from a lawful profession, trade or business is void, except in limited cases such as a fixed period after service or the sale of a business. Give any non-compete a defined, reasonable duration - or drop it from an NDA."
+      ne: "कानूनले निषेध नगरेको पेशा, व्यापार वा व्यवसाय गर्नबाट रोक लगाइएको करार बदर हुन्छ; निश्चित अवधिसम्म रोक लगाउने जस्ता सीमित अपवाद मात्र छन्। प्रतिस्पर्धा निषेध राख्ने भए निश्चित र मनासिब अवधि तोक्नुहोस् - अन्यथा एनडीएबाट हटाउनुहोस्।"
+    provision: {law_title_ne: "मुलुकी देवानी संहिता, २०७४", section: "517 (1)"}
+    verify: ["निश्चित अवधिसम्म"]
+    verified: true
+  - id: remedies_clause
+    title: {en: "Remedies for breach are addressed", ne: "उल्लङ्घन भए उपचार सम्बन्धी व्यवस्था छ"}
+    extract: [has_remedies_clause]
+    rule: {field: has_remedies_clause, required: true}
+    severity: info
+    basis: best_practice
+    recommendation:
+      en: "State the remedies for a leak (damages, and the right to ask a court to stop the disclosure). A court can order a party to stop an act that would make performance impossible."
+      ne: "गोपनीयता उल्लङ्घन भए उपचार (क्षतिपूर्ति, र खुलासा रोक्न अदालतमा जाने अधिकार) उल्लेख गर्नुहोस्। करारको परिपालना असम्भव बनाउने काम तत्काल रोक्ने आदेश अदालतले दिन सक्छ।"
+    provision: {law_title_ne: "मुलुकी देवानी संहिता, २०७४", section: "541"}
+    verify: ["तत्काल रोक्ने"]
+    verified: true
+  - id: governing_law
+    title: {en: "Governing law is named", ne: "लागू हुने कानून उल्लेख गरिएको"}
+    extract: [governing_law]
+    rule: {field: governing_law, required: true}
+    severity: info
+    basis: best_practice
+    recommendation:
+      en: "Name the governing law (usually the laws of Nepal). A contract made in Nepal is governed by Nepali law in any case."
+      ne: "लागू हुने कानून (सामान्यतः नेपाल कानून) उल्लेख गर्नुहोस्। नेपालमा सम्पन्न करार नेपाल कानूनबाटै नियमित हुन्छ।"
+    provision: {law_title_ne: "मुलुकी देवानी संहिता, २०७४", section: "709"}
+    verify: ["गभर्निङ्ग ल", "नेपाल कानूनबाट"]
+    verified: true
+  - id: dispute_resolution
+    title: {en: "Dispute-resolution clause is present", ne: "विवाद समाधान सम्बन्धी व्यवस्था छ"}
+    extract: [dispute_resolution]
+    rule: {field: dispute_resolution, required: true}
+    severity: warning
+    basis: best_practice
+    recommendation:
+      en: "Add a dispute-resolution clause (for example arbitration under the Arbitration Act, 2055). A written agreement to arbitrate is enforced under that Act."
+      ne: "विवाद समाधान सम्बन्धी व्यवस्था थप्नुहोस् (जस्तै मध्यस्थता ऐन, २०५५ अनुसारको मध्यस्थता)। सम्झौतामा मध्यस्थताद्वारा विवाद समाधान गर्ने लिखित व्यवस्था भएमा सोही ऐन बमोजिम समाधान गरिन्छ।"
+    provision: {law_title_ne: "मध्यस्थता ऐन, २०५५", section: "3"}
+    verify: ["मध्यस्थताद्वारा विवाद समाधान"]
+    verified: true

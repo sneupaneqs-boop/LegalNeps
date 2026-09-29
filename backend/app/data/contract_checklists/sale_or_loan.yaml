@@ -1,0 +1,185 @@
+# Sale-of-goods and loan agreement checklist. Sources: मुलुकी देवानी संहिता,
+# २०७४ Part 4 Chapter 6 (वस्तु बिक्री, दफा ५४५-५६०), the loan/interest provisions
+# (दफा ४७८-४८२) and Chapter 9 (धितो वा धरौट, दफा ५८५-५८६), plus मध्यस्थता ऐन,
+# २०५५. Checks are guarded by `is_sale` / `is_loan` so a pure loan is never
+# judged against the sale rules and vice versa.
+#
+# The 10%-a-year interest cap (दफा ४७८) governs private lending; loans from a
+# licensed bank/financial institution follow their own regulator's rules, so
+# that check is skipped when the lender is one.
+id: sale_or_loan
+title: {en: "Sale or loan agreement", ne: "बिक्री वा ऋण सम्झौता"}
+keywords:
+  - "loan agreement"
+  - "borrower"
+  - "lender"
+  - "principal"
+  - "interest rate"
+  - "repayment"
+  - "sale agreement"
+  - "agreement for sale"
+  - "purchase price"
+  - "buyer"
+  - "seller"
+  - "goods"
+  - "ऋण"
+  - "कर्जा"
+  - "साँवा"
+  - "ब्याज"
+  - "साहू"
+  - "ऋणी"
+  - "बिक्री"
+  - "खरिद"
+  - "क्रेता"
+  - "बिक्रेता"
+facts:
+  is_sale: {type: boolean, description: "The contract is (also) a sale of goods/movable property."}
+  is_loan: {type: boolean, description: "The contract is (also) a loan of money."}
+  has_goods_description: {type: boolean, description: "For a sale: the goods are described (name, brand/specification, quantity)."}
+  has_price_stated: {type: boolean, description: "For a sale: the price (or how it is fixed) is stated."}
+  has_delivery_terms: {type: boolean, description: "For a sale: date/place/manner of delivery is stated."}
+  has_quality_warranty_terms: {type: boolean, description: "For a sale: quality standard or warranty is stated."}
+  interest_rate_percent_per_year: {type: number, description: "For a loan: interest as a PERCENT per YEAR (convert monthly rates x12; null if no interest)."}
+  lender_is_licensed_financial_institution: {type: boolean, description: "The lender is a licensed bank or financial institution (not a private person or ordinary company)."}
+  has_compound_interest: {type: boolean, description: "For a loan: interest is charged on unpaid interest (compounding / interest on interest / capitalisation)."}
+  has_receipt_clause: {type: boolean, description: "For a loan: the contract says receipts or a discharge are given when principal/interest is paid."}
+  has_collateral: {type: boolean, description: "For a loan: security/collateral (pledge, mortgage, deposit of documents) is given."}
+  has_collateral_release_terms: {type: boolean, description: "The contract says when and how collateral is returned once the loan is repaid."}
+  governing_law: {type: string, description: "The governing law the contract names; null if none."}
+  dispute_resolution: {type: string, description: "How disputes are resolved (arbitration, courts, mediation, seat/venue); null if the contract has no dispute-resolution clause."}
+checks:
+  - id: goods_described
+    title: {en: "Goods are described", ne: "बिक्री गरिने वस्तुको विवरण खुलाइएको"}
+    extract: [is_sale, has_goods_description]
+    when: {field: is_sale, equals: true}
+    rule: {field: has_goods_description, required: true}
+    severity: warning
+    basis: best_practice
+    recommendation:
+      en: "Describe the goods: name, brand or specification and quantity. Goods are taken to match any name, brand, trade mark or specification the contract states."
+      ne: "वस्तुको नाम, ब्राण्ड वा स्पेसिफिकेसन र परिमाण खुलाउनुहोस्। करारमा उल्लेख भएको नाम, ब्राण्ड, ट्रेडमार्क वा स्पेसिफिकेसन बमोजिमको वस्तु बिक्री गर्ने गरी करार भएको मानिन्छ।"
+    provision: {law_title_ne: "मुलुकी देवानी संहिता, २०७४", section: "549"}
+    verify: ["नाम, ब्राण्ड, ट्रेडमार्क वा स्पेसिफिकेसन"]
+    verified: true
+  - id: price_stated
+    title: {en: "Price is stated", ne: "वस्तुको मूल्य उल्लेख गरिएको"}
+    extract: [is_sale, has_price_stated]
+    when: {field: is_sale, equals: true}
+    rule: {field: has_price_stated, required: true}
+    severity: warning
+    basis: best_practice
+    recommendation:
+      en: "State the price and when it is paid. If price cannot otherwise be determined, the buyer pays a reasonable price; unless agreed otherwise, payment is due when the goods are handed over."
+      ne: "मूल्य र भुक्तानी समय खुलाउनुहोस्। मूल्य निर्धारण हुन नसकेमा क्रेताले मनासिब मूल्य दिनुपर्छ; अन्यथा तोकिएको नभए वस्तु हस्तान्तरण गर्दाका बखत मूल्य चुक्ता गर्नुपर्छ।"
+    provision: {law_title_ne: "मुलुकी देवानी संहिता, २०७४", section: "547"}
+    verify: ["मनासिब मूल्य"]
+    verified: true
+  - id: delivery_terms
+    title: {en: "Delivery date and place are stated", ne: "वस्तु हस्तान्तरण गर्ने समय र स्थान उल्लेख गरिएको"}
+    extract: [is_sale, has_delivery_terms]
+    when: {field: is_sale, equals: true}
+    rule: {field: has_delivery_terms, required: true}
+    severity: warning
+    basis: best_practice
+    recommendation:
+      en: "State when, where and how the goods are delivered and who carries the risk in transit. If a date or period is written into the contract, the seller must deliver within it."
+      ne: "वस्तु कहिले, कहाँ र कसरी हस्तान्तरण हुने र ढुवानीको जोखिम कसले व्यहोर्ने खुलाउनुहोस्। करारमा खास समय वा अवधि उल्लेख भएमा बिक्रेताले सोही समयभित्र हस्तान्तरण गर्नुपर्छ।"
+    provision: {law_title_ne: "मुलुकी देवानी संहिता, २०७४", section: "558"}
+    verify: ["कुनै खास समयमा"]
+    verified: true
+  - id: quality_warranty
+    title: {en: "Quality standard or warranty is stated", ne: "गुणस्तर वा वारेण्टी सम्बन्धी शर्त उल्लेख गरिएको"}
+    extract: [is_sale, has_quality_warranty_terms]
+    when: {field: is_sale, equals: true}
+    rule: {field: has_quality_warranty_terms, required: true}
+    severity: info
+    basis: best_practice
+    recommendation:
+      en: "State the quality standard and any warranty. By default goods must be of satisfactory quality, but the seller is not taken to give a warranty of any specific quality."
+      ne: "गुणस्तर र वारेण्टीको शर्त खुलाउनुहोस्। सामान्यतः वस्तु सन्तोषप्रद गुणस्तरयुक्त हुनुपर्छ तर करारमा नभए खास गुणस्तरको वारेण्टी बिक्रेताले दिएको मानिँदैन।"
+    provision: {law_title_ne: "मुलुकी देवानी संहिता, २०७४", section: "551"}
+    verify: ["वारेण्टी"]
+    verified: true
+  - id: interest_cap
+    title: {en: "Interest is at most 10% a year (private lending)", ne: "ब्याज वार्षिक १०% भन्दा बढी छैन (निजी ऋण)"}
+    extract: [is_loan, interest_rate_percent_per_year, lender_is_licensed_financial_institution]
+    when:
+      all_of:
+        - {field: is_loan, equals: true}
+        - {field: lender_is_licensed_financial_institution, not_equals: true}
+    rule: {field: interest_rate_percent_per_year, max: 10}
+    if_missing: ok
+    severity: issue
+    basis: statutory
+    recommendation:
+      en: "The interest a lender may recover on a loan document may not exceed 10% of the principal a year. Lower the rate; a higher stated rate is not enforceable beyond 10%. (Licensed banks and financial institutions follow their own regulator's rules.)"
+      ne: "ऋणको लिखतमा साहूले पाउने ब्याज साँवाको वार्षिक १०% भन्दा बढी हुन पाउँदैन। दर घटाउनुहोस्; १०% भन्दा बढी लेखिए पनि लागू हुँदैन। (इजाजतपत्रप्राप्त बैङ्क तथा वित्तीय संस्थाको हकमा सम्बन्धित नियामकको व्यवस्था लागू हुन्छ।)"
+    provision: {law_title_ne: "मुलुकी देवानी संहिता, २०७४", section: "478"}
+    verify: ["वार्षिक दश प्रतिशत"]
+    verified: true
+  - id: no_compound_interest
+    title: {en: "No interest on interest", ne: "ब्याजको ब्याज लिइने व्यवस्था छैन"}
+    extract: [is_loan, has_compound_interest]
+    when: {field: is_loan, equals: true}
+    rule: {field: has_compound_interest, forbidden: true}
+    severity: issue
+    basis: statutory
+    recommendation:
+      en: "Remove compound interest. A lender may not charge interest on interest; any such amount is set off against the principal or refunded."
+      ne: "ब्याजको ब्याज लिने व्यवस्था हटाउनुहोस्। साहूले ब्याजको ब्याज लिन पाउँदैन; लिएको रहेछ भने साँवामा कट्टी हुन्छ वा फिर्ता गर्नुपर्छ।"
+    provision: {law_title_ne: "मुलुकी देवानी संहिता, २०७४", section: "480"}
+    verify: ["ब्याजको ब्याज लिन पाउने छैन"]
+    verified: true
+  - id: receipt_on_payment
+    title: {en: "Receipts / discharge on repayment are provided for", ne: "रकम बुझाउँदा भरपाई दिने व्यवस्था छ"}
+    extract: [is_loan, has_receipt_clause]
+    when: {field: is_loan, equals: true}
+    rule: {field: has_receipt_clause, required: true}
+    severity: info
+    basis: best_practice
+    recommendation:
+      en: "Add that the lender signs a receipt for every payment and returns or cancels the loan document when the principal and interest are fully paid."
+      ne: "प्रत्येक भुक्तानीमा साहूले भरपाई दिने र साँवा ब्याज पूरा चुक्ता भएपछि लिखत फिर्ता वा च्याती दिने व्यवस्था थप्नुहोस्।"
+    provision: {law_title_ne: "मुलुकी देवानी संहिता, २०७४", section: "482"}
+    verify: ["भरपाई"]
+    verified: true
+  - id: collateral_release
+    title: {en: "Return of collateral after repayment is stated", ne: "ऋण चुक्ता भएपछि धितो फिर्ता गर्ने व्यवस्था छ"}
+    extract: [is_loan, has_collateral, has_collateral_release_terms]
+    when:
+      all_of:
+        - {field: is_loan, equals: true}
+        - {field: has_collateral, equals: true}
+    rule: {field: has_collateral_release_terms, required: true}
+    severity: warning
+    basis: best_practice
+    recommendation:
+      en: "Say when and how the collateral is returned. Unless the contract says otherwise, collateral must be returned to the borrower once the loan it secures is repaid."
+      ne: "धितो कहिले र कसरी फिर्ता हुने खुलाउनुहोस्। करारमा अन्यथा नभए ऋण चुक्ता भएपछि धितो राख्ने व्यक्तिलाई फिर्ता गर्नुपर्छ।"
+    provision: {law_title_ne: "मुलुकी देवानी संहिता, २०७४", section: "586"}
+    verify: ["धितो वा धरौट राख्ने व्यक्तिलाई फिर्ता"]
+    verified: true
+  - id: governing_law
+    title: {en: "Governing law is named", ne: "लागू हुने कानून उल्लेख गरिएको"}
+    extract: [governing_law]
+    rule: {field: governing_law, required: true}
+    severity: info
+    basis: best_practice
+    recommendation:
+      en: "Name the governing law (usually the laws of Nepal). A contract made in Nepal is governed by Nepali law in any case."
+      ne: "लागू हुने कानून (सामान्यतः नेपाल कानून) उल्लेख गर्नुहोस्। नेपालमा सम्पन्न करार नेपाल कानूनबाटै नियमित हुन्छ।"
+    provision: {law_title_ne: "मुलुकी देवानी संहिता, २०७४", section: "709"}
+    verify: ["गभर्निङ्ग ल", "नेपाल कानूनबाट"]
+    verified: true
+  - id: dispute_resolution
+    title: {en: "Dispute-resolution clause is present", ne: "विवाद समाधान सम्बन्धी व्यवस्था छ"}
+    extract: [dispute_resolution]
+    rule: {field: dispute_resolution, required: true}
+    severity: warning
+    basis: best_practice
+    recommendation:
+      en: "Add a dispute-resolution clause (courts of a named district, or arbitration under the Arbitration Act, 2055)."
+      ne: "विवाद समाधान सम्बन्धी व्यवस्था थप्नुहोस् (तोकिएको जिल्लाको अदालत वा मध्यस्थता ऐन, २०५५ अनुसारको मध्यस्थता)।"
+    provision: {law_title_ne: "मध्यस्थता ऐन, २०५५", section: "3"}
+    verify: ["मध्यस्थताद्वारा विवाद समाधान"]
+    verified: true

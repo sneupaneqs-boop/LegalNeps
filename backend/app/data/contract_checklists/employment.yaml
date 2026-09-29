@@ -1,0 +1,252 @@
+# Employment-contract checklist. Every numeric rule below was confirmed against
+# the corpus text of the cited section; `verify:` lists substrings that
+# tests/test_documents_audit.py re-checks against the live corpus so a later
+# corpus change cannot silently invalidate a rule.
+#
+# basis: statutory      - the cited section itself requires/limits this
+# basis: best_practice  - the law lets the parties decide, the audit only flags
+#                         that the contract is silent (never shown as "illegal")
+id: employment
+title: {en: "Employment contract", ne: "रोजगार सम्झौता"}
+keywords:
+  - "employment agreement"
+  - "employment contract"
+  - "appointment letter"
+  - "employee"
+  - "employer"
+  - "probation"
+  - "salary"
+  - "रोजगार सम्झौता"
+  - "नियुक्तिपत्र"
+  - "कर्मचारी"
+  - "श्रमिक"
+  - "रोजगारदाता"
+  - "परीक्षणकाल"
+  - "तलब"
+facts:
+  states_remuneration: {type: boolean, description: "The contract states the employee's remuneration (salary amount or how it is calculated) and benefits."}
+  states_employment_type: {type: boolean, description: "The contract states the type of employment (regular, task-based, time-based, casual or part-time)."}
+  states_position_and_duties: {type: boolean, description: "The contract states the employee's position/designation and main duties."}
+  probation_months: {type: number, description: "Length of the probation period in MONTHS (null if there is no probation clause)."}
+  daily_working_hours: {type: number, description: "Normal working hours per DAY, excluding overtime."}
+  weekly_working_hours: {type: number, description: "Normal working hours per WEEK, excluding overtime."}
+  overtime_pay_multiplier: {type: number, description: "Overtime pay as a multiple of the basic hourly pay (e.g. 1.5 for 'one and a half times'; null if overtime pay is not stated)."}
+  overtime_daily_hours: {type: number, description: "Maximum overtime hours per DAY the contract allows or requires (null if not stated)."}
+  overtime_weekly_hours: {type: number, description: "Maximum overtime hours per WEEK the contract allows or requires (null if not stated)."}
+  salary_payment_interval_months: {type: number, description: "How often salary is paid, in MONTHS (monthly = 1, every two months = 2)."}
+  has_termination_clause: {type: boolean, description: "The contract has a clause on how employment can be ended (termination, resignation or notice)."}
+  employer_notice_days: {type: number, description: "Days of notice the EMPLOYER must give before terminating a non-misconduct employee (not the employee's resignation notice; null if not stated)."}
+  allows_penalty_salary_deduction: {type: boolean, description: "The contract lets the employer deduct money from salary as a fine/penalty or for reasons other than tax, provident fund/insurance contributions, court orders, absence, or loss caused by the employee's bad faith or negligence."}
+  gratuity_percent: {type: number, description: "Gratuity (upadan) the employer contributes, as a PERCENT of basic pay per month (null if not stated)."}
+  medical_insurance_amount_npr: {type: number, description: "Annual medical-treatment insurance cover in NPR (null if not stated)."}
+  accident_insurance_amount_npr: {type: number, description: "Accident insurance cover in NPR (null if not stated)."}
+  sick_leave_days_per_year: {type: number, description: "Paid sick leave days per year (null if not stated)."}
+checks:
+  - id: remuneration_stated
+    title: {en: "Pay and benefits are stated", ne: "पारिश्रमिक तथा सुविधा उल्लेख गरिएको"}
+    extract: [states_remuneration]
+    rule: {field: states_remuneration, required: true}
+    severity: issue
+    basis: statutory
+    recommendation:
+      en: "The contract must state the worker's remuneration, benefits and conditions of employment. Add the salary amount (or how it is calculated) and the benefits."
+      ne: "रोजगार सम्झौतामा श्रमिकले पाउने पारिश्रमिक, सुविधा र रोजगारीका शर्त उल्लेख गर्नुपर्छ। तलबको रकम (वा गणना विधि) र सुविधाहरू थप्नुहोस्।"
+    provision: {law_title_ne: "श्रम ऐन, २०७४", section: "11"}
+    verify: ["रोजगार सम्झौता नगरी", "पारिश्रमिक, सुविधा, रोजगारीको शर्त"]
+    verified: true
+  - id: contract_particulars
+    title: {en: "Employment type, position and duties are stated", ne: "रोजगारीको प्रकार, पद र मुख्य काम उल्लेख गरिएको"}
+    extract: [states_employment_type, states_position_and_duties]
+    rule:
+      all_of:
+        - {field: states_employment_type, required: true}
+        - {field: states_position_and_duties, required: true}
+    severity: warning
+    basis: statutory
+    recommendation:
+      en: "The Labour Regulations require the contract to state the type of employment, the main work and the position, the place and date of the contract and its start date."
+      ne: "श्रम नियमावलीअनुसार सम्झौतामा रोजगारीको प्रकार, मुख्य काम र पद, सम्झौता भएको स्थान, समय र लागू हुने मिति खुलाउनुपर्छ।"
+    provision: {law_title_ne: "श्रम नियमावली, २०७५", section: "4"}
+    verify: ["रोजगारीको प्रकार", "मुख्य काम र पद"]
+    verified: true
+  - id: probation_max
+    title: {en: "Probation period is at most 6 months", ne: "परीक्षणकाल ६ महिनाभन्दा बढी छैन"}
+    extract: [probation_months]
+    rule: {field: probation_months, max: 6}
+    if_missing: ok
+    severity: issue
+    basis: statutory
+    recommendation:
+      en: "Reduce the probation period to 6 months or less. Under the Labour Act an employee who completes the probation period without being terminated is automatically confirmed."
+      ne: "परीक्षणकाल ६ महिना वा सोभन्दा कम बनाउनुहोस्। श्रम ऐनअनुसार परीक्षणकाल समाप्त हुँदासम्म रोजगारी अन्त्य नभएमा रोजगार सम्बन्ध स्वतः सदर हुन्छ।"
+    provision: {law_title_ne: "श्रम ऐन, २०७४", section: "13"}
+    verify: ["छ महिना परीक्षणकालमा"]
+    verified: true
+  - id: daily_hours_max
+    title: {en: "Daily working hours are at most 8", ne: "दैनिक कार्यसमय ८ घण्टाभन्दा बढी छैन"}
+    extract: [daily_working_hours]
+    rule: {field: daily_working_hours, max: 8}
+    if_missing: ok
+    severity: issue
+    basis: statutory
+    recommendation:
+      en: "Normal working hours may not exceed 8 hours a day. Anything beyond that must be treated as overtime."
+      ne: "सामान्य कार्यसमय दैनिक ८ घण्टाभन्दा बढी हुन पाउँदैन। सोभन्दा बढी समय अतिरिक्त (ओभरटाइम) काम मानिन्छ।"
+    provision: {law_title_ne: "श्रम ऐन, २०७४", section: "28"}
+    verify: ["आठ घण्टा", "अठ्चालीस घण्टा"]
+    verified: true
+  - id: weekly_hours_max
+    title: {en: "Weekly working hours are at most 48", ne: "साप्ताहिक कार्यसमय ४८ घण्टाभन्दा बढी छैन"}
+    extract: [weekly_working_hours]
+    rule: {field: weekly_working_hours, max: 48}
+    if_missing: ok
+    severity: issue
+    basis: statutory
+    recommendation:
+      en: "Normal working hours may not exceed 48 hours a week. Reduce the weekly hours or treat the excess as overtime."
+      ne: "सामान्य कार्यसमय साप्ताहिक ४८ घण्टाभन्दा बढी हुन पाउँदैन। साप्ताहिक समय घटाउनुहोस् वा बढी समयलाई अतिरिक्त काम मान्नुहोस्।"
+    provision: {law_title_ne: "श्रम ऐन, २०७४", section: "28"}
+    verify: ["अठ्चालीस घण्टा"]
+    verified: true
+  - id: overtime_rate_min
+    title: {en: "Overtime is paid at 1.5 times basic pay or more", ne: "अतिरिक्त समयको पारिश्रमिक डेढी वा सोभन्दा बढी"}
+    extract: [overtime_pay_multiplier]
+    rule: {field: overtime_pay_multiplier, min: 1.5}
+    if_missing: ok
+    severity: issue
+    basis: statutory
+    recommendation:
+      en: "Overtime must be paid at one and a half times the regular basic pay (a collective agreement, or the contract of a managerial-grade employee, may substitute agreed benefits)."
+      ne: "बढी समय काम गराएमा नियमित आधारभूत पारिश्रमिकको डेढी पारिश्रमिक दिनुपर्छ (सामूहिक सम्झौता वा व्यवस्थापकीय श्रेणीको श्रमिकको हकमा सम्झौताअनुसारको सुविधा हुन सक्छ)।"
+    provision: {law_title_ne: "श्रम ऐन, २०७४", section: "31"}
+    verify: ["डेढी"]
+    verified: true
+  - id: overtime_caps
+    title: {en: "Overtime is at most 4 hours a day and 24 hours a week", ne: "अतिरिक्त समय दैनिक ४ र साप्ताहिक २४ घण्टाभन्दा बढी छैन"}
+    extract: [overtime_daily_hours, overtime_weekly_hours]
+    rule:
+      all_of:
+        - {field: overtime_daily_hours, max: 4}
+        - {field: overtime_weekly_hours, max: 24}
+    if_missing: ok
+    severity: issue
+    basis: statutory
+    recommendation:
+      en: "Cap overtime at 4 hours a day and 24 hours a week."
+      ne: "अतिरिक्त समय दैनिक ४ घण्टा र साप्ताहिक २४ घण्टाभन्दा बढी नहुने गरी सीमित गर्नुहोस्।"
+    provision: {law_title_ne: "श्रम ऐन, २०७४", section: "30"}
+    verify: ["चार घण्टा", "चौबीस घण्टा"]
+    verified: true
+  - id: salary_interval_max
+    title: {en: "Salary is paid at least once a month", ne: "तलब कम्तीमा महिनामा एक पटक भुक्तानी हुने"}
+    extract: [salary_payment_interval_months]
+    rule: {field: salary_payment_interval_months, max: 1}
+    if_missing: ok
+    severity: issue
+    basis: statutory
+    recommendation:
+      en: "The gap between two salary payments may not exceed one month. Change the payment schedule to monthly or more frequent."
+      ne: "पारिश्रमिक भुक्तानी गर्ने समयको बीचको अन्तर एक महिनाभन्दा बढी हुन पाउँदैन। भुक्तानी मासिक वा सोभन्दा छिटो बनाउनुहोस्।"
+    provision: {law_title_ne: "श्रम ऐन, २०७४", section: "35"}
+    verify: ["एक महिनाभन्दा बढी"]
+    verified: true
+  - id: termination_clause_present
+    title: {en: "Termination / notice clause is present", ne: "रोजगारी अन्त्य / सूचना सम्बन्धी व्यवस्था छ"}
+    extract: [has_termination_clause]
+    rule: {field: has_termination_clause, required: true}
+    severity: warning
+    basis: statutory
+    recommendation:
+      en: "Add a termination clause. Except for dismissal for misconduct, either side must give prior notice: 1 day (up to 4 weeks of service), 7 days (4 weeks to 1 year) or 30 days (over 1 year)."
+      ne: "रोजगारी अन्त्य सम्बन्धी व्यवस्था थप्नुहोस्। खराब आचरणमा कारबाहीबाहेक अन्य अवस्थामा दुवै पक्षले पूर्व सूचना दिनुपर्छ: चार हप्तासम्म १ दिन, चार हप्तादेखि १ वर्षसम्म ७ दिन, १ वर्षभन्दा बढी ३० दिन।"
+    provision: {law_title_ne: "श्रम ऐन, २०७४", section: "144"}
+    verify: ["सूचना दिनु पर्नेछ"]
+    verified: true
+  - id: termination_notice_min
+    title: {en: "Employer's termination notice is at least 30 days (service over 1 year)", ne: "रोजगारदाताको सूचना अवधि कम्तीमा ३० दिन (१ वर्षभन्दा बढी सेवा)"}
+    extract: [employer_notice_days]
+    rule: {field: employer_notice_days, min: 30}
+    if_missing: ok
+    severity: warning
+    basis: statutory
+    recommendation:
+      en: "For employees with more than one year of service the notice period must be at least 30 days (7 days for 4 weeks to 1 year; 1 day up to 4 weeks). A shorter period is only valid for shorter service; otherwise the employer owes pay for the missing notice days."
+      ne: "१ वर्षभन्दा बढी सेवा गरेको श्रमिकका लागि सूचना अवधि कम्तीमा ३० दिन हुनुपर्छ (४ हप्तादेखि १ वर्षसम्म ७ दिन; ४ हप्तासम्म १ दिन)। सूचना नदिई हटाएमा सूचना अवधिको पारिश्रमिक दिनुपर्छ।"
+    provision: {law_title_ne: "श्रम ऐन, २०७४", section: "144"}
+    verify: ["तीस दिन"]
+    verified: true
+  - id: no_penalty_deduction
+    title: {en: "No unlawful deductions from salary", ne: "पारिश्रमिकबाट अनुचित कट्टी गरिएको छैन"}
+    extract: [allows_penalty_salary_deduction]
+    rule: {field: allows_penalty_salary_deduction, forbidden: true}
+    severity: warning
+    basis: statutory
+    recommendation:
+      en: "Salary may only be deducted for tax, provident fund/insurance contributions, court or arbitration orders, hours not worked, and loss caused by the worker's bad faith or negligence (and a few other listed cases). Remove any general fine or penalty deduction."
+      ne: "कर, सञ्चय कोष/बीमा योगदान, अदालत वा मध्यस्थताको आदेश, गयल भएको समय र श्रमिकको बदनियत वा लापरवाहीले भएको नोक्सानी (र कानूनमा तोकिएका केही अन्य अवस्था) बाहेक पारिश्रमिक कट्टा गर्न पाइँदैन। सामान्य जरिबाना वा दण्ड कट्टी हटाउनुहोस्।"
+    provision: {law_title_ne: "श्रम ऐन, २०७४", section: "38"}
+    verify: ["कट्टा गर्नपाइने छैन"]
+    verified: true
+  - id: sick_leave_min
+    title: {en: "Paid sick leave of at least 12 days a year", ne: "वार्षिक कम्तीमा १२ दिन तलबी बिरामी बिदा"}
+    extract: [sick_leave_days_per_year]
+    rule: {field: sick_leave_days_per_year, min: 12}
+    if_missing: ok
+    severity: issue
+    basis: statutory
+    recommendation:
+      en: "A worker is entitled to 12 days of paid sick leave a year (pro-rata for one year or less of service)."
+      ne: "श्रमिकले वार्षिक १२ दिन पारिश्रमिक सहितको बिरामी बिदा पाउँछ (एक वर्ष वा सोभन्दा कम कामको हकमा सोही अनुपातमा)।"
+    provision: {law_title_ne: "श्रम ऐन, २०७४", section: "44"}
+    verify: ["बाह्र दिन"]
+    verified: true
+  - id: medical_insurance_min
+    title: {en: "Medical insurance of at least NPR 100,000 a year", ne: "वार्षिक कम्तीमा रु. १ लाखको औषधि उपचार बीमा"}
+    extract: [medical_insurance_amount_npr]
+    rule: {field: medical_insurance_amount_npr, min: 100000}
+    if_missing: ok
+    severity: issue
+    basis: statutory
+    recommendation:
+      en: "The employer must insure each worker for medical treatment of at least NPR 1 lakh a year, with the premium shared equally."
+      ne: "रोजगारदाताले प्रत्येक श्रमिकको कम्तीमा वार्षिक एक लाख रुपैयाँको औषधि उपचार बीमा गराउनुपर्छ र बीमा शुल्क आधाआधा व्यहोर्नुपर्छ।"
+    provision: {law_title_ne: "श्रम ऐन, २०७४", section: "54"}
+    verify: ["एक लाख रुपैयाँ"]
+    verified: true
+  - id: accident_insurance_min
+    title: {en: "Accident insurance of at least NPR 700,000", ne: "कम्तीमा रु. ७ लाखको दुर्घटना बीमा"}
+    extract: [accident_insurance_amount_npr]
+    rule: {field: accident_insurance_amount_npr, min: 700000}
+    if_missing: ok
+    severity: issue
+    basis: statutory
+    recommendation:
+      en: "The employer must insure each worker against accidents for at least NPR 7 lakh and pay the whole premium."
+      ne: "रोजगारदाताले प्रत्येक श्रमिकको कम्तीमा सात लाख रुपैयाँको दुर्घटना बीमा गराउनुपर्छ र पूरा प्रिमियम आफैँ व्यहोर्नुपर्छ।"
+    provision: {law_title_ne: "श्रम ऐन, २०७४", section: "55"}
+    verify: ["सात लाख रुपैयाँ"]
+    verified: true
+  - id: gratuity_rate_min
+    title: {en: "Gratuity of at least 8.33% of basic pay", ne: "आधारभूत पारिश्रमिकको कम्तीमा ८.३३% उपदान"}
+    extract: [gratuity_percent]
+    rule: {field: gratuity_percent, min: 8.33}
+    if_missing: ok
+    severity: issue
+    basis: statutory
+    recommendation:
+      en: "The employer must set aside gratuity equal to 8.33% of basic pay every month."
+      ne: "रोजगारदाताले प्रत्येक महिना आधारभूत पारिश्रमिकको ८.३३ प्रतिशत उपदान बापत जम्मा गर्नुपर्छ।"
+    provision: {law_title_ne: "श्रम ऐन, २०७४", section: "53"}
+    verify: ["आठ दशमलव तेत्तीस प्रतिशत"]
+    verified: true
+  # ---- considered but NOT enforced: the number is not in the corpus text ------
+  - id: minimum_wage
+    title: {en: "Salary is at least the gazetted minimum wage", ne: "तलब राजपत्रमा प्रकाशित न्यूनतम पारिश्रमिकभन्दा कम छैन"}
+    extract: []
+    rule: null
+    severity: issue
+    basis: statutory
+    recommendation: {en: "", ne: ""}
+    provision: {law_title_ne: "श्रम ऐन, २०७४", section: "106"}
+    verified: false
+    unverified_reason: "Section 106 only says the Ministry fixes and gazettes the minimum wage every two years; the current amount is not in the corpus, so no number is enforced."
