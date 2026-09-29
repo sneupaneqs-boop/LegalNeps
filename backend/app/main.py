@@ -75,6 +75,7 @@ app.add_middleware(
 
 app.include_router(chat_router, prefix="/api")
 app.include_router(documents_router, prefix="/api")
+from .routes.tools import router as tools_router; app.include_router(tools_router, prefix="/api")  # noqa: E402,E702  legal tools & limitation catalog
 
 
 @app.get("/")
