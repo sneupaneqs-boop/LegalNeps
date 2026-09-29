@@ -148,3 +148,12 @@ def test_uploaded_filename_cannot_steer_the_storage_path(monkeypatch):
 ])
 def test_safe_filename(name, expected):
     assert supa.safe_filename(name) == expected
+
+
+def test_answer_cache_strips_nul_characters_postgres_jsonb_rejects(monkeypatch):
+    fake = _FakeHttp()
+    monkeypatch.setattr(supa, "available", lambda: True)
+    monkeypatch.setattr(supa, "_http", lambda: fake)
+    supa.cache_put("k", "v", "ne", "q\x00", {"answer": "a\x00b", "sources": [{"text": "x\x00"}], "n": 1})
+    body = fake.calls[0][2]
+    assert body["question"] == "q" and body["answer"] == {"answer": "ab", "sources": [{"text": "x"}], "n": 1}

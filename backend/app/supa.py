@@ -170,13 +170,25 @@ def cache_get(cache_key: str, corpus_version: str) -> dict | None:
         return None
 
 
+def jsonb_safe(value):
+    """Postgres jsonb rejects the NUL character (\\u0000), which some scanned
+    law passages contain; drop it before any answer/source payload is stored."""
+    if isinstance(value, str):
+        return value.replace("\x00", "")
+    if isinstance(value, dict):
+        return {k: jsonb_safe(v) for k, v in value.items()}
+    if isinstance(value, list):
+        return [jsonb_safe(v) for v in value]
+    return value
+
+
 def cache_put(cache_key: str, corpus_version: str, language: str, question: str, answer: dict) -> None:
     if not available():
         return
     try:
         r = _http().post("/rest/v1/answer_cache", headers={"Prefer": "resolution=merge-duplicates"}, json={
             "cache_key": cache_key, "corpus_version": corpus_version, "language": language,
-            "question": question[:2000], "answer": answer,
+            "question": jsonb_safe(question[:2000]), "answer": jsonb_safe(answer),
         })
         r.raise_for_status()
     except Exception as e:  # noqa: BLE001
@@ -188,7 +200,8 @@ def saved_research_create(user_id: str, question: str, answer: dict, language: s
     if not available():
         return None
     r = _http().post("/rest/v1/saved_research", headers={"Prefer": "return=representation"}, json={
-        "user_id": user_id, "question": question[:2000], "answer": answer, "language": language,
+        "user_id": user_id, "question": jsonb_safe(question[:2000]), "answer": jsonb_safe(answer),
+        "language": language,
     })
     r.raise_for_status()
     return r.json()[0]
