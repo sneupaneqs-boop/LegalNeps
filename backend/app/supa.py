@@ -430,7 +430,7 @@ def matter_task_update(user_id: str, matter_id: str, task_id: str, title: str | 
     if done is not None:
         patch["done"] = done
     if due_date is not None:
-        patch["due_date"] = due_date
+        patch["due_date"] = due_date or None  # "" clears the due date
     r = _http().patch(
         "/rest/v1/matter_tasks",
         params={"id": f"eq.{task_id}", "matter_id": f"eq.{matter_id}", "user_id": f"eq.{user_id}"},
