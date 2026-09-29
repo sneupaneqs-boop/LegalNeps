@@ -6,7 +6,13 @@ const anonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || "";
 // null when not configured (e.g. local dev without a Supabase project) -
 // callers must handle that instead of crashing, so the rest of the app
 // (chat, search, law browser) keeps working without an account system.
-export const supabase = url && anonKey ? createClient(url, anonKey) : null;
+export const supabase = url && anonKey
+  ? createClient(url, anonKey, {
+      // the emailed sign-in link lands back on our page with the session in
+      // the URL; pick it up automatically and keep the user signed in
+      auth: { detectSessionInUrl: true, persistSession: true, autoRefreshToken: true },
+    })
+  : null;
 
 export function authAvailable(): boolean {
   return supabase !== null;
@@ -14,7 +20,11 @@ export function authAvailable(): boolean {
 
 export async function sendOtp(email: string): Promise<{ error: string | null }> {
   if (!supabase) return { error: "auth not configured" };
-  const { error } = await supabase.auth.signInWithOtp({ email });
+  // Send the sign-in link back to whichever site the user is on (production
+  // or a preview), not Supabase's default Site URL. Supabase only honours
+  // this if the URL is on the project's Redirect URLs allow-list.
+  const emailRedirectTo = typeof window !== "undefined" ? window.location.origin + window.location.pathname : undefined;
+  const { error } = await supabase.auth.signInWithOtp({ email, options: { emailRedirectTo } });
   return { error: error?.message || null };
 }
 
