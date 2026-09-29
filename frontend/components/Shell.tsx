@@ -12,6 +12,7 @@ const NAV = [
   { href: "/search", key: "navSearchShort" },
   { href: "/action-plans", key: "navPlans" },
   { href: "/draft", key: "navDraft" },
+  { href: "/audit", key: "navAudit" },
   { href: "/matters", key: "navMatters" },
   { href: "/tools", key: "navTools" },
   { href: "/compliance", key: "navCompliance" },

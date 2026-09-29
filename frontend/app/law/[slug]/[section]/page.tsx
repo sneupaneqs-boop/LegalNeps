@@ -10,7 +10,10 @@ export default async function LawSectionPage({
 }: {
   params: Promise<{ slug: string; section: string }>;
 }) {
-  const { slug, section } = await params;
+  const { slug, section: rawSection } = await params;
+  // Next passes dynamic segments still percent-encoded ("517%20(1)");
+  // getLawSection encodes again, so decode first or sub-sections 404.
+  const section = decodeURIComponent(rawSection);
   const s = await getLawSection(slug, section);
   if (!s) notFound();
 
