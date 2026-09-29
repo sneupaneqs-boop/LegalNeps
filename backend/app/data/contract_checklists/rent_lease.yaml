@@ -1,0 +1,238 @@
+# House/premises rent agreement checklist. Source: मुलुकी देवानी संहिता, २०७४,
+# Part 4 Chapter 9 (घर बहाल सम्बन्धी व्यवस्था, दफा ३८३-४०५). Section 622 sends
+# house rent to that chapter rather than the general lease chapter (दफा ६१०-६२३),
+# so the lease-chapter rules (e.g. दफा ६२०) are deliberately not used here.
+id: rent_lease
+title: {en: "Rent / lease agreement", ne: "घर बहाल / भाडा सम्झौता"}
+keywords:
+  - "landlord"
+  - "tenant"
+  - "lessor"
+  - "lessee"
+  - "rent"
+  - "lease"
+  - "premises"
+  - "security deposit"
+  - "घरधनी"
+  - "बहालमा"
+  - "बहाल"
+  - "भाडा"
+  - "भाडामा"
+  - "लिज"
+  - "घर बहाल सम्झौता"
+facts:
+  has_party_identity_details: {type: boolean, description: "The contract gives the full name and address (and citizenship or passport number) of BOTH landlord and tenant."}
+  has_property_description: {type: boolean, description: "The contract identifies where the house is and its plot (kitta) number or equivalent precise description."}
+  monthly_rent_npr: {type: number, description: "Monthly rent in NPR (null if no rent amount is stated)."}
+  has_rent_payment_schedule: {type: boolean, description: "The contract says when and how (cash, cheque, bank) rent is paid."}
+  lease_term_years: {type: number, description: "Length of the rent term in YEARS (e.g. 11 months = 0.92; null if no term is stated)."}
+  is_commercial_use: {type: boolean, description: "The premises are rented for commercial/business use (shop, office, industry) rather than residence."}
+  has_utilities_clause: {type: boolean, description: "The contract says who pays electricity, water, telephone or similar charges."}
+  has_tax_clause: {type: boolean, description: "The contract says who pays house-rent tax / property tax."}
+  has_vacate_and_eviction_terms: {type: boolean, description: "The contract covers how the tenant may leave and how the landlord may end the tenancy or remove the tenant."}
+  landlord_notice_days: {type: number, description: "Days of written notice the LANDLORD must give the tenant before requiring the house back (null if not stated)."}
+  has_sublet_clause: {type: boolean, description: "The contract says whether the tenant may sub-let the house."}
+  has_two_witnesses: {type: boolean, description: "The contract has signature lines for at least two witnesses."}
+  security_deposit_npr: {type: number, description: "Refundable security deposit / advance in NPR (null if none)."}
+  has_deposit_return_terms: {type: boolean, description: "The contract explains when and how the security deposit is returned and what may be deducted."}
+checks:
+  - id: parties_identified
+    title: {en: "Landlord and tenant are fully identified", ne: "घरधनी र बहालवालाको पूरा विवरण खुलाइएको"}
+    extract: [has_party_identity_details]
+    rule: {field: has_party_identity_details, required: true}
+    severity: warning
+    basis: statutory
+    recommendation:
+      en: "State the full name, address and citizenship number (or passport number for a foreigner) of both landlord and tenant."
+      ne: "घरधनी र बहालवाला दुवैको पूरा नाम, ठेगाना र नागरिकता नम्बर (विदेशी भए राहदानी नम्बर) खुलाउनुहोस्।"
+    provision: {law_title_ne: "मुलुकी देवानी संहिता, २०७४", section: "386"}
+    verify: ["पूरा नाम र ठेगाना", "नागरिकता नम्बर"]
+    verified: true
+  - id: property_described
+    title: {en: "The house and plot number are described", ne: "घर रहेको ठाउँ र कित्ता नम्बर खुलाइएको"}
+    extract: [has_property_description]
+    rule: {field: has_property_description, required: true}
+    severity: warning
+    basis: statutory
+    recommendation:
+      en: "Describe where the house is and the plot (kitta) number of the land."
+      ne: "घर रहेको ठाउँ र जग्गाको कित्ता नम्बर खुलाउनुहोस्।"
+    provision: {law_title_ne: "मुलुकी देवानी संहिता, २०७४", section: "386"}
+    verify: ["कित्ता नम्बर"]
+    verified: true
+  - id: monthly_rent_stated
+    title: {en: "Monthly rent is stated", ne: "मासिक बहाल रकम उल्लेख गरिएको"}
+    extract: [monthly_rent_npr]
+    rule: {field: monthly_rent_npr, required: true}
+    severity: issue
+    basis: statutory
+    recommendation:
+      en: "Write the monthly rent amount in the agreement."
+      ne: "सम्झौतामा मासिक बहाल रकम स्पष्ट लेख्नुहोस्।"
+    provision: {law_title_ne: "मुलुकी देवानी संहिता, २०७४", section: "386"}
+    verify: ["मासिक बहाल रकम"]
+    verified: true
+  - id: rent_payment_schedule
+    title: {en: "When and how rent is paid is stated", ne: "बहाल बुझाउने समय र प्रक्रिया उल्लेख गरिएको"}
+    extract: [has_rent_payment_schedule]
+    rule: {field: has_rent_payment_schedule, required: true}
+    severity: warning
+    basis: statutory
+    recommendation:
+      en: "State the due date and method of payment. If the agreement is silent, rent is due within 7 days of the end of each month."
+      ne: "बहाल बुझाउने मिति र तरिका खुलाउनुहोस्। सम्झौतामा नखुलाएमा प्रत्येक महिना भुक्तान भएको ७ दिनभित्र बहाल बुझाउनुपर्छ।"
+    provision: {law_title_ne: "मुलुकी देवानी संहिता, २०७४", section: "386"}
+    verify: ["बहाल बुझाउने समय र प्रक्रिया"]
+    verified: true
+  - id: term_stated
+    title: {en: "The rent period is stated", ne: "बहाल कायम रहने अवधि उल्लेख गरिएको"}
+    extract: [lease_term_years]
+    rule: {field: lease_term_years, required: true}
+    severity: issue
+    basis: statutory
+    recommendation:
+      en: "State the start date and how long the tenancy lasts."
+      ne: "बहाल सुरु हुने मिति र बहाल कायम रहने अवधि खुलाउनुहोस्।"
+    provision: {law_title_ne: "मुलुकी देवानी संहिता, २०७४", section: "386"}
+    verify: ["बहाल कायम रहने अवधि"]
+    verified: true
+  - id: residential_term_max
+    title: {en: "Residential rent period is at most 5 years", ne: "आवासीय घर बहालको अवधि ५ वर्षभन्दा बढी छैन"}
+    extract: [lease_term_years, is_commercial_use]
+    when: {field: is_commercial_use, not_equals: true}
+    rule: {field: lease_term_years, max: 5}
+    if_missing: skip
+    severity: issue
+    basis: statutory
+    recommendation:
+      en: "For a non-commercial house the rent period may not exceed 5 years. Sign for up to 5 years and renew by mutual consent when it ends (renewals may be repeated)."
+      ne: "व्यापारिक प्रयोजनबाहेकको घर बहालको अवधि ५ वर्षभन्दा बढी हुन पाउँदैन। बढीमा ५ वर्षको सम्झौता गरी अवधि सकिएपछि आपसी सहमतिमा पटक पटक थप गर्नुहोस्।"
+    provision: {law_title_ne: "मुलुकी देवानी संहिता, २०७४", section: "385"}
+    verify: ["पाँच वर्षमा नबढाई", "व्यापारिक प्रयोजनका लागि"]
+    verified: true
+  - id: utilities_responsibility
+    title: {en: "Utility bills are allocated", ne: "बिजुली, पानी आदिको महसुल बुझाउने दायित्व खुलाइएको"}
+    extract: [has_utilities_clause]
+    rule: {field: has_utilities_clause, required: true}
+    severity: warning
+    basis: statutory
+    recommendation:
+      en: "Say who pays electricity, water, telephone and similar charges."
+      ne: "बिजुली, खानेपानी, टेलिफोन आदिको महसुल कसले बुझाउने हो खुलाउनुहोस्।"
+    provision: {law_title_ne: "मुलुकी देवानी संहिता, २०७४", section: "386"}
+    verify: ["महसुल बुझाउने दायित्व"]
+    verified: true
+  - id: house_tax_allocated
+    title: {en: "House-rent tax responsibility is stated", ne: "घर बहाल कर भुक्तानी गर्ने कुरा उल्लेख गरिएको"}
+    extract: [has_tax_clause]
+    rule: {field: has_tax_clause, required: true}
+    severity: info
+    basis: statutory
+    recommendation:
+      en: "Say who pays the tax on the house. Unless the agreement says otherwise, the landlord is responsible for taxes and fees on the house."
+      ne: "घरको करसम्बन्धी दायित्व कसको हो खुलाउनुहोस्। सम्झौतामा अन्यथा नभएमा घरको कर तथा दस्तुर बुझाउने दायित्व घरधनीको हुन्छ।"
+    provision: {law_title_ne: "मुलुकी देवानी संहिता, २०७४", section: "386"}
+    verify: ["घर बहाल कर भुक्तानी"]
+    verified: true
+  - id: vacate_and_eviction_terms
+    title: {en: "Leaving and eviction terms are covered", ne: "घर छाड्ने तथा हटाउने सम्बन्धी व्यवस्था छ"}
+    extract: [has_vacate_and_eviction_terms]
+    rule: {field: has_vacate_and_eviction_terms, required: true}
+    severity: warning
+    basis: statutory
+    recommendation:
+      en: "Add how the tenant may leave early and when the landlord may end the tenancy. By default a tenant leaving because they no longer need the house must give 35 days' written notice."
+      ne: "बहालवालाले घर छाड्ने र घरधनीले हटाउने अवस्था र प्रक्रिया थप्नुहोस्। घर नचाहिने भएर छाड्नुपरेमा सम्झौतामा अन्यथा नभए कम्तीमा ३५ दिन अगावै लिखित सूचना दिनुपर्छ।"
+    provision: {law_title_ne: "मुलुकी देवानी संहिता, २०७४", section: "386"}
+    verify: ["घर छाड्ने तथा बहालमा बसेको व्यक्तिलाई"]
+    verified: true
+  - id: landlord_notice_min
+    title: {en: "Landlord gives at least 35 days' written notice to reclaim the house", ne: "घरधनीले घर आफूलाई चाहिएमा कम्तीमा ३५ दिनको लिखित सूचना दिने"}
+    extract: [landlord_notice_days]
+    rule: {field: landlord_notice_days, min: 35}
+    if_missing: ok
+    severity: issue
+    basis: statutory
+    recommendation:
+      en: "If the landlord needs the house for their own use, they must give the tenant at least 35 days' advance written notice, and may not re-let it to someone else for 3 months. Lengthen the notice period to at least 35 days."
+      ne: "घरधनीलाई आफैँलाई घर आवश्यक भएमा बहालवालालाई कम्तीमा ३५ दिनको अग्रिम लिखित सूचना दिनुपर्छ र तीन महिनासम्म अन्य व्यक्तिलाई बहालमा दिन पाइँदैन। सूचना अवधि कम्तीमा ३५ दिन बनाउनुहोस्।"
+    provision: {law_title_ne: "मुलुकी देवानी संहिता, २०७४", section: "401"}
+    verify: ["पैँतीस दिनको अग्रिम लिखित सूचना"]
+    verified: true
+  - id: sublet_terms
+    title: {en: "Sub-letting is addressed", ne: "अर्को व्यक्तिलाई बहालमा दिन पाउने वा नपाउने कुरा उल्लेख गरिएको"}
+    extract: [has_sublet_clause]
+    rule: {field: has_sublet_clause, required: true}
+    severity: info
+    basis: statutory
+    recommendation:
+      en: "State whether the tenant may sub-let. A tenant may only sub-let if the agreement says so."
+      ne: "बहालवालाले अर्को व्यक्तिलाई बहालमा दिन पाउने वा नपाउने खुलाउनुहोस्। सम्झौतामा उल्लेख भएमा मात्र पुनः बहालमा दिन सकिन्छ।"
+    provision: {law_title_ne: "मुलुकी देवानी संहिता, २०७४", section: "386"}
+    verify: ["बहालमा दिन पाउने वा"]
+    verified: true
+  - id: witnesses
+    title: {en: "Signed by both parties and at least two witnesses", ne: "दुवै पक्ष र कम्तीमा दुई साक्षीको सहीछाप"}
+    extract: [has_two_witnesses]
+    rule: {field: has_two_witnesses, required: true}
+    severity: warning
+    basis: statutory
+    recommendation:
+      en: "Have the tenant, the landlord and at least two witnesses sign, and give each party a copy. (A written agreement is not required for rent up to NPR 20,000 a month.)"
+      ne: "बहालवाला, घरधनी र कम्तीमा दुई साक्षीको सहीछाप गराई एक एक प्रति लिनुहोस्। (मासिक बीस हजार रुपैयाँसम्मको बहालमा लिखित सम्झौता आवश्यक पर्दैन।)"
+    provision: {law_title_ne: "मुलुकी देवानी संहिता, २०७४", section: "386"}
+    verify: ["कम्तीमा दुई जना साक्षीको", "बीस हजार"]
+    verified: true
+  - id: deposit_return_terms
+    title: {en: "Deposit return terms are written down", ne: "धरौटी फिर्ता सम्बन्धी शर्त लेखिएको"}
+    extract: [security_deposit_npr, has_deposit_return_terms]
+    rule: {field: has_deposit_return_terms, required_if: {field: security_deposit_npr, truthy: true}}
+    severity: warning
+    basis: best_practice
+    recommendation:
+      en: "The Civil Code sets no rule on how a rent deposit is returned, so put it in writing: when it is refunded after handover, what may be deducted (unpaid rent, damage beyond normal wear), and an itemised inventory. On leaving, the tenant must hand back the house and listed items in good order."
+      ne: "देवानी संहितामा बहाल धरौटी फिर्ता गर्ने विशेष व्यवस्था छैन, त्यसैले लिखित रूपमा राख्नुहोस्: हस्तान्तरणपछि कति दिनमा फिर्ता हुने, के कट्टा हुन सक्ने (बाँकी बहाल, सामान्य ह्रासभन्दा बढी क्षति) र मालसामानको विवरण। घर छाड्दा बहालवालाले घर र सूचीकृत मालसामान दुरुस्त बुझाउनुपर्छ।"
+    provision: {law_title_ne: "मुलुकी देवानी संहिता, २०७४", section: "403"}
+    verify: ["दुरुस्त बुझाउनु पर्नेछ"]
+    verified: true
+  # ---- considered but NOT enforced ------------------------------------------
+  - id: deposit_cap
+    title: {en: "Security deposit is within the legal cap", ne: "धरौटी कानूनी सीमाभित्र छ"}
+    extract: []
+    rule: null
+    severity: issue
+    basis: statutory
+    recommendation: {en: "", ne: ""}
+    provision: {law_title_ne: "मुलुकी देवानी संहिता, २०७४", section: "386"}
+    verified: false
+    unverified_reason: "No cap on a rent security deposit appears in the Civil Code house-rent chapter (sections 383-405); any 'X months' rule would be invented."
+  - id: rent_increase_cap
+    title: {en: "Rent increase is within the legal cap", ne: "बहाल वृद्धि कानूनी सीमाभित्र छ"}
+    extract: []
+    rule: null
+    severity: issue
+    basis: statutory
+    recommendation: {en: "", ne: ""}
+    provision: {law_title_ne: "मुलुकी देवानी संहिता, २०७४", section: "398"}
+    verified: false
+    unverified_reason: "Section 398 only lets the parties vary the agreement by mutual consent; the chapter has no percentage cap on rent increases."
+  - id: long_term_registration
+    title: {en: "Terms over 10 years are registered", ne: "१० वर्षभन्दा बढीको सम्झौता दर्ता गरिएको"}
+    extract: []
+    rule: null
+    severity: warning
+    basis: statutory
+    recommendation: {en: "", ne: ""}
+    provision: {law_title_ne: "मुलुकी देवानी संहिता, २०७४", section: "620"}
+    verified: false
+    unverified_reason: "Section 620(2) (registration of leases over 10 years) sits in the general lease chapter, and section 622 says house rent is governed by the house-rent chapter instead, so applicability to a house-rent agreement is unclear."
+  - id: rent_income_tax_withholding
+    title: {en: "Tax is withheld correctly on rent", ne: "बहालमा कर कट्टी ठीकसँग गरिएको"}
+    extract: []
+    rule: null
+    severity: info
+    basis: statutory
+    recommendation: {en: "", ne: ""}
+    provision: {law_title_ne: "आयकर ऐन, २०५८", section: "88 (1)"}
+    verified: false
+    unverified_reason: "The Income Tax Act section 88 text in the corpus is a heavily amended multi-clause provision and the rent-withholding rate for each type of landlord could not be confirmed unambiguously from it."
