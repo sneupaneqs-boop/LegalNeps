@@ -19,31 +19,33 @@ provisions:
   - law_title_ne: "सूचनाको हक सम्बन्धी ऐन, २०६४"
     section: "7"
     note:
-      en: "Every Nepali citizen has the right to request information from a public body, following the procedure this section sets out."
-      ne: "हरेक नेपाली नागरिकलाई यस दफाले तोकेको प्रक्रिया पालना गरी सार्वजनिक निकायबाट सूचना माग्ने अधिकार हुन्छ।"
+      en: "A Nepali citizen who wants information applies to the Information Officer, stating the reason. The officer must give information that is readily available immediately, other information within 15 days of the application, and information about a person's life or safety within 24 hours. If the information cannot be given at once the officer must tell you the reason immediately, and if the office does not hold it the officer must say so immediately. The officer should give it in the form requested where possible."
+      ne: "सूचना प्राप्त गर्न चाहने नेपाली नागरिकले कारण खुलाई सम्बन्धित सूचना अधिकारी समक्ष निवेदन दिनुपर्छ। सूचना अधिकारीले तत्काल उपलब्ध गराउन सकिने सूचना तत्काल, अन्य सूचना निवेदन प्राप्त भएको मितिले १५ दिनभित्र र जीउ ज्यानको सुरक्षासँग सम्बन्धित सूचना २४ घण्टाभित्र दिनुपर्छ। तत्काल दिन नसके कारणसहित तुरुन्त जानकारी दिनुपर्छ, र सूचना आफ्नो निकायसँग सम्बन्धित नभए सोही जानकारी तुरुन्त दिनुपर्छ। सम्भव भएसम्म माग गरेकै स्वरूपमा दिनुपर्छ।"
   - law_title_ne: "सूचनाको हक सम्बन्धी ऐन, २०६४"
-    section: "33"
+    section: "9"
     note:
-      en: "If you suffer harm because a public body wrongly denies your right to information, you can claim compensation."
-      ne: "सार्वजनिक निकायले सूचनाको हक गलत तवरले अस्वीकार गरेको कारण हानि भएमा क्षतिपूर्तिको दाबी गर्न सकिन्छ।"
+      en: "If the Information Officer does not give the information, refuses, gives only part of it or gives wrong information, you can complain to the head of the public body within 7 days of not receiving (or partly receiving) it. The head examines it and can order the officer to give the information and can take departmental action against an officer who acted knowingly or in bad faith."
+      ne: "सूचना अधिकारीले सूचना उपलब्ध नगराएमा, अस्वीकार गरेमा, आंशिक वा गलत सूचना दिएमा वा सरोकारवाला होइन भनी नदिएमा सूचना नपाएको वा आंशिक पाएको मितिले सात दिनभित्र सार्वजनिक निकायको प्रमुख समक्ष उजूरी दिन सकिन्छ। प्रमुखले जाँचबुझ गरी सूचना दिन अधिकारीलाई आदेश दिन्छ र जानीजानी वा बदनियतले नदिएको अधिकारीलाई विभागीय कारबाही गर्न सक्छ।"
 evidence:
   - en: "A copy of your written information request, if you already made one"
     ne: "पहिले नै दिनुभएको भए लिखित सूचना माग गरेको निवेदनको प्रति"
   - en: "Any written refusal or non-response from the office"
     ne: "कार्यालयबाट भएको लिखित इन्कार वा जवाफ नआएको प्रमाण"
 forum:
-  en: "The public body's designated Information Officer (सूचना अधिकारी) first; if refused, you can appeal to the National Information Commission (राष्ट्रिय सूचना आयोग)."
-  ne: "पहिले सम्बन्धित निकायको सूचना अधिकारी; इन्कार भएमा राष्ट्रिय सूचना आयोगमा उजुरी गर्न सकिन्छ।"
+  en: "First the public body's Information Officer (सूचना अधिकारी). If refused or ignored, complain to the head of that public body within 7 days; if you are unhappy with the head's decision, appeal to the National Information Commission (राष्ट्रिय सूचना आयोग) within 35 days."
+  ne: "पहिले सम्बन्धित सार्वजनिक निकायको सूचना अधिकारी। इन्कार वा बेवास्ता गरे ७ दिनभित्र सोही निकायको प्रमुख समक्ष उजूरी दिनुहोस्; प्रमुखको निर्णयमा चित्त नबुझे ३५ दिनभित्र राष्ट्रिय सूचना आयोगमा पुनरावेदन गर्नुहोस्।"
 limitation:
   note:
-    en: "If the office doesn't respond or refuses your request, you can appeal to the National Information Commission — do this promptly rather than letting the matter drop."
-    ne: "कार्यालयले जवाफ नदिए वा इन्कार गरे राष्ट्रिय सूचना आयोगमा उजुरी गर्न सकिन्छ — विषय त्यत्तिकै नछाडी चाँडै कारबाही गर्नुहोस्।"
-  provision: null
+    en: "If the Information Officer refuses, ignores or only partly answers, you have 7 days to complain to the head of the public body (section 9). Only if you are unhappy with the head's decision can you appeal to the National Information Commission, within 35 days of being told the decision (section 10). A compensation application to the Commission must be made within 3 months (section 33)."
+    ne: "सूचना अधिकारीले इन्कार, बेवास्ता वा आंशिक जवाफ दिएमा सार्वजनिक निकायको प्रमुख समक्ष ७ दिनभित्र उजूरी दिनुपर्छ (दफा ९)। प्रमुखको निर्णयमा चित्त नबुझे मात्र निर्णयको जानकारी पाएको ३५ दिनभित्र राष्ट्रिय सूचना आयोगमा पुनरावेदन गर्न सकिन्छ (दफा १०)। क्षतिपूर्तिको निवेदन आयोगमा ३ महिनाभित्र दिनुपर्छ (दफा ३३)।"
+  provision:
+    law_title_ne: "सूचनाको हक सम्बन्धी ऐन, २०६४"
+    section: "9"
 next_steps:
-  - en: "Submit a clear, specific written request to the office's Information Officer."
-    ne: "कार्यालयको सूचना अधिकारीलाई स्पष्ट र ठ्याक्कै लिखित निवेदन दिनुहोस्।"
-  - en: "Keep a copy of your request and note the date you submitted it."
-    ne: "निवेदनको प्रति राखी बुझाएको मिति नोट गर्नुहोस्।"
-  - en: "If refused or ignored, appeal to the National Information Commission."
-    ne: "इन्कार वा बेवास्ता भए राष्ट्रिय सूचना आयोगमा उजुरी गर्नुहोस्।"
+  - en: "Submit a clear, specific written request, stating your reason, to the office's Information Officer and pay the prescribed fee."
+    ne: "कारण खुलाई स्पष्ट र विशिष्ट लिखित निवेदन कार्यालयको सूचना अधिकारीलाई दिनुहोस् र तोकिएको दस्तुर बुझाउनुहोस्।"
+  - en: "Keep a copy of your request and note the date; the officer must answer within 15 days (24 hours for life or safety matters)."
+    ne: "निवेदनको प्रतिलिपि र मिति राख्नुहोस्; सूचना अधिकारीले १५ दिनभित्र (जीउ ज्यानको सुरक्षामा २४ घण्टाभित्र) जवाफ दिनुपर्छ।"
+  - en: "If refused, ignored or only partly answered, complain to the head of the office within 7 days; if the head also refuses, appeal to the National Information Commission within 35 days."
+    ne: "इन्कार, बेवास्ता वा आंशिक जवाफ भए ७ दिनभित्र कार्यालय प्रमुख समक्ष उजूरी दिनुहोस्; प्रमुखले पनि इन्कार गरे ३५ दिनभित्र राष्ट्रिय सूचना आयोगमा पुनरावेदन गर्नुहोस्।"
 template_link: null

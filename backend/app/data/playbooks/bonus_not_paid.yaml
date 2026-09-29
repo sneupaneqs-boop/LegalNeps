@@ -19,18 +19,28 @@ provisions:
   - law_title_ne: "बोनस ऐन, २०३०"
     section: "6"
     note:
-      en: "This section sets out the conditions under which a worker becomes entitled to a bonus."
-      ne: "श्रमिकले बोनस पाउने अवस्था यस दफाले तोकेको छ।"
+      en: "An employee who worked at least half of the working period required in the financial year can receive bonus; casual or substitute (badli) employees do not. Paid leave and time on reserve count as time worked."
+      ne: "आर्थिक वर्षमा काम गर्नुपर्ने अवधिको कम्तीमा आधा अवधि काम गरेको कर्मचारीले बोनस पाउन सक्छ; क्याजुअल वा बदलीमा काम गर्ने कर्मचारीले पाउँदैन। तलबी बिदा र जगेडामा रहेको अवधि काम गरेको मानिन्छ।"
   - law_title_ne: "बोनस ऐन, २०३०"
     section: "9"
     note:
-      en: "The type of bonus and the period within which it must be distributed are specified here."
-      ne: "बोनसको किसिम र त्यो वितरण गर्नुपर्ने अवधि यस दफामा तोकिएको छ।"
+      en: "Bonus must be paid in cash within eight months after the financial year ends. If the employer cannot, it must apply to the Labour Office, which may extend the deadline by at most three months or allow two years' bonus to be paid together in the next year."
+      ne: "बोनस नगदमा दिनुपर्छ र आर्थिक वर्ष समाप्त भएको आठ महिनाभित्र वितरण गर्नुपर्छ। नसके व्यवस्थापकले कारण खुलाई श्रम कार्यालयमा निवेदन दिनुपर्छ; कार्यालयले बढीमा तीन महिना म्याद थप्न वा अर्को वर्ष दुई वर्षको बोनस एकैसाथ बाँड्न स्वीकृति दिन सक्छ।"
   - law_title_ne: "बोनस ऐन, २०३०"
     section: "16"
     note:
-      en: "Disputes about bonus entitlement have their own resolution procedure under this Act."
-      ne: "बोनससम्बन्धी विवादको समाधानका लागि यस ऐनमा छुट्टै व्यवस्था छ।"
+      en: "A bonus dispute between employee and employer goes to the Labour Office, which first tries to settle it by talks and, failing that, decides on the records. Either side can appeal to the Labour Court within 35 days of notice of the decision, and the Labour Court's decision is final."
+      ne: "बोनस विवादमा श्रम कार्यालयले पहिले वार्ताद्वारा समाधान गर्न प्रयास गर्छ, नभए कागजात हेरी निर्णय गर्छ। निर्णयको सूचना पाएको ३५ दिनभित्र श्रम अदालतमा पुनरावेदन गर्न सकिन्छ र श्रम अदालतको निर्णय अन्तिम हुन्छ।"
+  - law_title_ne: "बोनस ऐन, २०३०"
+    section: "5"
+    note:
+      en: "Every establishment that makes a profit must set aside 10 percent of its net profit for the financial year as bonus for its employees (a different percentage is set by rule for government-owned establishments)."
+      ne: "मुनाफा गर्ने प्रत्येक प्रतिष्ठानले एक आर्थिक वर्षमा गरेको खुद मुनाफाको दश प्रतिशत रकम कर्मचारीलाई बोनस बापत छुट्याउनुपर्छ (सरकारी स्वामित्वका प्रतिष्ठानको हकमा प्रतिशत तोकिए बमोजिम हुन्छ)।"
+  - law_title_ne: "बोनस ऐन, २०३०"
+    section: "7"
+    note:
+      en: "The employer works out each employee's bonus percentage from the amount set aside and total salaries. The bonus is capped: 8 months' salary for those earning up to twice the minimum wage, and 6 months' salary for those earning more."
+      ne: "बोनसको रकम छुट्याइएको रकम र कर्मचारीहरूको कुल तलबका आधारमा व्यवस्थापकले प्रतिशत निर्धारण गर्छ। बोनसको हद तोकिएको छ: न्यूनतम पारिश्रमिकको दोब्बरसम्म तलब पाउने कर्मचारीलाई ८ महिनाको तलब र त्योभन्दा बढी तलब पाउनेलाई ६ महिनाको तलबसम्म।"
 evidence:
   - en: "Appointment letter and salary slips"
     ne: "नियुक्तिपत्र र तलब पर्ची"
@@ -39,18 +49,17 @@ evidence:
   - en: "Evidence coworkers received a bonus, if you have it"
     ne: "सहकर्मीले बोनस पाएको प्रमाण, यदि छ भने"
 forum:
-  en: "The Labour Office for your district."
-  ne: "आफ्नो जिल्लाको श्रम कार्यालय।"
+  en: "The Labour Office for your district (Bonus Act s.16). It first tries to settle the dispute by talks between you and the employer, and otherwise decides on the records. You can appeal its decision to the Labour Court within 35 days of notice of the decision."
+  ne: "आफ्नो जिल्लाको श्रम कार्यालय (बोनस ऐन दफा १६)। कार्यालयले पहिले तपाईं र रोजगारदातालाई राखी वार्ताद्वारा मिलाउन प्रयास गर्छ, नभए कागजात हेरी निर्णय गर्छ। निर्णयको सूचना पाएको ३५ दिनभित्र श्रम अदालतमा पुनरावेदन गर्न सकिन्छ।"
 limitation:
   note:
-    en: "Act promptly once the distribution period has passed without payment — the same general labour-complaint window (6 months) applies to most employment disputes."
-    ne: "वितरण अवधि नाघेपछि पनि भुक्तानी नभए चाँडो कारबाही गर्नुहोस् — अधिकांश रोजगार विवादमा सामान्य ६ महिनाको म्याद लागू हुन्छ।"
-  provision:
-    law_title_ne: "श्रम ऐन, २०७४"
-    section: "162"
+    en: "The Bonus Act text in our corpus fixes no separate deadline for a bonus complaint. The Labour Act's six-month complaint window (s.162) covers acts contrary to the Labour Act, and it is not clear that it also reaches Bonus Act claims, so treat it as a cautious guide: start from the end of the 8-month payment period (section 9) and act promptly. Ask an advocate for the exact deadline."
+    ne: "हाम्रो संग्रहमा रहेको बोनस ऐनमा बोनस उजुरीको छुट्टै हदम्याद उल्लेख छैन। श्रम ऐनको छ महिनाको उजुरी अवधि (दफा १६२) श्रम ऐन विपरीतका कार्यमा लागू हुन्छ; यो बोनस ऐनका दाबीमा पनि लागू हुन्छ भन्ने स्पष्ट छैन, त्यसैले यसलाई सावधानीको मार्गदर्शन मात्र मान्नुहोस्: दफा ९ को ८ महिनाको भुक्तानी अवधि सकिएपछिबाट गन्नुहोस् र चाँडो कारबाही गर्नुहोस्। ठ्याक्कै हदम्यादका लागि वकिलसँग सल्लाह लिनुहोस्।"
 next_steps:
-  - en: "Ask your employer in writing for the status of your bonus."
-    ne: "आफ्नो बोनसको स्थितिबारे रोजगारदातालाई लिखित रूपमा सोध्नुहोस्।"
-  - en: "If refused or ignored, file a complaint at the Labour Office."
-    ne: "इन्कार वा बेवास्ता गरे श्रम कार्यालयमा उजुरी दिनुहोस्।"
+  - en: "Check that the employer is a profit-making establishment and that you worked at least half of the financial year and are not a casual or substitute worker."
+    ne: "रोजगारदाताको प्रतिष्ठानले मुनाफा गरेको छ र तपाईंले आर्थिक वर्षको कम्तीमा आधा अवधि काम गर्नुभएको छ र क्याजुअल/बदली कामदार होइन भन्ने जाँच गर्नुहोस्।"
+  - en: "Ask your employer in writing for the status of your bonus, and note the date eight months after the financial year ended."
+    ne: "आफ्नो बोनसको स्थितिबारे रोजगारदातालाई लिखित रूपमा सोध्नुहोस्, र आर्थिक वर्ष सकिएको ८ महिना कहिले पुग्छ टिप्नुहोस्।"
+  - en: "If refused or ignored after that period, file a complaint at the Labour Office."
+    ne: "त्यो अवधिपछि पनि इन्कार वा बेवास्ता गरे श्रम कार्यालयमा उजुरी दिनुहोस्।"
 template_link: null

@@ -18,13 +18,33 @@ provisions:
   - law_title_ne: "सवारी तथा यातायात व्यवस्था ऐन, २०४९"
     section: "163"
     note:
-      en: "A person harmed in a traffic accident is entitled to have the driver, vehicle owner, or operator pay for treatment costs, funeral costs (if applicable), and compensation."
-      ne: "सवारी दुर्घटनाबाट हानि नोक्सानी भएको व्यक्तिले चालक, सवारी धनी, वा व्यवस्थापकबाट उपचार खर्च, क्रिया खर्च (लागू भए), र क्षतिपूर्ति पाउने हक हुन्छ।"
+      en: "A person harmed in a vehicle accident is entitled to have the driver, vehicle owner or manager pay: for a death, funeral costs up to Rs 50,000 to the heirs, plus compensation (the third-party insurance amount if the vehicle was not insured); for maiming that does not heal, compensation (the accident-insurance amount for the injury if uninsured), and for an organ that still works, treatment costs of Rs 25,000 to Rs 50,000. The Chief District Officer must order this paid at once, and if the driver broke the law and someone is injured, must immediately order Rs 25,000 for medicines. The insurance company must pay the insured amount as soon as possible."
+      ne: "सवारी दुर्घटनाबाट हानि नोक्सानी पुगेको पक्षलाई चालक, सवारी धनी वा व्यवस्थापकबाट खर्च भराइन्छ: ज्यान मरेमा हकवालालाई क्रिया खर्चबापत ५०,००० रुपैयाँसम्म र क्षतिपूर्ति (सवारीको तेस्रो पक्ष बीमा नगराएको भए बीमा बराबरको रकम); अङ्गभङ्ग निको भई पनि काम नलाग्ने भए क्षतिपूर्ति (बीमा नगराएको भए अङ्गभङ्ग बापतको बीमा रकम) र अङ्ग काम लाग्ने भए घा खर्च २५,००० देखि ५०,००० रुपैयाँसम्म। प्रमुख जिल्ला अधिकारीले तत्कालै यो भराइदिनुपर्छ, र चालकले कानून विपरीत सवारी चलाई चोटपटक लागेकोमा तत्कालै औषधि खर्चबापत २५,००० रुपैयाँ दिलाइदिनुपर्छ। बीमा कम्पनीले व्यहोर्नुपर्ने रकम यथाशीघ्र भराइदिनुपर्छ।"
   - law_title_ne: "सवारी तथा यातायात व्यवस्था ऐन, २०४९"
     section: "152"
     note:
-      en: "Third-party insurance is required for vehicles, which is what typically pays compensation to someone injured by that vehicle."
-      ne: "सवारीको तेस्रो पक्ष बीमा अनिवार्य हुन्छ, जसबाट सामान्यतया त्यो सवारीबाट घाइते भएको व्यक्तिलाई क्षतिपूर्ति भुक्तानी हुन्छ।"
+      en: "Every vehicle owner or manager must take out third-party insurance for the prescribed amount. If a third party or their property is harmed in an accident, they or their heirs get that insured amount. If the vehicle had no third-party or comprehensive insurance, the owner or manager must pay the same amount as compensation."
+      ne: "सवारी धनी वा व्यवस्थापकले तोकिएको रकमको तेस्रो पक्षको बीमा गराउनुपर्छ। दुर्घटनाबाट तेस्रो पक्ष वा निजको सम्पत्तिमा नोक्सानी भएमा निज वा निजको हकवालाले बीमाको रकम पाउँछ। तेस्रो पक्ष वा कम्प्रिहेन्सिभ बीमा नगराई चलाएको सवारी दुर्घटनाग्रस्त भएमा सवारी धनी वा व्यवस्थापकले सोही रकम क्षतिपूर्तिबापत दिनुपर्छ।"
+  - law_title_ne: "सवारी तथा यातायात व्यवस्था ऐन, २०४९"
+    section: "166"
+    note:
+      en: "Except where the driver acted negligently or in bad faith or broke the Act or rules or orders, the owner or manager of the vehicle must pay the fine, treatment cost, funeral cost or compensation that the driver would otherwise pay under this Act."
+      ne: "चालकले लापरवाही गरी वा बदनियतपूर्वक ऐन, नियम वा आदेशको उल्लङ्घन गरेकोमा बाहेक अन्य अवस्थामा चालकले तिर्नुपर्ने जरिबाना, घा खर्च, क्रिया खर्च वा क्षतिपूर्तिको रकम सवारी धनी वा व्यवस्थापकले तिरिदिनुपर्छ।"
+  - law_title_ne: "सवारी तथा यातायात व्यवस्था नियमावली, २०५४"
+    section: "55"
+    note:
+      en: "Owners must insure against third-party death, maiming, injury and property loss with a minimum of Rs 50 lakh for personal injury and Rs 50 lakh for property; for each death, Rs 5 lakh is available. On a death the owner must immediately pay the heirs Rs 25,000 for customary funeral rites, recoverable from the insurance. Treatment costs are covered up to Rs 2 lakh actual cost, and Rs 500 a day for a carer for up to 30 days in hospital."
+      ne: "सवारी धनी वा व्यवस्थापकले तेस्रो पक्षको मृत्यु, अङ्गभङ्ग, घाउचोट र सम्पत्ति नोक्सानीबापत मृत्यु/अङ्गभङ्ग/घाउचोटका लागि न्यूनतम ५० लाख र सम्पत्ति हानिका लागि न्यूनतम ५० लाख रुपैयाँको बीमा गराउनुपर्छ; प्रत्येक मृत्युका लागि ५ लाख रुपैयाँ उपलब्ध हुनुपर्छ। मृत्यु भएमा धनीले हकवालालाई परम्परा अनुसारको काज किरिया खर्चबापत तत्काल २५,००० रुपैयाँ दिनुपर्छ र बीमाबाट सोधभर्ना लिन सक्छ। उपचार खर्च वास्तविक खर्च २ लाखसम्म र अस्पताल भर्ना अवधिमा प्रतिदिन ५०० रुपैयाँका दरले बढीमा ३० दिनको कुरुवा खर्च बीमामा पर्छ।"
+  - law_title_ne: "सवारी तथा यातायात व्यवस्था नियमावली, २०५४"
+    section: "55ग"
+    note:
+      en: "After the insurance certificate and policy are received, the Chief District Officer must have the insurance money paid by the insurer, in the presence of the vehicle owner: within 21 days of the accident to the heirs of someone who died, and within three months in other cases."
+      ne: "बीमाको प्रमाणपत्र र बीमालेख प्राप्त भएपछि प्रमुख जिल्ला अधिकारीले सवारी धनी वा व्यवस्थापकको रोहवरमा बीमकबाट बीमा रकम मृत्यु भएको अवस्थामा दुर्घटना भएको २१ दिनभित्र मृतकको हकवालालाई र अन्य अवस्थामा तीन महिनाभित्र सम्बन्धित व्यक्तिलाई उपलब्ध गराइदिनुपर्छ।"
+  - law_title_ne: "सवारी तथा यातायात व्यवस्था नियमावली, २०५४"
+    section: "55ख"
+    note:
+      en: "As soon as an accident happens, the vehicle owner or manager must hand the insurance certificate and policy to the Chief District Officer of the district where the accident took place."
+      ne: "सवारी दुर्घटना हुने बित्तिकै सवारी धनी वा व्यवस्थापकले दुर्घटनास्थल रहेको जिल्लाको प्रमुख जिल्ला अधिकारी समक्ष बीमाको प्रमाणपत्र र बीमालेख बुझाउनुपर्छ।"
 evidence:
   - en: "Police report (मुचुल्का) of the accident"
     ne: "दुर्घटनाको प्रहरी मुचुल्का"
@@ -35,18 +55,20 @@ evidence:
   - en: "The responsible vehicle's registration and insurance details, if available"
     ne: "जिम्मेवार सवारीको दर्ता र बीमा विवरण, उपलब्ध भए"
 forum:
-  en: "Report to the Traffic Police immediately; compensation claims are typically pursued through the vehicle's insurer, with the District Court available if a claim is refused."
-  ne: "तुरुन्तै ट्राफिक प्रहरीलाई खबर गर्नुहोस्; क्षतिपूर्तिको दाबी सामान्यतया सवारीको बीमा कम्पनीमार्फत गरिन्छ, दाबी अस्वीकार भए जिल्ला अदालत जान सकिन्छ।"
+  en: "Report to the Traffic Police immediately. The compensation route is through the Chief District Officer (प्रमुख जिल्ला अधिकारी) of the district where the accident happened: the vehicle owner must file the insurance papers with the Chief District Officer, who orders the insurer or owner to pay (Act section 163; Rules 55ख, 55ग). If the vehicle was uninsured, the owner or manager pays the same amounts. Ask an advocate about a court claim for any loss beyond this."
+  ne: "तुरुन्त ट्राफिक प्रहरीमा जानकारी दिनुहोस्। क्षतिपूर्तिको बाटो दुर्घटना भएको जिल्लाको प्रमुख जिल्ला अधिकारी हुँदै हो: सवारी धनीले बीमाका कागजात प्रमुख जिल्ला अधिकारीलाई बुझाउनुपर्छ, र प्रमुख जिल्ला अधिकारीले बीमक वा धनीबाट भराइदिन्छन् (ऐन दफा १६३; नियम ५५ख, ५५ग)। सवारी बीमा नगरेको भए धनी वा व्यवस्थापकले सोही रकम तिर्नुपर्छ। यसभन्दा बाहिरको हानि नोक्सानीको अदालती दाबीबारे वकिलसँग सोध्नुहोस्।"
 limitation:
   note:
-    en: "Report to police and start your insurance claim as soon as possible after the accident — delays can weaken both evidence and your claim."
-    ne: "दुर्घटनापछि सकेसम्म चाँडो प्रहरीलाई खबर गरी बीमा दाबी सुरु गर्नुहोस् — ढिलाइले प्रमाण र दाबी दुवै कमजोर बनाउन सक्छ।"
-  provision: null
+    en: "Complaint deadlines under the Vehicles and Transport Management Act (section 172): other offences within 30 days of the offence; a death or maiming follows the Criminal Code's chapter periods (for maiming, generally 1 year). The Chief District Officer must arrange the insurance payment within 21 days of a death or 3 months in other cases once the insurance papers are filed (Rules 55ग), so start the claim at once. The Act does not state a separate filing deadline for a compensation claim; ask an advocate about a court claim for property damage or any amount above the insurance."
+    ne: "सवारी तथा यातायात व्यवस्था ऐन (दफा १७२) अन्तर्गत उजुरीको म्याद: अन्य कसूरमा कसूर भएको ३० दिनभित्र; मृत्यु वा अङ्गभङ्गमा अपराध संहिताका परिच्छेदको म्याद (अङ्गभङ्गमा सामान्यतया १ वर्ष)। बीमाका कागजात दाखिला भएपछि प्रमुख जिल्ला अधिकारीले मृत्युमा २१ दिनभित्र र अन्य अवस्थामा ३ महिनाभित्र बीमा रकम भराइदिनुपर्छ (नियम ५५ग), त्यसैले तुरुन्त दाबी सुरु गर्नुहोस्। क्षतिपूर्तिको दाबीको छुट्टै म्याद ऐनमा भनिएको छैन; सम्पत्ति क्षति वा बीमाभन्दा बढी रकमको अदालती दाबीबारे वकिलसँग सोध्नुहोस्।"
+  provision:
+    law_title_ne: "सवारी तथा यातायात व्यवस्था ऐन, २०४९"
+    section: "172"
 next_steps:
-  - en: "Seek medical treatment first and keep all records."
-    ne: "पहिले उपचार गराउनुहोस् र सबै रेकर्ड राख्नुहोस्।"
-  - en: "Ensure a police report is filed if it wasn't already."
-    ne: "पहिले नै नभए प्रहरी प्रतिवेदन बनेको सुनिश्चित गर्नुहोस्।"
-  - en: "Contact the responsible vehicle's insurer with your evidence to start a compensation claim."
-    ne: "क्षतिपूर्ति दाबी सुरु गर्न प्रमाणसहित जिम्मेवार सवारीको बीमा कम्पनीलाई सम्पर्क गर्नुहोस्।"
+  - en: "Seek medical treatment first and keep all records (bills, prescriptions, discharge papers)."
+    ne: "पहिले उपचार गराउनुहोस् र सबै कागजात (बिल, प्रेस्क्रिप्सन, डिस्चार्ज कागज) सुरक्षित राख्नुहोस्।"
+  - en: "Make sure the accident is reported to the Traffic Police and note the vehicle number, driver and owner details and any witnesses."
+    ne: "दुर्घटनाबारे ट्राफिक प्रहरीमा जानकारी गराउनुहोस् र सवारी नम्बर, चालक र धनीको विवरण तथा साक्षीको नाम टिप्नुहोस्।"
+  - en: "Go to the Chief District Officer of the district with your evidence to claim compensation; the vehicle owner must file the insurance papers there and payment must follow within 21 days (death) or 3 months."
+    ne: "क्षतिपूर्ति दाबीका लागि प्रमाणसहित जिल्लाको प्रमुख जिल्ला अधिकारीकहाँ जानुहोस्; सवारी धनीले बीमाका कागजात त्यहीँ बुझाउनुपर्छ र २१ दिन (मृत्यु) वा ३ महिनाभित्र भुक्तानी हुनुपर्छ।"
 template_link: null

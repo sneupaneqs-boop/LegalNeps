@@ -19,18 +19,36 @@ provisions:
   - law_title_ne: "मुलुकी देवानी संहिता, २०७४"
     section: "495"
     note:
-      en: "A person who has taken on an obligation (such as repaying a loan) must fulfil it."
-      ne: "दायित्व लिएको व्यक्तिले (जस्तै ऋण तिर्ने) त्यो दायित्व पूरा गर्नुपर्छ।"
+      en: "A person who has taken on an obligation (such as repaying a loan) must fulfil it; if they die or lose capacity, their heirs, guardian, or a guarantor must fulfil it."
+      ne: "दायित्व लिएको व्यक्तिले (जस्तै ऋण तिर्ने) त्यो दायित्व पूरा गर्नुपर्छ; निजको मृत्यु भएमा वा होस ठेगानमा नरहेमा हकवाला, संरक्षक वा जमानत दिनेले पूरा गर्नुपर्छ।"
   - law_title_ne: "मुलुकी देवानी संहिता, २०७४"
-    section: "500"
+    section: "492"
     note:
-      en: "If someone fails to fulfil their obligation (or delays), and this causes real loss, they must compensate for that actual loss."
-      ne: "दायित्व पूरा नगरे वा ढिलो गरे र त्यसबाट वास्तविक हानि भएमा, त्यो हानिको क्षतिपूर्ति व्यहोर्नुपर्छ।"
+      en: "Time limit for a suit over a loan: if the loan document states a repayment period, one year from the date that period ended; if there is no document (or in other cases), one year from the date the cause of action arose. There is no time limit for claims about a loan made to defraud a person who lacks capacity, charging interest on interest, or charging more than the 10 percent interest cap."
+      ne: "ऋण/लेनदेनसम्बन्धी नालिसको हदम्याद: लिखतमा अवधि उल्लेख भएकोमा सो अवधि नाघेको मितिले र लिखत नभएको वा अन्य अवस्थामा मुद्दा गर्नुपर्ने कारण परेको मितिले एक वर्षभित्र। असक्षम वा अर्धसक्षम व्यक्तिको सम्पत्ति हिनामिना गर्न गरिएको लेनदेन, ब्याजको ब्याज वा १० प्रतिशतभन्दा बढी ब्याज लिएको विषयमा हदम्याद लाग्दैन।"
+  - law_title_ne: "मुलुकी देवानी संहिता, २०७४"
+    section: "474"
+    note:
+      en: "When two or more people exchange money or goods on some condition, a loan transaction is treated as made, and the person who received the money or goods must return it to the giver."
+      ne: "दुई वा दुईभन्दा बढी व्यक्तिबीच कुनै शर्त राखी रकम वा वस्तु लिनु दिनु गरेमा लेनदेन भएको मानिन्छ, र रकम वा वस्तु लिनेले दिनेलाई त्यस्तो रकम वा वस्तु फिर्ता गर्नुपर्छ।"
+  - law_title_ne: "मुलुकी देवानी संहिता, २०७४"
+    section: "488"
+    note:
+      en: "Even if the correct written document was not made, the court can order the borrower to repay where a document, banking transaction, cheque, voucher or ledger entry shows the money was lent. But a cash transaction of more than Rs 1 lakh done privately (ghar-saar) without a document will not be ordered repaid."
+      ne: "तोकिएको रीत पुर्याई लिखत नगरेको भए पनि कुनै लिखत, बैङ्किङ्ग कारोबार, चेक, भौचर वा बही खातामा लेनदेन भएको देखिएमा अदालतले ऋणीबाट रकम भराइदिन सक्छ। तर एक लाख रुपैयाँभन्दा बढीको लेनदेन घरसारमा नगदै गरेको अवस्थामा त्यस्तो रकम भराइदिइँदैन।"
+  - law_title_ne: "मुलुकी देवानी संहिता, २०७४"
+    section: "478"
+    note:
+      en: "Interest can be charged only if the document says so, at the rate written but never more than 10 percent a year of the principal; if interest is mentioned without a rate, 10 percent a year applies."
+      ne: "लिखतमा ब्याज लिने दिने कुरा उल्लेख भएमा लिखतमा लेखिए बमोजिमको ब्याज लिन पाइन्छ, तर साँवाको वार्षिक १० प्रतिशतभन्दा बढी हुँदैन; ब्याजको दर किटान नभएको भए वार्षिक १० प्रतिशतका दरले ब्याज लिन पाइन्छ।"
+  - law_title_ne: "मुलुकी देवानी संहिता, २०७४"
+    section: "476"
+    note:
+      en: "No one may lend or borrow without a written document (which includes a cheque, bill, voucher, receipt or acknowledgment that proves the transaction)."
+      ne: "कसैले पनि कानून बमोजिम लिखत नगरी लेनदेन गर्न हुँदैन। 'लिखत' मा लेनदेन प्रमाणित गर्ने चेक, बिल, भौचर, रसिद र भरपाई समेत पर्छन्।"
+exclude_provisions:
   - law_title_ne: "मुलुकी देवानी संहिता, २०७४"
     section: "520"
-    note:
-      en: "For most contracts (including a loan agreement), a civil claim must be filed within 2 years of when the cause of action arose."
-      ne: "अधिकांश करार (सापटी सम्झौता लगायत) को हकमा, दाबी गर्नुपर्ने कारण उत्पन्न भएको मितिले २ वर्षभित्र मुद्दा दायर गर्नुपर्छ।"
 evidence:
   - en: "Any written agreement, IOU note, or messages agreeing to the loan"
     ne: "कुनै लिखित सम्झौता, ऋणपत्र, वा सापटीमा सहमति जनाउने म्यासेज"
@@ -39,20 +57,20 @@ evidence:
   - en: "Any communication where the person acknowledges owing the money"
     ne: "व्यक्तिले पैसा तिर्नुपर्ने स्वीकार गरेको कुनै सञ्चार"
 forum:
-  en: "Try to settle directly first with a written demand. If unresolved, file a civil suit at the District Court where the borrower resides."
-  ne: "पहिले लिखित माग गरी सिधै मिलाउने प्रयास गर्नुहोस्। समाधान नभएमा ऋणी बसोबास गर्ने जिल्ला अदालतमा देवानी मुद्दा दायर गर्नुहोस्।"
+  en: "Try to settle directly first with a written demand. If unresolved, file a civil suit at the District Court (which District Court has jurisdiction depends on the civil procedure rules; ask an advocate), within one year under section 492."
+  ne: "पहिले लिखित मागपत्रसहित सिधै मिलाउने प्रयास गर्नुहोस्। समाधान नभए जिल्ला अदालतमा देवानी मुद्दा दायर गर्नुहोस् (कुन जिल्ला अदालतको क्षेत्राधिकार हुन्छ भन्ने देवानी कार्यविधिका नियमले तय गर्छ; वकिलसँग सोध्नुहोस्), दफा ४९२ अनुसार एक वर्षभित्र।"
 limitation:
   note:
-    en: "File your civil claim within 2 years of the date repayment was due (or the date you learned it wouldn't be repaid) — don't delay."
-    ne: "फिर्ता तिर्नुपर्ने मितिले (वा नतिर्ने कुरा थाहा पाएको मितिले) २ वर्षभित्र देवानी दाबी दायर गर्नुहोस् — ढिलो नगर्नुहोस्।"
+    en: "The limit for a suit over a loan is ONE year (not two): from the date the repayment period written in the document ended, or, if there is no document or period, from when the cause of action arose (Civil Code section 492). This is short, so do not wait. (Civil Code section 520's 2 years applies to contract-formation claims, not the loan chapter.)"
+    ne: "ऋण/सापटीको मुद्दाको हदम्याद दुई वर्ष होइन, एक वर्ष हो: लिखतमा उल्लेख भएको फिर्ता अवधि नाघेको मितिबाट, वा लिखत/अवधि नभएमा मुद्दा गर्नुपर्ने कारण परेको मितिबाट (देवानी संहिता दफा ४९२)। यो छोटो छ, त्यसैले ढिलो नगर्नुहोस्। (देवानी संहिता दफा ५२० को २ वर्ष करार सम्बन्धी दाबीमा हो, ऋण सम्बन्धी परिच्छेदमा होइन।)"
   provision:
     law_title_ne: "मुलुकी देवानी संहिता, २०७४"
-    section: "520"
+    section: "492"
 next_steps:
-  - en: "Send a written demand letter asking for repayment by a specific date."
-    ne: "निश्चित मितिसम्म फिर्ता माग्दै लिखित माग पत्र पठाउनुहोस्।"
-  - en: "Keep all evidence of the loan and the demand safely."
-    ne: "सापटी र मागको सबै प्रमाण सुरक्षित राख्नुहोस्।"
-  - en: "If still unpaid, consult an advocate about filing a civil suit within the 2-year limit."
-    ne: "अझै भुक्तानी नभए, २ वर्षको म्यादभित्रै देवानी मुद्दा दायर गर्न वकिलसँग सल्लाह लिनुहोस्।"
+  - en: "Send a written demand letter asking for repayment by a specific date, and note the date the repayment period in your document ended."
+    ne: "निश्चित मितिभित्र फिर्ता माग्ने लिखित मागपत्र पठाउनुहोस्, र आफ्नो लिखतमा उल्लेख भएको फिर्ता अवधि कहिले नाघ्यो टिप्नुहोस्।"
+  - en: "Keep all evidence of the loan (bank transfer records, cheques, receipts, the written document) and of the demand safely."
+    ne: "सापटीको सबै प्रमाण (बैङ्क ट्रान्सफर, चेक, रसिद, लिखित कागज) र मागपत्रको प्रमाण सुरक्षित राख्नुहोस्।"
+  - en: "If still unpaid, see an advocate quickly about a civil suit: the limit is one year from the end of the repayment period (section 492)."
+    ne: "अझै तिरेन भने चाँडै वकिलसँग देवानी मुद्दाबारे सल्लाह लिनुहोस्: हदम्याद फिर्ता अवधि सकिएको एक वर्ष हो (दफा ४९२)।"
 template_link: null

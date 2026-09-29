@@ -19,13 +19,18 @@ provisions:
   - law_title_ne: "मुलुकी अपराध संहिता, २०७४"
     section: "191"
     note:
-      en: "No one may assault another person — causing physical pain, spreading disease, or otherwise causing incapacity all count as assault under this law."
-      ne: "कसैले पनि अर्कोलाई कुटपिट गर्न पाउँदैन — शारीरिक पीडा पुर्‍याउनु, रोग सार्नु, वा अशक्त बनाउनु समेत यस कानून अन्तर्गत कुटपिट मानिन्छ।"
+      en: "No one may assault another person. Assault means causing any physical pain, passing on a disease (other than those covered elsewhere), or otherwise making someone physically or mentally incapacitated. Punishment: up to 3 years' imprisonment or a fine of up to Rs 30,000, or both."
+      ne: "कसैले कसैलाई कुटपिट गर्न हुँदैन। कुनै किसिमको शारीरिक पीडा पुर्याउने, (अन्यत्र उल्लिखित रोग बाहेकको) रोग सार्ने वा अन्य कार्य गरी अशक्त बनाउने काम कुटपिट हो। सजाय: ३ वर्षसम्म कैद वा ३०,००० रुपैयाँसम्म जरिबाना वा दुवै।"
   - law_title_ne: "मुलुकी फौजदारी कार्यविधि संहिता, २०७४"
     section: "4 (1)"
     note:
-      en: "You (or anyone who knows about it) can file a written, oral, or electronic report (जाहेरी) with the police."
-      ne: "तपाईं (वा थाहा पाउने जुनसुकै व्यक्ति) ले प्रहरीमा लिखित, मौखिक, वा विद्युतीय माध्यमबाट जाहेरी दिन सक्नुहुन्छ।"
+      en: "Anyone who knows that a Schedule 1 offence (one prosecuted by the state) has happened must report it as soon as possible to the nearest police office, in writing, orally or electronically, with the evidence they have; the police must register it and give a receipt. If the police refuse, see the guide on a refused FIR."
+      ne: "अनुसूची-१ मा उल्लिखित (राज्यले चलाउने) कसूर भएको थाहा पाउने व्यक्तिले आफूसँग भएको प्रमाण खुलाई लिखित, मौखिक वा विद्युतीय माध्यमबाट नजिकको प्रहरी कार्यालयमा यथाशीघ्र जाहेरी दिनुपर्छ; प्रहरीले दर्ता गरी भरपाई दिनुपर्छ। प्रहरीले इन्कार गरे 'जाहेरी दर्ता नगरेको' मार्गदर्शन हेर्नुहोस्।"
+  - law_title_ne: "मुलुकी अपराध संहिता, २०७४"
+    section: "199"
+    note:
+      en: "Time limits for complaints in this chapter: for criminal force (section 196), 3 months from the offence; for section 197, 6 months from when the victim regained consciousness; for the other offences here, including assault (191) and maiming (192), 1 year from the offence."
+      ne: "यस परिच्छेदमा उजुरीको हदम्याद: आपराधिक बल प्रयोग (दफा १९६) मा कसूर भएको मितिले ३ महिना; दफा १९७ मा होस आएको मितिले ६ महिना; कुटपिट (१९१) र अङ्गभङ्ग (१९२) समेत अन्य कसूरमा कसूर भएको मितिले १ वर्ष नाघेपछि उजुर लाग्दैन।"
 evidence:
   - en: "Medical report documenting your injuries"
     ne: "चोटपटक उल्लेख भएको मेडिकल रिपोर्ट"
@@ -34,13 +39,15 @@ evidence:
   - en: "Witness names and contact information"
     ne: "साक्षीको नाम र सम्पर्क विवरण"
 forum:
-  en: "Your nearest Police Office."
-  ne: "नजिकैको प्रहरी कार्यालय।"
+  en: "Your nearest Police Office, which registers the report and investigates; the state prosecutes serious assaults. Compensation for the injury is ordered by the court in the case (section 198)."
+  ne: "नजिकको प्रहरी कार्यालय, जसले जाहेरी दर्ता गरी अनुसन्धान गर्छ; गम्भीर कुटपिटमा राज्यले मुद्दा चलाउँछ। चोटको क्षतिपूर्ति मुद्दामा अदालतले भराइदिन्छ (दफा १९८)।"
 limitation:
   note:
-    en: "Get medical attention and report to police as soon as possible — a timely medical report is important evidence, and criminal complaints generally have their own time limits."
-    ne: "सकेसम्म चाँडो उपचार गराई प्रहरीलाई खबर गर्नुहोस् — समयमै बनेको मेडिकल रिपोर्ट महत्वपूर्ण प्रमाण हो, र फौजदारी उजुरीको सामान्यतया आफ्नै हदम्याद हुन्छ।"
-  provision: null
+    en: "For most assaults and maiming, a complaint cannot be filed after 1 year from the offence; for criminal force or threats of force, 3 months (Criminal Code section 199). Report as soon as possible: a prompt medical report is key evidence."
+    ne: "अधिकांश कुटपिट र अङ्गभङ्गमा कसूर भएको मितिले १ वर्ष नाघेपछि उजुर लाग्दैन; आपराधिक बल प्रयोग वा बलको धम्कीमा ३ महिना (अपराध संहिता दफा १९९)। सकेसम्म चाँडो जाहेरी दिनुहोस्: चाँडो लिइएको मेडिकल रिपोर्ट मुख्य प्रमाण हो।"
+  provision:
+    law_title_ne: "मुलुकी अपराध संहिता, २०७४"
+    section: "199"
 next_steps:
   - en: "Seek medical care immediately and keep the report."
     ne: "तुरुन्तै उपचार गराई रिपोर्ट सुरक्षित राख्नुहोस्।"

@@ -20,23 +20,35 @@ provisions:
   - law_title_ne: "विनिमेय अधिकारपत्र ऐन, २०३४"
     section: "65"
     note:
-      en: "A cheque is legally 'dishonoured' when the drawee bank refuses payment because the drawer failed to pay the amount due."
-      ne: "चेकको ड्रयीले भुक्तानी दिनुपर्ने रकम भुक्तानी नदिएमा त्यो चेक कानुनी रूपमा 'अनादर' भएको मानिन्छ।"
+      en: "A cheque counts as dishonoured when the drawer does not pay the amount due on it."
+      ne: "चेकको ड्रयीले भुक्तानी दिनुपर्ने रकमको भुक्तानी नदिएमा चेक अनादर भएको मानिन्छ।"
   - law_title_ne: "बैङ्किङ्ग कसूर तथा सजाय ऐन, २०६४"
     section: "3क"
     note:
-      en: "Issuing a cheque without sufficient balance in the account to cover it is an offence under this Act."
-      ne: "आफ्नो खातामा पर्याप्त रकम मौज्दात नभएको अवस्थामा कसैलाई चेक जारी गर्नु यस ऐन अन्तर्गतको कसूर हो।"
+      en: "No one may issue a cheque when the account has no balance or not enough to pay it. If a returned cheque's holder asks the bank to certify the dishonour, the bank gives the account holder notice of up to 45 days to deposit the money; if the money is still not there after that period, the bank must certify the dishonour within 3 days and return the cheque to you. The account holder can pay the amount at any time and take the cheque back."
+      ne: "खातामा रकम मौज्दात नभएको वा अपर्याप्त भएको अवस्थामा चेक जारी गर्न हुँदैन। फिर्ता भएको चेकको अनादर प्रमाणित गराउन धारकले चाहेमा बैङ्कले खातावालालाई बढीमा ४५ दिनको म्याद दिई रकम जम्मा गर्न सूचना दिन्छ; त्यो अवधिपछि पनि रकम नभए बैङ्कले तीन दिनभित्र चेक अनादर भएको प्रमाणित गरी धारकलाई फिर्ता दिनुपर्छ। खातावालाले जुनसुकै बखत रकम तिरी चेक फिर्ता लिन सक्छ।"
   - law_title_ne: "बैङ्किङ्ग कसूर तथा सजाय ऐन, २०६४"
     section: "15 (1)"
     note:
-      en: "If the cheque's dishonour is proven, the account holder who issued it must pay the cheque holder the amount plus interest from the date the cheque was issued, in addition to any fine/imprisonment."
-      ne: "चेक अनादर भएको प्रमाणित भएमा चेक जारी गर्ने खातावालाले धारकलाई चेकमा उल्लेखित रकम साथै चेक जारी भएको मितिदेखिको ब्याज समेत तिर्नुपर्छ, साथै जरिबाना/कैद हुन्छ।"
+      en: "Once dishonour is certified under section 3क(5), the account holder must pay the cheque holder the amount plus interest from the date the cheque was issued, and is also fined 5 percent of the amount and jailed by the size of the amount: up to 1 month for up to Rs 15 lakh, 1 to 3 months up to Rs 50 lakh, 3 months to 1 year up to Rs 1 crore, 1 to 2 years up to Rs 10 crore, and 2 to 4 years above that."
+      ne: "दफा ३क(५) बमोजिम चेक अनादर भएको प्रमाणित भएपछि चेक जारी गर्ने खातावालाबाट धारकलाई बिगो रकम र चेक जारी गरेको मितिदेखिको ब्याज समेत भराइन्छ, साथै बिगोको ५ प्रतिशत जरिबाना र बिगोअनुसार कैद हुन्छ: १५ लाखसम्म बिगोमा १ महिनासम्म, ५० लाखसम्म १ देखि ३ महिना, १ करोडसम्म ३ महिनादेखि १ वर्ष, १० करोडसम्म १ देखि २ वर्ष, त्योभन्दा माथि २ देखि ४ वर्षसम्म।"
   - law_title_ne: "बैङ्किङ्ग कसूर तथा सजाय ऐन, २०६४"
     section: "17"
     note:
-      en: "A complaint (जाहेरी) must be filed within 1 year of learning of the offence, and the case must reach the designated court within 6 months of that complaint."
-      ne: "कसूर भएको थाहा पाएको मितिले १ वर्षभित्र जाहेरी दिनुपर्छ, र जाहेरी परेको मितिले ६ महिनाभित्र तोकिएको अदालतमा मुद्दा दायर गर्नुपर्छ।"
+      en: "For a bounced cheque, the complaint (jaheri) may be filed within one year of the date the dishonour was certified, and the case must be filed in the concerned District Court within six months of the complaint."
+      ne: "चेक अनादर भएको मुद्दामा अनादर प्रमाणित भएको मितिले एक वर्षभित्र जाहेरी दिन सकिन्छ र जाहेरी परेको मितिले छ महिनाभित्र सम्बन्धित जिल्ला अदालतमा मुद्दा दायर गरिसक्नुपर्छ।"
+  - law_title_ne: "बैङ्किङ्ग कसूर तथा सजाय ऐन, २०६४"
+    section: "26क"
+    note:
+      en: "In a bounced-cheque case, if the accused pays the cheque amount to the holder and both sides agree to settle, the settlement is placed before the government attorney (or the court if the case is filed) and the accused is then not punished under this Act."
+      ne: "चेक अनादरको मुद्दामा प्रतिवादीले चेकमा उल्लेख भएको रकम धारकलाई बुझाई दुवै पक्षले मिलापत्र गर्न चाहेमा सरकारी वकील (मुद्दा दायर भइसकेको भए अदालत) मार्फत मिलापत्र हुन्छ र त्यसपछि प्रतिवादीलाई यस ऐनअन्तर्गत सजाय हुँदैन।"
+exclude_provisions:
+  - law_title_ne: "धनादेश नियमावली, २०३१"
+    section: "3"
+  - law_title_ne: "धनादेश नियमावली, २०३१"
+    section: "4"
+  - law_title_ne: "धनादेश नियमावली, २०३१"
+    section: "15"
 evidence:
   - en: "The original dishonoured cheque"
     ne: "अनादर भएको मूल चेक"
@@ -45,20 +57,20 @@ evidence:
   - en: "Any agreement or invoice the cheque was meant to settle"
     ne: "चेकले तिर्नुपर्ने सम्झौता वा बिल/इनभ्वाइस"
 forum:
-  en: "File a complaint with the police or the court designated by Government of Nepal notice in the Nepal Gazette for banking-offence cases (ask your local police or an advocate which court currently holds this jurisdiction)."
-  ne: "प्रहरी वा बैंकिङ कसूर मुद्दाका लागि नेपाल सरकारले नेपाल राजपत्रमा सूचना प्रकाशन गरी तोकेको अदालतमा उजुरी दिनुहोस् (हाल कुन अदालतको क्षेत्राधिकार हो भनी स्थानीय प्रहरी वा वकिलसँग सोध्नुहोस्)।"
+  en: "Present the cheque to the bank and ask it to certify the dishonour. Then file the complaint (jaheri) with the police; the case is filed in the concerned District Court and the government prosecutes it (sections 17(1क) and 18). If the accused pays the cheque amount, the case can be settled (section 26क). You can also sue in a civil case for the amount (within 5 years)."
+  ne: "चेक बैङ्कमा पेश गरी अनादर प्रमाणित गराउनुहोस्। त्यसपछि प्रहरीमा जाहेरी दिनुहोस्; मुद्दा सम्बन्धित जिल्ला अदालतमा दायर हुन्छ र सरकारवादी हुन्छ (दफा १७(१क) र १८)। प्रतिवादीले चेकको रकम तिरे मिलापत्र हुन सक्छ (दफा २६क)। रकम असुल्न देवानी मुद्दा पनि गर्न सकिन्छ (५ वर्षभित्र)।"
 limitation:
   note:
-    en: "File your complaint (जाहेरी) within 1 year of learning that the cheque was dishonoured, and ensure the case is filed in court within 6 months after that."
-    ne: "चेक अनादर भएको थाहा पाएको मितिले १ वर्षभित्र जाहेरी दिनुहोस्, र त्यसपछि ६ महिनाभित्र अदालतमा मुद्दा दायर भएको सुनिश्चित गर्नुहोस्।"
+    en: "For the criminal route: file the complaint within 1 year of the date the bank certified the dishonour, and the case must be filed in the District Court within 6 months of the complaint (Banking Offence Act s.17(1क)). A civil suit on the cheque must be filed within 5 years of the cause of action (Negotiable Instruments Act s.108). Don't wait: the 45-day bank notice period runs first."
+    ne: "फौजदारी बाटोका लागि: बैङ्कले चेक अनादर प्रमाणित गरेको मितिले १ वर्षभित्र जाहेरी दिनुपर्छ र जाहेरी परेको मितिले ६ महिनाभित्र जिल्ला अदालतमा मुद्दा दायर हुनुपर्छ (बैङ्किङ्ग कसूर तथा सजाय ऐन दफा १७(१क))। चेकमा आधारित देवानी मुद्दा दाबीको कारण परेको मितिले ५ वर्षभित्र दायर गर्नुपर्छ (विनिमेय अधिकारपत्र ऐन दफा १०८)। ढिलो नगर्नुहोस्: बैङ्कको ४५ दिनको सूचना अवधि पहिले चल्छ।"
   provision:
     law_title_ne: "बैङ्किङ्ग कसूर तथा सजाय ऐन, २०६४"
     section: "17"
 next_steps:
-  - en: "Get the bank's official dishonour notice stating the reason (insufficient funds, etc.)."
-    ne: "बैंकबाट अनादरको आधिकारिक सूचना (रकम अपुग आदि कारणसहित) लिनुहोस्।"
-  - en: "Send a written demand to the cheque issuer for payment within a set period."
-    ne: "चेक जारी गर्नेलाई निश्चित समयभित्र भुक्तानी गर्न माग गर्दै लिखित पत्र पठाउनुहोस्।"
-  - en: "If still unpaid, file a complaint with the police/designated court with your evidence, well within the 1-year window."
-    ne: "अझै भुक्तानी नभए, १ वर्षको म्यादभित्रै प्रमाणसहित प्रहरी/तोकिएको अदालतमा उजुरी दिनुहोस्।"
+  - en: "Present the cheque to the bank; when it is returned unpaid, ask the bank to certify the dishonour (the bank gives the account holder up to 45 days' notice to deposit the money, then certifies within 3 days if it is still unpaid)."
+    ne: "चेक बैङ्कमा पेश गर्नुहोस्; भुक्तानी नभई फिर्ता भएमा अनादर प्रमाणित गरिदिन बैङ्कलाई अनुरोध गर्नुहोस् (बैङ्कले खातावालालाई बढीमा ४५ दिन म्याद दिई सूचना दिन्छ, त्यसपछि पनि रकम नभए ३ दिनभित्र प्रमाणित गर्छ)।"
+  - en: "Send a written demand to the cheque issuer for payment within a set period; keep the original cheque and the bank's certificate."
+    ne: "चेक जारीकर्तालाई निश्चित अवधिभित्र भुक्तानी माग गर्ने लिखित पत्र पठाउनुहोस्; मूल चेक र बैङ्कको प्रमाणित पत्र सुरक्षित राख्नुहोस्।"
+  - en: "If still unpaid, file the complaint with the police within 1 year of the bank's certification, so the District Court case can be filed within 6 months of the complaint."
+    ne: "अझै भुक्तानी नभए बैङ्कले प्रमाणित गरेको मितिले १ वर्षभित्र प्रहरीमा जाहेरी दिनुहोस्, ताकि जाहेरी परेको ६ महिनाभित्र जिल्ला अदालतमा मुद्दा दायर हुन सकोस्।"
 template_link: null

@@ -18,18 +18,23 @@ provisions:
   - law_title_ne: "मुलुकी देवानी संहिता, २०७४"
     section: "115"
     note:
-      en: "When a marriage ends, the law sets out which parent a child under a certain age stays with — a child under 5 generally stays with the mother unless specific exceptions apply."
-      ne: "वैवाहिक सम्बन्ध अन्त्य भएपछि सन्तान कुन अभिभावकको जिम्मामा रहने भन्ने कानूनले तोकेको छ — ५ वर्षमुनिको नाबालक विशेष अपवाद बाहेक सामान्यतया आमाको जिम्मामा रहन्छ।"
+      en: "A written agreement between the parents on custody prevails. Without one, the rule differs by situation. After a legal divorce: a child under 5 goes to the mother if she wants; a child of 5 or older goes to the mother if she wants and has not remarried, otherwise to the father. If the parents only live apart (no divorce): a child under 5 stays with the mother, a child from 5 up to under 10 with the father, and a child of 10 or older with the parent the child agrees to live with. For a child of 10 or more the child's opinion may be taken."
+      ne: "आमा बाबुबीच लिखित सहमति भएमा सोही बमोजिम हुन्छ। सहमति नभए अवस्था अनुसार फरक हुन्छ। कानून बमोजिम सम्बन्ध विच्छेद भएको अवस्थामा: पाँच वर्ष पूरा नभएको नाबालक आमाले चाहेमा आमाको जिम्मा; पाँच वर्ष वा माथिको नाबालक आमाले चाहेमा र अर्को विवाह नगरेको भए आमाको जिम्मा, नत्र बाबुको जिम्मा। सम्बन्ध विच्छेद नभई भिन्न बसेको अवस्थामा: पाँच वर्ष नपुगेको नाबालक आमाको, पाँच वर्ष वा माथि दश वर्ष नपुगेको नाबालक बाबुको र दश वर्ष पूरा भएको नाबालक जोसँग बस्न मञ्जुर गर्छ उसको जिम्मा। दश वर्ष पूरा भएको नाबालकको राय लिन सकिन्छ।"
   - law_title_ne: "मुलुकी देवानी संहिता, २०७४"
     section: "116"
     note:
-      en: "The parent who has custody must properly care for and look after the child."
-      ne: "जिम्मा लिएको अभिभावकले सन्तानको उचित हेरचाह र स्याहार सम्भार गर्नुपर्छ।"
+      en: "The parent who takes custody must look after the child. If the other parent earns more than the parent with custody, that parent must provide money for the child's upkeep, education and medical care as agreed, or as the court decides if they cannot agree."
+      ne: "जिम्मा लिने आमा वा बाबुले नाबालकको हेरचाह र स्याहार सम्भार गर्नुपर्छ। जिम्मा नलिने आमा वा बाबुको आम्दानी बढी भए निजले नाबालकको पालनपोषण, शिक्षा र उपचारका लागि सहमति बमोजिम, सहमति नभए अदालतले तोके बमोजिम खर्च उपलब्ध गराउनुपर्छ।"
   - law_title_ne: "मुलुकी देवानी संहिता, २०७४"
     section: "117"
     note:
-      en: "The parent who doesn't have custody is entitled to visitation — periodic meetings with the child, or the child staying with them for a period with the other parent's agreement."
-      ne: "जिम्मा नपाएको अभिभावकले भेटघाटको सुविधा पाउँछ — सन्तानसँग समय समयमा भेट्ने, वा अर्को अभिभावकको सहमतिमा केही अवधि सँगै राख्ने।"
+      en: "The parent without custody has the right to meet the child from time to time, or to have the child stay for some period with the other parent's agreement. The parents fix how often; if they cannot agree, the District Court decides. The District Court may stop the meetings or stays if they would harm the child's interest."
+      ne: "जिम्मा नभएको आमा वा बाबुले नाबालकलाई समय समयमा भेट्न वा आमा बाबुको सहमतिमा केही अवधि साथमा राख्न पाउँछ। पटक वा अवधि आमा बाबुले तय गर्छन्, नमिले सम्बन्धित जिल्ला अदालतले तोक्छ। नाबालकको हित प्रतिकूल हुने देखिए जिल्ला अदालतले भेटघाट वा साथमा राख्न रोक लगाउन सक्छ।"
+  - law_title_ne: "बालबालिका सम्बन्धी ऐन, २०७५"
+    section: "16"
+    note:
+      en: "In every action involving children, the child's best interest comes first. When deciding who will care for and raise the children after the parents' divorce, the officials and the Child Court must follow the prescribed best-interest determination process (sub-section 3)."
+      ne: "बालबालिकासँग सम्बन्धित हरेक काम कारबाहीमा बालबालिकाको सर्वोत्तम हितलाई प्राथमिकता दिनुपर्छ। बाबुआमाको सम्बन्ध विच्छेद भई छोराछोरीको हेरचाह र पालनपोषण कसले गर्ने भन्ने निर्णय गर्दा तोकिए बमोजिमको उच्चतम हित निर्धारण प्रक्रिया अपनाउनुपर्छ (उपदफा ३)।"
 evidence:
   - en: "Marriage/divorce documentation, if applicable"
     ne: "विवाह/सम्बन्ध विच्छेदको कागजात, लागू भए"
@@ -38,18 +43,20 @@ evidence:
   - en: "Any evidence relevant to the child's best interest (living situation, schooling, care arrangements)"
     ne: "सन्तानको हितसँग सम्बन्धित प्रमाण (बसोबास, पढाइ, हेरचाहको व्यवस्था)"
 forum:
-  en: "The District Court, usually alongside a divorce proceeding if one is happening."
-  ne: "जिल्ला अदालत, सामान्यतया सम्बन्ध विच्छेद प्रक्रियासँगै भइरहेको भए सोही साथ।"
+  en: "The District Court. A divorce petition is filed in the District Court (section 96); visiting arrangements and child-support are fixed by the District Court if the parents cannot agree (sections 116 and 117). Agree between yourselves in writing first if you can - a written agreement on custody prevails under section 115."
+  ne: "जिल्ला अदालत। सम्बन्ध विच्छेदको निवेदन जिल्ला अदालतमा दिइन्छ (दफा ९६); आमा बाबु नमिले भेटघाट र नाबालकको खर्च जिल्ला अदालतले तोक्छ (दफा ११६ र ११७)। सम्भव भए पहिले आपसमा लिखित सहमति गर्नुहोस् - दफा ११५ अनुसार कस्टडीबारे लिखित सहमति नै लागू हुन्छ।"
 limitation:
   note:
-    en: "There's no fixed filing deadline for custody itself, but resolve it promptly for the child's stability — consult an advocate as soon as separation happens."
-    ne: "संरक्षणको लागि आफैमा निश्चित म्याद छैन, तर सन्तानको स्थिरताका लागि चाँडै समाधान गर्नुहोस् — छुट्टिनासाथ वकिलसँग सल्लाह लिनुहोस्।"
-  provision: null
+    en: "The Code has a six-month suit deadline for claims under the parent-child chapter (section 123), counted from the act complained of. It is not clear how this applies to a custody claim, and the Code has no separate custody-petition provision, so do not wait: see an advocate as soon as separation happens."
+    ne: "संहिताको आमा बाबु तथा छोरा छोरीसम्बन्धी परिच्छेदमा नालिस गर्ने छ महिनाको हदम्याद छ (दफा १२३), जुन गरिएको कामकारबाही भएको मितिबाट गनिन्छ। यो हदम्याद जिम्मा (कस्टडी) को दाबीमा कसरी लागू हुन्छ स्पष्ट छैन, र संहितामा कस्टडीको छुट्टै निवेदनको व्यवस्था छैन, त्यसैले ढिलो नगर्नुहोस्: भिन्न बस्ने बित्तिकै वकिलसँग सल्लाह लिनुहोस्।"
+  provision:
+    law_title_ne: "मुलुकी देवानी संहिता, २०७४"
+    section: "123"
 next_steps:
-  - en: "Try to agree on a custody and visitation arrangement directly if possible."
-    ne: "सम्भव भए सिधै संरक्षण र भेटघाटको व्यवस्थामा सहमति जनाउने प्रयास गर्नुहोस्।"
-  - en: "If not, raise custody as part of your divorce petition or a separate application at the District Court."
-    ne: "नभए, सम्बन्ध विच्छेद निवेदनको भागको रूपमा वा जिल्ला अदालतमा छुट्टै निवेदनद्वारा संरक्षणको विषय उठाउनुहोस्।"
-  - en: "Keep the child's routine (school, home) as stable as possible during the process."
-    ne: "प्रक्रियाको क्रममा सन्तानको दैनिकी (पढाइ, घर) सकेसम्म स्थिर राख्नुहोस्।"
+  - en: "Try to agree on custody, visits and the child's expenses in writing (a written agreement prevails under section 115), keeping the child's best interest first."
+    ne: "कस्टडी, भेटघाट र नाबालकको खर्चबारे आपसमा लिखित सहमति गर्ने प्रयास गर्नुहोस् (दफा ११५ अनुसार लिखित सहमति लागू हुन्छ), नाबालकको हितलाई पहिलो स्थान दिनुहोस्।"
+  - en: "If you cannot agree, ask an advocate how to bring the custody, visiting and expense questions to the District Court, alongside a divorce petition if one is being filed."
+    ne: "सहमति हुन नसके कस्टडी, भेटघाट र खर्चको प्रश्न जिल्ला अदालतमा कसरी ल्याउने (सम्बन्ध विच्छेदको निवेदनसँगै भए त्यसैसँग) भन्नेबारे वकिलसँग सल्लाह लिनुहोस्।"
+  - en: "Keep the child's routine (school, home) as stable as possible and keep records of who has been caring for the child."
+    ne: "नाबालकको दैनिकी (विद्यालय, घर) यथासम्भव स्थिर राख्नुहोस् र नाबालकको हेरचाह कसले गरेको छ भन्ने अभिलेख राख्नुहोस्।"
 template_link: null

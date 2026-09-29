@@ -18,8 +18,18 @@ provisions:
   - law_title_ne: "मुलुकी अपराध संहिता, २०७४"
     section: "173"
     note:
-      en: "No one may marry, or cause to be married, a person under 20 years of age. A marriage in violation of this is automatically void, and the person responsible faces up to 3 years' imprisonment and a fine of up to Rs 30,000."
-      ne: "२० वर्ष नपुगेको व्यक्तिको विवाह गर्न वा गराउन पाइँदैन। यस विपरीतको विवाह स्वतः बदर हुन्छ, र जिम्मेवार व्यक्तिलाई ३ वर्षसम्म कैद र ३०,००० रुपैयाँसम्म जरिबाना हुन्छ।"
+      en: "No one may marry, or arrange the marriage of, a person who has not completed 20 years of age. A marriage in breach is void automatically, and whoever commits the offence faces up to 3 years' imprisonment and a fine of up to Rs 30,000."
+      ne: "२० वर्ष उमेर नपुगी कसैले विवाह गर्न वा गराउन हुँदैन। यस विपरीतको विवाह स्वतः बदर हुन्छ, र कसूर गर्ने व्यक्तिलाई ३ वर्षसम्म कैद र ३०,००० रुपैयाँसम्म जरिबाना हुन्छ।"
+  - law_title_ne: "मुलुकी अपराध संहिता, २०७४"
+    section: "176"
+    note:
+      en: "For offences in this chapter (including child marriage), a complaint cannot be filed once three months have passed from the date you learned of the offence."
+      ne: "यस परिच्छेदअन्तर्गतको कसूर (बाल विवाह समेत) मा कसूर भए गरेको कुरा थाहा पाएको मितिले तीन महिना नाघेपछि उजुर लाग्दैन।"
+exclude_provisions:
+  - law_title_ne: "नेपाल स्वास्थ्य सेवा नियमावली, २०५५"
+    section: "116"
+  - law_title_ne: "संघीय संसद सचिवालय कर्मचारी प्रशासन नियमावली, २०६५"
+    section: "116"
 evidence:
   - en: "Age proof of the person being married (birth certificate, citizenship application)"
     ne: "विवाह गरिने व्यक्तिको उमेरको प्रमाण (जन्म दर्ता प्रमाणपत्र, नागरिकताको निवेदन)"
@@ -28,18 +38,20 @@ evidence:
   - en: "Names of people involved and organizing the marriage"
     ne: "विवाह गराउने र संलग्न व्यक्तिको नाम"
 forum:
-  en: "The nearest Police Office, or the local ward office, which can intervene to stop a planned child marriage."
-  ne: "नजिकैको प्रहरी कार्यालय, वा स्थानीय वडा कार्यालय, जसले योजना गरिएको बाल विवाह रोक्न हस्तक्षेप गर्न सक्छ।"
+  en: "The nearest Police Office (child marriage is a criminal offence under section 173 of the Criminal Code) and the local child welfare officer under the Children Act, who can act to protect the child."
+  ne: "नजिकैको प्रहरी कार्यालय (बाल विवाह अपराध संहिता दफा १७३ अनुसार फौजदारी कसूर हो) र बालबालिका सम्बन्धी ऐन अन्तर्गतका स्थानीय बालकल्याण अधिकारी, जसले बालबालिकाको संरक्षणका लागि कारबाही गर्न सक्छन्।"
 limitation:
   note:
-    en: "If a marriage is still being planned, report immediately so it can be stopped before it happens — once it has happened, report as soon as possible."
-    ne: "विवाह अझै योजनामा भए, हुनुअघि रोक्न तुरुन्तै जानकारी दिनुहोस् — भइसकेको भए पनि सकेसम्म चाँडो जानकारी दिनुहोस्।"
-  provision: null
+    en: "A complaint about a child marriage must be filed within three months of the date you learned of the offence (Criminal Code section 176); after that the complaint is barred. If the marriage is still only planned, report immediately so it can be stopped before it happens."
+    ne: "बाल विवाहको उजुरी कसूर भएको कुरा थाहा पाएको मितिले तीन महिनाभित्र दिनुपर्छ (अपराध संहिता दफा १७६); त्यसपछि उजुर लाग्दैन। विवाह अझै योजनामा मात्र छ भने हुनुअघि रोक्न तुरुन्तै जानकारी दिनुहोस्।"
+  provision:
+    law_title_ne: "मुलुकी अपराध संहिता, २०७४"
+    section: "176"
 next_steps:
-  - en: "If the marriage is imminent, contact the police or ward office immediately to try to stop it."
-    ne: "विवाह नजिकै भए तुरुन्तै रोक्न प्रहरी वा वडा कार्यालयलाई सम्पर्क गर्नुहोस्।"
+  - en: "If the marriage is imminent, contact the police or the local child welfare officer immediately to try to stop it."
+    ne: "विवाह नजिकै भए रोक्न तुरुन्तै प्रहरी वा स्थानीय बालकल्याण अधिकारीलाई सम्पर्क गर्नुहोस्।"
   - en: "Gather age proof and details of who is involved."
     ne: "उमेरको प्रमाण र संलग्न व्यक्तिको विवरण जम्मा गर्नुहोस्।"
-  - en: "File a report with the police so the marriage can be declared void and those responsible held accountable."
-    ne: "विवाह बदर र जिम्मेवार व्यक्तिलाई जवाफदेही बनाउन प्रहरीमा उजुरी दिनुहोस्।"
+  - en: "File a complaint with the police within three months of learning of the marriage, so those responsible can be prosecuted and the marriage treated as void."
+    ne: "विवाहबारे थाहा पाएको तीन महिनाभित्र प्रहरीमा उजुरी दिनुहोस्, ताकि जिम्मेवार व्यक्तिलाई कारबाही हुन सकोस् र विवाह बदर मानियोस्।"
 template_link: null

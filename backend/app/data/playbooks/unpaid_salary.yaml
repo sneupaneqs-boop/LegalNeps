@@ -22,13 +22,13 @@ provisions:
   - law_title_ne: "श्रम ऐन, २०७४"
     section: "34"
     note:
-      en: "Every worker is entitled to remuneration and benefits from the date work starts, not less than what the Act and its regulations prescribe."
-      ne: "हरेक श्रमिकले काम शुरु गरेको मितिदेखि पारिश्रमिक तथा सुविधा पाउने अधिकार हुन्छ, ऐन र नियमले तोकेभन्दा कम हुन पाउँदैन।"
+      en: "Every worker is entitled to pay and benefits from the day work starts, as stated in the employment contract but never less than the Act and rules require. Pay and benefits the worker has been getting cannot be reduced, except under a collective agreement."
+      ne: "प्रत्येक श्रमिकले काम शुरु गरेको मितिदेखि पारिश्रमिक तथा सुविधा पाउँछ, जुन रोजगार सम्झौतामा उल्लेख भए बमोजिम हुन्छ तर ऐन र नियममा तोकिएभन्दा कम हुँदैन। सामूहिक सम्झौतामा उल्लेख भएको अवस्थामा बाहेक श्रमिकले खाईपाई आएको पारिश्रमिक तथा सुविधा घटाउन पाइँदैन।"
   - law_title_ne: "श्रम ऐन, २०७४"
     section: "162"
     note:
-      en: "A worker harmed by a violation of this Act may file a complaint with the deciding authority (Department/Labour Office) within 6 months of the violation."
-      ne: "यो ऐन विपरीत कार्यबाट मर्का परेको श्रमिकले सो कार्य भएको मितिले ६ महिनाभित्र सम्बन्धित निकाय (विभाग/श्रम कार्यालय) समक्ष उजुरी दिन सक्छ।"
+      en: "A person harmed by a breach of the Labour Act or its rules (or their trade union, with written consent) can complain to the body that decides under section 163 or 164 within six months of the act complained of."
+      ne: "श्रम ऐन वा नियम विपरीत कार्य गरेमा सो कार्यबाट मर्का पर्ने पक्षले (वा निजको लिखित मञ्जुरीमा ट्रेड युनियनले) सो कार्य भए गरेको मितिले छ महिनाभित्र दफा १६३ वा १६४ बमोजिम निर्णय गर्ने निकाय समक्ष उजुरी दिन सक्छ।"
 evidence:
   - en: "Appointment letter, ID card, or any proof of employment"
     ne: "नियुक्तिपत्र, परिचयपत्र, वा रोजगारीको अन्य कुनै प्रमाण"
@@ -37,20 +37,20 @@ evidence:
   - en: "Any written or message-based communication with the employer about the unpaid salary"
     ne: "तलब नपाएको बारेमा रोजगारदातासँग भएको लिखित वा म्यासेजमार्फतको कुराकानी"
 forum:
-  en: "The Labour Office (श्रम कार्यालय) for your district; unresolved cases go to the Labour Court, with further appeal to the Supreme Court."
-  ne: "आफ्नो जिल्लाको श्रम कार्यालय; समाधान नभएमा श्रम अदालतमा जान सकिन्छ, र त्यसपछि सर्वोच्च अदालतमा पुनरावेदन गर्न सकिन्छ।"
+  en: "Step by step under the Labour Act: first a written claim to your employer (section 113); then the Labour Office (श्रम कार्यालय) of your district for mediation and, failing that, a decision (sections 114-115, 163); appeal to the Labour Court within 35 days (section 165), and from the Labour Court's first-instance decisions to the Supreme Court within 35 days (section 161)."
+  ne: "श्रम ऐन बमोजिम क्रमैसँग: पहिले रोजगारदातालाई लिखित दाबी (दफा ११३); त्यसपछि जिल्लाको श्रम कार्यालयमा मेलमिलाप र नभए निर्णयका लागि (दफा ११४-११५, १६३); ३५ दिनभित्र श्रम अदालतमा पुनरावेदन (दफा १६५), र श्रम अदालतको शुरु निर्णय उपर ३५ दिनभित्र सर्वोच्च अदालतमा पुनरावेदन (दफा १६१)।"
 limitation:
   note:
-    en: "File your complaint within 6 months of the date the salary became due — after that, the Labour Office may refuse to accept it."
-    ne: "तलब तिर्नुपर्ने मितिले ६ महिनाभित्र उजुरी दिनुहोस् — त्यसपछि श्रम कार्यालयले उजुरी नलिन सक्छ।"
+    en: "File your complaint within 6 months of the act complained of (Labour Act section 162) - for unpaid pay, count from the date the pay fell due. Appeals against the Labour Office's decision go to the Labour Court within 35 days (section 165)."
+    ne: "उजुरी सो कार्य भए गरेको मितिले ६ महिनाभित्र दिनुपर्छ (श्रम ऐन दफा १६२) - तलब नपाएको भए भुक्तानी गर्नुपर्ने मितिबाट गन्नुहोस्। श्रम कार्यालयको निर्णय उपर श्रम अदालतमा ३५ दिनभित्र पुनरावेदन गर्न सकिन्छ (दफा १६५)।"
   provision:
     law_title_ne: "श्रम ऐन, २०७४"
     section: "162"
 next_steps:
-  - en: "Write a formal demand letter to your employer stating the amount owed and a deadline to pay."
-    ne: "रोजगारदातालाई बाँकी रकम र भुक्तानीको म्याद उल्लेख गरी औपचारिक माग पत्र लेख्नुहोस्।"
-  - en: "If unpaid after the deadline, file a written complaint at the Labour Office with your evidence."
-    ne: "म्याद नाघेपछि पनि तलब नपाएमा, प्रमाणसहित श्रम कार्यालयमा लिखित उजुरी दर्ता गर्नुहोस्।"
-  - en: "The Labour Office/Department will investigate and can order payment; if it doesn't resolve the matter, escalate to the Labour Court."
-    ne: "श्रम कार्यालय/विभागले जाँचबुझ गरी भुक्तानीको आदेश दिन सक्छ; समाधान नभएमा श्रम अदालतमा उजुर गर्नुहोस्।"
+  - en: "Give your employer a written claim stating the amount owed and get a receipt for it; the employer must discuss it within 15 days."
+    ne: "रोजगारदातालाई बाँकी रकम खुलाई लिखित दाबी दिनुहोस् र निस्सा लिनुहोस्; रोजगारदाताले १५ दिनभित्र छलफल गर्नुपर्छ।"
+  - en: "If the employer does not call a discussion within 7 days or you cannot agree, apply to the Labour Office with your evidence (contract, pay slips, bank records), within 6 months of the pay falling due."
+    ne: "रोजगारदाताले ७ दिनभित्र छलफल नबोलाएमा वा सहमति नभएमा प्रमाण (सम्झौता, तलब पर्ची, बैङ्क विवरण) सहित तलब भुक्तानी गर्नुपर्ने मितिले ६ महिनाभित्र श्रम कार्यालयमा निवेदन दिनुहोस्।"
+  - en: "The Labour Office will try mediation (21 days) and then decide (15 days); if you disagree with its decision, appeal to the Labour Court within 35 days."
+    ne: "श्रम कार्यालयले मेलमिलाप (२१ दिन) र त्यसपछि निर्णय (१५ दिन) गर्छ; निर्णयमा चित्त नबुझे ३५ दिनभित्र श्रम अदालतमा पुनरावेदन गर्नुहोस्।"
 template_link: null

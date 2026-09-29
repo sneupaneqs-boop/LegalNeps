@@ -17,15 +17,27 @@ fact_questions:
     ne: "सीमाना कहिल्यै आधिकारिक रूपमा पुनः नापिएको छ?"
 provisions:
   - law_title_ne: "जग्गा (नाप जाँच) ऐन, २०१९"
-    section: "5"
-    note:
-      en: "This Act governs how boundaries are officially marked and demarcated during a government land survey — the basis for requesting a re-survey of a disputed boundary."
-      ne: "यस ऐनले सरकारी जग्गा नापीको क्रममा सीमाना आधिकारिक रूपमा कसरी छुट्याइन्छ भन्ने व्यवस्था गर्छ — विवादित सीमानाको पुनः नापको लागि माग गर्ने आधार यही हो।"
-  - law_title_ne: "जग्गा (नाप जाँच) ऐन, २०१९"
     section: "8"
     note:
-      en: "After survey, the landowner receives an official registration certificate (दर्ता पूर्जा) reflecting the surveyed boundaries."
-      ne: "नापपछि जग्गावालाले नापिएको सीमाना उल्लेख भएको आधिकारिक दर्ता पूर्जा पाउँछ।"
+      en: "After the survey the landowner gets a land ownership registration certificate. A person who is unhappy with the certificate can object, with reasons, to the authorised officer within 60 days of receiving it (or of distribution starting in the area)."
+      ne: "नाप जाँच र दर्ताश्रेस्ता तयार भएपछि जग्गाधनीलाई जग्गाधनी दर्ताप्रमाण पूर्जा दिइन्छ। पूर्जामा चित्त नबुझ्ने व्यक्तिले पूर्जा पाएको (वा वितरण प्रारम्भ भएको) मितिले साठी दिनभित्र कारण सहित तोकिएको अधिकारी समक्ष उजूर गर्न सक्छ।"
+  - law_title_ne: "स्थानीय सरकार सञ्‍चालन ऐन, २०७४"
+    section: "47 (2)"
+    note:
+      en: "Where one person has pressed onto, encroached on or swallowed another person's land (other than government, public or community land), or built on someone else's land without right, the local level's Judicial Committee can settle the dispute, by mediation only. Either party may instead go straight to court. Where no other time limit exists, the application to the Judicial Committee must be made within 35 days of the act."
+      ne: "सरकारी, सार्वजनिक वा सामुदायिक बाहेक एकाको हकको जग्गा अर्कोले चापी, मिची वा घुसाई खाएको वा हक नपुग्ने अरुको जग्गामा घर वा संरचना बनाएको विवादमा स्थानीय तहको न्यायिक समितिले मेलमिलापको माध्यमबाट मात्र निरूपण गर्न सक्छ। पक्षले चाहेमा सिधै अदालतमा मुद्दा दायर गर्न सक्छ। अन्य हदम्याद नतोकिएकोमा काम भए गरेको मितिले ३५ दिनभित्र न्यायिक समितिमा निवेदन दिनुपर्छ।"
+  - law_title_ne: "मुलुकी देवानी संहिता, २०७४"
+    section: "287"
+    note:
+      en: "No one may occupy or use land that is in another person's right, possession and ownership without that person's consent."
+      ne: "कसैले पनि अन्य व्यक्तिको हक, भोग र स्वामित्वको जग्गा निजको मञ्जुरी नलिई आवाद गर्न वा भोगचलन गर्न वा गराउन हुँदैन।"
+exclude_provisions:
+  - law_title_ne: "जग्गा (नाप जाँच) ऐन, २०१९"
+    section: "5"
+  - law_title_ne: "जग्गा (नाप जाँच) नियमावली, २०५८"
+    section: "8"
+  - law_title_ne: "विर्ता उन्मुलन नियमावली, २०१७"
+    section: "10"
 evidence:
   - en: "Your land ownership certificate (लालपुर्जा) and any survey map"
     ne: "जग्गाको लालपुर्जा र नापी नक्सा, यदि उपलब्ध छ भने"
@@ -34,18 +46,20 @@ evidence:
   - en: "Any earlier correspondence with the neighbour or local office about the boundary"
     ne: "सीमानाबारे छिमेकी वा स्थानीय कार्यालयसँग भएको पहिलेको पत्राचार"
 forum:
-  en: "The Land Survey Office (नापी कार्यालय) or Land Revenue Office (मालपोत कार्यालय) for a re-survey; if the dispute isn't resolved administratively, a civil suit can be filed at the District Court."
-  ne: "पुनः नापको लागि नापी कार्यालय वा मालपोत कार्यालय; प्रशासनिक रूपमा समाधान नभएमा जिल्ला अदालतमा देवानी मुद्दा दायर गर्न सकिन्छ।"
+  en: "Start with the local level (municipality or rural municipality) Judicial Committee, which mediates encroachment disputes (Local Government Operation Act section 47(2)); you can also go straight to the District Court. For errors in the survey record or the ownership certificate, go to the Land Survey Office / Land Revenue Office within 60 days of receiving the certificate."
+  ne: "पहिले स्थानीय तह (नगरपालिका/गाउँपालिका) को न्यायिक समितिमा जानुहोस्, जसले जग्गा मिचेको विवाद मेलमिलापद्वारा निरूपण गर्छ (स्थानीय सरकार सञ्चालन ऐन दफा ४७(२)); सिधै जिल्ला अदालतमा पनि जान सकिन्छ। नापी अभिलेख वा दर्ता प्रमाणपूर्जामा त्रुटि भए पूर्जा पाएको ६० दिनभित्र नापी कार्यालय / मालपोत कार्यालयमा जानुहोस्।"
 limitation:
   note:
-    en: "There is no single fixed deadline for requesting a boundary re-survey, but any civil suit over the dispute must be filed within the limitation period the law sets for that type of claim — consult an advocate promptly."
-    ne: "सीमाना पुनः नापको लागि एउटै निश्चित म्याद छैन, तर विवादसम्बन्धी देवानी मुद्दा कानुनले तोकेको हदम्यादभित्रै दायर गर्नुपर्छ — चाँडै वकिलसँग सल्लाह लिनुहोस्।"
-  provision: null
+    en: "Two time limits matter. A suit over someone occupying or using your land without consent (Civil Code section 287) must be filed within 6 months of when you learned of it (section 298). A request to the local Judicial Committee must be made within 35 days of the act if no other limit applies (Local Government Operation Act section 47(4)). If the dispute is over the survey record itself, an objection to the ownership certificate must be made within 60 days of receiving it (Land Survey Act section 8). It is not clear which limit applies to your facts, so act fast."
+    ne: "दुई हदम्याद ध्यान दिनुपर्छ। तपाईंको जग्गा अरुले मञ्जुरी बिना आवाद वा भोगचलन गरेको (देवानी संहिता दफा २८७) मुद्दा थाहा पाएको मितिले ६ महिनाभित्र दायर गर्नुपर्छ (दफा २९८)। स्थानीय तहको न्यायिक समितिमा निवेदन अन्य हदम्याद नभए काम भएको मितिले ३५ दिनभित्र दिनुपर्छ (स्थानीय सरकार सञ्चालन ऐन दफा ४७(४))। नापी अभिलेखमै विवाद भए जग्गाधनी दर्ताप्रमाण पूर्जामा उजूर पूर्जा पाएको ६० दिनभित्र दिनुपर्छ (जग्गा (नाप जाँच) ऐन दफा ८)। तपाईंको अवस्थामा कुन म्याद लाग्छ स्पष्ट छैन, त्यसैले चाँडो कारबाही गर्नुहोस्।"
+  provision:
+    law_title_ne: "मुलुकी देवानी संहिता, २०७४"
+    section: "298"
 next_steps:
-  - en: "Gather your ownership documents and try to discuss the boundary with your neighbour first."
-    ne: "आफ्ना स्वामित्व कागजात जम्मा गरी पहिले छिमेकीसँग सीमानाबारे कुराकानी गर्ने प्रयास गर्नुहोस्।"
-  - en: "If unresolved, apply to the Land Survey/Revenue Office for an official re-survey."
-    ne: "समाधान नभएमा आधिकारिक पुनः नापका लागि नापी/मालपोत कार्यालयमा निवेदन दिनुहोस्।"
-  - en: "If still unresolved, consult an advocate about filing a civil suit."
-    ne: "अझै समाधान नभए देवानी मुद्दा दायर गर्न वकिलसँग सल्लाह लिनुहोस्।"
+  - en: "Gather your ownership certificate (lalpurja), survey map and photos, and try to discuss the boundary with your neighbour first."
+    ne: "जग्गाधनी पूर्जा (लालपुर्जा), नापी नक्सा र फोटो जम्मा गर्नुहोस् र पहिले छिमेकीसँग सीमानाबारे कुरा गर्नुहोस्।"
+  - en: "If your neighbour has occupied part of your land, apply to your local level's Judicial Committee for mediation (35 days if no other limit applies), or ask an advocate about going straight to the District Court (6 months from when you learned of it)."
+    ne: "छिमेकीले तपाईंको जग्गा मिचेको छ भने स्थानीय तहको न्यायिक समितिमा मेलमिलापका लागि निवेदन दिनुहोस् (अन्य हदम्याद नभए ३५ दिनभित्र), वा सिधै जिल्ला अदालत जानेबारे वकिलसँग सोध्नुहोस् (थाहा पाएको ६ महिनाभित्र)।"
+  - en: "If the problem is a wrong entry in the survey record or your registration certificate, object to the Land Survey / Land Revenue Office within 60 days of getting the certificate."
+    ne: "समस्या नापी अभिलेख वा दर्ता प्रमाणपूर्जाको गलत विवरणमा हो भने पूर्जा पाएको ६० दिनभित्र नापी / मालपोत कार्यालयमा उजूर गर्नुहोस्।"
 template_link: null

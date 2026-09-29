@@ -17,15 +17,40 @@ fact_questions:
     ne: "घरबेटीले तपाईंलाई कुनै लिखित सूचना दिनुभएको छ, र कति समय दिनुभयो?"
 provisions:
   - law_title_ne: "मुलुकी देवानी संहिता, २०७४"
-    section: "400"
+    section: "401"
     note:
-      en: "A tenant may leave before the tenancy term ends if the landlord fails to fulfil their own legal duties — this cuts both ways: a landlord also can't force you out outside the legally allowed grounds and process."
-      ne: "घरधनीले आफ्नो दायित्व पूरा नगरेमा बहालवालाले अवधि नसकिँदै घर छाड्न सक्छ — यसको अर्थ घरधनीले पनि कानुनी आधार र प्रक्रिया बाहिर गएर घर खाली गराउन सक्दैन भन्ने हो।"
+      en: "A landlord may remove a tenant only on the grounds listed: the tenant has not performed their duties (e.g. not paying rent on time); the tenant carries out a criminal activity in the house; the landlord himself needs the house; the house must be emptied for repair; the house is technically or medically unfit to live in; the rental term has ended; or the tenant breached the agreement or the tenancy chapter (or misuse of a sub-let under section 395(5)). If the ground is the landlord's own need, at least 35 days' advance WRITTEN notice must be given, and the landlord cannot rent the house to anyone else for three months (and if he does within that time, the removed tenant gets priority). The text does not spell out a notice period for the other grounds, or how removal is carried out."
+      ne: "घरधनीले यी अवस्थामा मात्र बहालवालालाई हटाउन सक्छ: बहालवालाले आफ्नो दायित्व (जस्तै समयमा बहाल तिर्ने) पूरा नगरेमा; घरभित्र कसूरजन्य क्रियाकलाप गरेमा; घरधनी आफैँलाई घर आवश्यक भएमा; मर्मत सम्भारका लागि मानिस हटाउनुपरेमा; प्राविधिक वा स्वास्थ्यका दृष्टिले बसोबासको लागि अनुपयुक्त भएमा; बहालको अवधि समाप्त भएमा; सम्झौता वा यस परिच्छेद विपरीत काम गरेमा (वा दफा ३९५(५) अनुसार पुनः बहालमा राख्दा शर्त उल्लङ्घन)। घरधनी आफैँलाई घर आवश्यक भएको आधारमा हटाउँदा कम्तीमा ३५ दिनको अग्रिम लिखित सूचना दिनुपर्छ, र तीन महिनासम्म आफूले प्रयोग नगरी अरुलाई बहालमा दिन पाउँदैन (तीन महिनाभित्र दिने भए हटाइएको बहालवालाले प्राथमिकता पाउँछ)। अन्य आधारमा सूचनाको अवधि वा हटाउने तरिका पाठमा खुलाइएको छैन।"
+  - law_title_ne: "मुलुकी देवानी संहिता, २०७४"
+    section: "402"
+    note:
+      en: "The tenancy agreement ends when the tenant leaves, when the landlord removes the tenant (on the legal grounds), when both agree to cancel it, or when the term ends."
+      ne: "बहालमा लिने व्यक्तिले घर छाडेमा, घरधनीले बहालमा बस्ने व्यक्तिलाई घरबाट हटाएमा, दुवै पक्षले आपसी सहमतिमा सम्झौता रद्द गरेमा वा बहालको अवधि समाप्त भएमा घर बहालको सम्झौता समाप्त भएको मानिन्छ।"
+  - law_title_ne: "मुलुकी देवानी संहिता, २०७४"
+    section: "385"
+    note:
+      en: "A house tenancy runs for the period in the agreement, but not more than five years (except business lettings, where the agreement governs); after the term ends, both sides can agree to extend it again and again."
+      ne: "घर बहालको अवधि सम्झौतामा उल्लेख भए बमोजिम हुन्छ तर पाँच वर्षभन्दा बढी हुँदैन (व्यापारिक प्रयोजनको बहालमा सम्झौता बमोजिम); अवधि समाप्त भएपछि दुवै पक्षको सहमतिमा पटक पटक थप गर्न सकिन्छ।"
+  - law_title_ne: "मुलुकी देवानी संहिता, २०७४"
+    section: "386"
+    note:
+      en: "A house must be let under a written agreement that includes, among other things, the rent, the rental term, and how the tenant leaves or is removed. But no written agreement is required for a rent of up to Rs 20,000 a month."
+      ne: "घर बहालमा दिँदा बहाल रकम, अवधि, घर छाड्ने तथा हटाउने सम्बन्धी कुरा लगायतका विषय खुलाई लिखित सम्झौता गर्नुपर्छ। तर मासिक २०,००० रुपैयाँसम्मको बहालमा लिखित सम्झौता गर्नुपर्दैन।"
+  - law_title_ne: "मुलुकी देवानी संहिता, २०७४"
+    section: "389"
+    note:
+      en: "The landlord must let the tenant use the house as agreed, provide water, electricity and sanitation where available, keep other occupants from making the tenant unsafe or harassed, and follow the other terms of the agreement."
+      ne: "घरधनीले सम्झौता बमोजिम घर उपयोग गर्न दिनुपर्छ, उपलब्ध भएसम्म पानी, बिजुली र ढल निकास तथा सरसफाइको व्यवस्था गर्नुपर्छ, घरका अन्य व्यक्तिबाट असुरक्षा वा हैरानी हुनबाट रोक्नुपर्छ, र सम्झौताका अन्य कुरा पालना गर्नुपर्छ।"
+  - law_title_ne: "स्थानीय सरकार सञ्‍चालन ऐन, २०७४"
+    section: "47 (1)"
+    note:
+      en: "The local level's Judicial Committee can decide house-rent disputes where the yearly amount is up to Rs 25 lakh. Where no other time limit exists, apply within 35 days of the act."
+      ne: "वार्षिक २५ लाख रुपैयाँसम्मको बिगो भएको घर बहाल र घर बहाल सुविधाको विवाद स्थानीय तहको न्यायिक समितिले निरूपण गर्न सक्छ। अन्य हदम्याद नतोकिएकोमा काम भए गरेको मितिले ३५ दिनभित्र निवेदन दिनुपर्छ।"
+exclude_provisions:
+  - law_title_ne: "मुलुकी देवानी संहिता, २०७४"
+    section: "400"
   - law_title_ne: "मुलुकी देवानी संहिता, २०७४"
     section: "404"
-    note:
-      en: "One specific ground the law does allow eviction on: the tenant has vanished without notice and unpaid rent for 3+ months, and can't be found after public notice — then the landlord may go through the local ward office. This does not cover simply wanting the tenant out."
-      ne: "कानूनले घर खाली गराउन अनुमति दिने एउटा विशेष आधार: बहालवाला बिना सूचना ३ महिना वा बढी बहाल नबुझाई बेपत्ता भएको र सार्वजनिक सूचनापछि पनि फेला नपरेको अवस्था — त्यसमा घरधनीले स्थानीय वडा कार्यालयमार्फत प्रक्रिया अगाडि बढाउन सक्छ। यसले जुनसुकै बेला घर खाली गराउने अधिकार दिँदैन।"
 evidence:
   - en: "Your rental agreement"
     ne: "घरबहाल सम्झौता"
@@ -34,18 +59,20 @@ evidence:
   - en: "Proof of rent payments"
     ne: "भाडा तिरेको प्रमाण"
 forum:
-  en: "Try to resolve directly with the landlord first, referring to your written agreement. If they proceed without following the proper legal grounds/process, consult an advocate about filing at the District Court."
-  ne: "पहिले लिखित सम्झौता देखाउँदै घरबेटीसँग सिधै समाधान गर्ने प्रयास गर्नुहोस्। उचित कानुनी आधार/प्रक्रिया बिना अगाडि बढे जिल्ला अदालतमा जान वकिलसँग सल्लाह लिनुहोस्।"
+  en: "Try to resolve directly with the landlord, referring to your written agreement and section 401 (which lists the only grounds for removing a tenant). If that fails, you can apply to the local level's Judicial Committee (house-rent disputes) or ask an advocate about a suit at the District Court."
+  ne: "पहिले आफ्नो लिखित सम्झौता र दफा ४०१ (बहालवालालाई हटाउन सकिने आधारको सूची) उल्लेख गर्दै घरबेटीसँग सिधै मिलाउने प्रयास गर्नुहोस्। नमिले स्थानीय तहको न्यायिक समितिमा (घर बहाल विवाद) निवेदन दिन सकिन्छ, वा जिल्ला अदालतमा मुद्दा गर्ने बारे वकिलसँग सल्लाह लिनुहोस्।"
 limitation:
   note:
-    en: "Respond to any eviction notice promptly and in writing — don't let a deadline pass without a reply."
-    ne: "घर खाली गर्ने कुनै पनि सूचनाको चाँडै र लिखित रूपमा जवाफ दिनुहोस् — म्याद खेर नजान दिनुहोस्।"
-  provision: null
+    en: "A suit under the tenancy chapter must be filed within six months of the act complained of (section 405). An application to the local level's Judicial Committee must be made within 35 days if no other limit applies (Local Government Operation Act section 47(4)). Reply to any notice in writing and do not let a deadline pass."
+    ne: "घर बहालसम्बन्धी परिच्छेद अन्तर्गतको नालिस काम भए गरेको मितिले छ महिनाभित्र दायर गर्नुपर्छ (दफा ४०५)। स्थानीय तहको न्यायिक समितिमा अन्य हदम्याद नभए ३५ दिनभित्र निवेदन दिनुपर्छ (स्थानीय सरकार सञ्चालन ऐन दफा ४७(४))। कुनै सूचना आएमा लिखित जवाफ दिनुहोस् र म्याद नाघ्न नदिनुहोस्।"
+  provision:
+    law_title_ne: "मुलुकी देवानी संहिता, २०७४"
+    section: "405"
 next_steps:
-  - en: "Re-read your rental agreement for the notice period and termination terms."
-    ne: "सूचना अवधि र बहाल अन्त्य सर्तका लागि आफ्नो सम्झौता फेरि पढ्नुहोस्।"
-  - en: "Respond in writing to any notice, stating your position clearly."
-    ne: "कुनै पनि सूचनाको आफ्नो अडान स्पष्ट पारेर लिखित जवाफ दिनुहोस्।"
-  - en: "If the landlord acts outside legal grounds, consult an advocate before you move out."
-    ne: "घरबेटीले कानुनी आधार बाहिर गई काम गरे, घर छोड्नुअघि वकिलसँग सल्लाह लिनुहोस्।"
+  - en: "Re-read your rental agreement for the term, the notice period and how the tenancy can end. If the rent is up to Rs 20,000 a month there may be no written agreement, so gather rent receipts and messages."
+    ne: "आफ्नो घरबहाल सम्झौतामा अवधि, सूचनाको अवधि र बहाल अन्त्य हुने तरिका पुनः हेर्नुहोस्। मासिक २०,००० सम्मको बहालमा लिखित सम्झौता नहुन सक्छ, त्यसैले भाडा तिरेको रसिद र सन्देश जम्मा गर्नुहोस्।"
+  - en: "Respond in writing to any notice, asking which ground in section 401 the landlord relies on; if the ground is his own need, he must give at least 35 days' written notice."
+    ne: "कुनै सूचना आएमा लिखित जवाफ दिई घरधनीले दफा ४०१ को कुन आधार लिएको हो सोध्नुहोस्; घरधनीको आफ्नै आवश्यकताको आधार भए कम्तीमा ३५ दिनको लिखित सूचना दिनुपर्छ।"
+  - en: "If the landlord acts outside those grounds, apply to the local Judicial Committee or consult an advocate before you move out (within 6 months for a court suit)."
+    ne: "घरधनीले ती आधारभन्दा बाहिर गएमा घर छाड्नुअघि स्थानीय न्यायिक समितिमा निवेदन दिनुहोस् वा वकिलसँग सल्लाह लिनुहोस् (अदालतमा मुद्दाका लागि ६ महिनाभित्र)।"
 template_link: null
