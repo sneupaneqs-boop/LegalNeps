@@ -18,7 +18,8 @@ import re
 from collections import OrderedDict
 from threading import Lock
 
-from . import config, glossary, llm, prompt_guard, supa, tiers
+from . import config, glossary, llm, playbooks, prompt_guard, supa, tiers, verifier
+from .playbook_matcher import match as match_playbook
 from .retrieval import get_index
 from .text_norm import detect_language, fold, guess_language, tokenize
 
@@ -82,6 +83,16 @@ law and section in the sentence text, never inside the brackets - brackets conta
 - If the passages don't cover the question, say so plainly, share only what they do support, and \
 suggest what to ask a lawyer or which office to approach.
 - Passages may contain small OCR/typing glitches; read through them, but don't quote garbled words.
+- Passages marked "verified as governing this situation" are the core law for this question: build \
+the answer on them first. Passages marked "OLDER LAW" may only be mentioned as history - never \
+present their deadlines, amounts or procedures as the current rule. Never present a passage whose \
+status is "bill" or "repealed" as current law.
+- Every number you state (days, months, years, rupees, percentages, section numbers) must appear in \
+the passage you cite for it. If you are not sure of a number, don't state it.
+- Don't state a legal remedy, offence or procedure that no passage mentions (e.g. don't suggest a \
+criminal complaint unless a passage makes the act an offence).
+- In Nepali, statute sections are "दफा" and regulation provisions are "नियम"; only the Constitution \
+uses "धारा".
 
 How to answer:
 - Start with one short sentence showing you understood the real concern.
@@ -135,7 +146,13 @@ def _answer_cache_key(message: str, lang: str) -> str:
     # corpus content, and coupling its cache key to get_index() would force
     # the (slow, one-time) index build for every call site, including ones
     # that never touch retrieval.
-    return get_index().digest + "|" + _cache_key(message, lang)
+    return PIPELINE_VERSION + "|" + get_index().digest + "|" + _cache_key(message, lang)
+
+
+# Bump whenever answer construction changes (retrieval filters, pinned
+# playbook provisions, verifier), so answers cached by an older pipeline -
+# including the persistent Supabase answer_cache - are never served again.
+PIPELINE_VERSION = "p2"
 
 
 GREETING_RE = re.compile(
@@ -283,15 +300,84 @@ def build_queries(message: str, analysis: dict) -> list[tuple[str, float]]:
     return queries
 
 
-def search(message: str, analysis: dict, top_k: int | None = None, precedent_k: int | None = None) -> list[dict]:
+# Tax/fiscal/insolvency statutes mention deposits, wages, payments and
+# notices in passing, so on keyword overlap alone they outrank the law that
+# actually governs a tenancy or employment question. Demote them unless the
+# question itself is about tax/fiscal matters.
+_FISCAL_DOC = re.compile(r"(आयकर|आर्थिक ऐन|आर्थिक कार्यविधि|मूल्य अभिवृद्धि कर|भन्सार|अन्तःशुल्क|राजस्व|"
+                         r"विनियोजन|दामासाही|बजेट|कर सम्बन्धी)")
+_FISCAL_QUERY = re.compile(
+    r"(\btax|\bvat\b|\btds\b|income tax|customs|excise|revenue|budget|insolven|bankrupt|"
+    r"आयकर|भ्याट|कर\b|करको|कर तिर|भन्सार|अन्तःशुल्क|राजस्व|बजेट|दामासाही|टीडीएस|अग्रिम कर)", re.I)
+_YEAR_TAIL = re.compile(r"([०-९0-9]{4})\s*$")
+_ANNUAL_ACT = re.compile(r"(आर्थिक ऐन|विनियोजन ऐन|राष्ट्र ऋण|ऋण तथा जमानत)")
+_NKP_YEAR = re.compile(r"ने\.?\s?का\.?\s?प\.?\s*([०-९0-9]{4})")
+
+
+def _is_fiscal_query(message: str, analysis: dict) -> bool:
+    text = " ".join([message, analysis.get("question") or "", analysis.get("area") or ""])
+    return bool(_FISCAL_QUERY.search(text))
+
+
+def _bs_year(pattern: re.Pattern, text: str) -> int | None:
+    m = pattern.search(text or "")
+    return int(m.group(1).translate(_DEV)) if m else None
+
+
+def mark_stale_precedents(laws: list[dict], precedents: list[dict]) -> list[dict]:
+    """A precedent decided before the statute now governing the topic was
+    enacted interprets older law. Flag it (it stays visible, labelled) and
+    rank it after current-law precedents; the verifier refuses to let it be
+    the only support for a quantified rule."""
+    # annual Finance/Appropriation Acts are re-enacted every year, so their
+    # year says nothing about when the underlying law last changed
+    law_years = [y for y in (_bs_year(_YEAR_TAIL, s.get("doc_title_ne") or "") for s in laws[:4]
+                             if not _ANNUAL_ACT.search(s.get("doc_title_ne") or "")) if y]
+    governing = max(law_years) if law_years else None
+    out = []
+    for p in precedents:
+        year = _bs_year(_NKP_YEAR, p.get("source_ne") or "")
+        stale = bool(governing and year and year < governing)
+        out.append({**p, "stale": stale, "decided_bs": year, "governing_law_bs": governing if stale else None})
+    return sorted(out, key=lambda p: p["stale"])  # stable: current-law precedents first
+
+
+def pinned_provisions(playbook: dict | None) -> list[dict]:
+    """The curated playbook's own provisions, fetched as full corpus entries
+    - hand-verified to govern this exact situation, so they lead the evidence."""
+    if not playbook:
+        return []
+    idx = get_index()
+    out = []
+    for p in playbook.get("provisions", []):
+        if not (p.get("slug") and p.get("section")):
+            continue
+        entry = idx.section(p["slug"], p["section"])
+        if entry:
+            entry = {k: v for k, v in entry.items() if k not in ("prev", "next")}
+            out.append({**entry, "score": 1.0, "pinned": True})
+    return out
+
+
+def search(message: str, analysis: dict, top_k: int | None = None, precedent_k: int | None = None,
+           playbook: dict | None = None) -> list[dict]:
     idx = get_index()
     top_k = top_k or config.TOP_K
     precedent_k = config.PRECEDENT_K if precedent_k is None else precedent_k
     queries = build_queries(message, analysis)
-    laws = idx.search(queries, top_k=top_k, boost_titles=analysis.get("laws", []), category="law")
+    pinned = pinned_provisions(playbook)
+    boost = list(analysis.get("laws", [])) + [p.get("law_title_ne") for p in (playbook or {}).get("provisions", [])]
+    laws = idx.search(queries, top_k=top_k + 6, boost_titles=[b for b in boost if b], category="law")
+    if not _is_fiscal_query(message, analysis):
+        on_domain = [s for s in laws if not _FISCAL_DOC.search(s.get("doc_title_ne") or "")]
+        laws = on_domain or laws
+    seen = {p["id"] for p in pinned}
+    laws = pinned + [s for s in laws if s["id"] not in seen]
+    laws = laws[:max(top_k, len(pinned))]
     precedents = []
     if precedent_k and analysis.get("wants_precedent", True):
-        precedents = idx.search(queries, top_k=precedent_k, category="precedent", per_doc_cap=1)
+        precedents = idx.search(queries, top_k=precedent_k + 2, category="precedent", per_doc_cap=1)
+        precedents = mark_stale_precedents(laws, precedents)[:precedent_k]
     # interleave so the strongest statute passages lead, precedents follow
     return laws + precedents
 
@@ -340,6 +426,14 @@ def _passage(i: int, s: dict, lang: str, terms: set[str] | None = None) -> str:
     if s.get("text_en"):
         body += f"\n[English translation]: {focus(s['text_en'], terms or set(), config.PASSAGE_CHARS)}"
     kind = "Supreme Court precedent" if s.get("category") == "precedent" else "Statute"
+    if s.get("stale"):
+        kind += (f", OLDER LAW: decided in BS {s.get('decided_bs')}, before the governing Act of BS "
+                 f"{s.get('governing_law_bs')} - historical context only, never state its rule as current law")
+    elif s.get("pinned"):
+        kind += ", verified as governing this situation"
+    status = s.get("status")
+    if s.get("category") != "precedent" and status and status != "in_force":
+        kind += f", status: {status}"
     return f"[{i}] ({kind}) {cite}\nTitle: {title}\n{body}"
 
 
@@ -390,12 +484,66 @@ def _extractive(sources: list[dict], lang: str) -> str:
     return "\n".join(lines)
 
 
-def _prompt(message: str, analysis: dict, sources: list[dict], lang: str, history: list[dict] | None) -> str:
+def _match_playbook(message: str, analysis: dict) -> dict | None:
+    """The curated action plan for this situation, when the keyword matcher
+    is confident. Tries the raw message, then the LLM's standalone rewrite
+    (which resolves follow-ups like "what about my deposit?")."""
+    for text in (message, analysis.get("question") or ""):
+        if text:
+            pid = match_playbook(text)
+            if pid:
+                try:
+                    return playbooks.get_playbook(pid)
+                except playbooks.UnresolvedProvision as e:
+                    # corpus drift: answer without the playbook rather than fail the chat
+                    log.warning("playbook %s unresolved: %s", pid, e)
+                    return None
+    return None
+
+
+def _playbook_card(playbook: dict | None) -> dict | None:
+    if not playbook:
+        return None
+    return {"id": playbook["id"], "issue": playbook["issue"], "fact_questions": playbook.get("fact_questions", []),
+            "forum": playbook.get("forum"), "limitation": playbook.get("limitation", {}).get("note")}
+
+
+def _playbook_guide(playbook: dict | None, lang: str) -> str:
+    """Editor-written steps/evidence from the curated plan: guidance for the
+    answer's structure, not a citable source."""
+    if not playbook:
+        return ""
+    key = "ne" if lang == "ne" else "en"
+    steps = "\n".join(f"- {s.get(key) or s.get('en')}" for s in playbook.get("next_steps", []))
+    evidence = "\n".join(f"- {s.get(key) or s.get('en')}" for s in playbook.get("evidence", []))
+    forum = (playbook.get("forum") or {}).get(key) or ""
+    return (f"Curated action plan for this situation (editorial guidance - use it to structure next steps "
+            f"and evidence; do NOT cite it, cite only the numbered passages):\n"
+            f"Where to go: {forum}\nNext steps:\n{steps}\nEvidence to collect:\n{evidence}\n\n")
+
+
+_EMPTY_TAIL = re.compile(r"(\n\s*(\*\*[^*\n]+\*\*|#{1,6}[^\n]*)\s*:?\s*)+\s*$")
+_DHARA = re.compile(r"धारा(\s*[०-९0-9])")
+
+
+def tidy_answer(answer: str, sources: list[dict]) -> str:
+    """Drop a trailing heading with nothing under it (a cut-off stream) and
+    fix "धारा" (constitutional article) used for a statute's "दफा" when no
+    cited source is the Constitution."""
+    answer = _EMPTY_TAIL.sub("", answer.rstrip()).rstrip()
+    if not any(s.get("doc_type") == "constitution" for s in sources):
+        answer = _DHARA.sub(r"दफा\1", answer)
+    return answer
+
+
+def _prompt(message: str, analysis: dict, sources: list[dict], lang: str, history: list[dict] | None,
+            playbook: dict | None = None) -> str:
     terms = _terms(analysis.get("question") or message, analysis)
     context = "\n\n".join(_passage(i, s, lang, terms) for i, s in enumerate(sources, 1))
     hist = _history_text(history, limit=4)
     return (
         f"Official sources:\n{context}\n\n"
+        + _playbook_guide(playbook, lang)
         + (f"Earlier conversation (context only):\n{hist}\n\n" if hist else "")
         + f"Person's concern (as understood): {analysis.get('concern') or '-'}\n"
         f"Person's message: {prompt_guard.wrap_user_text(message)}\n\n"
@@ -429,8 +577,10 @@ def run(message: str, language: str = "auto", history: list[dict] | None = None,
             cached = remote
             _answer_cache.put(ckey, remote)  # warm L1 for this process too
     if cached is not None:
-        yield "meta", {"language": cached["language"], "sources": cached["sources"], "analysis": cached.get("analysis")}
-        yield "done", {"answer": cached["answer"], "llm_used": cached["llm_used"], "cached": True, "llm_calls": 0}
+        yield "meta", {"language": cached["language"], "sources": cached["sources"],
+                       "analysis": cached.get("analysis"), "playbook": cached.get("playbook")}
+        yield "done", {"answer": cached["answer"], "llm_used": cached["llm_used"], "cached": True, "llm_calls": 0,
+                       "verification": cached.get("verification")}
         return
 
     # llm_calls counts pipeline stages that reached a provider (analyze,
@@ -439,6 +589,10 @@ def run(message: str, language: str = "auto", history: list[dict] | None = None,
     analysis = analyze_query(message, lang_hint, history)
     lang = language if language in ("en", "ne") else lang_hint  # script/word-based, not the model's guess
     meta_analysis = {k: analysis.get(k) for k in ("concern", "area", "queries_ne", "laws", "intent")}
+    playbook = _match_playbook(message, analysis)
+    if playbook and analysis.get("intent") in ("unclear", "off_topic"):
+        analysis["intent"] = "legal"  # a curated action plan matched: that's a legal question we can answer
+    playbook_card = _playbook_card(playbook)
 
     if analysis.get("intent", "legal") != "legal":
         reply = (analysis.get("reply") or "").strip()
@@ -450,8 +604,8 @@ def run(message: str, language: str = "auto", history: list[dict] | None = None,
         return
 
     query = analysis.get("question") or message
-    sources = search(query, analysis)
-    yield "meta", {"language": lang, "sources": sources, "analysis": meta_analysis}
+    sources = search(query, analysis, playbook=playbook)
+    yield "meta", {"language": lang, "sources": sources, "analysis": meta_analysis, "playbook": playbook_card}
 
     if not sources:
         yield "done", {"answer": CANNED[("unclear", lang)], "llm_used": False, "cached": False, "llm_calls": llm_calls}
@@ -463,18 +617,21 @@ def run(message: str, language: str = "auto", history: list[dict] | None = None,
     llm_calls += 1
     parts: list[str] = []
     usage: dict | None = None
-    prompt_text = _prompt(message, analysis, sources, lang, history)
+    prompt_text = _prompt(message, analysis, sources, lang, history, playbook)
+    # Devanagari costs ~3x the tokens of English for the same content; the
+    # old flat 1800 cut Nepali answers off mid-section.
+    max_tokens = 3000 if lang == "ne" else 1800
     try:
         if tier == "free":
-            for piece in llm.stream(ANSWER_SYSTEM, prompt_text):
+            for piece in llm.stream(ANSWER_SYSTEM, prompt_text, max_tokens=max_tokens):
                 parts.append(piece)
                 yield "delta", piece
         else:
             model = tiers.model_for_tier(tier)
-            text, usage = llm.paid_complete(model, ANSWER_SYSTEM, prompt_text, max_tokens=1800)
+            text, usage = llm.paid_complete(model, ANSWER_SYSTEM, prompt_text, max_tokens=max_tokens)
             parts.append(text)
             yield "delta", text
-        answer = normalize_citations("".join(parts), sources)
+        answer = tidy_answer(normalize_citations("".join(parts), sources), sources)
         llm_used = True
     except Exception as e:  # noqa: BLE001
         log.warning("answer generation failed: %s", str(e)[:200])
@@ -485,15 +642,18 @@ def run(message: str, language: str = "auto", history: list[dict] | None = None,
         # person the provisions that answer their question, and don't cache it
         answer = answer.rstrip() + "\n\n" + _extractive(sources, lang)
         llm_used = False
+    verification = None
     if llm_used:
-        payload = {"answer": answer, "language": lang, "sources": sources,
-                  "llm_used": True, "analysis": meta_analysis}
+        answer, verification = verifier.verify(answer, sources, lang)
+        payload = {"answer": answer, "language": lang, "sources": sources, "llm_used": True,
+                   "analysis": meta_analysis, "playbook": playbook_card, "verification": verification}
         _answer_cache.put(ckey, payload)
         if not history:
             supa.cache_put(ckey, get_index().digest, lang, message, payload)
     yield "done", {"answer": answer, "llm_used": llm_used, "cached": False, "llm_calls": llm_calls,
                    "tier": tier, "usage": usage, "prompt_version": ANSWER_PROMPT_VERSION,
-                   "flagged_injection": prompt_guard.looks_like_injection(message)}
+                   "flagged_injection": prompt_guard.looks_like_injection(message),
+                   "verification": verification}
 
 
 def stream_answer(message: str, language: str = "auto", history: list[dict] | None = None, tier: str = "free"):
@@ -505,10 +665,12 @@ def answer_question(message: str, language: str = "auto", history: list[dict] | 
     result: dict = {"answer": "", "sources": [], "llm_used": False}
     for kind, data in run(message, language, history, tier=tier):
         if kind == "meta":
-            result.update(language=data["language"], sources=data["sources"], analysis=data["analysis"])
+            result.update(language=data["language"], sources=data["sources"], analysis=data["analysis"],
+                          playbook=data.get("playbook"))
         elif kind == "done":
             result.update(answer=data["answer"], llm_used=data["llm_used"], cached=data.get("cached", False),
                           llm_calls=data.get("llm_calls", 0), tier=data.get("tier", "free"),
                           usage=data.get("usage"), prompt_version=data.get("prompt_version"),
-                          flagged_injection=data.get("flagged_injection", False))
+                          flagged_injection=data.get("flagged_injection", False),
+                          verification=data.get("verification"))
     return result

@@ -29,6 +29,10 @@ class Source(BaseModel):
     slug: Optional[str] = None
     section: Optional[str] = None
     status: Optional[str] = None
+    pinned: bool = False
+    stale: bool = False
+    decided_bs: Optional[int] = None
+    governing_law_bs: Optional[int] = None
 
 
 class Analysis(BaseModel):
@@ -46,6 +50,8 @@ class ChatResponse(BaseModel):
     llm_used: bool
     analysis: Optional[Analysis] = None
     cached: bool = False
+    playbook: Optional[dict] = None
+    verification: Optional[dict] = None
 
 
 class SearchResponse(BaseModel):

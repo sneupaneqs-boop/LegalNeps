@@ -124,6 +124,8 @@ def _to_source(n: int, hit: dict, lang: str) -> Source:
         url=hit.get("url"),
         slug=doc_slug(doc_title) if category == "law" and doc_title else None,
         section=hit.get("section"), status=hit.get("status"),
+        pinned=bool(hit.get("pinned")), stale=bool(hit.get("stale")),
+        decided_bs=hit.get("decided_bs"), governing_law_bs=hit.get("governing_law_bs"),
     )
 
 
@@ -147,6 +149,8 @@ async def chat(payload: ChatRequest, request: Request, authorization: str | None
         llm_used=result["llm_used"],
         analysis=result.get("analysis"),
         cached=result.get("cached", False),
+        playbook=result.get("playbook"),
+        verification=result.get("verification"),
     )
 
 

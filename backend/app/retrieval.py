@@ -312,13 +312,25 @@ class Index:
             "url": first.get("url"), "sections": sections,
         }
 
+    def _section_positions(self, slug: str) -> dict[str, int]:
+        """section label -> position within the doc's rows, built once per
+        document (pinned playbook provisions look sections up on every chat)."""
+        cache = self.__dict__.setdefault("_section_pos_cache", {})
+        pos = cache.get(slug)
+        if pos is None:
+            pos = {}
+            for k, i in enumerate(self._doc_index.get(slug, [])):
+                pos.setdefault(self.get(i).get("section") or "", k)
+            cache[slug] = pos
+        return pos
+
     def section(self, slug: str, section: str) -> dict | None:
         """One section's full entry plus neighbouring sections, for
         /law/[doc]/[section]."""
         rows = self._doc_index.get(slug)
         if not rows:
             return None
-        pos = next((k for k, i in enumerate(rows) if (self.get(i).get("section") or "") == section), None)
+        pos = self._section_positions(slug).get(section)
         if pos is None:
             return None
         entry = self.get(rows[pos])
@@ -405,7 +417,11 @@ class Index:
                 continue  # same provision published in two documents
             seen_text.add(key)
             per_doc[doc_key] += 1
-            results.append({**self.get(i), "score": float(best_raw[i]), "rrf": float(fused[i])})
+            entry = self.get(i)
+            if not entry.get("status"):
+                # older shards store no status; the index computed it at build time
+                entry["status"] = self.status[i]
+            results.append({**entry, "score": float(best_raw[i]), "rrf": float(fused[i])})
         return results
 
 

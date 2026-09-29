@@ -49,7 +49,10 @@ export default function Home() {
           started = true;
           setMessages((prev) => [
             ...prev,
-            { id: botId, role: "bot", text: "", sources: meta.sources, llmUsed: true, streaming: true, question },
+            {
+              id: botId, role: "bot", text: "", sources: meta.sources, llmUsed: true, streaming: true, question,
+              playbook: meta.playbook ?? null,
+            },
           ]);
         },
         onDelta: (piece) => {
@@ -57,7 +60,7 @@ export default function Home() {
           update({ text: streamed });
         },
       }, history);
-      update({ text: final.answer, llmUsed: final.llm_used, streaming: false });
+      update({ text: final.answer, llmUsed: final.llm_used, streaming: false, verification: final.verification ?? null });
     } catch (err) {
       const timedOut = err instanceof Error && err.message === "timeout";
       if (timedOut && !started) {
@@ -68,7 +71,10 @@ export default function Home() {
           const res = await sendChatMessage(text, lang, history);
           setMessages((prev) => [
             ...prev,
-            { id: botId, role: "bot", text: res.answer, sources: res.sources, llmUsed: res.llm_used, question },
+            {
+              id: botId, role: "bot", text: res.answer, sources: res.sources, llmUsed: res.llm_used, question,
+              playbook: res.playbook ?? null, verification: res.verification ?? null,
+            },
           ]);
         } catch {
           setMessages((prev) => [...prev, { id: botId, role: "bot", text: t.error }]);
@@ -149,7 +155,17 @@ export default function Home() {
           </div>
         )}
         {messages.map((m) => (
-          <ChatMessage key={m.id} message={m} lang={lang} canSave={!!session} onSave={handleSaveResearch} />
+          <ChatMessage
+            key={m.id}
+            message={m}
+            lang={lang}
+            canSave={!!session}
+            onSave={handleSaveResearch}
+            onPrefill={(text) => {
+              setInput(text);
+              inputRef.current?.focus();
+            }}
+          />
         ))}
         {loading && !messages.some((m) => m.streaming) && (
           <div className="bubble-row bot">

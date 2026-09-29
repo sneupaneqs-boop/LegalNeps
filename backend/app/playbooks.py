@@ -24,6 +24,8 @@ Playbook YAML shape (see app/data/playbooks/*.yaml for real examples):
 """
 from __future__ import annotations
 
+import copy
+from functools import lru_cache
 from pathlib import Path
 
 import yaml
@@ -87,6 +89,14 @@ def list_playbooks() -> list[dict]:
 
 
 def get_playbook(playbook_id: str) -> dict | None:
+    # Cached: chat calls this on every playbook-matched question, and
+    # re-parsing all 25 YAML files each time cost ~100ms. Playbooks are
+    # static files and the index is loaded once per process.
+    return copy.deepcopy(_get_playbook_cached(playbook_id))
+
+
+@lru_cache(maxsize=64)
+def _get_playbook_cached(playbook_id: str) -> dict | None:
     for data in _load_yaml_files():
         if data["id"] == playbook_id:
             return _resolve_playbook(data)

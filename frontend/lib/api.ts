@@ -12,6 +12,28 @@ export type Source = {
   slug?: string | null;
   section?: string | null;
   status?: string | null;
+  pinned?: boolean;
+  stale?: boolean;
+  decided_bs?: number | null;
+  governing_law_bs?: number | null;
+};
+
+// A curated action plan that matched the question (shown above the answer).
+export type PlaybookCard = {
+  id: string;
+  issue: Bilingual;
+  fact_questions: Bilingual[];
+  forum?: Bilingual | null;
+  limitation?: Bilingual | null;
+};
+
+// Deterministic citation check of the answer, computed server-side.
+export type Verification = {
+  claims: number;
+  supported: number;
+  unverified: { text: string; reason: string }[];
+  cited_laws: number;
+  cited_precedents: number;
 };
 
 export type ChatResponse = {
@@ -20,6 +42,8 @@ export type ChatResponse = {
   sources: Source[];
   llm_used: boolean;
   cached?: boolean;
+  playbook?: PlaybookCard | null;
+  verification?: Verification | null;
 };
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:8000";
@@ -212,7 +236,7 @@ export async function sendChatMessage(
 }
 
 export type StreamHandlers = {
-  onMeta: (m: { language: "en" | "ne"; sources: Source[] }) => void;
+  onMeta: (m: { language: "en" | "ne"; sources: Source[]; playbook?: PlaybookCard | null }) => void;
   onDelta: (text: string) => void;
 };
 
@@ -223,11 +247,12 @@ export async function streamChatMessage(
   language: "en" | "ne",
   handlers: StreamHandlers,
   history: Turn[] = []
-): Promise<{ answer: string; llm_used: boolean }> {
+): Promise<{ answer: string; llm_used: boolean; verification?: Verification | null }> {
   const controller = new AbortController();
   // The server sends sources within ~10s (longer if it was asleep) and caps the answer at ~60s;
   // if nothing arrives in time, fail instead of "thinking" forever.
-  let timer = setTimeout(() => controller.abort(), 45_000);
+  // 90s: a Render free instance waking from sleep can take ~45s before the first byte
+  let timer = setTimeout(() => controller.abort(), 90_000);
   try {
     const res = await fetch(`${API_URL}/api/chat/stream`, {
       method: "POST",
@@ -255,7 +280,7 @@ export async function streamChatMessage(
           handlers.onMeta(ev);
         }
         else if (ev.type === "delta") handlers.onDelta(ev.text);
-        else if (ev.type === "done") return { answer: ev.answer, llm_used: ev.llm_used };
+        else if (ev.type === "done") return { answer: ev.answer, llm_used: ev.llm_used, verification: ev.verification };
         else if (ev.type === "error") throw new Error("stream error");
       }
     }

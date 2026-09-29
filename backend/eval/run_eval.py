@@ -26,7 +26,7 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, os.path.dirname(HERE))
 
 from app import llm  # noqa: E402
-from app.generation import analyze_query, answer_question, search  # noqa: E402
+from app.generation import _match_playbook, analyze_query, answer_question, search  # noqa: E402
 from app.retrieval import get_index  # noqa: E402
 from app.text_norm import detect_language  # noqa: E402
 
@@ -71,7 +71,9 @@ def cmd_retrieval(args):
                 analysis = {"queries_ne": [], "queries_en": [], "laws": [], "wants_precedent": True}
             else:
                 analysis = analyze_query(q["q"], detect_language(q["q"]))
-            res = search(q["q"], analysis, top_k=args.k, precedent_k=3)
+            # same path production uses: a confident curated playbook pins its provisions
+            res = search(q["q"], analysis, top_k=args.k, precedent_k=3,
+                         playbook=_match_playbook(q["q"], analysis))
             laws = [r for r in res if r.get("category") == "law"]
             out[mode] = {
                 "rank": _first_hit(laws, q["expect"]),
