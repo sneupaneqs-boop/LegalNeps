@@ -36,6 +36,11 @@ provisions:
     note:
       en: "A civil claim (including one to recover a withheld deposit) must be filed in court within the legally prescribed limitation period."
       ne: "धरौटी फिर्ताको दाबी लगायत जुनसुकै देवानी फिरादपत्र कानुनले तोकेको हदम्यादभित्रै अदालतमा दायर गर्नुपर्छ।"
+# Retrieved on keyword overlap but governs a tenant leaving early, not deposit
+# recovery - its 35-day notice rule got misapplied to deposits. Keep it out.
+exclude_provisions:
+  - law_title_ne: "मुलुकी देवानी संहिता, २०७४"
+    section: "400"
 evidence:
   - en: "Rental agreement and deposit receipt"
     ne: "घरबहाल सम्झौता र धरौटी रसिद"

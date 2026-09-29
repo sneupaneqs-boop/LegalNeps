@@ -152,7 +152,7 @@ def _answer_cache_key(message: str, lang: str) -> str:
 # Bump whenever answer construction changes (retrieval filters, pinned
 # playbook provisions, verifier), so answers cached by an older pipeline -
 # including the persistent Supabase answer_cache - are never served again.
-PIPELINE_VERSION = "p3"
+PIPELINE_VERSION = "p4"
 
 
 GREETING_RE = re.compile(
@@ -372,7 +372,11 @@ def search(message: str, analysis: dict, top_k: int | None = None, precedent_k: 
         on_domain = [s for s in laws if not _FISCAL_DOC.search(s.get("doc_title_ne") or "")]
         laws = on_domain or laws
     seen = {p["id"] for p in pinned}
-    laws = pinned + [s for s in laws if s["id"] not in seen]
+    # sections the curated plan marks as misleading for this situation
+    # (e.g. deposit recovery vs. the tenant's early-departure notice rule)
+    excluded = {(x.get("law_title_ne"), str(x.get("section"))) for x in (playbook or {}).get("exclude_provisions", [])}
+    laws = pinned + [s for s in laws if s["id"] not in seen
+                     and (s.get("doc_title_ne"), str(s.get("section") or "")) not in excluded]
     laws = laws[:max(top_k, len(pinned))]
     precedents = []
     if precedent_k and analysis.get("wants_precedent", True):

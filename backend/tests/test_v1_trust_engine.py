@@ -186,3 +186,10 @@ def test_supreme_court_claim_citing_only_a_statute_is_flagged():
     ans = "सुप्रीम कोर्टले लिखित प्रमाणको महत्त्वलाई जोड दिएको छ [1]।"
     _, rep = verifier.verify(ans, [LABOUR], "ne")
     assert rep["unverified"][0]["reason"] == "court_claim_cites_statute"
+
+
+@requires_corpus
+def test_playbook_excluded_provision_never_reaches_the_evidence():
+    q = "घरबेटीले deposit फिर्ता दिएन, के गर्ने?"
+    res = generation.search(q, dict(RAW), playbook=generation._match_playbook(q, dict(RAW)))
+    assert not any(r.get("source_ne") == "मुलुकी देवानी संहिता, २०७४, दफा 400" for r in res)
