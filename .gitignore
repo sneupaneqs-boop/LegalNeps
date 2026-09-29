@@ -30,3 +30,10 @@ sources/processed/
 backend/app/data/index_cache/
 frontend/tsconfig.tsbuildinfo
 backend/eval/reports/
+
+# graphify: keep the graph deliverables (graph.json, graph.html, GRAPH_REPORT.md,
+# manifest.json) tracked so other Claude sessions get them without an LLM key;
+# ignore its own internal cache/bookkeeping and dated backup snapshots.
+graphify-out/cache/
+graphify-out/20*/
+graphify-out/.graphify_*
