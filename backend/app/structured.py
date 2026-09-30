@@ -11,6 +11,7 @@ from __future__ import annotations
 
 import json
 import logging
+import os
 import re
 import time
 
@@ -477,6 +478,17 @@ def verified_rule_count(doc: dict) -> int:
                if s["cites"] and s["kind"] in verifier.STRICT_KINDS)
 
 
+def _log_fallback(why: str, raw: str, doc: dict | None, report: dict, cut_off: bool, repaired: bool) -> None:
+    """Why an answer fell back to the extractive provisions: structure counts only (no user text). Set
+    DEBUG_ANSWERS=1 to also log the start of the raw model reply while diagnosing a provider."""
+    sents = [s for b in (doc or {}).get("blocks", []) for s in b["sentences"]]
+    log.info("answer fallback: why=%s raw_chars=%d cut_off=%s repaired=%s parsed_sentences=%d cited=%d removed=%s",
+             why, len(raw or ""), cut_off, repaired, len(sents), sum(1 for s in sents if s["cites"]),
+             (report.get("removed") or {}).get("by_reason"))
+    if os.getenv("DEBUG_ANSWERS") == "1":
+        log.info("answer fallback raw: %s", (raw or "")[:2000].replace("\n", " "))
+
+
 def build(raw: str, sources: list[dict], lang: str, *, guidance: str = "", disclaimer: str = "",
           cut_off: bool = False, repair=None, entail=None) -> dict:
     """The model's raw reply -> {"answer": markdown | None, "verification": report, "doc": verified doc,
@@ -494,6 +506,7 @@ def build(raw: str, sources: list[dict], lang: str, *, guidance: str = "", discl
              "removed": {"count": 0, "reasons": ["unparseable"], "by_reason": {"unparseable": 1}, "blocks_dropped": 0},
              "mode": "extractive_fallback", "truncated": not complete}
     if doc is None:
+        _log_fallback("unparseable", raw, None, empty, cut_off, repaired)
         return {"answer": None, "verification": empty, "doc": None, "truncated": True, "repaired": repaired}
     good, report = verifier.verify_structured(doc, sources, guidance)
     if entail is not None and verified_rule_count(good) >= 1:
@@ -505,6 +518,7 @@ def build(raw: str, sources: list[dict], lang: str, *, guidance: str = "", discl
     report = {**report, "mode": "structured", "truncated": not complete}
     if verified_rule_count(good) < MIN_VERIFIED_RULES:
         report["mode"] = "extractive_fallback"
+        _log_fallback("too_few_verified", raw, doc, report, cut_off, repaired)
         return {"answer": None, "verification": report, "doc": good, "truncated": not complete, "repaired": repaired}
     # what was rendered and the passage span each sentence rests on (public statute text, no user text)
     report["evidence"] = [{"text": s["text"], "kind": s["kind"], "cites": s["cites"]}
