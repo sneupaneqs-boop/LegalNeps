@@ -15,81 +15,83 @@ import os
 import re
 import time
 
-from . import llm, verifier
+from . import claim_checks, llm, verifier
+from .claim_checks import CheckContext
 
 log = logging.getLogger(__name__)
 
 MIN_VERIFIED_RULES = 2  # fewer verified rule/deadline/penalty sentences than this -> extractive fallback
 
-STRUCTURED_ANSWER_SYSTEM = """You are Kanooni Sathi ("Legal Friend"), a warm, precise bilingual \
-(English/Nepali) legal-information assistant for Nepal. Reply with ONE JSON object and nothing else. \
-Code checks every sentence against the numbered passages in "Official sources" and DELETES any sentence \
-whose quote is not really in the passage it cites, so write only what a passage lets you quote.
+STRUCTURED_RULES = """You are Kanooni Sathi, a careful bilingual (English/Nepali) legal-information assistant \
+for Nepal. Reply with ONE JSON object only. Code checks each sentence against the numbered passages and DELETES \
+any whose quote is not verbatim in the passage it cites or that says more than its quote.
 
-Schema:
-{"blocks":[{"heading":"...","sentences":[{"text":"...","kind":"rule|deadline|penalty|procedure|advice|empathy",
-"cites":[{"n":3,"quote":"..."}]}]}],
-"gaps":["..."],"follow_up_questions":["..."]}
+Schema: {"blocks":[{"heading":"","sentences":[{"text":"","kind":"rule|deadline|penalty|procedure|advice|empathy",\
+"cites":[{"n":3,"quote":""}]}]}],"gaps":[""],"follow_up_questions":[""]}
 
 Rules:
-- Sentence text is plain prose: no [n] markers, no markdown. Blocks in order: one with heading "" holding a \
-single "empathy" sentence that shows you understood the real concern; then the direct answer, key rules, \
-next steps, and a Supreme Court precedent if one is provided. Headings are short, in the reply language.
-- kind "rule"/"deadline"/"penalty" = any statement of what the law says, requires, allows, punishes or \
-how long it takes. EVERY such sentence needs "cites": one or more {"n": <passage number>, "quote": <a span \
-copied CHARACTER FOR CHARACTER from that passage, 6-40 words>}. Copy from the Nepali text, or from the \
-"[English translation]" when the passage has one and you answer in English. Never paraphrase, translate or \
-join two spans in a quote. One sentence, one idea; cite the passage that says it.
-- Every number (days, months, years, rupees, percentages) and every section number in a sentence must \
-appear in its quote. Name the law and section in the sentence; if unsure of a number, leave it out.
-- Nepali statute provisions are "दफा", regulation provisions "नियम"; only the Constitution has "धारा".
-- Passages marked "verified as governing this situation" are the core law: build on them first. "OLDER \
-LAW" passages only as history and say so in the sentence ("older law"); never state their rule as current. \
-Never present a "bill", "repealed" or "lapsed" passage as law. A passage with status "ordinance" is \
-temporary: say "ordinance" in the sentence and that it lapses unless Parliament replaces it.
-- A statement about a Supreme Court decision must cite a Supreme Court precedent passage.
-- The "Curated action plan" is guidance, not a source: use it only for sentences of kind "procedure" or \
-"advice" (where to go, what to gather), with NO cites, NO numbers and no legal-rule wording (no must/shall/\
-within/penalty/deadline). Everything else needs a quote.
-- Do not state any remedy, offence, office or procedure that no passage mentions. If a passage does not \
-cover something the person needs, put it in "gaps" as "The sources retrieved do not cover X" - never \
-"the law does not say X". At most 3 short gaps; "follow_up_questions": at most 3 short questions that \
-would sharpen the answer (no numbers or legal claims in them).
-- Passages may contain OCR glitches: quote exactly what is printed anyway. Reply entirely in the requested \
-language (Nepali in natural Devanagari). Keep the whole object under about 900 words.
+1. Blocks: heading "" with ONE empathy sentence; direct answer; key rules; next steps; a Supreme Court precedent \
+ONLY if provided and its quote states a rule for this person's situation and topic. Short headings, reply \
+language. Sentence text: plain prose, no [n], no markdown.
+2. rule/deadline/penalty = anything the law says, requires, allows, punishes or how long it takes. It needs \
+cites: {"n": passage number, "quote": 6-40 words copied CHARACTER FOR CHARACTER from that one passage} (Nepali \
+text, or the "[English translation]" if you answer in English). Never paraphrase, translate or join spans. One \
+idea per sentence.
+3. Quote the WHOLE conditional clause and copy its who/when/only-if words (सगोलको, सम्बन्ध विच्छेद भएको, notice \
+period, उपदफा (N) बमोजिम, "तर" provisos). Never widen the subject (no children/relatives the quote does not \
+name). If unsure, quote more or omit.
+4. Every number, unit and section number must be in the quote, tied to the same unit ("पन्ध्र लाख" = fifteen \
+lakh). Never restate a number from the person's message. An "additional/थप" penalty only with its base penalty \
+in the same sentence.
+5. Name law and section (दफा for Acts/Codes, नियम for Rules, धारा only for the Constitution). Passages "verified \
+as governing" first. "OLDER LAW" only as history, say so. Never present a bill/repealed/lapsed passage as law; \
+an "ordinance" is temporary - say so. "Supreme Court" only with a precedent passage.
+6. The "Curated action plan" is guidance, not a source: only for procedure/advice sentences with NO cites, \
+numbers or rule wording. Name no office, tribunal, court, department or required document that no passage or \
+that plan names.
+7. "gaps" ("The sources retrieved do not cover X", reply language) ONLY when no passage covers X; never "the law \
+does not say". At most 3 gaps and 3 short follow_up_questions, no numbers.
+8. Quote OCR glitches as printed. Reply entirely in the requested language (natural Devanagari for Nepali), \
+under about 550 words."""
 
-Example 1 (English; passage [1] is Labour Act, 2074, section 162, English translation: "A worker \
-aggrieved by an act contrary to this Act may file a complaint within six months from the date of the act."):
-{"blocks":[{"heading":"","sentences":[{"text":"I understand your salary has not been paid and how stressful \
-that is.","kind":"empathy","cites":[]}]},
-{"heading":"Direct answer","sentences":[{"text":"Under the Labour Act, 2074, Section 162, you can file a \
-complaint within 6 months of the act.","kind":"deadline","cites":[{"n":1,"quote":"may file a complaint \
-within six months from the date of the act"}]}]},
-{"heading":"Next steps","sentences":[{"text":"Gather your appointment letter and pay slips before you \
-complain.","kind":"advice","cites":[]}]}],
-"gaps":["The sources retrieved do not cover which office can order the unpaid wages to be paid."],
-"follow_up_questions":["When was your last salary paid?"]}
-(The claim "the Labour Office can order payment" was NOT written as a rule because no passage says it - it went \
-into gaps.)
+EXAMPLE_EN = """Example (passage [1] is Labour Act, 2074, section 162, English translation: "A worker aggrieved \
+by an act contrary to this Act may file a complaint within six months from the date of the act."):
+{"blocks":[{"heading":"","sentences":[{"text":"I understand how stressful unpaid salary is.","kind":"empathy",\
+"cites":[]}]},{"heading":"Direct answer","sentences":[{"text":"Under the Labour Act, 2074, Section 162, you can \
+file a complaint within 6 months of the act.","kind":"deadline","cites":[{"n":1,"quote":"may file a complaint \
+within six months from the date of the act"}]}]},{"heading":"Next steps","sentences":[{"text":"Gather your \
+appointment letter and pay slips.","kind":"advice","cites":[]}]}],"gaps":["The sources retrieved do not cover \
+which office can order the wages to be paid."],"follow_up_questions":["When was your last salary paid?"]}"""
 
-Example 2 (Nepali; passage [1] is मुलुकी देवानी संहिता, २०७४, दफा ३८६: "कुनै व्यक्तिले घर बहालमा दिँदा देहायका \
-कुराहरू खुलाई बहालमा लिने व्यक्तिसँग लिखित सम्झौता गर्नु पर्नेछ"):
-{"blocks":[{"heading":"","sentences":[{"text":"धरौटी फिर्ता नभएको कुराले तपाईंलाई चिन्ता भएको मैले बुझें।",\
-"kind":"empathy","cites":[]}]},
-{"heading":"मुख्य नियम","sentences":[{"text":"मुलुकी देवानी संहिता, २०७४ को दफा ३८६ अनुसार घर बहालमा दिँदा \
-बहालमा लिने व्यक्तिसँग लिखित सम्झौता गर्नु पर्छ।","kind":"rule","cites":[{"n":1,"quote":"घर बहालमा दिँदा \
-देहायका कुराहरू खुलाई बहालमा लिने व्यक्तिसँग लिखित सम्झौता गर्नु पर्नेछ"}]}]}],
-"gaps":["मैले पाएका स्रोतहरूले धरौटी फिर्ता गर्ने म्याद समेटेका छैनन्।"],"follow_up_questions":[]}"""
+EXAMPLE_NE = """Example (passage [1] is मुलुकी देवानी संहिता, २०७४, दफा ३८६: "कुनै व्यक्तिले घर बहालमा दिँदा \
+देहायका कुराहरू खुलाई बहालमा लिने व्यक्तिसँग लिखित सम्झौता गर्नु पर्नेछ"):
+{"blocks":[{"heading":"","sentences":[{"text":"धरौटी फिर्ता नभएकोले तपाईंलाई चिन्ता भएको मैले बुझें।","kind":"empathy",\
+"cites":[]}]},{"heading":"मुख्य नियम","sentences":[{"text":"मुलुकी देवानी संहिता, २०७४ को दफा ३८६ अनुसार घर \
+बहालमा दिँदा बहालमा लिने व्यक्तिसँग लिखित सम्झौता गर्नु पर्छ।","kind":"rule","cites":[{"n":1,"quote":"घर बहालमा दिँदा \
+देहायका कुराहरू खुलाई बहालमा लिने व्यक्तिसँग लिखित सम्झौता गर्नु पर्नेछ"}]}]}],"gaps":["मैले पाएका स्रोतहरूले धरौटी \
+फिर्ता गर्ने म्याद समेटेका छैनन्।"],"follow_up_questions":[]}"""
+
+# Only the example in the reply language is sent: the other one is ~250 tokens of dead weight per request
+# (V3.2 token diet). STRUCTURED_ANSWER_SYSTEM (rules + both examples) is the full text, kept for fingerprints/tests.
+STRUCTURED_ANSWER_SYSTEM = STRUCTURED_RULES + "\n\n" + EXAMPLE_EN + "\n\n" + EXAMPLE_NE
+
+
+def system_prompt(lang: str) -> str:
+    """The answer system prompt for a reply language: rules + the one worked example in that language."""
+    return STRUCTURED_RULES + "\n\n" + (EXAMPLE_NE if lang == "ne" else EXAMPLE_EN)
+
 
 REPAIR_SYSTEM = ("You repair broken JSON. The user message is a JSON object of a legal answer that failed to parse "
                  "(maybe cut off). Return ONLY the repaired, valid JSON object, keeping every complete sentence exactly "
                  "as written and dropping any half-written one. Do not add content.")
 
-ENTAIL_SYSTEM = ("You check legal statements against quoted passage text. For each item decide whether the QUOTE "
-                 "supports the STATEMENT: \"yes\" (the quote states or directly entails it), \"partial\" (the quote "
-                 "supports only part of it) or \"no\" (the quote does not support it, contradicts it, or is about a "
-                 "different rule). Judge only from the quote. Return JSON: "
-                 "{\"results\":[{\"id\":0,\"verdict\":\"yes|no|partial\"}, ...]} with one entry per item.")
+ENTAIL_SYSTEM = (
+    "You check legal statements against the passage span each one quotes, for THIS person's situation "
+    "(\"situation\"). Per item answer one letter: y = the quote states a rule that governs this situation and "
+    "supports the exact statement (who, when, only-if, numbers); p = it supports only part of it, or drops a "
+    "condition or party; n = it does not support it, contradicts it, or is a rule for another situation (another "
+    "kind of lender or borrower, a divorced vs a merely separated spouse, another subject). Judge only from the "
+    "quote. Return JSON {\"v\":[\"y\",\"n\",...]}, one letter per item, in order.")
 
 HEADINGS = {
     "gaps": {"en": "What the sources don't cover", "ne": "स्रोतहरूले नसमेटेको कुरा"},
@@ -320,8 +322,15 @@ class StreamVerifier:
     rule/deadline/penalty sentences have verified (so a document that would fall back to the extractive answer
     is, in practice, never shown); the held pieces are then released together and later ones immediately."""
 
-    def __init__(self, sources: list[dict], guidance: str = "", min_rules: int = MIN_VERIFIED_RULES):
+    def __init__(self, sources: list[dict], guidance: str = "", min_rules: int = MIN_VERIFIED_RULES,
+                 ctx: CheckContext | None = None):
         self.sources = sources
+        self.ctx = ctx if ctx is not None else CheckContext()
+        if not self.ctx.guidance:
+            self.ctx = CheckContext(question=self.ctx.question, topic_terms=self.ctx.topic_terms,
+                                    law_terms=self.ctx.law_terms, guidance=guidance)
+        self._last_block: int | None = None
+        self._prev_removed = False
         self.views = verifier.make_views(sources)
         self.terms = verifier.guidance_term_set(guidance)
         self.min_rules = min_rules
@@ -353,7 +362,11 @@ class StreamVerifier:
             norm = _norm_sentence(raw)
             if norm is None:
                 continue
-            k, reason = verifier.verify_sentence(norm, self.sources, self.views, self.terms)
+            if block != self._last_block:
+                self._last_block, self._prev_removed = block, False
+            k, reason = verifier.verify_sentence(norm, self.sources, self.views, self.terms, self.ctx,
+                                                 dangling=self._prev_removed)
+            self._prev_removed = bool(reason)
             if reason:
                 self.removed += 1
                 continue
@@ -379,8 +392,8 @@ _TRAIL_PUNCT = re.compile(r"([.।!?]+)\s*$")
 
 
 def _line(s: dict) -> str:
-    text = s["text"].strip()
-    marks = "".join(f"[{c['n']}]" for c in s.get("cites") or [])
+    text = claim_checks.clean_ocr_text(s["text"].strip())  # OCR typos copied from a scanned source are not shown
+    marks = "".join(f"[{n}]" for n in claim_checks.dedupe_marks([c["n"] for c in s.get("cites") or []]))
     if not marks:
         return text
     m = _TRAIL_PUNCT.search(text)
@@ -407,12 +420,26 @@ def render(doc: dict, lang: str, disclaimer: str = "") -> str:
     return "\n\n".join(parts)
 
 
-def _clean_side_text(doc: dict) -> dict:
-    """Gaps and follow-up questions carry no legal claim: keep them short and number-free."""
-    gaps = [g for g in doc.get("gaps", []) if len(g) <= 240 and not re.search(r"[0-9०-९]", g)][:3]
+def _passage_text(src: dict) -> str:
+    return " ".join(str(src.get(k) or "") for k in ("text_ne", "text_en", "title_ne"))
+
+
+def _clean_side_text(doc: dict, lang: str = "", sources: list[dict] | None = None,
+                     cited: set[int] | None = None) -> tuple[dict, dict[str, int]]:
+    """Gaps and follow-up questions carry no legal claim: keep them short and number-free. With `sources`
+    (V3.2) a gap that says the sources do not cover X is dropped when a passage the answer cites - or any
+    retrieved passage - contains X's terms, and a gap not in the answer language is dropped.
+    (doc, {reason: dropped count})."""
+    gaps = [g for g in doc.get("gaps", []) if len(g) <= 240 and not re.search(r"[0-9०-९]", g)]
+    dropped: dict[str, int] = {}
+    if lang and sources is not None:
+        cited_texts = [_passage_text(sources[i]) for i in sorted(cited or ()) if 0 <= i < len(sources)]
+        gaps, why = claim_checks.filter_gaps(gaps, lang, cited_texts, [_passage_text(x) for x in sources])
+        for _, reason in why:
+            dropped[reason] = dropped.get(reason, 0) + 1
     asks = [q for q in doc.get("follow_up_questions", [])
             if len(q) <= 140 and "?" in q and not verifier.looks_rule_like(q)][:3]
-    return {**doc, "gaps": gaps, "follow_up_questions": asks}
+    return {**doc, "gaps": gaps[:3], "follow_up_questions": asks}, dropped
 
 
 def chunks(text: str, size: int = 40):
@@ -428,29 +455,62 @@ def chunks(text: str, size: int = 40):
 
 
 # --------------------------------------------------------------- entailment
-def entailment_filter(doc: dict, call=None) -> tuple[dict, int, bool]:
-    """One cheap call over every cited sentence: drop those whose quote does NOT
-    support them. (doc, removed_count, ran). Fails open: a provider error keeps
-    the deterministic result. `call(system, user, **kw) -> str` is injectable."""
-    call = call or llm.complete
+ENTAIL_STATEMENT_CHARS = 300   # compact payload: the statement and its quote are cut here (the verdict needs the
+ENTAIL_QUOTE_CHARS = 320       # first clauses; the deterministic checks already proved the quote is real)
+ENTAIL_QUESTION_CHARS = 300
+
+
+def entail_payload(doc: dict, question: str = "") -> tuple[str, list[tuple[int, int]]]:
+    """(compact JSON for the entailment call, [(block, sentence) per item]). One item per cited sentence:
+    the statement and the quote(s) it rests on, plus the user's situation once."""
     items, index = [], []
     for bi, b in enumerate(doc["blocks"]):
         for si, s in enumerate(b["sentences"]):
             if s.get("cites"):
                 index.append((bi, si))
-                items.append({"id": len(items), "statement": s["text"],
-                              "quote": " … ".join(c["quote"] for c in s["cites"])})
-    if not items:
+                items.append({"s": s["text"][:ENTAIL_STATEMENT_CHARS],
+                              "q": " … ".join(c["quote"] for c in s["cites"])[:ENTAIL_QUOTE_CHARS]})
+    payload = {"situation": " ".join((question or "").split())[:ENTAIL_QUESTION_CHARS], "items": items}
+    return json.dumps(payload, ensure_ascii=False, separators=(",", ":")), index
+
+
+_VERDICT = {"y": "yes", "yes": "yes", "n": "no", "no": "no", "p": "partial", "partial": "partial"}
+
+
+def parse_verdicts(raw: str, n: int) -> list[str]:
+    """One verdict (yes/no/partial) per item from {"v":["y",...]} or the older {"results":[{"id","verdict"}]};
+    anything missing or unreadable is "yes" (fail open)."""
+    data = llm.parse_json(raw)
+    out = ["yes"] * n
+    if isinstance(data.get("v"), list):
+        for i, v in enumerate(data["v"][:n]):
+            out[i] = _VERDICT.get(str(v).strip().lower(), "yes")
+    for r in data.get("results") or []:
+        try:
+            i = int(r["id"])
+        except (KeyError, TypeError, ValueError):
+            continue
+        if 0 <= i < n:
+            out[i] = _VERDICT.get(str(r.get("verdict")).strip().lower(), "yes")
+    return out
+
+
+def entailment_filter(doc: dict, call=None, question: str = "", drop_partial: bool = False) -> tuple[dict, int, bool]:
+    """ONE cheap call over every cited sentence: drop those whose quote does NOT support them for this user's
+    situation ("no"; also "partial" when drop_partial). (doc, removed_count, ran). Fails open: a provider error
+    keeps the deterministic result. `call(system, user, **kw) -> str` is injectable."""
+    call = call or llm.complete
+    payload, index = entail_payload(doc, question)
+    if not index:
         return doc, 0, False
     try:
-        raw = call(ENTAIL_SYSTEM, json.dumps({"items": items}, ensure_ascii=False), fast=True, json_mode=True,
-                   max_tokens=60 + 25 * len(items), temperature=0.0)
-        results = llm.parse_json(raw).get("results") or []
-        no = {int(r["id"]) for r in results if isinstance(r, dict) and str(r.get("verdict")).lower() == "no"}
+        raw = call(ENTAIL_SYSTEM, payload, fast=True, json_mode=True, max_tokens=40 + 8 * len(index), temperature=0.0)
+        verdicts = parse_verdicts(raw, len(index))
     except Exception as e:  # noqa: BLE001
         log.warning("entailment check skipped: %s", str(e)[:160])
         return doc, 0, False
-    drop = {index[i] for i in no if 0 <= i < len(index)}
+    bad = {"no", "partial"} if drop_partial else {"no"}
+    drop = {index[i] for i, v in enumerate(verdicts) if v in bad}
     blocks = []
     for bi, b in enumerate(doc["blocks"]):
         kept = [s for si, s in enumerate(b["sentences"]) if (bi, si) not in drop]
@@ -490,7 +550,7 @@ def _log_fallback(why: str, raw: str, doc: dict | None, report: dict, cut_off: b
 
 
 def build(raw: str, sources: list[dict], lang: str, *, guidance: str = "", disclaimer: str = "",
-          cut_off: bool = False, repair=None, entail=None) -> dict:
+          cut_off: bool = False, repair=None, entail=None, ctx: CheckContext | None = None) -> dict:
     """The model's raw reply -> {"answer": markdown | None, "verification": report, "doc": verified doc,
     "truncated": bool, "repaired": bool}. answer None means: fall back to the extractive provisions.
     `repair(raw) -> str` retries broken JSON once; `entail(doc) -> (doc, removed, ran)` is the optional LLM pass."""
@@ -508,20 +568,26 @@ def build(raw: str, sources: list[dict], lang: str, *, guidance: str = "", discl
     if doc is None:
         _log_fallback("unparseable", raw, None, empty, cut_off, repaired)
         return {"answer": None, "verification": empty, "doc": None, "truncated": True, "repaired": repaired}
-    good, report = verifier.verify_structured(doc, sources, guidance)
+    good, report = verifier.verify_structured(doc, sources, guidance, ctx)
     if entail is not None and verified_rule_count(good) >= 1:
         good, dropped, ran = entail(good)
         if dropped:
             report = _recount(good, sources, report, dropped, "not_entailed")
         report["entailment"] = "ran" if ran else "skipped"
-    good = _clean_side_text({**good, "gaps": doc.get("gaps", []), "follow_up_questions": doc.get("follow_up_questions", [])})
+    cited = {c["n"] - 1 for b in good["blocks"] for s in b["sentences"] for c in s["cites"]}
+    good, gaps_dropped = _clean_side_text(
+        {**good, "gaps": doc.get("gaps", []), "follow_up_questions": doc.get("follow_up_questions", [])},
+        lang, sources, cited)
     report = {**report, "mode": "structured", "truncated": not complete}
+    if gaps_dropped:
+        report["gaps_removed"] = gaps_dropped
     if verified_rule_count(good) < MIN_VERIFIED_RULES:
         report["mode"] = "extractive_fallback"
         _log_fallback("too_few_verified", raw, doc, report, cut_off, repaired)
         return {"answer": None, "verification": report, "doc": good, "truncated": not complete, "repaired": repaired}
     # what was rendered and the passage span each sentence rests on (public statute text, no user text)
-    report["evidence"] = [{"text": s["text"], "kind": s["kind"], "cites": s["cites"]}
+    report["evidence"] = [{"text": claim_checks.clean_ocr_text(s["text"]), "kind": s["kind"],
+                           "cites": [{**c, "quote": claim_checks.clean_ocr_text(c["quote"])} for c in s["cites"]]}
                           for b in good["blocks"] for s in b["sentences"] if s["cites"]]
     return {"answer": render(good, lang, disclaimer), "verification": report, "doc": good,
             "truncated": not complete, "repaired": repaired}

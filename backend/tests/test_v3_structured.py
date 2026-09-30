@@ -366,6 +366,7 @@ def test_chunks_are_small_lossless_and_never_split_a_citation():
 def pipeline(monkeypatch):
     monkeypatch.setattr(llm, "available", lambda: True)
     monkeypatch.setattr(config, "STREAM_CHUNK_DELAY_S", 0)
+    monkeypatch.setattr(config, "ENTAILMENT_CHECK", False)   # default is ON since V3.2; tests that want it enable it
     monkeypatch.setattr(generation, "analyze_query", lambda m, l, h=None: {
         "queries_ne": [], "queries_en": [], "laws": [], "wants_precedent": True, "intent": "legal", "llm": False})
     monkeypatch.setattr(generation, "search", lambda *a, **k: [dict(LABOUR), dict(RENT)])
@@ -415,13 +416,16 @@ def test_run_streams_status_then_verified_deltas_then_done(pipeline):
     assert v["claims"] == v["supported"] == 2 and v["unverified"] == [] and v["removed"]["count"] == 1
     assert done["prompt_version"] == generation.ANSWER_PROMPT_VERSION
     system, kw = pipeline["calls"][0]
-    assert system == generation.ANSWER_SYSTEM and kw["json_mode"] is True and kw["max_tokens"] == config.ANSWER_MAX_TOKENS_EN
+    assert system == generation.answer_system("en") and kw["json_mode"] is True
+    assert 800 <= kw["max_tokens"] <= config.ANSWER_MAX_TOKENS_EN    # V3.2: adaptive, capped by the English ceiling
 
 
 def test_nepali_gets_a_larger_token_budget(pipeline):
     pipeline["reply"] = json.dumps(GOOD)
     _run("मेरो तलब ६ महिनादेखि आएको छैन", "ne")
-    assert pipeline["calls"][0][1]["max_tokens"] == config.ANSWER_MAX_TOKENS_NE > config.ANSWER_MAX_TOKENS_EN
+    ne = pipeline["calls"][0][1]["max_tokens"]
+    assert generation.answer_max_tokens("ne", 5) > generation.answer_max_tokens("en", 5)
+    assert 1200 <= ne <= config.ANSWER_MAX_TOKENS_NE
 
 
 def test_run_falls_back_to_the_provisions_when_too_little_survives(pipeline):
@@ -461,14 +465,17 @@ def test_run_provider_failure_gives_the_extractive_answer(pipeline, monkeypatch)
     assert by["done"]["llm_used"] is False and "AI summary unavailable" in by["done"]["answer"]
 
 
-def test_free_tier_skips_entailment_by_default_and_env_flag_enables_it(pipeline, monkeypatch):
+def test_free_tier_entailment_is_on_by_default_as_one_extra_call_and_env_flag_disables_it(pipeline, monkeypatch):
+    import inspect
+    assert 'getenv("ENTAILMENT_CHECK", "1")' in inspect.getsource(config)   # V3.2: default ON, ENTAILMENT_CHECK=0 disables
+    monkeypatch.setattr(config, "ENTAILMENT_CHECK", True)
     pipeline["reply"] = json.dumps(GOOD)
     _run()
-    assert len(pipeline["calls"]) == 1
-    monkeypatch.setattr(config, "ENTAILMENT_CHECK", True)
+    assert len(pipeline["calls"]) == 2                            # the answer + ONE entailment call
+    monkeypatch.setattr(config, "ENTAILMENT_CHECK", False)
     generation._answer_cache.data.clear()
     _run()
-    assert len(pipeline["calls"]) == 3                            # answer + entailment (answer call of run 1 counted)
+    assert len(pipeline["calls"]) == 3                            # ENTAILMENT_CHECK=0: only the answer call added
 
 
 def test_paid_tier_runs_entailment_on_the_paid_model(pipeline, monkeypatch):
@@ -476,7 +483,7 @@ def test_paid_tier_runs_entailment_on_the_paid_model(pipeline, monkeypatch):
 
     def paid(model, system, user, **kw):
         calls.append(model)
-        if system == generation.ANSWER_SYSTEM:
+        if system == generation.answer_system("en"):
             return json.dumps(GOOD), {"input_tokens": 100, "output_tokens": 50}
         return json.dumps({"results": [{"id": 0, "verdict": "yes"}]}), {"input_tokens": 10, "output_tokens": 5}
 
@@ -499,10 +506,12 @@ def test_verifier_crash_degrades_to_extractive(pipeline, monkeypatch):
 
 def test_pipeline_version_and_fingerprint_cover_the_new_modules():
     import inspect
-    assert generation.PIPELINE_VERSION.startswith("p9-")           # p8 cached prose answers can never be served
+    assert generation.PIPELINE_VERSION.startswith("p10-")          # p9 answers (before the V3.2 checks) are never served
     src = inspect.getsource(generation._pipeline_fingerprint)
     assert "structured.py" in src and "verifier.py" in src and "text_norm.py" in src
-    assert generation.ANSWER_SYSTEM.startswith(structured.STRUCTURED_ANSWER_SYSTEM[:40])
+    assert "claim_checks.py" in src and "situation_guards.py" in src
+    assert generation.ANSWER_SYSTEM.startswith(structured.STRUCTURED_RULES[:40])
+    assert structured.EXAMPLE_NE in generation.answer_system("ne") and structured.EXAMPLE_NE not in generation.answer_system("en")
 
 
 def test_old_prose_cache_entry_is_not_served(monkeypatch):

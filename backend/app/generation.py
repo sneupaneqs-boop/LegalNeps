@@ -21,7 +21,7 @@ from pathlib import Path
 from collections import OrderedDict
 from threading import Lock
 
-from . import config, glossary, llm, playbooks, prompt_guard, structured, supa, tiers, translit
+from . import claim_checks, config, glossary, llm, playbooks, prompt_guard, structured, supa, tiers, translit
 from .playbook_matcher import match_scored as match_playbook_scored
 from .playbook_matcher import strong_match as strong_playbook_match
 from .retrieval import get_index
@@ -90,10 +90,15 @@ Examples (message -> area; queries_ne; laws):
 
 # V3: the answer is one JSON object of quoted, checkable sentences (see structured.py);
 # the old free-prose prompt measured 40% unsupported legal claims (V1 review).
-ANSWER_SYSTEM = structured.STRUCTURED_ANSWER_SYSTEM
-
-ANSWER_SYSTEM += "\n\n" + prompt_guard.UNTRUSTED_TEXT_NOTICE
+# V3.2 token diet: only the worked example in the reply language is sent (rules are shared).
+_ANSWER_SYSTEMS = {lang: structured.system_prompt(lang) + "\n\n" + prompt_guard.UNTRUSTED_TEXT_NOTICE
+                   for lang in ("en", "ne")}
+ANSWER_SYSTEM = _ANSWER_SYSTEMS["en"]  # kept name: the English variant (both are hashed into the fingerprint)
 ANALYZE_SYSTEM += "\n\n" + prompt_guard.UNTRUSTED_TEXT_NOTICE
+
+
+def answer_system(lang: str) -> str:
+    return _ANSWER_SYSTEMS["ne" if lang == "ne" else "en"]
 
 
 class _LRU:
@@ -141,15 +146,17 @@ def _answer_cache_key(message: str, lang: str) -> str:
 # including the persistent Supabase answer_cache - are never served again.
 # The fingerprint below also retires them automatically when the prompts,
 # the romanised lexicon or any playbook file changes.
-PIPELINE_VERSION = "p9"  # p9: structured JSON answers + deterministic quote verifier (V3)
+PIPELINE_VERSION = "p10"  # p9: structured JSON answers + quote verifier (V3); p10: V3.2 claim checks, gap filter, token diet
 
 
 def _pipeline_fingerprint() -> str:
     h = hashlib.sha256()
     h.update(ANALYZE_SYSTEM.encode())
-    h.update(ANSWER_SYSTEM.encode())
+    h.update(_ANSWER_SYSTEMS["en"].encode())
+    h.update(_ANSWER_SYSTEMS["ne"].encode())
     here = Path(__file__).parent
     for f in [here / "translit.py", here / "verifier.py", here / "structured.py", here / "text_norm.py",
+              here / "claim_checks.py", here / "situation_guards.py",
               *sorted((here / "data" / "playbooks").glob("*.yaml"))]:
         if f.exists():
             h.update(f.name.encode())
@@ -489,12 +496,17 @@ def focus(text: str, query_terms: set[str], limit: int = 700) -> str:
     return prefix + body + (" …" if hi < len(parts) - 1 else "")
 
 
-def _passage(i: int, s: dict, lang: str, terms: set[str] | None = None) -> str:
+def _passage(i: int, s: dict, lang: str, terms: set[str] | None = None, tail: bool = False) -> str:
+    """One numbered passage for the prompt, in ONE language (V3.2 token diet): the English translation when
+    the person asks in English and the passage has one, else the Nepali text. Precedents get a shorter window
+    (their opening is the court header; the holding is what the focus window finds)."""
     title = s.get("title_ne") or s.get("title_en") or ""
     cite = s.get("source_ne") if lang == "ne" else (s.get("source_en") or s.get("source_ne"))
-    body = focus(s.get("text_ne") or "", terms or set(), config.PASSAGE_CHARS)
-    if s.get("text_en"):
-        body += f"\n[English translation]: {focus(s['text_en'], terms or set(), config.PASSAGE_CHARS)}"
+    limit = config.PRECEDENT_PASSAGE_CHARS if (tail or s.get("category") == "precedent") else config.PASSAGE_CHARS
+    if lang == "en" and s.get("text_en"):
+        body = f"[English translation]: {focus(s['text_en'], terms or set(), limit)}"
+    else:
+        body = focus(s.get("text_ne") or "", terms or set(), limit)
     kind = "Supreme Court precedent" if s.get("category") == "precedent" else "Statute"
     if s.get("stale"):
         kind += (f", OLDER LAW: decided in BS {s.get('decided_bs')}, before the governing Act of BS "
@@ -505,6 +517,33 @@ def _passage(i: int, s: dict, lang: str, terms: set[str] | None = None) -> str:
     if s.get("category") != "precedent" and status and status != "in_force":
         kind += f", status: {status}"
     return f"[{i}] ({kind}) {cite}\nTitle: {title}\n{body}"
+
+
+def prompt_source_numbers(sources: list[dict], playbook: dict | None = None) -> list[int]:
+    """1-based numbers of the sources SENT to the model (all of `sources` stay citable and verifiable; a
+    source the model never sees cannot be cited, and the numbers are the original ones). With a curated
+    playbook pin the pinned provisions are the governing law: only PROMPT_EXTRA_LAWS_WITH_PIN other statutes
+    ride along; without one, the top PROMPT_MAX_LAWS. At most PROMPT_MAX_PRECEDENTS precedents (current-law
+    ones first: retrieval already sorts them)."""
+    pinned = [i for i, s in enumerate(sources, 1) if s.get("pinned")]
+    laws = [i for i, s in enumerate(sources, 1) if s.get("category") != "precedent"]
+    precs = [i for i, s in enumerate(sources, 1) if s.get("category") == "precedent"]
+    if pinned:
+        rest = [i for i in laws if i not in pinned][:config.PROMPT_EXTRA_LAWS_WITH_PIN]
+        keep = set(pinned) | set(rest)
+    else:
+        keep = set(laws[:config.PROMPT_MAX_LAWS])
+    keep |= set(precs[:config.PROMPT_MAX_PRECEDENTS])
+    return sorted(keep)
+
+
+def answer_max_tokens(lang: str, n_sources: int) -> int:
+    """Output budget for the answer JSON. Groq/Gemini free tiers count the requested output against the
+    per-minute token limit (and Groq's qwen refuses 6000), so ask for what the answer can need: Nepali is
+    ~2.5x the tokens of English; a small source set cannot support a long answer."""
+    if lang == "ne":
+        return max(1200, min(config.ANSWER_MAX_TOKENS_NE, config.ANSWER_TOKENS_BASE_NE + config.ANSWER_TOKENS_PER_SOURCE_NE * n_sources))
+    return max(800, min(config.ANSWER_MAX_TOKENS_EN, config.ANSWER_TOKENS_BASE_EN + config.ANSWER_TOKENS_PER_SOURCE_EN * n_sources))
 
 
 def _terms(message: str, analysis: dict) -> set[str]:
@@ -656,7 +695,11 @@ def tidy_answer(answer: str, sources: list[dict]) -> str:
 def _prompt(message: str, analysis: dict, sources: list[dict], lang: str, history: list[dict] | None,
             playbook: dict | None = None) -> str:
     terms = _terms(analysis.get("question") or message, analysis)
-    context = "\n\n".join(_passage(i, s, lang, terms) for i, s in enumerate(sources, 1))
+    shown = prompt_source_numbers(sources, playbook)
+    # the leading statutes (and every pinned one) get the full window; lower-ranked ones a shorter window
+    full = {i for i in shown if sources[i - 1].get("pinned")} | set(
+        [i for i in shown if sources[i - 1].get("category") != "precedent"][:config.PROMPT_FULL_WINDOW_LAWS])
+    context = "\n\n".join(_passage(i, sources[i - 1], lang, terms, tail=i not in full) for i in shown)
     hist = _history_text(history, limit=4)
     return (
         f"Official sources:\n{context}\n\n"
@@ -667,6 +710,18 @@ def _prompt(message: str, analysis: dict, sources: list[dict], lang: str, histor
         f"{'Reply in English.' if lang == 'en' else 'Reply in Nepali (Devanagari).'} "
         f"Return only the JSON object described in the instructions."
     )
+
+
+def check_context(message: str, analysis: dict, sources: list[dict], playbook: dict | None) -> claim_checks.CheckContext:
+    """What the V3.2 sentence checks may know: the user's question (+ the model's standalone rewrite), its
+    stemmed topic terms and the retrieved statutes' section titles (for the precedent topic gate), and the
+    matched playbook's text (the only place an uncited office/forum may come from)."""
+    q = analysis.get("question") or message
+    return claim_checks.CheckContext(
+        question=" ".join(x for x in (message, analysis.get("question")) if x),
+        topic_terms=frozenset(_terms(q, analysis)),
+        law_terms=claim_checks.law_topic_terms(sources),
+        guidance=_guidance_terms_text(playbook))
 
 
 def run(message: str, language: str = "auto", history: list[dict] | None = None, tier: str = "free"):
@@ -741,10 +796,11 @@ def run(message: str, language: str = "auto", history: list[dict] | None = None,
     # deltas, and if it changes text that was already shown a `replace` event carries the final text.
     yield "status", {"stage": "checking sources"}
     prompt_text = _prompt(message, analysis, sources, lang, history, playbook)
+    ctx = check_context(message, analysis, sources, playbook)
     if config.STREAM_VERIFIED:
-        result, usage, streamed = yield from _stream_generate(prompt_text, sources, lang, tier, playbook)
+        result, usage, streamed = yield from _stream_generate(prompt_text, sources, lang, tier, playbook, ctx=ctx)
     else:
-        (result, usage), streamed = _generate_verified(prompt_text, sources, lang, tier, playbook), ""
+        (result, usage), streamed = _generate_verified(prompt_text, sources, lang, tier, playbook, ctx=ctx), ""
     verification = None
     if result is None:
         answer, llm_used = _extractive(sources, lang), False
@@ -782,11 +838,12 @@ def _simulate_stream(answer: str):
 
 def _generate_verified(prompt_text: str, sources: list[dict], lang: str, tier: str, playbook: dict | None, *,
                        raw: str | None = None, cut_off: bool = False, usage: dict | None = None,
-                       budget_s: float | None = None):
+                       budget_s: float | None = None, ctx: claim_checks.CheckContext | None = None):
     """(structured.build() result | None if no model answered, usage). Never raises. With `raw` (a reply that
     was already streamed) no generation call is made: it is only finalised (repair / verify / entailment)."""
     # Devanagari costs ~3x the tokens of English, and JSON adds keys and quotes
-    max_tokens = config.ANSWER_MAX_TOKENS_NE if lang == "ne" else config.ANSWER_MAX_TOKENS_EN
+    max_tokens = answer_max_tokens(lang, len(prompt_source_numbers(sources, playbook)))
+    system = answer_system(lang)
     paid = tier != "free"
     budget = budget_s if budget_s is not None else config.ANSWER_JSON_BUDGET_S
     model = tiers.model_for_tier(tier) if paid else None
@@ -805,9 +862,9 @@ def _generate_verified(prompt_text: str, sources: list[dict], lang: str, tier: s
     if raw is None:
         try:
             if paid:
-                raw = paid_call(ANSWER_SYSTEM, prompt_text, budget_s=budget)
+                raw = paid_call(system, prompt_text, budget_s=budget)
             else:
-                raw = llm.complete(ANSWER_SYSTEM, prompt_text, json_mode=True, max_tokens=max_tokens,
+                raw = llm.complete(system, prompt_text, json_mode=True, max_tokens=max_tokens,
                                    budget_s=budget, call_timeout_s=config.ANSWER_JSON_CALL_TIMEOUT_S)
             cut_off = llm.was_cut_off()
         except Exception as e:  # noqa: BLE001
@@ -821,14 +878,16 @@ def _generate_verified(prompt_text: str, sources: list[dict], lang: str, tier: s
                             max_tokens=max_tokens, budget_s=20, temperature=0.0)
 
     entail = None
-    if config.ENTAILMENT_CHECK or paid:  # paid tiers can afford one more cheap call
+    if config.ENTAILMENT_CHECK or paid:  # ONE extra fast-tier call over a compact payload (see structured.entail_payload)
         call = (lambda system, user, **kw: paid_call(system, user, model=haiku, max_tokens=kw.get("max_tokens", 300),
                                                      temperature=0.0, budget_s=20)) if paid else llm.complete
-        entail = lambda doc: structured.entailment_filter(doc, call)  # noqa: E731
+        question = ctx.question if ctx is not None else ""
+        entail = lambda doc: structured.entailment_filter(  # noqa: E731
+            doc, call, question=question, drop_partial=config.ENTAILMENT_DROP_PARTIAL)
     disclaimer = DISCLAIMER_EN if lang == "en" else DISCLAIMER_NE
     try:
         return structured.build(raw, sources, lang, guidance=_guidance_terms_text(playbook), disclaimer=disclaimer,
-                                cut_off=cut_off, repair=repair, entail=entail), usage
+                                cut_off=cut_off, repair=repair, entail=entail, ctx=ctx), usage
     except Exception:  # noqa: BLE001 - a verifier bug must degrade to the extractive answer, not a 500
         log.exception("structured answer build failed")
         return None, usage
@@ -844,16 +903,18 @@ def _tidy_piece(piece: str, sources: list[dict]) -> str:
     return _DHARA_PIECE.sub(r"दफा\1", piece)
 
 
-def _stream_generate(prompt_text: str, sources: list[dict], lang: str, tier: str, playbook: dict | None):
+def _stream_generate(prompt_text: str, sources: list[dict], lang: str, tier: str, playbook: dict | None, *,
+                     ctx: claim_checks.CheckContext | None = None):
     """Stream the model's JSON, verifying every sentence as it completes. A generator: yields ("delta", text)
     for verified text and returns (result, usage, streamed_text) where `result` is the authoritative
     structured.build() of the whole reply (or of the non-streamed fallback) and `streamed_text` is exactly
     what was emitted. Never raises."""
     paid = tier != "free"
-    max_tokens = config.ANSWER_MAX_TOKENS_NE if lang == "ne" else config.ANSWER_MAX_TOKENS_EN
+    max_tokens = answer_max_tokens(lang, len(prompt_source_numbers(sources, playbook)))
+    system = answer_system(lang)
     budget = config.ANSWER_JSON_BUDGET_S
     started = time.time()
-    sv = structured.StreamVerifier(sources, _guidance_terms_text(playbook), config.STREAM_MIN_RULES)
+    sv = structured.StreamVerifier(sources, _guidance_terms_text(playbook), config.STREAM_MIN_RULES, ctx=ctx)
     info: dict = {}
     parts: list[str] = []
     streamed = ""
@@ -862,10 +923,10 @@ def _stream_generate(prompt_text: str, sources: list[dict], lang: str, tier: str
     src = None
     try:
         if paid:
-            src = llm.paid_stream(tiers.model_for_tier(tier), ANSWER_SYSTEM, prompt_text, max_tokens=max_tokens,
+            src = llm.paid_stream(tiers.model_for_tier(tier), system, prompt_text, max_tokens=max_tokens,
                                   budget_s=budget, info=info)
         else:
-            src = llm.stream_json(ANSWER_SYSTEM, prompt_text, max_tokens=max_tokens, budget_s=budget, info=info)
+            src = llm.stream_json(system, prompt_text, max_tokens=max_tokens, budget_s=budget, info=info)
         for delta in src:
             parts.append(delta)
             text = sv.feed(delta)
@@ -886,15 +947,16 @@ def _stream_generate(prompt_text: str, sources: list[dict], lang: str, tier: str
     raw = "".join(parts)
     if not raw.strip():
         # nothing streamed (no streaming provider, or it never started): the V3 non-streamed call
-        result, usage = _generate_verified(prompt_text, sources, lang, tier, playbook, usage=usage,
+        result, usage = _generate_verified(prompt_text, sources, lang, tier, playbook, usage=usage, ctx=ctx,
                                            budget_s=max(15.0, budget - (time.time() - started)))
         return result, usage, streamed
     cut_off = cut_off or err is not None or llm.was_cut_off(info.get("finish") or "")
-    result, usage = _generate_verified(prompt_text, sources, lang, tier, playbook, raw=raw, cut_off=cut_off, usage=usage)
+    result, usage = _generate_verified(prompt_text, sources, lang, tier, playbook, raw=raw, cut_off=cut_off, usage=usage,
+                                       ctx=ctx)
     if err is not None and (result is None or result.get("answer") is None):
         left = budget - (time.time() - started)
         if left > 12:  # the partial reply was not enough: one non-streamed attempt (the replace path swaps it in)
-            fb, usage = _generate_verified(prompt_text, sources, lang, tier, playbook, usage=usage, budget_s=left)
+            fb, usage = _generate_verified(prompt_text, sources, lang, tier, playbook, usage=usage, budget_s=left, ctx=ctx)
             if fb is not None and fb.get("answer") is not None:
                 result = fb
     return result, usage, streamed

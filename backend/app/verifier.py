@@ -22,6 +22,8 @@ import re
 import unicodedata
 from functools import lru_cache
 
+from . import claim_checks, situation_guards
+from .claim_checks import CheckContext
 from .text_norm import DEV_DIGITS, DEVANAGARI_RE, TOKEN_RE, detect_language, fold, tokenize
 
 _CITE = re.compile(r"\[(\d{1,2})\]")
@@ -216,6 +218,7 @@ FUZZY_MIN_TOKENS = 6
 FUZZY_RATIO = 0.9
 LEX_MIN_RATIO = 0.3       # share of the sentence's content words found in its quote (calibrated, see docs/PROGRESS.md)
 GUIDANCE_MIN_RATIO = 0.4  # uncited procedure text must come from the curated playbook this much
+TRAILING_PROVISO = True   # V3.2: a quote followed by a "तर, ..." proviso may not be stated with no exception wording
 
 _PUA = re.compile(r"[-]")
 _PUNCT = re.compile(r"[।॥|.,;:!?\"'“”‘’()\[\]{}<>«»–—\-‐/\\*_…•·~`^]")
@@ -270,7 +273,7 @@ def looks_rule_like(text: str) -> bool:
 
 class _View:
     """One source prepared for span matching."""
-    __slots__ = ("src", "texts", "joined", "numbers")
+    __slots__ = ("src", "texts", "joined", "numbers", "ocr", "_layout")
 
     def __init__(self, src: dict):
         self.src = src
@@ -278,11 +281,23 @@ class _View:
         self.joined = [" " + " ".join(t) + " " for t in self.texts]
         head = " ".join(str(src.get(k) or "") for k in ("source_ne", "source_en", "title_ne", "title_en"))
         self.numbers = {n for n in _numbers_in(head) if len(n) == 4}  # the law's own year, e.g. 2074
+        # scanned (OCR'd) sources drop and garble words: only they get the lenient quote matching
+        self.ocr = str(src.get("ocr") or "").lower() in ("true", "1", "yes")
+        self._layout = None
+
+    @property
+    def layout(self) -> claim_checks.Layout:
+        """Section headings / clause starts of the Nepali text (lazy: only sentences that pass the cheap checks)."""
+        if self._layout is None:
+            self._layout = claim_checks.Layout(str(self.src.get("text_ne") or ""), str(self.src.get("section") or ""))
+        return self._layout
 
 
-def _fuzzy_span(qtok: list[str], stok: list[str]) -> bool:
-    """>=90% of the quote's tokens found in one contiguous run of the source
-    (OCR'd passages drop or garble a word); every digit token must be exact."""
+def _fuzzy_span(qtok: list[str], stok: list[str], strict: bool = False) -> bool:
+    """>=90% of the quote's tokens found in one contiguous run of the source; every digit token must be exact.
+    Lenient (OCR'd passages drop or garble words) unless `strict`: then every quote token must also line up
+    with the same word of the passage or a one/two-character variant of it - a substituted or added word
+    (नागरिकता for व्यक्तिगत घटना दर्ताको) is not noise."""
     n = len(qtok)
     if n < FUZZY_MIN_TOKENS or len(stok) < n // 2:
         return False
@@ -296,7 +311,7 @@ def _fuzzy_span(qtok: list[str], stok: list[str]) -> bool:
         if digits - set(window):
             continue
         blocks = difflib.SequenceMatcher(None, qtok, window, autojunk=False).get_matching_blocks()
-        if sum(b.size for b in blocks) / n >= FUZZY_RATIO:
+        if sum(b.size for b in blocks) / n >= FUZZY_RATIO and (not strict or claim_checks.alignment_ok(qtok, window)):
             return True
         tried += 1
         if tried > 200:
@@ -312,7 +327,7 @@ def quote_in_source(quote: str, view: _View) -> str | None:
     needle = " " + " ".join(qtok) + " "
     if any(needle in j for j in view.joined):
         return None
-    if any(_fuzzy_span(qtok, t) for t in view.texts):
+    if any(_fuzzy_span(qtok, t, strict=not view.ocr) for t in view.texts):
         return None
     return "quote_not_verbatim"
 
@@ -391,9 +406,18 @@ def _cite_list(sent: dict) -> list[tuple[int, str]]:
     return out
 
 
+def _cite_conflicts(good: list[tuple[int, str]], fn) -> str | None:
+    """A sentence rests on one or more quotes; it fails a per-quote check only when EVERY quote fails it (the
+    best-supporting quote decides, as for lexical support). `fn(n, quote)` -> reason | None."""
+    reasons = [fn(n, q) for n, q in good]
+    return reasons[0] if reasons and all(reasons) else None
+
+
 def check_structured_sentence(sent: dict, sources: list[dict], views: list[_View],
-                              guidance_terms: set[str] | None = None) -> tuple[str | None, list[dict]]:
-    """(None, kept cites) if the sentence may be shown, else (reason code, [])."""
+                              guidance_terms: set[str] | None = None,
+                              ctx: CheckContext | None = None) -> tuple[str | None, list[dict]]:
+    """(None, kept cites) if the sentence may be shown, else (reason code, []). `ctx` (V3.2) carries the user's
+    question and the matched playbook's text; without it the checks that need them are skipped."""
     text = str(sent.get("text") or "").strip()
     kind = sent.get("kind") if sent.get("kind") in KINDS else "rule"
     if not text:
@@ -403,9 +427,13 @@ def check_structured_sentence(sent: dict, sources: list[dict], views: list[_View
     if not (kind in STRICT_KINDS or cites or looks_rule_like(body)):
         # empathy / advice / plain procedure with no number and no rule wording;
         # a procedure step must come from the curated playbook, not the model's memory
-        if kind != "procedure" or _guidance_ok(body, guidance_terms or set()):
-            return None, []
-        return "uncited_procedure", []
+        if kind == "procedure" and not _guidance_ok(body, guidance_terms or set()):
+            return "uncited_procedure", []
+        # V3.2: whatever the kind, an uncited sentence may not name an office/forum or a filing document that
+        # the matched playbook does not name (it would be a legal claim with no source)
+        if ctx is not None and claim_checks.uncited_forum_claim(body, ctx.guidance):
+            return "uncited_forum_claim", []
+        return None, []
     if not cites:
         return "no_citation", []
 
@@ -449,16 +477,80 @@ def check_structured_sentence(sent: dict, sources: list[dict], views: list[_View
     if not _sentence_numbers(body) <= pool:
         return "number_not_in_quote", []
     section_pool = set(quote_nums)
-    for n, _ in good:
+    for n, q in good:
         section_pool.add(((sources[n - 1].get("section") or "").translate(DEV_DIGITS).split(" ")[0]) or "-")
+        # a merged chunk (rule 22 + rule 23) is filed under its first section: the quote's own heading is the
+        # right one (V3.2), and section_under_other_heading below refuses the first section for it
+        under = claim_checks.quote_section(_qtokens(q), views[n - 1].layout)
+        if under:
+            section_pool.add(under)
     if not _section_refs(body) <= section_pool:
         return "section_not_in_quote", []
+
+    # ---- V3.2: what the numbers / sections / parties / conditions of the sentence are BOUND to
+    role = claim_checks.number_role_conflict(body, [q for _, q in good])
+    if role:
+        return role, []
+    reason = _cite_conflicts(good, lambda n, q: _section_under_other_heading(body, q, views[n - 1]))
+    if reason:
+        return reason, []
+    if claim_checks.dangling_additive(body):
+        return "dangling_additive_penalty", []
+    reason = _cite_conflicts(good, lambda n, q: _scope_problem(body, q, views[n - 1]))
+    if reason:
+        return reason, []
+    if _only_precedents(good, sources):
+        reason = _precedent_problem(good, sources, ctx)
+        if reason:
+            return reason, []
+    if ctx is not None:
+        cited_text = [" ".join(str(sources[n - 1].get(k) or "") for k in ("text_ne", "text_en", "title_ne", "source_ne"))
+                      + (" सर्वोच्च अदालत Supreme Court" if sources[n - 1].get("category") == "precedent" else "")
+                      for n, _ in good]
+        if claim_checks.forum_not_in_sources(body, cited_text, ctx.guidance):
+            return "forum_not_in_source", []
+        reason = _cite_conflicts(good, lambda n, q: _guard_hit(ctx, body, q, sources[n - 1]))
+        if reason:
+            return reason, []
 
     # the best-supporting of the cited quotes decides; words it cannot compare are not held against it
     ratio, hits, considered = max((lexical_support(body, q) for _, q in good), key=lambda r: (r[0], r[1]))
     if considered and (hits < 1 or ratio < LEX_MIN_RATIO):
         return "quote_unrelated", []
     return None, [{"n": n, "quote": q} for n, q in good]
+
+
+def _section_under_other_heading(body: str, quote: str, view: _View) -> str | None:
+    if claim_checks.section_mismatch(body, _qtokens(quote), view.layout):
+        return "section_under_other_heading"
+    return None
+
+
+def _scope_problem(body: str, quote: str, view: _View) -> str | None:
+    got = claim_checks.clause_context(_qtokens(quote), view.layout)
+    if got is None:
+        return None
+    upto, after = got
+    reason = claim_checks.scope_conflict(body, upto)
+    if reason:
+        return reason
+    if TRAILING_PROVISO and claim_checks.proviso_dropped(body, after):
+        return "proviso_dropped"
+    return None
+
+
+def _only_precedents(good: list[tuple[int, str]], sources: list[dict]) -> bool:
+    return all(sources[n - 1].get("category") == "precedent" for n, _ in good)
+
+
+def _precedent_problem(good: list[tuple[int, str]], sources: list[dict], ctx: CheckContext | None) -> str | None:
+    reasons = [claim_checks.precedent_problem(q, ctx) for _, q in good]
+    return reasons[0] if reasons and all(reasons) else None
+
+
+def _guard_hit(ctx: CheckContext, body: str, quote: str, source: dict) -> str | None:
+    gid = situation_guards.violation(ctx.question, body, [quote], source)
+    return f"wrong_law_guard:{gid}" if gid else None
 
 
 def _clean_doc_sentence(s) -> dict | None:
@@ -468,14 +560,17 @@ def _clean_doc_sentence(s) -> dict | None:
 
 
 def verify_sentence(raw, sources: list[dict], views: list[_View],
-                    guidance_terms: set[str] | None = None) -> tuple[dict | None, str | None]:
+                    guidance_terms: set[str] | None = None, ctx: CheckContext | None = None,
+                    dangling: bool = False) -> tuple[dict | None, str | None]:
     """One sentence through the same checks verify_structured applies: (kept sentence, None) when it may be
     shown, (None, reason) when it is removed, (None, None) when it is empty/malformed (skipped, not counted).
     Shared with the streaming path so streamed and final text are decided by identical code."""
     s = _clean_doc_sentence(raw)
     if s is None:
         return None, None
-    reason, cites = check_structured_sentence(s, sources, views, guidance_terms)
+    if dangling:  # the sentence before it (same block) was removed: "But ..." / "तर ..." must not dangle
+        s["text"], _ = claim_checks.strip_leading_conjunction(s["text"])
+    reason, cites = check_structured_sentence(s, sources, views, guidance_terms, ctx)
     if reason:
         return None, reason
     return {"text": s["text"], "kind": s["kind"] if s["kind"] in KINDS else "rule", "cites": cites}, None
@@ -489,20 +584,26 @@ def guidance_term_set(guidance: str) -> set[str]:
     return {t for t in tokenize(guidance) if not t.isdigit()}
 
 
-def verify_structured(doc: dict, sources: list[dict], guidance: str = "") -> tuple[dict, dict]:
+def verify_structured(doc: dict, sources: list[dict], guidance: str = "",
+                      ctx: CheckContext | None = None) -> tuple[dict, dict]:
     """(verified doc, report). Failing sentences are dropped; blocks left with
     nothing under their heading are dropped; the report keeps the legacy
     verification shape (supported == claims for what is rendered) plus `removed`
     (counts and reason codes only - never the removed text)."""
     views = [_View(s) for s in sources]
     guidance_terms = {t for t in tokenize(guidance) if not t.isdigit()}
+    ctx = ctx if ctx is not None else CheckContext()
+    if not ctx.guidance:
+        ctx = CheckContext(question=ctx.question, topic_terms=ctx.topic_terms, guidance=guidance)
     reasons: dict[str, int] = {}
     kept_blocks, claims, dropped_blocks = [], 0, 0
     cited: set[int] = set()
     for block in doc.get("blocks") or []:
         kept = []
+        prev_removed = False
         for raw in block.get("sentences") or []:
-            k, reason = verify_sentence(raw, sources, views, guidance_terms)
+            k, reason = verify_sentence(raw, sources, views, guidance_terms, ctx, dangling=prev_removed)
+            prev_removed = bool(reason)
             if reason:
                 reasons[reason] = reasons.get(reason, 0) + 1
                 continue
