@@ -1,0 +1,75 @@
+id: dowry_harassment
+area: family
+keywords:
+  - "dowry"
+  - "daijo"
+  - "daaijo"
+  - "dahej"
+  - "dowry nadeko"
+  - "daijo nadeko"
+  - "daijo nalyayeko"
+  - "dowry ko lagi"
+  - "dowry demand"
+  - "harassed for dowry"
+  - "दाइजो"
+  - "दाइजो नदिएको"
+  - "दाइजो नल्याएको"
+  - "दाइजोको लागि"
+  - "दाइजो माग्ने"
+  - "दाइजो माग"
+issue:
+  en: "My husband or in-laws harass me or demand property because I did not bring dowry (daijo)"
+  ne: "दाइजो नल्याएको वा नदिएको भनेर श्रीमान वा ससुरालीले मलाई सताउँछन् वा सम्पत्ति माग्छन्"
+fact_questions:
+  - en: "Was money or property demanded before the marriage as a condition of it, or after the marriage?"
+    ne: "विवाहअघि विवाहको शर्तमा रकम वा सम्पत्ति मागिएको हो, कि विवाहपछि?"
+  - en: "What exactly is being done (demands, insults, threats, beating, being thrown out), how often, and by whom?"
+    ne: "ठ्याक्कै के गरिन्छ (माग, गाली, धम्की, कुटपिट, घरबाट निकाल्ने), कति पटक र कसले?"
+  - en: "When did you first learn of or experience the latest act?"
+    ne: "पछिल्लो घटना तपाईंले कहिले थाहा पाउनुभयो वा भोग्नुभयो?"
+provisions:
+  - law_title_ne: "मुलुकी अपराध संहिता, २०७४"
+    section: "174"
+    note:
+      en: "No one may demand dowry or any property, or set a give-and-take condition, for a marriage (traditional gifts and one piece of jewellery worn on the body are excepted); the punishment is up to 3 years' imprisonment or a fine up to Rs 30,000 or both. After the marriage, no one may demand dowry or property, or harass, torment or treat the bride or her relatives in an inhuman or insulting way because it was not given; the punishment is up to 5 years' imprisonment or a fine up to Rs 50,000 or both. Anything taken must be returned to the person concerned."
+      ne: "विवाहमा दाइजो वा कुनै सम्पत्ति माग्न वा लेनदेनको शर्त राख्न हुँदैन (परम्परादेखि चलिआएको सामान्य उपहार, भेटी, दक्षिणा र शरीरमा लगाएको एकसरो गहना बाहेक); तीन वर्षसम्म कैद वा तीस हजार रुपैयाँसम्म जरिबाना वा दुवै सजाय हुन्छ। विवाहपछि दाइजो वा सम्पत्ति माग्न वा नदिएको कारणले दुलही वा निजका नातेदारलाई हैरान पार्न, सताउन वा अमानवीय वा अपमानजन्य व्यवहार गर्न हुँदैन; पाँच वर्षसम्म कैद वा पचास हजार रुपैयाँसम्म जरिबाना वा दुवै सजाय हुन्छ। लिएको सम्पत्ति सम्बन्धित व्यक्तिलाई फिर्ता दिनुपर्छ।"
+  - law_title_ne: "मुलुकी अपराध संहिता, २०७४"
+    section: "176"
+    note:
+      en: "For the offences in this chapter (which includes the dowry offence), a complaint cannot be made once three months have passed from the date you learned of the act."
+      ne: "यस परिच्छेद अन्तर्गतको कसूरमा (दाइजो सम्बन्धी कसूर समेत) कसूर भए गरेको कुरा थाहा पाएको मितिले तीन महिना नाघेपछि उजुर लाग्दैन।"
+  - law_title_ne: "घरेलु हिंसा (कसूर र सजाय) ऐन, २०६६"
+    section: "4 (1)"
+    note:
+      en: "If the treatment also amounts to domestic violence, anyone who knows of it can complain, in writing or orally, to a police office, the National Women's Commission or the local level. The police or local level must summon the offender within 24 hours (excluding travel time) and take a statement."
+      ne: "यस्तो व्यवहार घरेलु हिंसा पनि भएमा थाहा पाउने जुनसुकै व्यक्तिले प्रहरी कार्यालय, राष्ट्रिय महिला आयोग वा स्थानीय तहसमक्ष लिखित वा मौखिक उजुरी दिन सक्छ। प्रहरी वा स्थानीय तहले बाटोको म्याद बाहेक २४ घण्टाभित्र पीडकलाई झिकाई बयान गराउनुपर्छ।"
+  - law_title_ne: "घरेलु हिंसा (कसूर र सजाय) ऐन, २०६६"
+    section: "6"
+    note:
+      en: "On a preliminary look at a domestic-violence complaint, the court can issue an interim protective order until the final decision, for example letting the victim keep living in the house and stopping insults, threats and harassment."
+      ne: "घरेलु हिंसाको उजुरीको प्रारम्भिक छानबिनबाट तत्काल संरक्षण दिन आवश्यक देखिएमा अदालतले अन्तिम निर्णय नभएसम्म पीडितलाई बसेको घरमा बस्न दिने र गाली बेइज्जती, धम्की वा सताउने काम नगर्न जस्ता अन्तरिम संरक्षणका आदेश दिन सक्छ।"
+evidence:
+  - en: "Messages, recordings or letters in which the dowry or property is demanded"
+    ne: "दाइजो वा सम्पत्ति माग गरिएका म्यासेज, रेकर्डिङ वा पत्र"
+  - en: "Medical or hospital records of any injury, and photos"
+    ne: "चोटपटकको मेडिकल वा अस्पतालको अभिलेख र फोटो"
+  - en: "Names of relatives, neighbours or others who saw or heard the harassment, and the dates"
+    ne: "उत्पीडन देखेका वा सुनेका नातेदार, छिमेकी वा अरूको नाम र मिति"
+forum:
+  en: "A police office, the National Women's Commission or the local level (any of them can receive a complaint if it is also domestic violence, section 4 of the Domestic Violence Act). The dowry offence itself is under the Criminal Code (section 174); an advocate can tell you how to file it, and the three-month limit of section 176 runs from when you learned of the act."
+  ne: "प्रहरी कार्यालय, राष्ट्रिय महिला आयोग वा स्थानीय तह (घरेलु हिंसा पनि भएमा जुनसुकैमा उजुरी दिन सकिन्छ, घरेलु हिंसा ऐन दफा ४)। दाइजोको कसूर आफैँ मुलुकी अपराध संहिता (दफा १७४) मा छ; कसरी उजुरी गर्ने भन्नेबारे वकिलले बताउन सक्छन्, र दफा १७६ को तीन महिनाको हद कुरा थाहा पाएको मितिबाट गनिन्छ।"
+limitation:
+  note:
+    en: "For the dowry offence in Criminal Code section 174, a complaint cannot be made after three months from the date you learned of the act (section 176). A domestic-violence complaint has its own 90-day limit under the Domestic Violence Act (section 14). Do not wait."
+    ne: "मुलुकी अपराध संहिता दफा १७४ को दाइजो सम्बन्धी कसूरमा कुरा थाहा पाएको मितिले तीन महिना नाघेपछि उजुर लाग्दैन (दफा १७६)। घरेलु हिंसाको उजुरीको आफ्नै ९० दिनको हद छ (घरेलु हिंसा ऐन दफा १४)। ढिलो नगर्नुहोस्।"
+  provision:
+    law_title_ne: "मुलुकी अपराध संहिता, २०७४"
+    section: "176"
+next_steps:
+  - en: "Write down each demand or act with its date and keep messages, recordings and medical papers safe."
+    ne: "प्रत्येक माग वा कार्य मितिसहित लेखेर राख्नुहोस्, र म्यासेज, रेकर्डिङ र मेडिकल कागज सुरक्षित राख्नुहोस्।"
+  - en: "If you are in danger or being beaten, go to the police or the National Women's Commission now; a complaint can be made orally."
+    ne: "खतरामा वा कुटपिटमा हुनुहुन्छ भने अहिल्यै प्रहरी वा राष्ट्रिय महिला आयोगमा जानुहोस्; उजुरी मौखिक रूपमा पनि दिन सकिन्छ।"
+  - en: "Get an advocate's help to file the dowry complaint within three months of the act you learned of (Criminal Code sections 174 and 176)."
+    ne: "थाहा पाएको कार्यको तीन महिनाभित्र दाइजोको उजुरी दिन वकिलको सहयोग लिनुहोस् (मुलुकी अपराध संहिता दफा १७४ र १७६)।"
+template_link: null

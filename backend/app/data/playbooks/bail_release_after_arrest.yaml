@@ -1,0 +1,83 @@
+id: bail_release_after_arrest
+area: criminal
+keywords:
+  - "jamanat rakhera"
+  - "dharauti rakhera"
+  - "dharauti jamanat"
+  - "bail lidaina"
+  - "released on bail"
+  - "get bail"
+  - "how to get bail"
+  - "bail for my"
+  - "arrest garyo"
+  - "arrest bhayo"
+  - "pakrau garyo"
+  - "pakrau bhayo"
+  - "thunama rakhyo"
+  - "जमानतमा छुटाउन"
+  - "धरौट राखेर"
+  - "पक्राउ गर्यो"
+  - "पक्राउ परेको"
+  - "थुनामा राख्यो"
+  - "थुनुवा छुटाउन"
+issue:
+  en: "Someone in my family has been arrested and I want to know how they can be released on bail (jamanat/dharauti)"
+  ne: "मेरो परिवारका सदस्य पक्राउ परेका छन् र जमानत/धरौटीमा कसरी छुटाउने भन्ने जान्नु छ"
+fact_questions:
+  - en: "What offence is the person accused of, and what is the maximum punishment for it?"
+    ne: "व्यक्तिलाई कुन कसूरको अभियोग लागेको छ, र त्यसको अधिकतम सजाय कति हो?"
+  - en: "Has a case already been filed in court, or is the person still with the police?"
+    ne: "अदालतमा मुद्दा दायर भइसकेको छ, कि व्यक्ति अझै प्रहरीको हिरासतमा छन्?"
+  - en: "Has the person been released on bail or given security before in the last three years for another offence?"
+    ne: "व्यक्ति पहिले तीन वर्षभित्र अर्को कसूरमा धरौट वा जमानतमा छुटेका थिए?"
+provisions:
+  - law_title_ne: "मुलुकी फौजदारी कार्यविधि संहिता, २०७४"
+    section: "68"
+    note:
+      en: "Except in the cases where section 67 requires custody, if there are reasonable grounds that the charge is provable the court may take a deposit (dharauti), a guarantee (jamanat) or a bank guarantee from the accused and let the accused attend hearings on the fixed dates. A bank guarantee must be unconditional and kept up to date for the period the court sets. An accused who gives none of these is kept in custody."
+      ne: "दफा ६७ बमोजिम थुनामा राख्नुपर्ने अवस्थामा बाहेक, अभियोग प्रमाणित हुने मनासिब आधार भएमा अदालतले अभियुक्तसँग धरौट, जमानत वा बैङ्क जमानत लिई तारिखमा राख्न सक्छ। बैङ्क जमानत विना शर्तको र अदालतले तोकेको अवधिसम्म अद्यावधिक हुन सक्ने हुनुपर्छ। धरौट, जमानत वा बैङ्क जमानत नदिने अभियुक्तलाई अदालतले थुनामा राख्छ।"
+  - law_title_ne: "मुलुकी फौजदारी कार्यविधि संहिता, २०७४"
+    section: "67"
+    note:
+      en: "The court keeps an accused in custody pending trial, with reasons, if the charge is an offence punishable by life imprisonment or by more than three years (under Schedule 1 or 2) and the accused appears guilty on the evidence available or there are reasonable grounds to believe so. In some other cases (for example an accused who does not permanently live in Nepal, or who did not appear on the date given in an arrest warrant) the court may also keep the accused in custody."
+      ne: "जन्म कैदको सजाय हुन सक्ने वा अनुसूची-१ वा २ अन्तर्गत तीन वर्षभन्दा बढी कैदको सजाय हुन सक्ने कसूरको अभियोग लागेको अभियुक्त तत्काल प्राप्त प्रमाणबाट कसूरदार देखिने वा कसूरदार हो भन्ने विश्वास गर्ने मनासिब आधार भएमा अदालतले कारण खुलाई पुर्पक्षको लागि थुनामा राख्छ। अन्य केही अवस्थामा (जस्तै नेपालमा स्थायी बसोबास नभएको वा पक्राउ पूर्जीको म्यादभित्र हाजिर नभएको अभियुक्त) पनि अदालतले थुनामा राख्न सक्छ।"
+  - law_title_ne: "मुलुकी फौजदारी कार्यविधि संहिता, २०७४"
+    section: "71"
+    note:
+      en: "The court may order custody or ask for a deposit, guarantee or bank guarantee at any stage of the case, and it does not lose that power because custody or a deposit was not taken at the start. If an accused in custody appears not to be guilty, the court can hear the matter at any stage and order release."
+      ne: "मुद्दाको कारबाही जुनसुकै अवस्थामा पुगेको भए तापनि अदालतले अवस्था अनुसार थुनामा राख्न वा धरौट, जमानत वा बैङ्क जमानत माग्न सक्छ, र सुरुमा थुनामा नराखेको वा धरौट नलिएको कारणले मात्र पछि बाधा हुँदैन। थुनामा परेको अभियुक्त कसूरदार होइन भन्ने प्रमाणित हुन सक्ने मनासिब आधार आएमा अदालतले सुनुवाई गरी थुनाबाट छोड्ने आदेश दिन सक्छ।"
+  - law_title_ne: "मुलुकी फौजदारी कार्यविधि संहिता, २०७४"
+    section: "75"
+    note:
+      en: "A person who has given a deposit under this chapter and does not attend court on the fixed date loses the deposit (it is forfeited)."
+      ne: "यस परिच्छेद बमोजिम धरौट राख्ने व्यक्ति अदालत समक्ष तोकिएको तारेखमा उपस्थित नभएमा निजले राखेको धरौटी जफत हुन्छ।"
+  - law_title_ne: "मुलुकी फौजदारी कार्यविधि संहिता, २०७४"
+    section: "76"
+    note:
+      en: "If the court later orders the accused into custody, the deposit or guarantee given before that must be released. If the accused is acquitted at the final decision, the deposit or guarantee must be returned or released immediately."
+      ne: "अदालतले पछि अभियुक्तलाई थुनामा राख्ने आदेश गरेमा थुनामा राख्नुअघि निजले राखेको धरौट वा जमानत फुकुवा गरिदिनुपर्छ। मुद्दाको अन्तिम निर्णयमा अभियुक्तले सफाई पाएमा धरौटी वा जमानत तुरुन्त फिर्ता वा फुकुवा गरिदिनुपर्छ।"
+evidence:
+  - en: "The charge or arrest details (police office, date, offence named)"
+    ne: "अभियोग वा पक्राउको विवरण (प्रहरी कार्यालय, मिति, उल्लेख भएको कसूर)"
+  - en: "Identity and address documents of the accused and of any person offering a guarantee"
+    ne: "अभियुक्त र जमानत दिने व्यक्तिको परिचय र ठेगानाको कागजात"
+  - en: "Proof of the property or bank guarantee that can be offered as security"
+    ne: "सुरक्षणका रूपमा दिन सकिने सम्पत्ति वा बैङ्क जमानतको प्रमाण"
+forum:
+  en: "The court that is hearing the case decides whether the accused is kept in custody or may give a deposit, guarantee or bank guarantee (sections 67 and 68). Because the offence and its punishment decide which section applies, get an advocate to make the application."
+  ne: "मुद्दा हेर्ने अदालतले अभियुक्तलाई थुनामा राख्ने वा धरौट, जमानत वा बैङ्क जमानत लिने भन्ने निर्णय गर्छ (दफा ६७ र ६८)। कसूर र त्यसको सजायले कुन दफा लागू हुने भन्ने तय गर्ने भएकाले वकिलमार्फत निवेदन दिनुहोस्।"
+limitation:
+  note:
+    en: "The sections cited here set no deadline for asking to be released on a deposit or guarantee, and the court may order custody or bail at any stage of the case (section 71). Because time in custody counts, do not delay: see an advocate at once."
+    ne: "यहाँ उल्लिखित दफाहरूले धरौट वा जमानतमा छुट्न माग गर्ने कुनै म्याद तोकेका छैनन्, र अदालतले मुद्दाको जुनसुकै अवस्थामा थुनामा राख्न वा जमानत लिन सक्छ (दफा ७१)। थुनामा बसेको समय बित्ने भएकाले ढिलो नगरी तुरुन्त वकिलसँग सल्लाह लिनुहोस्।"
+  provision:
+    law_title_ne: "मुलुकी फौजदारी कार्यविधि संहिता, २०७४"
+    section: "71"
+next_steps:
+  - en: "Find out the exact offence charged and its maximum punishment, because sections 67 and 68 depend on it (life imprisonment or more than three years in Schedule 1 or 2 means custody is the rule)."
+    ne: "अभियोग लागेको ठ्याक्कै कसूर र त्यसको अधिकतम सजाय पत्ता लगाउनुहोस्, किनकि दफा ६७ र ६८ त्यसैमा भर पर्छन् (जन्म कैद वा अनुसूची-१ वा २ का तीन वर्षभन्दा बढी सजाय हुने कसूरमा थुनामा राख्ने नै नियम हो)।"
+  - en: "Ask an advocate to apply to the court to take a deposit, guarantee or bank guarantee instead of custody (section 68), and prepare the security and documents."
+    ne: "थुनामा राख्नुको सट्टा धरौट, जमानत वा बैङ्क जमानत लिन अदालतमा निवेदन दिन वकिललाई भन्नुहोस्, र सुरक्षण तथा कागजात तयार गर्नुहोस् (दफा ६८)।"
+  - en: "Once released, attend every hearing date: missing a date forfeits the deposit (section 75); it is returned if the accused is acquitted (section 76)."
+    ne: "छुटेपछि प्रत्येक तारेखमा उपस्थित हुनुहोस्: तारेख छुटे धरौटी जफत हुन्छ (दफा ७५); सफाई पाएमा फिर्ता हुन्छ (दफा ७६)।"
+template_link: null

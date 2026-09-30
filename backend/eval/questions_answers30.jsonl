@@ -1,0 +1,33 @@
+# ANSWER-REVIEW SET (30): fresh questions for manual claim-by-claim review of live answers (V3.2 re-measure).
+# Only `q`/`lang`/`area` matter; `expect` is intentionally empty (no retrieval scoring). Authored after V2.5/V3.2 and never used for tuning.
+# Once a failure here is investigated and fixed, the question is burned: retire it and write a new one.
+{"id": "a01", "q": "मेरो जग्गाको लालपुर्जा हराएको छ, प्रतिलिपि कसरी लिने?", "lang": "ne", "area": "land", "expect": []}
+{"id": "a02", "q": "घरबेटीले भाडा नतिरेको भन्दै एक्कासी कोठा खाली गर्न लगायो। के यो कानुन सम्मत हो?", "lang": "ne", "area": "tenancy", "expect": []}
+{"id": "a03", "q": "मोटरसाइकलले हिर्काएर भाग्यो, बुबा घाइते हुनुभयो। क्षतिपूर्ति कसरी पाइन्छ?", "lang": "ne", "area": "traffic", "expect": []}
+{"id": "a04", "q": "तलबबाट कर कटौती कति प्रतिशत हुन्छ र कसरी हिसाब गर्ने?", "lang": "ne", "area": "tax", "expect": []}
+{"id": "a05", "q": "कम्पनीले कारण नदेखाई जागिरबाट निकाल्यो, मैले के के पाउँछु?", "lang": "ne", "area": "employment", "expect": []}
+{"id": "a06", "q": "श्रीमानले दोस्रो विवाह गरेको छ, मैले के गर्न सक्छु?", "lang": "ne", "area": "family", "expect": []}
+{"id": "a07", "q": "प्रहरीले २४ घण्टाभन्दा बढी हिरासतमा राखेको छ, के यो गैरकानुनी हो?", "lang": "ne", "area": "criminal", "expect": []}
+{"id": "a08", "q": "फेसबुकमा मेरो नक्कली प्रोफाइल बनाएर बदनाम गरिरहेको छ, उजुरी कहाँ दिने?", "lang": "ne", "area": "cyber", "expect": []}
+{"id": "a09", "q": "किनेको मोबाइल एक महिनामै बिग्रियो, पसलेले फिर्ता लिँदैन। के गर्ने?", "lang": "ne", "area": "consumer", "expect": []}
+{"id": "a10", "q": "कम्पनी दर्ता गर्न के के कागजात चाहिन्छ?", "lang": "ne", "area": "company", "expect": []}
+{"id": "a11", "q": "mero baje ko jagga ma chhoro le matra ansha paunchha bhanchhan, chhori le pauchhin?", "lang": "roman", "area": "land", "expect": []}
+{"id": "a12", "q": "maternity leave kati din paunchha ra talab pani paunchha?", "lang": "roman", "area": "employment", "expect": []}
+{"id": "a13", "q": "malaysia gayera kaam garna manpower le 3 lakh liyo tara visa aayena, paisa kasari farkaune?", "lang": "roman", "area": "foreign", "expect": []}
+{"id": "a14", "q": "esewa ma galti le arko manche ko khata ma paisa gayo, kasari farkaune?", "lang": "roman", "area": "cyber", "expect": []}
+{"id": "a15", "q": "mero shreemati le gharbata nikalera bachha lyayera gai, bachha ko custody kasari paune?", "lang": "roman", "area": "family", "expect": []}
+{"id": "a16", "q": "kasaile mero naam ma jhutho muddha halyo, ma ke garne?", "lang": "roman", "area": "criminal", "expect": []}
+{"id": "a17", "q": "VAT darta garna kati turnover chahincha?", "lang": "roman", "area": "tax", "expect": []}
+{"id": "a18", "q": "bhada badhaune bhanera ghar dhani le 30% badhayo, milchha?", "lang": "roman", "area": "tenancy", "expect": []}
+{"id": "a19", "q": "thekedar le kaam sakera pani paisa dinna, muddha kahile halne?", "lang": "roman", "area": "contractor", "expect": []}
+{"id": "a20", "q": "aama ko naam ma matra nagarikta chha, bau ko pahichan chhaina, chhora ko nagarikta kasari paune?", "lang": "roman", "area": "citizenship", "expect": []}
+{"id": "a21", "q": "school le fee badhayo ra result roki diyo, yo milchha?", "lang": "roman", "area": "school", "expect": []}
+{"id": "a22", "q": "chhimeki le mero jagga ma bhitta lagayo, kaha gunaso garne?", "lang": "roman", "area": "neighbor", "expect": []}
+{"id": "a23", "q": "Can a bank freeze my account without telling me?", "lang": "en", "area": "banking", "expect": []}
+{"id": "a24", "q": "How many days of annual leave am I entitled to under Nepali labour law?", "lang": "en", "area": "labour", "expect": []}
+{"id": "a25", "q": "What is the punishment for rape under Nepali law and is there a time limit to file a case?", "lang": "en", "area": "criminal", "expect": []}
+{"id": "a26", "q": "Can a foreigner buy land in Nepal?", "lang": "en", "area": "property", "expect": []}
+{"id": "a27", "q": "How do I register my marriage and is a registration certificate mandatory?", "lang": "en", "area": "marriage", "expect": []}
+{"id": "a28", "q": "What happens if a company does not file its annual return on time?", "lang": "en", "area": "company", "expect": []}
+{"id": "a29", "q": "Someone wrote false things about me on TikTok. Can I file a case for defamation?", "lang": "en", "area": "defamation", "expect": []}
+{"id": "a30", "q": "Who is eligible for the social security fund pension and how much do I get?", "lang": "en", "area": "pension", "expect": []}

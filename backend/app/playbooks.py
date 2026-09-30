@@ -21,10 +21,20 @@ Playbook YAML shape (see app/data/playbooks/*.yaml for real examples):
       provision: {law_title_ne: "...", section: "..."}  # optional, cited limitation clause
     next_steps: [{en: "...", ne: "..."}, ...]
     template_link: null   # S9 adds real drafting-template ids here
+
+Optional keys (V2.5):
+    not_keywords: ["bank", "बैंक"]   # phrases that veto this plan for a message (a different situation)
+    exclude_provisions: [{law_title_ne, section}]   # sections retrieval must not surface for this plan
+A provision of a regulator directive (whose clause numbers repeat) is referenced by heading and text instead
+of a section number:
+      - law_title_ne: "<exact directive document title>"
+        entry_title_contains: "१५/०८२ - कर्जाको ब्याजदर"   # phrase of the entry's heading
+        contains: ["पेनाल ब्याजदर"]                          # phrase(s) that must occur in its text
 """
 from __future__ import annotations
 
 import copy
+import re
 from functools import lru_cache
 from pathlib import Path
 
@@ -48,6 +58,38 @@ def _load_yaml_files() -> list[dict]:
     return out
 
 
+_WS = re.compile(r"\s+")
+_PUA = re.compile("[-]")  # footnote glyphs the PDF extraction leaves inside words
+
+
+def _norm(text: str) -> str:
+    return _WS.sub(" ", _PUA.sub("", text or "")).strip()
+
+
+def lookup_entry(idx, ref: dict) -> dict | None:
+    """The corpus entry a provision reference points at, or None.
+
+    Statutes: `section` (the entry's section label). Regulator directives repeat
+    their clause numbers (every IPD directive has a clause "3"), so a reference
+    may instead give `entry_title_contains` (a phrase of the entry's heading)
+    and/or `contains` (phrases that must occur in its text); the first matching
+    entry of the document is used."""
+    slug = doc_slug(ref["law_title_ne"])
+    if ref.get("entry_title_contains") or ref.get("contains"):
+        want_title = ref.get("entry_title_contains")
+        needles = [_norm(c) for c in ref.get("contains") or []]
+        for i in idx._doc_index.get(slug) or []:
+            e = idx.get(i)
+            if want_title and want_title not in (e.get("title_ne") or ""):
+                continue
+            text = _norm(e.get("text_ne"))
+            if all(n in text for n in needles):
+                return {**e, "slug": slug, "status": e.get("status") or idx.status[i]}
+        return None
+    section = ref.get("section")
+    return idx.section(slug, section) if section else None
+
+
 def _resolve_provision(ref: dict) -> dict:
     """A cited provision, enriched with the corpus's own citation text/url/
     slug - or raises UnresolvedProvision if it doesn't exist. This is what
@@ -57,13 +99,19 @@ def _resolve_provision(ref: dict) -> dict:
     section = ref.get("section")
     slug = doc_slug(title)
     idx = get_index()
-    entry = idx.section(slug, section) if section else None
-    if entry is None:
+    by_text = bool(ref.get("entry_title_contains") or ref.get("contains"))
+    entry = lookup_entry(idx, ref)
+    if by_text:
+        if entry is None:
+            raise UnresolvedProvision(f"{title!r} entry {ref.get('entry_title_contains')!r} / "
+                                      f"{ref.get('contains')!r} not found in corpus (slug={slug})")
+        section = entry.get("section")
+    elif entry is None:
         doc = idx.doc(slug, include_bills=True)
         if doc is None or (section and not any(s["section"] == section for s in doc["sections"])):
             raise UnresolvedProvision(f"{title!r} दफा {section!r} not found in corpus (slug={slug})")
         entry = doc  # section-less reference (e.g. a whole short act)
-    return {
+    out = {
         "law_title_ne": title,
         "section": section,
         "slug": slug,
@@ -72,6 +120,10 @@ def _resolve_provision(ref: dict) -> dict:
         "status": entry.get("status"),
         "note": ref.get("note") or {},
     }
+    if by_text:  # kept so pinned_provisions() can fetch this exact entry again
+        out["entry_title_contains"] = ref.get("entry_title_contains")
+        out["contains"] = list(ref.get("contains") or [])
+    return out
 
 
 def _resolve_playbook(data: dict) -> dict:

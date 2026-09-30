@@ -21,9 +21,17 @@ EXPECTED_IDS = {
     "physical_assault", "child_custody", "maintenance_alimony", "child_marriage_protection",
     "citizenship_by_descent", "right_to_information_request", "fir_not_registered",
 }
+# V2.5: recurring situations the V3 live review found uncovered (each provision verified against corpus text;
+# all flagged NEEDS-ADVOCATE-REVIEW in docs/PLAYBOOK_AUDIT.md)
+V25_IDS = {
+    "overtime_working_hours", "bank_loan_penal_interest", "bank_account_charges_complaint",
+    "loan_interest_dispute", "bail_release_after_arrest", "dowry_harassment",
+    "company_registration_shareholders", "agm_not_held", "medical_negligence_death",
+}
+EXPECTED_IDS = EXPECTED_IDS | V25_IDS
 
 
-def test_twentyfive_playbooks_exist():
+def test_all_playbooks_exist():
     ids = {p["id"] for p in playbooks.list_playbooks()}
     assert ids == EXPECTED_IDS
 
@@ -34,7 +42,7 @@ def test_every_cited_provision_resolves_in_the_real_corpus():
     # not a soft warning, per S6/S7's "done when": no playbook may cite a
     # provision the corpus doesn't have.
     resolved = playbooks.all_playbooks_resolved()
-    assert len(resolved) == 25
+    assert len(resolved) == len(EXPECTED_IDS)
     for pb in resolved:
         assert pb["provisions"], f"{pb['id']} cites no provisions at all"
         for p in pb["provisions"]:

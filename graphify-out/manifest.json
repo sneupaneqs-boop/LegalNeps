@@ -102,9 +102,9 @@
     "semantic_hash": ""
   },
   "backend/app/generation.py": {
-    "mtime": 1790780436.2135224,
-    "seen": 1790780565.7532775,
-    "ast_hash": "69aad1de70cb7372b7866a3f00cb15a7",
+    "mtime": 1790780985.977555,
+    "seen": 1790781130.4067466,
+    "ast_hash": "9e5277e5cf298019dda13a3b5aa90688",
     "semantic_hash": ""
   },
   "backend/app/glossary.py": {
@@ -126,15 +126,15 @@
     "semantic_hash": ""
   },
   "backend/app/playbook_matcher.py": {
-    "mtime": 1790759782.3830013,
-    "seen": 1790759928.9229646,
-    "ast_hash": "273e5473bf23edf55bc451579bfd98e9",
+    "mtime": 1790780985.977555,
+    "seen": 1790781130.4067578,
+    "ast_hash": "3736eacc8d3a83afc4b76f5875736814",
     "semantic_hash": ""
   },
   "backend/app/playbooks.py": {
-    "mtime": 1790697550.0699823,
-    "seen": 1790698005.2189236,
-    "ast_hash": "47e3f6b4013d8f65e927b6ac09c0b54a",
+    "mtime": 1790780985.977555,
+    "seen": 1790781130.4067612,
+    "ast_hash": "e1ad5120be3e71a2e6dfaa01543ff0ba",
     "semantic_hash": ""
   },
   "backend/app/retrieval.py": {
@@ -180,9 +180,9 @@
     "semantic_hash": "ebdeab89838527366efaadc464e000b3"
   },
   "backend/eval/run_eval.py": {
-    "mtime": 1790764614.1792884,
-    "seen": 1790764773.996147,
-    "ast_hash": "ebb20f6d2ac8180d77614152c6999231",
+    "mtime": 1790781114.4399815,
+    "seen": 1790781130.4068244,
+    "ast_hash": "d9f10a87f95f79a24abfbf5d536f00e1",
     "semantic_hash": ""
   },
   "backend/scripts/build_corpus.py": {
@@ -312,10 +312,10 @@
     "semantic_hash": "20c14ed4a8a3cd0b0129a242c1c8c779"
   },
   "backend/tests/test_playbooks.py": {
-    "mtime": 1790437892.0336177,
-    "seen": 1790653748.0074842,
-    "ast_hash": "d00b9fce2962ebcc785ce7a8c63316f3",
-    "semantic_hash": "d00b9fce2962ebcc785ce7a8c63316f3"
+    "mtime": 1790780985.977555,
+    "seen": 1790781130.4068832,
+    "ast_hash": "ef8f67ff841a5e4d93cff4f15e5da18f",
+    "semantic_hash": ""
   },
   "backend/tests/test_retrieval.py": {
     "mtime": 1790436396.1645849,
@@ -480,9 +480,9 @@
     "semantic_hash": ""
   },
   "backend/app/data/playbooks/child_custody.yaml": {
-    "mtime": 1790759782.358935,
-    "seen": 1790759928.9231718,
-    "ast_hash": "1415dd1ffb9453c8b7c84b7f95e3c3df",
+    "mtime": 1790780985.973555,
+    "seen": 1790781130.4070096,
+    "ast_hash": "363c147bd424a1a8e49a84af6033a4f7",
     "semantic_hash": ""
   },
   "backend/app/data/playbooks/child_marriage_protection.yaml": {
@@ -498,9 +498,9 @@
     "semantic_hash": ""
   },
   "backend/app/data/playbooks/consumer_complaint.yaml": {
-    "mtime": 1790759782.358935,
-    "seen": 1790759928.9231746,
-    "ast_hash": "ad13a3a06049502fa595888a54073fcc",
+    "mtime": 1790780985.973555,
+    "seen": 1790781130.407015,
+    "ast_hash": "0ec674f4607f2f7a0c1bad5480198083",
     "semantic_hash": ""
   },
   "backend/app/data/playbooks/cyber_harassment.yaml": {
@@ -516,9 +516,9 @@
     "semantic_hash": ""
   },
   "backend/app/data/playbooks/deposit_not_returned.yaml": {
-    "mtime": 1790759782.3590012,
-    "seen": 1790759928.9231775,
-    "ast_hash": "6d2a2a6e6fc9505a25f8db207cc1f217",
+    "mtime": 1790780985.973555,
+    "seen": 1790781130.4070187,
+    "ast_hash": "2101f89abd583066bf42ac29dca9178e",
     "semantic_hash": ""
   },
   "backend/app/data/playbooks/divorce.yaml": {
@@ -540,15 +540,15 @@
     "semantic_hash": ""
   },
   "backend/app/data/playbooks/foreign_employment_fraud.yaml": {
-    "mtime": 1790759782.3590012,
-    "seen": 1790759928.923181,
-    "ast_hash": "b0c7c98c8a45e495c85ea43a2c3e04be",
+    "mtime": 1790780985.973555,
+    "seen": 1790781130.407024,
+    "ast_hash": "408c44fc6329c6981b9b33b069f87bbf",
     "semantic_hash": ""
   },
   "backend/app/data/playbooks/inheritance_share.yaml": {
-    "mtime": 1790759782.3590012,
-    "seen": 1790759928.9231818,
-    "ast_hash": "6bc15ace6573b526f9f43869a35364a7",
+    "mtime": 1790780985.973555,
+    "seen": 1790781130.4070246,
+    "ast_hash": "c69ac6d9f87d505c8b4db016c801327f",
     "semantic_hash": ""
   },
   "backend/app/data/playbooks/land_boundary_dispute.yaml": {
@@ -570,9 +570,9 @@
     "semantic_hash": ""
   },
   "backend/app/data/playbooks/right_to_information_request.yaml": {
-    "mtime": 1790759782.3710012,
-    "seen": 1790759928.9231856,
-    "ast_hash": "725e9a5f4a47c8b280ca4523dc7e641b",
+    "mtime": 1790780985.973555,
+    "seen": 1790781130.407032,
+    "ast_hash": "fbb86bb72e3678ebe06c2a23ced12095",
     "semantic_hash": ""
   },
   "backend/app/data/playbooks/tenant_eviction_without_notice.yaml": {
@@ -594,9 +594,9 @@
     "semantic_hash": ""
   },
   "backend/app/data/playbooks/unpaid_personal_loan.yaml": {
-    "mtime": 1790759782.3750012,
-    "seen": 1790759928.9231899,
-    "ast_hash": "68960374d8ecdc0b9ee3f78806696293",
+    "mtime": 1790780985.973555,
+    "seen": 1790781130.407037,
+    "ast_hash": "c02ac3c6e7f574ca269d8428a3b7fa42",
     "semantic_hash": ""
   },
   "backend/app/data/playbooks/unpaid_salary.yaml": {
@@ -612,9 +612,9 @@
     "semantic_hash": ""
   },
   "backend/app/data/playbooks/wrongful_termination.yaml": {
-    "mtime": 1790759782.3750012,
-    "seen": 1790759928.9231925,
-    "ast_hash": "43e7c13744b61aebb344ae460f5aa8c3",
+    "mtime": 1790780985.977555,
+    "seen": 1790781130.4070404,
+    "ast_hash": "9af21a0d19211ab43ecd010b5b37a7d0",
     "semantic_hash": ""
   },
   ".claude/CLAUDE.md": {
@@ -708,9 +708,9 @@
     "semantic_hash": ""
   },
   "docs/PROGRESS.md": {
-    "mtime": 1790780436.2335224,
-    "seen": 1790780565.7534988,
-    "ast_hash": "2af122717aad09dd8b2892c71534d0b9",
+    "mtime": 1790780990.0447671,
+    "seen": 1790781130.4070487,
+    "ast_hash": "5fab53fe14250b31c7c8368d5b8f06fe",
     "semantic_hash": ""
   },
   "docs/SESSION_PROMPTS.md": {
@@ -840,9 +840,9 @@
     "semantic_hash": ""
   },
   "backend/tests/test_v1_trust_engine.py": {
-    "mtime": 1790771235.2861316,
-    "seen": 1790771330.8136568,
-    "ast_hash": "d62180758702e677f6755d0d99124d87",
+    "mtime": 1790780985.977555,
+    "seen": 1790781130.406899,
+    "ast_hash": "cb52fe21dcb59ffac8eda2b27f59811a",
     "semantic_hash": ""
   },
   "docs/SESSION_PROMPTS_V2.md": {
@@ -1092,9 +1092,9 @@
     "semantic_hash": ""
   },
   "docs/PLAYBOOK_AUDIT.md": {
-    "mtime": 1790700614.3626277,
-    "seen": 1790700871.4806855,
-    "ast_hash": "2d54b38ba2aa03f3ac4ab0ac09418e67",
+    "mtime": 1790780985.981555,
+    "seen": 1790781130.4070477,
+    "ast_hash": "58569021605316220b127ec401015687",
     "semantic_hash": ""
   },
   "backend/scripts/ingest_regulators.py": {
@@ -1404,15 +1404,15 @@
     "semantic_hash": ""
   },
   "backend/app/translit.py": {
-    "mtime": 1790759782.3830013,
-    "seen": 1790759928.9229817,
-    "ast_hash": "7501c47ec7b797b1d472f34262d8f463",
+    "mtime": 1790780985.977555,
+    "seen": 1790781130.4067893,
+    "ast_hash": "3f8c1d05aacfa2dd3105557eb187e314",
     "semantic_hash": ""
   },
   "backend/tests/test_query_understanding.py": {
-    "mtime": 1790759782.3830013,
-    "seen": 1790759928.9230688,
-    "ast_hash": "a228736703f25bc677aaac6577ade300",
+    "mtime": 1790780985.977555,
+    "seen": 1790781130.406885,
+    "ast_hash": "ee5ca3e96aa4bf9bedd5ea216f18b8e7",
     "semantic_hash": ""
   },
   "backend/tests/test_translit.py": {
@@ -1458,9 +1458,9 @@
     "semantic_hash": ""
   },
   "backend/eval/answer_review.py": {
-    "mtime": 1790771235.2861316,
-    "seen": 1790771330.8135805,
-    "ast_hash": "4a74ecbf0e7f197e058554c46504e00e",
+    "mtime": 1790781114.4404223,
+    "seen": 1790781130.4067926,
+    "ast_hash": "3aecabd73187d4a82df82b1d247c03f5",
     "semantic_hash": ""
   },
   "backend/eval/live_retrieval.py": {
@@ -1557,6 +1557,66 @@
     "mtime": 1790780436.2215223,
     "seen": 1790780565.753387,
     "ast_hash": "20b6b2ca57d4222df5496898e831728a",
+    "semantic_hash": ""
+  },
+  "backend/tests/test_v25_routing.py": {
+    "mtime": 1790780985.977555,
+    "seen": 1790781130.406901,
+    "ast_hash": "15e8f783525efbaf6c2dfc6596e2ad82",
+    "semantic_hash": ""
+  },
+  "backend/app/data/playbooks/agm_not_held.yaml": {
+    "mtime": 1790780985.9695551,
+    "seen": 1790781130.4070022,
+    "ast_hash": "db83a42a842dfbbb75aaf5df14e831ff",
+    "semantic_hash": ""
+  },
+  "backend/app/data/playbooks/bail_release_after_arrest.yaml": {
+    "mtime": 1790780985.9695551,
+    "seen": 1790781130.4070034,
+    "ast_hash": "62ac4ba98e5c0627c12b402e68e1a029",
+    "semantic_hash": ""
+  },
+  "backend/app/data/playbooks/bank_account_charges_complaint.yaml": {
+    "mtime": 1790780985.973555,
+    "seen": 1790781130.4070044,
+    "ast_hash": "e6edf0d2c524324ecc6382d3ce369a17",
+    "semantic_hash": ""
+  },
+  "backend/app/data/playbooks/bank_loan_penal_interest.yaml": {
+    "mtime": 1790780985.973555,
+    "seen": 1790781130.4070058,
+    "ast_hash": "46e18174a213b693063593b208a0d34b",
+    "semantic_hash": ""
+  },
+  "backend/app/data/playbooks/company_registration_shareholders.yaml": {
+    "mtime": 1790780985.973555,
+    "seen": 1790781130.407014,
+    "ast_hash": "7f2ed16b58928a9b3716d957099451e5",
+    "semantic_hash": ""
+  },
+  "backend/app/data/playbooks/dowry_harassment.yaml": {
+    "mtime": 1790780985.973555,
+    "seen": 1790781130.4070218,
+    "ast_hash": "ef2d59dbbfebfd36aef9e1efc7635ca6",
+    "semantic_hash": ""
+  },
+  "backend/app/data/playbooks/loan_interest_dispute.yaml": {
+    "mtime": 1790780985.973555,
+    "seen": 1790781130.4070268,
+    "ast_hash": "d5ffe584e223f231ce7d1df2a4dc8558",
+    "semantic_hash": ""
+  },
+  "backend/app/data/playbooks/medical_negligence_death.yaml": {
+    "mtime": 1790780985.973555,
+    "seen": 1790781130.4070287,
+    "ast_hash": "2c0caace64e6cb2ca3d2c799c3d12d13",
+    "semantic_hash": ""
+  },
+  "backend/app/data/playbooks/overtime_working_hours.yaml": {
+    "mtime": 1790780985.973555,
+    "seen": 1790781130.40703,
+    "ast_hash": "c59f4b61b4c8cbe9043cd42a86a95bca",
     "semantic_hash": ""
   }
 }

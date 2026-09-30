@@ -21,6 +21,17 @@ keywords:
   - "karja tirdaina"
   - "sahu le byaj"
   - "byaj magyo"
+# a loan from a bank / finance company is governed by the BFI Act and NRB directives, not by these
+# private-lender rules (see bank_loan_penal_interest)
+not_keywords:
+  - "bank"
+  - "बैंक"
+  - "बैङ्क"
+  - "वित्तीय संस्था"
+  - "finance company"
+  - "microfinance"
+  - "laghubitta"
+  - "लघुवित्त"
 issue:
   en: "I lent someone money and they haven't paid it back"
   ne: "मैले कसैलाई पैसा सापटी दिएको थिएँ, अझै फिर्ता पाएको छैन"

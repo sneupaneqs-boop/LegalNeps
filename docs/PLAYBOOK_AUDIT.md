@@ -759,3 +759,47 @@ Provisions before -> after: kept 2, removed 0, added 5.  Final pinned list (in o
 - Grounds other than misconduct (incompetence s.142, health s.143, retrenchment s.145) have separate rules not fully pinned here.
 - How the 35-day and 6-month routes relate (a worker who appeals to the Labour Court within 35 days versus one who complains to the Labour Office within 6 months).
 
+---
+
+## V2.5 additions (2026-09-30): nine new playbooks and changes to existing ones
+
+Written after the V3 live review found the governing provision in the corpus but not in the answer. Every provision below was read in its original Nepali text in the corpus (`backend/tests/test_v25_routing.py` pins the resolution of each one). None of this has been reviewed by an advocate: **every playbook in this section is NEEDS-ADVOCATE-REVIEW**, and the open questions per playbook are what to ask. As above, forum and step text cites only provisions in the plan (or the ones named in its own text).
+
+### New playbooks (all NEEDS-ADVOCATE-REVIEW)
+
+| Playbook | Status | Pins (Nepali corpus text checked) | What it is for |
+|---|---|---|---|
+| overtime_working_hours | NEEDS-ADVOCATE-REVIEW | Labour Act ss.28, 29, 30, 31, 113, 162 | Long hours / unpaid overtime: 8 h/day, 48 h/week; overtime at most 4 h/day and 24 h/week; overtime pay is 1.5x basic pay (s.31). |
+| bank_loan_penal_interest | NEEDS-ADVOCATE-REVIEW | NRB Unified Directive IPD 15/082 cl.3 (penal rate at most 2 percentage points, on the overdue instalment only, no interest on penal interest); BFI Act s.55(2) [sub-ss.6, 8, 9]; s.57(1); IPD 20/082 cl.9 (complaints desk, NRB portal) | Bank / finance-company loan interest and penal charges. Vetoes the private-lender Civil Code rules (excludes ss.478, 481). |
+| bank_account_charges_complaint | NEEDS-ADVOCATE-REVIEW | NRB Unified Directive IPD 20/082 cl.6 (no deduction because the balance is below the minimum; listed free services); cl.9 (complaints desk, hotline, NRB portal) | Money deducted from an account, service charges, a bank that ignores a complaint. |
+| loan_interest_dispute | NEEDS-ADVOCATE-REVIEW | Civil Code ss.479, 478, 480, 481, 482 (limitation: s.492) | A private lender's interest: none if the document is silent (s.479), 10% cap (s.478), no interest on interest (s.480), not above principal (s.481). |
+| bail_release_after_arrest | NEEDS-ADVOCATE-REVIEW | Criminal Procedure Code ss.68, 67, 71, 75, 76 | Release on deposit / guarantee / bank guarantee (s.68) versus custody (s.67). |
+| dowry_harassment | NEEDS-ADVOCATE-REVIEW | Criminal Code ss.174, 176 (3-month complaint limit); Domestic Violence Act ss.4(1), 6 | Dowry demands and harassment after marriage. |
+| company_registration_shareholders | NEEDS-ADVOCATE-REVIEW | Companies Act ss.9 (private company at most 101 shareholders; public at least 7), 5 (certificate within 7 days) | Registering a private company. |
+| agm_not_held | NEEDS-ADVOCATE-REVIEW | Companies Act ss.76, 77 | A public company that has not held its AGM: Registrar's direction, then a shareholder's court application. |
+| medical_negligence_death | NEEDS-ADVOCATE-REVIEW | Criminal Code ss.181, 195 (limitation: s.187); Criminal Procedure Code s.4(1) (forum text also cites s.5) | Death or injury by negligent treatment. Criminal route only; the Code has no doctor-specific section. |
+
+Open questions for the advocate (one line each, all new plans):
+
+- **overtime_working_hours** - Whether a monthly-salaried worker is owed s.31 pay for hours beyond s.28 where the contract says "long hours"; how s.162's 6 months runs for overtime accrued over many months; whether the s.31(2) managerial exemption applies to the asker.
+- **bank_loan_penal_interest** - IPD 15/082 cl.3 is a regulator directive, not a statute: whether a court would enforce the 2-point cap against a loan agreement signed earlier; which shard of the NRB directive (the corpus holds the "क, ख, ग", "घ" and infrastructure-bank circulars) binds which class of institution; the interplay with the Bank and Financial Institutions Act s.57 recovery powers.
+- **bank_account_charges_complaint** - Whether NRB's complaint portal can order a refund or only supervises the bank; whether cl.6(ga) applies to all licensed classes; the deduction rules for dormant accounts and card fees beyond cl.6.
+- **loan_interest_dispute** - s.479 was inserted by the 2080 amendment: whether it applies to loans made before that date; how s.479 (no interest without a written mention) interacts with the deemed 10% of s.478(3) when a document says "interest" without a rate.
+- **bail_release_after_arrest** - Schedules 1 and 2 (which offences are custody offences under s.67) are not in the corpus; whether police-stage release (before a court case) is governed by other provisions not in this plan.
+- **dowry_harassment** - Whether the 3-month limit of s.176 applies to continuing harassment and from which act it runs; when a complaint of the s.174(3) offence is also a Domestic Violence Act matter.
+- **company_registration_shareholders** - Whether the 7-day period runs from a complete application or from any filing; the minimum shareholder count for a private company (the Act sets only a ceiling).
+- **agm_not_held** - Whether a shareholder can go to the Registrar's Office before the 3-month wait, and what "other suitable order" the court may make under s.76(3).
+- **medical_negligence_death** - Whether negligent medical treatment is prosecuted under s.181 in practice, whether s.181 is a Schedule 1 offence (CrPC s.4), and the civil-compensation route, which this plan does not cover.
+
+### Existing playbooks changed in V2.5
+
+| Playbook | Change | NEEDS-ADVOCATE-REVIEW question |
+|---|---|---|
+| deposit_not_returned | Civil Code s.400 is no longer excluded; it is pinned with a note that it covers only a tenant who leaves early without the 35-day notice (landlord may deduct that period's rent from any *advance*). The V3 review and the eval set treat s.400(3) as governing the question; the earlier audit excluded it because its notice rule had been misapplied. `not_keywords` (bank, cooperative) keep bank/cooperative deposits out. | Whether s.400(3)'s "advance" (अग्रिम) is the same thing as a tenancy deposit (धरौटी) in ordinary usage. |
+| inheritance_share | Added Civil Code s.214 (widow may take her share and live apart) and s.216 (partition deed); keywords for widows, intestate succession and the spelling "अन्श". | Whether a widow living in a joint household can compel partition against in-laws under s.214 alone. |
+| child_custody | Keywords for "custody", "who gets custody", "lose my child" (a custody question that also mentioned divorce was routed to the divorce plan and never saw s.115). | - |
+| foreign_employment_fraud | Added ss.60 and 55 to the pinned list; keywords for "no job on arrival / returned home". | Whether s.36 compensation is available when the worker returned home before the Department complaint. |
+| right_to_information_request | Added s.10 (35-day appeal, 60-day decision); misspelled "suchanako hak" variants. | - |
+| consumer_complaint | Added E-Commerce Act 2081 s.10 (return of goods not matching the seller's description); online-order keywords; bank complaints are vetoed (they go to the bank's complaints desk and NRB). | Whether E-Commerce Act s.10 applies to marketplaces that are not the seller. |
+| unpaid_personal_loan | `not_keywords`: bank, finance company, microfinance. | - |
+| wrongful_termination | Devanagari inflections ("कामबाट निकाल्यो" ...). | - |

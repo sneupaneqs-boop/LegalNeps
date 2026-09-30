@@ -132,7 +132,7 @@ def uncited_numbers(r: dict) -> int:
 
 def main() -> None:
     p = argparse.ArgumentParser()
-    p.add_argument("--set", default="realworld", choices=["realworld", "heldout", "default"])
+    p.add_argument("--set", default="realworld", choices=["realworld", "heldout", "default", "answers30"])
     p.add_argument("--limit", type=int, default=30)
     p.add_argument("--api", default=LIVE)
     p.add_argument("--out", help="output JSON (default eval/reports/answer-review-<set>-<time>.json)")

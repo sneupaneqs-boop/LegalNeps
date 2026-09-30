@@ -1,0 +1,66 @@
+id: company_registration_shareholders
+area: company
+keywords:
+  - "private company register"
+  - "private company registration"
+  - "register a private company"
+  - "register private company"
+  - "company register garna"
+  - "kampani darta garna"
+  - "company darta garna"
+  - "how many shareholders"
+  - "kati jana shareholder"
+  - "shareholder chahinchha"
+  - "maximum shareholders"
+  - "private limited company"
+  - "प्राइभेट कम्पनी दर्ता"
+  - "कम्पनी दर्ता गर्न"
+  - "कति जना शेयरधनी"
+  - "शेयरधनीहरुको सङ्ख्या"
+  - "कति दिनमा कम्पनी दर्ता"
+issue:
+  en: "I want to register a private company: how many shareholders can or must it have, and how long does registration take?"
+  ne: "म प्राइभेट कम्पनी दर्ता गर्न चाहन्छु: कति जना शेयरधनी हुन सक्छन् वा हुनुपर्छ, र दर्तामा कति समय लाग्छ?"
+fact_questions:
+  - en: "Is it to be a private company or a public company, and how many people will be shareholders?"
+    ne: "यो प्राइभेट कम्पनी हो कि पब्लिक कम्पनी, र कति जना शेयरधनी हुनेछन्?"
+  - en: "Will any shareholders be employees who bought shares under an employee share scheme?"
+    ne: "कुनै शेयरधनी कर्मचारी शेयर बिक्री योजना अन्तर्गत शेयर किनेका कर्मचारी हुन्?"
+  - en: "Have you already filed the application with the Company Registrar's Office?"
+    ne: "कम्पनी रजिष्ट्रारको कार्यालयमा निवेदन दिइसक्नुभएको छ?"
+provisions:
+  - law_title_ne: "कम्पनी ऐन, २०६३"
+    section: "9"
+    note:
+      en: "The number of shareholders of a private company may not be more than 101 (the Act sets a ceiling, not a minimum for a private company). A public company must have at least 7 shareholders and may have any larger number. Employees who bought shares under an employee share scheme are not counted as shareholders for the private-company limit."
+      ne: "प्राइभेट कम्पनीको शेयरधनीहरुको सङ्ख्या एकसय एकभन्दा बढी हुनुहुँदैन (प्राइभेट कम्पनीका लागि ऐनले न्यूनतम होइन, अधिकतम सीमा तोकेको छ)। पब्लिक कम्पनीको शेयरधनीहरुको सङ्ख्या कम्तीमा सात जना र बढीमा जतिसुकै पनि हुन सक्छ। कर्मचारी शेयर बिक्री योजना अन्तर्गत शेयर खरिद गरेका कर्मचारीलाई शेयरधनीको रूपमा गणना गरिँदैन।"
+  - law_title_ne: "कम्पनी ऐन, २०६३"
+    section: "5"
+    note:
+      en: "When an application to set up a company is filed, the Company Registrar's Office must, after the necessary checks, register the company and give the applicant the registration certificate within seven days of the application, on paying the prescribed fee. If it is not registered in that time, the Office must tell the proposed company the reasons within three days. The company is set up once registered, and no one may trade under the word 'company' without registering."
+      ne: "कम्पनी संस्थापना गर्न निवेदन परेमा कम्पनी रजिष्ट्रारको कार्यालयले आवश्यक जाँचबुझ गरी निवेदन परेको मितिले सात दिनभित्र तोकिएको दस्तुर लिई कम्पनी दर्ता गरी निवेदकलाई दर्ताको प्रमाणपत्र दिनुपर्छ। तोकिएको समयभित्र दर्ता नभएमा कार्यालयले प्रस्तावित कम्पनीलाई तीन दिनभित्र कारण सहितको जानकारी दिनुपर्छ। दर्ता भएपछि कम्पनी संस्थापना भएको मानिन्छ, र दर्ता नगरी 'कम्पनी' शब्द प्रयोग गरी कारोबार गर्न पाइँदैन।"
+evidence:
+  - en: "The proposed memorandum and articles of association and the list of promoters/shareholders"
+    ne: "प्रस्तावित प्रबन्धपत्र र नियमावली तथा प्रवर्तक/शेयरधनीको विवरण"
+  - en: "Identity documents of the promoters"
+    ne: "प्रवर्तकहरूको परिचयपत्रका कागजात"
+  - en: "The application and fee receipt, once filed"
+    ne: "निवेदन र दस्तुरको रसिद, दायर भएपछि"
+forum:
+  en: "The Company Registrar's Office (the 'Office' in the Companies Act), where the application is filed and the certificate is issued (section 5)."
+  ne: "कम्पनी रजिष्ट्रारको कार्यालय (कम्पनी ऐनमा 'कार्यालय'), जहाँ निवेदन दिइन्छ र प्रमाणपत्र जारी हुन्छ (दफा ५)।"
+limitation:
+  note:
+    en: "There is no filing deadline for registering a company. The Office must decide on a proper application within seven days (section 5), or give its reasons within three days after that."
+    ne: "कम्पनी दर्ता गर्न कुनै म्याद छैन। कार्यालयले पूर्ण निवेदनमा सात दिनभित्र निर्णय गर्नुपर्छ (दफा ५), नभए त्यसपछि तीन दिनभित्र कारण जानकारी दिनुपर्छ।"
+  provision:
+    law_title_ne: "कम्पनी ऐन, २०६३"
+    section: "5"
+next_steps:
+  - en: "Decide the company type: a private company can have at most 101 shareholders; a public company at least 7 (section 9)."
+    ne: "कम्पनीको प्रकार निर्णय गर्नुहोस्: प्राइभेट कम्पनीमा बढीमा १०१ जना र पब्लिक कम्पनीमा कम्तीमा ७ जना शेयरधनी हुन सक्छन् (दफा ९)।"
+  - en: "File the application with the Company Registrar's Office; it must register the company and issue the certificate within seven days (section 5)."
+    ne: "कम्पनी रजिष्ट्रारको कार्यालयमा निवेदन दिनुहोस्; कार्यालयले सात दिनभित्र कम्पनी दर्ता गरी प्रमाणपत्र दिनुपर्छ (दफा ५)।"
+  - en: "If it is not registered in time, ask the Office for the reasons, which it must give within three days."
+    ne: "समयमा दर्ता नभए कार्यालयसँग कारण सोध्नुहोस्, जुन तीन दिनभित्र जानकारी दिनुपर्छ।"
+template_link: null
