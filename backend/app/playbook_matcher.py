@@ -100,10 +100,8 @@ def score_playbooks(query: str) -> list[Match]:
     return sorted((Match(pid, s) for pid, s in scores.items()), key=lambda m: -m.score)
 
 
-def match(query: str, min_score: float = 1.0, min_margin: float = 0.5) -> str | None:
-    """Best playbook id for `query`, or None if no confident, unambiguous
-    match exists. A match is confident when its score clears `min_score`
-    and unambiguous when it beats the runner-up by `min_margin`."""
+def match_scored(query: str, min_score: float = 1.0, min_margin: float = 0.5) -> tuple[str, float] | None:
+    """match(), but also returns the winning score."""
     ranked = score_playbooks(query)
     if not ranked:
         return None
@@ -112,8 +110,34 @@ def match(query: str, min_score: float = 1.0, min_margin: float = 0.5) -> str | 
         return None
     if len(ranked) > 1 and (best.score - ranked[1].score) < min_margin:
         return None
-    return best.playbook_id
+    return best.playbook_id, best.score
+
+
+def match(query: str, min_score: float = 1.0, min_margin: float = 0.5) -> str | None:
+    """Best playbook id for `query`, or None if no confident, unambiguous
+    match exists. A match is confident when its score clears `min_score`
+    and unambiguous when it beats the runner-up by `min_margin`."""
+    got = match_scored(query, min_score, min_margin)
+    return got[0] if got else None
 
 
 def _reset_cache_for_tests() -> None:
     _playbook_keywords.cache_clear()
+
+
+def strong_match(query: str) -> str | None:
+    """match() that additionally requires an exact keyword phrase to appear in
+    the query text itself (not merely shared words or a glossary-widened
+    overlap). Used to decide whether the LLM query rewrite can be skipped:
+    "boss le ... overtime ko paisa pani dinna" half-matches the sexual-
+    harassment playbook's "boss harassing me" on the single word "boss", which
+    is good enough to rank a playbook but not to trust the message is understood."""
+    pid = match(query)
+    if not pid:
+        return None
+    q = query.lower()
+    for playbook_id, keywords in _playbook_keywords():
+        if playbook_id == pid:
+            if any(len(kw) >= 4 and kw.lower() in q for kw in keywords):
+                return pid
+    return None
