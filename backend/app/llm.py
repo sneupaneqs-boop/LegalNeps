@@ -48,6 +48,25 @@ _no_thinking: set[str] = set()
 _client_lock = threading.Lock()
 _gemini_client = None
 _http = None
+# Per-thread side channel of the last complete(): why the provider stopped
+# ("length"/"max_tokens" = cut off) and an optional per-attempt timeout, so a
+# long structured answer isn't cut by the short default without changing every
+# caller's signature.
+_local = threading.local()
+
+
+def last_finish_reason() -> str | None:
+    """Finish reason of this thread's last complete()/paid_complete(), if the provider reported one."""
+    return getattr(_local, "finish", None)
+
+
+def was_cut_off(reason: str | None = None) -> bool:
+    r = (reason if reason is not None else last_finish_reason() or "").lower()
+    return r in ("length", "max_tokens", "max_output_tokens") or "max_tokens" in r
+
+
+def _call_limit() -> float:
+    return getattr(_local, "call_timeout", None) or config.LLM_CALL_TIMEOUT_S
 
 
 def _cool(key: str, msg: str):
@@ -194,7 +213,7 @@ def _openai_call(t, system, user, json_mode, max_tokens, temperature, fast, left
     r = _client_http().post(
         f"{t.base.rstrip('/')}/chat/completions",
         json=_openai_payload(model, system, user, json_mode, max_tokens, temperature, fast=fast),
-        headers=_openai_headers(t.key), timeout=min(left, config.LLM_CALL_TIMEOUT_S),
+        headers=_openai_headers(t.key), timeout=min(left, _call_limit()),
     )
     if r.status_code == 400 and "invalid" in r.text.lower() and _reasoning_effort(model) \
             and model not in _no_effort:
@@ -202,9 +221,11 @@ def _openai_call(t, system, user, json_mode, max_tokens, temperature, fast, left
         raise _RetryWithoutEffort()
     if r.status_code >= 400:
         raise LLMUnavailable(f"{r.status_code} {r.text[:200]}")
-    text = _text_of(r.json()["choices"][0]["message"].get("content")).strip()
+    choice = r.json()["choices"][0]
+    text = _text_of(choice["message"].get("content")).strip()
     if not text:
         raise LLMUnavailable(f"{model}: empty response")
+    _local.finish = choice.get("finish_reason")
     return text
 
 
@@ -300,12 +321,16 @@ def _gemini_complete(models, system, user, json_mode, max_tokens, temperature, d
             if left < 2:
                 raise LLMUnavailable(str(last)[:300] if last else "gemini: no time left")
             cfg = _gemini_cfg(model, system, json_mode, max_tokens, temperature,
-                              min(left, config.LLM_CALL_TIMEOUT_S), 0 if json_mode else 512)
+                              min(left, _call_limit()), 0 if json_mode else 512)
             try:
                 r = _gemini().models.generate_content(model=model, contents=user,
                                                       config=types.GenerateContentConfig(**cfg))
                 text = (r.text or "").strip()
                 if text:
+                    try:
+                        _local.finish = str(r.candidates[0].finish_reason)
+                    except Exception:  # noqa: BLE001 - finish reason is best-effort
+                        pass
                     return text
                 last = LLMUnavailable(f"{model}: empty response")
                 break
@@ -361,11 +386,12 @@ def _anthropic_complete(system, user, max_tokens, temperature, deadline) -> str:
     left = deadline - time.time()
     if left < 2:
         raise LLMUnavailable("anthropic: no time left")
-    client = anthropic.Anthropic(api_key=config.ANTHROPIC_API_KEY, timeout=min(left, config.LLM_CALL_TIMEOUT_S))
+    client = anthropic.Anthropic(api_key=config.ANTHROPIC_API_KEY, timeout=min(left, _call_limit()))
     r = client.messages.create(
         model=config.ANTHROPIC_MODEL, max_tokens=max_tokens, temperature=temperature,
         system=system, messages=[{"role": "user", "content": user}],
     )
+    _local.finish = getattr(r, "stop_reason", None)
     return "".join(b.text for b in r.content if b.type == "text").strip()
 
 
@@ -375,12 +401,13 @@ def _groq_complete(system, user, json_mode, max_tokens, temperature, deadline) -
     left = deadline - time.time()
     if left < 2:
         raise LLMUnavailable("groq: no time left")
-    client = Groq(api_key=config.GROQ_API_KEY, timeout=min(left, config.LLM_CALL_TIMEOUT_S))
+    client = Groq(api_key=config.GROQ_API_KEY, timeout=min(left, _call_limit()))
     kw = {"response_format": {"type": "json_object"}} if json_mode else {}
     r = client.chat.completions.create(
         model=config.GROQ_MODEL, max_tokens=max_tokens, temperature=temperature,
         messages=[{"role": "system", "content": system}, {"role": "user", "content": user}], **kw,
     )
+    _local.finish = r.choices[0].finish_reason
     return (r.choices[0].message.content or "").strip()
 
 
@@ -404,15 +431,20 @@ def paid_complete(model: str, system: str, user: str, *, max_tokens: int = 1800,
     )
     text = "".join(b.text for b in r.content if b.type == "text").strip()
     usage = {"input_tokens": r.usage.input_tokens, "output_tokens": r.usage.output_tokens}
+    _local.finish = getattr(r, "stop_reason", None)
     return text, usage
 
 
 # ---------------------------------------------------------------- public API
 def complete(system: str, user: str, *, fast: bool = False, json_mode: bool = False,
-             max_tokens: int = 1400, temperature: float = 0.2, budget_s: float | None = None) -> str:
-    """One completion within `budget_s` seconds across all providers, or LLMUnavailable."""
+             max_tokens: int = 1400, temperature: float = 0.2, budget_s: float | None = None,
+             call_timeout_s: float | None = None) -> str:
+    """One completion within `budget_s` seconds across all providers, or LLMUnavailable.
+    `call_timeout_s` overrides the per-attempt cap (config.LLM_CALL_TIMEOUT_S) for long outputs."""
     budget = budget_s if budget_s is not None else (config.ANALYZE_BUDGET_S if fast else config.ANSWER_BUDGET_S)
     deadline = time.time() + budget
+    _local.finish = None
+    _local.call_timeout = call_timeout_s
     errors = []
     attempts = []
     if _compat_enabled():

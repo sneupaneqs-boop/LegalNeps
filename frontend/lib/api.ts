@@ -34,6 +34,10 @@ export type Verification = {
   unverified: { text: string; reason: string }[];
   cited_laws: number;
   cited_precedents: number;
+  // V3: statements dropped because no quote in the cited source supported them (counts and codes only)
+  removed?: { count: number; reasons: string[] };
+  mode?: "structured" | "extractive_fallback";
+  truncated?: boolean;
 };
 
 export type ChatResponse = {
@@ -238,6 +242,8 @@ export async function sendChatMessage(
 export type StreamHandlers = {
   onMeta: (m: { language: "en" | "ne"; sources: Source[]; playbook?: PlaybookCard | null }) => void;
   onDelta: (text: string) => void;
+  // optional: the server is checking the written answer against the sources before streaming it
+  onStatus?: (stage: string) => void;
 };
 
 // Streams the answer (NDJSON): sources first, then text as it's written.
@@ -278,6 +284,11 @@ export async function streamChatMessage(
           clearTimeout(timer);
           timer = setTimeout(() => controller.abort(), 90_000);
           handlers.onMeta(ev);
+        }
+        else if (ev.type === "status") {
+          clearTimeout(timer);
+          timer = setTimeout(() => controller.abort(), 90_000);
+          handlers.onStatus?.(ev.stage);
         }
         else if (ev.type === "delta") handlers.onDelta(ev.text);
         else if (ev.type === "done") return { answer: ev.answer, llm_used: ev.llm_used, verification: ev.verification };

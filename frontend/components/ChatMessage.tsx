@@ -29,6 +29,9 @@ const x = {
     counts: (l: number, p: number) => `${l} law ${l === 1 ? "section" : "sections"} · ${p} ${p === 1 ? "precedent" : "precedents"} cited`,
     unverified: (n: number) =>
       `${n} ${n === 1 ? "claim" : "claims"} could not be matched to a source and ${n === 1 ? "is" : "are"} marked ⚠ — confirm with an advocate before relying on ${n === 1 ? "it" : "them"}.`,
+    removed: (n: number) =>
+      `${n} ${n === 1 ? "statement was" : "statements were"} removed because ${n === 1 ? "it" : "they"} couldn't be verified against the sources.`,
+    checking: "Checking sources…",
     status: {
       in_force: "In force", bill: "Bill — not law", repealed: "Repealed", lapsed: "Lapsed ordinance",
       ordinance: "Ordinance — temporary", unknown: "Status unverified",
@@ -46,6 +49,8 @@ const x = {
     supported: (s: number, n: number) => `${n} मध्ये ${s} कानुनी भनाइ उद्धृत आधिकारिक स्रोतले पुष्टि गर्छ`,
     counts: (l: number, p: number) => `${l} कानुनी दफा · ${p} नजिर उद्धृत`,
     unverified: (n: number) => `${n} भनाइ स्रोतसँग मिलाउन सकिएन र ⚠ चिन्ह लगाइएको छ — भर पर्नुअघि अधिवक्तासँग पुष्टि गर्नुहोस्।`,
+    removed: (n: number) => `${n} भनाइ स्रोतसँग पुष्टि गर्न नसकिएकाले हटाइयो।`,
+    checking: "स्रोतसँग जाँच गर्दै…",
     status: {
       in_force: "लागू", bill: "विधेयक — कानुन होइन", repealed: "खारेज", lapsed: "निष्क्रिय अध्यादेश",
       ordinance: "अध्यादेश — अस्थायी", unknown: "स्थिति अपुष्ट",
@@ -83,6 +88,7 @@ export default function ChatMessage({
   const pb = message.playbook;
   const v = message.verification;
   const unverified = v?.unverified?.length ?? 0;
+  const removedN = v?.removed?.count ?? 0;
 
   return (
     <div className={`bubble-row ${isUser ? "user" : "bot"}`}>
@@ -122,7 +128,11 @@ export default function ChatMessage({
           message.text
         ) : (
           <div className={`answer${message.streaming ? " streaming" : ""}`}>
-            {renderAnswer(message.text, message.id, sources.length)}
+            {message.streaming && !message.text ? (
+              <div className="checking">{e.checking}</div>
+            ) : (
+              renderAnswer(message.text, message.id, sources.length)
+            )}
           </div>
         )}
 
@@ -134,6 +144,7 @@ export default function ChatMessage({
             <div>{e.supported(v.supported, v.claims)}</div>
             <div className="evidence-sub">{e.counts(v.cited_laws, v.cited_precedents)}</div>
             {unverified > 0 && <div className="evidence-warn">{e.unverified(unverified)}</div>}
+            {removedN > 0 && <div className="evidence-removed">{e.removed(removedN)}</div>}
           </div>
         )}
 

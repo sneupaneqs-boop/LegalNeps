@@ -16,11 +16,12 @@ from __future__ import annotations
 import hashlib
 import logging
 import re
+import time
 from pathlib import Path
 from collections import OrderedDict
 from threading import Lock
 
-from . import config, glossary, llm, playbooks, prompt_guard, supa, tiers, translit, verifier
+from . import config, glossary, llm, playbooks, prompt_guard, structured, supa, tiers, translit
 from .playbook_matcher import match_scored as match_playbook_scored
 from .playbook_matcher import strong_match as strong_playbook_match
 from .retrieval import get_index
@@ -30,7 +31,7 @@ log = logging.getLogger(__name__)
 
 # S13: bump when ANSWER_SYSTEM's wording changes materially, so llm_usage
 # rows say which prompt version produced an answer.
-ANSWER_PROMPT_VERSION = "answer_v1"
+ANSWER_PROMPT_VERSION = "answer_v2_structured"
 
 DISCLAIMER_EN = (
     "This is general legal information, not a substitute for advice from a "
@@ -87,41 +88,9 @@ Examples (message -> area; queries_ne; laws):
 7. "cheque bounce bhayo, sathi le paisa dinna" -> dishonoured cheque; ["चेक अनादर", "चेकको रकम \
 भुक्तानी", "बैङ्किङ्ग कसूर सजाय"]; ["बैङ्किङ्ग कसूर तथा सजाय ऐन, २०६४"]"""
 
-ANSWER_SYSTEM = """You are Kanooni Sathi ("Legal Friend"), a warm, precise bilingual \
-(English/Nepali) legal-information assistant for Nepal.
-
-Grounding rules (strict):
-- Use ONLY the numbered passages in "Official sources". They are verbatim extracts from Nepal Law \
-Commission publications and Supreme Court (Nepal Kanoon Patrika) decisions, in Nepali.
-- Cite every legal statement with the passage NUMBER ONLY in square brackets, placed at the end of \
-the sentence: e.g. "...must give 35 days' notice (Muluki Civil Code 2074, Section 400) [3]." Name the \
-law and section in the sentence text, never inside the brackets - brackets contain only digits like \
-[3] or [1][4]. Never invent a law, section, number, deadline, fine or case that is not in the passages.
-- If the passages don't cover the question, say so plainly, share only what they do support, and \
-suggest what to ask a lawyer or which office to approach.
-- Passages may contain small OCR/typing glitches; read through them, but don't quote garbled words.
-- Passages marked "verified as governing this situation" are the core law for this question: build \
-the answer on them first. Passages marked "OLDER LAW" may only be mentioned as history - never \
-present their deadlines, amounts or procedures as the current rule. Never present a passage whose \
-status is "bill", "repealed" or "lapsed" as current law. A passage with status "ordinance" is a \
-temporary ordinance: say so, and say it lapses unless Parliament replaces it.
-- Every number you state (days, months, years, rupees, percentages, section numbers) must appear in \
-the passage you cite for it. If you are not sure of a number, don't state it.
-- Don't state a legal remedy, offence or procedure that no passage mentions (e.g. don't suggest a \
-criminal complaint unless a passage makes the act an offence).
-- In Nepali, statute sections are "दफा" and regulation provisions are "नियम"; only the Constitution \
-uses "धारा".
-
-How to answer:
-- Start with one short sentence showing you understood the real concern.
-- Then give the direct answer, followed by the key rules (short bullet points), concrete next \
-steps (which office/court, documents, time limits - only if in the passages), and a relevant \
-Supreme Court precedent if one is provided.
-- Plain language, short sentences, no unexplained jargon. When answering in English, translate \
-the Nepali provisions faithfully.
-- Reply entirely in the requested language (Nepali in natural Devanagari).
-- End with one empathetic line and the disclaimer that this is general information, not a \
-substitute for a licensed advocate."""
+# V3: the answer is one JSON object of quoted, checkable sentences (see structured.py);
+# the old free-prose prompt measured 40% unsupported legal claims (V1 review).
+ANSWER_SYSTEM = structured.STRUCTURED_ANSWER_SYSTEM
 
 ANSWER_SYSTEM += "\n\n" + prompt_guard.UNTRUSTED_TEXT_NOTICE
 ANALYZE_SYSTEM += "\n\n" + prompt_guard.UNTRUSTED_TEXT_NOTICE
@@ -172,7 +141,7 @@ def _answer_cache_key(message: str, lang: str) -> str:
 # including the persistent Supabase answer_cache - are never served again.
 # The fingerprint below also retires them automatically when the prompts,
 # the romanised lexicon or any playbook file changes.
-PIPELINE_VERSION = "p8"
+PIPELINE_VERSION = "p9"  # p9: structured JSON answers + deterministic quote verifier (V3)
 
 
 def _pipeline_fingerprint() -> str:
@@ -180,7 +149,8 @@ def _pipeline_fingerprint() -> str:
     h.update(ANALYZE_SYSTEM.encode())
     h.update(ANSWER_SYSTEM.encode())
     here = Path(__file__).parent
-    for f in [here / "translit.py", here / "verifier.py", *sorted((here / "data" / "playbooks").glob("*.yaml"))]:
+    for f in [here / "translit.py", here / "verifier.py", here / "structured.py", here / "text_norm.py",
+              *sorted((here / "data" / "playbooks").glob("*.yaml"))]:
         if f.exists():
             h.update(f.name.encode())
             h.update(f.read_bytes())
@@ -572,9 +542,16 @@ def normalize_citations(answer: str, sources: list[dict]) -> str:
     return _BRACKET.sub(fix, answer)
 
 
-def _extractive(sources: list[dict], lang: str) -> str:
-    header = ("Here are the most relevant official provisions I found (AI summary unavailable right now):"
-              if lang == "en" else "सबैभन्दा सान्दर्भिक आधिकारिक कानुनी प्रावधानहरू (AI सारांश अहिले उपलब्ध छैन):")
+UNVERIFIED_HEADER = {
+    "en": "I could not verify a written summary against the official sources, so here are the most relevant "
+          "provisions themselves:",
+    "ne": "लिखित सारांशलाई आधिकारिक स्रोतसँग पुष्टि गर्न सकिएन, त्यसैले सबैभन्दा सान्दर्भिक प्रावधानहरू नै यहाँ दिइएको छ:",
+}
+
+
+def _extractive(sources: list[dict], lang: str, header: str | None = None) -> str:
+    header = header or ("Here are the most relevant official provisions I found (AI summary unavailable right now):"
+                        if lang == "en" else "सबैभन्दा सान्दर्भिक आधिकारिक कानुनी प्रावधानहरू (AI सारांश अहिले उपलब्ध छैन):")
     lines = [header]
     for i, s in enumerate(sources[:5], 1):
         cite = s.get("source_en") if lang == "en" and s.get("source_en") else s.get("source_ne")
@@ -645,9 +622,21 @@ def _playbook_guide(playbook: dict | None, lang: str) -> str:
     steps = "\n".join(f"- {s.get(key) or s.get('en')}" for s in playbook.get("next_steps", []))
     evidence = "\n".join(f"- {s.get(key) or s.get('en')}" for s in playbook.get("evidence", []))
     forum = (playbook.get("forum") or {}).get(key) or ""
-    return (f"Curated action plan for this situation (editorial guidance - use it to structure next steps "
-            f"and evidence; do NOT cite it, cite only the numbered passages):\n"
+    return (f"Curated action plan for this situation (editorial guidance, not a source: use it only for "
+            f"\"procedure\"/\"advice\" sentences with no cites, no numbers and no legal-rule wording):\n"
             f"Where to go: {forum}\nNext steps:\n{steps}\nEvidence to collect:\n{evidence}\n\n")
+
+
+def _guidance_terms_text(playbook: dict | None) -> str:
+    """Every step/forum/evidence line of the plan in both languages: the only
+    place an uncited procedure sentence may come from."""
+    if not playbook:
+        return ""
+    bits = [(playbook.get("forum") or {}).get(k) or "" for k in ("en", "ne")]
+    for key in ("next_steps", "evidence"):
+        for s in playbook.get(key, []):
+            bits += [s.get("en") or "", s.get("ne") or ""]
+    return " ".join(bits)
 
 
 _EMPTY_TAIL = re.compile(r"(\n\s*(\*\*[^*\n]+\*\*|#{1,6}[^\n]*)\s*:?\s*)+\s*$")
@@ -675,7 +664,8 @@ def _prompt(message: str, analysis: dict, sources: list[dict], lang: str, histor
         + (f"Earlier conversation (context only):\n{hist}\n\n" if hist else "")
         + f"Person's concern (as understood): {analysis.get('concern') or '-'}\n"
         f"Person's message: {prompt_guard.wrap_user_text(message)}\n\n"
-        f"{'Reply in English.' if lang == 'en' else 'Reply in Nepali (Devanagari).'}"
+        f"{'Reply in English.' if lang == 'en' else 'Reply in Nepali (Devanagari).'} "
+        f"Return only the JSON object described in the instructions."
     )
 
 
@@ -743,36 +733,22 @@ def run(message: str, language: str = "auto", history: list[dict] | None = None,
         return
 
     llm_calls += 1
-    parts: list[str] = []
-    usage: dict | None = None
+    # Generate-then-verify: the whole JSON answer is checked before anything is
+    # shown, so the wait is one non-streamed call; the verified text is then
+    # streamed to the client in small chunks (same delta protocol as before).
+    yield "status", {"stage": "checking sources"}
     prompt_text = _prompt(message, analysis, sources, lang, history, playbook)
-    # Devanagari costs ~3x the tokens of English for the same content; the
-    # old flat 1800 cut Nepali answers off mid-section.
-    max_tokens = 3000 if lang == "ne" else 1800
-    try:
-        if tier == "free":
-            for piece in llm.stream(ANSWER_SYSTEM, prompt_text, max_tokens=max_tokens):
-                parts.append(piece)
-                yield "delta", piece
-        else:
-            model = tiers.model_for_tier(tier)
-            text, usage = llm.paid_complete(model, ANSWER_SYSTEM, prompt_text, max_tokens=max_tokens)
-            parts.append(text)
-            yield "delta", text
-        answer = tidy_answer(normalize_citations("".join(parts), sources), sources)
-        llm_used = True
-    except Exception as e:  # noqa: BLE001
-        log.warning("answer generation failed: %s", str(e)[:200])
-        answer = "".join(parts) or _extractive(sources, lang)
-        llm_used = bool(parts)
-    if llm_used and len(answer.strip()) < 200:
-        # the model's stream stopped after a sentence or two: still give the
-        # person the provisions that answer their question, and don't cache it
-        answer = answer.rstrip() + "\n\n" + _extractive(sources, lang)
-        llm_used = False
+    result, usage = _generate_verified(prompt_text, sources, lang, tier, playbook)
     verification = None
+    if result is None:
+        answer, llm_used = _extractive(sources, lang), False
+    elif result["answer"] is None:
+        # nothing (or too little) survived verification: give the provisions themselves, and say so
+        answer, llm_used, verification = _extractive(sources, lang, UNVERIFIED_HEADER[lang]), False, result["verification"]
+    else:
+        answer, llm_used, verification = tidy_answer(result["answer"], sources), True, result["verification"]
+    yield from _simulate_stream(answer)
     if llm_used:
-        answer, verification = verifier.verify(answer, sources, lang)
         payload = {"answer": answer, "language": lang, "sources": sources, "llm_used": True,
                    "analysis": meta_analysis, "playbook": playbook_card, "verification": verification}
         _answer_cache.put(ckey, payload)
@@ -782,6 +758,65 @@ def run(message: str, language: str = "auto", history: list[dict] | None = None,
                    "tier": tier, "usage": usage, "prompt_version": ANSWER_PROMPT_VERSION,
                    "flagged_injection": prompt_guard.looks_like_injection(message),
                    "verification": verification}
+
+
+def _simulate_stream(answer: str):
+    pieces = list(structured.chunks(answer, 40))
+    delay = min(config.STREAM_CHUNK_DELAY_S, 1.5 / max(1, len(pieces)))
+    for piece in pieces:
+        yield "delta", piece
+        if delay > 0:
+            time.sleep(delay)
+
+
+def _generate_verified(prompt_text: str, sources: list[dict], lang: str, tier: str, playbook: dict | None):
+    """(structured.build() result | None if no model answered, usage). Never raises."""
+    # Devanagari costs ~3x the tokens of English, and JSON adds keys and quotes
+    max_tokens = config.ANSWER_MAX_TOKENS_NE if lang == "ne" else config.ANSWER_MAX_TOKENS_EN
+    usage: dict | None = None
+    paid = tier != "free"
+    model = tiers.model_for_tier(tier) if paid else None
+    haiku = tiers.model_for_tier("haiku")
+
+    def add_usage(u: dict):
+        nonlocal usage
+        usage = {k: (usage or {}).get(k, 0) + u.get(k, 0) for k in ("input_tokens", "output_tokens")}
+
+    def paid_call(system, user, **kw):
+        text, u = llm.paid_complete(kw.pop("model", model), system, user, max_tokens=kw.get("max_tokens", max_tokens),
+                                    temperature=kw.get("temperature", 0.2), budget_s=kw.get("budget_s"))
+        add_usage(u)
+        return text
+
+    try:
+        if paid:
+            raw = paid_call(ANSWER_SYSTEM, prompt_text, budget_s=config.ANSWER_JSON_BUDGET_S)
+        else:
+            raw = llm.complete(ANSWER_SYSTEM, prompt_text, json_mode=True, max_tokens=max_tokens,
+                               budget_s=config.ANSWER_JSON_BUDGET_S, call_timeout_s=config.ANSWER_JSON_CALL_TIMEOUT_S)
+        cut_off = llm.was_cut_off()
+    except Exception as e:  # noqa: BLE001
+        log.warning("answer generation failed: %s", str(e)[:200])
+        return None, usage
+
+    def repair(bad: str) -> str:
+        if paid:
+            return paid_call(structured.REPAIR_SYSTEM, bad[:16000], model=haiku, budget_s=25)
+        return llm.complete(structured.REPAIR_SYSTEM, bad[:16000], fast=True, json_mode=True,
+                            max_tokens=max_tokens, budget_s=20, temperature=0.0)
+
+    entail = None
+    if config.ENTAILMENT_CHECK or paid:  # paid tiers can afford one more cheap call
+        call = (lambda system, user, **kw: paid_call(system, user, model=haiku, max_tokens=kw.get("max_tokens", 300),
+                                                     temperature=0.0, budget_s=20)) if paid else llm.complete
+        entail = lambda doc: structured.entailment_filter(doc, call)  # noqa: E731
+    disclaimer = DISCLAIMER_EN if lang == "en" else DISCLAIMER_NE
+    try:
+        return structured.build(raw, sources, lang, guidance=_guidance_terms_text(playbook), disclaimer=disclaimer,
+                                cut_off=cut_off, repair=repair, entail=entail), usage
+    except Exception:  # noqa: BLE001 - a verifier bug must degrade to the extractive answer, not a 500
+        log.exception("structured answer build failed")
+        return None, usage
 
 
 def stream_answer(message: str, language: str = "auto", history: list[dict] | None = None, tier: str = "free"):

@@ -145,22 +145,38 @@ def test_tax_question_keeps_tax_acts():
 
 @requires_corpus
 def test_run_emits_playbook_card_and_verification(monkeypatch):
+    # migrated in V3: the answer is now one JSON object whose sentences carry verbatim quotes; the invented
+    # "35 days" is REMOVED (it used to be shown with a warning mark) and `unverified` is always empty
+    import json
+    from app import config
     monkeypatch.setattr(llm, "available", lambda: True)
+    monkeypatch.setattr(config, "STREAM_CHUNK_DELAY_S", 0)
     monkeypatch.setattr(generation, "analyze_query", lambda m, l, h=None: {**RAW, "intent": "legal", "llm": False})
-    answer = ("I understand your salary has not been paid, and that four months without income is very hard. "
-              "Keep your appointment letter, pay slips and any messages from your employer safe. "
-              "Under the Labour Act, 2074, Section 162, you can "
-              "complain to the Labour Office within 6 months [2]. You must file within 35 days [2].\n\n**Precedent**")
-    monkeypatch.setattr(llm, "stream", lambda system, user, **kw: iter([answer]))
+    q1 = "प्रत्येक श्रमिकले काम शुरु गरेको मितिदेखि पारिश्रमिक तथा सुविधा पाउनेछ"
+    q2 = "श्रमिकले पाउने पारिश्रमिक तथा सुविधा यो ऐन तथा यस ऐन अन्तर्गत बनेको नियममा तोकिएभन्दा कम नहुने गरी रोजगार सम्झौतामा उल्लेख भए बमोजिम हुनेछ"
+    q3 = "कुनै व्यक्ति, रोजगारदाता, श्रमिक वा पदाधिकारीले यो ऐन वा यस ऐन अन्तर्गत बनेको नियम विपरीत कार्यगरेमा"
+    reply = {"blocks": [
+        {"heading": "", "sentences": [{"text": "I understand that four months without income is very hard.", "kind": "empathy", "cites": []}]},
+        {"heading": "Key rules", "sentences": [
+            {"text": "Under the Labour Act, 2074, Section 34, a worker gets wages and benefits from the day work starts.",
+             "kind": "rule", "cites": [{"n": 1, "quote": q1}]},
+            {"text": "A worker's wages cannot be lower than the Act or the employment contract provides.",
+             "kind": "rule", "cites": [{"n": 1, "quote": q2}]},
+            {"text": "You must file within 35 days.", "kind": "deadline", "cites": [{"n": 2, "quote": q3}]}]},
+    ], "gaps": [], "follow_up_questions": []}
+    monkeypatch.setattr(llm, "complete", lambda system, user, **kw: json.dumps(reply, ensure_ascii=False))
     monkeypatch.setattr(generation.supa, "cache_get", lambda *a: None)
     monkeypatch.setattr(generation.supa, "cache_put", lambda *a: None)
     events = list(generation.run("My employer has not paid my salary for 4 months. What can I do?", "en"))
     meta = next(d for k, d in events if k == "meta")
     done = next(d for k, d in events if k == "done")
     assert meta["playbook"]["id"] == "unpaid_salary"
-    assert done["verification"]["supported"] == 1
-    assert done["verification"]["unverified"][0]["reason"] == "number_not_in_source"
-    assert not done["answer"].rstrip().endswith("**Precedent**")
+    assert done["verification"]["supported"] == done["verification"]["claims"] == 2
+    assert done["verification"]["unverified"] == []
+    # the invented deadline, and the empathy line that restates the user's own "four months" (a number
+    # with no quote behind it is never rendered, whatever kind the model gave it)
+    assert set(done["verification"]["removed"]["reasons"]) == {"number_not_in_quote", "no_citation"}
+    assert "35 days" not in done["answer"] and "Section 34" in done["answer"]
 
 
 def test_number_words_in_statute_match_digits_in_claim():

@@ -86,6 +86,18 @@ ANSWER_BUDGET_S = float(os.getenv("ANSWER_BUDGET_S", "40"))        # non-streame
 FIRST_TOKEN_BUDGET_S = float(os.getenv("FIRST_TOKEN_BUDGET_S", "30"))  # streamed answer must start by then
 MODEL_FIRST_TOKEN_S = float(os.getenv("MODEL_FIRST_TOKEN_S", "8"))    # ...and each model gets this long to start
 
+# V3: the answer is one JSON object (generate, then verify), so it is not streamed from the model.
+# Devanagari costs ~3x the tokens of English and JSON adds keys/quotes; a cut-off object is salvaged
+# sentence by sentence, never shown half-written.
+ANSWER_MAX_TOKENS_EN = int(os.getenv("ANSWER_MAX_TOKENS_EN", "3200"))
+ANSWER_MAX_TOKENS_NE = int(os.getenv("ANSWER_MAX_TOKENS_NE", "6000"))
+ANSWER_JSON_BUDGET_S = float(os.getenv("ANSWER_JSON_BUDGET_S", "50"))       # whole structured generation
+ANSWER_JSON_CALL_TIMEOUT_S = float(os.getenv("ANSWER_JSON_CALL_TIMEOUT_S", "35"))  # one attempt on one model
+# Optional LLM entailment pass over the surviving rule sentences (off on the free tier: quota); paid tiers always run it.
+ENTAILMENT_CHECK = os.getenv("ENTAILMENT_CHECK", "0").lower() in ("1", "true", "yes")
+# Simulated streaming of the verified answer (seconds between ~40-char chunks; capped per answer)
+STREAM_CHUNK_DELAY_S = float(os.getenv("STREAM_CHUNK_DELAY_S", "0.01"))
+
 CORS_ORIGINS = [
     origin.strip()
     for origin in os.getenv("CORS_ORIGINS", "http://localhost:3000").split(",")

@@ -87,6 +87,15 @@
   margin-top: 4px;
   color: #fcd34d;
 }
+.evidence-removed {
+  margin-top: 4px;
+  color: var(--text-dim);
+  font-size: 12px;
+}
+.checking {
+  color: var(--text-dim);
+  font-size: 14px;
+}
 
 .badge.core {
   background: rgba(201, 162, 75, 0.2);
