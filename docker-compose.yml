@@ -1,0 +1,8 @@
+services:
+  api:
+    build: ./backend
+    env_file: ./backend/.env        # copy backend/.env.example to backend/.env and fill in your keys
+    ports:
+      - "8000:8000"
+    restart: unless-stopped
+    mem_limit: 1g
