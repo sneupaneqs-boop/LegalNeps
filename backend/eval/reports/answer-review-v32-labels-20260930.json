@@ -1,0 +1,1881 @@
+{
+ "meta": {
+  "date": "2026-09-30",
+  "reviewer": "independent LLM reviewer (Claude), two-pass",
+  "input": "backend/eval/reports/answer-review-v32-answers30-20260930.json (backend/eval/answer_review.py --set answers30 against the live API, entailment pass OFF; 8 answers served from cache with the pass ON: a07,a12,a13,a15,a17,a20,a26,a30)",
+  "labels": {
+   "supported": "quote/passage entails everything the sentence asserts",
+   "unsupported": "real quote, sentence says more/different (overreach, missing condition, wrong subject)",
+   "wrong-law": "real passage that does not govern the user situation",
+   "hallucinated-number-or-section": "number/section/period not in the passage"
+  },
+  "scheme": "same four labels and rate definition as answer-review-v3-labels-20260930.json. Kept, cited sentences of mode=structured answers only; extractive_fallback/none answers are recorded, not labelled. Rule applied to off-target sentences: a real rule from the right law/chapter that merely does not answer the question is 'supported' (flagged tangential; usefulness lowered); a passage from a different subject/population is 'wrong-law'. Corpus checks used app.retrieval.get_index().section(doc_slug(title), section) and title/text scans.",
+  "question_script": "derived from the question text (source 'language' is 'ne' for romanised questions)"
+ },
+ "summary": {
+  "overall": {
+   "n": 70,
+   "supported": 39,
+   "unsupported": 7,
+   "wrong-law": 24,
+   "hallucinated-number-or-section": 0,
+   "bad": 31,
+   "rate": 0.443
+  },
+  "by_question_script": {
+   "devanagari": {
+    "n": 23,
+    "supported": 9,
+    "unsupported": 1,
+    "wrong-law": 13,
+    "hallucinated-number-or-section": 0,
+    "bad": 14,
+    "rate": 0.609
+   },
+   "romanised": {
+    "n": 30,
+    "supported": 20,
+    "unsupported": 3,
+    "wrong-law": 7,
+    "hallucinated-number-or-section": 0,
+    "bad": 10,
+    "rate": 0.333
+   },
+   "english": {
+    "n": 17,
+    "supported": 10,
+    "unsupported": 3,
+    "wrong-law": 4,
+    "hallucinated-number-or-section": 0,
+    "bad": 7,
+    "rate": 0.412
+   }
+  },
+  "by_claim_kind": {
+   "deadline": {
+    "n": 6,
+    "supported": 3,
+    "unsupported": 1,
+    "wrong-law": 2,
+    "hallucinated-number-or-section": 0,
+    "bad": 3,
+    "rate": 0.5
+   },
+   "penalty": {
+    "n": 4,
+    "supported": 4,
+    "unsupported": 0,
+    "wrong-law": 0,
+    "hallucinated-number-or-section": 0,
+    "bad": 0,
+    "rate": 0.0
+   },
+   "procedure": {
+    "n": 3,
+    "supported": 3,
+    "unsupported": 0,
+    "wrong-law": 0,
+    "hallucinated-number-or-section": 0,
+    "bad": 0,
+    "rate": 0.0
+   },
+   "rule": {
+    "n": 57,
+    "supported": 29,
+    "unsupported": 6,
+    "wrong-law": 22,
+    "hallucinated-number-or-section": 0,
+    "bad": 28,
+    "rate": 0.491
+   }
+  },
+  "overall_excluding_exact_duplicates": {
+   "n": 67,
+   "supported": 39,
+   "unsupported": 6,
+   "wrong-law": 22,
+   "hallucinated-number-or-section": 0,
+   "bad": 28,
+   "rate": 0.418
+  },
+  "overall_excluding_a02": {
+   "n": 61,
+   "supported": 39,
+   "unsupported": 7,
+   "wrong-law": 15,
+   "hallucinated-number-or-section": 0,
+   "bad": 22,
+   "rate": 0.361
+  },
+  "by_cache_state": {
+   "cached_entailment_on(8)": {
+    "n": 22,
+    "supported": 15,
+    "unsupported": 2,
+    "wrong-law": 5,
+    "hallucinated-number-or-section": 0,
+    "bad": 7,
+    "rate": 0.318
+   },
+   "fresh_entailment_off": {
+    "n": 48,
+    "supported": 24,
+    "unsupported": 5,
+    "wrong-law": 19,
+    "hallucinated-number-or-section": 0,
+    "bad": 24,
+    "rate": 0.5
+   }
+  },
+  "answers_with_at_least_one_bad_sentence": [
+   "a02",
+   "a03",
+   "a04",
+   "a07",
+   "a11",
+   "a12",
+   "a14",
+   "a15",
+   "a23",
+   "a24",
+   "a25",
+   "a26",
+   "a27"
+  ],
+  "structured_answers": 22,
+  "wrong_law_share_of_bad": 0.774,
+  "mode_distribution": {
+   "extractive_fallback": 6,
+   "structured": 22,
+   "none": 2
+  },
+  "usefulness": {
+   "mean_0_2": 0.8,
+   "distribution": {
+    "0": 12,
+    "1": 12,
+    "2": 6
+   },
+   "answers_useful_ge1": 18,
+   "answers_useful_eq2": 6
+  },
+  "fallback_quality": {
+   "a01": "no",
+   "a09": "no",
+   "a10": "partly",
+   "a19": "no",
+   "a22": "partly",
+   "a29": "yes"
+  },
+  "none_mode_answers": [
+   "a08",
+   "a16"
+  ],
+  "previous_review_v3": {
+   "claims": 77,
+   "bad": 12,
+   "rate": 0.156
+  },
+  "v1_baseline": {
+   "claims": 119,
+   "bad": 48,
+   "rate": 0.403
+  },
+  "target_rate": 0.05,
+  "sensitivity_tangential_counted_as_bad": {
+   "note": "if the 7 supported-but-tangential sentences (a04.s3 provident fund, a11.s3, a18.s1-s3, a21.s1, a25.s1) were also counted",
+   "bad": 38,
+   "n": 70,
+   "rate": 0.543
+  },
+  "answers_fully_clean": [
+   "a05",
+   "a06",
+   "a13",
+   "a17",
+   "a18",
+   "a20",
+   "a21",
+   "a28",
+   "a30"
+  ]
+ },
+ "sentences": [
+  {
+   "id": "a02.s1",
+   "answer_id": "a02",
+   "n": 1,
+   "question_script": "devanagari",
+   "kind": "rule",
+   "sentence": "मुलुकी अपराध संहिता, २०७४ को दफा ३०२ अनुसार कानून बमोजिम अधिकार प्राप्त अधिकारी वा निजको आदेशले बाहेक कसैले अरुको घरमा सम्बन्धित घर धनीको स्वीकृति विना अनधिकृत रुपमा प्रवेश गर्न हुँदैन।",
+   "cited": "मुलुकी अपराध संहिता, २०७४, दफा 302",
+   "quote": "कानून बमोजिम अधिकार प्राप्त अधिकारी वा निजको आदेशले बाहेक कसैले अरुको घरमा सम्बन्धित घर धनीको स्वीकृति विना अनधिकृत रुपमा प्रवेश गर्न",
+   "label": "wrong-law",
+   "evidence_and_note": "BORDERLINE. Passage s.302 is 'अरुको आवासमा अनाधिकृत प्रवेश गर्न नहुने' ('घर धनी वा निजको परिवारको गोप्यता भङ्ग गर्न वा ... खानतलासी'): trespass/privacy of a dwelling. The approval it names is 'सम्बन्धित घर धनीको स्वीकृति' (the OWNER = the landlord), so it does not answer whether a landlord may demand vacating; the tenancy rules (Civil Code s.390/391/401) are what govern."
+  },
+  {
+   "id": "a02.s2",
+   "answer_id": "a02",
+   "n": 2,
+   "question_script": "devanagari",
+   "kind": "rule",
+   "sentence": "मुलुकी देवानी संहिता, २०७४ को दफा ६३३ अनुसार अनुरोध गरेको पन्ध्र दिनभित्र वस्तु धनीले स्वीकृति वा अस्वीकृति दिनु पर्नेछ।",
+   "cited": "मुलुकी देवानी संहिता, २०७४, दफा 633",
+   "quote": "अनुरोध गरेको पन्ध्र दिनभित्र वस्तु धनीले स्वीकृति वा अस्वीकृति दिनु पर्नेछ",
+   "label": "wrong-law",
+   "evidence_and_note": "s.633 'भाडामा लिने व्यक्तिले हायर पर्चेज करार बमोजिम आफूले भाडामा लिएको वस्तु उपरको हक ... हस्तान्तरण' = HIRE-PURCHASE of goods, transfer of the hirer's rights to a third person. Sentence drops that context ('अनुरोध गरेको ... वस्तु धनीले स्वीकृति वा अस्वीकृति') so it reads like a landlord duty. Not house tenancy."
+  },
+  {
+   "id": "a02.s3",
+   "answer_id": "a02",
+   "n": 3,
+   "question_script": "devanagari",
+   "kind": "rule",
+   "sentence": "मुलुकी देवानी संहिता, २०७४ को दफा ६३७ अनुसार उपदफा (१) बमोजिमको रकम वस्तु जफत गरेको मितिले तीस दिनभित्र भाडामा लिने व्यक्तिलाई बुझाउनु पर्नेछ।",
+   "cited": "मुलुकी देवानी संहिता, २०७४, दफा 637",
+   "quote": "उपदफा (१) बमोजिमको रकम वस्तु जफत गरेको मितिले तीस दिनभित्र भाडामा लिने व्यक्तिलाई बुझाउनु पर्नेछ",
+   "label": "wrong-law",
+   "evidence_and_note": "s.637 heading 'वस्तु जफत भएकोमा भाडामा लिने व्यक्तिको अधिकार' ('हायर पर्चेज मूल्य', 'वस्तु जफत'): hire-purchase forfeiture of goods; not a room rental."
+  },
+  {
+   "id": "a02.s4",
+   "answer_id": "a02",
+   "n": 4,
+   "question_script": "devanagari",
+   "kind": "rule",
+   "sentence": "मुलुकी देवानी संहिता, २०७४ को दफा ६३८ अनुसार करार बहाल रहेको अवधिमा भाडामा लिने व्यक्ति प्रचलित कानून बमोजिम दामासाहीमा परेको वा पर्न लागेको अदालतले ठहर गरेमा त्यसको परिणाम स्वरूप त्यस्तो व्यक्तिको सम्पत्ति नियन्त्रणमा लिने लिक्विडेटर वा सो सरहको अधिकार पाएको अन्य कुनै व्यक्तिले हायर पर्चेज करारसँग सम्बन्धित वस्तुको सम्बन्धमा भाडामा लिने व्यक्तिलाई भए सरह अधिकारको प्रयोग र दायित्व निर्वाह गर्नेछ।",
+   "cited": "मुलुकी देवानी संहिता, २०७४, दफा 638",
+   "quote": "करार बहाल रहेको अवधिमा भाडामा लिने व्यक्ति प्रचलित कानून बमोजिम दामासाहीमा परेको वा पर्न लागेको अदालतले ठहर गरेमा त्यसको परिणाम स्वरूप त्यस्तो व्यक्तिको सम्पत्ति नियन्त्रणमा लिने लिक्विडेटर वा सो सरहको अधिकार पाएको अन्य कुनै व्यक्तिले हायर पर्चेज करारसँग सम्बन्धित वस्तुको सम्बन्धमा भाडामा लिने व्यक्तिलाई भए सरह अधिकारको प्रयोग र दायित्व निर्वाह गर्नेछ",
+   "label": "wrong-law",
+   "evidence_and_note": "s.638 'हायर पर्चेज करार बहाल रहेको अवधिमा भाडामा लिने व्यक्ति ... दामासाहीमा परेको' = hirer's insolvency/liquidator. Not eviction."
+  },
+  {
+   "id": "a02.s5",
+   "answer_id": "a02",
+   "n": 5,
+   "question_script": "devanagari",
+   "kind": "rule",
+   "sentence": "मुलुकी देवानी संहिता, २०७४ को दफा ६३३ अनुसार उपदफा (२) बमोजिम वस्तु धनीले इन्कार गरेकोमा भाडामा लिने व्यक्तिले त्यस्तो इन्कारी बदर गराउन पैँतीस दिनभित्र अदालतमा नालिस गर्न सक्नेछ।",
+   "cited": "मुलुकी देवानी संहिता, २०७४, दफा 633",
+   "quote": "उपदफा (२) बमोजिम वस्तु धनीले इन्कार गरेकोमा भाडामा लिने व्यक्तिले त्यस्तो इन्कारी बदर गराउन पैँतीस दिनभित्र अदालतमा नालिस गर्न सक्नेछ",
+   "label": "wrong-law",
+   "evidence_and_note": "s.633(3): 'वस्तु धनीले इन्कार गरेकोमा ... पैँतीस दिनभित्र अदालतमा नालिस' = challenging refusal of consent to transfer hire-purchase rights. Not eviction."
+  },
+  {
+   "id": "a02.s6",
+   "answer_id": "a02",
+   "n": 6,
+   "question_script": "devanagari",
+   "kind": "rule",
+   "sentence": "मुलुकी देवानी संहिता, २०७४ को दफा ६३७ अनुसार त्यस्तो अवधि पछि भुक्तानी गर्नु पर्दा वार्षिक दश प्रतिशतले ब्याज समेत भुक्तानी गर्नु पर्नेछ।",
+   "cited": "मुलुकी देवानी संहिता, २०७४, दफा 637",
+   "quote": "त्यस्तो अवधि पछि भुक्तानी गर्नु पर्दा वार्षिक दश प्रतिशतले ब्याज समेत भुक्तानी गर्नु पर्नेछ",
+   "label": "wrong-law",
+   "evidence_and_note": "s.637(2) 'वार्षिक दश प्रतिशतले ब्याज' after forfeiture of a hire-purchase good; unrelated to a tenant's eviction."
+  },
+  {
+   "id": "a02.s7",
+   "answer_id": "a02",
+   "n": 7,
+   "question_script": "devanagari",
+   "kind": "rule",
+   "sentence": "मुलुकी देवानी संहिता, २०७४ को दफा ६३८ अनुसार भाडामा लिने व्यक्ति दामासाहीमा परी त्यस सम्बन्धी कार्यविधि कुनै अदालतमा विचाराधीन रहेको अवस्थामा उपदफा (१) बमोजिमको लिक्विडेटर वा सो सरहका अधिकार प्रयोग गर्ने व्यक्तिले त्यस्तो अदालतको अनुमति लिई हायर पर्चेज करारसँग सम्बन्धित वस्तु …",
+   "cited": "मुलुकी देवानी संहिता, २०७४, दफा 638",
+   "quote": "भाडामा लिने व्यक्ति दामासाहीमा परी त्यस सम्बन्धी कार्यविधि कुनै अदालतमा विचाराधीन रहेको अवस्थामा उपदफा (१) बमोजिमको लिक्विडेटर वा सो सरहका अधिकार प्रयोग गर्ने व्यक्तिले त्यस्तो अदालतको अनुमति लिई हायर पर्चेज करारसँग सम्बन्धित वस्तु",
+   "label": "wrong-law",
+   "evidence_and_note": "s.638(2) liquidator/court permission to transfer hire-purchase goods. Sentence also ends in a literal '…' (cut mid-clause) in the user-facing text."
+  },
+  {
+   "id": "a02.s8",
+   "answer_id": "a02",
+   "n": 8,
+   "question_script": "devanagari",
+   "kind": "rule",
+   "sentence": "मुलुकी देवानी संहिता, २०७४ को दफा ६३३ अनुसार यस दफामा लेखिएको कुनै पनि कुराले कानूनको परिचालनबाट भाडामा लिने व्यक्तिको हक, हित वा दायित्व अर्को व्यक्तिमा हस्तान्तरण भएकोमा त्यस्तो हक, हित वा दायित्व प्रयोग वा पालन गर्न गराउन बाधा प्रुयाएको मानिने छैन।",
+   "cited": "मुलुकी देवानी संहिता, २०७४, दफा 633",
+   "quote": "यस दफामा लेखिएको कुनै पनि कुराले कानूनको परिचालनबाट भाडामा लिने व्यक्तिको हक, हित वा दायित्व अर्को व्यक्तिमा हस्तान्तरण भएकोमा त्यस्तो हक, हित वा दायित्व प्रयोग वा पालन गर्न गराउन बाधा प्रुयाएको मानिने छैन",
+   "label": "wrong-law",
+   "evidence_and_note": "s.633(4) hire-purchase transfer by operation of law; unrelated."
+  },
+  {
+   "id": "a02.s9",
+   "answer_id": "a02",
+   "n": 9,
+   "question_script": "devanagari",
+   "kind": "rule",
+   "sentence": "मुलुकी देवानी संहिता, २०७४ को दफा ६३३ अनुसार त्यस्तो अवधिभित्र स्वीकृति प्राप्त हुन नसकेमा निजले स्वीकृति दिन इन्कार गरेको मानिनेछ।",
+   "cited": "मुलुकी देवानी संहिता, २०७४, दफा 633",
+   "quote": "त्यस्तो अवधिभित्र स्वीकृति प्राप्त हुन नसकेमा निजले स्वीकृति दिन इन्कार गरेको मानिनेछ",
+   "label": "wrong-law",
+   "evidence_and_note": "s.633(2) 'स्वीकृति दिन इन्कार गरेको मानिनेछ' deemed refusal of consent to transfer hire-purchase rights; unrelated."
+  },
+  {
+   "id": "a03.s1",
+   "answer_id": "a03",
+   "n": 1,
+   "question_script": "devanagari",
+   "kind": "rule",
+   "sentence": "त्यसै गरी, क्षतिपूर्ति वास्तविक हानि, नोक्सानीमा मात्र सीमित हुनुपर्छ, काल्पनिक क्षतिपूर्ति दिइने छैन।",
+   "cited": "मुलुकी देवानी संहिता, २०७४, दफा 682",
+   "quote": "उपदफा (१) बमोजिमको क्षतिपूर्ति वास्तविक रूपमा हानि, नोक्सानी भएको विषयमा सीमित रहेको हुनु पर्नेछ र काल्पनिक वा अवास्तविक क्षतिपूर्ति व्यहोर्नु पर्ने छैन ।",
+   "label": "supported",
+   "evidence_and_note": "Quote s.682(3) 'क्षतिपूर्ति वास्तविक रूपमा हानि, नोक्सानी भएको विषयमा सीमित' entails it; tort chapter is the right general chapter. But it only limits compensation (no who/how), starts with a dangling 'त्यसै गरी' (previous sentence removed), and the Motor Vehicles Act s.163 that governs road-accident compensation was not used."
+  },
+  {
+   "id": "a03.s2",
+   "answer_id": "a03",
+   "n": 2,
+   "question_script": "devanagari",
+   "kind": "rule",
+   "sentence": "उपभोक्ता संरक्षण ऐन, २०७५ को दफा ५१ अनुसार यस ऐन विपरीत वस्तु वा सेवा बिक्री वितरण वा प्रदान गरेको कारणबाट घाइते भएमा उपचार खर्च, उपचार अवधिभर पारिवारिक स्थिति अनुसार दैनिक गुजाराका लागि आवश्यक पर्ने अन्तरिम राहत रकम र क्षतिपर्तिको निमित्त परेको उजुरी उपर छानबिन गर्दा उपभोक्तालाई हानि, नोक्सानी पुग्न गएको ठहर भएमा त्यस्तो हानि, नोक्सानीको आधारमा सम्बन्धित उत्पादक, पैठारीकर्ता, सञ्चयकर्ता, ढुवानीकर्ता, वितरक वा बिक्रेताबाट क्षतिपूर्तिबापतको रकम उपभोक्ता वा निजको मृत्यु भइसकेको भए कानून बमोजिमको हकवालाले पाउनेछ।",
+   "cited": "उपभोक्ता संरक्षण ऐन, २०७५, दफा 51",
+   "quote": "क्षतिपूर्तिप्रदान गर्नु पर्नेः यस ऐन विपरीत वस्तु वा सेवा बिक्री वितरण वा प्रदान गरेको कारणबाट घाइते भएमा उपचार खर्च, उपचार अवधिभर पारिवारिक स्थिति अनुसार दैनिक गुजाराका लागि आवश्यक पर्ने अन्तरिम राहत रकम र क्षतिपर्तिको निमित्त परेको उजुरी उपर छानबिन गर्दा उपभोक्तालाई हानि, नोक्सानी पुग्न गएको ठहर भएमा त्यस्तो हानि, नोक्सानीको आधारमा सम्बन्धित उत्पादक, पैठारीकर्ता, सञ्चयकर्ता, ढुवानीकर्ता, वितरक वा बिक्रेताबाट क्षतिपूर्तिबापतको रकम उपभोक्ता वा निजको मृत्यु भइसकेको भए कानून बमोजिमको हकवालाले पाउनेछ।",
+   "label": "wrong-law",
+   "evidence_and_note": "s.51 Consumer Protection Act opens 'यस ऐन विपरीत वस्तु वा सेवा बिक्री वितरण वा प्रदान गरेको कारणबाट घाइते भएमा ... उत्पादक, पैठारीकर्ता, सञ्चयकर्ता, ढुवानीकर्ता, वितरक वा बिक्रेताबाट' - liability of producers/sellers for defective goods/services, not a hit-and-run rider. The 'sentence' is a 90-word copy of the passage."
+  },
+  {
+   "id": "a04.s1",
+   "answer_id": "a04",
+   "n": 1,
+   "question_script": "devanagari",
+   "kind": "deadline",
+   "sentence": "यसै दफा अनुसार पुस महिनाको अन्त्यसम्म अनुमानित करको चालीस प्रतिशत रकममध्ये तिर्नबाँकी कर रकम दाखिला गर्नुपर्नेछ।",
+   "cited": "आयकर ऐन, २०५८, दफा 94 (1)",
+   "quote": "पुस महिनाको अन्त्यसम्म अनुमानित करको चालीस प्रतिशत रकममध्ये तिर्नबाँकी कर रकम",
+   "label": "wrong-law",
+   "evidence_and_note": "s.94(1) opens 'कुनै व्यवसाय वा लगानीबाट कुनै आय वर्षमा निर्धारणयोग्य आय भएको वा हुने व्यक्तिले ... तीन किस्तामा कर दाखिला' = advance instalments for business/investment income; salary tax is withheld by the employer under s.87. The sentence drops the subject and takes one table row ('पुस महिनाको अन्त्यसम्म ... चालीस प्रतिशत'), so a salaried reader would think 40% by Poush applies to them."
+  },
+  {
+   "id": "a04.s2",
+   "answer_id": "a04",
+   "n": 2,
+   "question_script": "devanagari",
+   "kind": "deadline",
+   "sentence": "चैत महिनाको अन्त्यसम्म अनुमानित करको सत्तरी प्रतिशत रकममध्ये तिर्नबाँकी कर रकम दाखिला गर्नुपर्नेछ।",
+   "cited": "आयकर ऐन, २०५८, दफा 94 (1)",
+   "quote": "चैत महिनाको अन्त्यसम्म अनुमानित करको सत्तरी प्रतिशत रकममध्ये तिर्नबाँकी कर रकम",
+   "label": "wrong-law",
+   "evidence_and_note": "Same s.94(1) instalment row ('चैत महिनाको अन्त्यसम्म ... सत्तरी प्रतिशत'); business/investment income, not salary deduction."
+  },
+  {
+   "id": "a04.s3",
+   "answer_id": "a04",
+   "n": 3,
+   "question_script": "devanagari",
+   "kind": "rule",
+   "sentence": "कर्मचारी सञ्चय कोष ऐन, २०१९ को दफा १२ अनुसार कार्यालयले कर्मचारीको मासिक तलबबाट दश प्रतिशतमा नघट्ने गरी तोकिए बमोजिमका दरले कोष रकम कट्टी गर्नुपर्नेछ।",
+   "cited": "कर्मचारी सञ्‍चय कोष ऐन, २०१९, दफा 12",
+   "quote": "कार्यालयले कर्मचारीको मासिक तलबबाट दश प्रतिशतमा नघट्ने गरी तोकिए बमोजिमका दरले कोष रकम कट्टी",
+   "label": "supported",
+   "evidence_and_note": "Quote s.12(1) 'मासिक तलबबाट दश प्रतिशतमा नघट्ने गरी ... कोष रकम कट्टी' entails it. NOT an income-tax rate (provident fund), but it is placed under the heading 'अन्य कटौती' so it is not presented as the tax answer."
+  },
+  {
+   "id": "a04.s4",
+   "answer_id": "a04",
+   "n": 4,
+   "question_script": "devanagari",
+   "kind": "rule",
+   "sentence": "सैनिक ऐन, २०६३ को दफा १२३ (१) अनुसार सजायको आदेश कार्यान्वयन गर्ने प्रयोजनको लागि देहाय बमोजिमको अवस्थामा अधिकृतको तलब भत्ता कट्टा गरिनेछ।",
+   "cited": "सैनिक ऐन, २०६३, दफा 123 (1)",
+   "quote": "सजायको आदेश कार्यान्वयन गर्नेप्रयोजनको लागि देहाय बमोजिमको अवस्थामा अधिकृतको तलब भत्ता देहाय बमोजिम कट्टा गरिनेछ",
+   "label": "wrong-law",
+   "evidence_and_note": "Army Act s.123 'सजायको आदेश कार्यान्वयन गर्ने प्रयोजनको लागि ... अधिकृतको तलब भत्ता ... कट्टा' (military officers' disciplinary pay deduction: 'सैनिक अदालत', 'शत्रु'). Irrelevant to a civilian's salary tax; the sentence also leaves 'देहाय बमोजिमको अवस्थामा' unresolved."
+  },
+  {
+   "id": "a05.s1",
+   "answer_id": "a05",
+   "n": 1,
+   "question_script": "devanagari",
+   "kind": "rule",
+   "sentence": "श्रम ऐन, २०७४ को दफा १४४ को उपदफा (१) अनुसार खराब आचरणमा कारबाही भएको बाहेक अन्य अवस्थामा रोजगार सम्बन्ध अन्त्य गर्नुअघि सूचना दिनुपर्छ।",
+   "cited": "श्रम ऐन, २०७४, दफा 144",
+   "quote": "(१) खराब आचरणमा कारबाही भई रोजगारी अन्त्य भएकोमा बाहेक अन्य अवस्थामा रोजगार सम्बन्ध अन्त्य गर्नुअघि रोजगारदाता वा श्रमिकले एक अर्कोलाई देहाय बमोजिम सूचना दिनु पर्नेछः-",
+   "label": "supported",
+   "evidence_and_note": "s.144(1) verbatim."
+  },
+  {
+   "id": "a05.s2",
+   "answer_id": "a05",
+   "n": 2,
+   "question_script": "devanagari",
+   "kind": "rule",
+   "sentence": "सूचना अवधिको कानुनी व्यवस्था अनुसार चार हप्तासम्म एक दिन, चार हप्तादेखि एक वर्षसम्म सात दिन र एक वर्षभन्दा बढी भए तीस दिनको सूचना दिनुपर्नेछ।",
+   "cited": "श्रम ऐन, २०७४, दफा 144",
+   "quote": "(क) चार हप्तासम्मको रोजगारीको हकमा कम्तीमा एक दिन अगावै, (ख) चार हप्तादेखि एक वर्षसम्मको रोजगारीको हकमा कम्तीमा सात दिन अगावै, र (ग) एक वर्षभन्दा बढी अवधिको रोजगारीको हकमा कम्तीमा तीस दिन अगावै।",
+   "label": "supported",
+   "evidence_and_note": "s.144(1)(क)-(ग). Minor: 'कम्तीमा' (at least) dropped, harmless."
+  },
+  {
+   "id": "a06.s1",
+   "answer_id": "a06",
+   "n": 1,
+   "question_script": "devanagari",
+   "kind": "rule",
+   "sentence": "मुलुकी अपराध संहिता, २०७४ को दफा १७५ अनुसार कुनै पुरुष विवाहित हो भन्ने जानीजानी त्यस्तो पुरुषसँग कुनै महिलाले विवाह गर्नु हुँदैन।",
+   "cited": "मुलुकी अपराध संहिता, २०७४, दफा 175",
+   "quote": "कुनै पुरुष विवाहित हो भन्ने जानीजानी त्यस्तो पुरुषसँग कुनै महिलाले विवाह गर्नु हुँदैन",
+   "label": "supported",
+   "evidence_and_note": "s.175(2) verbatim."
+  },
+  {
+   "id": "a06.s2",
+   "answer_id": "a06",
+   "n": 2,
+   "question_script": "devanagari",
+   "kind": "penalty",
+   "sentence": "यस दफाको उपदफा (१) वा (२) बमोजिमको कसूर गर्ने वा गराउने व्यक्तिलाई एक वर्षदेखि पाँच वर्षसम्म कैद र दश हजार रुपैयाँदेखि पचास हजार रुपैयाँसम्म जरिबाना हुनेछ।",
+   "cited": "मुलुकी अपराध संहिता, २०७४, दफा 175",
+   "quote": "उपदफा (१) वा (२) बमोजिमको कसूर गर्ने वा गराउने व्यक्तिलाई एक वर्षदेखि पाँच वर्षसम्म कैद र दश हजार रुपैयाँदेखि पचास हजार रुपैयाँसम्म जरिबाना हुनेछ",
+   "label": "supported",
+   "evidence_and_note": "s.175(4) verbatim."
+  },
+  {
+   "id": "a06.s3",
+   "answer_id": "a06",
+   "n": 3,
+   "question_script": "devanagari",
+   "kind": "rule",
+   "sentence": "मुलुकी देवानी संहिता, २०७४ को दफा ७० को खण्ड (ग) अनुसार पुरुष र महिला दुवैको वैवाहिक सम्बन्ध कायम रहेको अवस्था नरहेमा मात्र विवाह हुन सक्नेछ।",
+   "cited": "मुलुकी देवानी संहिता, २०७४, दफा 70",
+   "quote": "पुरुष र महिला दुवैको वैवाहिक सम्बन्ध कायम रहेको अवस्था नरहेमा",
+   "label": "supported",
+   "evidence_and_note": "s.70(1)(ग) 'पुरुष र महिला दुवैको वैवाहिक सम्बन्ध कायम रहेको अवस्था नरहेमा'. Adding 'मात्र' (only) is an inference from the list of conditions, accepted; borderline."
+  },
+  {
+   "id": "a07.s1",
+   "answer_id": "a07",
+   "n": 1,
+   "question_script": "devanagari",
+   "kind": "rule",
+   "sentence": "मुलुकी फौजदारी कार्यविधि संहिता, २०७४ को दफा १४ को स्पष्टीकरण अनुसार चौबीस घण्टाको अवधिभित्र पक्राउ परेको व्यक्तिलाई मुद्दा हेर्ने अधिकारी समक्ष उपस्थित गराउन बाटोमा लाग्ने अवधिलाई गणना गरिँदैन।",
+   "cited": "मुलुकी फौजदारी कार्यविधि संहिता, २०७४, दफा 14 (1)",
+   "quote": "स्पष्टीकरणः यस दफाको प्रयोजनको लागि चौबीस घण्टाको अवधिभित्र पक्राउ परेको व्यक्तिलाई मुद्दा हेर्ने अधिकारी समक्ष उपस्थित गराउनको लागि पक्राउ गरिएको ठाउँबाट प्रहरी कार्यालय वा अनुसन्धान गर्न अधिकार प्राप्त कार्यालयमा ल्याउन वा प्रहरी कार्यालय वा अनुसन्धान गर्न अधिकार प्राप्त कार्यालयबाट अदालतमा पु्रयाउन बाटोमा लाग्ने अवधिलाई गणना गरिने छैन।",
+   "label": "supported",
+   "evidence_and_note": "Explanation to s.14 verbatim (travel time excluded)."
+  },
+  {
+   "id": "a07.s2",
+   "answer_id": "a07",
+   "n": 2,
+   "question_script": "devanagari",
+   "kind": "procedure",
+   "sentence": "मुलुकी फौजदारी कार्यविधि संहिता, २०७४ को दफा १४ अनुसार म्यादभन्दा बढी हिरासतमा राख्नु परेमा अनुसन्धान अधिकारीले सरकारी वकिल कार्यालय मार्फत मुद्दा हेर्ने अधिकारी समक्ष अनुमतिको लागि निवेदन दिनु पर्नेछ।",
+   "cited": "मुलुकी फौजदारी कार्यविधि संहिता, २०७४, दफा 14 (1)",
+   "quote": "मा लेखिएको म्यादभन्दा बढी हिरासतमा राख्नु परेमा अनुसन्धान अधिकारीले त्यसको आधार र कारण खुलाई सरकारी वकिल कार्यालय मार्फत मुद्दा हेर्ने अधिकारी समक्ष अनुमतिको लागि निवेदन दिनु पर्नेछ।",
+   "label": "supported",
+   "evidence_and_note": "s.14(3) entails it (the 'आधार र कारण खुलाई' is dropped, harmless)."
+  },
+  {
+   "id": "a07.s3",
+   "answer_id": "a07",
+   "n": 3,
+   "question_script": "devanagari",
+   "kind": "deadline",
+   "sentence": "प्रहरी ऐन, २०१२ को दफा १७ (२) अनुसार पक्राउ भएका व्यक्तिलाई बाटाको मनासिब माफिकको म्याद बाहेक २४ घण्टाभित्र सकभर चाँडै अदालतमा पेश गर्नु पर्छ।",
+   "cited": "प्रहरी ऐन, २०१२, दफा 17",
+   "quote": "माथि उपदफा (१) मा लेखिए बमोजिम पक्राउ भएका व्यक्तिलाई बाटाको मनासिब माफिकको म्याद बाहेक २४ घण्टाभित्र सकभर चाँडै अदालतमा पेश गर्नु पर्छ।",
+   "label": "unsupported",
+   "evidence_and_note": "Quote begins 'माथि उपदफा (१) मा लेखिए बमोजिम पक्राउ भएका व्यक्तिलाई' and s.17(1) is 'प्रहरी कर्मचारीले बिना वारेण्ट ... गिरफ्तार गर्नहुन्छ: (क) कानूनले ३ वर्ष ... देखि (छ)': the 24h rule of s.17(2) is for those arrested WITHOUT warrant in those categories. Sentence says 'पक्राउ भएका व्यक्तिलाई' (all arrested) - dropped condition. MILD: FCPC s.14 (S1/S2) says the same for all arrests."
+  },
+  {
+   "id": "a11.s1",
+   "answer_id": "a11",
+   "n": 1,
+   "question_script": "romanised",
+   "kind": "rule",
+   "sentence": "मुलुकी देवानी संहिता, २०७४ को दफा २०६ अनुसार प्रत्येक अंशियार अंशको समान हकदार हुनेछन्।",
+   "cited": "मुलुकी देवानी संहिता, २०७४, दफा 206",
+   "quote": "प्रत्येक अंशियार अंशको समान हकदार हुनेछन्",
+   "label": "supported",
+   "evidence_and_note": "s.206(1) 'प्रत्येक अंशियार अंशको समान हकदार हुनेछन्' verbatim. (Does not itself say daughters are अंशियार - s.205 in the corpus does.)"
+  },
+  {
+   "id": "a11.s2",
+   "answer_id": "a11",
+   "n": 2,
+   "question_script": "romanised",
+   "kind": "rule",
+   "sentence": "मुलुकी देवानी संहिता, २०७४ को दफा २१४ अनुसार विधवाले अर्को विवाह गरेमा निजले अंश वापत पाएको सम्पत्ति त्यस्ती विधवाको अघिल्लो पति तर्फ छोरा छोरी भएमा त्यस्ता छोरा छोरीले र नभएमा निज आफैंले लिन पाउनेछ।",
+   "cited": "मुलुकी देवानी संहिता, २०७४, दफा 214",
+   "quote": "विधवाले अर्को विवाह गरेमा निजले अंश वापत पाएको सम्पत्ति त्यस्ती विधवाको अघिल्लो पति तर्फ छोरा छोरी भएमा त्यस्ता छोरा छोरीले र नभएमा निज आफैंले लिन पाउनेछ",
+   "label": "wrong-law",
+   "evidence_and_note": "s.214 'विधवाले अंश लिई भिन्न हुन सक्ने' / quote 'विधवाले अर्को विवाह गरेमा निजले अंश वापत पाएको सम्पत्ति ... अघिल्लो पति तर्फ छोरा छोरी भएमा ... लिन पाउनेछ' = a remarrying WIDOW's property; the user asks whether daughters get a share of the grandfather's land."
+  },
+  {
+   "id": "a11.s3",
+   "answer_id": "a11",
+   "n": 3,
+   "question_script": "romanised",
+   "kind": "procedure",
+   "sentence": "मुलुकी देवानी संहिता, २०७४ को दफा २१६ अनुसार सगोलको सम्पत्ति अंशबण्डा गर्दा अंशियारहरू बीच लिखित रूपमा बण्डापत्र गर्नु पर्नेछ।",
+   "cited": "मुलुकी देवानी संहिता, २०७४, दफा 216",
+   "quote": "सगोलको सम्पत्ति अंशबण्डा गर्दा यस परिच्छेदको अधीनमा रही अंशियारहरू बीच लिखित रूपमा बण्डापत्र गर्नु पर्नेछ",
+   "label": "supported",
+   "evidence_and_note": "s.216(1) 'सगोलको सम्पत्ति अंशबण्डा गर्दा ... लिखित रूपमा बण्डापत्र गर्नु पर्नेछ' verbatim. True but not the question (daughter's entitlement)."
+  },
+  {
+   "id": "a11.s4",
+   "answer_id": "a11",
+   "n": 4,
+   "question_script": "romanised",
+   "kind": "rule",
+   "sentence": "मुलुकी देवानी संहिता, २०७४ को दफा २१४ अनुसार विधवाले अर्को विवाह गरेमा निजले अंश वापत पाएको सम्पत्ति त्यस्ती विधवाको अघिल्लो पति तर्फ छोरा छोरी भएमा त्यस्ता छोरा छोरीले र नभएमा निज आफैंले लिन पाउनेछ।",
+   "cited": "मुलुकी देवानी संहिता, २०७४, दफा 214",
+   "quote": "विधवाले अर्को विवाह गरेमा निजले अंश वापत पाएको सम्पत्ति त्यस्ती विधवाको अघिल्लो पति तर्फ छोरा छोरी भएमा त्यस्ता छोरा छोरीले र नभएमा निज आफैंले लिन पाउनेछ",
+   "label": "wrong-law",
+   "evidence_and_note": "s.214 'विधवाले अंश लिई भिन्न हुन सक्ने' / quote 'विधवाले अर्को विवाह गरेमा निजले अंश वापत पाएको सम्पत्ति ... अघिल्लो पति तर्फ छोरा छोरी भएमा ... लिन पाउनेछ' = a remarrying WIDOW's property; the user asks whether daughters get a share of the grandfather's land. EXACT DUPLICATE of s2 rendered again under a different heading."
+  },
+  {
+   "id": "a11.s5",
+   "answer_id": "a11",
+   "n": 5,
+   "question_script": "romanised",
+   "kind": "rule",
+   "sentence": "मुलुकी देवानी संहिता, २०७४ को दफा २१४ अनुसार विधवाले अर्को विवाह गरेमा निजले अंश वापत पाएको सम्पत्ति त्यस्ती विधवाको अघिल्लो पति तर्फ छोरा छोरी भएमा त्यस्ता छोरा छोरीले र नभएमा निज आफैंले लिन पाउनेछ।",
+   "cited": "मुलुकी देवानी संहिता, २०७४, दफा 214",
+   "quote": "विधवाले अर्को विवाह गरेमा निजले अंश वापत पाएको सम्पत्ति त्यस्ती विधवाको अघिल्लो पति तर्फ छोरा छोरी भएमा त्यस्ता छोरा छोरीले र नभएमा निज आफैंले लिन पाउनेछ",
+   "label": "wrong-law",
+   "evidence_and_note": "s.214 'विधवाले अंश लिई भिन्न हुन सक्ने' / quote 'विधवाले अर्को विवाह गरेमा निजले अंश वापत पाएको सम्पत्ति ... अघिल्लो पति तर्फ छोरा छोरी भएमा ... लिन पाउनेछ' = a remarrying WIDOW's property; the user asks whether daughters get a share of the grandfather's land. EXACT DUPLICATE of s2 rendered again under a different heading."
+  },
+  {
+   "id": "a12.s1",
+   "answer_id": "a12",
+   "n": 1,
+   "question_script": "romanised",
+   "kind": "rule",
+   "sentence": "महिला न्यायाधीशले प्रसूतिको अघिपछि गरी अण्ठानब्बे दिन प्रसूति बिदा लिन पाउनेछन्।",
+   "cited": "उच्च अदालत तथा जिल्ला अदालतका न्यायाधीशहरूको पारिश्रमिक, सुविधा र सेवाका अन्य शर्त सम्बन्धी ऐन, २०७४, दफा 26",
+   "quote": "महिला न्यायाधीशले प्रसूतिको अघिपछि गरी अण्ठानब्बे दिन प्रसूती बिदा लिन पाउनेछ",
+   "label": "wrong-law",
+   "evidence_and_note": "Source is the service-conditions Act for High/District Court JUDGES (s.26) 'महिला न्यायाधीशले प्रसूतिको अघिपछि गरी अण्ठानब्बे दिन'. The user asks generically (a worker); Labour Act s.45 (14 weeks, 60 days full pay) is in the corpus. Scope is stated honestly ('न्यायाधीशको लागि') but the answer does not serve the question."
+  },
+  {
+   "id": "a12.s2",
+   "answer_id": "a12",
+   "n": 2,
+   "question_script": "romanised",
+   "kind": "rule",
+   "sentence": "प्रसूति बिदामा बस्ने महिला न्यायाधीशले पूरा तलब पाउनेछन्।",
+   "cited": "उच्च अदालत तथा जिल्ला अदालतका न्यायाधीशहरूको पारिश्रमिक, सुविधा र सेवाका अन्य शर्त सम्बन्धी ऐन, २०७४, दफा 26",
+   "quote": "प्रसूति बिदामा बस्ने न्यायाधीशले पूरा तलब पाउनेछ",
+   "label": "wrong-law",
+   "evidence_and_note": "Source is the service-conditions Act for High/District Court JUDGES (s.26) 'प्रसूति बिदामा बस्ने न्यायाधीशले पूरा तलब पाउनेछ'. The user asks generically (a worker); Labour Act s.45 (14 weeks, 60 days full pay) is in the corpus. Scope is stated honestly ('न्यायाधीशको लागि') but the answer does not serve the question."
+  },
+  {
+   "id": "a13.s1",
+   "answer_id": "a13",
+   "n": 1,
+   "question_script": "romanised",
+   "kind": "rule",
+   "sentence": "वैदेशिक रोजगार ऐन, २०६४ को दफा ४४ अनुसार कुनै इजाजतपत्रवालाले कसैलाई वैदेशिक रोजगारमा लगाइदिनेछु भनी झुट्टो आश्वासन दिई वा प्रलोभन देखाई कुनै रकम लिई विदेश नपठाएमा त्यसरी लिएको रकम र सोको पचास प्रतिशतले हुने रकम भराइनेछ।",
+   "cited": "वैदेशिक रोजगार ऐन, २०६४, दफा 44",
+   "quote": "कुनै इजाजतपत्रवालाले कसैलाई वैदेशिक रोजगारमा लगाइदिनेछु भनी झुट्टो आश्वासन दिई वा प्रलोभन देखाई कुनै रकम लिई विदेश नपठाएमा त्यसरी लिएको रकम र सोको पचास प्रतिशतले हुने रकम भराई",
+   "label": "supported",
+   "evidence_and_note": "s.44 'झुट्टो आश्वासन दिई वा प्रलोभन देखाई कुनै रकम लिई विदेश नपठाएमा त्यसरी लिएको रकम र सोको पचास प्रतिशतले हुने रकम भराई' verbatim."
+  },
+  {
+   "id": "a13.s2",
+   "answer_id": "a13",
+   "n": 2,
+   "question_script": "romanised",
+   "kind": "penalty",
+   "sentence": "सोही दफा बमोजिम त्यस्तो इजाजतपत्रवालालाई तीन लाख रूपैयाँदेखि पाँच लाख रूपैयाँसम्म जरिबाना र तीन वर्षदेखि सात वर्षसम्म कैद हुनेछ।",
+   "cited": "वैदेशिक रोजगार ऐन, २०६४, दफा 44",
+   "quote": "त्यस्तो इजाजतपत्रवालालाई तीन लाख रूपैयाँदेखि पाँच लाख रूपैयाँसम्म जरिबाना र तीन वर्षदेखि सात वर्षसम्म कैद हुनेछ",
+   "label": "supported",
+   "evidence_and_note": "s.44 'तीन लाख रूपैयाँदेखि पाँच लाख रूपैयाँसम्म जरिबाना र तीन वर्षदेखि सात वर्षसम्म कैद' verbatim."
+  },
+  {
+   "id": "a14.s1",
+   "answer_id": "a14",
+   "n": 1,
+   "question_script": "romanised",
+   "kind": "rule",
+   "sentence": "यसै संहिताको दफा १० अनुसार कसैले पनि आफूले गरेको गल्तीबाट भएको फाइदा लिन पाउने छैन।",
+   "cited": "मुलुकी देवानी संहिता, २०७४, दफा 10",
+   "quote": "कसैले पनि आफूले गरेको गल्तीबाट भएको फाइदा लिन पाउने छैन",
+   "label": "wrong-law",
+   "evidence_and_note": "s.10 'कसैले पनि आफूले गरेको गल्तीबाट भएको फाइदा लिन पाउने छैन' bars the person who MADE the mistake (here the sender = the user) from profiting; it creates no duty on the recipient to refund. It does not govern; if anything it points the wrong way."
+  },
+  {
+   "id": "a14.s2",
+   "answer_id": "a14",
+   "n": 2,
+   "question_script": "romanised",
+   "kind": "rule",
+   "sentence": "हुलाक ऐन, २०१९ को दफा ४१ अनुसार धनादेश बमोजिमको भुक्तानी गल्तीले भएको रकम निजले कुनै मनासिब कारण बिना फिर्तानगरेमा वा गर्न इन्कार गरेमा महानिर्देशकबाट अधिकार पाएको हुलाक अड्डाको कर्मचारीले त्यस्तो फिर्ता लिनु पर्ने रकम त्यस्ता व्यक्तिबाट सरकारी मालपोत बाँकी सरहको कारबाही गरी असूल उपर गर्नुपर्छ।",
+   "cited": "हुलाक ऐन, २०१९, दफा 41",
+   "quote": "गल्तीले भुक्तानी भएको रकम निजले कुनै मनासिब कारण बिना फिर्तानगरेमा वा गर्न इन्कार गरेमा महानिर्देशकबाट अधिकार पाएको हुलाक अड्डाको कर्मचारीले त्यस्तो फिर्ता लिनु पर्नेरकम त्यस्ता व्यक्तिबाट सरकारी मालपोत बाँकी सरहको कारबाही गरी असूल उपर गर्नुपर्छ",
+   "label": "wrong-law",
+   "evidence_and_note": "Postal Act s.41 'कुनै धनादेश बमोजिम कुनै व्यक्तिलाई भुक्तानी गर्नुपर्नेरकम अर्कैव्यक्तिलाई हुलाक अड्डाका कर्मचारीबाट भुक्तानी गरिएकोमा' = postal MONEY ORDERS paid out by post-office staff; not wallet (eSewa) transfers."
+  },
+  {
+   "id": "a14.s3",
+   "answer_id": "a14",
+   "n": 3,
+   "question_script": "romanised",
+   "kind": "rule",
+   "sentence": "यदि eSewa ले गल्तीले भुक्तानी गरेको रकम फिर्ता गर्न इन्कार गर्छ भने, हुलाक ऐन, २०१९ को दफा ४१ अनुसार महानिर्देशकबाट अधिकार पाएको हुलाक अड्डाको कर्मचारीले त्यस्तो फिर्ता लिनु पर्ने रकम त्यस्ता व्यक्तिबाट सरकारी मालपोत बाँकी सरहको कारबाही गरी असूल उपर गर्नुपर्छ।",
+   "cited": "हुलाक ऐन, २०१९, दफा 41",
+   "quote": "गल्तीले भुक्तानी भएको रकम निजले कुनै मनासिब कारण बिना फिर्तानगरेमा वा गर्न इन्कार गरेमा महानिर्देशकबाट अधिकार पाएको हुलाक अड्डाको कर्मचारीले त्यस्तो फिर्ता लिनु पर्नेरकम त्यस्ता व्यक्तिबाट सरकारी मालपोत बाँकी सरहको कारबाही गरी असूल उपर गर्नुपर्छ",
+   "label": "unsupported",
+   "evidence_and_note": "Invents the subject: 'यदि eSewa ले गल्तीले भुक्तानी गरेको रकम फिर्ता गर्न इन्कार गर्छ भने' - the quote (Postal Act s.41) never mentions eSewa or e-wallets, and the person who 'refuses to return' is the wrong payee, not eSewa. Also wrong-law (postal money order)."
+  },
+  {
+   "id": "a14.s4",
+   "answer_id": "a14",
+   "n": 4,
+   "question_script": "romanised",
+   "kind": "rule",
+   "sentence": "यदि eSewa ले गल्तीले भुक्तानी गरेको रकम फिर्ता गर्न इन्कार गर्छ भने, हुलाक ऐन, २०१९ को दफा ४१ अनुसार महानिर्देशकबाट अधिकार पाएको हुलाक अड्डाको कर्मचारीले त्यस्तो फिर्ता लिनु पर्ने रकम त्यस्ता व्यक्तिबाट सरकारी मालपोत बाँकी सरहको कारबाही गरी असूल उपर गर्नुपर्छ।",
+   "cited": "हुलाक ऐन, २०१९, दफा 41",
+   "quote": "गल्तीले भुक्तानी भएको रकम निजले कुनै मनासिब कारण बिना फिर्तानगरेमा वा गर्न इन्कार गरेमा महानिर्देशकबाट अधिकार पाएको हुलाक अड्डाको कर्मचारीले त्यस्तो फिर्ता लिनु पर्नेरकम त्यस्ता व्यक्तिबाट सरकारी मालपोत बाँकी सरहको कारबाही गरी असूल उपर गर्नुपर्छ",
+   "label": "unsupported",
+   "evidence_and_note": "Invents the subject: 'यदि eSewa ले गल्तीले भुक्तानी गरेको रकम फिर्ता गर्न इन्कार गर्छ भने' - the quote (Postal Act s.41) never mentions eSewa or e-wallets, and the person who 'refuses to return' is the wrong payee, not eSewa. Also wrong-law (postal money order). EXACT DUPLICATE of s3."
+  },
+  {
+   "id": "a15.s1",
+   "answer_id": "a15",
+   "n": 1,
+   "question_script": "romanised",
+   "kind": "rule",
+   "sentence": "मुलुकी देवानी संहिता, २०७४ को दफा ११५ अनुसार पति पत्नी भिन्न भएमा नाबालकको पालनपोषण, शिक्षा र उपचारको व्यवस्था पति पत्नी बीच सहमति भएकोमा सोही बमोजिम हुन्छ।",
+   "cited": "मुलुकी देवानी संहिता, २०७४, दफा 115",
+   "quote": "पति पत्नी भिन्न भएमा निजहरूको कुनै नाबालक भए त्यस्तो नाबालकको पालनपोषण, शिक्षा र उपचारको व्यवस्थाको सम्बन्धमा पति पत्नी बीच कुनै सहमति भएकोमा सोही बमोजिम",
+   "label": "supported",
+   "evidence_and_note": "s.115(5) 'पति पत्नी बीच कुनै सहमति भएकोमा सोही बमोजिम' verbatim."
+  },
+  {
+   "id": "a15.s2",
+   "answer_id": "a15",
+   "n": 2,
+   "question_script": "romanised",
+   "kind": "rule",
+   "sentence": "सहमति नभएको अवस्थामा पाँच वर्ष पूरा नगरेको नाबालक आमाको जिम्मा हुन्छ।",
+   "cited": "मुलुकी देवानी संहिता, २०७४, दफा 115",
+   "quote": "पाँच वर्ष पूरा नगरेको नाबालक भए आमाको जिम्मा",
+   "label": "supported",
+   "evidence_and_note": "s.115(5)(क) 'पाँच वर्ष पूरा नगरेको नाबालक भए आमाको जिम्मा' under 'सहमति नभएकोमा'."
+  },
+  {
+   "id": "a15.s3",
+   "answer_id": "a15",
+   "n": 3,
+   "question_script": "romanised",
+   "kind": "rule",
+   "sentence": "दश वर्ष पूरा गरेको नाबालक आमा वा बाबुमध्ये जोसँग बस्न मञ्जुर गरेको छ निजको जिम्मा हुन्छ।",
+   "cited": "मुलुकी देवानी संहिता, २०७४, दफा 115",
+   "quote": "दश वर्ष पूरा गरेको नाबालक भए निजले आमा, बाबुमध्ये जोसँग बस्न मञ्जुर गरेकोछ निजको जिम्मा",
+   "label": "unsupported",
+   "evidence_and_note": "MILD. s.115(5)(ग) 'दश वर्ष पूरा गरेको नाबालक भए निजले आमा, बाबुमध्ये जोसँग बस्न मञ्जुर गरेकोछ निजको जिम्मा' applies only 'त्यस्तो सहमति नभएकोमा' (lead-in of (5)); the sentence states it unconditionally, unlike s2 which carried the condition."
+  },
+  {
+   "id": "a15.s4",
+   "answer_id": "a15",
+   "n": 4,
+   "question_script": "romanised",
+   "kind": "rule",
+   "sentence": "मुलुकी देवानी संहिता, २०७४ को दफा ११६ अनुसार नाबालक जिम्मा नलिने आमा वा बाबुको आम्दानी बढी रहेछ भने त्यस्तो आमा वा बाबुले नाबालकको पालनपोषण, शिक्षा र उपचारका लागि खर्च उपलब्ध गराउनु पर्नेछ।",
+   "cited": "मुलुकी देवानी संहिता, २०७४, दफा 116",
+   "quote": "नाबालक जिम्मा लिने आमा वा बाबुकोभन्दा जिम्मा नलिने आमा वा बाबुको आम्दानी बढी रहेछ भने त्यस्तो आमा वा बाबुले त्यस्तो नाबालकको पालनपोषण, शिक्षा र उपचारका लागि",
+   "label": "supported",
+   "evidence_and_note": "s.116(2) verbatim (the 'सहमति बमोजिमको वा अदालतले तोके बमोजिमको' amount dropped)."
+  },
+  {
+   "id": "a15.s5",
+   "answer_id": "a15",
+   "n": 5,
+   "question_script": "romanised",
+   "kind": "rule",
+   "sentence": "बाबु वा आमाको आर्थिक अवस्था वा शारीरिक अशक्तता जस्ता सामान्य कारणहरू बालबालिकाको संरक्षण वा जिम्मा हटाउने आधार बन्न सक्दैनन्।",
+   "cited": "ने.का.प. २०७६ अंक ११ नि.नं. १०३९१",
+   "quote": "बाबु वा आमाको आर्थिक अवस्था, शारीरिक अशक्तता वा अन्य यस्ता सामान्य कारणहरू बालबालिकाको संरक्षण वा जिम्मा हटाउने आधार बन्न सक्दैनन्",
+   "label": "supported",
+   "evidence_and_note": "Precedent text 'बाबु वा आमाको आर्थिक अवस्था, शारीरिक अशक्तता वा अन्य यस्ता सामान्य कारणहरू बालबालिकाको संरक्षण वा जिम्मा हटाउने आधार बन्न सक्दैनन्' verbatim."
+  },
+  {
+   "id": "a17.s1",
+   "answer_id": "a17",
+   "n": 1,
+   "question_script": "romanised",
+   "kind": "rule",
+   "sentence": "मूल्य अभिवृद्धि कर ऐन, २०५२ को दफा १० अनुसार कुनै कारोबारमा संलग्न हुन चाहने व्यक्तिले कारोबार सुरु गर्नुभन्दा अघि कारोबार दर्ताको लागि तोकिएको ढाँचामा कर अधिकृत समक्ष दरखास्त दिनु पर्नेछ।",
+   "cited": "मूल्य अभिवृद्धि कर ऐन, २०५२ (आर्थिक ऐन,२०८२ ले गरेको संशोधन सहित), दफा 10 (1)",
+   "quote": "कुनै कारोबारमा संलग्न हुन चाहने व्यक्तिले कारोबार सुरु गर्नुभन्दा अघि कारोबार दर्ताको लागि तोकिएको ढाँचामा कर अधिकृत समक्ष दरखास्त दिनु पर्नेछ।",
+   "label": "supported",
+   "evidence_and_note": "s.10(1) verbatim. Does not give the turnover threshold that was asked."
+  },
+  {
+   "id": "a17.s2",
+   "answer_id": "a17",
+   "n": 2,
+   "question_script": "romanised",
+   "kind": "deadline",
+   "sentence": "कुनै व्यक्तिले कारोबार गरेको वस्तु वा सेवामा कर लाग्ने भएमा त्यसरी कर लागेको वा कारोबार सञ्चालन गरेको मितिले तीस दिनभित्र त्यस्तो कारोबार दर्ताको लागि तोकिएको ढाँचामा कर अधिकृत समक्ष दरखास्त दिनु पर्नेछ।",
+   "cited": "मूल्य अभिवृद्धि कर ऐन, २०५२ (आर्थिक ऐन,२०८२ ले गरेको संशोधन सहित), दफा 10 (1)",
+   "quote": "कुनै व्यक्तिले कारोबार गरेको वस्तु वा सेवामा कर लाग्ने भएमा त्यसरी कर लागेको वा कारोबार सञ्चालन गरेको मितिले तीस दिनभित्र त्यस्तो ढ१०ण् कारोबार दर्ताको लागि तोकिएको ढाँचामा कर अधिकृत समक्ष दरखास्त दिनु पर्नेछ।",
+   "label": "supported",
+   "evidence_and_note": "s.10(2) 'तीस दिनभित्र' verbatim (quote carries OCR noise 'ढ१०ण्'). Citation label says 'दफा 10 (1)' but the text is (2)."
+  },
+  {
+   "id": "a17.s3",
+   "answer_id": "a17",
+   "n": 3,
+   "question_script": "romanised",
+   "kind": "rule",
+   "sentence": "अनुसूची १ मा उल्लिखित कर छुट हुने वस्तु वा सेवाको मात्र कारोबार गर्ने व्यक्तिले दर्ता गराउनु पर्ने छैन।",
+   "cited": "मूल्य अभिवृद्धि कर ऐन, २०५२ (आर्थिक ऐन,२०८२ ले गरेको संशोधन सहित), दफा 10 (1)",
+   "quote": "अनुसूची–१ मा उल्लिखित कर छुट हुने वस्तु वा सेवाको मात्र कारोबार गर्ने व्यक्तिले दर्तागराउनु पर्नेछैन।",
+   "label": "supported",
+   "evidence_and_note": "s.10(3) verbatim; citation label again '(1)'."
+  },
+  {
+   "id": "a18.s1",
+   "answer_id": "a18",
+   "n": 1,
+   "question_script": "romanised",
+   "kind": "rule",
+   "sentence": "यसै संहिताको दफा ४०१ अनुसार बहालमा बस्ने व्यक्तिले सम्झौता वा यस परिच्छेद विपरीत कुनै काम गरेमा घरधनीले बहालमा लिने व्यक्तिलाई घरबाट हटाउन सक्नेछ।",
+   "cited": "मुलुकी देवानी संहिता, २०७४, दफा 401",
+   "quote": "बहालमा बस्ने व्यक्तिले सम्झौता वा यस परिच्छेद विपरीत कुनै काम गरेमा",
+   "label": "supported",
+   "evidence_and_note": "s.401(1)(छ) entails it. TANGENTIAL: it is an eviction ground, not a rent-increase rule; could be read as 'refuse the increase -> evicted'. Opens with dangling 'यसै संहिताको'."
+  },
+  {
+   "id": "a18.s2",
+   "answer_id": "a18",
+   "n": 2,
+   "question_script": "romanised",
+   "kind": "rule",
+   "sentence": "घर बहालको अवधि समाप्त भएमा पनि घरधनीले बहालमा लिने व्यक्तिलाई घरबाट हटाउन सक्नेछ।",
+   "cited": "मुलुकी देवानी संहिता, २०७४, दफा 401",
+   "quote": "घर बहालको अवधि समाप्त भएमा",
+   "label": "supported",
+   "evidence_and_note": "s.401(1)(च) 'घर बहालको अवधि समाप्त भएमा' entails it; tangential."
+  },
+  {
+   "id": "a18.s3",
+   "answer_id": "a18",
+   "n": 3,
+   "question_script": "romanised",
+   "kind": "rule",
+   "sentence": "बहालमा लिने र दिने व्यक्तिले आपसी सहमतिमा सम्झौता रद्द गरेमा घर बहालको सम्झौता समाप्त भएको मानिनेछ।",
+   "cited": "मुलुकी देवानी संहिता, २०७४, दफा 402",
+   "quote": "बहालमा लिने, दिने व्यक्तिले आपसी सहमतिमा सम्झौता रद्द गरेमा",
+   "label": "supported",
+   "evidence_and_note": "s.402(ग) verbatim; tangential."
+  },
+  {
+   "id": "a20.s1",
+   "answer_id": "a20",
+   "n": 1,
+   "question_script": "romanised",
+   "kind": "rule",
+   "sentence": "नेपाल नागरिकता ऐन, २०६३ अनुसार नेपालको नागरिक आमाबाट नेपालमा जन्म भई नेपालमा नै बसोबास गरेको र बाबुको पहिचान हुन नसकेको व्यक्तिले वंशजको आधारमा नेपालको नागरिकता प्राप्त गर्नेछ।",
+   "cited": "नेपाल नागरिकता ऐन, २०६३, दफा 3 (1)",
+   "quote": "नेपालको नागरिक आमाबाट नेपालमा जन्म भई नेपालमा नै बसोबास गरेको र बाबुको पहिचान हुन नसकेको व्यक्तिले वंशजको आधारमा नेपालको नागरिकता प्राप्त गर्नेछ",
+   "label": "supported",
+   "evidence_and_note": "s.3(5) verbatim. Citation label 'दफा 3 (1)' but the text is (5)."
+  },
+  {
+   "id": "a20.s2",
+   "answer_id": "a20",
+   "n": 2,
+   "question_script": "romanised",
+   "kind": "penalty",
+   "sentence": "तर बाबु विदेशी नागरिक भएको ठहरेमा त्यस्तो व्यक्तिको नागरिकता संघीय कानून बमोजिम अंगीकृत नागरिकतामा परिणत हुनेछ।",
+   "cited": "नेपालको संविधान, धारा 11",
+   "quote": "तर बाबु विदेशी नागरिक भएको ठहरेमा त्यस्तो व्यक्तिको नागरिकता संघीय कानून बमोजिम अंगीकृत नागरिकतामा परिणत हुनेछ",
+   "label": "supported",
+   "evidence_and_note": "Constitution art.11(5) proviso 'तर बाबु विदेशी नागरिक भएको ठहरेमा ... अंगीकृत नागरिकतामा परिणत हुनेछ' verbatim. Sentence starts with a dangling 'तर'; tagged kind=penalty (wrong tag)."
+  },
+  {
+   "id": "a21.s1",
+   "answer_id": "a21",
+   "n": 1,
+   "question_script": "romanised",
+   "kind": "rule",
+   "sentence": "शिक्षा ऐन, २०२८ को दफा १६घ (४) अनुसार विद्यालयले विद्यालयको भौतिक संरचना निर्माण गर्नको लागि विद्यार्थीसँग कुनै किसिमको शुल्क लिन पाउने छैन।",
+   "cited": "शिक्षा ऐन, २०२८, दफा 16घ",
+   "quote": "विद्यालयले विद्यालयको भौतिक संरचना निर्माण गर्नको लागि विद्यार्थीसँग कुनै किसिमको शुल्क लिन पाउने छैन",
+   "label": "supported",
+   "evidence_and_note": "s.16घ(4) verbatim. TANGENTIAL: building-structure fee only."
+  },
+  {
+   "id": "a21.s2",
+   "answer_id": "a21",
+   "n": 2,
+   "question_script": "romanised",
+   "kind": "rule",
+   "sentence": "शिक्षा ऐन, २०२८ को दफा १६घ (५) मा भनिएको छ कि संस्थागत विद्यालयले विद्यार्थीसँग लिन पाउने शुल्क तोकिएको अधिकारीबाट स्वीकृत गराई निर्धारण गर्नुपर्नेछ।",
+   "cited": "शिक्षा ऐन, २०२८, दफा 16घ",
+   "quote": "संस्थागत विद्यालयले विद्यार्थीसँग लिन पाउने शुल्क तोकिएको अधिकारीबाट स्वीकृत गराई निर्धारण गर्नुपर्नेछ",
+   "label": "supported",
+   "evidence_and_note": "s.16घ(5) verbatim."
+  },
+  {
+   "id": "a21.s3",
+   "answer_id": "a21",
+   "n": 3,
+   "question_script": "romanised",
+   "kind": "procedure",
+   "sentence": "यदि विद्यालयले यस ऐन विपरीत शुल्क लियो भने, तोकिएको अधिकारीले त्यस्तो शुल्क सम्बन्धित विद्यार्थीलाई फिर्ता गर्न लगाउनु पर्नेछ (दफा १६घ (६))।",
+   "cited": "शिक्षा ऐन, २०२८, दफा 16घ",
+   "quote": "कुनै विद्यालयले यस ऐन विपरीत विद्यार्थीसँग कुनै शुल्क लिएमा तोकिएको अधिकारीले त्यस्तो शुल्क सम्बन्धित विद्यार्थीलाई फिर्तागर्नलगाउनु पर्नेछ",
+   "label": "supported",
+   "evidence_and_note": "s.16घ(6) 'तोकिएको अधिकारीले त्यस्तो शुल्क सम्बन्धित विद्यार्थीलाई फिर्तागर्नलगाउनु पर्नेछ' verified in the passage tail."
+  },
+  {
+   "id": "a21.s4",
+   "answer_id": "a21",
+   "n": 4,
+   "question_script": "romanised",
+   "kind": "penalty",
+   "sentence": "त्यसै गरी, ऐनको दफा १६घ (७) अनुसार तोकिएको अधिकारीले यस ऐन विपरीत शुल्क लिने विद्यालयलाई पच्चीस हजार रुपैयाँसम्म जरिवाना गर्नसक्नेछ।",
+   "cited": "शिक्षा ऐन, २०२८, दफा 16घ",
+   "quote": "यस ऐन विपरीत शुल्क लिने विद्यालयलाई तोकिएको अधिकारीले पच्चीस हजार रुपैयाँसम्म जरिवाना गर्नसक्नेछ",
+   "label": "supported",
+   "evidence_and_note": "s.16घ(7) 'पच्चीस हजार रुपैयाँसम्म जरिवाना गर्नसक्नेछ' verified in the passage tail; starts with a dangling 'त्यसै गरी'."
+  },
+  {
+   "id": "a23.s1",
+   "answer_id": "a23",
+   "n": 1,
+   "question_script": "english",
+   "kind": "rule",
+   "sentence": "This power is exercised when an authorized officer requests it for the investigation of an offense.",
+   "cited": "The Bank and Financial Institution Act, 2073, Section 110",
+   "quote": "कुनै कसुरको अनुसन्धानको सिलसिलामा अधिकार प्राप्त अधिकारीले राष्ट्र बैङ्क समक्ष अनुरोध गरेमा",
+   "label": "unsupported",
+   "evidence_and_note": "s.110(1): 'राष्ट्र बैङ्कले सम्बन्धित बैङ्क ... निर्देशन दिन सक्नेछः (क) कुनै कसुरको अनुसन्धानको सिलसिलामा अधिकार प्राप्त अधिकारीले राष्ट्र बैङ्क समक्ष अनुरोध गरेमा, (ख) सम्पत्ति शुद्धीकरण ... निवारण गर्न'. 'This power' has no antecedent (head sentence removed, so it never says WHO - Nepal Rastra Bank), 'is exercised when' turns 'may' (सक्नेछ) into a trigger, and alternative (ख) (no request needed) is omitted. MILD."
+  },
+  {
+   "id": "a23.s2",
+   "answer_id": "a23",
+   "n": 2,
+   "question_script": "english",
+   "kind": "rule",
+   "sentence": "The freeze prevents any payment or transfer from the account in the name of the person or entity.",
+   "cited": "The Bank and Financial Institution Act, 2073, Section 110",
+   "quote": "खाताबाट कुनै व्यक्ति, फर्म, कम्पनी वा संस्थाको नाममा कुनै पनि किसिमले भुक्तानी दिन वा रकमान्तर गर्न नपाउने",
+   "label": "supported",
+   "evidence_and_note": "s.110(1) 'भुक्तानी दिन वा रकमान्तर गर्न नपाउने' verbatim. (Neither sentence answers the 'without telling me' part; no gap says so.)"
+  },
+  {
+   "id": "a24.s1",
+   "answer_id": "a24",
+   "n": 1,
+   "question_script": "english",
+   "kind": "rule",
+   "sentence": "Under the Labour Act, 2074, Section 43, a worker is entitled to one day of home leave with salary for every twenty days of work.",
+   "cited": "The Labour Act, 2074, Section 43",
+   "quote": "श्रमिकले काम गरेको अवधिको बीस दिनको एक दिनको दरले पारिश्रमिक सहितको घर बिदा पाउनेछ",
+   "label": "supported",
+   "evidence_and_note": "s.43(1) verbatim."
+  },
+  {
+   "id": "a24.s2",
+   "answer_id": "a24",
+   "n": 2,
+   "question_script": "english",
+   "kind": "rule",
+   "sentence": "If such leave is less than the home leave period, the worker is entitled to home leave for the number of days it is short.",
+   "cited": "The Labour Act, 2074, Section 43",
+   "quote": "त्यस्तो बिदा घर बिदा अवधिभन्दा कम हुने भएमा जति दिन कम भएको हो त्यति दिन घर बिदा पाउनेछ",
+   "label": "unsupported",
+   "evidence_and_note": "s.43(2): 'शिक्षण संस्थामा कार्यरत श्रमिक वा वर्षे वा हिउँदे बिदा पाउने श्रमिकले घर बिदा पाउने छैन। तर त्यस्तो बिदा घर बिदा अवधिभन्दा कम हुने भएमा जति दिन कम भएको हो त्यति दिन घर बिदा पाउनेछ'. The sentence's 'such leave' has no antecedent; the condition (only educational-institution / annual-or-winter-vacation workers) is dropped, so it reads as a rule for every worker."
+  },
+  {
+   "id": "a24.s3",
+   "answer_id": "a24",
+   "n": 3,
+   "question_script": "english",
+   "kind": "rule",
+   "sentence": "A worker can accumulate home leave up to ninety days.",
+   "cited": "The Labour Act, 2074, Section 49",
+   "quote": "श्रमिकले घर बिदा नब्बे दिनसम्म र बिरामी बिदा पैँतालीस दिनसम्म सञ्चित गर्नसक्नेछ",
+   "label": "supported",
+   "evidence_and_note": "s.49(1) 'घर बिदा नब्बे दिनसम्म ... सञ्चित' verbatim."
+  },
+  {
+   "id": "a25.s1",
+   "answer_id": "a25",
+   "n": 1,
+   "question_script": "english",
+   "kind": "rule",
+   "sentence": "Under precedent set in Decision Number 9981 by the Supreme Court, to establish the offence of gang rape, it is not necessary that the incident occur at a single place and time.",
+   "cited": "Nepal Kanoon Patrika 2075, Decision No. 9981",
+   "quote": "सामूहिक बलात्कारको कसुर स्थापित हुनको लागि एउटै वारदातस्थल र समय हुनुपर्छ भन्ने नहुने ।",
+   "label": "supported",
+   "evidence_and_note": "Precedent 'सामूहिक बलात्कारको कसुर स्थापित हुनको लागि एउटै वारदातस्थल र समय हुनुपर्छ भन्ने नहुने' verbatim. TANGENTIAL: gives neither the punishment nor a time limit that were asked (Criminal Code s.219(3) and s.229 are in the corpus)."
+  },
+  {
+   "id": "a25.s2",
+   "answer_id": "a25",
+   "n": 2,
+   "question_script": "english",
+   "kind": "rule",
+   "sentence": "Under Section 17क of the Criminal Offence Determination and Implementation of Punishment Act 2074, where life imprisonment is required but the court finds mitigating circumstances upon the accused confessing, a proposal for lesser punishment must be submitted within 35 days.",
+   "cited": "The Criminal Offence (Determination and Implementation of Punishment) Act, 2074, Section 17क",
+   "quote": "हुनु पर्ने सजायको प्रस्तावसहित पैंतीस दिनभित्र मिसील सहित पुनरावेदन सुन्ने अदालतमा राय पेश गर्नु पर्नेछ।",
+   "label": "wrong-law",
+   "evidence_and_note": "Sentencing Act s.17क: 'जन्मकैद गर्नु पर्ने मुद्दाको अभियुक्तले कसूर गरेको कुरामा अदालतमा साबित भएको ... घटी सजाय गर्न उपयुक्त देखेमा ... पैंतीस दिनभित्र ... राय पेश गर्नु पर्नेछ' = a trial court's opinion to the appellate court after a confession. Not the punishment for rape and not a filing limit, but '35 days' reads like one."
+  },
+  {
+   "id": "a26.s1",
+   "answer_id": "a26",
+   "n": 1,
+   "question_script": "english",
+   "kind": "rule",
+   "sentence": "Under the Land Revenue Act, 2034, Section 26क, a license is required to conduct real estate business in areas and limits specified by the Government of Nepal in the Nepal Gazette.",
+   "cited": "Land Revenue Act, 2034, Section 26क",
+   "quote": "नेपाल सरकारले नेपाल राजपत्रमा सूचना प्रकाशन गरी तोकेको क्षेत्रमा सोही सूचनामा उल्लेख भएको क्षेत्रफल वा रकमको सीमाभन्दा बढीको घर जग्गा सम्बन्धी कारोबार गर्दायस ऐन बमोजिम इजाजतपत्र लिनु पर्नेछ",
+   "label": "wrong-law",
+   "evidence_and_note": "Land Revenue Act s.26क licenses 'घर जग्गा सम्बन्धी कारोबार' = brokerage/professional real-estate services ('खरिद वा बिक्री गर्न सहयोग गर्ने ... परामर्श दिने'), not a foreigner's purchase of land. (Also 'in areas and limits' loses 'सीमाभन्दा बढीको'.)"
+  },
+  {
+   "id": "a26.s2",
+   "answer_id": "a26",
+   "n": 2,
+   "question_script": "english",
+   "kind": "rule",
+   "sentence": "The law clarifies that real estate business includes providing professional services or consulting for the purchase or sale of houses or land for a fee, excluding mutual agreements between natural persons.",
+   "cited": "Land Revenue Act, 2034, Section 26क",
+   "quote": "प्राकृतिक व्यक्तिबीच आपसी सहमतिमा गरिने खरिद बिक्री बाहेक कुनै शुल्क लिई वा नलिई कसैको घर वा जग्गा खरिद वा बिक्री गर्नसहयोग गर्ने त्यस्तो घर वा जग्गा खरिद वा बिक्री गर्नेव्यक्तिलाईपरामर्श दिने वा सो विषयमा अन्य कुनै किसिमले व्यावसायिक रुपमा सेवा उपलब्ध गराउने कार्य सम्झनु पर्छ",
+   "label": "wrong-law",
+   "evidence_and_note": "Same s.26क explanation. Also misstates it: passage says 'कुनै शुल्क लिई वा नलिई' (with or without a fee); sentence says 'for a fee'."
+  },
+  {
+   "id": "a26.s3",
+   "answer_id": "a26",
+   "n": 3,
+   "question_script": "english",
+   "kind": "rule",
+   "sentence": "The Supreme Court has ruled that even if the limitation period for filing a complaint regarding a house built on someone else's land expires, it is not justifiable to say the landowner's ownership of that land ends.",
+   "cited": "Nepal Kanoon Patrika 2082, Decision No. 11455",
+   "quote": "घर बनाइएको जग्गा अर्काको हक स्वामित्वभित्रको देखिन्छ भने घर बनाएको विषयमा नालिस गर्ने हदम्याद नाघ्दैमा सम्बन्धित जग्गाधनीको आफ्नो जग्गामाथिको स्वामित्व पनि समाप्‍त हुन्छ भन्‍नु न्यायसङ्गत नहुने",
+   "label": "wrong-law",
+   "evidence_and_note": "Precedent 'घर बनाएको विषयमा नालिस गर्ने हदम्याद नाघ्दैमा ... जग्गाधनीको ... स्वामित्व समाप्त हुन्छ भन्नु न्यायसङ्गत नहुने' = limitation vs ownership in a building-on-others'-land dispute; nothing on foreigners."
+  },
+  {
+   "id": "a27.s1",
+   "answer_id": "a27",
+   "n": 1,
+   "question_script": "english",
+   "kind": "rule",
+   "sentence": "The Supreme Court has held that while marriage registration is a reliable official proof, the absence of registration does not mean the marriage did not occur.",
+   "cited": "Nepal Kanoon Patrika 2077, Decision No. 10442",
+   "quote": "विवाह दर्ता विवाहलाई पुष्टि गर्ने एक विश्वसनीय तथा आधिकारिक प्रमाण हो तर विवाह दर्ता नभएको अवस्थामा विवाह नै नभएको भनी निष्कर्षमा पुग्नु तर्कसङ्गत नहुने",
+   "label": "supported",
+   "evidence_and_note": "Precedent 'विवाह दर्ता नभएको अवस्थामा विवाह नै नभएको भनी निष्कर्षमा पुग्नु तर्कसङ्गत नहुने' verbatim."
+  },
+  {
+   "id": "a27.s2",
+   "answer_id": "a27",
+   "n": 2,
+   "question_script": "english",
+   "kind": "deadline",
+   "sentence": "The authorized officer must register the marriage in the marriage record book within fifteen days of receiving the application.",
+   "cited": "The Muluki Civil Code, 2074, Section 76",
+   "quote": "सम्बन्धित अधिकारीले निवेदन परेको पन्ध्र दिनभित्र आफ्नो कार्यालयमा रहेकाे विवाह सम्बन्धी अभिलेखमा विवाह दर्ता गरी",
+   "label": "supported",
+   "evidence_and_note": "s.76(3) 'निवेदन परेको पन्ध्र दिनभित्र ... विवाह दर्ता गरी' verbatim (it is the officer's deadline)."
+  },
+  {
+   "id": "a27.s3",
+   "answer_id": "a27",
+   "n": 3,
+   "question_script": "english",
+   "kind": "rule",
+   "sentence": "The marriage is considered to have taken place from the date the applicants receive the marriage registration certificate.",
+   "cited": "The Muluki Civil Code, 2074, Section 80",
+   "quote": "विवाह दर्ताको प्रमाणपत्र पाएको दिनदेखि निवेदकहरू बीच विवाह भएको मानिनेछ",
+   "label": "unsupported",
+   "evidence_and_note": "s.80(1) 'दफा ७९ बमोजिम सहमतिपत्रमा सहीछाप गराई सकेपछि ...' - s.77-80 is marriage BY registration ('दर्ताद्वारा विवाह'); '(३) प्रमाणपत्र पाएको दिनदेखि निवेदकहरू बीच विवाह भएको मानिनेछ' applies to that route only. The sentence generalises to every marriage and contradicts S1 (an unregistered marriage is still a marriage) on the very point the user asked (is the certificate mandatory)."
+  },
+  {
+   "id": "a28.s1",
+   "answer_id": "a28",
+   "n": 1,
+   "question_script": "english",
+   "kind": "deadline",
+   "sentence": "Under the Companies Act, 2063, Section 80, every company that holds an annual general meeting must send a copy of the annual financial statements and reports to the Office within thirty days of that meeting.",
+   "cited": "The Companies Act, 2063, Section 80",
+   "quote": "वार्षिक साधारण सभा गर्ने प्रत्येक कम्पनीले वार्षिक साधारण सभा भएको तीस दिनभित्र सो सभामा उपस्थित शेयरधनीको संख्या, भिडियो कन्फरेन्स वा त्यस्तै प्रकारको अन्य प्रविधि मार्फत साधारण सभामा उपस्थित हुने सञ्चालकको संख्या, वार्षिक आर्थिक विवरण, सञ्चालक समिति र लेखापरीक्षकको प्रतिवेदन र सो सभाले गरेका निर्णयको एक प्रति कार्यालयमा पठाउनु पर्नेछ",
+   "label": "supported",
+   "evidence_and_note": "s.80(1) verbatim."
+  },
+  {
+   "id": "a28.s2",
+   "answer_id": "a28",
+   "n": 2,
+   "question_script": "english",
+   "kind": "rule",
+   "sentence": "Unless otherwise provided in the Act, every company is required to submit a copy of the annual financial statements along with the audit report within six months of the completion of the financial year.",
+   "cited": "The Companies Act, 2063, Section 80",
+   "quote": "यस ऐनमा अन्यथा व्यवस्था गरिएकोमा बाहेक प्रत्येक कम्पनीले आर्थिक वर्ष पूरा भएको छ महिनाभित्र लेखापरीक्षकद्वारा प्रमाणित गरिएको लेखा परीक्षण प्रतिवेदनसहितको वार्षिक आर्थिक विवरणको एक प्रति कार्यालयमा पेश गर्नु पर्नेछ",
+   "label": "supported",
+   "evidence_and_note": "s.80(2) 'आर्थिक वर्ष पूरा भएको छ महिनाभित्र' verbatim. Neither sentence says what happens if late (s.81 fines exist in corpus)."
+  },
+  {
+   "id": "a30.s1",
+   "answer_id": "a30",
+   "n": 1,
+   "question_script": "english",
+   "kind": "rule",
+   "sentence": "Under Section 13 of the Contribution-based Social Security Act, 2074, a contributor is considered a participant from the date of registration in the fund.",
+   "cited": "The Contribution-based Social Security Act, 2074, Section 13",
+   "quote": "सामाजिक सुरक्षा योजनामा योगदान गरेको योगदानकर्ताकोषमा सूचीकरण भएको दिनदेखि निज कोषले सञ्चालन गर्नेसामाजिक सुरक्षा योजनामा सहभागी भएको मानिनेछ",
+   "label": "supported",
+   "evidence_and_note": "s.13(1) verbatim. Only says when one counts as a participant; eligibility for pension is not answered."
+  },
+  {
+   "id": "a30.s2",
+   "answer_id": "a30",
+   "n": 2,
+   "question_script": "english",
+   "kind": "rule",
+   "sentence": "The contributor and their dependents are entitled to benefits under the social security plan as per the specified basis.",
+   "cited": "The Contribution-based Social Security Act, 2074, Section 13",
+   "quote": "सामाजिक सुरक्षा योजनामा सहभागी भएको योगदानकर्ता तथा तोकिएको आधारमा निजको आश्रित परिवारले सामाजिक सुरक्षा योजना बमोजिमको सुविधा प्राप्त गर्नेछ",
+   "label": "supported",
+   "evidence_and_note": "s.13(2) verbatim but vacuous ('as per the specified basis')."
+  }
+ ],
+ "per_answer": [
+  {
+   "answer_id": "a01",
+   "question": "मेरो जग्गाको लालपुर्जा हराएको छ, प्रतिलिपि कसरी लिने?",
+   "question_script": "devanagari",
+   "mode": "extractive_fallback",
+   "cached_entailment_on": false,
+   "usefulness_0_2": 0,
+   "removed": {
+    "count": 2,
+    "reasons": [
+     "section_not_in_quote",
+     "stale_or_repealed_source"
+    ],
+    "by_reason": {
+     "section_not_in_quote": 1,
+     "stale_or_repealed_source": 1
+    },
+    "blocks_dropped": 1
+   },
+   "fallback_quality_governing_provisions_shown": "no: shows Copyright Act s.19 (library copying), NID Act s.15-16 (ID-card copy), Civil Procedure Code s.46 (court-file copies), Land Acquisition Act s.12; none governs a lost land certificate. Passages are cut mid-sentence.",
+   "retrieval_miss_note": "Governing material exists in corpus but was not retrieved: Land Survey Rules 2058 (annex text: lost जग्गाधनी दर्ता प्रमाणपूर्जा -> written notice to the Land Administration Office; r.14) and Land Revenue Rules 2036 (r.23छ). Could not pinpoint the exact duplicate-certificate clause."
+  },
+  {
+   "answer_id": "a02",
+   "question": "घरबेटीले भाडा नतिरेको भन्दै एक्कासी कोठा खाली गर्न लगायो। के यो कानुन सम्मत हो?",
+   "question_script": "devanagari",
+   "mode": "structured",
+   "cached_entailment_on": false,
+   "usefulness_0_2": 0,
+   "n_kept_sentences": 9,
+   "labels": {
+    "wrong-law": 9
+   },
+   "removed": {
+    "count": 1,
+    "reasons": [
+     "quote_not_verbatim"
+    ],
+    "by_reason": {
+     "quote_not_verbatim": 1
+    },
+    "blocks_dropped": 1
+   },
+   "over_removal_note": "no (nothing thin: 9 sentences, all off-law)",
+   "hidden_legal_statement_in_gaps_or_advice": "none",
+   "user_facing_errors": "'अर्को अधिकार' heading repeated 8 times (one bullet each); S7 ends in a literal '…' mid-clause; three sentences restate s.633",
+   "retrieval_miss_note": "Governing provisions are in the corpus (Civil Code s.390 tenant duty incl. rent, s.391 how rent is paid, s.401(1)(क)/(छ) removal, s.400) and were retrieved for a18 (same law) but not here; the retriever surfaced the hire-purchase chapter (s.633-638) via 'भाडा'."
+  },
+  {
+   "answer_id": "a03",
+   "question": "मोटरसाइकलले हिर्काएर भाग्यो, बुबा घाइते हुनुभयो। क्षतिपूर्ति कसरी पाइन्छ?",
+   "question_script": "devanagari",
+   "mode": "structured",
+   "cached_entailment_on": false,
+   "usefulness_0_2": 1,
+   "n_kept_sentences": 2,
+   "labels": {
+    "supported": 1,
+    "wrong-law": 1
+   },
+   "removed": {
+    "count": 5,
+    "reasons": [
+     "no_citation",
+     "quote_unrelated",
+     "uncited_procedure"
+    ],
+    "by_reason": {
+     "quote_unrelated": 1,
+     "uncited_procedure": 1,
+     "no_citation": 3
+    },
+    "blocks_dropped": 1
+   },
+   "over_removal_note": "probably: 5 removed (3 no_citation, quote_unrelated, uncited_procedure) left 2 sentences; 'त्यसै गरी' opener shows a removed head sentence",
+   "hidden_legal_statement_in_gaps_or_advice": "none",
+   "user_facing_errors": "dangling 'त्यसै गरी'; second 'sentence' is a 90-word verbatim copy; trunc=True",
+   "retrieval_miss_note": "Motor Vehicles and Transport Management Act 2049 s.163 (घा खर्च, कृया खर्च र क्षतिपूर्ति भराई दिने) and s.129 exist; not retrieved."
+  },
+  {
+   "answer_id": "a04",
+   "question": "तलबबाट कर कटौती कति प्रतिशत हुन्छ र कसरी हिसाब गर्ने?",
+   "question_script": "devanagari",
+   "mode": "structured",
+   "cached_entailment_on": false,
+   "usefulness_0_2": 0,
+   "n_kept_sentences": 4,
+   "labels": {
+    "wrong-law": 3,
+    "supported": 1
+   },
+   "removed": {
+    "count": 3,
+    "reasons": [
+     "quote_not_verbatim",
+     "number_not_in_quote"
+    ],
+    "by_reason": {
+     "quote_not_verbatim": 2,
+     "number_not_in_quote": 1
+    },
+    "blocks_dropped": 1
+   },
+   "over_removal_note": "unclear (3 removed: 2 quote_not_verbatim, number_not_in_quote - probably slab percentages from memory, removal right)",
+   "hidden_legal_statement_in_gaps_or_advice": "gap says sources lack the salary slab - but Income Tax Act s.87 (employer withholds 'अनुसूची-१ बमोजिमको दरले') is in the corpus, so the gap is an artefact of retrieval, not of the law",
+   "user_facing_errors": "none",
+   "retrieval_miss_note": "Income Tax Act s.87 (रोजगारदाताबाट कर कट्टी) exists in both versions; not retrieved. Schedule-1 slabs not located by my regex."
+  },
+  {
+   "answer_id": "a05",
+   "question": "कम्पनीले कारण नदेखाई जागिरबाट निकाल्यो, मैले के के पाउँछु?",
+   "question_script": "devanagari",
+   "mode": "structured",
+   "cached_entailment_on": false,
+   "usefulness_0_2": 1,
+   "n_kept_sentences": 2,
+   "labels": {
+    "supported": 2
+   },
+   "removed": {
+    "count": 2,
+    "reasons": [
+     "quote_not_verbatim"
+    ],
+    "by_reason": {
+     "quote_not_verbatim": 2
+    },
+    "blocks_dropped": 0
+   },
+   "over_removal_note": "no",
+   "hidden_legal_statement_in_gaps_or_advice": "YES: the un-cited lead line 'रोजगारदाताले बिना कारण वा बिना सूचना नोकरीबाट हटाएको अवस्थामा तपाईंले कानुन अनुसार सूचना अवधिको तलब दाबी गर्न सक्नुहुन्छ' is a legal claim without a cite; s.144(2) supports the 'बिना सूचना' half only ('बिना कारण' + notice given would not entitle)",
+   "user_facing_errors": "none",
+   "retrieval_miss_note": "Labour Act s.53 (gratuity), s.52 (provident fund) and s.92 (unfair labour practice) exist; not used. Gap 'no extra compensation mentioned' is a retrieval artefact."
+  },
+  {
+   "answer_id": "a06",
+   "question": "श्रीमानले दोस्रो विवाह गरेको छ, मैले के गर्न सक्छु?",
+   "question_script": "devanagari",
+   "mode": "structured",
+   "cached_entailment_on": false,
+   "usefulness_0_2": 1,
+   "n_kept_sentences": 3,
+   "labels": {
+    "supported": 3
+   },
+   "removed": {
+    "count": 5,
+    "reasons": [
+     "section_not_in_quote"
+    ],
+    "by_reason": {
+     "section_not_in_quote": 5
+    },
+    "blocks_dropped": 4
+   },
+   "over_removal_note": "probably: 5 removed, ALL section_not_in_quote, 4 blocks dropped, left only the prohibition + penalty (2 of 3 sentences the same section); the 'what can I do' half (remedies) is missing",
+   "hidden_legal_statement_in_gaps_or_advice": "none",
+   "user_facing_errors": "none",
+   "retrieval_miss_note": "s.175(3),(5) (partition exception; marriage void) are in the same passage and unused; divorce / complaint chapters not retrieved."
+  },
+  {
+   "answer_id": "a07",
+   "question": "प्रहरीले २४ घण्टाभन्दा बढी हिरासतमा राखेको छ, के यो गैरकानुनी हो?",
+   "question_script": "devanagari",
+   "mode": "structured",
+   "cached_entailment_on": true,
+   "usefulness_0_2": 2,
+   "n_kept_sentences": 3,
+   "labels": {
+    "supported": 2,
+    "unsupported": 1
+   },
+   "removed": {
+    "count": 2,
+    "reasons": [
+     "no_citation"
+    ],
+    "by_reason": {
+     "no_citation": 2
+    },
+    "blocks_dropped": 1
+   },
+   "over_removal_note": "unclear (2 no_citation removed: likely the direct 'yes, unlawful unless extended' conclusion)",
+   "hidden_legal_statement_in_gaps_or_advice": "gap 'no remedy/compensation provision in sources' is a negative claim (unverified)",
+   "user_facing_errors": "none",
+   "retrieval_miss_note": "-"
+  },
+  {
+   "answer_id": "a08",
+   "question": "फेसबुकमा मेरो नक्कली प्रोफाइल बनाएर बदनाम गरिरहेको छ, उजुरी कहाँ दिने?",
+   "question_script": "devanagari",
+   "mode": "none",
+   "cached_entailment_on": false,
+   "usefulness_0_2": 0,
+   "removed": null,
+   "fallback_quality_governing_provisions_shown": "partly at best: only [1] Privacy Act s.16 (photo-based defamation, cut at '(३)') is on topic; [2] weights-and-measures, [3] money-laundering complaint, [4] customs-tariff order are noise. LLM unavailable (mode none).",
+   "retrieval_miss_note": "Governing material in the corpus: Privacy Act s.15 (चरित्रको गोपनीयता), s.16; Criminal Code s.306-307 (defamation, +1 year if electronic; retrieved for a29); Electronic Transactions Act s.47."
+  },
+  {
+   "answer_id": "a09",
+   "question": "किनेको मोबाइल एक महिनामै बिग्रियो, पसलेले फिर्ता लिँदैन। के गर्ने?",
+   "question_script": "devanagari",
+   "mode": "extractive_fallback",
+   "cached_entailment_on": false,
+   "usefulness_0_2": 0,
+   "removed": {
+    "count": 3,
+    "reasons": [
+     "no_citation",
+     "quote_not_verbatim"
+    ],
+    "by_reason": {
+     "no_citation": 2,
+     "quote_not_verbatim": 1
+    },
+    "blocks_dropped": 1
+   },
+   "fallback_quality_governing_provisions_shown": "no",
+   "retrieval_miss_note": "Consumer Protection Act 2075 s.14 (वस्तु फिर्ता गर्न सकिने) and s.5 (गुणस्तर) exist; not retrieved. Instead: lease chapter s.619, a 1436-AD Jayasthiti Malla code, disabled-persons rules r.7, pesticide rules r.24/25 (all 'मोबाइल'/'फिर्ता' keyword hits)."
+  },
+  {
+   "answer_id": "a10",
+   "question": "कम्पनी दर्ता गर्न के के कागजात चाहिन्छ?",
+   "question_script": "devanagari",
+   "mode": "extractive_fallback",
+   "cached_entailment_on": false,
+   "usefulness_0_2": 1,
+   "removed": {
+    "count": 4,
+    "reasons": [
+     "section_not_in_quote",
+     "no_citation"
+    ],
+    "by_reason": {
+     "section_not_in_quote": 3,
+     "no_citation": 1
+    },
+    "blocks_dropped": 1
+   },
+   "fallback_quality_governing_provisions_shown": "partly: s.5 (registration on application, 7 days, certificate) and s.9 (shareholder numbers) are on the registration path; the document list (s.4) is missing and [3] s.85, [4] definitions are noise.",
+   "retrieval_miss_note": "Company Act s.4(2) (application documents: प्रबन्धपत्र, नियमावली, ...) exists; not retrieved (fallback shows s.5, s.9, s.85, s.2(2))."
+  },
+  {
+   "answer_id": "a11",
+   "question": "mero baje ko jagga ma chhoro le matra ansha paunchha bhanchhan, chhori le pauchhin?",
+   "question_script": "romanised",
+   "mode": "structured",
+   "cached_entailment_on": false,
+   "usefulness_0_2": 1,
+   "n_kept_sentences": 5,
+   "labels": {
+    "supported": 2,
+    "wrong-law": 3
+   },
+   "removed": {
+    "count": 0,
+    "reasons": [],
+    "by_reason": {},
+    "blocks_dropped": 0
+   },
+   "over_removal_note": "no",
+   "hidden_legal_statement_in_gaps_or_advice": "none",
+   "user_facing_errors": "the identical widow-remarriage sentence rendered 3 times under 3 headings",
+   "retrieval_miss_note": "Civil Code s.205 (पति, पत्नी, बाबु, आमा, छोरा, छोरी अंशियार मानिने) exists; not retrieved - the answer never says a daughter is an अंशियार."
+  },
+  {
+   "answer_id": "a12",
+   "question": "maternity leave kati din paunchha ra talab pani paunchha?",
+   "question_script": "romanised",
+   "mode": "structured",
+   "cached_entailment_on": true,
+   "usefulness_0_2": 0,
+   "n_kept_sentences": 2,
+   "labels": {
+    "wrong-law": 2
+   },
+   "removed": {
+    "count": 5,
+    "reasons": [
+     "not_entailed"
+    ],
+    "by_reason": {
+     "not_entailed": 5
+    },
+    "blocks_dropped": 0
+   },
+   "over_removal_note": "unclear (5 not_entailed removed leaves only the judges' text; cannot tell what they were)",
+   "hidden_legal_statement_in_gaps_or_advice": "gap 'sources do not cover the ordinary government employee's maternity leave' is misleading: Labour Act s.45 (14 weeks; 60 days' full pay) is in the corpus. Follow-up question 'तपाईंको पत्नी सुत्केरी हुनुहुन्छ?' is off.",
+   "user_facing_errors": "none",
+   "retrieval_miss_note": "Labour Act s.45 exists; the Judges' Act s.26 outranked it."
+  },
+  {
+   "answer_id": "a13",
+   "question": "malaysia gayera kaam garna manpower le 3 lakh liyo tara visa aayena, paisa kasari farkaune?",
+   "question_script": "romanised",
+   "mode": "structured",
+   "cached_entailment_on": true,
+   "usefulness_0_2": 2,
+   "n_kept_sentences": 2,
+   "labels": {
+    "supported": 2
+   },
+   "removed": {
+    "count": 2,
+    "reasons": [
+     "quote_not_verbatim",
+     "not_entailed"
+    ],
+    "by_reason": {
+     "not_entailed": 1,
+     "quote_not_verbatim": 1
+    },
+    "blocks_dropped": 0
+   },
+   "over_removal_note": "no",
+   "hidden_legal_statement_in_gaps_or_advice": "YES (true per corpus but uncited): 'वैदेशिक रोजगार विभागमा उजुरी दिनुहोस्' (Foreign Employment Act s.21क/s.36) and 'विभागले ... मुद्दा चलाउने निर्णय गरेमा सो मुद्दा वैदेशिक रोजगार न्यायाधिकरणमा' (s.64): forum claims that survived as advice",
+   "user_facing_errors": "none",
+   "retrieval_miss_note": "s.36 (क्षतिपूर्तिको लागि उजुरी) and s.60 (complaint time limit) exist and would have made the 'how' complete."
+  },
+  {
+   "answer_id": "a14",
+   "question": "esewa ma galti le arko manche ko khata ma paisa gayo, kasari farkaune?",
+   "question_script": "romanised",
+   "mode": "structured",
+   "cached_entailment_on": false,
+   "usefulness_0_2": 0,
+   "n_kept_sentences": 4,
+   "labels": {
+    "wrong-law": 2,
+    "unsupported": 2
+   },
+   "removed": {
+    "count": 1,
+    "reasons": [
+     "section_not_in_quote"
+    ],
+    "by_reason": {
+     "section_not_in_quote": 1
+    },
+    "blocks_dropped": 0
+   },
+   "over_removal_note": "no",
+   "hidden_legal_statement_in_gaps_or_advice": "none",
+   "user_facing_errors": "S3 and S4 identical; the heading 'अर्को व्यक्तिले फिर्ता गर्न इन्कार गर्दा' repeated 3 times",
+   "retrieval_miss_note": "No governing provision found in corpus for erroneous wallet transfers (only Civil Code s.10, which does not apply). Possibly an NRB/payment-systems instrument; not verified."
+  },
+  {
+   "answer_id": "a15",
+   "question": "mero shreemati le gharbata nikalera bachha lyayera gai, bachha ko custody kasari paune?",
+   "question_script": "romanised",
+   "mode": "structured",
+   "cached_entailment_on": true,
+   "usefulness_0_2": 2,
+   "n_kept_sentences": 5,
+   "labels": {
+    "supported": 4,
+    "unsupported": 1
+   },
+   "removed": {
+    "count": 3,
+    "reasons": [
+     "proviso_dropped",
+     "number_not_in_quote",
+     "not_entailed"
+    ],
+    "by_reason": {
+     "not_entailed": 1,
+     "proviso_dropped": 1,
+     "number_not_in_quote": 1
+    },
+    "blocks_dropped": 0
+   },
+   "over_removal_note": "no",
+   "hidden_legal_statement_in_gaps_or_advice": "'अर्को चरण' advice: keep child's routine, gather evidence, try a written agreement - practical, no legal claim",
+   "user_facing_errors": "none",
+   "retrieval_miss_note": "gap 'no procedure/limit for filing a custody application' is honest."
+  },
+  {
+   "answer_id": "a16",
+   "question": "kasaile mero naam ma jhutho muddha halyo, ma ke garne?",
+   "question_script": "romanised",
+   "mode": "none",
+   "cached_entailment_on": false,
+   "usefulness_0_2": 0,
+   "removed": null,
+   "fallback_quality_governing_provisions_shown": "no: [1] FCPC s.48 (two-court jurisdiction), [2] CPC s.271 (judge conflict of interest), [3] FCPC s.129 (open hearing), [4] CPC s.219 (rehearing): procedure noise. LLM unavailable (mode none).",
+   "retrieval_miss_note": "Criminal Code s.98 (झुठ्ठा उजुरी दिन नहुने) exists; not retrieved."
+  },
+  {
+   "answer_id": "a17",
+   "question": "VAT darta garna kati turnover chahincha?",
+   "question_script": "romanised",
+   "mode": "structured",
+   "cached_entailment_on": true,
+   "usefulness_0_2": 1,
+   "n_kept_sentences": 3,
+   "labels": {
+    "supported": 3
+   },
+   "removed": {
+    "count": 1,
+    "reasons": [
+     "not_entailed"
+    ],
+    "by_reason": {
+     "not_entailed": 1
+    },
+    "blocks_dropped": 0
+   },
+   "over_removal_note": "no",
+   "hidden_legal_statement_in_gaps_or_advice": "none",
+   "user_facing_errors": "citation labels '10 (1)' for text from (2) and (3)",
+   "retrieval_miss_note": "VAT Act s.11(1)(च) contains the 50-lakh (goods) / 30-lakh (services) turnover figures (in the de-registration clause) and s.10ख a 30-lakh non-resident e-services threshold; the answer's gap 'no turnover threshold in the sources' is only partly true."
+  },
+  {
+   "answer_id": "a18",
+   "question": "bhada badhaune bhanera ghar dhani le 30% badhayo, milchha?",
+   "question_script": "romanised",
+   "mode": "structured",
+   "cached_entailment_on": false,
+   "usefulness_0_2": 1,
+   "n_kept_sentences": 3,
+   "labels": {
+    "supported": 3
+   },
+   "removed": {
+    "count": 1,
+    "reasons": [
+     "proviso_dropped"
+    ],
+    "by_reason": {
+     "proviso_dropped": 1
+    },
+    "blocks_dropped": 0
+   },
+   "over_removal_note": "no",
+   "hidden_legal_statement_in_gaps_or_advice": "YES (forum, uncited): 'मिलन नभए स्थानीय तहको न्यायिक समितिमा निवेदन दिने' - a forum claim in the advice text",
+   "user_facing_errors": "'यसै संहिताको' with no antecedent",
+   "retrieval_miss_note": "No rent-increase rule found in Civil Code s.383-402 (s.391-393 read): the gap is honest."
+  },
+  {
+   "answer_id": "a19",
+   "question": "thekedar le kaam sakera pani paisa dinna, muddha kahile halne?",
+   "question_script": "romanised",
+   "mode": "extractive_fallback",
+   "cached_entailment_on": false,
+   "usefulness_0_2": 0,
+   "removed": {
+    "count": 4,
+    "reasons": [
+     "section_not_in_quote",
+     "uncited_procedure"
+    ],
+    "by_reason": {
+     "section_not_in_quote": 3,
+     "uncited_procedure": 1
+    },
+    "blocks_dropped": 2
+   },
+   "fallback_quality_governing_provisions_shown": "no: Labour Act s.12 (employment relationship), s.2 definitions, s.64 (labour supplier), Foreign Employment Act s.35; a contractor's unpaid bill is not covered.",
+   "retrieval_miss_note": "Limitation and contract chapters of the Civil Code exist; I did not pinpoint the governing clause."
+  },
+  {
+   "answer_id": "a20",
+   "question": "aama ko naam ma matra nagarikta chha, bau ko pahichan chhaina, chhora ko nagarikta kasari paune?",
+   "question_script": "romanised",
+   "mode": "structured",
+   "cached_entailment_on": true,
+   "usefulness_0_2": 2,
+   "n_kept_sentences": 2,
+   "labels": {
+    "supported": 2
+   },
+   "removed": {
+    "count": 1,
+    "reasons": [
+     "proviso_dropped"
+    ],
+    "by_reason": {
+     "proviso_dropped": 1
+    },
+    "blocks_dropped": 0
+   },
+   "over_removal_note": "no",
+   "hidden_legal_statement_in_gaps_or_advice": "none",
+   "user_facing_errors": "citation label '3 (1)' for text of (5); trunc=True; dangling 'तर' in S2",
+   "retrieval_miss_note": "-"
+  },
+  {
+   "answer_id": "a21",
+   "question": "school le fee badhayo ra result roki diyo, yo milchha?",
+   "question_script": "romanised",
+   "mode": "structured",
+   "cached_entailment_on": false,
+   "usefulness_0_2": 2,
+   "n_kept_sentences": 4,
+   "labels": {
+    "supported": 4
+   },
+   "removed": {
+    "count": 2,
+    "reasons": [
+     "no_citation",
+     "uncited_forum_claim"
+    ],
+    "by_reason": {
+     "no_citation": 1,
+     "uncited_forum_claim": 1
+    },
+    "blocks_dropped": 1
+   },
+   "over_removal_note": "no",
+   "hidden_legal_statement_in_gaps_or_advice": "gap 'no explicit provision barring withholding results' is a negative claim (not contradicted in the corpus by my check)",
+   "user_facing_errors": "dangling 'त्यसै गरी' in S4",
+   "retrieval_miss_note": "-"
+  },
+  {
+   "answer_id": "a22",
+   "question": "chhimeki le mero jagga ma bhitta lagayo, kaha gunaso garne?",
+   "question_script": "romanised",
+   "mode": "extractive_fallback",
+   "cached_entailment_on": false,
+   "usefulness_0_2": 1,
+   "removed": {
+    "count": 2,
+    "reasons": [
+     "section_not_in_quote"
+    ],
+    "by_reason": {
+     "section_not_in_quote": 2
+    },
+    "blocks_dropped": 0
+   },
+   "fallback_quality_governing_provisions_shown": "partly: [2] Local Government Operation Act s.47(2)(ख) (judicial committee mediates 'आफ्नो हक नपुग्ने अरुको जग्गामा घर वा कुनै संरचना बनाएको') and [3] Civil Code s.287 are the right provisions; [1] and [4] (survey certificates/definitions) are noise; the key clause is cut mid-list.",
+   "retrieval_miss_note": "-"
+  },
+  {
+   "answer_id": "a23",
+   "question": "Can a bank freeze my account without telling me?",
+   "question_script": "english",
+   "mode": "structured",
+   "cached_entailment_on": false,
+   "usefulness_0_2": 1,
+   "n_kept_sentences": 2,
+   "labels": {
+    "unsupported": 1,
+    "supported": 1
+   },
+   "removed": {
+    "count": 2,
+    "reasons": [
+     "quote_not_verbatim",
+     "uncited_forum_claim"
+    ],
+    "by_reason": {
+     "quote_not_verbatim": 1,
+     "uncited_forum_claim": 1
+    },
+    "blocks_dropped": 2
+   },
+   "over_removal_note": "probably: forum/quote removal left 'This power' without its head sentence",
+   "hidden_legal_statement_in_gaps_or_advice": "none",
+   "user_facing_errors": "'This power' without antecedent",
+   "retrieval_miss_note": "Whether notice is required is never addressed and no gap says so (gaps_rendered False)."
+  },
+  {
+   "answer_id": "a24",
+   "question": "How many days of annual leave am I entitled to under Nepali labour law?",
+   "question_script": "english",
+   "mode": "structured",
+   "cached_entailment_on": false,
+   "usefulness_0_2": 2,
+   "n_kept_sentences": 3,
+   "labels": {
+    "supported": 2,
+    "unsupported": 1
+   },
+   "removed": {
+    "count": 1,
+    "reasons": [
+     "proviso_dropped"
+    ],
+    "by_reason": {
+     "proviso_dropped": 1
+    },
+    "blocks_dropped": 0
+   },
+   "over_removal_note": "no",
+   "hidden_legal_statement_in_gaps_or_advice": "none",
+   "user_facing_errors": "'such leave' without antecedent",
+   "retrieval_miss_note": "-"
+  },
+  {
+   "answer_id": "a25",
+   "question": "What is the punishment for rape under Nepali law and is there a time limit to file a case?",
+   "question_script": "english",
+   "mode": "structured",
+   "cached_entailment_on": false,
+   "usefulness_0_2": 0,
+   "n_kept_sentences": 2,
+   "labels": {
+    "supported": 1,
+    "wrong-law": 1
+   },
+   "removed": {
+    "count": 0,
+    "reasons": [],
+    "by_reason": {},
+    "blocks_dropped": 0
+   },
+   "over_removal_note": "no (nothing removed)",
+   "hidden_legal_statement_in_gaps_or_advice": "none",
+   "user_facing_errors": "none",
+   "retrieval_miss_note": "Criminal Code s.219(3) (punishment by age band) and s.229 (limitation) exist; neither retrieved. The English answer cites a sentencing-confession rule instead."
+  },
+  {
+   "answer_id": "a26",
+   "question": "Can a foreigner buy land in Nepal?",
+   "question_script": "english",
+   "mode": "structured",
+   "cached_entailment_on": true,
+   "usefulness_0_2": 0,
+   "n_kept_sentences": 3,
+   "labels": {
+    "wrong-law": 3
+   },
+   "removed": {
+    "count": 1,
+    "reasons": [
+     "ordinance_unlabelled"
+    ],
+    "by_reason": {
+     "ordinance_unlabelled": 1
+    },
+    "blocks_dropped": 1
+   },
+   "over_removal_note": "unclear (1 ordinance_unlabelled removed)",
+   "hidden_legal_statement_in_gaps_or_advice": "gaps are honest ('do not cover whether a foreign individual may own land')",
+   "user_facing_errors": "none",
+   "retrieval_miss_note": "No general foreigner-land provision found in the corpus (Land Act 2021 s.12 exemption clause only); retrieval surfaced the broker-licence section."
+  },
+  {
+   "answer_id": "a27",
+   "question": "How do I register my marriage and is a registration certificate mandatory?",
+   "question_script": "english",
+   "mode": "structured",
+   "cached_entailment_on": false,
+   "usefulness_0_2": 1,
+   "n_kept_sentences": 3,
+   "labels": {
+    "supported": 2,
+    "unsupported": 1
+   },
+   "removed": {
+    "count": 5,
+    "reasons": [
+     "no_citation",
+     "proviso_dropped",
+     "forum_not_in_source",
+     "uncited_forum_claim"
+    ],
+    "by_reason": {
+     "no_citation": 2,
+     "proviso_dropped": 1,
+     "forum_not_in_source": 1,
+     "uncited_forum_claim": 1
+    },
+    "blocks_dropped": 1
+   },
+   "over_removal_note": "probably: forum_not_in_source + uncited_forum_claim + no_citation x2 + proviso_dropped removed the 'where do I apply' sentences; Civil Code s.77(1) (district court in Nepal, embassy abroad) was true and in the corpus",
+   "hidden_legal_statement_in_gaps_or_advice": "YES (true per s.77 but uncited): 'Prepare an application including your names, ages, addresses, occupations, parents' names, and details of any previous marriages'",
+   "user_facing_errors": "none",
+   "retrieval_miss_note": "s.77 (registration marriage: application contents, district court/embassy) and s.79 exist; the answer cites s.76/s.80 instead."
+  },
+  {
+   "answer_id": "a28",
+   "question": "What happens if a company does not file its annual return on time?",
+   "question_script": "english",
+   "mode": "structured",
+   "cached_entailment_on": false,
+   "usefulness_0_2": 1,
+   "n_kept_sentences": 2,
+   "labels": {
+    "supported": 2
+   },
+   "removed": {
+    "count": 3,
+    "reasons": [
+     "no_citation",
+     "quote_not_verbatim"
+    ],
+    "by_reason": {
+     "no_citation": 2,
+     "quote_not_verbatim": 1
+    },
+    "blocks_dropped": 2
+   },
+   "over_removal_note": "probably: 2 no_citation + quote_not_verbatim removed the consequence sentences",
+   "hidden_legal_statement_in_gaps_or_advice": "none",
+   "user_facing_errors": "none",
+   "retrieval_miss_note": "Companies Act s.81 (विवरण नपठाएमा जरिबाना: Rs 5,000/10,000/20,000 per year by paid-up capital) exists and is THE answer to 'what happens'; not used."
+  },
+  {
+   "answer_id": "a29",
+   "question": "Someone wrote false things about me on TikTok. Can I file a case for defamation?",
+   "question_script": "english",
+   "mode": "extractive_fallback",
+   "cached_entailment_on": false,
+   "usefulness_0_2": 1,
+   "removed": {
+    "count": 4,
+    "reasons": [
+     "quote_unrelated",
+     "proviso_dropped",
+     "dangling_additive_penalty"
+    ],
+    "by_reason": {
+     "quote_unrelated": 2,
+     "proviso_dropped": 1,
+     "dangling_additive_penalty": 1
+    },
+    "blocks_dropped": 1
+   },
+   "fallback_quality_governing_provisions_shown": "yes on content (Criminal Code s.306 defamation, s.307 penalty incl. extra year/Rs 10,000 for electronic media, ETA s.47) but unexplained Nepali text to an English-language user",
+   "retrieval_miss_note": "-"
+  },
+  {
+   "answer_id": "a30",
+   "question": "Who is eligible for the social security fund pension and how much do I get?",
+   "question_script": "english",
+   "mode": "structured",
+   "cached_entailment_on": true,
+   "usefulness_0_2": 0,
+   "n_kept_sentences": 2,
+   "labels": {
+    "supported": 2
+   },
+   "removed": {
+    "count": 0,
+    "reasons": [],
+    "by_reason": {},
+    "blocks_dropped": 0
+   },
+   "over_removal_note": "no",
+   "hidden_legal_statement_in_gaps_or_advice": "none",
+   "user_facing_errors": "the 'no formula' gap appears twice (under 'Amount' and 'What the sources don't cover')",
+   "retrieval_miss_note": "Pension eligibility/amount clauses not located by title."
+  }
+ ],
+ "removal_review": {
+  "note": "The `removed` block of each answer holds only counts and reason codes, NOT the removed text, so removal correctness cannot be judged directly. Verdicts below are inferred from the surviving text, dangling connectives and the corpus. Corpus-wide reason counts (65 removed vs 70 kept, 48% removal share): section_not_in_quote 15, no_citation 13, quote_not_verbatim 9, not_entailed 8, proviso_dropped 6, quote_unrelated 3, uncited_forum_claim 3, uncited_procedure 2, number_not_in_quote 2, and one each of stale_or_repealed_source, ordinance_unlabelled, forum_not_in_source, dangling_additive_penalty. `section_not_in_quote` (verifier.py: the sentence names a section/sub-section reference that is not in the quote or the cited section number) is the single largest reason and the least likely to be a semantic error.",
+  "sample": [
+   {
+    "answer": "a06",
+    "reasons": "section_not_in_quote x5, 4 blocks dropped",
+    "verdict": "probably WRONG (over-removal)",
+    "why": "survivors are only the prohibition and its penalty; the remedies half of 'what can I do' vanished. A sub-section label mismatch is a formatting reason, not an unsupported claim."
+   },
+   {
+    "answer": "a03",
+    "reasons": "no_citation x3, quote_unrelated, uncited_procedure",
+    "verdict": "mixed",
+    "why": "uncited legal claims are rightly out, but the surviving 'त्यसै गरी' opener proves the head sentence was removed and left an orphan; police-report/hospital-record steps were 'uncited_procedure' (policy-correct, but useful)."
+   },
+   {
+    "answer": "a04",
+    "reasons": "quote_not_verbatim x2, number_not_in_quote",
+    "verdict": "probably RIGHT",
+    "why": "the answer never retrieved s.87/Schedule 1; a number not in any quote would be slab percentages from memory."
+   },
+   {
+    "answer": "a10",
+    "reasons": "section_not_in_quote x3, no_citation",
+    "verdict": "cannot tell / probably wrong",
+    "why": "all structured content removed, fallback shown; three section-reference removals on a registration question whose governing s.4 was not retrieved either."
+   },
+   {
+    "answer": "a19",
+    "reasons": "section_not_in_quote x3, uncited_procedure, 2 blocks dropped",
+    "verdict": "cannot tell",
+    "why": "whole structured answer lost; fallback shows irrelevant labour provisions."
+   },
+   {
+    "answer": "a23",
+    "reasons": "quote_not_verbatim, uncited_forum_claim (2 blocks)",
+    "verdict": "WRONG in effect",
+    "why": "the head sentence (NRB may direct banks to freeze) is gone; the tail 'This power ...' survives with no antecedent and became an unsupported sentence."
+   },
+   {
+    "answer": "a27",
+    "reasons": "no_citation x2, proviso_dropped, forum_not_in_source, uncited_forum_claim",
+    "verdict": "policy-right, content-wrong",
+    "why": "the removed 'where to register' claim (district court / embassy, Civil Code s.77(1)) was TRUE and in the corpus; it failed only because the cited passage (s.76) does not name the forum. The user is never told where to apply."
+   },
+   {
+    "answer": "a28",
+    "reasons": "no_citation x2, quote_not_verbatim, 2 blocks dropped",
+    "verdict": "probably wrong",
+    "why": "the answer to 'what happens if late' (Companies Act s.81 fines) is absent from the kept text; likely among the removed blocks."
+   },
+   {
+    "answer": "a07",
+    "reasons": "no_citation x2",
+    "verdict": "probably RIGHT but costly",
+    "why": "likely the direct 'yes, unlawful unless the court extends' conclusion, uncited by design; the kept sentences imply it but never state it."
+   },
+   {
+    "answer": "a12",
+    "reasons": "not_entailed x5 (entailment pass ON, cached)",
+    "verdict": "cannot tell",
+    "why": "5 of 7 sentences removed; the two survivors are the wrong-law judges' sentences, so the entailment pass removed sentences but not the wrong-law ones."
+   }
+  ],
+  "dangling_orphans_after_removal": [
+   "a03.s1 'त्यसै गरी'",
+   "a21.s4 'त्यसै गरी'",
+   "a18.s1 'यसै संहिताको'",
+   "a14.s1 'यसै संहिताको'",
+   "a20.s2 'तर'",
+   "a23.s1 'This power'",
+   "a24.s2 'such leave'",
+   "a02.s3 'उपदफा (१) बमोजिमको रकम'"
+  ]
+ },
+ "patterns_and_fixes": [
+  "WRONG-LAW is 24 of 31 bad sentences (77%); there are 0 hallucinated numbers/sections and 7 dropped-condition/wrong-subject sentences. V3.2's quote/number/section checks worked; what fails now is topical fit. Deterministic fixes: (1) a 'specialist-population marker' table - hire-purchase (हायर पर्चेज/दामासाही), army (सैनिक), judges (न्यायाधीश), postal money order (हुलाक/धनादेश), consumer-goods liability, licence/broker (इजाजतपत्र, 'घर जग्गा सम्बन्धी कारोबार'), widow - a cited passage carrying such a marker while neither the question nor the matched playbook does is dropped (this is the situation_guards table extended by the marker words seen here: a02 x8, a04 s4, a03 s2, a12, a14, a26). (2) Question-noun overlap between the passage TITLE (title_ne of the section) and the question: 'हायर पर्चेज' vs 'कोठा/भाडा', 'सैनिक ऐन' vs 'तलब कर'. (3) Lead-in scope: when the quote is a table row or an enumerated item, the subject of the enclosing sub-section lead-in ('कुनै व्यवसाय वा लगानीबाट ... आय भएको व्यक्तिले' in ITA s.94; 'शिक्षण संस्थामा कार्यरत' in Labour Act s.43(2)) must be present in the sentence or the sentence is dropped (a04 s1/s2, a24 s2).",
+  "Cross-reference preconditions: 'उपदफा (१) मा लेखिए बमोजिम पक्राउ भएका' (a07 s3), 'दफा ७९ बमोजिम सहमतिपत्रमा सहीछाप गराई सकेपछि' (a27 s3), 'सहमति नभएकोमा' (a15 s3): extend scope_conflict/proviso_dropped to LEADING cross-reference clauses and to the lead-in of the enclosing sub-section, not only to trailing provisos.",
+  "Invented subject: a14 s3/s4 put the user's own proper noun (eSewa) into a sentence whose quote never names it. Check: proper nouns/organisations taken from the question may not become the subject of a cited-law sentence unless the quote or passage contains them or a category word for them.",
+  "Dangling anaphora after removal (8 cases: 'त्यसै गरी', 'यसै संहिताको', 'तर', 'This power', 'such leave', 'उपदफा (१) बमोजिमको रकम'): drop or block a kept sentence that opens with a connective/demonstrative whose antecedent sentence was removed, and never remove a head sentence while keeping its tail (block-level removal or re-render).",
+  "Duplicates: a11 (same sentence x3), a14 (x2), a02 (three s.633 sentences): de-duplicate by normalised text and by (doc, section, subsection) before render; cap 2 sentences per subsection; merge same-heading blocks (a02 renders 'अर्को अधिकार' 8 times).",
+  "Asked-quantity check: questions with कति/how many/how much/what punishment/time limit (a04, a12, a17, a25, a30) ended with rules containing no answering figure. If no kept sentence carries a number/duration from the passage, emit an explicit 'sources do not give X' gap instead of tangential rules. Also do not emit a negative gap ('sources do not cover ...') when the governing section exists in the corpus (a04 s.87, a12 s.45, a17 s.11, a25 s.219/229, a28 s.81).",
+  "Citation label: cite the sub-section that actually holds the quote (a17 '10 (1)' for (2)/(3); a20 '3 (1)' for (5)).",
+  "Retrieval/playbook routes to add (all sections verified present in the corpus): tenancy eviction -> Civil Code s.390/391/401; road accident injury -> Motor Vehicles Act s.163; salary tax -> ITA s.87 + Schedule 1; private-sector maternity -> Labour Act s.45; gratuity/dismissal -> Labour Act s.53; rape punishment/limitation -> Criminal Code s.219(3), s.229; company registration documents -> Company Act s.4; late annual return -> Company Act s.81; VAT registration threshold -> VAT Act s.11(1)(च)/s.10; defective product return -> Consumer Act s.14; false complaint -> Criminal Code s.98; daughter's partition share -> Civil Code s.205.",
+  "Prompt: (a) 'answer the asked quantity first, else say the sources do not give it'; (b) 'never restate the same provision under a second heading'; (c) 'if the retrieved chapter is about a different subject (hire-purchase, judges, army, postal money orders), say the sources do not cover the situation instead of listing it'; (d) 'do not open a sentence with a connective or demonstrative'; (e) forum/document claims in advice text (a13, a18, a27) must carry a cite - the uncited-forum check lets them through when the playbook names them."
+ ]
+}
