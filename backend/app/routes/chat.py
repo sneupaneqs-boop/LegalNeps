@@ -160,8 +160,9 @@ async def chat(payload: ChatRequest, request: Request, authorization: str | None
 async def chat_stream(payload: ChatRequest, request: Request,
                       authorization: str | None = Header(None)) -> StreamingResponse:
     """NDJSON stream: {"type":"meta", sources...}, an optional {"type":"status","stage"} while the answer is
-    checked against the sources, then {"type":"delta","text"}* (the verified answer, in small chunks) then
-    {"type":"done"}. Sources arrive first, so the UI can show them immediately."""
+    checked against the sources, then {"type":"delta","text"}* (verified text only, each sentence as soon as it
+    is checked), an optional {"type":"replace","text"} (the full final text, when finalisation changed
+    something already shown) and {"type":"done"} whose `answer` is always exactly what the reader ends up seeing. Sources arrive first, so the UI can show them immediately."""
     user = await _current_user(authorization)
     plan = await _enforce_limits(request, user)
     tier = tiers.select_tier(plan, "chat")
@@ -179,6 +180,8 @@ async def chat_stream(payload: ChatRequest, request: Request,
                     yield json.dumps({"type": "meta", **data}, ensure_ascii=False) + "\n"
                 elif kind == "delta":
                     yield json.dumps({"type": "delta", "text": data}, ensure_ascii=False) + "\n"
+                elif kind == "replace":
+                    yield json.dumps({"type": "replace", "text": data}, ensure_ascii=False) + "\n"
                 elif kind == "status":
                     yield json.dumps({"type": "status", **data}, ensure_ascii=False) + "\n"
                 else:

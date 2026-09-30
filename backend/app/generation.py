@@ -671,7 +671,9 @@ def _prompt(message: str, analysis: dict, sources: list[dict], lang: str, histor
 
 def run(message: str, language: str = "auto", history: list[dict] | None = None, tier: str = "free"):
     """The whole pipeline as events: ("meta", {language, sources, analysis}),
-    then ("delta", text)* while the answer is written, then ("done", {...}).
+    then ("status", ...)? ("delta", text)* ("replace", full_text)? while the answer is written, then
+    ("done", {...}). The concatenated deltas (or the last `replace` text plus any deltas after it) always
+    equal done["answer"].
     Non-legal messages (greetings, thanks, off-topic, too vague) get a direct
     reply and no sources; legal ones get a grounded, cited answer, or the
     matching provisions if no model responds in time.
@@ -733,12 +735,16 @@ def run(message: str, language: str = "auto", history: list[dict] | None = None,
         return
 
     llm_calls += 1
-    # Generate-then-verify: the whole JSON answer is checked before anything is
-    # shown, so the wait is one non-streamed call; the verified text is then
-    # streamed to the client in small chunks (same delta protocol as before).
+    # Generate-then-verify, progressively: the model's JSON is streamed and every sentence is checked the
+    # moment it is complete; only sentences that pass are emitted (as `delta`). At the end the full
+    # finalisation runs (fallback / entailment / gaps / disclaimer); whatever it adds is appended as more
+    # deltas, and if it changes text that was already shown a `replace` event carries the final text.
     yield "status", {"stage": "checking sources"}
     prompt_text = _prompt(message, analysis, sources, lang, history, playbook)
-    result, usage = _generate_verified(prompt_text, sources, lang, tier, playbook)
+    if config.STREAM_VERIFIED:
+        result, usage, streamed = yield from _stream_generate(prompt_text, sources, lang, tier, playbook)
+    else:
+        (result, usage), streamed = _generate_verified(prompt_text, sources, lang, tier, playbook), ""
     verification = None
     if result is None:
         answer, llm_used = _extractive(sources, lang), False
@@ -747,7 +753,12 @@ def run(message: str, language: str = "auto", history: list[dict] | None = None,
         answer, llm_used, verification = _extractive(sources, lang, UNVERIFIED_HEADER[lang]), False, result["verification"]
     else:
         answer, llm_used, verification = tidy_answer(result["answer"], sources), True, result["verification"]
-    yield from _simulate_stream(answer)
+    if not streamed:
+        yield from _simulate_stream(answer)
+    elif answer.startswith(streamed):
+        yield from _simulate_stream(answer[len(streamed):])  # gaps / follow-ups / disclaimer (or nothing)
+    else:
+        yield "replace", answer  # finalisation changed text already shown: `answer` is authoritative
     if llm_used:
         payload = {"answer": answer, "language": lang, "sources": sources, "llm_used": True,
                    "analysis": meta_analysis, "playbook": playbook_card, "verification": verification}
@@ -769,12 +780,15 @@ def _simulate_stream(answer: str):
             time.sleep(delay)
 
 
-def _generate_verified(prompt_text: str, sources: list[dict], lang: str, tier: str, playbook: dict | None):
-    """(structured.build() result | None if no model answered, usage). Never raises."""
+def _generate_verified(prompt_text: str, sources: list[dict], lang: str, tier: str, playbook: dict | None, *,
+                       raw: str | None = None, cut_off: bool = False, usage: dict | None = None,
+                       budget_s: float | None = None):
+    """(structured.build() result | None if no model answered, usage). Never raises. With `raw` (a reply that
+    was already streamed) no generation call is made: it is only finalised (repair / verify / entailment)."""
     # Devanagari costs ~3x the tokens of English, and JSON adds keys and quotes
     max_tokens = config.ANSWER_MAX_TOKENS_NE if lang == "ne" else config.ANSWER_MAX_TOKENS_EN
-    usage: dict | None = None
     paid = tier != "free"
+    budget = budget_s if budget_s is not None else config.ANSWER_JSON_BUDGET_S
     model = tiers.model_for_tier(tier) if paid else None
     haiku = tiers.model_for_tier("haiku")
 
@@ -788,16 +802,17 @@ def _generate_verified(prompt_text: str, sources: list[dict], lang: str, tier: s
         add_usage(u)
         return text
 
-    try:
-        if paid:
-            raw = paid_call(ANSWER_SYSTEM, prompt_text, budget_s=config.ANSWER_JSON_BUDGET_S)
-        else:
-            raw = llm.complete(ANSWER_SYSTEM, prompt_text, json_mode=True, max_tokens=max_tokens,
-                               budget_s=config.ANSWER_JSON_BUDGET_S, call_timeout_s=config.ANSWER_JSON_CALL_TIMEOUT_S)
-        cut_off = llm.was_cut_off()
-    except Exception as e:  # noqa: BLE001
-        log.warning("answer generation failed: %s", str(e)[:200])
-        return None, usage
+    if raw is None:
+        try:
+            if paid:
+                raw = paid_call(ANSWER_SYSTEM, prompt_text, budget_s=budget)
+            else:
+                raw = llm.complete(ANSWER_SYSTEM, prompt_text, json_mode=True, max_tokens=max_tokens,
+                                   budget_s=budget, call_timeout_s=config.ANSWER_JSON_CALL_TIMEOUT_S)
+            cut_off = llm.was_cut_off()
+        except Exception as e:  # noqa: BLE001
+            log.warning("answer generation failed: %s", str(e)[:200])
+            return None, usage
 
     def repair(bad: str) -> str:
         if paid:
@@ -817,6 +832,72 @@ def _generate_verified(prompt_text: str, sources: list[dict], lang: str, tier: s
     except Exception:  # noqa: BLE001 - a verifier bug must degrade to the extractive answer, not a 500
         log.exception("structured answer build failed")
         return None, usage
+
+
+_DHARA_PIECE = re.compile(r"धारा(\s*[०-९0-9])")
+
+
+def _tidy_piece(piece: str, sources: list[dict]) -> str:
+    """The per-piece part of tidy_answer (the constitutional "धारा" fix), so streamed text equals tidied text."""
+    if any(s.get("doc_type") == "constitution" for s in sources):
+        return piece
+    return _DHARA_PIECE.sub(r"दफा\1", piece)
+
+
+def _stream_generate(prompt_text: str, sources: list[dict], lang: str, tier: str, playbook: dict | None):
+    """Stream the model's JSON, verifying every sentence as it completes. A generator: yields ("delta", text)
+    for verified text and returns (result, usage, streamed_text) where `result` is the authoritative
+    structured.build() of the whole reply (or of the non-streamed fallback) and `streamed_text` is exactly
+    what was emitted. Never raises."""
+    paid = tier != "free"
+    max_tokens = config.ANSWER_MAX_TOKENS_NE if lang == "ne" else config.ANSWER_MAX_TOKENS_EN
+    budget = config.ANSWER_JSON_BUDGET_S
+    started = time.time()
+    sv = structured.StreamVerifier(sources, _guidance_terms_text(playbook), config.STREAM_MIN_RULES)
+    info: dict = {}
+    parts: list[str] = []
+    streamed = ""
+    err: Exception | None = None
+    cut_off = False
+    src = None
+    try:
+        if paid:
+            src = llm.paid_stream(tiers.model_for_tier(tier), ANSWER_SYSTEM, prompt_text, max_tokens=max_tokens,
+                                  budget_s=budget, info=info)
+        else:
+            src = llm.stream_json(ANSWER_SYSTEM, prompt_text, max_tokens=max_tokens, budget_s=budget, info=info)
+        for delta in src:
+            parts.append(delta)
+            text = sv.feed(delta)
+            if text:
+                text = _tidy_piece(text, sources)
+                streamed += text
+                yield "delta", text
+            if time.time() - started > budget:
+                cut_off = True  # out of time: what is complete so far is finalised, the rest dropped
+                break
+    except Exception as e:  # noqa: BLE001 - provider failure before or mid-stream
+        err = e
+        log.warning("streamed answer failed after %d chars: %s", sum(map(len, parts)), str(e)[:200])
+    finally:
+        if src is not None:
+            src.close()
+    usage = info.get("usage")
+    raw = "".join(parts)
+    if not raw.strip():
+        # nothing streamed (no streaming provider, or it never started): the V3 non-streamed call
+        result, usage = _generate_verified(prompt_text, sources, lang, tier, playbook, usage=usage,
+                                           budget_s=max(15.0, budget - (time.time() - started)))
+        return result, usage, streamed
+    cut_off = cut_off or err is not None or llm.was_cut_off(info.get("finish") or "")
+    result, usage = _generate_verified(prompt_text, sources, lang, tier, playbook, raw=raw, cut_off=cut_off, usage=usage)
+    if err is not None and (result is None or result.get("answer") is None):
+        left = budget - (time.time() - started)
+        if left > 12:  # the partial reply was not enough: one non-streamed attempt (the replace path swaps it in)
+            fb, usage = _generate_verified(prompt_text, sources, lang, tier, playbook, usage=usage, budget_s=left)
+            if fb is not None and fb.get("answer") is not None:
+                result = fb
+    return result, usage, streamed
 
 
 def stream_answer(message: str, language: str = "auto", history: list[dict] | None = None, tier: str = "free"):

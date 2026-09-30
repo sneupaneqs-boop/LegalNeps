@@ -467,6 +467,28 @@ def _clean_doc_sentence(s) -> dict | None:
     return {"text": _CITE_ANY.sub("", str(s["text"])).strip(), "kind": s.get("kind"), "cites": s.get("cites") or []}
 
 
+def verify_sentence(raw, sources: list[dict], views: list[_View],
+                    guidance_terms: set[str] | None = None) -> tuple[dict | None, str | None]:
+    """One sentence through the same checks verify_structured applies: (kept sentence, None) when it may be
+    shown, (None, reason) when it is removed, (None, None) when it is empty/malformed (skipped, not counted).
+    Shared with the streaming path so streamed and final text are decided by identical code."""
+    s = _clean_doc_sentence(raw)
+    if s is None:
+        return None, None
+    reason, cites = check_structured_sentence(s, sources, views, guidance_terms)
+    if reason:
+        return None, reason
+    return {"text": s["text"], "kind": s["kind"] if s["kind"] in KINDS else "rule", "cites": cites}, None
+
+
+def make_views(sources: list[dict]) -> list[_View]:
+    return [_View(s) for s in sources]
+
+
+def guidance_term_set(guidance: str) -> set[str]:
+    return {t for t in tokenize(guidance) if not t.isdigit()}
+
+
 def verify_structured(doc: dict, sources: list[dict], guidance: str = "") -> tuple[dict, dict]:
     """(verified doc, report). Failing sentences are dropped; blocks left with
     nothing under their heading are dropped; the report keeps the legacy
@@ -480,14 +502,14 @@ def verify_structured(doc: dict, sources: list[dict], guidance: str = "") -> tup
     for block in doc.get("blocks") or []:
         kept = []
         for raw in block.get("sentences") or []:
-            s = _clean_doc_sentence(raw)
-            if s is None:
-                continue
-            reason, cites = check_structured_sentence(s, sources, views, guidance_terms)
+            k, reason = verify_sentence(raw, sources, views, guidance_terms)
             if reason:
                 reasons[reason] = reasons.get(reason, 0) + 1
                 continue
-            kept.append({"text": s["text"], "kind": s["kind"] if s["kind"] in KINDS else "rule", "cites": cites})
+            if k is None:
+                continue
+            kept.append(k)
+            cites = k["cites"]
             if cites:
                 claims += 1
                 cited |= {c["n"] - 1 for c in cites}

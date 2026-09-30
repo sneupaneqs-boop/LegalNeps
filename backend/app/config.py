@@ -95,6 +95,12 @@ ANSWER_JSON_BUDGET_S = float(os.getenv("ANSWER_JSON_BUDGET_S", "50"))       # wh
 ANSWER_JSON_CALL_TIMEOUT_S = float(os.getenv("ANSWER_JSON_CALL_TIMEOUT_S", "35"))  # one attempt on one model
 # Optional LLM entailment pass over the surviving rule sentences (off on the free tier: quota); paid tiers always run it.
 ENTAILMENT_CHECK = os.getenv("ENTAILMENT_CHECK", "0").lower() in ("1", "true", "yes")
+# Progressive streaming of the model's JSON with per-sentence verification (V3.1). STREAM_VERIFIED=0 restores the
+# single non-streamed call. Nothing is shown until STREAM_MIN_RULES rule/deadline/penalty sentences verified
+# (2 = the document-level minimum, so the extractive fallback almost never replaces already-shown text).
+STREAM_VERIFIED = os.getenv("STREAM_VERIFIED", "1").lower() in ("1", "true", "yes")
+STREAM_MIN_RULES = int(os.getenv("STREAM_MIN_RULES", "2"))
+STREAM_JSON_FIRST_TOKEN_S = float(os.getenv("STREAM_JSON_FIRST_TOKEN_S", "15"))  # then the non-streamed fallback
 # Simulated streaming of the verified answer (seconds between ~40-char chunks; capped per answer)
 STREAM_CHUNK_DELAY_S = float(os.getenv("STREAM_CHUNK_DELAY_S", "0.01"))
 

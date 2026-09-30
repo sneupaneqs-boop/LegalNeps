@@ -12,6 +12,7 @@ from __future__ import annotations
 import json
 import logging
 import re
+import time
 
 from . import llm, verifier
 
@@ -189,6 +190,187 @@ def parse_answer(raw: str, cut_off: bool = False) -> tuple[dict | None, bool]:
         pass
     doc = _norm_doc(_salvage(text))
     return (doc, False) if doc and doc["blocks"] else (None, False)
+
+
+# ------------------------------------------------- incremental (streaming) parsing
+_STR_SPECIAL = re.compile(r'["\\]')
+_STRUCT = re.compile(r'["{}\[\]:,]')
+
+
+class _Frame:
+    __slots__ = ("kind", "key", "cur", "awaiting", "start", "heading")
+
+    def __init__(self, kind: str, key: str | None, start: int):
+        self.kind, self.key, self.start = kind, key, start  # kind "{" | "["; key = the key in the parent that led here
+        self.cur: str | None = None   # key whose value is being read (objects)
+        self.awaiting = False         # after ':' until the value is consumed
+        self.heading = ""             # block objects only
+
+
+class IncrementalDoc:
+    """Truly incremental reader of the growing answer JSON: feed() consumes only the NEW characters (one
+    pass over the stream in total, no re-parsing) and returns each sentence object the moment its closing
+    brace arrives, as (block_index, heading, raw sentence dict). String/escape state survives across feed()
+    calls, so chunk boundaries may fall inside a key, a string, a \\uXXXX escape or between surrogates.
+    Only sentences at blocks[].sentences[] are reported; anything else (gaps, questions, prose) is left to
+    the authoritative parse at the end of the stream."""
+
+    def __init__(self):
+        self.text = ""
+        self._i = 0
+        self._in_str = False
+        self._esc = False
+        self._str_start = 0
+        self._last_str: tuple[int, int] | None = None  # span (incl. quotes) of the last closed string
+        self._stack: list[_Frame] = []
+        self._blocks = -1
+        self.closed = False  # the root object closed
+
+    def _decode(self, span: tuple[int, int]) -> str:
+        try:
+            v = json.loads(self.text[span[0]:span[1]])
+            return v if isinstance(v, str) else ""
+        except ValueError:
+            return ""
+
+    def feed(self, delta: str) -> list[tuple[int, str, dict]]:
+        out: list[tuple[int, str, dict]] = []
+        if not delta or self.closed:
+            return out
+        self.text += delta
+        t, n, i = self.text, len(self.text), self._i
+        stack = self._stack
+        while i < n:
+            if self._in_str:
+                if self._esc:  # previous chunk ended on a backslash: this char is escaped
+                    self._esc = False
+                    i += 1
+                    continue
+                m = _STR_SPECIAL.search(t, i)
+                if not m:
+                    i = n
+                    break
+                if m.group() == "\\":
+                    if m.start() + 1 >= n:
+                        self._esc = True
+                        i = n
+                        break
+                    i = m.start() + 2
+                    continue
+                self._in_str = False
+                self._last_str = (self._str_start, m.start() + 1)
+                i = m.start() + 1
+                top = stack[-1] if stack else None
+                if top is not None and top.awaiting:  # a string VALUE
+                    top.awaiting = False
+                    if top.kind == "{" and top.cur == "heading" and len(stack) == 3:
+                        top.heading = self._decode(self._last_str).strip()
+                continue
+            m = _STRUCT.search(t, i)
+            if not m:
+                i = n
+                break
+            c, at = m.group(), m.start()
+            i = at + 1
+            if c == '"':
+                self._in_str, self._str_start = True, at
+            elif c == ":":
+                top = stack[-1] if stack else None
+                if top is not None and top.kind == "{" and self._last_str:
+                    top.cur, top.awaiting = self._decode(self._last_str), True
+            elif c == ",":
+                if stack:
+                    stack[-1].awaiting = False
+            elif c in "{[":
+                top = stack[-1] if stack else None
+                if top is None:
+                    key = None
+                elif top.kind == "{":
+                    key = top.cur if top.awaiting else None
+                else:
+                    key = top.key
+                if top is not None:
+                    top.awaiting = False
+                stack.append(_Frame(c, key, at))
+                if len(stack) == 3 and c == "{" and stack[1].key == "blocks" and stack[1].kind == "[":
+                    self._blocks += 1
+            else:  # "}" or "]"
+                if not stack:
+                    continue
+                fr = stack.pop()
+                if fr.kind == "{" and len(stack) == 4 and stack[1].key == "blocks" and stack[3].key == "sentences" \
+                        and stack[3].kind == "[" and stack[2].kind == "{":
+                    try:
+                        obj = json.loads(t[fr.start:at + 1])
+                    except ValueError:
+                        obj = None
+                    if isinstance(obj, dict):
+                        out.append((self._blocks, stack[2].heading, obj))
+                if not stack:
+                    self.closed = True
+                    break
+        self._i = i
+        return out
+
+
+class StreamVerifier:
+    """Verify each sentence the moment it is complete and produce the markdown pieces `render` would produce
+    for it. Removed sentences are counted and never returned. Nothing is released until `min_rules`
+    rule/deadline/penalty sentences have verified (so a document that would fall back to the extractive answer
+    is, in practice, never shown); the held pieces are then released together and later ones immediately."""
+
+    def __init__(self, sources: list[dict], guidance: str = "", min_rules: int = MIN_VERIFIED_RULES):
+        self.sources = sources
+        self.views = verifier.make_views(sources)
+        self.terms = verifier.guidance_term_set(guidance)
+        self.min_rules = min_rules
+        self.parser = IncrementalDoc()
+        self.removed = 0
+        self.verified = 0
+        self.rules = 0
+        self.released = False
+        self._held: list[str] = []
+        self._open_block: int | None = None
+        self._open_heading = ""
+        self._any = False
+        self.first_verified_at: float | None = None  # perf_counter of the first surviving sentence (may be held)
+
+    def _piece(self, block: int, heading: str, k: dict) -> str:
+        line, empathy = _line(k), k.get("kind") == "empathy"
+        if block != self._open_block:
+            self._open_block, self._open_heading = block, heading
+            sep = "\n\n" if self._any else ""
+            return sep + (f"**{heading}**\n{line if empathy else '- ' + line}" if heading else line)
+        if self._open_heading:
+            return "\n" + (line if empathy else f"- {line}")
+        return " " + line
+
+    def feed(self, delta: str) -> str:
+        """New model text in; the text now safe to show (possibly ""), out."""
+        out: list[str] = []
+        for block, heading, raw in self.parser.feed(delta):
+            norm = _norm_sentence(raw)
+            if norm is None:
+                continue
+            k, reason = verifier.verify_sentence(norm, self.sources, self.views, self.terms)
+            if reason:
+                self.removed += 1
+                continue
+            if k is None:
+                continue
+            if self.first_verified_at is None:
+                self.first_verified_at = time.perf_counter()
+            self.verified += 1
+            if k["cites"] and k["kind"] in verifier.STRICT_KINDS:
+                self.rules += 1
+            self._held.append(self._piece(block, heading, k))
+            self._any = True
+            if not self.released and self.rules >= self.min_rules:
+                self.released = True
+            if self.released:
+                out.extend(self._held)
+                self._held = []
+        return "".join(out)
 
 
 # ---------------------------------------------------------------- rendering

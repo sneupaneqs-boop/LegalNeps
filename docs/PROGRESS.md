@@ -200,6 +200,31 @@ S7's own "done when" bar (25 playbooks, ≥90% precision) doesn't require it.
 
 ## Done
 
+### V3.1 — Progressive streaming with per-sentence verification (2026-09-30, offline; live latency pending)
+
+The model's JSON is now STREAMED (`llm.stream_json`: OpenAI-compatible providers in JSON mode, then Gemini JSON
+mode; a model that rejects streamed `response_format` is retried without it; paid tiers `llm.paid_stream`).
+`structured.IncrementalDoc` reads only the new characters (single forward pass, string/escape state kept across
+chunks) and hands back each `blocks[].sentences[]` object when its closing brace arrives;
+`structured.StreamVerifier` runs the SAME `verifier.verify_sentence` (shared with `verify_structured`) and returns
+the markdown `render` would produce for it. Removed sentences are counted, never emitted.
+- **Gate:** nothing is shown until `STREAM_MIN_RULES` (2 = the document-level minimum) rule/deadline/penalty
+  sentences verified; held sentences are then released together. So the extractive fallback essentially never
+  replaces shown text. Status event ("checking sources") stays until the first release.
+- **Finalisation** (unchanged code: `structured.build` on the full reply: repair, verify, entailment, gaps,
+  disclaimer, fallback) yields the authoritative answer. If it starts with the streamed text, only the remainder
+  is emitted as more deltas (gaps/follow-ups/disclaimer); otherwise a `replace` event carries the full final text.
+  Invariant: deltas (or the last `replace` + later deltas) concatenate to `done.answer`.
+- **Events:** meta -> status? -> delta* -> replace? -> delta* -> done (old protocol is a subset; `/api/chat` and
+  cache hits unchanged). Frontend: `onReplace` in `streamChatMessage`; `done.answer` was already authoritative.
+- **Failure paths:** no streaming provider / nothing streamed -> V3 non-streamed call. Error mid-stream -> the
+  complete sentences are finalised as a cut-off reply; if that is not enough, one non-streamed retry (replace).
+  `STREAM_VERIFIED=0` restores V3 exactly. Config: `STREAM_VERIFIED`, `STREAM_MIN_RULES`, `STREAM_JSON_FIRST_TOKEN_S`.
+- **Measured (fake provider, 40 ms per 3-char token, 12.1 s model time for the ~900-char test answer):** first
+  verified text at 8.7 s with the 2-rule gate (5.2 s with `STREAM_MIN_RULES=1`), full answer 12.4 s; V3 would show
+  the first text at ~12.2 s. Real gains depend on how early the 2nd rule appears. Not measured on live providers.
+- Tests: `tests/test_v31_streaming.py` (28).
+
 ### V3 — Structured answer + citation verifier (2026-09-30, offline; live measurement pending)
 
 Generate-then-verify: the model returns ONE JSON object (blocks -> sentences with `kind`, `cites:[{n, quote}]`,

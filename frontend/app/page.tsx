@@ -56,6 +56,11 @@ export default function Home() {
           streamed += piece;
           update({ text: streamed });
         },
+        // the verified text shown so far was superseded (fallback / late removal): show the final text
+        onReplace: (full) => {
+          streamed = full;
+          update({ text: streamed });
+        },
       }, history);
       update({ text: final.answer, llmUsed: final.llm_used, streaming: false, verification: final.verification ?? null });
     } catch (err) {
