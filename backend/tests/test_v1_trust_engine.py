@@ -259,3 +259,34 @@ def test_pipeline_version_tracks_prompts_lexicon_and_playbooks(tmp_path, monkeyp
     assert generation.PIPELINE_VERSION.endswith("-" + base)
     monkeypatch.setattr(generation, "ANALYZE_SYSTEM", generation.ANALYZE_SYSTEM + " ")
     assert generation._pipeline_fingerprint() != base
+
+
+@pytest.mark.parametrize("words,expected", [
+    ("अठ्चालीस घण्टा", "48 "), ("अठचालीस घण्टा", "48 "), ("पच्चीस दिन", "25 "), ("पच्चिस दिन", "25 "),
+    ("सन्तानब्बे दिन", "97 "), ("दश प्रतिशत", "10 "), ("पैँतीस दिन", "35 "),
+])
+def test_nepali_number_words_before_units(words, expected):
+    from app.verifier import _words_to_digits
+    assert _words_to_digits(words).startswith(expected)
+
+
+def test_number_word_alone_is_not_converted():
+    from app.verifier import _words_to_digits
+    assert _words_to_digits("यो कानून हो र यो छ ।") == "यो कानून हो र यो छ ।"
+
+
+@pytest.mark.parametrize("text", ["पच्चीस लाख रुपैयाँ", "२५ लाख", "25 lakh", "2,500,000"])
+def test_lakh_and_crore_amounts_match_digits(text):
+    from app.verifier import _haystack_numbers
+    assert "2500000" in _haystack_numbers({"text_ne": text})
+
+
+def test_labour_act_hours_claim_verified_against_spelled_out_statute():
+    from app.verifier import verify
+    src = [{"n": 1, "category": "law", "section": "28", "doc_title_ne": "श्रम ऐन, २०७४",
+            "text_ne": "२८. काम गर्नेसमयः (१) रोजगारदाताले श्रमिकलाई प्रतिदिन आठ घण्टा र एक हप्तामा "
+                       "अठ्चालीस घण्टाभन्दा बढी समय हुने गरी काममा लगाउन पाइने छैन।"}]
+    ok = "प्रतिदिन अधिकतम ८ घण्टा (हप्तामा ४८ घण्टा) भन्दा बढी काममा लगाउन पाइँदैन [1]।"
+    bad = "प्रतिदिन १० घण्टा भन्दा बढी काममा लगाउन पाइँदैन [1]।"
+    assert verify(ok, src, "ne")[1]["unverified"] == []
+    assert verify(bad, src, "ne")[1]["unverified"][0]["reason"] == "number_not_in_source"

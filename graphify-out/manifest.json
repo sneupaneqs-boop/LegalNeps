@@ -828,9 +828,9 @@
     "semantic_hash": ""
   },
   "backend/app/verifier.py": {
-    "mtime": 1790698315.801458,
-    "seen": 1790699891.6967154,
-    "ast_hash": "b0afe0866d560865204945e8fcabba34",
+    "mtime": 1790760586.2505283,
+    "seen": 1790760681.895314,
+    "ast_hash": "bf059c1c9e0e73846e99c1e841f6e450",
     "semantic_hash": ""
   },
   "backend/scripts/prebuild_index.py": {
@@ -840,9 +840,9 @@
     "semantic_hash": ""
   },
   "backend/tests/test_v1_trust_engine.py": {
-    "mtime": 1790760225.3070276,
-    "seen": 1790760297.1913955,
-    "ast_hash": "0f73780b1cf49d5f79bc1e55482ae0f5",
+    "mtime": 1790760605.518486,
+    "seen": 1790760681.8954322,
+    "ast_hash": "08b3875370b6ea54fa3a85b8b65a9f55",
     "semantic_hash": ""
   },
   "docs/SESSION_PROMPTS_V2.md": {

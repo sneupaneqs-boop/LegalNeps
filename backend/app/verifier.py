@@ -47,28 +47,65 @@ MARK = {"en": " *(⚠ not verified against the sources)*", "ne": " *(⚠ स्�
 # Statutes usually spell periods out ("छ महिनाभित्र", "पैंतीस दिन"). Only a
 # number word directly followed by a time unit is converted - "छ" alone is
 # also the verb "is".
-_NE_WORDS = {
-    "एक": 1, "दुई": 2, "तीन": 3, "चार": 4, "पाँच": 5, "पांच": 5, "छ": 6, "सात": 7, "आठ": 8, "नौ": 9,
-    "दश": 10, "दस": 10, "एघार": 11, "बाह्र": 12, "तेह्र": 13, "चौध": 14, "पन्ध्र": 15, "सोह्र": 16,
-    "सत्र": 17, "अठार": 18, "उन्नाइस": 19, "बीस": 20, "एक्काइस": 21, "बाइस": 22, "तेइस": 23,
-    "चौबीस": 24, "पच्चीस": 25, "छब्बीस": 26, "सत्ताइस": 27, "अठ्ठाइस": 28, "उनन्तीस": 29, "तीस": 30,
-    "एकतीस": 31, "बत्तीस": 32, "पैंतीस": 35, "पैँतीस": 35, "छत्तीस": 36, "चालीस": 40, "पैंतालीस": 45,
-    "पैँतालीस": 45, "पचास": 50, "साठी": 60, "सत्तरी": 70, "असी": 80, "नब्बे": 90, "सय": 100,
-}
+_NE_BASE = [
+    "एक", "दुई", "तीन", "चार", "पाँच", "छ", "सात", "आठ", "नौ", "दस",
+    "एघार", "बाह्र", "तेह्र", "चौध", "पन्ध्र", "सोह्र", "सत्र", "अठार", "उन्नाइस", "बीस",
+    "एक्काइस", "बाइस", "तेइस", "चौबीस", "पच्चीस", "छब्बीस", "सत्ताइस", "अठ्ठाइस", "उनन्तीस", "तीस",
+    "एकतीस", "बत्तीस", "तेत्तीस", "चौंतीस", "पैंतीस", "छत्तीस", "सैंतीस", "अठतीस", "उनन्चालीस", "चालीस",
+    "एकचालीस", "बयालीस", "त्रिचालीस", "चवालीस", "पैंतालीस", "छयालीस", "सतचालीस", "अठचालीस", "उनन्चास", "पचास",
+    "एकाउन्न", "बाउन्न", "त्रिपन्न", "चउन्न", "पचपन्न", "छपन्न", "सन्ताउन्न", "अन्ठाउन्न", "उनन्साठी", "साठी",
+    "एकसट्ठी", "बयसट्ठी", "त्रिसट्ठी", "चौंसट्ठी", "पैंसट्ठी", "छयसट्ठी", "सतसट्ठी", "अठसट्ठी", "उनन्सत्तरी", "सत्तरी",
+    "एकहत्तर", "बहत्तर", "त्रिहत्तर", "चौहत्तर", "पचहत्तर", "छयहत्तर", "सतहत्तर", "अठहत्तर", "उनासी", "असी",
+    "एकासी", "बयासी", "त्रियासी", "चौरासी", "पचासी", "छयासी", "सतासी", "अठासी", "उनान्नब्बे", "नब्बे",
+    "एकानब्बे", "बयानब्बे", "त्रियानब्बे", "चौरानब्बे", "पन्चानब्बे", "छयानब्बे", "सन्तानब्बे", "अन्ठानब्बे", "उनान्सय", "सय",
+]
+_NE_EXTRA = {"दश": 10, "पांच": 5, "अठाह्र": 18, "उन्नाईस": 19, "अठ्चालीस": 48, "अठ्तीस": 38, "असि": 80, "एक सय": 100}
+
+
+def _ne_variants(word: str) -> set[str]:
+    """Statutes and model output spell the same number several ways: long/short
+    i (बीस/बिस), chandrabindu/anusvara (पाँच/पांच), with or without the
+    half-t in अठ्/अठ."""
+    out = {word}
+    for a, b in (("ी", "ि"), ("ँ", "ं"), ("ं", "ँ"), ("अठ्", "अठ"), ("अठ", "अठ्")):
+        out |= {w.replace(a, b) for w in out}
+    return out
+
+
+_NE_WORDS: dict[str, int] = {}
+for _n, _w in enumerate(_NE_BASE, 1):
+    for _v in _ne_variants(_w):
+        _NE_WORDS.setdefault(_v, _n)
+for _w, _n in _NE_EXTRA.items():
+    for _v in _ne_variants(_w):
+        _NE_WORDS.setdefault(_v, _n)
 _EN_WORDS = {
     "one": 1, "two": 2, "three": 3, "four": 4, "five": 5, "six": 6, "seven": 7, "eight": 8, "nine": 9,
     "ten": 10, "eleven": 11, "twelve": 12, "fifteen": 15, "twenty": 20, "thirty": 30, "thirty-five": 35,
     "forty": 40, "forty-five": 45, "fifty": 50, "sixty": 60, "ninety": 90, "hundred": 100,
 }
 _NE_WORD_QTY = re.compile(r"(?<![ऀ-ॿ])(" + "|".join(sorted(_NE_WORDS, key=len, reverse=True)) +
-                          r")\s*(?=(दिन|महिना|वर्ष|हप्ता|घण्टा))")
+                          r")\s*(?=(दिन|महिना|वर्ष|हप्ता|घण्टा|प्रतिशत|गुणा|लाख|हजार|करोड|रुपैयाँ|जना|वटा))")
 _EN_WORD_QTY = re.compile(r"\b(" + "|".join(sorted(_EN_WORDS, key=len, reverse=True)) +
                           r")(?=\s*\(?\s*\d*\s*\)?\s*(days?|months?|years?|weeks?|hours?)\b)", re.I)
 
 
+_MULTIPLIER = {"हजार": 1_000, "लाख": 100_000, "करोड": 10_000_000,
+               "thousand": 1_000, "lakh": 100_000, "lakhs": 100_000, "crore": 10_000_000, "crores": 10_000_000}
+_MULT_QTY = re.compile(r"([0-9०-९]+(?:[.,][0-9०-९]+)?)\s*(हजार|लाख|करोड|thousand|lakhs?|crores?)\b", re.I)
+
+
+def _expand_multiplier(m: re.Match) -> str:
+    n = float(m.group(1).translate(DEV_DIGITS).replace(",", ""))
+    value = n * _MULTIPLIER[m.group(2).lower()]
+    return str(int(value)) if value == int(value) else str(value)
+
+
 def _words_to_digits(text: str) -> str:
     text = _NE_WORD_QTY.sub(lambda m: f"{_NE_WORDS[m.group(1)]} ", text)
-    return _EN_WORD_QTY.sub(lambda m: str(_EN_WORDS[m.group(1).lower()]), text)
+    text = _EN_WORD_QTY.sub(lambda m: str(_EN_WORDS[m.group(1).lower()]), text)
+    # "पच्चीस लाख" / "25 lakh" and "2,500,000" are the same amount
+    return _MULT_QTY.sub(_expand_multiplier, text)
 
 
 def _norm_num(s: str) -> str:
