@@ -250,3 +250,28 @@ def test_calculator_api_endpoints():
         r = c.get("/api/calculators/labour/severance", params={"basic_monthly_pay": 30_000, "years_of_service": 5})
         assert r.status_code == 200
         assert r.json()["amount_npr"] == 150_000.0
+
+
+@requires_corpus
+def test_calculator_api_rejects_nan_and_infinity_instead_of_500():
+    """Regression (prod audit): nan/inf/1e999 parsed as floats, the result could not be
+    serialised to JSON and the endpoints answered 500."""
+    from fastapi.testclient import TestClient
+
+    from app.main import app
+
+    cases = [
+        ("/api/calculators/court-fee", {"claim_value": "{}"}),
+        ("/api/calculators/court-fee/appeal", {"disputed_value": "{}"}),
+        ("/api/calculators/labour/gratuity", {"basic_monthly_pay": "{}", "months_of_service": 12}),
+        ("/api/calculators/labour/gratuity", {"basic_monthly_pay": 30_000, "months_of_service": "{}"}),
+        ("/api/calculators/labour/notice", {"service_days": 400, "daily_wage": "{}"}),
+        ("/api/calculators/labour/severance", {"basic_monthly_pay": "{}", "years_of_service": 5}),
+        ("/api/calculators/labour/severance", {"basic_monthly_pay": 30_000, "years_of_service": "{}"}),
+    ]
+    with TestClient(app, raise_server_exceptions=False) as c:
+        for path, params in cases:
+            for bad in ("nan", "inf", "-inf", "1e999"):
+                q = {k: (bad if v == "{}" else v) for k, v in params.items()}
+                r = c.get(path, params=q)
+                assert 400 <= r.status_code < 500, (path, q, r.status_code)

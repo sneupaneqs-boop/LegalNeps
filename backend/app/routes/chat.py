@@ -4,6 +4,8 @@ import json
 import logging
 import time
 
+from typing import Annotated
+
 from fastapi import APIRouter, Depends, File, Header, HTTPException, Query, Request, UploadFile
 from fastapi.responses import Response, StreamingResponse
 from starlette.concurrency import iterate_in_threadpool
@@ -271,6 +273,11 @@ async def get_playbook(playbook_id: str) -> Playbook:
 
 # --------------------------------------------------------------- S8: calculators ---
 
+# NaN / Infinity parse as floats but cannot be serialised to JSON (the response 500'd);
+# reject them (and absurdly large values) as 422 like the tools endpoints do.
+Finite = Annotated[float, Query(allow_inf_nan=False, ge=-1e12, le=1e12)]
+
+
 def _bad_input(exc: ValueError) -> HTTPException:
     return HTTPException(status_code=400, detail=str(exc))
 
@@ -310,7 +317,7 @@ async def check_limitation(claim_type: str, trigger_date: str) -> LimitationChec
 
 
 @router.get("/calculators/court-fee", response_model=CourtFeeEstimateResponse)
-async def estimate_court_fee(claim_value: float) -> CourtFeeEstimateResponse:
+async def estimate_court_fee(claim_value: Finite) -> CourtFeeEstimateResponse:
     try:
         result = await asyncio.to_thread(court_fee_calc.estimate, claim_value)
     except ValueError as exc:
@@ -319,7 +326,7 @@ async def estimate_court_fee(claim_value: float) -> CourtFeeEstimateResponse:
 
 
 @router.get("/calculators/court-fee/appeal", response_model=CourtFeeAppealResponse)
-async def estimate_appeal_fee(disputed_value: float) -> CourtFeeAppealResponse:
+async def estimate_appeal_fee(disputed_value: Finite) -> CourtFeeAppealResponse:
     try:
         result = await asyncio.to_thread(court_fee_calc.estimate_appeal, disputed_value)
     except ValueError as exc:
@@ -328,7 +335,7 @@ async def estimate_appeal_fee(disputed_value: float) -> CourtFeeAppealResponse:
 
 
 @router.get("/calculators/labour/gratuity", response_model=GratuityResponse)
-async def calc_gratuity(basic_monthly_pay: float, months_of_service: float) -> GratuityResponse:
+async def calc_gratuity(basic_monthly_pay: Finite, months_of_service: Finite) -> GratuityResponse:
     try:
         result = await asyncio.to_thread(labour_calc.gratuity, basic_monthly_pay, months_of_service)
     except ValueError as exc:
@@ -337,7 +344,7 @@ async def calc_gratuity(basic_monthly_pay: float, months_of_service: float) -> G
 
 
 @router.get("/calculators/labour/notice", response_model=NoticeResponse)
-async def calc_notice(service_days: int, daily_wage: float) -> NoticeResponse:
+async def calc_notice(service_days: int, daily_wage: Finite) -> NoticeResponse:
     try:
         result = await asyncio.to_thread(labour_calc.notice, service_days, daily_wage)
     except ValueError as exc:
@@ -346,7 +353,7 @@ async def calc_notice(service_days: int, daily_wage: float) -> NoticeResponse:
 
 
 @router.get("/calculators/labour/severance", response_model=SeveranceResponse)
-async def calc_severance(basic_monthly_pay: float, years_of_service: float) -> SeveranceResponse:
+async def calc_severance(basic_monthly_pay: Finite, years_of_service: Finite) -> SeveranceResponse:
     try:
         result = await asyncio.to_thread(labour_calc.severance, basic_monthly_pay, years_of_service)
     except ValueError as exc:
