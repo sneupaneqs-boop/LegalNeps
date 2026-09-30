@@ -1,18 +1,23 @@
 {
-  "built_at": "2026-09-29T17:18:27Z",
+  "built_at": "2026-09-30T05:25:43Z",
   "counts": {
     "curated": 56,
     "law_chunks": 47177,
     "precedents": 10554,
-    "total": 71789,
+    "total": 73667,
     "law_documents": 802,
     "regulator_chunks": 14002,
-    "regulator_documents": 128
+    "regulator_documents": 128,
+    "regulator2_chunks": 1878,
+    "regulator2_documents": 88,
+    "ocr_chunks": 1404,
+    "ocr_documents": 79
   },
   "files": [
     "part-000.jsonl.gz",
     "part-001.jsonl.gz",
-    "part-002.jsonl.gz"
+    "part-002.jsonl.gz",
+    "part-003.jsonl.gz"
   ],
-  "digest": "bed440a3d0753019"
+  "digest": "7cbc6666770d2b74"
 }

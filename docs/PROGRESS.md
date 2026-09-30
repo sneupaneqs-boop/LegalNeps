@@ -192,6 +192,35 @@ S7's own "done when" bar (25 playbooks, ≥90% precision) doesn't require it.
 
 ## Done
 
+### V-batch 2b — OCR of the scanned regulator PDFs + NIA/MoLESS (2026-09-30)
+
+- **Corpus +1,878 passages / 88 docs** in a new shard `part-003` (`part-002` untouched; manifest
+  digest/counts keep shard order). `scripts/ocr_regulators.py`: Tesseract `nep+eng` at 300 dpi
+  page by page (cached in `sources/processed/ocr_tesseract/`; a thresholded retry for photographed
+  pages), `scripts/ocr_clean.py` (pure functions: matra repair, stray symbols/Latin stamp noise,
+  page numbers, repeated headers/footers, digit convention, figure-table chunks, per-page and
+  per-document word-validity gate against the corpus vocabulary). Chunks/status/dedupe reuse
+  `ingest_regulators.py`; OCR chunks carry `"ocr": true` (1,404 of the 1,878).
+  Needed OCR: 103 files (NRB 22, IRD 4, SEBON 50, OCR 20, PPMO 7) + 54 scanned NIA/MoLESS files.
+  OCR quality is high (median 95% valid words; only one document, NIA "MISCELLANEOUS", unreadable);
+  most of the SEBON scans turned out to be older/duplicate copies of instruments `part-002`
+  already carries as text, so they were skipped as editions. Ingested: IRD Finance Act 2083
+  (558), SEBON 349 (SME issue rules 2081, book-building, merger and branch guidelines, 2083
+  circulars, the money-laundering amendment Act), Company Registrar 47 notices, PPMO e-procurement
+  directive + 2083 procurement Act/Rules amendments (171), NRB 128, NIA 263 (RBC directive 2026,
+  reinsurance directive, claim/circulars), MoLESS 362 (social security scheme, labour audit,
+  workplace standards, employer/worker registration).
+- **NIA and MoLESS are reachable after all**: MoLESS only at `https://www.moless.gov.np`; NIA's
+  HTTPS resets but plain `http://nia.gov.np` answers and is not a GIWMS site (`nia_rows` reads its
+  `/law/` tables; only the current fiscal year's directives/circulars are listed). Rajpatra
+  (`rajpatra.dop.gov.np`) still returns 502 / tunnel closed.
+- Retrieval eval (raw): hit@8 0.863 → 0.863, hit@3 0.699 → 0.699, MRR 0.668 → 0.665.
+  Peak RSS: cold index build 369 → 378 MB, warm load 197 → 200 MB.
+- Known gap: `generation._REGULATOR_DOC` gates only `reg-(nrb|sebon|ocr)-`; `reg-ppmo-`,
+  `reg-nia-`, `reg-moless-` passages are not restricted to their own topics (not touched here).
+- Scripts need `tesseract-ocr tesseract-ocr-nep tesseract-ocr-eng` (system) and
+  `scrapling[fetchers]` (`requirements-scripts.txt`); production needs neither.
+
 ### V-batch 2 — regulator corpus, official drafting formats, tools, prod fixes (2026-09-29)
 
 - **Corpus +14,002 passages / 128 docs** (`part-002`, `scripts/scrape_regulators.py`,

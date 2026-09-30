@@ -33,7 +33,9 @@ the latest Unified Directive (2082) issue, instruments dated in the current fisc
 (older circulars, consolidated acts that a later amendment may have touched) is "unknown".
 
 NOTE: build_corpus.py deletes every *.jsonl.gz in the corpus directory when it rebuilds;
-re-run this script afterwards to restore part-002.
+re-run this script afterwards to restore part-002, then ocr_regulators.py ingest to restore
+part-003 (the OCR'd scans + NIA/MoLESS shard; update_manifest/corpus_digest keep manifest
+order, so rebuilding either shard leaves the other in place).
 """
 from __future__ import annotations
 
@@ -444,19 +446,26 @@ def build_entries(rec: dict, ex: dict, existing_keys: set[int], seen_keys: set[i
 # --------------------------------------------------------------------------
 # manifest / shard
 # --------------------------------------------------------------------------
-def corpus_digest(extra_ids: list[str]) -> tuple[str, int]:
-    """Digest exactly as build_corpus.main(): sha256("".join(ids in shard order))[:16]."""
+def corpus_digest(extra_ids: list[str], shard: str = SHARD_NAME) -> tuple[str, int]:
+    """Digest exactly as build_corpus.main(): sha256("".join(ids in shard order))[:16].
+    `shard`'s own ids come from `extra_ids` (the entries about to be written), every other
+    shard is read from disk, all in manifest order (a new shard goes last)."""
     h = hashlib.sha256()
     n = 0
     manifest = json.load(open(os.path.join(CORPUS_DIR, "manifest.json"), encoding="utf-8"))
-    for name in [f for f in manifest["files"] if f != SHARD_NAME]:
+    names = list(manifest["files"])
+    if shard not in names:
+        names.append(shard)
+    for name in names:
+        if name == shard:
+            for i in extra_ids:
+                h.update(i.encode())
+                n += 1
+            continue
         with gzip.open(os.path.join(CORPUS_DIR, name), "rt", encoding="utf-8") as f:
             for line in f:
                 h.update(json.loads(line)["id"].encode())
                 n += 1
-    for i in extra_ids:
-        h.update(i.encode())
-        n += 1
     return h.hexdigest()[:16], n
 
 
@@ -468,18 +477,23 @@ def write_shard(entries: list[dict]) -> int:
     return os.path.getsize(path)
 
 
-def update_manifest(entries: list[dict]) -> dict:
+def update_manifest(entries: list[dict], shard: str = SHARD_NAME,
+                    count_keys: tuple[str, str] = ("regulator_chunks", "regulator_documents")) -> dict:
+    """Register `shard` (append if new) and recompute digest + counts. `count_keys` are the
+    manifest counters (chunks, documents) that belong to this shard, e.g. the OCR shard
+    part-003 uses ("ocr_chunks", "ocr_documents"). Idempotent."""
     mpath = os.path.join(CORPUS_DIR, "manifest.json")
     m = json.load(open(mpath, encoding="utf-8"))
     base = m.get("counts", {})
-    prev_reg = base.get("regulator_chunks", 0)
-    base_total = base["total"] - prev_reg
-    if SHARD_NAME not in m["files"]:
-        m["files"].append(SHARD_NAME)
-    m["digest"], n = corpus_digest([e["id"] for e in entries])
+    chunk_key, doc_key = count_keys
+    prev = base.get(chunk_key, 0)
+    base_total = base["total"] - prev
+    if shard not in m["files"]:
+        m["files"].append(shard)
+    m["digest"], n = corpus_digest([e["id"] for e in entries], shard)
     docs = {e["doc_id"] for e in entries}
-    base["regulator_chunks"] = len(entries)
-    base["regulator_documents"] = len(docs)
+    base[chunk_key] = len(entries)
+    base[doc_key] = len(docs)
     base["total"] = base_total + len(entries)
     assert n == base["total"], (n, base["total"])
     m["counts"] = base
