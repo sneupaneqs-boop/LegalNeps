@@ -15,6 +15,11 @@ from pathlib import Path
 
 GLOSSARY_PATH = Path(__file__).parent / "data" / "glossary.json"
 _WORD = re.compile(r"[a-z]+")
+# single words that are everyday romanised-Nepali / English function words: as a
+# lone glossary key they fire on unrelated messages ("paisa pani dinna" -> water)
+_NOISY_SINGLES = {"pani", "paisa", "kaam", "work", "well", "will", "good", "book", "break", "pay", "offer", "tag",
+                  "park", "wall", "wood", "river", "lake", "label", "herb", "zoo", "smell", "odor", "fence",
+                  "gain", "loss", "major", "minor", "chief", "party", "order", "grade", "brand", "error"}
 
 
 def _norm_en(w: str) -> str:
@@ -40,7 +45,7 @@ def _index() -> tuple[dict[tuple[str, ...], list[str]], int]:
             ne = [t for t in e.get("ne", []) if t][:3]
             for phrase in e.get("en", []) + e.get("roman", []):
                 k = _key(phrase)
-                if not k or (len(k) == 1 and len(k[0]) <= 2):
+                if not k or (len(k) == 1 and (len(k[0]) <= 2 or k[0] in _NOISY_SINGLES)):
                     continue
                 bucket = idx.setdefault(k, [])
                 for t in ne:
@@ -50,26 +55,36 @@ def _index() -> tuple[dict[tuple[str, ...], list[str]], int]:
     return idx, longest
 
 
-def expand(text: str, max_terms: int = 14) -> list[str]:
-    """Nepali statute terms for the English/romanised phrases in `text`,
-    longest phrase match first."""
+def expand_hits(text: str) -> list[tuple[tuple[str, ...], list[str]]]:
+    """(matched phrase words, its Nepali terms) for each glossary phrase in
+    `text`, longest match first, in order of appearance."""
     idx, longest = _index()
     if not idx:
         return []
     words = [_norm_en(w) for w in _WORD.findall(text.lower())]
-    out: list[str] = []
+    hits: list[tuple[tuple[str, ...], list[str]]] = []
     i = 0
     while i < len(words):
         for n in range(min(longest, len(words) - i), 0, -1):
-            terms = idx.get(tuple(words[i:i + n]))
+            key = tuple(words[i:i + n])
+            terms = idx.get(key)
             if terms:
-                for t in terms:
-                    if t not in out:
-                        out.append(t)
+                hits.append((key, terms))
                 i += n
                 break
         else:
             i += 1
+    return hits
+
+
+def expand(text: str, max_terms: int = 14) -> list[str]:
+    """Nepali statute terms for the English/romanised phrases in `text`,
+    longest phrase match first."""
+    out: list[str] = []
+    for _, terms in expand_hits(text):
+        for t in terms:
+            if t not in out:
+                out.append(t)
     return out[:max_terms]
 
 

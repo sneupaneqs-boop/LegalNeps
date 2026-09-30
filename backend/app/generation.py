@@ -18,8 +18,9 @@ import re
 from collections import OrderedDict
 from threading import Lock
 
-from . import config, glossary, llm, playbooks, prompt_guard, supa, tiers, verifier
-from .playbook_matcher import match as match_playbook
+from . import config, glossary, llm, playbooks, prompt_guard, supa, tiers, translit, verifier
+from .playbook_matcher import match_scored as match_playbook_scored
+from .playbook_matcher import strong_match as strong_playbook_match
 from .retrieval import get_index
 from .text_norm import detect_language, fold, guess_language, tokenize
 
@@ -38,37 +39,51 @@ DISCLAIMER_NE = (
     "जरुरी वा महत्वपूर्ण विषयमा कृपया वकिलसँग सम्पर्क गर्नुहोस्।"
 )
 
-ANALYZE_SYSTEM = """You are a Nepali legal research assistant. Convert a person's question into \
-search queries for a corpus that contains ONLY official Nepali-language statutes (Constitution, \
-Acts/ऐन, Codes/संहिता, Regulations/नियमावली, Orders) and Supreme Court precedents (नेपाल कानून \
-पत्रिका), all written in formal legal Nepali.
+ANALYZE_SYSTEM = """You turn a person's question into search queries for a corpus of ONLY official \
+Nepali-language statutes (Constitution, Acts/ऐन, Codes/संहिता, Rules/नियमावली, Orders) and Supreme \
+Court precedents, all in formal legal Nepali. The person may write English, Devanagari, or ROMANISED \
+Nepali ("mero ghar bhada", "talab dinna"): read romanised Nepali as Nepali, then search in Devanagari.
 
-People type anything: greetings, thanks, follow-ups to the earlier conversation, vague or \
-off-topic messages. Classify first, then (for legal questions) plan the search.
-
-Return JSON with exactly these keys:
-- "intent": one of "legal" (asks about law, rights, a legal problem or procedure - even vaguely \
-or emotionally described), "greeting", "thanks", "smalltalk" (chit-chat, questions about you), \
-"off_topic" (clearly not about law), "unclear" (legal-ish but too vague to search, e.g. "help me").
-- "reply": for any intent other than "legal", a short warm reply in the reply language: answer \
-the greeting/thanks/smalltalk briefly, say you help with Nepali law for off_topic, or ask ONE \
-specific clarifying question for unclear. Empty string for "legal".
-- "question": for "legal", the person's question rewritten as a complete, self-contained question \
-(resolve follow-ups like "what about daughters?" using the earlier conversation); else "".
-- "reply_language": "ne" if the person wrote in Nepali (Devanagari or romanised Nepali like \
-"mero ghar"), else "en".
-- "concern": one sentence restating the person's real underlying legal concern, in the reply language.
-- "area": short legal area in English (e.g. "family law - divorce", "landlord-tenant", "criminal - assault").
-- "queries_ne": 4-6 short Nepali search phrases (2-7 words each) using the exact formal vocabulary \
-Nepali statutes use (e.g. landlord/tenant -> "घर बहाल", "बहालवाला", "घरधनी"; deposit -> "धरौटी"; \
-divorce -> "सम्बन्ध विच्छेद"; property share -> "अंश"; limitation period -> "हदम्याद"; \
-rape -> "जबरजस्ती करणी"; cheating -> "ठगी"; wage -> "पारिश्रमिक"). Include the specific \
-provision topic, not just the area.
+Classify first; plan the search only for legal questions. Return JSON with exactly these keys:
+- "intent": "legal" (any law/rights/legal problem/procedure, even vague or emotional), "greeting", \
+"thanks", "smalltalk", "off_topic" (clearly not law), "unclear" (legal-ish but too vague to search).
+- "reply": for non-legal intents, a short warm reply in the reply language (ONE clarifying question \
+for unclear); "" for legal.
+- "question": for legal, the message as one complete self-contained question, resolving follow-ups \
+from the earlier conversation; else "".
+- "reply_language": "ne" if the person wrote Nepali (Devanagari or romanised), else "en".
+- "concern": one sentence on the real underlying legal concern, in the reply language.
+- "area": short English legal area (e.g. "labour - overtime").
+- "queries_ne": 4-6 short Devanagari phrases (2-6 words) in the STATUTORY vocabulary the law text \
+itself uses, not everyday speech: wage/salary -> पारिश्रमिक; working hours -> कार्य घण्टा, अतिरिक्त \
+समय; deposit/bail -> धरौटी, जमानत; property partition -> अंशबण्डा, अंशियार; heirs -> हकवाला; \
+FIR -> जाहेरी दरखास्त; insider trading -> भित्री कारोबार; divorce -> सम्बन्ध विच्छेद; landlord/tenant \
+-> घरधनी, बहालवाला, घर बहाल; limitation -> हदम्याद; rape -> जबरजस्ती करणी; cheating -> ठगी. Name \
+the specific provision topic, not just the area. Never copy romanised words into queries_ne.
 - "queries_en": 1-2 short English phrases.
-- "laws": up to 4 exact Nepali titles of the statutes most likely to govern this \
-(e.g. "मुलुकी देवानी संहिता, २०७४", "मुलुकी अपराध संहिता, २०७४", "नेपालको संविधान", \
-"श्रम ऐन, २०७४", "उपभोक्ता संरक्षण ऐन, २०७५", "घरेलु हिंसा (कसूर र सजाय) ऐन, २०६६").
-- "wants_precedent": true if court interpretation/precedent would help answer, else false."""
+- "laws": up to 3 governing Acts by their EXACT published title with year, e.g. "श्रम ऐन, २०७४", \
+"मुलुकी देवानी संहिता, २०७४", "मुलुकी अपराध संहिता, २०७४", "मुलुकी फौजदारी कार्यविधि संहिता, २०७४", \
+"वैदेशिक रोजगार ऐन, २०६४", "घरेलु हिंसा (कसूर र सजाय) ऐन, २०६६", "धितोपत्र सम्बन्धी ऐन, २०६३", \
+"कम्पनी ऐन, २०६३", "सूचनाको हक सम्बन्धी ऐन, २०६४", "उपभोक्ता संरक्षण ऐन, २०७५", "विद्युतीय \
+(इलेक्ट्रोनिक) कारोबार ऐन, २०६३", "बैङ्किङ्ग कसूर तथा सजाय ऐन, २०६४", "मालपोत ऐन, २०३४". Omit \
+if unsure; never invent a title.
+- "wants_precedent": true if court interpretation would help, else false.
+
+Examples (message -> area; queries_ne; laws):
+1. "boss le din ko 12 ghanta kaam garauchha, overtime ko paisa pani dinna" -> labour hours; \
+["कार्य घण्टा", "अतिरिक्त समयको पारिश्रमिक", "साप्ताहिक कार्य घण्टा"]; ["श्रम ऐन, २०७४"]
+2. "manpower le thagyo, visa aayena, 3 lakh liyo" -> foreign-employment fraud; ["वैदेशिक रोजगारको \
+नाममा ठगी", "रकम फिर्ता क्षतिपूर्ति", "म्यानपावर इजाजतपत्र"]; ["वैदेशिक रोजगार ऐन, २०६४"]
+3. "sasu-sasura le sampatti ma haq chhaina bhanchhan, shreeman gujrey" -> widow's property; \
+["विधवाको अंश", "अपुताली हकवाला", "अंशबण्डा"]; ["मुलुकी देवानी संहिता, २०७४"]
+4. "police le jaheri lina maandaina" -> FIR refused; ["जाहेरी दरखास्त दर्ता", "प्रहरीले जाहेरी \
+नलिएमा", "सरकारी वकिलको कार्यालयमा उजुरी"]; ["मुलुकी फौजदारी कार्यविधि संहिता, २०७४"]
+5. "company le byaj sahit dharauti jafat garyo" -> deposit forfeiture; ["धरौटी जफत", "ब्याज सहित \
+रकम फिर्ता", "सम्झौता उल्लङ्घन क्षतिपूर्ति"]; ["मुलुकी देवानी संहिता, २०७४"]
+6. "kampani ko bhitri suchana bata share kinbech garda ke sajaya?" -> insider trading; \
+["भित्री कारोबार", "धितोपत्र कारोबार सजाय"]; ["धितोपत्र सम्बन्धी ऐन, २०६३"]
+7. "cheque bounce bhayo, sathi le paisa dinna" -> dishonoured cheque; ["चेक अनादर", "चेकको रकम \
+भुक्तानी", "बैङ्किङ्ग कसूर सजाय"]; ["बैङ्किङ्ग कसूर तथा सजाय ऐन, २०६४"]"""
 
 ANSWER_SYSTEM = """You are Kanooni Sathi ("Legal Friend"), a warm, precise bilingual \
 (English/Nepali) legal-information assistant for Nepal.
@@ -211,36 +226,54 @@ def quick_intent(message: str) -> str | None:
     return None
 
 
+def _is_devanagari(message: str) -> bool:
+    """Script check on the message itself. NOT the language hint: the hint is
+    "ne" for romanised Nepali too (guess_language), and romanised Nepali is
+    exactly what the statute index cannot read."""
+    return detect_language(message) == "ne"
+
+
+def _expansion_precise(message: str) -> bool:
+    """The glossary's word-for-word expansion is trustworthy: it found
+    something, and every hit is a multi-word phrase or a long distinctive word
+    (short single words like "pani", "kaam", "paisa" are ambiguous)."""
+    hits = glossary.expand_hits(message)
+    return bool(hits) and len(hits) <= 6 and all(len(k) > 1 or len(k[0]) >= 6 for k, _ in hits)
+
+
 def confidence(message: str, lang: str) -> float:
-    """How sure we are this message is a legal question we can search well
-    without an LLM rewriting it - i.e. it already contains vocabulary our
-    statute-Nepali index matches (directly, since statutes are in Nepali, or
-    via the glossary's English/romanised -> Nepali expansion). Used to skip
-    analyze_query's LLM call for the common case; low-confidence messages
-    still get the full LLM analysis. quick_intent() has already filtered out
-    greetings/thanks/smalltalk/obvious-off-topic before this is called, so a
-    Nepali-script message reaching here is almost always a real legal
-    question - the LLM's main value for it is polishing search phrasing, not
-    deciding whether to search at all.
+    """How sure we are this message can be searched well WITHOUT an LLM
+    rewriting it. Devanagari questions already use the statutes' own script, so
+    the raw text plus glossary/lexicon expansion is enough (the LLM would only
+    polish phrasing). Anything typed in Latin script (English or romanised
+    Nepali) needs the rewrite unless a curated playbook matches on an exact
+    phrase AND the glossary expansion is high-precision - a loose glossary hit
+    count is not evidence of understanding ("paisa pani" -> land units + water).
+    quick_intent() has already filtered greetings/thanks/smalltalk.
+    `lang` is kept for API compatibility; the decision is made on the script.
     """
-    if lang == "ne":
+    if _is_devanagari(message):
         return 0.9
-    expansion = glossary.expand(message)
-    return min(1.0, 0.3 * len(expansion)) if expansion else 0.0
+    if strong_playbook_match(message) and _expansion_precise(message):
+        return 0.9
+    return 0.3 if (glossary.expand(message) or translit.expand(message)) else 0.0
 
 
 CONFIDENCE_THRESHOLD = 0.6
 
 
+def _skip_llm(message: str, lang_hint: str, history: list[dict] | None) -> bool:
+    """The one rule for "answer this question without the query-rewrite call"
+    - shared by analyze_needs_llm() and analyze_query() so they cannot drift.
+    Follow-ups always need the LLM (history resolves "what about daughters?")."""
+    return not history and confidence(message, lang_hint) >= CONFIDENCE_THRESHOLD
+
+
 def analyze_needs_llm(message: str, lang_hint: str, history: list[dict] | None = None) -> bool:
-    """Whether analyze_query() will reach a provider for this message - kept
-    in sync with analyze_query()'s own short-circuits so run()'s llm_calls
-    count stays accurate without duplicating the decision logic."""
+    """Whether analyze_query() will reach a provider for this message."""
     if quick_intent(message) is not None or not llm.available():
         return False
-    if not history and confidence(message, lang_hint) >= CONFIDENCE_THRESHOLD:
-        return False
-    return True
+    return not _skip_llm(message, lang_hint, history)
 
 
 def analyze_query(message: str, lang_hint: str, history: list[dict] | None = None) -> dict:
@@ -254,12 +287,10 @@ def analyze_query(message: str, lang_hint: str, history: list[dict] | None = Non
             "queries_en": [], "laws": [], "wants_precedent": True, "llm": False}
     if base["intent"] != "legal" or not llm.available():
         return base
-    if not history and confidence(message, lang_hint) >= CONFIDENCE_THRESHOLD:
-        # skip the LLM call: build_queries() already does glossary expansion
-        # and searches the raw Nepali message directly, so a confident
+    if _skip_llm(message, lang_hint, history):
+        # skip the LLM call: build_queries() already searches the raw
+        # Devanagari message plus glossary/lexicon expansion, so a confident
         # message searches just as well without an LLM-rewritten query set.
-        # Follow-ups always go through the LLM (needs history to resolve
-        # "what about daughters?" into a standalone question).
         out = {**base, "question": message}
         _analysis_cache.put(key, out)
         return out
@@ -267,7 +298,7 @@ def analyze_query(message: str, lang_hint: str, history: list[dict] | None = Non
         prompt = (f"Earlier conversation:\n{hist}\n\n" if hist else "") + \
             f"Latest message: {prompt_guard.wrap_user_text(message)}"
         raw = llm.complete(ANALYZE_SYSTEM, prompt, fast=True, json_mode=True,
-                           max_tokens=1000, temperature=0.1)
+                           max_tokens=700, temperature=0.1)
         data = llm.parse_json(raw)
         out = {**base, **{k: data.get(k, base[k]) for k in base if k != "llm"}, "llm": True}
         for k in ("queries_ne", "queries_en", "laws"):
@@ -286,17 +317,29 @@ def analyze_query(message: str, lang_hint: str, history: list[dict] | None = Non
 
 
 def build_queries(message: str, analysis: dict) -> list[tuple[str, float]]:
-    """Weighted query set: the LLM's Nepali legal phrasings carry most
-    weight; glossary expansion translates English/romanised words locally;
-    the raw message counts less when it isn't Nepali (English words mostly
-    match English-heavy noise like forms and dictionaries)."""
+    """Weighted query set. Sources, best first: the LLM's Nepali legal
+    phrasings; the curated romanised-Nepali lexicon (translit.py: precise,
+    corpus-validated Devanagari terms); the word-for-word glossary (broader
+    but noisier); the raw message (Devanagari messages search directly, Latin
+    ones mostly match English-heavy noise like forms and dictionaries, so they
+    count less once anything better exists). With an LLM rewrite the local
+    expansions are supporting evidence; without one they are the query."""
     is_ne = detect_language(message) == "ne"
+    llm_q = analysis.get("queries_ne") or []
     expansion = glossary.expand(message)
-    queries: list[tuple[str, float]] = [(message, 1.0 if is_ne else (0.35 if (expansion or analysis.get("queries_ne")) else 1.0))]
-    queries += [(q, 1.0) for q in analysis.get("queries_ne", [])]
+    lex = translit.match(message)
+    lex_terms = translit.expand(message)
+    queries: list[tuple[str, float]] = [
+        (message, 1.0 if is_ne else (0.35 if (expansion or llm_q or lex_terms) else 1.0))]
+    queries += [(q, 1.0) for q in llm_q]
     queries += [(q, 0.4) for q in analysis.get("queries_en", [])]
+    if lex_terms:
+        queries.append((" ".join(lex_terms), 0.6 if llm_q else 1.0))
+        # one query per concept so a multi-topic message searches each topic,
+        # not only the passages that mention all of them
+        queries += [(" ".join(e.terms), 0.3 if llm_q else 0.5) for e in lex if e.strong]
     if expansion:
-        queries.append((" ".join(expansion), 1.0 if not analysis.get("queries_ne") else 0.7))
+        queries.append((" ".join(expansion), 0.7 if llm_q else (0.5 if lex_terms else 1.0)))
         queries += [(t, 0.25) for t in expansion[:6]]
     return queries
 
@@ -391,7 +434,8 @@ def search(message: str, analysis: dict, top_k: int | None = None, precedent_k: 
     precedent_k = config.PRECEDENT_K if precedent_k is None else precedent_k
     queries = build_queries(message, analysis)
     pinned = pinned_provisions(playbook)
-    boost = list(analysis.get("laws", [])) + [p.get("law_title_ne") for p in (playbook or {}).get("provisions", [])]
+    boost = (list(analysis.get("laws", [])) + translit.laws(message)
+             + [p.get("law_title_ne") for p in (playbook or {}).get("provisions", [])])
     laws = idx.search(queries, top_k=top_k + 6, boost_titles=[b for b in boost if b], category="law")
     if not _is_fiscal_query(message, analysis):
         on_domain = [s for s in laws if not _FISCAL_DOC.search(s.get("doc_title_ne") or "")
@@ -521,13 +565,41 @@ def _extractive(sources: list[dict], lang: str) -> str:
     return "\n".join(lines)
 
 
+PLAYBOOK_LOOSE_MIN_SCORE = 1.0
+
+
+def _playbook_id_for(text: str) -> str | None:
+    """A playbook id for `text`, or None. The keyword matcher alone is loose:
+    a single shared word ("boss", "sasu", "police") can half-match a playbook
+    for a different situation, and a wrong pin puts the wrong law at the top
+    of the answer. So a match is trusted when (a) an exact keyword phrase is in
+    the text, or (b) the lexicon knows which statutes the message is about and
+    the playbook's own provisions come from one of them, or (c) with no lexicon
+    signal, the keyword score is high (>= 3)."""
+    strong = strong_playbook_match(text)
+    if strong:
+        return strong
+    got = match_playbook_scored(text)
+    if not got:
+        return None
+    pid, score = got
+    lex_laws = translit.laws(text)
+    if lex_laws:
+        try:
+            pb_laws = {p.get("law_title_ne") for p in playbooks.get_playbook(pid).get("provisions", [])}
+        except playbooks.UnresolvedProvision:
+            return None
+        return pid if pb_laws & set(lex_laws) else None
+    return pid if score >= PLAYBOOK_LOOSE_MIN_SCORE else None
+
+
 def _match_playbook(message: str, analysis: dict) -> dict | None:
     """The curated action plan for this situation, when the keyword matcher
     is confident. Tries the raw message, then the LLM's standalone rewrite
     (which resolves follow-ups like "what about my deposit?")."""
     for text in (message, analysis.get("question") or ""):
         if text:
-            pid = match_playbook(text)
+            pid = _playbook_id_for(text)
             if pid:
                 try:
                     return playbooks.get_playbook(pid)
