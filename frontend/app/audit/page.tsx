@@ -2,7 +2,6 @@
 
 import Link from "next/link";
 import { useEffect, useMemo, useRef, useState } from "react";
-import AuthWidget from "@/components/AuthWidget";
 import {
   AuditResult,
   auditDocument,
@@ -19,7 +18,8 @@ import {
   MatterSummary,
   STATUS_ORDER,
 } from "@/lib/documents";
-import { Lang, strings } from "@/lib/i18n";
+import { Lang } from "@/lib/i18n";
+import { useLang } from "@/lib/LangContext";
 import { authAvailable } from "@/lib/supabase";
 import { useAuth } from "@/lib/useAuth";
 import "./audit.css";
@@ -179,8 +179,8 @@ function fmtBytes(n: number): string {
 }
 
 export default function AuditPage() {
-  const [lang, setLang] = useState<Lang>("en");
-  const t = strings[lang];
+  // shared with the app shell's language toggle (the page used to keep its own copy and header)
+  const { lang } = useLang();
   const p = L[lang];
   const { session, loading: authLoading } = useAuth();
 
@@ -305,27 +305,6 @@ export default function AuditPage() {
 
   return (
     <div className="page au-page">
-      <div className="header">
-        <div className="brand">
-          <h1>{t.appName}</h1>
-        </div>
-        <div className="header-actions">
-          <Link className="nav-link" href="/search">
-            {t.navSearch}
-          </Link>
-          <Link className="nav-link" href="/action-plans">
-            {t.navPlaybooks}
-          </Link>
-          <Link className="nav-link" href="/">
-            {t.navChat}
-          </Link>
-          <AuthWidget lang={lang} />
-          <button className="lang-toggle" onClick={() => setLang(lang === "en" ? "ne" : "en")}>
-            {t.langToggle}
-          </button>
-        </div>
-      </div>
-
       <main className="au-body">
         <section className="au-hero">
           <h2>{p.title}</h2>
