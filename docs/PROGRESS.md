@@ -200,6 +200,18 @@ S7's own "done when" bar (25 playbooks, ≥90% precision) doesn't require it.
 
 ## Done
 
+### V2 exit — live held-out measurement (2026-09-30)
+
+Held-out set (50) through the **deployed** pipeline (`eval/live_retrieval.py`, LLM query
+rewrite + hybrid BM25/e5-small retrieval, 32/50 questions used the rewrite): **hit@8 0.84**
+(bar ≥ 0.80 met), hit@3 0.76, MRR 0.709; by language en 0.867, ne 0.786, romanised 0.833.
+Offline raw path (no LLM) for the same config: hit@8 0.74, hit@3 0.66, MRR 0.608 — the
+English-heavy held-out set depends on the rewrite. No held-out question was inspected.
+Caveat: the V1 baseline (0.76) was measured on the raw path, not live, so the live gain
+over pre-V2 production isn't isolated. Render memory with dense loaded: ~394MB of 512MB.
+Held-out runs used so far: raw ×3 (V1 baseline, query agent ×2 incl. baseline, dense agent ×2,
+combined ×1) and live ×1 — treat further runs sparingly.
+
 ### V2 — Hybrid retrieval, dense half (2026-09-30)
 
 BM25 + semantic (multilingual-e5-small) retrieval fused inside `Index.search`. **Exit bar NOT met:
