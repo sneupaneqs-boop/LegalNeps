@@ -322,6 +322,15 @@ _REGULATOR_QUERY = re.compile(
     r"company regist|annual return|\bocr\b|"
     r"बैंक|राष्ट्र बैंक|ऋण|कर्जा|ब्याज|विदेशी विनिमय|सटही|रेमिट|लघुवित्त|वित्तीय संस्था|सहकारी|"
     r"धितोपत्र|शेयर|सेयर|आईपीओ|ब्रोकर|दलाल|डिबेन्चर|म्युचुअल|कम्पनी रजिस्ट्रार|वार्षिक विवरण)", re.I)
+# the same rule for the other regulators: each only answers its own field
+_AUTHORITY_DOMAIN = {
+    "ppmo": re.compile(r"(procure|tender|bid\b|bidding|contractor|e-gp|खरिद|बोलपत्र|टेन्डर|ठेक्का|निर्माण व्यवसायी|ई-जीपी)", re.I),
+    "nia": re.compile(r"(insur|reinsur|policy ?holder|premium|claim|बीमा|बिमा|प्रिमियम|दाबी भुक्तानी|पुनर्बीमा)", re.I),
+    "moless": re.compile(r"(labou?r|employ|worker|wage|salary|overtime|social security|\bssf\b|child labou?r|workplace|"
+                         r"foreign employment|manpower|talab|श्रम|कामदार|मजदुर|रोजगार|तलब|पारिश्रमिक|ज्याला|ओभरटाइम|"
+                         r"सामाजिक सुरक्षा|बालश्रम|कार्यस्थल|वैदेशिक रोजगार|म्यानपावर)", re.I),
+}
+_AUTHORITY_ID = re.compile(r"^reg-(ppmo|nia|moless)-")
 _NKP_YEAR = re.compile(r"ने\.?\s?का\.?\s?प\.?\s*([०-९0-9]{4})")
 
 
@@ -391,6 +400,10 @@ def search(message: str, analysis: dict, top_k: int | None = None, precedent_k: 
     if not _is_regulator_query(message, analysis):
         on_domain = [s for s in laws if not _REGULATOR_DOC.match(s["id"])]
         laws = on_domain or laws
+    q_text = " ".join([message, analysis.get("question") or "", analysis.get("area") or ""])
+    on_domain = [s for s in laws if not (m := _AUTHORITY_ID.match(s["id"]))
+                 or _AUTHORITY_DOMAIN[m.group(1)].search(q_text)]
+    laws = on_domain or laws
     seen = {p["id"] for p in pinned}
     # sections the curated plan marks as misleading for this situation
     # (e.g. deposit recovery vs. the tenant's early-departure notice rule)

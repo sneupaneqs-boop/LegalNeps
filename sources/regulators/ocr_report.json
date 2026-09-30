@@ -1,0 +1,3044 @@
+{
+ "by_authority": {
+  "nrb": {
+   "needs_ocr": 22,
+   "ocr_ok": 22,
+   "chunks": 128,
+   "documents_ingested": 14,
+   "dropped_profile": 8
+  },
+  "ird": {
+   "needs_ocr": 4,
+   "ocr_ok": 4,
+   "dropped_low_value": 1,
+   "dropped_edition": 1,
+   "table_chunks_dropped": 3,
+   "chunks": 558,
+   "documents_ingested": 2
+  },
+  "sebon": {
+   "needs_ocr": 50,
+   "ocr_ok": 50,
+   "dropped_edition": 23,
+   "chunks": 349,
+   "documents_ingested": 27
+  },
+  "ocr": {
+   "needs_ocr": 20,
+   "ocr_ok": 20,
+   "chunks": 47,
+   "documents_ingested": 20
+  },
+  "ppmo": {
+   "needs_ocr": 7,
+   "ocr_ok": 7,
+   "dropped_edition": 1,
+   "dropped_superseded": 1,
+   "chunks": 171,
+   "documents_ingested": 5
+  },
+  "nia": {
+   "text_layer": 34,
+   "dropped_duplicate": 4,
+   "needs_ocr": 16,
+   "ocr_ok": 15,
+   "dropped_low_value": 6,
+   "dropped_quality": 1,
+   "dropped_edition": 12,
+   "chunks": 263,
+   "documents_ingested": 8,
+   "dropped_profile": 19
+  },
+  "moless": {
+   "needs_ocr": 38,
+   "ocr_ok": 38,
+   "text_layer": 24,
+   "dropped_duplicate": 6,
+   "dropped_low_value": 19,
+   "dropped_edition": 7,
+   "chunks": 362,
+   "documents_ingested": 12,
+   "dropped_profile": 18
+  }
+ },
+ "total_chunks": 1878,
+ "total_documents": 88,
+ "skipped": {
+  "low_value": [
+   "[ird] व्यवसाय दर्ता, आय विवरण,कर विवरण तथा अन्तःशुल्क विवरण भर्ने निर्देशिका",
+   "[nia] Nepal Insurance Authority Financial Bylaw-Registered, 2079",
+   "[nia] Nepal Insurance Authority Purchase Bylaw-Registered, 2079",
+   "[nia] Nepal Insurance Authority Purchase Bylaw, 2079",
+   "[nia] Nepal Insurance Authority Financial Bylaw, 2079",
+   "[nia] MISCELLANEOUS",
+   "[nia] MISCELLANEOUS",
+   "[moless] श्रम, रोजगार तथा सामाजिक सुरक्षा मन्त्रालयको (कार्यविधि, निर्देशिका र मापदण्ड)हरुको एकीकृत संगालो",
+   "[moless] आन्तरिक व्यवस्थापन निर्देशिका, २०७५",
+   "[moless] वैदेशिक रोजगारमा घरेलु कामदारलाई व्यवस्थित गर्ने सम्बन्धी (तेस्रो संशोधन) निर्देशिका, २०७३",
+   "[moless] वैदेशिक रोजगारमा घरेलु कामदार पठाउने सम्बन्धी निर्देशिका, २०७२",
+   "[moless] वैदेशिक रोजगार विभागको आन्तरिक कार्यसञ्चालन निर्देशिका, २०६६",
+   "[moless] वैदेशिक रोजगार बोर्डको कार्यकारी निर्देशक पदपूर्ति सम्बन्धी कार्यविधि, २०८३",
+   "[moless] राष्ट्रिय व्यावसायिक प्रशिक्षण प्रतिष्ठानको कार्यकारी निर्देशकको नियुक्ति सम्बन्धी कार्यविधि, २०८०",
+   "[moless] श्रमाधान कल सेन्टर (सञ्चालन तथा व्यवस्थापन) कार्यविधि, २०८१",
+   "[moless] सूचना प्रविधिको प्रयोग सम्बन्धी तीन वर्षे कार्ययोजना, २०७७",
+   "[moless] विदेशमा काम गरी फर्केका उद्यमी राष्ट्रिय सम्मान तथा पुरस्कार व्यवस्थापन कार्यविधि, २०७६(पहिलो संशोधन २०७८ समेत)",
+   "[moless] कल सेन्टर (सञ्चालन तथा व्यवस्थापन) कार्यविधि, २०७५",
+   "[moless] कोषको रकम बाणिज्य बैंकमा लागनी गर्ने सम्बन्धी कार्यविधि, २०७५",
+   "[moless] वैदेशिक रोजगारको सिलसिलामा मृत्यु, अंगभंग, गम्भिर बिरामी भएका कामदारको परिवारको सदस्यलाई छात्रवृत्ति प्रदान कार्यविधि, २०७४",
+   "[moless] युवा, श्रम तथा रोजगार मन्त्रालय र मातहतका निकायहरुमा कार्यरत कर्मचारीहरु सम्बन्धी आचारसंहिता, २०८३",
+   "[moless] काउन्सेलर (श्रम) तथा श्रम सहचारी छनौट तथा नियुक्ति सम्बन्धी मापदण्ड, २०८१ (पहिलो संशोधन-२०८२/०३/१३)",
+   "[moless] काउन्सेलर (श्रम) तथा श्रम सहचारी छनौट तथा नियुक्ति सम्बन्धी मापदण्ड, २०८१",
+   "[moless] काउन्सेलर (श्रम) तथा श्रम सहचारी छनौट तथा नियुक्ति सम्बन्धी मापदण्ड, २०८१",
+   "[moless] रोजगार संयोजकको पदपूर्ति र सेवा सुविधा सम्बन्धी मापदण्ड, २०७५",
+   "[moless] काउन्सेलर (श्रम) तथा श्रम सहचारी छनौट तथा नियुक्ति सम्बन्धी कार्यविधि तथा मापदण्ड - २०७३"
+  ],
+  "duplicate_of_corpus": [
+   "[nia] Insurance Act with Second Amendment, 2079 (Nepali) (English title of an instrument already in the corpus)",
+   "[nia] Insurance Act, 2079 (Nepali) (English title of an instrument already in the corpus)",
+   "[nia] Insurance Act with Amendment, 2079 (Nepali) (English title of an instrument already in the corpus)",
+   "[nia] Insurance Regulation, 2081 (English title of an instrument already in the corpus)",
+   "[moless] रोजगार हक सम्बन्धी (दोश्रो संशोधन) नियमावली, २०७५ (title already in corpus)",
+   "[moless] वैदेशिक रोजगार (पाँचौं संशोधन) नियमावली, २०६४ (title already in corpus)",
+   "[moless] रोजगारी सम्बन्धी नियमावली, २०७५ (title already in corpus)",
+   "[moless] याेगदानमा आधारित सामाजिक सुरक्षा नियमावली, २०७५ (title already in corpus)",
+   "[moless] श्रम नियमावली, २०७५ (title already in corpus)",
+   "[moless] वैदेशिक रोजगार न्यायाधिकरण नियमावली, २०६८ (title already in corpus)"
+  ],
+  "dropped_quality": [
+   "[nia] MISCELLANEOUS: no readable page"
+  ],
+  "older_edition": [
+   "[ird] आर्थिक ऐन २०८० (राजपत्र अरि १४)",
+   "[sebon] बुक विल्डिङ्ग निर्देशिका, २०७७ ( दर्ता न. ६८/०८२ )",
+   "[ppmo] सार्वजनिक खरिद (पन्ध्रौं संशोधन) नियमावली, २०८३",
+   "[nia] Insurance Act, 1992 (corpus has the 2022 edition)",
+   "[nia] Insurance Act, 1992 (Nepali) (corpus has the 2022 edition)",
+   "[nia] Insurance Act 1968 (Nepali) (corpus has the 2022 edition)",
+   "[nia] Insurance Regulations 1969 with Amendments (corpus has the 2024 edition)",
+   "[nia] Insurance Regulation, 1993 (Nepali- Ammendment Date:2070/01/30) (corpus has the 2024 edition)",
+   "[nia] Insurance Regulation, 1993 (corpus has the 2024 edition)",
+   "[nia] Insurance Regulation, 1993 (Nepali) (corpus has the 2024 edition)",
+   "[nia] बीमकको पुनर्बीमा निर्देशिका(चौथो संशोधन), २०८०",
+   "[nia] Risk Based Capital and Solvency Directive, 2025 (2082)",
+   "[nia] Risk Based Capital and Solvency Directive, 2024 (2081)",
+   "[nia] Risk Based Capital and Solvency Directive,2022 (2078)",
+   "[nia] Money Laundering Prevention Act 2064",
+   "[moless] वैदेशिक रोजगारमा जाने कामदारको स्वास्थ्य परीक्षण गर्ने स्वास्थ्य संस्था सुचीकरण, नविकरण तथा अनुगमन सम्बन्धी कार्यविधि, २०७२ (छैटौ संशोधन २०८१।१२।०८)",
+   "[moless] वैदेशिक रोजगारमा जाने कामदारको स्वास्थ्य परीक्षण गर्ने स्वास्थ्य संस्था सुचीकरण, नविकरण तथा अनुगमन सम्बन्धी कार्यविधि, २०७२ (पाँचौ संशोधन) - २०८०/०८/१४",
+   "[moless] वैदेशिक रोजगारमा जाने कामदारको स्वास्थ्य परीक्षण गर्ने स्वास्थ्य संस्था सुचीकरण, नविकरण तथा अनुगमन सम्बन्धी कार्यविधि, २०७२ (तेस्रो संशोधन)",
+   "[moless] वैदेशिक रोजगारमा जाने कामदारको स्वास्थ्य परीक्षण गर्ने स्वास्थ्य संस्था सुचीकरण, नविकरण तथा अनुगमन सम्बन्धी कार्यविधि, २०७२ (चौथो संशोधन)",
+   "[moless] गणतन्त्र कोरियामा सीपयुक्त श्रमिक पठाउने सम्बन्धी कार्यविधि, २०८०",
+   "[moless] वैदेशिक रोजगार व्यवस्थापन सेवा प्रवाह कार्यविधि (दोस्रो संशोधन)",
+   "[moless] सुरक्षित आप्रवासन कार्यक्रम सञ्चालन मार्गदर्शन, २०७९ (स्वीकृत मिति २०७९ असार २१)"
+  ],
+  "older_or_dup_edition_in_part002": [
+   "[sebon] Government Securities Bylaws of SEBON, 2062 (have: Government Securities Bylaws of SEBON, 2062)",
+   "[sebon] Government Securities Bylaws of SEBON, 2062 (have: Government Securities Bylaws of SEBON, 2062)",
+   "[sebon] Mutual Fund Guidelines-2069 (applicable from 2069-04-01) (have: Mutual Fund Guidelines-2069 (applicable from 2069-04-01))",
+   "[sebon] Mutual Fund Guidelines-2069 (applicable from 2069-04-01) (have: Mutual Fund Guidelines-2069 (applicable from 2069-04-01))",
+   "[sebon] धितोपत्र खरिद (सार्वजनिक निष्काशन) सम्बन्धी निर्देशिका, २०७३ (तेश्रो संशोधन सहित ) (have: धितोपत्र खरिद (सार्वजनिक निष्काशन) सम्बन्धी निर्देशिका, २०७३)",
+   "[sebon] धितोपत्र खरिद (सार्वजनिक निष्काशन) सम्बन्धी निर्देशिका, २०७३ (तेश्रो संशोधन सहित ) (have: धितोपत्र खरिद (सार्वजनिक निष्काशन) सम्बन्धी निर्देशिका, २०७३)",
+   "[sebon] धितोपत्र दर्ता तथा निष्काशन (छैठौं संशोधन) नियमावली, २०७९ (have: धितोपत्र दर्ता तथा निष्काशन नियमावली, २०७३ (सातौ संशोधन सहित)",
+   "[sebon] धितोपत्र दर्ता तथा निष्काशन (सातौ संशोधन ) नियमावली, २०८० (have: धितोपत्र दर्ता तथा निष्काशन नियमावली, २०७३ (सातौ संशोधन सहित)",
+   "[sebon] धितोपत्र बजार संचालन (दोश्रो संशोधन ) नियमावली, २०७९ (have: धितोपत्र बजार संचालन नियमावली, २०६४ (दोश्रो संशोधन सहित ) ( )",
+   "[sebon] धितोपत्र व्यवसायी (धितोपत्र दलाल तथा धितोपत्र व्यापारी ) (चौथो संशोधन) नियमावली, २०७९ (have: धितोपत्र व्यवसायी (धितोपत्र दलाल तथा धितोपत्र व्यापारी) नियम)",
+   "[sebon] धितोपत्र व्यवसायी (धितोपत्र दलाल तथा धितोपत्र व्यापारी ) (पाँचौ संशोधन) नियमावली, २०७९ (have: धितोपत्र व्यवसायी (धितोपत्र दलाल तथा धितोपत्र व्यापारी) नियम)",
+   "[sebon] धितोपत्र व्यवसायी (धितोपत्र दलाल तथा धितोपत्र व्यापारी) (छैठौं संशोधन) नियमावली, २०८२ (have: धितोपत्र व्यवसायी (धितोपत्र दलाल तथा धितोपत्र व्यापारी) नियम)",
+   "[sebon] धितोपत्र सूचीकरण तथा कारोबार नियमावली , २०७५ ( दर्ता न. २९/०८२ ) (have: धितोपत्र सूचीकरण तथा कारोबार नियमावली , २०७५ ( दर्ता न. २९/०)",
+   "[sebon] धितोपत्र सूचीकरण तथा कारोबार नियमावली , २०७५ ( दर्ता न. २९/०८२ ) (have: धितोपत्र सूचीकरण तथा कारोबार नियमावली , २०७५ ( दर्ता न. २९/०)",
+   "[sebon] लगानी व्यवस्थापन (पोर्टफोलियो म्यानेजमेन्ट) सम्बन्धी निर्देशिका, २०६७ ( दर्ता न. ६४/०८२ ) (have: लगानी व्यवस्थापन (पोर्टफोलियो म्यानेजमेन्ट) सम्बन्धी निर्देश)",
+   "[sebon] लगानी व्यवस्थापन (पोर्टफोलियो म्यानेजमेन्ट) सम्बन्धी निर्देशिका, २०६७ ( दर्ता न. ६४/०८२ ) (have: लगानी व्यवस्थापन (पोर्टफोलियो म्यानेजमेन्ट) सम्बन्धी निर्देश)",
+   "[sebon] वस्तु विनिमय बजार सम्बन्धि नियमावली , २०७४ ( दर्ता न. ३१/०८२ ) (have: वस्तु विनिमय बजार सम्बन्धि नियमावली , २०७४ ( दर्ता न. ३१/०८२)",
+   "[sebon] वस्तु विनिमय बजार सम्बन्धि नियमावली , २०७४ ( दर्ता न. ३१/०८२ ) (have: वस्तु विनिमय बजार सम्बन्धि नियमावली , २०७४ ( दर्ता न. ३१/०८२)",
+   "[sebon] विशिष्टीकृत लगानी कोष नियमावली, २०७५ (प्रथम संशोधन सहित) ( दर्ता न. २८/०८२ ) (have: विशिष्टीकृत लगानी कोष नियमावली, २०७५ (प्रथम संशोधन सहित) ( द)",
+   "[sebon] विशिष्टीकृत लगानी कोष नियमावली, २०७५ (प्रथम संशोधन सहित) ( दर्ता न. २८/०८२ ) (have: विशिष्टीकृत लगानी कोष नियमावली, २०७५ (प्रथम संशोधन सहित) ( द)",
+   "[sebon] सूचीकृत संगठित संस्थाहरुको संस्थागत सुशासन सम्बन्धी निर्देशिका २०७४ (पहिलो संशोधन सहित) ( दर्ता न. ६७/०८२ ) (have: सूचीकृत संगठित संस्थाहरुको संस्थागत सुशासन सम्बन्धी निर्देशि)",
+   "[sebon] सूचीकृत संगठित संस्थाहरुको संस्थागत सुशासन सम्बन्धी निर्देशिका २०७४ (पहिलो संशोधन सहित) ( दर्ता न. ६७/०८२ ) (have: सूचीकृत संगठित संस्थाहरुको संस्थागत सुशासन सम्बन्धी निर्देशि)"
+  ],
+  "superseded": [
+   "[ppmo] सार्वजनिक खरिद (दोस्रो संशोधन) अध्यादेश, २०८३ (replaced by the Act)"
+  ],
+  "profile_core_dropped": [
+   "[nrb] aml cft directive issued by nepal rastra bank for infrastructure development bank (68 chunks)",
+   "[nrb] aml cft directives issued by ican the institute of chartered accountants of nepal (18 chunks)",
+   "[nrb] aml cft directives issued by ministry of culture tourism and civil aviation for casinos (35 chunks)",
+   "[nrb] aml cft directives issued by payment systems department psd nrb (25 chunks)",
+   "[nrb] directives issued by sebon (37 chunks)",
+   "[nrb] nepal rastra bank nrb aml cft directives for a b c class bfis (60 chunks)",
+   "[nrb] nepal rastra bank nrb aml cft directives for microfinance fis (22 chunks)",
+   "[nrb] विद्युतीय माध्यमबाट प्रवाह हुने कर्जा (Digital Lending) सम्बन्धी मार्गदर्शन, २०७८ (8 chunks)",
+   "[nia] RBC FAQ (61 chunks)",
+   "[nia] Risk-Free Rate Term structures Nepal Methodology Amendment 2082 (85 chunks)",
+   "[nia] Own Risk Solvency Assessment (ORSA) Toolkit (232 chunks)",
+   "[nia] Own Risk Solvency Assessment (ORSA) Letter (1 chunks)",
+   "[nia] Own Risk Solvency Assessment Directives, 2023 (2079) (44 chunks)",
+   "[nia] Risk Free Rate Term Structures (96 chunks)",
+   "[nia] बीमा अभिकर्ताको आचार संहिता (5 chunks)",
+   "[nia] बीमा सर्भेयरको आचार संहिता (7 chunks)",
+   "[nia] अभिकर्ता/सर्भेयरसंग सम्बन्धित कानूनी व्यवस्थाहरु (14 chunks)",
+   "[nia] Legal Provision Related to Agents/Surveyors (15 chunks)",
+   "[nia] Guidelines on Targeted Financial Sanctions for Insurer, 2025 (32 chunks)",
+   "[nia] सम्पत्ति शुद्धीकरण, आतङ्ककारी कार्य तथा आम विनाशकारी हातहतियार निर्माण वा विस्तारमा हुने वित्तीय लगानी निवारण सम्बन्धी निर्देशन, २०८२ (145 chunks)",
+   "[nia] निर्देशन सम्बन्धमा (2 chunks)",
+   "[nia] सम्पत्ति शुद्धीकरण कार्य योजना २०८१-२०८५ (32 chunks)",
+   "[nia] निर्देशन (3 chunks)",
+   "[nia] Money Laundering Prevention Act 2064 (41 chunks)",
+   "[nia] AML/CFT Circular (2 chunks)",
+   "[nia] बीमा क्षेत्रका लागि जारी सदाचार नीति, २०७९ (19 chunks)",
+   "[nia] Guideline for Suspicious Transaction Indicator,2024 (3 chunks)",
+   "[moless] राष्ट्रिय रोजगार प्रवर्द्धन कार्यक्रम (सञ्चालन तथा व्यवस्थापन) निर्देशिका, २०८२ (26 chunks)",
+   "[moless] मौसमी कामदार व्यवस्थापन निर्देशिका, २०७९ (10 chunks)",
+   "[moless] वैदेशिक रोजगारीबाट फर्केका व्यक्तिको लागि पुन: एकीकरण कार्यक्रम (सञ्चालन तथा व्यवस्थापन) निर्देशिका, २०७९ नेपाल सरकार, मन्त्रिपरिषद्को मिति २०७९।३।२१ को निर्णय | (21 chunks)",
+   "[moless] इजरायलमा नेपाली सहयोगी कामदार पठाउने सम्बन्धी निर्देशिका, २०७८ (11 chunks)",
+   "[moless] प्रधानमन्त्री रोजगार कार्यक्रम सञ्चालन निर्देशिका, २०७५ (176 chunks)",
+   "[moless] वैदेशिक रोजगारीमा गएका नेपाली कामदारको कानूनी प्रतिरक्षा सम्बन्धी निर्देशिका, २०७५ (17 chunks)",
+   "[moless] वैदेशिक रोजगार सम्बन्धी मागपत्र जाँचबुझ निर्देशिका, २०७५ (6 chunks)",
+   "[moless] मौसमी कामदार ब्यवस्थापन निर्देशिका, २०७९ (10 chunks)",
+   "[moless] रोजगार सीप तथा उद्यमशीलता सम्बन्धी एकीकृत सेवा प्रवाह कार्यविधि-२०८३ (45 chunks)",
+   "[moless] वैदेशिक रोजगारमा जाने कामदारको स्वास्थ्य परीक्षण गर्ने स्वास्थ्य संस्था सूचीकरण, नवीकरण तथा अनुगमन सम्बन्धी कार्यविधि, २०७२ (सातौ संशोधन-२०८२।0२।२३) (33 chunks)",
+   "[moless] गणतन्त्र कोरियामा सीपयुक्त श्रमिक पठाउने सम्बन्धी कार्यविधि, २०८० (तेश्रो संशोधनः- २०८२।०३।१३) (21 chunks)",
+   "[moless] जापानमा निश्चित सीपयुक्त श्रमिक पठाउने सम्बन्धी कार्यविधि, २०८० (15 chunks)",
+   "[moless] वैदेशिक रोजगार व्यवसाय सञ्चालन गर्न इजाजतपत्र प्राप्त संस्थाहरुको स्वदेशमा शाखा कार्यालय सञ्चालन सम्बन्धी कार्यविधि, २०७९ (17 chunks)",
+   "[moless] कोरियामा सीपयुक्त श्रमिक पठाउने सम्बन्धी कार्यविधि, २०८० (पहिलो संशोधन २०८१/०७/०९) (14 chunks)",
+   "[moless] वैदेशिक रोजगार व्यवस्थापन सेवा प्रवाह कार्यविधि, २०७९ (पहिलो संशोधन सहित) (51 chunks)",
+   "[moless] सुरक्षित आप्रवासन कार्यक्रम सञ्चालन वित्तीय मार्गदर्शन आ.व. २०७८।७९ (30 chunks)",
+   "[moless] कामका लागि पारिश्रमिकमा आधारित सामुदायिक आयोजना (सञ्चालन तथा व्यवस्थापन कार्यविधि), २०७६ (20 chunks)",
+   "[moless] सुरक्षित आप्रवासन (SaMi) कार्यक्रम (चौथो चरण) सञ्चालन मार्गदर्शन, २०८१ (65 chunks)"
+  ]
+ },
+ "documents": [
+  {
+   "authority": "nrb",
+   "title": "Assets (Money) Laundering Prevention Rule, 2016",
+   "kind": "regulation",
+   "chunks": 59,
+   "status": "unknown",
+   "lang": "ne",
+   "sha": "6c7c62b17f",
+   "published": "December 27, 2019"
+  },
+  {
+   "authority": "nrb",
+   "title": "जाली नोट तथा खोटो सिक्का सम्बन्धी विनियमावली, २०७७",
+   "kind": "regulation",
+   "chunks": 19,
+   "status": "unknown",
+   "lang": "ne",
+   "sha": "7dd91682c6",
+   "published": "March 25, 2021"
+  },
+  {
+   "authority": "nrb",
+   "title": "नेपाल राष्ट्र बैंक बैंक तथा वित्तीय संस्थाको शीघ्र सुधारात्मक कारवाही सम्बन्धी विनियमावली, २०७४",
+   "kind": "regulation",
+   "chunks": 8,
+   "status": "unknown",
+   "lang": "ne",
+   "sha": "270298f06c",
+   "published": "December 27, 2019"
+  },
+  {
+   "authority": "nrb",
+   "title": "भुक्तानी प्रणालीसम्बन्धी एकीकृत निर्देशन, २०८१ को अ. प्रा. निर्देशन नं. १/०८१ को बुँदा नं. १ को (२) मा संशोधन गरिएको सम्बन्धमा ।",
+   "kind": "circular",
+   "chunks": 4,
+   "status": "unknown",
+   "lang": "ne",
+   "sha": "a43afd5635",
+   "published": "March 17, 2026"
+  },
+  {
+   "authority": "nrb",
+   "title": "भुक्तानी प्रणालीसम्बन्धी एकीकृत निर्देशन, २०८२ मा संशोधन गरिएको सम्बन्धमा ।",
+   "kind": "circular",
+   "chunks": 4,
+   "status": "unknown",
+   "lang": "ne",
+   "sha": "a9dae063a9",
+   "published": "June 2, 2026"
+  },
+  {
+   "authority": "nrb",
+   "title": "भुक्तानी प्रणालीसम्बन्धी एकीकृत निर्देशन, २०८२ मा संशोधन गरिएको सम्बन्धमा ।",
+   "kind": "circular",
+   "chunks": 3,
+   "status": "in_force",
+   "lang": "ne",
+   "sha": "94cb942142",
+   "published": "July 24, 2026"
+  },
+  {
+   "authority": "nrb",
+   "title": "भुक्तानी सेवा प्रदायकहरुले सञ्चालन गरेका वालेटमा रकम जम्मा गर्ने सीमा (संख्या) लाई अस्थायी रुपमा बृद्धि गरिएको सम्बन्धमा ।",
+   "kind": "circular",
+   "chunks": 1,
+   "status": "unknown",
+   "lang": "ne",
+   "sha": "ce16150f49",
+   "published": "September 25, 2025"
+  },
+  {
+   "authority": "nrb",
+   "title": "मोबाइल बैंकिङ्ग, वेब एप्लिकेशन, तथा ई-मनीको माध्यम मार्फत हुने कारोवारसम्बन्धमा।",
+   "kind": "circular",
+   "chunks": 2,
+   "status": "in_force",
+   "lang": "ne",
+   "sha": "41858c9c09",
+   "published": "August 27, 2026"
+  },
+  {
+   "authority": "nrb",
+   "title": "सूचना नं १६/२०८२-८३: आमनिर्वाचनका लागि छुट्टै बैक खाता खोल्ने सम्बन्धमा ।",
+   "kind": "circular",
+   "chunks": 2,
+   "status": "unknown",
+   "lang": "ne",
+   "sha": "f398a6357c",
+   "published": "January 26, 2026"
+  },
+  {
+   "authority": "nrb",
+   "title": "सूचना नं १७/२०८२-८३: आमनिर्वाचनको अवधिमा बैंकिङ सेवा प्रवाह गर्ने सम्बन्धमा ।",
+   "kind": "circular",
+   "chunks": 1,
+   "status": "unknown",
+   "lang": "ne",
+   "sha": "36ee6484a4",
+   "published": "March 1, 2026"
+  },
+  {
+   "authority": "nrb",
+   "title": "सूचना नं १८/२०८२-८३: आमनिर्वाचनको अवधिमा बैंकिङ सेवा प्रवाह गर्ने सम्बन्धमा ।",
+   "kind": "circular",
+   "chunks": 1,
+   "status": "unknown",
+   "lang": "ne",
+   "sha": "6d206127bb",
+   "published": "March 3, 2026"
+  },
+  {
+   "authority": "nrb",
+   "title": "हायर पर्चेज कर्जा दिने कम्पनीलाई स्वीकृति दिने नीतिगत एवं प्रक्रियागत व्यवस्था, २०७० (दोस्रो संसोधन, २०७५)",
+   "kind": "regulation",
+   "chunks": 17,
+   "status": "unknown",
+   "lang": "ne",
+   "sha": "78cbd3900d",
+   "published": "December 27, 2019"
+  },
+  {
+   "authority": "nrb",
+   "title": "१/२०८३–८४ः एकीकृत परिपत्र–२०८२ मा संशोधन (भा.रू.सम्बन्धमा)। २०८३/०४/०७",
+   "kind": "circular",
+   "chunks": 4,
+   "status": "in_force",
+   "lang": "ne",
+   "sha": "739cecf479",
+   "published": "July 23, 2026"
+  },
+  {
+   "authority": "nrb",
+   "title": "१२/२०८२–८३ः एकीकृत परिपत्र–२०८२ मा संशोधन । २०८३/०२/२६",
+   "kind": "circular",
+   "chunks": 3,
+   "status": "unknown",
+   "lang": "ne",
+   "sha": "17af1abbf7",
+   "published": "June 9, 2026"
+  },
+  {
+   "authority": "ird",
+   "title": "आर्थिक ऐन, २०८३ (राजपत्रमा प्रकाशित मिति २०८३।०३।३०)",
+   "kind": "act",
+   "chunks": 552,
+   "status": "in_force",
+   "lang": "ne",
+   "sha": "c818f71779",
+   "published": "३१ असार, २०८३"
+  },
+  {
+   "authority": "ird",
+   "title": "करदाता प्रोत्साहन उपहार कार्यक्रम सञ्चालन कार्यविधि, २०८३",
+   "kind": "directive",
+   "chunks": 6,
+   "status": "in_force",
+   "lang": "ne",
+   "sha": "0d7e0322bd",
+   "published": "६ साउन, २०८३"
+  },
+  {
+   "authority": "sebon",
+   "title": "Circular to CDS and Clearing Ltd (2083/05/09)",
+   "kind": "circular",
+   "chunks": 2,
+   "status": "in_force",
+   "lang": "ne",
+   "sha": "44dbca3d90",
+   "published": "2026-08-25"
+  },
+  {
+   "authority": "sebon",
+   "title": "Circular to Merchant Banker 2074-07-08",
+   "kind": "circular",
+   "chunks": 5,
+   "status": "unknown",
+   "lang": "ne",
+   "sha": "425563f0fd",
+   "published": ""
+  },
+  {
+   "authority": "sebon",
+   "title": "Circular to Nepse (2083/05/09)",
+   "kind": "circular",
+   "chunks": 5,
+   "status": "in_force",
+   "lang": "ne",
+   "sha": "5f1f22bd11",
+   "published": "2026-08-25"
+  },
+  {
+   "authority": "sebon",
+   "title": "Circular to Stock Broker and Merchant Banker (2075|10|08)",
+   "kind": "circular",
+   "chunks": 2,
+   "status": "unknown",
+   "lang": "ne",
+   "sha": "1e9a0816ea",
+   "published": ""
+  },
+  {
+   "authority": "sebon",
+   "title": "Circular to Stock Exchange 2083.05.15",
+   "kind": "circular",
+   "chunks": 6,
+   "status": "in_force",
+   "lang": "ne",
+   "sha": "2d82910f80",
+   "published": "2026-08-31"
+  },
+  {
+   "authority": "sebon",
+   "title": "Circular to all ASBA Members (2080|05|10)",
+   "kind": "circular",
+   "chunks": 4,
+   "status": "unknown",
+   "lang": "ne",
+   "sha": "c0870a95b3",
+   "published": "2023-08-28"
+  },
+  {
+   "authority": "sebon",
+   "title": "Circular to all Fund Managers and Depositories (2083/05/09)",
+   "kind": "circular",
+   "chunks": 2,
+   "status": "in_force",
+   "lang": "ne",
+   "sha": "f3d596fd41",
+   "published": "2026-08-25"
+  },
+  {
+   "authority": "sebon",
+   "title": "Circular to all Listed Companies (2072|08|20)",
+   "kind": "circular",
+   "chunks": 1,
+   "status": "unknown",
+   "lang": "ne",
+   "sha": "71d1f9566a",
+   "published": ""
+  },
+  {
+   "authority": "sebon",
+   "title": "Circular to all Listed Companies 2075-10-18",
+   "kind": "circular",
+   "chunks": 1,
+   "status": "unknown",
+   "lang": "ne",
+   "sha": "0605cdcf38",
+   "published": ""
+  },
+  {
+   "authority": "sebon",
+   "title": "Circular to all Listed Companies(2083/05/09)",
+   "kind": "circular",
+   "chunks": 2,
+   "status": "in_force",
+   "lang": "ne",
+   "sha": "bc5a4a72ab",
+   "published": "2026-08-25"
+  },
+  {
+   "authority": "sebon",
+   "title": "Circular to all Merchant Bankers (2072|08|20)",
+   "kind": "circular",
+   "chunks": 1,
+   "status": "unknown",
+   "lang": "ne",
+   "sha": "f3f91645ef",
+   "published": ""
+  },
+  {
+   "authority": "sebon",
+   "title": "Circular to all Merchant Bankers (2083/05/09)",
+   "kind": "circular",
+   "chunks": 4,
+   "status": "in_force",
+   "lang": "ne",
+   "sha": "d29ec1250a",
+   "published": "2026-08-25"
+  },
+  {
+   "authority": "sebon",
+   "title": "Circular to all Stock Brokers (2083/05/09)",
+   "kind": "circular",
+   "chunks": 2,
+   "status": "in_force",
+   "lang": "ne",
+   "sha": "a118042e3c",
+   "published": "2026-08-25"
+  },
+  {
+   "authority": "sebon",
+   "title": "धितोपत्र दर्ता गराएका संगठित संस्था एकआपसमा गाभ्ने /गाभिने तथा प्राप्ति सम्बन्धी निर्देशिका, २०७९ ( दर्ता न. ७२/०८२ )",
+   "kind": "guideline",
+   "chunks": 11,
+   "status": "unknown",
+   "lang": "ne",
+   "sha": "d8c9243fd6",
+   "published": "2022-11-10"
+  },
+  {
+   "authority": "sebon",
+   "title": "धितोपत्र दलाल व्यवसायीले शाखा कार्यालय खोल्ने सम्बन्धी निर्देशिका, २०७९ ( दर्ता न. ७१/०८२ )",
+   "kind": "guideline",
+   "chunks": 12,
+   "status": "unknown",
+   "lang": "ne",
+   "sha": "058a741eb8",
+   "published": "2023-02-17"
+  },
+  {
+   "authority": "sebon",
+   "title": "धितोपत्र दलाल व्यवसायीहरुलाई निर्देशन सम्बन्धमा।",
+   "kind": "circular",
+   "chunks": 2,
+   "status": "unknown",
+   "lang": "ne",
+   "sha": "53d2ee0a75",
+   "published": ""
+  },
+  {
+   "authority": "sebon",
+   "title": "बीज पुँजी सम्बन्धमा",
+   "kind": "circular",
+   "chunks": 5,
+   "status": "unknown",
+   "lang": "ne",
+   "sha": "14724dac54",
+   "published": "2026-01-16"
+  },
+  {
+   "authority": "sebon",
+   "title": "बुक विल्डिङ्ग निर्देशिका, २०७७ ( दर्ता न. ६८/०८२ )",
+   "kind": "guideline",
+   "chunks": 21,
+   "status": "unknown",
+   "lang": "ne",
+   "sha": "d14a63de4b",
+   "published": ""
+  },
+  {
+   "authority": "sebon",
+   "title": "बोर्डबाट अनुमतिपत्र प्राप्त धितोपत्र बजार तथा सम्पूर्ण धितोपत्र व्यवसायीहरुलाई कोभिड–१९ को संक्रमणलाई रोकथाम तथा नियन्त्रण सम्बन्धी निर्णय कार्यान्वयन गर्ने सम्बन्धमा ।",
+   "kind": "circular",
+   "chunks": 12,
+   "status": "unknown",
+   "lang": "ne",
+   "sha": "bf699fa0bf",
+   "published": ""
+  },
+  {
+   "authority": "sebon",
+   "title": "बोर्डबाट संस्थागत परामर्श सेवा प्रदान गर्न अनुमतिपत्र प्राप्त मर्चेन्ट बैंकरहरुको लागि निर्देशन।",
+   "kind": "circular",
+   "chunks": 6,
+   "status": "unknown",
+   "lang": "ne",
+   "sha": "f325b8f220",
+   "published": ""
+  },
+  {
+   "authority": "sebon",
+   "title": "लाभंस भुक्तानी सम्बन्धमा ।",
+   "kind": "circular",
+   "chunks": 2,
+   "status": "unknown",
+   "lang": "ne",
+   "sha": "fe06bf91d1",
+   "published": "2021-10-25"
+  },
+  {
+   "authority": "sebon",
+   "title": "संचालन तथा बित्तिय बिवरणहरु सार्बजनिक गर्नुपर्ने व्यवस्थाका सम्बन्धमा।",
+   "kind": "circular",
+   "chunks": 7,
+   "status": "unknown",
+   "lang": "ne",
+   "sha": "ef8ff26779",
+   "published": ""
+  },
+  {
+   "authority": "sebon",
+   "title": "सम्पत्ति शुद्धीकरण (मनी लाउण्डरिङ्ग) निवारण तथा व्यावसायिक वातावरण प्रवर्द्धन सम्बन्धी केही ऐनलाई संशोधन गर्न बनेको ऐन",
+   "kind": "act",
+   "chunks": 117,
+   "status": "unknown",
+   "lang": "ne",
+   "sha": "3c8bdbfd10",
+   "published": "2025-08-12"
+  },
+  {
+   "authority": "sebon",
+   "title": "साना तथा मझौला संगठित संस्थाको धितोपत्र निष्कासन तथा कारोबार नियमावली ,२०८१ ( दर्ता न. २५/०८२ )",
+   "kind": "regulation",
+   "chunks": 59,
+   "status": "unknown",
+   "lang": "ne",
+   "sha": "f35287aa70",
+   "published": "2025-04-23"
+  },
+  {
+   "authority": "sebon",
+   "title": "सुचिकृत संगठित संस्थाहरुको बित्तिय बिवरण सार्बजनिक गर्ने सम्बन्धमा।",
+   "kind": "circular",
+   "chunks": 7,
+   "status": "unknown",
+   "lang": "ne",
+   "sha": "b76e1012d1",
+   "published": ""
+  },
+  {
+   "authority": "sebon",
+   "title": "सेवा प्रवाह गर्दा सावधानी अपनाउने सम्बन्धमा।",
+   "kind": "circular",
+   "chunks": 2,
+   "status": "unknown",
+   "lang": "ne",
+   "sha": "9c704283e9",
+   "published": ""
+  },
+  {
+   "authority": "ocr",
+   "title": "CAMIS प्रणाली बन्द रहने सम्बन्धि सूचना",
+   "kind": "notice",
+   "chunks": 1,
+   "status": "unknown",
+   "lang": "ne",
+   "sha": "4412e56a70",
+   "published": ""
+  },
+  {
+   "authority": "ocr",
+   "title": "आर्थिक प्रस्ताव खोल्ने सम्बन्धि सूचना",
+   "kind": "notice",
+   "chunks": 1,
+   "status": "unknown",
+   "lang": "ne",
+   "sha": "615d7c16c8",
+   "published": ""
+  },
+  {
+   "authority": "ocr",
+   "title": "आवेदन फर्छ्यौटको जानकारी",
+   "kind": "notice",
+   "chunks": 1,
+   "status": "unknown",
+   "lang": "ne",
+   "sha": "db360e1734",
+   "published": ""
+  },
+  {
+   "authority": "ocr",
+   "title": "कम्पनी ऐन, २०६३ बमोजिम लाग्ने कर, शुल्क, दस्तुर तथा जरिवाना मिनाहा सम्बन्धी सूचना ।",
+   "kind": "notice",
+   "chunks": 1,
+   "status": "unknown",
+   "lang": "ne",
+   "sha": "4381f232ba",
+   "published": ""
+  },
+  {
+   "authority": "ocr",
+   "title": "कम्पनी प्रशासन व्यवस्थापन सूचना प्रणाली CAMIS मा गरिएको सुधार वारे जानकारी",
+   "kind": "notice",
+   "chunks": 2,
+   "status": "unknown",
+   "lang": "ne",
+   "sha": "e3d12abd2b",
+   "published": ""
+  },
+  {
+   "authority": "ocr",
+   "title": "कम्पनी प्रसाशनलाई सरलीकरण सम्बन्धमा",
+   "kind": "notice",
+   "chunks": 2,
+   "status": "unknown",
+   "lang": "ne",
+   "sha": "1d2e788bc2",
+   "published": ""
+  },
+  {
+   "authority": "ocr",
+   "title": "कम्पनी रजिष्ट्रारको कार्यालयको सूचना",
+   "kind": "notice",
+   "chunks": 1,
+   "status": "unknown",
+   "lang": "ne",
+   "sha": "da18b3227d",
+   "published": ""
+  },
+  {
+   "authority": "ocr",
+   "title": "कम्प्पनी रजिष्ट्रारको कार्यालयको सूचना",
+   "kind": "notice",
+   "chunks": 1,
+   "status": "unknown",
+   "lang": "ne",
+   "sha": "71f1d4a9c5",
+   "published": ""
+  },
+  {
+   "authority": "ocr",
+   "title": "कार्यालयको Corporate Action Room बाट भएका कार्यहरुको सुचना",
+   "kind": "notice",
+   "chunks": 2,
+   "status": "unknown",
+   "lang": "ne",
+   "sha": "508939acd5",
+   "published": ""
+  },
+  {
+   "authority": "ocr",
+   "title": "कार्यालयको अनलाइन सेवा प्रवाह सुचारु रहेको सूचना ।।",
+   "kind": "notice",
+   "chunks": 1,
+   "status": "unknown",
+   "lang": "ne",
+   "sha": "3468f7308f",
+   "published": ""
+  },
+  {
+   "authority": "ocr",
+   "title": "छुट सुबिधा प्रबन्ध सम्बन्धी सूचना २०८१।११।१९",
+   "kind": "notice",
+   "chunks": 2,
+   "status": "unknown",
+   "lang": "ne",
+   "sha": "5e1331dd97",
+   "published": "2081।11।19"
+  },
+  {
+   "authority": "ocr",
+   "title": "निवेदन पेश गर्ने मिति र समय सम्बन्धमा सूचना",
+   "kind": "notice",
+   "chunks": 1,
+   "status": "unknown",
+   "lang": "ne",
+   "sha": "5c25379e55",
+   "published": ""
+  },
+  {
+   "authority": "ocr",
+   "title": "रोक्का सम्बन्धि सूचना",
+   "kind": "notice",
+   "chunks": 2,
+   "status": "unknown",
+   "lang": "ne",
+   "sha": "eb16e25ad2",
+   "published": ""
+  },
+  {
+   "authority": "ocr",
+   "title": "लण्ड्री व्याग (प्रा.लि.नं. ३२३५१७) का संचालक/शेयरधनी सिमा मितलको नाउँमा जारी भएको सुचना ।",
+   "kind": "notice",
+   "chunks": 2,
+   "status": "unknown",
+   "lang": "ne",
+   "sha": "6b57d950d8",
+   "published": ""
+  },
+  {
+   "authority": "ocr",
+   "title": "वार्षिक विवरण अभिलेखनका पत्रहरू स्वचालित रूपमा प्राप्त हुने प्रबन्ध मिलाइएको सूचना ।",
+   "kind": "notice",
+   "chunks": 4,
+   "status": "unknown",
+   "lang": "ne",
+   "sha": "ddf8125b86",
+   "published": ""
+  },
+  {
+   "authority": "ocr",
+   "title": "विज्ञ सुचिमा नाम दर्ता सम्बन्धमा",
+   "kind": "notice",
+   "chunks": 2,
+   "status": "unknown",
+   "lang": "ne",
+   "sha": "866ac94ae4",
+   "published": ""
+  },
+  {
+   "authority": "ocr",
+   "title": "विशेष दर्ता खारेजी प्रकृया (दफा १३६क) सम्बन्धी सूचना । - २०८१।१२।१३",
+   "kind": "notice",
+   "chunks": 3,
+   "status": "unknown",
+   "lang": "ne",
+   "sha": "57c71f33a9",
+   "published": "2081।12।13"
+  },
+  {
+   "authority": "ocr",
+   "title": "विशेष दर्ता खारेजी सम्बन्धी निर्देशिका - २०८२",
+   "kind": "directive",
+   "chunks": 7,
+   "status": "unknown",
+   "lang": "ne",
+   "sha": "4291f1352c",
+   "published": ""
+  },
+  {
+   "authority": "ocr",
+   "title": "सम्बन्धित स्थानिय तहबाट सनाखत गर्ने व्यवस्था मिलाइएको - २०८२।१२।३०",
+   "kind": "notice",
+   "chunks": 10,
+   "status": "unknown",
+   "lang": "ne",
+   "sha": "52e122ebe1",
+   "published": "2082।12।30"
+  },
+  {
+   "authority": "ocr",
+   "title": "स्थानीय तहले कम्पनी दर्ता तथा शेयर खरिद गर्न सक्ने वारे जानकारी",
+   "kind": "notice",
+   "chunks": 1,
+   "status": "unknown",
+   "lang": "ne",
+   "sha": "baf64c2164",
+   "published": ""
+  },
+  {
+   "authority": "ppmo",
+   "title": "विद्युतीय खरिद प्रणाली सञ्चालन निर्देशिका-२०८०",
+   "kind": "directive",
+   "chunks": 47,
+   "status": "unknown",
+   "lang": "ne",
+   "sha": "45ffabbdd0",
+   "published": "१३ फागुन, २०८०"
+  },
+  {
+   "authority": "ppmo",
+   "title": "विधुतीय खरिद प्रणाली संचालन (पहिलो संशोधन) निर्देशिका, २०८०",
+   "kind": "directive",
+   "chunks": 2,
+   "status": "unknown",
+   "lang": "ne",
+   "sha": "999a959416",
+   "published": "५ चैत, २०८०"
+  },
+  {
+   "authority": "ppmo",
+   "title": "सार्वजनिक खरिद (दोस्रो संशोधन) ऐन, २०८३",
+   "kind": "act",
+   "chunks": 52,
+   "status": "unknown",
+   "lang": "ne",
+   "sha": "1aa0d49249",
+   "published": "३० असार, २०८३"
+  },
+  {
+   "authority": "ppmo",
+   "title": "सार्वजनिक खरिद (सोह्रौँ संशोधन) नियमावली, २०८३",
+   "kind": "regulation",
+   "chunks": 60,
+   "status": "unknown",
+   "lang": "ne",
+   "sha": "a626302c6b",
+   "published": "३ भदौ, २०८३"
+  },
+  {
+   "authority": "ppmo",
+   "title": "सेवाप्रदायक मार्फत सार्वजनिक पुर्वाधारको संचालन, व्यवस्थापन र मर्मत सेवा खरिद गर्ने सम्बन्धी निर्देशिका, २०८२",
+   "kind": "directive",
+   "chunks": 10,
+   "status": "unknown",
+   "lang": "ne",
+   "sha": "cf72bf14d4",
+   "published": "११ भदौ, २०८२"
+  },
+  {
+   "authority": "nia",
+   "title": "रसुवा बाढी दाबी भुक्तानी सम्बन्धी संक्षिप्त कार्यविधि, २०८३",
+   "kind": "directive",
+   "chunks": 18,
+   "status": "in_force",
+   "lang": "ne",
+   "sha": "f80a8729f3",
+   "published": "2026-09-30"
+  },
+  {
+   "authority": "nia",
+   "title": "बीमकको पुनर्बीमा निर्देशिका(पाँचौ संशोधन), २०८०",
+   "kind": "directive",
+   "chunks": 44,
+   "status": "in_force",
+   "lang": "ne",
+   "sha": "0d50759e13",
+   "published": "2026-08-27"
+  },
+  {
+   "authority": "nia",
+   "title": "Risk Based Capital and Solvency Directive, 2026",
+   "kind": "directive",
+   "chunks": 188,
+   "status": "in_force",
+   "lang": "en",
+   "sha": "1dc546edc1",
+   "published": "2026-08-04"
+  },
+  {
+   "authority": "nia",
+   "title": "भ्रामक प्रचारप्रसार नियन्त्रण गर्ने सम्बन्धमा।",
+   "kind": "circular",
+   "chunks": 3,
+   "status": "in_force",
+   "lang": "ne",
+   "sha": "e85bb673d9",
+   "published": "2026-08-24"
+  },
+  {
+   "authority": "nia",
+   "title": "दाबी भुक्तानी सम्बन्धमा ।",
+   "kind": "circular",
+   "chunks": 3,
+   "status": "in_force",
+   "lang": "ne",
+   "sha": "74d2e26ca2",
+   "published": "2026-07-24"
+  },
+  {
+   "authority": "nia",
+   "title": "डिजिटल ट्रयाकिङ प्रणाली लागू गर्ने सम्बन्धमा ।",
+   "kind": "circular",
+   "chunks": 1,
+   "status": "in_force",
+   "lang": "ne",
+   "sha": "463a01e21a",
+   "published": "2026-07-24"
+  },
+  {
+   "authority": "nia",
+   "title": "विवरण अद्यावधिक गर्ने सम्बन्धमा ।",
+   "kind": "directive",
+   "chunks": 4,
+   "status": "in_force",
+   "lang": "ne",
+   "sha": "e44849dd8e",
+   "published": "2026-09-16"
+  },
+  {
+   "authority": "nia",
+   "title": "विवरण उपलब्ध गराउने सम्बन्धमा ।",
+   "kind": "directive",
+   "chunks": 2,
+   "status": "in_force",
+   "lang": "ne",
+   "sha": "72ecb3c6ad",
+   "published": "2026-09-16"
+  },
+  {
+   "authority": "moless",
+   "title": "राष्ट्रिय व्यावसायिक प्रशिक्षण प्रतिष्ठान विकास समिति नियमावली, २०८२",
+   "kind": "regulation",
+   "chunks": 39,
+   "status": "unknown",
+   "lang": "ne",
+   "sha": "e880b07d2a",
+   "published": "१९ कात्तिक, २०८२"
+  },
+  {
+   "authority": "moless",
+   "title": "सीप तथा रोजगार मेला सञ्चालन निर्देशिका, २०८३",
+   "kind": "directive",
+   "chunks": 20,
+   "status": "in_force",
+   "lang": "ne",
+   "sha": "89c82130b0",
+   "published": "३१ भदौ, २०८३"
+  },
+  {
+   "authority": "moless",
+   "title": "विदेशी नागरिकहरूको श्रम इजाजत व्यवस्थापन सम्बन्धी निर्देशिका, २०७५",
+   "kind": "directive",
+   "chunks": 25,
+   "status": "unknown",
+   "lang": "ne",
+   "sha": "64bfce7011",
+   "published": "२५ बैशाख, २०८१"
+  },
+  {
+   "authority": "moless",
+   "title": "ईट्टा उद्याेगमा काम गर्ने श्रमिककाे लागि व्यवसायजन्य सुरक्षा एवं स्वास्थ्य सम्बन्धी निर्देशिका, २०७४",
+   "kind": "directive",
+   "chunks": 10,
+   "status": "unknown",
+   "lang": "ne",
+   "sha": "ad265b58ec",
+   "published": "२५ बैशाख, २०८१"
+  },
+  {
+   "authority": "moless",
+   "title": "श्रम संसार प्रणाली (व्यवस्थापन तथा सञ्चालन) सम्बन्धी कार्यविधि, २०८३",
+   "kind": "directive",
+   "chunks": 24,
+   "status": "in_force",
+   "lang": "ne",
+   "sha": "4500201718",
+   "published": "१६ भदौ, २०८३"
+  },
+  {
+   "authority": "moless",
+   "title": "बालश्रममुक्त स्थानीय तह धोषणा कार्यविधि २०७७",
+   "kind": "directive",
+   "chunks": 10,
+   "status": "unknown",
+   "lang": "ne",
+   "sha": "0685e64409",
+   "published": "२८ बैशाख, २०८३"
+  },
+  {
+   "authority": "moless",
+   "title": "वैदेशिक रोजगार ठगीका उजुरीको मेलमिलाप तथा सिफारिस गर्ने सम्बन्धी कार्यविधि, २०८०",
+   "kind": "directive",
+   "chunks": 12,
+   "status": "unknown",
+   "lang": "ne",
+   "sha": "33f6ada4ca",
+   "published": "२७ बैशाख, २०८१"
+  },
+  {
+   "authority": "moless",
+   "title": "सामाजिक सुरक्षा योजना संचालन कार्यविधि, २०७५",
+   "kind": "directive",
+   "chunks": 140,
+   "status": "unknown",
+   "lang": "ne",
+   "sha": "97e9df53ed",
+   "published": "२७ बैशाख, २०८१"
+  },
+  {
+   "authority": "moless",
+   "title": "रोजगारदाता र श्रमिकको सूचीकरण सम्बन्धी कार्यविधि, २०७५",
+   "kind": "directive",
+   "chunks": 59,
+   "status": "unknown",
+   "lang": "ne",
+   "sha": "f063ee1720",
+   "published": "२७ बैशाख, २०८१"
+  },
+  {
+   "authority": "moless",
+   "title": "कार्यस्थलको लागि अधिकतम तापस्तर (मापदण्ड) -२०८२",
+   "kind": "directive",
+   "chunks": 3,
+   "status": "unknown",
+   "lang": "ne",
+   "sha": "74bac7fe11",
+   "published": "१७ चैत, २०८२"
+  },
+  {
+   "authority": "moless",
+   "title": "श्रम अडिट मापदण्ड, २०७५",
+   "kind": "directive",
+   "chunks": 11,
+   "status": "unknown",
+   "lang": "ne",
+   "sha": "851e41f7b0",
+   "published": "२७ बैशाख, २०८१"
+  },
+  {
+   "authority": "moless",
+   "title": "ध्वनी र प्रकाश सम्बन्धी मापदण्ड, २०७३",
+   "kind": "directive",
+   "chunks": 9,
+   "status": "unknown",
+   "lang": "ne",
+   "sha": "fbe96b2e83",
+   "published": "२७ बैशाख, २०८१"
+  },
+  {
+   "authority": "sebon",
+   "title": "सम्पत्ती शुद्धीकरण तथा आतङ्कवादी क्रियाकलापमा वित्तीय लगानी निवारण सम्बन्धी निर्देशन, २०७६ ( दर्ता न. ७७/०८२ )",
+   "kind": "guideline",
+   "chunks": 49,
+   "status": "unknown",
+   "lang": "en",
+   "sha": "5968717c6d",
+   "published": "2023-03-24"
+  }
+ ],
+ "ocr_quality": [
+  {
+   "authority": "nrb",
+   "title": "Assets (Money) Laundering Prevention Rule, 2016",
+   "sha": "6c7c62b17f",
+   "pages": 28,
+   "rate": 0.947,
+   "kept_share": 1.0,
+   "keep": true,
+   "reason": "ok",
+   "dropped_pages": []
+  },
+  {
+   "authority": "nrb",
+   "title": "aml cft directive issued by nepal rastra bank for infrastructure development bank",
+   "sha": "c201e7ad64",
+   "pages": 24,
+   "rate": 0.982,
+   "kept_share": 1.0,
+   "keep": true,
+   "reason": "ok",
+   "dropped_pages": []
+  },
+  {
+   "authority": "nrb",
+   "title": "aml cft directives issued by ican the institute of chartered accountants of nepal",
+   "sha": "a8317896a0",
+   "pages": 10,
+   "rate": 0.975,
+   "kept_share": 1.0,
+   "keep": true,
+   "reason": "ok",
+   "dropped_pages": []
+  },
+  {
+   "authority": "nrb",
+   "title": "aml cft directives issued by ministry of culture tourism and civil aviation for casinos",
+   "sha": "1b0a2c0877",
+   "pages": 16,
+   "rate": 0.962,
+   "kept_share": 1.0,
+   "keep": true,
+   "reason": "ok",
+   "dropped_pages": []
+  },
+  {
+   "authority": "nrb",
+   "title": "aml cft directives issued by payment systems department psd nrb",
+   "sha": "74f53b9144",
+   "pages": 10,
+   "rate": 0.969,
+   "kept_share": 1.0,
+   "keep": true,
+   "reason": "ok",
+   "dropped_pages": []
+  },
+  {
+   "authority": "nrb",
+   "title": "directives issued by sebon",
+   "sha": "85116caa73",
+   "pages": 18,
+   "rate": 0.96,
+   "kept_share": 1.0,
+   "keep": true,
+   "reason": "ok",
+   "dropped_pages": []
+  },
+  {
+   "authority": "nrb",
+   "title": "nepal rastra bank nrb aml cft directives for a b c class bfis",
+   "sha": "8baf06a4da",
+   "pages": 26,
+   "rate": 0.932,
+   "kept_share": 1.0,
+   "keep": true,
+   "reason": "ok",
+   "dropped_pages": []
+  },
+  {
+   "authority": "nrb",
+   "title": "nepal rastra bank nrb aml cft directives for microfinance fis",
+   "sha": "420d14c88b",
+   "pages": 12,
+   "rate": 0.985,
+   "kept_share": 1.0,
+   "keep": true,
+   "reason": "ok",
+   "dropped_pages": []
+  },
+  {
+   "authority": "nrb",
+   "title": "जाली नोट तथा खोटो सिक्का सम्बन्धी विनियमावली, २०७७",
+   "sha": "7dd91682c6",
+   "pages": 14,
+   "rate": 0.963,
+   "kept_share": 1.0,
+   "keep": true,
+   "reason": "ok",
+   "dropped_pages": []
+  },
+  {
+   "authority": "nrb",
+   "title": "नेपाल राष्ट्र बैंक बैंक तथा वित्तीय संस्थाको शीघ्र सुधारात्मक कारवाही सम्बन्धी विनियमावली, २०७४",
+   "sha": "270298f06c",
+   "pages": 5,
+   "rate": 0.984,
+   "kept_share": 1.0,
+   "keep": true,
+   "reason": "ok",
+   "dropped_pages": []
+  },
+  {
+   "authority": "nrb",
+   "title": "भुक्तानी प्रणालीसम्बन्धी एकीकृत निर्देशन, २०८१ को अ. प्रा. निर्देशन नं. १/०८१ को बुँदा नं. १ को (२) मा संशोधन गरिएको सम्बन्धमा ।",
+   "sha": "a43afd5635",
+   "pages": 2,
+   "rate": 0.945,
+   "kept_share": 1.0,
+   "keep": true,
+   "reason": "ok",
+   "dropped_pages": []
+  },
+  {
+   "authority": "nrb",
+   "title": "भुक्तानी प्रणालीसम्बन्धी एकीकृत निर्देशन, २०८२ मा संशोधन गरिएको सम्बन्धमा ।",
+   "sha": "a9dae063a9",
+   "pages": 3,
+   "rate": 0.942,
+   "kept_share": 1.0,
+   "keep": true,
+   "reason": "ok",
+   "dropped_pages": []
+  },
+  {
+   "authority": "nrb",
+   "title": "भुक्तानी प्रणालीसम्बन्धी एकीकृत निर्देशन, २०८२ मा संशोधन गरिएको सम्बन्धमा ।",
+   "sha": "94cb942142",
+   "pages": 2,
+   "rate": 0.942,
+   "kept_share": 1.0,
+   "keep": true,
+   "reason": "ok",
+   "dropped_pages": []
+  },
+  {
+   "authority": "nrb",
+   "title": "भुक्तानी सेवा प्रदायकहरुले सञ्चालन गरेका वालेटमा रकम जम्मा गर्ने सीमा (संख्या) लाई अस्थायी रुपमा बृद्धि गरिएको सम्बन्धमा ।",
+   "sha": "ce16150f49",
+   "pages": 1,
+   "rate": 0.9,
+   "kept_share": 1.0,
+   "keep": true,
+   "reason": "ok",
+   "dropped_pages": []
+  },
+  {
+   "authority": "nrb",
+   "title": "मोबाइल बैंकिङ्ग, वेब एप्लिकेशन, तथा ई-मनीको माध्यम मार्फत हुने कारोवारसम्बन्धमा।",
+   "sha": "41858c9c09",
+   "pages": 2,
+   "rate": 0.854,
+   "kept_share": 1.0,
+   "keep": true,
+   "reason": "ok",
+   "dropped_pages": []
+  },
+  {
+   "authority": "nrb",
+   "title": "विद्युतीय माध्यमबाट प्रवाह हुने कर्जा (Digital Lending) सम्बन्धी मार्गदर्शन, २०७८",
+   "sha": "1b66f23b61",
+   "pages": 6,
+   "rate": 0.971,
+   "kept_share": 1.0,
+   "keep": true,
+   "reason": "ok",
+   "dropped_pages": []
+  },
+  {
+   "authority": "nrb",
+   "title": "सूचना नं १६/२०८२-८३: आमनिर्वाचनका लागि छुट्टै बैक खाता खोल्ने सम्बन्धमा ।",
+   "sha": "f398a6357c",
+   "pages": 1,
+   "rate": 0.903,
+   "kept_share": 1.0,
+   "keep": true,
+   "reason": "ok",
+   "dropped_pages": []
+  },
+  {
+   "authority": "nrb",
+   "title": "सूचना नं १७/२०८२-८३: आमनिर्वाचनको अवधिमा बैंकिङ सेवा प्रवाह गर्ने सम्बन्धमा ।",
+   "sha": "36ee6484a4",
+   "pages": 1,
+   "rate": 0.89,
+   "kept_share": 1.0,
+   "keep": true,
+   "reason": "ok",
+   "dropped_pages": []
+  },
+  {
+   "authority": "nrb",
+   "title": "सूचना नं १८/२०८२-८३: आमनिर्वाचनको अवधिमा बैंकिङ सेवा प्रवाह गर्ने सम्बन्धमा ।",
+   "sha": "6d206127bb",
+   "pages": 1,
+   "rate": 0.922,
+   "kept_share": 1.0,
+   "keep": true,
+   "reason": "ok",
+   "dropped_pages": []
+  },
+  {
+   "authority": "nrb",
+   "title": "हायर पर्चेज कर्जा दिने कम्पनीलाई स्वीकृति दिने नीतिगत एवं प्रक्रियागत व्यवस्था, २०७० (दोस्रो संसोधन, २०७५)",
+   "sha": "78cbd3900d",
+   "pages": 13,
+   "rate": 0.979,
+   "kept_share": 1.0,
+   "keep": true,
+   "reason": "ok",
+   "dropped_pages": []
+  },
+  {
+   "authority": "nrb",
+   "title": "१/२०८३–८४ः एकीकृत परिपत्र–२०८२ मा संशोधन (भा.रू.सम्बन्धमा)। २०८३/०४/०७",
+   "sha": "739cecf479",
+   "pages": 2,
+   "rate": 0.942,
+   "kept_share": 1.0,
+   "keep": true,
+   "reason": "ok",
+   "dropped_pages": []
+  },
+  {
+   "authority": "nrb",
+   "title": "१२/२०८२–८३ः एकीकृत परिपत्र–२०८२ मा संशोधन । २०८३/०२/२६",
+   "sha": "17af1abbf7",
+   "pages": 2,
+   "rate": 0.982,
+   "kept_share": 1.0,
+   "keep": true,
+   "reason": "ok",
+   "dropped_pages": []
+  },
+  {
+   "authority": "ird",
+   "title": "आर्थिक ऐन २०८० (राजपत्र अरि १४)",
+   "sha": "34017b05c1",
+   "pages": 279,
+   "rate": 0.968,
+   "kept_share": 0.996,
+   "keep": true,
+   "reason": "ok",
+   "dropped_pages": [
+    [
+     35,
+     "garbled (valid words 37%)"
+    ]
+   ]
+  },
+  {
+   "authority": "ird",
+   "title": "आर्थिक ऐन, २०८३ (राजपत्रमा प्रकाशित मिति २०८३।०३।३०)",
+   "sha": "c818f71779",
+   "pages": 415,
+   "rate": 0.958,
+   "kept_share": 0.997,
+   "keep": true,
+   "reason": "ok",
+   "dropped_pages": [
+    [
+     41,
+     "garbled (valid words 52%)"
+    ]
+   ]
+  },
+  {
+   "authority": "ird",
+   "title": "करदाता प्रोत्साहन उपहार कार्यक्रम सञ्चालन कार्यविधि, २०८३",
+   "sha": "0d7e0322bd",
+   "pages": 6,
+   "rate": 0.982,
+   "kept_share": 1.0,
+   "keep": true,
+   "reason": "ok",
+   "dropped_pages": []
+  },
+  {
+   "authority": "ird",
+   "title": "व्यवसाय दर्ता, आय विवरण,कर विवरण तथा अन्तःशुल्क विवरण भर्ने निर्देशिका",
+   "sha": "6f5f8e3954",
+   "pages": 136,
+   "rate": 0.918,
+   "kept_share": 1.0,
+   "keep": true,
+   "reason": "ok",
+   "dropped_pages": []
+  },
+  {
+   "authority": "sebon",
+   "title": "Circular to CDS and Clearing Ltd (2083/05/09)",
+   "sha": "44dbca3d90",
+   "pages": 2,
+   "rate": 0.909,
+   "kept_share": 1.0,
+   "keep": true,
+   "reason": "ok",
+   "dropped_pages": []
+  },
+  {
+   "authority": "sebon",
+   "title": "Circular to Merchant Banker 2074-07-08",
+   "sha": "425563f0fd",
+   "pages": 1,
+   "rate": 0.895,
+   "kept_share": 1.0,
+   "keep": true,
+   "reason": "ok",
+   "dropped_pages": []
+  },
+  {
+   "authority": "sebon",
+   "title": "Circular to Nepse (2083/05/09)",
+   "sha": "5f1f22bd11",
+   "pages": 3,
+   "rate": 0.928,
+   "kept_share": 1.0,
+   "keep": true,
+   "reason": "ok",
+   "dropped_pages": []
+  },
+  {
+   "authority": "sebon",
+   "title": "Circular to Stock Broker and Merchant Banker (2075|10|08)",
+   "sha": "1e9a0816ea",
+   "pages": 1,
+   "rate": 0.92,
+   "kept_share": 1.0,
+   "keep": true,
+   "reason": "ok",
+   "dropped_pages": []
+  },
+  {
+   "authority": "sebon",
+   "title": "Circular to Stock Exchange 2083.05.15",
+   "sha": "2d82910f80",
+   "pages": 3,
+   "rate": 0.95,
+   "kept_share": 1.0,
+   "keep": true,
+   "reason": "ok",
+   "dropped_pages": []
+  },
+  {
+   "authority": "sebon",
+   "title": "Circular to all ASBA Members (2080|05|10)",
+   "sha": "c0870a95b3",
+   "pages": 1,
+   "rate": 0.962,
+   "kept_share": 1.0,
+   "keep": true,
+   "reason": "ok",
+   "dropped_pages": []
+  },
+  {
+   "authority": "sebon",
+   "title": "Circular to all Fund Managers and Depositories (2083/05/09)",
+   "sha": "f3d596fd41",
+   "pages": 1,
+   "rate": 0.966,
+   "kept_share": 1.0,
+   "keep": true,
+   "reason": "ok",
+   "dropped_pages": []
+  },
+  {
+   "authority": "sebon",
+   "title": "Circular to all Listed Companies (2072|08|20)",
+   "sha": "71d1f9566a",
+   "pages": 1,
+   "rate": 0.879,
+   "kept_share": 1.0,
+   "keep": true,
+   "reason": "ok",
+   "dropped_pages": []
+  },
+  {
+   "authority": "sebon",
+   "title": "Circular to all Listed Companies 2075-10-18",
+   "sha": "0605cdcf38",
+   "pages": 1,
+   "rate": 0.894,
+   "kept_share": 1.0,
+   "keep": true,
+   "reason": "ok",
+   "dropped_pages": []
+  },
+  {
+   "authority": "sebon",
+   "title": "Circular to all Listed Companies(2083/05/09)",
+   "sha": "bc5a4a72ab",
+   "pages": 2,
+   "rate": 0.955,
+   "kept_share": 1.0,
+   "keep": true,
+   "reason": "ok",
+   "dropped_pages": []
+  },
+  {
+   "authority": "sebon",
+   "title": "Circular to all Merchant Bankers (2072|08|20)",
+   "sha": "f3f91645ef",
+   "pages": 1,
+   "rate": 0.857,
+   "kept_share": 1.0,
+   "keep": true,
+   "reason": "ok",
+   "dropped_pages": []
+  },
+  {
+   "authority": "sebon",
+   "title": "Circular to all Merchant Bankers (2083/05/09)",
+   "sha": "d29ec1250a",
+   "pages": 2,
+   "rate": 0.923,
+   "kept_share": 1.0,
+   "keep": true,
+   "reason": "ok",
+   "dropped_pages": []
+  },
+  {
+   "authority": "sebon",
+   "title": "Circular to all Stock Brokers (2083/05/09)",
+   "sha": "a118042e3c",
+   "pages": 2,
+   "rate": 0.975,
+   "kept_share": 1.0,
+   "keep": true,
+   "reason": "ok",
+   "dropped_pages": []
+  },
+  {
+   "authority": "sebon",
+   "title": "Government Securities Bylaws of SEBON, 2062",
+   "sha": "a29ff5cdb8",
+   "pages": 8,
+   "rate": 0.969,
+   "kept_share": 1.0,
+   "keep": true,
+   "reason": "ok",
+   "dropped_pages": []
+  },
+  {
+   "authority": "sebon",
+   "title": "Government Securities Bylaws of SEBON, 2062",
+   "sha": "d91e0c0306",
+   "pages": 18,
+   "rate": 0.826,
+   "kept_share": 1.0,
+   "keep": true,
+   "reason": "ok",
+   "dropped_pages": []
+  },
+  {
+   "authority": "sebon",
+   "title": "Mutual Fund Guidelines-2069 (applicable from 2069-04-01)",
+   "sha": "71663d5523",
+   "pages": 19,
+   "rate": 0.984,
+   "kept_share": 1.0,
+   "keep": true,
+   "reason": "ok",
+   "dropped_pages": []
+  },
+  {
+   "authority": "sebon",
+   "title": "Mutual Fund Guidelines-2069 (applicable from 2069-04-01)",
+   "sha": "dce425c16b",
+   "pages": 34,
+   "rate": 0.782,
+   "kept_share": 1.0,
+   "keep": true,
+   "reason": "ok",
+   "dropped_pages": []
+  },
+  {
+   "authority": "sebon",
+   "title": "धितोपत्र खरिद (सार्वजनिक निष्काशन) सम्बन्धी निर्देशिका, २०७३ (तेश्रो संशोधन सहित )",
+   "sha": "9a9a860c44",
+   "pages": 10,
+   "rate": 0.993,
+   "kept_share": 1.0,
+   "keep": true,
+   "reason": "ok",
+   "dropped_pages": []
+  },
+  {
+   "authority": "sebon",
+   "title": "धितोपत्र खरिद (सार्वजनिक निष्काशन) सम्बन्धी निर्देशिका, २०७३ (तेश्रो संशोधन सहित )",
+   "sha": "aac1fc86e3",
+   "pages": 21,
+   "rate": 0.853,
+   "kept_share": 1.0,
+   "keep": true,
+   "reason": "ok",
+   "dropped_pages": []
+  },
+  {
+   "authority": "sebon",
+   "title": "धितोपत्र दर्ता गराएका संगठित संस्था एकआपसमा गाभ्ने /गाभिने तथा प्राप्ति सम्बन्धी निर्देशिका, २०७९ ( दर्ता न. ७२/०८२ )",
+   "sha": "d8c9243fd6",
+   "pages": 9,
+   "rate": 0.986,
+   "kept_share": 1.0,
+   "keep": true,
+   "reason": "ok",
+   "dropped_pages": []
+  },
+  {
+   "authority": "sebon",
+   "title": "धितोपत्र दर्ता तथा निष्काशन (छैठौं संशोधन) नियमावली, २०७९",
+   "sha": "be1d1a45d0",
+   "pages": 2,
+   "rate": 0.991,
+   "kept_share": 1.0,
+   "keep": true,
+   "reason": "ok",
+   "dropped_pages": []
+  },
+  {
+   "authority": "sebon",
+   "title": "धितोपत्र दर्ता तथा निष्काशन (सातौ संशोधन ) नियमावली, २०८०",
+   "sha": "0b428e720f",
+   "pages": 4,
+   "rate": 0.956,
+   "kept_share": 1.0,
+   "keep": true,
+   "reason": "ok",
+   "dropped_pages": []
+  },
+  {
+   "authority": "sebon",
+   "title": "धितोपत्र दलाल व्यवसायीले शाखा कार्यालय खोल्ने सम्बन्धी निर्देशिका, २०७९ ( दर्ता न. ७१/०८२ )",
+   "sha": "058a741eb8",
+   "pages": 8,
+   "rate": 0.985,
+   "kept_share": 1.0,
+   "keep": true,
+   "reason": "ok",
+   "dropped_pages": []
+  },
+  {
+   "authority": "sebon",
+   "title": "धितोपत्र दलाल व्यवसायीहरुलाई निर्देशन सम्बन्धमा।",
+   "sha": "53d2ee0a75",
+   "pages": 1,
+   "rate": 0.898,
+   "kept_share": 1.0,
+   "keep": true,
+   "reason": "ok",
+   "dropped_pages": []
+  },
+  {
+   "authority": "sebon",
+   "title": "धितोपत्र बजार संचालन (दोश्रो संशोधन ) नियमावली, २०७९",
+   "sha": "b0e480d6a3",
+   "pages": 5,
+   "rate": 0.941,
+   "kept_share": 1.0,
+   "keep": true,
+   "reason": "ok",
+   "dropped_pages": []
+  },
+  {
+   "authority": "sebon",
+   "title": "धितोपत्र व्यवसायी (धितोपत्र दलाल तथा धितोपत्र व्यापारी ) (चौथो संशोधन) नियमावली, २०७९",
+   "sha": "af931b914a",
+   "pages": 22,
+   "rate": 0.877,
+   "kept_share": 1.0,
+   "keep": true,
+   "reason": "ok",
+   "dropped_pages": []
+  },
+  {
+   "authority": "sebon",
+   "title": "धितोपत्र व्यवसायी (धितोपत्र दलाल तथा धितोपत्र व्यापारी ) (पाँचौ संशोधन) नियमावली, २०७९",
+   "sha": "ad0b198297",
+   "pages": 1,
+   "rate": 0.933,
+   "kept_share": 1.0,
+   "keep": true,
+   "reason": "ok",
+   "dropped_pages": []
+  },
+  {
+   "authority": "sebon",
+   "title": "धितोपत्र व्यवसायी (धितोपत्र दलाल तथा धितोपत्र व्यापारी) (छैठौं संशोधन) नियमावली, २०८२",
+   "sha": "4940044cd5",
+   "pages": 2,
+   "rate": 0.956,
+   "kept_share": 1.0,
+   "keep": true,
+   "reason": "ok",
+   "dropped_pages": []
+  },
+  {
+   "authority": "sebon",
+   "title": "धितोपत्र सूचीकरण तथा कारोबार नियमावली , २०७५ ( दर्ता न. २९/०८२ )",
+   "sha": "bd6b1da624",
+   "pages": 11,
+   "rate": 0.989,
+   "kept_share": 1.0,
+   "keep": true,
+   "reason": "ok",
+   "dropped_pages": []
+  },
+  {
+   "authority": "sebon",
+   "title": "धितोपत्र सूचीकरण तथा कारोबार नियमावली , २०७५ ( दर्ता न. २९/०८२ )",
+   "sha": "efc76fb410",
+   "pages": 19,
+   "rate": 0.846,
+   "kept_share": 1.0,
+   "keep": true,
+   "reason": "ok",
+   "dropped_pages": []
+  },
+  {
+   "authority": "sebon",
+   "title": "बीज पुँजी सम्बन्धमा",
+   "sha": "14724dac54",
+   "pages": 2,
+   "rate": 0.955,
+   "kept_share": 1.0,
+   "keep": true,
+   "reason": "ok",
+   "dropped_pages": []
+  },
+  {
+   "authority": "sebon",
+   "title": "बुक विल्डिङ्ग निर्देशिका, २०७७ ( दर्ता न. ६८/०८२ )",
+   "sha": "d14a63de4b",
+   "pages": 11,
+   "rate": 0.986,
+   "kept_share": 1.0,
+   "keep": true,
+   "reason": "ok",
+   "dropped_pages": []
+  },
+  {
+   "authority": "sebon",
+   "title": "बुक विल्डिङ्ग निर्देशिका, २०७७ ( दर्ता न. ६८/०८२ )",
+   "sha": "a8bd98a6fa",
+   "pages": 14,
+   "rate": 0.781,
+   "kept_share": 1.0,
+   "keep": true,
+   "reason": "ok",
+   "dropped_pages": []
+  },
+  {
+   "authority": "sebon",
+   "title": "बोर्डबाट अनुमतिपत्र प्राप्त धितोपत्र बजार तथा सम्पूर्ण धितोपत्र व्यवसायीहरुलाई कोभिड–१९ को संक्रमणलाई रोकथाम तथा नियन्त्रण सम्बन्धी निर्णय कार्यान्वयन गर्ने सम्बन्धमा ।",
+   "sha": "bf699fa0bf",
+   "pages": 6,
+   "rate": 0.923,
+   "kept_share": 1.0,
+   "keep": true,
+   "reason": "ok",
+   "dropped_pages": []
+  },
+  {
+   "authority": "sebon",
+   "title": "बोर्डबाट संस्थागत परामर्श सेवा प्रदान गर्न अनुमतिपत्र प्राप्त मर्चेन्ट बैंकरहरुको लागि निर्देशन।",
+   "sha": "f325b8f220",
+   "pages": 2,
+   "rate": 0.96,
+   "kept_share": 1.0,
+   "keep": true,
+   "reason": "ok",
+   "dropped_pages": []
+  },
+  {
+   "authority": "sebon",
+   "title": "लगानी व्यवस्थापन (पोर्टफोलियो म्यानेजमेन्ट) सम्बन्धी निर्देशिका, २०६७ ( दर्ता न. ६४/०८२ )",
+   "sha": "ce1736ac09",
+   "pages": 10,
+   "rate": 0.994,
+   "kept_share": 1.0,
+   "keep": true,
+   "reason": "ok",
+   "dropped_pages": []
+  },
+  {
+   "authority": "sebon",
+   "title": "लगानी व्यवस्थापन (पोर्टफोलियो म्यानेजमेन्ट) सम्बन्धी निर्देशिका, २०६७ ( दर्ता न. ६४/०८२ )",
+   "sha": "9a0353ca0e",
+   "pages": 22,
+   "rate": 0.777,
+   "kept_share": 1.0,
+   "keep": true,
+   "reason": "ok",
+   "dropped_pages": []
+  },
+  {
+   "authority": "sebon",
+   "title": "लाभंस भुक्तानी सम्बन्धमा ।",
+   "sha": "fe06bf91d1",
+   "pages": 1,
+   "rate": 0.954,
+   "kept_share": 1.0,
+   "keep": true,
+   "reason": "ok",
+   "dropped_pages": []
+  },
+  {
+   "authority": "sebon",
+   "title": "वस्तु विनिमय बजार सम्बन्धि नियमावली , २०७४ ( दर्ता न. ३१/०८२ )",
+   "sha": "53c55e9cea",
+   "pages": 32,
+   "rate": 0.993,
+   "kept_share": 1.0,
+   "keep": true,
+   "reason": "ok",
+   "dropped_pages": []
+  },
+  {
+   "authority": "sebon",
+   "title": "वस्तु विनिमय बजार सम्बन्धि नियमावली , २०७४ ( दर्ता न. ३१/०८२ )",
+   "sha": "bc23865679",
+   "pages": 66,
+   "rate": 0.815,
+   "kept_share": 0.987,
+   "keep": true,
+   "reason": "ok",
+   "dropped_pages": [
+    [
+     56,
+     "garbled (valid words 36%)"
+    ]
+   ]
+  },
+  {
+   "authority": "sebon",
+   "title": "विशिष्टीकृत लगानी कोष नियमावली, २०७५ (प्रथम संशोधन सहित) ( दर्ता न. २८/०८२ )",
+   "sha": "f02a7eb801",
+   "pages": 25,
+   "rate": 0.984,
+   "kept_share": 1.0,
+   "keep": true,
+   "reason": "ok",
+   "dropped_pages": []
+  },
+  {
+   "authority": "sebon",
+   "title": "विशिष्टीकृत लगानी कोष नियमावली, २०७५ (प्रथम संशोधन सहित) ( दर्ता न. २८/०८२ )",
+   "sha": "9a767201e3",
+   "pages": 35,
+   "rate": 0.804,
+   "kept_share": 0.995,
+   "keep": true,
+   "reason": "ok",
+   "dropped_pages": [
+    [
+     26,
+     "garbled (valid words 52%)"
+    ]
+   ]
+  },
+  {
+   "authority": "sebon",
+   "title": "संचालन तथा बित्तिय बिवरणहरु सार्बजनिक गर्नुपर्ने व्यवस्थाका सम्बन्धमा।",
+   "sha": "ef8ff26779",
+   "pages": 2,
+   "rate": 0.953,
+   "kept_share": 1.0,
+   "keep": true,
+   "reason": "ok",
+   "dropped_pages": []
+  },
+  {
+   "authority": "sebon",
+   "title": "सम्पत्ति शुद्धीकरण (मनी लाउण्डरिङ्ग) निवारण तथा व्यावसायिक वातावरण प्रवर्द्धन सम्बन्धी केही ऐनलाई संशोधन गर्न बनेको ऐन",
+   "sha": "3c8bdbfd10",
+   "pages": 109,
+   "rate": 0.987,
+   "kept_share": 1.0,
+   "keep": true,
+   "reason": "ok",
+   "dropped_pages": []
+  },
+  {
+   "authority": "sebon",
+   "title": "सम्पत्ती शुद्धीकरण तथा आतङ्कवादी क्रियाकलापमा वित्तीय लगानी निवारण सम्बन्धी निर्देशन, २०७६ ( दर्ता न. ७७/०८२ )",
+   "sha": "5968717c6d",
+   "pages": 31,
+   "rate": 0.851,
+   "kept_share": 1.0,
+   "keep": true,
+   "reason": "ok",
+   "dropped_pages": []
+  },
+  {
+   "authority": "sebon",
+   "title": "साना तथा मझौला संगठित संस्थाको धितोपत्र निष्कासन तथा कारोबार नियमावली ,२०८१ ( दर्ता न. २५/०८२ )",
+   "sha": "f35287aa70",
+   "pages": 32,
+   "rate": 0.958,
+   "kept_share": 1.0,
+   "keep": true,
+   "reason": "ok",
+   "dropped_pages": []
+  },
+  {
+   "authority": "sebon",
+   "title": "सुचिकृत संगठित संस्थाहरुको बित्तिय बिवरण सार्बजनिक गर्ने सम्बन्धमा।",
+   "sha": "b76e1012d1",
+   "pages": 2,
+   "rate": 0.963,
+   "kept_share": 1.0,
+   "keep": true,
+   "reason": "ok",
+   "dropped_pages": []
+  },
+  {
+   "authority": "sebon",
+   "title": "सूचीकृत संगठित संस्थाहरुको संस्थागत सुशासन सम्बन्धी निर्देशिका २०७४ (पहिलो संशोधन सहित) ( दर्ता न. ६७/०८२ )",
+   "sha": "47b2ed41fb",
+   "pages": 12,
+   "rate": 0.984,
+   "kept_share": 1.0,
+   "keep": true,
+   "reason": "ok",
+   "dropped_pages": []
+  },
+  {
+   "authority": "sebon",
+   "title": "सूचीकृत संगठित संस्थाहरुको संस्थागत सुशासन सम्बन्धी निर्देशिका २०७४ (पहिलो संशोधन सहित) ( दर्ता न. ६७/०८२ )",
+   "sha": "0aeb83e93b",
+   "pages": 19,
+   "rate": 0.866,
+   "kept_share": 1.0,
+   "keep": true,
+   "reason": "ok",
+   "dropped_pages": []
+  },
+  {
+   "authority": "sebon",
+   "title": "सेवा प्रवाह गर्दा सावधानी अपनाउने सम्बन्धमा।",
+   "sha": "9c704283e9",
+   "pages": 1,
+   "rate": 0.956,
+   "kept_share": 1.0,
+   "keep": true,
+   "reason": "ok",
+   "dropped_pages": []
+  },
+  {
+   "authority": "ocr",
+   "title": "CAMIS प्रणाली बन्द रहने सम्बन्धि सूचना",
+   "sha": "4412e56a70",
+   "pages": 1,
+   "rate": 0.922,
+   "kept_share": 1.0,
+   "keep": true,
+   "reason": "ok",
+   "dropped_pages": []
+  },
+  {
+   "authority": "ocr",
+   "title": "आर्थिक प्रस्ताव खोल्ने सम्बन्धि सूचना",
+   "sha": "615d7c16c8",
+   "pages": 1,
+   "rate": 0.892,
+   "kept_share": 1.0,
+   "keep": true,
+   "reason": "ok",
+   "dropped_pages": []
+  },
+  {
+   "authority": "ocr",
+   "title": "आवेदन फर्छ्यौटको जानकारी",
+   "sha": "db360e1734",
+   "pages": 1,
+   "rate": 0.938,
+   "kept_share": 1.0,
+   "keep": true,
+   "reason": "ok",
+   "dropped_pages": []
+  },
+  {
+   "authority": "ocr",
+   "title": "कम्पनी ऐन, २०६३ बमोजिम लाग्ने कर, शुल्क, दस्तुर तथा जरिवाना मिनाहा सम्बन्धी सूचना ।",
+   "sha": "4381f232ba",
+   "pages": 1,
+   "rate": 0.928,
+   "kept_share": 1.0,
+   "keep": true,
+   "reason": "ok",
+   "dropped_pages": []
+  },
+  {
+   "authority": "ocr",
+   "title": "कम्पनी प्रशासन व्यवस्थापन सूचना प्रणाली CAMIS मा गरिएको सुधार वारे जानकारी",
+   "sha": "e3d12abd2b",
+   "pages": 1,
+   "rate": 0.909,
+   "kept_share": 1.0,
+   "keep": true,
+   "reason": "ok",
+   "dropped_pages": []
+  },
+  {
+   "authority": "ocr",
+   "title": "कम्पनी प्रसाशनलाई सरलीकरण सम्बन्धमा",
+   "sha": "1d2e788bc2",
+   "pages": 1,
+   "rate": 0.914,
+   "kept_share": 1.0,
+   "keep": true,
+   "reason": "ok",
+   "dropped_pages": []
+  },
+  {
+   "authority": "ocr",
+   "title": "कम्पनी रजिष्ट्रारको कार्यालयको सूचना",
+   "sha": "da18b3227d",
+   "pages": 1,
+   "rate": 0.89,
+   "kept_share": 1.0,
+   "keep": true,
+   "reason": "ok",
+   "dropped_pages": []
+  },
+  {
+   "authority": "ocr",
+   "title": "कम्प्पनी रजिष्ट्रारको कार्यालयको सूचना",
+   "sha": "71f1d4a9c5",
+   "pages": 1,
+   "rate": 0.975,
+   "kept_share": 1.0,
+   "keep": true,
+   "reason": "ok",
+   "dropped_pages": []
+  },
+  {
+   "authority": "ocr",
+   "title": "कार्यालयको Corporate Action Room बाट भएका कार्यहरुको सुचना",
+   "sha": "508939acd5",
+   "pages": 1,
+   "rate": 0.858,
+   "kept_share": 1.0,
+   "keep": true,
+   "reason": "ok",
+   "dropped_pages": []
+  },
+  {
+   "authority": "ocr",
+   "title": "कार्यालयको अनलाइन सेवा प्रवाह सुचारु रहेको सूचना ।।",
+   "sha": "3468f7308f",
+   "pages": 1,
+   "rate": 0.824,
+   "kept_share": 1.0,
+   "keep": true,
+   "reason": "ok",
+   "dropped_pages": []
+  },
+  {
+   "authority": "ocr",
+   "title": "छुट सुबिधा प्रबन्ध सम्बन्धी सूचना २०८१।११।१९",
+   "sha": "5e1331dd97",
+   "pages": 1,
+   "rate": 0.967,
+   "kept_share": 1.0,
+   "keep": true,
+   "reason": "ok",
+   "dropped_pages": []
+  },
+  {
+   "authority": "ocr",
+   "title": "निवेदन पेश गर्ने मिति र समय सम्बन्धमा सूचना",
+   "sha": "5c25379e55",
+   "pages": 1,
+   "rate": 0.952,
+   "kept_share": 1.0,
+   "keep": true,
+   "reason": "ok",
+   "dropped_pages": []
+  },
+  {
+   "authority": "ocr",
+   "title": "रोक्का सम्बन्धि सूचना",
+   "sha": "eb16e25ad2",
+   "pages": 1,
+   "rate": 0.906,
+   "kept_share": 1.0,
+   "keep": true,
+   "reason": "ok",
+   "dropped_pages": []
+  },
+  {
+   "authority": "ocr",
+   "title": "लण्ड्री व्याग (प्रा.लि.नं. ३२३५१७) का संचालक/शेयरधनी सिमा मितलको नाउँमा जारी भएको सुचना ।",
+   "sha": "6b57d950d8",
+   "pages": 1,
+   "rate": 0.871,
+   "kept_share": 1.0,
+   "keep": true,
+   "reason": "ok",
+   "dropped_pages": []
+  },
+  {
+   "authority": "ocr",
+   "title": "वार्षिक विवरण अभिलेखनका पत्रहरू स्वचालित रूपमा प्राप्त हुने प्रबन्ध मिलाइएको सूचना ।",
+   "sha": "ddf8125b86",
+   "pages": 1,
+   "rate": 0.86,
+   "kept_share": 1.0,
+   "keep": true,
+   "reason": "ok",
+   "dropped_pages": []
+  },
+  {
+   "authority": "ocr",
+   "title": "विज्ञ सुचिमा नाम दर्ता सम्बन्धमा",
+   "sha": "866ac94ae4",
+   "pages": 2,
+   "rate": 0.931,
+   "kept_share": 1.0,
+   "keep": true,
+   "reason": "ok",
+   "dropped_pages": []
+  },
+  {
+   "authority": "ocr",
+   "title": "विशेष दर्ता खारेजी प्रकृया (दफा १३६क) सम्बन्धी सूचना । - २०८१।१२।१३",
+   "sha": "57c71f33a9",
+   "pages": 1,
+   "rate": 0.978,
+   "kept_share": 1.0,
+   "keep": true,
+   "reason": "ok",
+   "dropped_pages": []
+  },
+  {
+   "authority": "ocr",
+   "title": "विशेष दर्ता खारेजी सम्बन्धी निर्देशिका - २०८२",
+   "sha": "4291f1352c",
+   "pages": 4,
+   "rate": 0.973,
+   "kept_share": 1.0,
+   "keep": true,
+   "reason": "ok",
+   "dropped_pages": []
+  },
+  {
+   "authority": "ocr",
+   "title": "सम्बन्धित स्थानिय तहबाट सनाखत गर्ने व्यवस्था मिलाइएको - २०८२।१२।३०",
+   "sha": "52e122ebe1",
+   "pages": 7,
+   "rate": 0.947,
+   "kept_share": 0.987,
+   "keep": true,
+   "reason": "ok",
+   "dropped_pages": [
+    [
+     4,
+     "garbled (valid words 53%)"
+    ]
+   ]
+  },
+  {
+   "authority": "ocr",
+   "title": "स्थानीय तहले कम्पनी दर्ता तथा शेयर खरिद गर्न सक्ने वारे जानकारी",
+   "sha": "baf64c2164",
+   "pages": 1,
+   "rate": 0.895,
+   "kept_share": 1.0,
+   "keep": true,
+   "reason": "ok",
+   "dropped_pages": []
+  },
+  {
+   "authority": "ppmo",
+   "title": "विद्युतीय खरिद प्रणाली सञ्चालन निर्देशिका-२०८०",
+   "sha": "45ffabbdd0",
+   "pages": 50,
+   "rate": 0.963,
+   "kept_share": 1.0,
+   "keep": true,
+   "reason": "ok",
+   "dropped_pages": []
+  },
+  {
+   "authority": "ppmo",
+   "title": "विधुतीय खरिद प्रणाली संचालन (पहिलो संशोधन) निर्देशिका, २०८०",
+   "sha": "999a959416",
+   "pages": 2,
+   "rate": 0.99,
+   "kept_share": 1.0,
+   "keep": true,
+   "reason": "ok",
+   "dropped_pages": []
+  },
+  {
+   "authority": "ppmo",
+   "title": "सार्वजनिक खरिद (दोस्रो संशोधन) अध्यादेश, २०८३",
+   "sha": "6d02da6f24",
+   "pages": 23,
+   "rate": 0.985,
+   "kept_share": 1.0,
+   "keep": true,
+   "reason": "ok",
+   "dropped_pages": []
+  },
+  {
+   "authority": "ppmo",
+   "title": "सार्वजनिक खरिद (दोस्रो संशोधन) ऐन, २०८३",
+   "sha": "1aa0d49249",
+   "pages": 43,
+   "rate": 0.985,
+   "kept_share": 1.0,
+   "keep": true,
+   "reason": "ok",
+   "dropped_pages": []
+  },
+  {
+   "authority": "ppmo",
+   "title": "सार्वजनिक खरिद (पन्ध्रौं संशोधन) नियमावली, २०८३",
+   "sha": "c7ed66ae12",
+   "pages": 5,
+   "rate": 0.977,
+   "kept_share": 1.0,
+   "keep": true,
+   "reason": "ok",
+   "dropped_pages": []
+  },
+  {
+   "authority": "ppmo",
+   "title": "सार्वजनिक खरिद (सोह्रौँ संशोधन) नियमावली, २०८३",
+   "sha": "a626302c6b",
+   "pages": 51,
+   "rate": 0.98,
+   "kept_share": 1.0,
+   "keep": true,
+   "reason": "ok",
+   "dropped_pages": []
+  },
+  {
+   "authority": "ppmo",
+   "title": "सेवाप्रदायक मार्फत सार्वजनिक पुर्वाधारको संचालन, व्यवस्थापन र मर्मत सेवा खरिद गर्ने सम्बन्धी निर्देशिका, २०८२",
+   "sha": "cf72bf14d4",
+   "pages": 6,
+   "rate": 0.956,
+   "kept_share": 1.0,
+   "keep": true,
+   "reason": "ok",
+   "dropped_pages": []
+  },
+  {
+   "authority": "nia",
+   "title": "Insurance Act, 2079 (Nepali)",
+   "sha": "51475d21d9",
+   "pages": 152,
+   "rate": 0.989,
+   "kept_share": 1.0,
+   "keep": true,
+   "reason": "ok",
+   "dropped_pages": []
+  },
+  {
+   "authority": "nia",
+   "title": "Insurance Act 1968 (Nepali)",
+   "sha": "50f49b705c",
+   "pages": 9,
+   "rate": 0.839,
+   "kept_share": 1.0,
+   "keep": true,
+   "reason": "ok",
+   "dropped_pages": []
+  },
+  {
+   "authority": "nia",
+   "title": "Insurance Regulation, 2081",
+   "sha": "513266decf",
+   "pages": 87,
+   "rate": 0.975,
+   "kept_share": 1.0,
+   "keep": true,
+   "reason": "ok",
+   "dropped_pages": []
+  },
+  {
+   "authority": "nia",
+   "title": "Insurance Regulations 1969 with Amendments",
+   "sha": "47c18c49c4",
+   "pages": 15,
+   "rate": 0.831,
+   "kept_share": 1.0,
+   "keep": true,
+   "reason": "ok",
+   "dropped_pages": []
+  },
+  {
+   "authority": "nia",
+   "title": "Nepal Insurance Authority Financial Bylaw-Registered, 2079",
+   "sha": "7461809fa3",
+   "pages": 37,
+   "rate": 0.972,
+   "kept_share": 1.0,
+   "keep": true,
+   "reason": "ok",
+   "dropped_pages": []
+  },
+  {
+   "authority": "nia",
+   "title": "Nepal Insurance Authority Purchase Bylaw-Registered, 2079",
+   "sha": "15ecc9775b",
+   "pages": 77,
+   "rate": 0.972,
+   "kept_share": 1.0,
+   "keep": true,
+   "reason": "ok",
+   "dropped_pages": []
+  },
+  {
+   "authority": "nia",
+   "title": "रसुवा बाढी दाबी भुक्तानी सम्बन्धी संक्षिप्त कार्यविधि, २०८३",
+   "sha": "f80a8729f3",
+   "pages": 9,
+   "rate": 0.951,
+   "kept_share": 1.0,
+   "keep": true,
+   "reason": "ok",
+   "dropped_pages": []
+  },
+  {
+   "authority": "nia",
+   "title": "Own Risk Solvency Assessment (ORSA) Letter",
+   "sha": "3d08a03f48",
+   "pages": 1,
+   "rate": 0.728,
+   "kept_share": 1.0,
+   "keep": true,
+   "reason": "ok",
+   "dropped_pages": []
+  },
+  {
+   "authority": "nia",
+   "title": "अभिकर्ता/सर्भेयरसंग सम्बन्धित कानूनी व्यवस्थाहरु",
+   "sha": "000527edbc",
+   "pages": 11,
+   "rate": 0.989,
+   "kept_share": 1.0,
+   "keep": true,
+   "reason": "ok",
+   "dropped_pages": []
+  },
+  {
+   "authority": "nia",
+   "title": "विवरण अद्यावधिक गर्ने सम्बन्धमा ।",
+   "sha": "e44849dd8e",
+   "pages": 1,
+   "rate": 0.906,
+   "kept_share": 1.0,
+   "keep": true,
+   "reason": "ok",
+   "dropped_pages": []
+  },
+  {
+   "authority": "nia",
+   "title": "विवरण उपलब्ध गराउने सम्बन्धमा ।",
+   "sha": "72ecb3c6ad",
+   "pages": 2,
+   "rate": 0.901,
+   "kept_share": 1.0,
+   "keep": true,
+   "reason": "ok",
+   "dropped_pages": []
+  },
+  {
+   "authority": "nia",
+   "title": "निर्देशन सम्बन्धमा",
+   "sha": "875a0c8b34",
+   "pages": 1,
+   "rate": 0.884,
+   "kept_share": 1.0,
+   "keep": true,
+   "reason": "ok",
+   "dropped_pages": []
+  },
+  {
+   "authority": "nia",
+   "title": "निर्देशन",
+   "sha": "c435a2bf7e",
+   "pages": 2,
+   "rate": 0.963,
+   "kept_share": 1.0,
+   "keep": true,
+   "reason": "ok",
+   "dropped_pages": []
+  },
+  {
+   "authority": "nia",
+   "title": "MISCELLANEOUS",
+   "sha": "414fe05a85",
+   "pages": 23,
+   "rate": 0.0,
+   "kept_share": 0.0,
+   "keep": false,
+   "reason": "no readable page",
+   "dropped_pages": [
+    [
+     1,
+     "garbled (valid words 25%)"
+    ],
+    [
+     2,
+     "garbled (valid words 36%)"
+    ],
+    [
+     3,
+     "garbled (valid words 28%)"
+    ],
+    [
+     4,
+     "garbled (valid words 37%)"
+    ],
+    [
+     5,
+     "garbled (valid words 34%)"
+    ],
+    [
+     6,
+     "garbled (valid words 39%)"
+    ],
+    [
+     7,
+     "garbled (valid words 39%)"
+    ],
+    [
+     8,
+     "garbled (valid words 43%)"
+    ],
+    [
+     9,
+     "garbled (valid words 38%)"
+    ],
+    [
+     10,
+     "garbled (valid words 39%)"
+    ],
+    [
+     11,
+     "garbled (valid words 35%)"
+    ],
+    [
+     12,
+     "garbled (valid words 34%)"
+    ],
+    [
+     13,
+     "garbled (valid words 43%)"
+    ],
+    [
+     14,
+     "garbled (valid words 34%)"
+    ],
+    [
+     15,
+     "garbled (valid words 42%)"
+    ],
+    [
+     16,
+     "garbled (valid words 36%)"
+    ],
+    [
+     17,
+     "garbled (valid words 36%)"
+    ],
+    [
+     18,
+     "garbled (valid words 35%)"
+    ],
+    [
+     19,
+     "garbled (valid words 42%)"
+    ],
+    [
+     20,
+     "garbled (valid words 37%)"
+    ],
+    [
+     21,
+     "garbled (valid words 38%)"
+    ],
+    [
+     22,
+     "garbled (valid words 49%)"
+    ],
+    [
+     23,
+     "garbled (valid words 40%)"
+    ]
+   ]
+  },
+  {
+   "authority": "nia",
+   "title": "AML/CFT Circular",
+   "sha": "4bf1cd0a53",
+   "pages": 1,
+   "rate": 0.932,
+   "kept_share": 1.0,
+   "keep": true,
+   "reason": "ok",
+   "dropped_pages": []
+  },
+  {
+   "authority": "nia",
+   "title": "Guideline for Suspicious Transaction Indicator,2024",
+   "sha": "0c37e73ca6",
+   "pages": 1,
+   "rate": 0.787,
+   "kept_share": 1.0,
+   "keep": true,
+   "reason": "ok",
+   "dropped_pages": []
+  },
+  {
+   "authority": "moless",
+   "title": "राष्ट्रिय व्यावसायिक प्रशिक्षण प्रतिष्ठान विकास समिति नियमावली, २०८२",
+   "sha": "e880b07d2a",
+   "pages": 19,
+   "rate": 0.939,
+   "kept_share": 1.0,
+   "keep": true,
+   "reason": "ok",
+   "dropped_pages": []
+  },
+  {
+   "authority": "moless",
+   "title": "सीप तथा रोजगार मेला सञ्चालन निर्देशिका, २०८३",
+   "sha": "89c82130b0",
+   "pages": 11,
+   "rate": 0.953,
+   "kept_share": 1.0,
+   "keep": true,
+   "reason": "ok",
+   "dropped_pages": []
+  },
+  {
+   "authority": "moless",
+   "title": "राष्ट्रिय रोजगार प्रवर्द्धन कार्यक्रम (सञ्चालन तथा व्यवस्थापन) निर्देशिका, २०८२",
+   "sha": "795ac794be",
+   "pages": 19,
+   "rate": 0.951,
+   "kept_share": 1.0,
+   "keep": true,
+   "reason": "ok",
+   "dropped_pages": []
+  },
+  {
+   "authority": "moless",
+   "title": "मौसमी कामदार व्यवस्थापन निर्देशिका, २०७९",
+   "sha": "0c93c34d6a",
+   "pages": 4,
+   "rate": 0.987,
+   "kept_share": 1.0,
+   "keep": true,
+   "reason": "ok",
+   "dropped_pages": []
+  },
+  {
+   "authority": "moless",
+   "title": "वैदेशिक रोजगारीबाट फर्केका व्यक्तिको लागि पुन: एकीकरण कार्यक्रम (सञ्चालन तथा व्यवस्थापन) निर्देशिका, २०७९ नेपाल सरकार, मन्त्रिपरिषद्को मिति २०७९।३।२१ को निर्णय |",
+   "sha": "ceb92e7d9e",
+   "pages": 13,
+   "rate": 0.973,
+   "kept_share": 1.0,
+   "keep": true,
+   "reason": "ok",
+   "dropped_pages": []
+  },
+  {
+   "authority": "moless",
+   "title": "इजरायलमा नेपाली सहयोगी कामदार पठाउने सम्बन्धी निर्देशिका, २०७८",
+   "sha": "d9c958ae83",
+   "pages": 7,
+   "rate": 0.967,
+   "kept_share": 1.0,
+   "keep": true,
+   "reason": "ok",
+   "dropped_pages": []
+  },
+  {
+   "authority": "moless",
+   "title": "आन्तरिक व्यवस्थापन निर्देशिका, २०७५",
+   "sha": "214f3e5b1d",
+   "pages": 16,
+   "rate": 0.963,
+   "kept_share": 0.999,
+   "keep": true,
+   "reason": "ok",
+   "dropped_pages": [
+    [
+     2,
+     "too_short"
+    ]
+   ]
+  },
+  {
+   "authority": "moless",
+   "title": "वैदेशिक रोजगार सम्बन्धी मागपत्र जाँचबुझ निर्देशिका, २०७५",
+   "sha": "9434f342cf",
+   "pages": 6,
+   "rate": 0.954,
+   "kept_share": 1.0,
+   "keep": true,
+   "reason": "ok",
+   "dropped_pages": []
+  },
+  {
+   "authority": "moless",
+   "title": "ईट्टा उद्याेगमा काम गर्ने श्रमिककाे लागि व्यवसायजन्य सुरक्षा एवं स्वास्थ्य सम्बन्धी निर्देशिका, २०७४",
+   "sha": "ad265b58ec",
+   "pages": 10,
+   "rate": 0.93,
+   "kept_share": 1.0,
+   "keep": true,
+   "reason": "ok",
+   "dropped_pages": []
+  },
+  {
+   "authority": "moless",
+   "title": "वैदेशिक रोजगारमा घरेलु कामदारलाई व्यवस्थित गर्ने सम्बन्धी (तेस्रो संशोधन) निर्देशिका, २०७३",
+   "sha": "d5e245f8ec",
+   "pages": 4,
+   "rate": 0.951,
+   "kept_share": 1.0,
+   "keep": true,
+   "reason": "ok",
+   "dropped_pages": []
+  },
+  {
+   "authority": "moless",
+   "title": "वैदेशिक रोजगारमा घरेलु कामदार पठाउने सम्बन्धी निर्देशिका, २०७२",
+   "sha": "ba9f861aad",
+   "pages": 34,
+   "rate": 0.887,
+   "kept_share": 1.0,
+   "keep": true,
+   "reason": "ok",
+   "dropped_pages": []
+  },
+  {
+   "authority": "moless",
+   "title": "मौसमी कामदार ब्यवस्थापन निर्देशिका, २०७९",
+   "sha": "1349a1ecdb",
+   "pages": 4,
+   "rate": 0.909,
+   "kept_share": 1.0,
+   "keep": true,
+   "reason": "ok",
+   "dropped_pages": []
+  },
+  {
+   "authority": "moless",
+   "title": "श्रम संसार प्रणाली (व्यवस्थापन तथा सञ्चालन) सम्बन्धी कार्यविधि, २०८३",
+   "sha": "4500201718",
+   "pages": 9,
+   "rate": 0.913,
+   "kept_share": 1.0,
+   "keep": true,
+   "reason": "ok",
+   "dropped_pages": []
+  },
+  {
+   "authority": "moless",
+   "title": "वैदेशिक रोजगार बोर्डको कार्यकारी निर्देशक पदपूर्ति सम्बन्धी कार्यविधि, २०८३",
+   "sha": "94cffa1268",
+   "pages": 9,
+   "rate": 0.968,
+   "kept_share": 1.0,
+   "keep": true,
+   "reason": "ok",
+   "dropped_pages": []
+  },
+  {
+   "authority": "moless",
+   "title": "रोजगार सीप तथा उद्यमशीलता सम्बन्धी एकीकृत सेवा प्रवाह कार्यविधि-२०८३",
+   "sha": "d89a094954",
+   "pages": 28,
+   "rate": 0.957,
+   "kept_share": 1.0,
+   "keep": true,
+   "reason": "ok",
+   "dropped_pages": []
+  },
+  {
+   "authority": "moless",
+   "title": "बालश्रममुक्त स्थानीय तह धोषणा कार्यविधि २०७७",
+   "sha": "0685e64409",
+   "pages": 20,
+   "rate": 0.958,
+   "kept_share": 0.81,
+   "keep": true,
+   "reason": "ok",
+   "dropped_pages": [
+    [
+     8,
+     "garbled (valid words 25%)"
+    ],
+    [
+     9,
+     "garbled (valid words 9%)"
+    ],
+    [
+     10,
+     "garbled (valid words 23%)"
+    ],
+    [
+     11,
+     "garbled (valid words 10%)"
+    ],
+    [
+     12,
+     "garbled (valid words 3%)"
+    ],
+    [
+     13,
+     "garbled (valid words 11%)"
+    ],
+    [
+     14,
+     "garbled (valid words 18%)"
+    ],
+    [
+     15,
+     "garbled (valid words 7%)"
+    ],
+    [
+     16,
+     "garbled (valid words 6%)"
+    ]
+   ]
+  },
+  {
+   "authority": "moless",
+   "title": "वैदेशिक रोजगारमा जाने कामदारको स्वास्थ्य परीक्षण गर्ने स्वास्थ्य संस्था सूचीकरण, नवीकरण तथा अनुगमन सम्बन्धी कार्यविधि, २०७२ (सातौ संशोधन-२०८२।0२।२३)",
+   "sha": "5a0c5aa8e9",
+   "pages": 19,
+   "rate": 0.934,
+   "kept_share": 0.88,
+   "keep": true,
+   "reason": "ok",
+   "dropped_pages": [
+    [
+     9,
+     "garbled (valid words 44%)"
+    ],
+    [
+     13,
+     "garbled (valid words 51%)"
+    ],
+    [
+     14,
+     "garbled (valid words 50%)"
+    ]
+   ]
+  },
+  {
+   "authority": "moless",
+   "title": "गणतन्त्र कोरियामा सीपयुक्त श्रमिक पठाउने सम्बन्धी कार्यविधि, २०८० (तेश्रो संशोधनः- २०८२।०३।१३)",
+   "sha": "1c548a2f8f",
+   "pages": 11,
+   "rate": 0.934,
+   "kept_share": 0.949,
+   "keep": true,
+   "reason": "ok",
+   "dropped_pages": [
+    [
+     9,
+     "garbled (valid words 51%)"
+    ]
+   ]
+  },
+  {
+   "authority": "moless",
+   "title": "जापानमा निश्चित सीपयुक्त श्रमिक पठाउने सम्बन्धी कार्यविधि, २०८०",
+   "sha": "4f7ab16d57",
+   "pages": 9,
+   "rate": 0.97,
+   "kept_share": 1.0,
+   "keep": true,
+   "reason": "ok",
+   "dropped_pages": []
+  },
+  {
+   "authority": "moless",
+   "title": "वैदेशिक रोजगार व्यवसाय सञ्चालन गर्न इजाजतपत्र प्राप्त संस्थाहरुको स्वदेशमा शाखा कार्यालय सञ्चालन सम्बन्धी कार्यविधि, २०७९",
+   "sha": "c8eac64ee2",
+   "pages": 13,
+   "rate": 0.949,
+   "kept_share": 1.0,
+   "keep": true,
+   "reason": "ok",
+   "dropped_pages": []
+  },
+  {
+   "authority": "moless",
+   "title": "गणतन्त्र कोरियामा सीपयुक्त श्रमिक पठाउने सम्बन्धी कार्यविधि, २०८०",
+   "sha": "9ae33ca7f7",
+   "pages": 8,
+   "rate": 0.97,
+   "kept_share": 1.0,
+   "keep": true,
+   "reason": "ok",
+   "dropped_pages": []
+  },
+  {
+   "authority": "moless",
+   "title": "वैदेशिक रोजगार व्यवस्थापन सेवा प्रवाह कार्यविधि (दोस्रो संशोधन)",
+   "sha": "0e02fd2d68",
+   "pages": 31,
+   "rate": 0.964,
+   "kept_share": 1.0,
+   "keep": true,
+   "reason": "ok",
+   "dropped_pages": []
+  },
+  {
+   "authority": "moless",
+   "title": "वैदेशिक रोजगारमा जाने कामदारको स्वास्थ्य परीक्षण गर्ने स्वास्थ्य संस्था सुचीकरण, नविकरण तथा अनुगमन सम्बन्धी कार्यविधि, २०७२ (छैटौ संशोधन २०८१।१२।०८)",
+   "sha": "c782d69d4f",
+   "pages": 19,
+   "rate": 0.906,
+   "kept_share": 0.966,
+   "keep": true,
+   "reason": "ok",
+   "dropped_pages": [
+    [
+     12,
+     "garbled (valid words 34%)"
+    ]
+   ]
+  },
+  {
+   "authority": "moless",
+   "title": "कोरियामा सीपयुक्त श्रमिक पठाउने सम्बन्धी कार्यविधि, २०८० (पहिलो संशोधन २०८१/०७/०९)",
+   "sha": "f14c0f2ae1",
+   "pages": 8,
+   "rate": 0.969,
+   "kept_share": 1.0,
+   "keep": true,
+   "reason": "ok",
+   "dropped_pages": []
+  },
+  {
+   "authority": "moless",
+   "title": "वैदेशिक रोजगार व्यवस्थापन सेवा प्रवाह कार्यविधि, २०७९ (पहिलो संशोधन सहित)",
+   "sha": "315c9f6185",
+   "pages": 31,
+   "rate": 0.965,
+   "kept_share": 1.0,
+   "keep": true,
+   "reason": "ok",
+   "dropped_pages": []
+  },
+  {
+   "authority": "moless",
+   "title": "राष्ट्रिय व्यावसायिक प्रशिक्षण प्रतिष्ठानको कार्यकारी निर्देशकको नियुक्ति सम्बन्धी कार्यविधि, २०८०",
+   "sha": "1990bbb20e",
+   "pages": 17,
+   "rate": 0.964,
+   "kept_share": 1.0,
+   "keep": true,
+   "reason": "ok",
+   "dropped_pages": []
+  },
+  {
+   "authority": "moless",
+   "title": "श्रमाधान कल सेन्टर (सञ्चालन तथा व्यवस्थापन) कार्यविधि, २०८१",
+   "sha": "0fa1782798",
+   "pages": 10,
+   "rate": 0.894,
+   "kept_share": 1.0,
+   "keep": true,
+   "reason": "ok",
+   "dropped_pages": []
+  },
+  {
+   "authority": "moless",
+   "title": "वैदेशिक रोजगार ठगीका उजुरीको मेलमिलाप तथा सिफारिस गर्ने सम्बन्धी कार्यविधि, २०८०",
+   "sha": "33f6ada4ca",
+   "pages": 8,
+   "rate": 0.977,
+   "kept_share": 1.0,
+   "keep": true,
+   "reason": "ok",
+   "dropped_pages": []
+  },
+  {
+   "authority": "moless",
+   "title": "वैदेशिक रोजगारमा जाने कामदारको स्वास्थ्य परीक्षण गर्ने स्वास्थ्य संस्था सुचीकरण, नविकरण तथा अनुगमन सम्बन्धी कार्यविधि, २०७२ (तेस्रो संशोधन)",
+   "sha": "9414072672",
+   "pages": 17,
+   "rate": 0.952,
+   "kept_share": 0.931,
+   "keep": true,
+   "reason": "ok",
+   "dropped_pages": [
+    [
+     11,
+     "garbled (valid words 40%)"
+    ],
+    [
+     12,
+     "garbled (valid words 53%)"
+    ]
+   ]
+  },
+  {
+   "authority": "moless",
+   "title": "सूचना प्रविधिको प्रयोग सम्बन्धी तीन वर्षे कार्ययोजना, २०७७",
+   "sha": "fba8e40ca6",
+   "pages": 9,
+   "rate": 0.915,
+   "kept_share": 1.0,
+   "keep": true,
+   "reason": "ok",
+   "dropped_pages": []
+  },
+  {
+   "authority": "moless",
+   "title": "युवा, श्रम तथा रोजगार मन्त्रालय र मातहतका निकायहरुमा कार्यरत कर्मचारीहरु सम्बन्धी आचारसंहिता, २०८३",
+   "sha": "c85b3fed8d",
+   "pages": 10,
+   "rate": 0.959,
+   "kept_share": 1.0,
+   "keep": true,
+   "reason": "ok",
+   "dropped_pages": []
+  },
+  {
+   "authority": "moless",
+   "title": "कार्यस्थलको लागि अधिकतम तापस्तर (मापदण्ड) -२०८२",
+   "sha": "74bac7fe11",
+   "pages": 2,
+   "rate": 0.696,
+   "kept_share": 1.0,
+   "keep": true,
+   "reason": "ok",
+   "dropped_pages": []
+  },
+  {
+   "authority": "moless",
+   "title": "काउन्सेलर (श्रम) तथा श्रम सहचारी छनौट तथा नियुक्ति सम्बन्धी मापदण्ड, २०८१ (पहिलो संशोधन-२०८२/०३/१३)",
+   "sha": "b96220387e",
+   "pages": 11,
+   "rate": 0.949,
+   "kept_share": 0.983,
+   "keep": true,
+   "reason": "ok",
+   "dropped_pages": [
+    [
+     9,
+     "garbled (valid words 0%)"
+    ],
+    [
+     10,
+     "garbled (valid words 17%)"
+    ],
+    [
+     11,
+     "too_short"
+    ]
+   ]
+  },
+  {
+   "authority": "moless",
+   "title": "सुरक्षित आप्रवासन (SaMi) कार्यक्रम (चौथो चरण) सञ्चालन मार्गदर्शन, २०८१",
+   "sha": "4340e5f050",
+   "pages": 43,
+   "rate": 0.946,
+   "kept_share": 1.0,
+   "keep": true,
+   "reason": "ok",
+   "dropped_pages": []
+  },
+  {
+   "authority": "moless",
+   "title": "काउन्सेलर (श्रम) तथा श्रम सहचारी छनौट तथा नियुक्ति सम्बन्धी मापदण्ड, २०८१",
+   "sha": "ce797cae0f",
+   "pages": 11,
+   "rate": 0.959,
+   "kept_share": 1.0,
+   "keep": true,
+   "reason": "ok",
+   "dropped_pages": []
+  },
+  {
+   "authority": "moless",
+   "title": "काउन्सेलर (श्रम) तथा श्रम सहचारी छनौट तथा नियुक्ति सम्बन्धी मापदण्ड, २०८१",
+   "sha": "fa195c0700",
+   "pages": 11,
+   "rate": 0.958,
+   "kept_share": 1.0,
+   "keep": true,
+   "reason": "ok",
+   "dropped_pages": []
+  },
+  {
+   "authority": "moless",
+   "title": "ध्वनी र प्रकाश सम्बन्धी मापदण्ड, २०७३",
+   "sha": "fbe96b2e83",
+   "pages": 5,
+   "rate": 0.679,
+   "kept_share": 1.0,
+   "keep": true,
+   "reason": "ok",
+   "dropped_pages": []
+  },
+  {
+   "authority": "moless",
+   "title": "काउन्सेलर (श्रम) तथा श्रम सहचारी छनौट तथा नियुक्ति सम्बन्धी कार्यविधि तथा मापदण्ड - २०७३",
+   "sha": "c108e6c6a1",
+   "pages": 8,
+   "rate": 0.934,
+   "kept_share": 0.988,
+   "keep": true,
+   "reason": "ok",
+   "dropped_pages": [
+    [
+     8,
+     "garbled (valid words 6%)"
+    ]
+   ]
+  }
+ ],
+ "shard_bytes": 676333,
+ "manifest_counts": {
+  "curated": 56,
+  "law_chunks": 47177,
+  "precedents": 10554,
+  "total": 73667,
+  "law_documents": 802,
+  "regulator_chunks": 14002,
+  "regulator_documents": 128,
+  "regulator2_chunks": 1878,
+  "regulator2_documents": 88,
+  "ocr_chunks": 1404,
+  "ocr_documents": 79
+ }
+}

@@ -232,3 +232,20 @@ def test_playbook_matcher_real_phrasings(query, expected):
     from app.playbook_matcher import _reset_cache_for_tests, match
     _reset_cache_for_tests()
     assert match(query) == expected
+
+
+def test_procurement_insurance_labour_regulator_passages_stay_in_their_field(monkeypatch):
+    from app import generation
+    hits = [{"id": "reg-ppmo-a-1", "doc_title_ne": "ई-खरिद निर्देशिका"}, {"id": "reg-nia-b-1", "doc_title_ne": "बीमा निर्देशन"},
+            {"id": "reg-moless-c-1", "doc_title_ne": "श्रम अडिट मापदण्ड"}, {"id": "law-x-1", "doc_title_ne": "मुलुकी देवानी संहिता, २०७४"}]
+
+    class _Idx:
+        def search(self, *a, **kw):
+            return [dict(h) for h in hits] if kw.get("category") == "law" else []
+
+    monkeypatch.setattr(generation, "get_index", lambda: _Idx())
+    ids = lambda q: [s["id"] for s in generation.search(q, {}, top_k=8, precedent_k=0)]
+    assert ids("घरबेटीले धरौटी फिर्ता गरेन") == ["law-x-1"]
+    assert "reg-nia-b-1" in ids("बीमा दाबी भुक्तानी भएन") and "reg-ppmo-a-1" not in ids("बीमा दाबी भुक्तानी भएन")
+    assert "reg-moless-c-1" in ids("company le talab diyena")
+    assert "reg-ppmo-a-1" in ids("बोलपत्र रद्द भयो")

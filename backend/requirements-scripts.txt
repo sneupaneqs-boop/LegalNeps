@@ -6,3 +6,12 @@ fonttools
 npttf2utf==0.3.7
 pytest
 httpx
+
+# regulator scraping (scripts/scrape_regulators.py): plain-HTTP fetcher only, no browser needed
+scrapling[fetchers]==0.4.15
+
+# OCR of scanned regulator PDFs (scripts/ocr_regulators.py). The Python side needs nothing beyond
+# pymupdf (page rendering); Tesseract is a SYSTEM package, needed only where the script runs -
+# never in production (requirements.txt / the Render build):
+#   apt-get install -y tesseract-ocr tesseract-ocr-nep tesseract-ocr-eng poppler-utils
+# (poppler-utils is optional: pymupdf renders the pages; pdftoppm/pdfinfo are handy for checks)

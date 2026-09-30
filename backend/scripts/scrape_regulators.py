@@ -764,18 +764,72 @@ def _giwms_site(client: Client, base: str, opts, kind_by_title=None, only: tuple
             yield {**d, "kind": kind, "doc_type": dtype, "source_list": label}
 
 
+def _first_reachable(client: Client, bases: tuple[str, ...]) -> str:
+    """The first base URL whose home page answers (a site can serve one scheme/host
+    spelling and reset the others). Falls back to the first candidate."""
+    for b in bases:
+        if client.html(b + "/", patient=False) is not None:
+            return b
+    return bases[0]
+
+
+# NIA is not a GIWMS site: /law/<slug> pages are tables (title | "Updated At" date | PDF link(s)).
+# (slug, kind, doc_type)
+NIA_LAW_PAGES = [
+    ("insurance-act", "act", "act"), ("insurance-regulation", "regulation", "rule"),
+    ("insurance-board-by-laws", "regulation", "rule"), ("directive", "directive", "directive"),
+    ("circular", "circular", "directive"), ("risk-based-capital", "directive", "directive"),
+    ("agent", "directive", "directive"), ("aml", "directive", "directive"),
+]
+
+
+def nia_rows(html: str) -> Iterator[dict]:
+    """(title, ISO date, pdf url) rows of one NIA /law/ page. Only the main table is read - the
+    page also carries a sidebar of the latest notices, which are not legal texts."""
+    start = html.find('<table class="table table-main"')
+    if start < 0:
+        return
+    region = html[start: html.find("</table>", start)]
+    for tr in region.split("<tr")[1:]:
+        tds = re.findall(r"<td[^>]*>(.*?)</td>", tr, re.S)
+        pdfs = re.findall(r'href="([^"]+\.pdf)"', tr, re.I)
+        if len(tds) < 2 or not pdfs:
+            continue
+        title = _clean(re.sub(r"<[^>]+>", " ", tds[0]))
+        try:
+            date = time.strftime("%Y-%m-%d", time.strptime(_clean(re.sub(r"<[^>]+>", " ", tds[1])), "%d %b %Y"))
+        except ValueError:
+            date = ""
+        for u in dict.fromkeys(pdfs):
+            yield {"title": title, "published": date, "url": u}
+
+
 @authority("nia")
 def scrape_nia(client: Client, opts) -> Iterator[dict]:
-    """Nepal Insurance Authority (nia.gov.np; formerly Beema Samiti). Unreachable from the
-    build sandbox at the time of writing (proxy 502) - the function is exercised on re-run."""
-    yield from _giwms_site(client, "https://nia.gov.np", opts)
+    """Nepal Insurance Authority (nia.gov.np; formerly Beema Samiti). Its HTTPS endpoint resets
+    the connection from the build sandbox (proxy 502 / tunnel closed); the plain-HTTP site
+    answers, so both are tried (public documents only, nothing is submitted). Acts, regulations,
+    bylaws, directives, circulars, RBC and agent/AML rules, from the site's /law/ tables."""
+    base = _first_reachable(client, ("http://nia.gov.np", "https://nia.gov.np"))
+    seen: set[str] = set()
+    for slug, kind, dtype in NIA_LAW_PAGES:
+        page_url = f"{base}/law/{slug}"
+        r = client.html(page_url, patient=True)
+        if r is None:
+            continue
+        for d in nia_rows(r.html_content):
+            if d["url"] in seen or NOISE_TITLE.search(d["title"]):
+                continue
+            seen.add(d["url"])
+            lang = "en" if re.search(r"\(English\)|english", d["title"], re.I) else "ne"
+            yield {**d, "kind": kind, "doc_type": dtype, "source_list": slug, "page_url": page_url, "lang": lang}
 
 
 @authority("moless")
 def scrape_moless(client: Client, opts) -> Iterator[dict]:
-    """Ministry of Labour, Employment and Social Security (moless.gov.np): flaky/unreachable
-    from the sandbox; tried once, skipped on failure."""
-    yield from _giwms_site(client, "https://moless.gov.np", opts)
+    """Ministry of Labour, Employment and Social Security: the bare host moless.gov.np returns
+    502 from the sandbox, https://www.moless.gov.np answers."""
+    yield from _giwms_site(client, _first_reachable(client, ("https://www.moless.gov.np", "https://moless.gov.np")), opts)
 
 
 @authority("ppmo")
