@@ -1,0 +1,1394 @@
+{
+ "meta": {
+  "date": "2026-09-30",
+  "reviewer": "independent LLM reviewer (Claude), two-pass",
+  "input": "backend/eval/reports/answer-review-v3-realworld-20260930.json (backend/eval/answer_review.py against live API)",
+  "labels": {
+   "supported": "quote/passage entails everything the sentence asserts",
+   "unsupported": "real quote, sentence says more/different (overreach, missing condition, wrong subject)",
+   "wrong-law": "real passage that does not govern the user situation",
+   "hallucinated-number-or-section": "number/section/period not in the passage (or contradicting it)"
+  },
+  "scheme": "same four labels as live-review-20260930.json (V1). Sentences are the verifier-kept, cited sentences of mode=structured answers; extractive_fallback / none answers are recorded, not labelled.",
+  "question_script": "'language' in the source file is 'ne' for romanised questions too; script here is derived from the question text."
+ },
+ "summary": {
+  "overall": {
+   "n": 77,
+   "supported": 65,
+   "unsupported": 3,
+   "wrong-law": 7,
+   "hallucinated-number-or-section": 2,
+   "bad": 12,
+   "rate": 0.156
+  },
+  "by_question_script": {
+   "devanagari": {
+    "n": 7,
+    "supported": 6,
+    "unsupported": 0,
+    "wrong-law": 0,
+    "hallucinated-number-or-section": 1,
+    "bad": 1,
+    "rate": 0.143
+   },
+   "romanised": {
+    "n": 63,
+    "supported": 54,
+    "unsupported": 2,
+    "wrong-law": 7,
+    "hallucinated-number-or-section": 0,
+    "bad": 9,
+    "rate": 0.143
+   },
+   "english": {
+    "n": 7,
+    "supported": 5,
+    "unsupported": 1,
+    "wrong-law": 0,
+    "hallucinated-number-or-section": 1,
+    "bad": 2,
+    "rate": 0.286
+   }
+  },
+  "by_claim_kind": {
+   "deadline": {
+    "n": 15,
+    "supported": 15,
+    "unsupported": 0,
+    "wrong-law": 0,
+    "hallucinated-number-or-section": 0,
+    "bad": 0,
+    "rate": 0.0
+   },
+   "penalty": {
+    "n": 11,
+    "supported": 10,
+    "unsupported": 0,
+    "wrong-law": 0,
+    "hallucinated-number-or-section": 1,
+    "bad": 1,
+    "rate": 0.091
+   },
+   "procedure": {
+    "n": 3,
+    "supported": 1,
+    "unsupported": 1,
+    "wrong-law": 0,
+    "hallucinated-number-or-section": 1,
+    "bad": 2,
+    "rate": 0.667
+   },
+   "rule": {
+    "n": 48,
+    "supported": 39,
+    "unsupported": 2,
+    "wrong-law": 7,
+    "hallucinated-number-or-section": 0,
+    "bad": 9,
+    "rate": 0.188
+   }
+  },
+  "mode_distribution": {
+   "structured": 20,
+   "extractive_fallback": 5,
+   "none": 5
+  },
+  "answers_with_at_least_one_bad_sentence": [
+   "rw04",
+   "rw06",
+   "rw08",
+   "rw15",
+   "rw21",
+   "rw25",
+   "rw27"
+  ],
+  "usefulness": {
+   "mean_0_2": 1.0,
+   "answers_useful_ge1": 23,
+   "answers_useful_eq2": 7
+  },
+  "v1_baseline": {
+   "claims": 119,
+   "bad": 48,
+   "rate": 0.403
+  },
+  "target_rate": 0.05
+ },
+ "per_answer": [
+  {
+   "answer_id": "rw01",
+   "question": "घरबेटीले deposit फिर्ता दिएन, के गर्ने?",
+   "question_script": "devanagari",
+   "mode": "structured",
+   "usefulness_0_2": 1,
+   "notes": "Four literal tenancy provisions, none governs the deposit refund itself (s.400(3) mentions the advance being set off; not retrieved). Advice names 'district court' with no cite (uncited forum). Gap ('no fixed time limit for deposit return') is honest.",
+   "n_kept_sentences": 4
+  },
+  {
+   "answer_id": "rw02",
+   "question": "My employer has not paid my salary for 4 months. What can I do?",
+   "question_script": "english",
+   "mode": "extractive_fallback",
+   "usefulness_0_2": 1,
+   "notes": "extractive_fallback (LLM not used). Raw Labour Act s.34/162/64/38/163 shown; expected s.35 (payment interval) not shown but s.162 is.",
+   "n_kept_sentences": 0
+  },
+  {
+   "answer_id": "rw03",
+   "question": "boss le din ko 12 ghanta kaam garauchha, overtime ko paisa pani dinna. yo milchha?",
+   "question_script": "romanised",
+   "mode": "structured",
+   "usefulness_0_2": 1,
+   "notes": "Only s.30 overtime cap and s.162 shown. Governing s.28 (8 h/day, 48 h/week) and s.31 (overtime at 1.5x basic wage) are in the corpus but not retrieved, and the gap says the regular working hours 'are not covered' (false for the corpus). User's core questions (is 12 h lawful? is overtime paid?) unanswered.",
+   "n_kept_sentences": 2
+  },
+  {
+   "answer_id": "rw04",
+   "question": "manpower le thagyo. Malaysia pathaidinchhu bhanera 3 lakh liyo, 8 mahina bhayo visa aayena. paisa kasari firta paune?",
+   "question_script": "romanised",
+   "mode": "structured",
+   "usefulness_0_2": 2,
+   "notes": "Governing s.43/44 quoted correctly with refund + 50% and penalty. Uncited procedure smuggled: 'file with the Department or CDO', 'Department investigates then prosecutes at the Foreign Employment Tribunal' (legal-forum claims with no source). Precedent sentence is misleading for a victim.",
+   "n_kept_sentences": 4
+  },
+  {
+   "answer_id": "rw05",
+   "question": "Kuwait pugda job chhaina, company le kaam nai dinna. ghar pharkiye. ticket ra agency ko kharcha kasari firta paune?",
+   "question_script": "romanised",
+   "mode": "extractive_fallback",
+   "usefulness_0_2": 0,
+   "notes": "extractive_fallback. Shows Civil Code maintenance/partition provisions (s.89/101/211/99/100): wrong playbook pin (probably matched on 'ghar'). Governing Foreign Employment Act s.36 and s.60 are in the corpus (s.36 was surfaced for rw23 instead).",
+   "n_kept_sentences": 0
+  },
+  {
+   "answer_id": "rw06",
+   "question": "I'm desperate. My friend took 5 lakh from me and gave a cheque, but the cheque bounced and now he avoids me. What can I do?",
+   "question_script": "english",
+   "mode": "structured",
+   "usefulness_0_2": 1,
+   "notes": "Good coverage of the right Act, but the one number a user will use (penalty band) is wrong, the 3-day step omits the 45-day notice, and the gap wrongly says the police-complaint limitation is not covered (s.17(1क), cited in the same answer, gives 1 year from certified dishonour + 6 months to file).",
+   "n_kept_sentences": 4
+  },
+  {
+   "answer_id": "rw07",
+   "question": "साहुले ब्याज मागेको छ तर लिखतमा त बयाज कतै लेखेकै छैन, तिर्नै पर्छ?",
+   "question_script": "devanagari",
+   "mode": "none",
+   "usefulness_0_2": 0,
+   "notes": "mode none (LLM unavailable): raw provisions s.478/482/441 etc. Governing s.479 (no interest if the document is silent) is in the corpus but not shown; s.478(3) shown could mislead (10% default when 'interest is mentioned' but no rate).",
+   "n_kept_sentences": 0
+  },
+  {
+   "answer_id": "rw08",
+   "question": "husband le chhadera gayo, ghar kharcha dinna, 3 ota bachha chha. maintenance kasari paune?",
+   "question_script": "romanised",
+   "mode": "structured",
+   "usefulness_0_2": 1,
+   "notes": "No sentence is fully clean: s.89 stretched to children, s.211 without the joint-property condition, s.101 is for divorced wives. Advice names 'local judicial committee or district court' uncited. Rendered text shows OCR typos ('भरार्ई').",
+   "n_kept_sentences": 3
+  },
+  {
+   "answer_id": "rw09",
+   "question": "My wife wants a divorce and I'm terrified I'll lose my 4-year-old daughter. Who gets custody?",
+   "question_script": "english",
+   "mode": "none",
+   "usefulness_0_2": 0,
+   "notes": "mode none (LLM unavailable). Shows divorce procedure s.93-99; governing child-custody s.115 is in the corpus but not shown.",
+   "n_kept_sentences": 0
+  },
+  {
+   "answer_id": "rw10",
+   "question": "बुबाले अन्श दिनुभएन, दाजुले सबै जग्गा आफ्नो नाममा गर्यो। म छोरी हुँ, मलाई केही छैन भन्छन्।",
+   "question_script": "devanagari",
+   "mode": "extractive_fallback",
+   "usefulness_0_2": 0,
+   "notes": "extractive_fallback. Shows Criminal Code s.191/199, CrPC s.4(1), Civil Code s.239/209; governing s.205/206/216 (daughter is an equal अंशियार) missing. Wrong-law risk in the raw list.",
+   "n_kept_sentences": 0
+  },
+  {
+   "answer_id": "rw11",
+   "question": "mero shreemanko mrityu bhayo. sasu-sasura le sampatti ma tero kei haq chhaina bhanchhan. hamro ek chhora chha.",
+   "question_script": "romanised",
+   "mode": "structured",
+   "usefulness_0_2": 1,
+   "notes": "Correct chapter but no sentence says what the widow gets; governing s.214 (widow may take her share and live apart at any time) and s.239 (priority) are in the corpus, not retrieved. Two deadlines ('anytime' and '3 years') presented without saying which applies.",
+   "n_kept_sentences": 3
+  },
+  {
+   "answer_id": "rw12",
+   "question": "जग्गा किनेपछि सरकारी जग्गा रहेछ भनेर मालपोतले दर्ता खारेज गर्छ भन्छन्। के गर्ने?",
+   "question_script": "devanagari",
+   "mode": "none",
+   "usefulness_0_2": 1,
+   "notes": "mode none (LLM unavailable). Malpot Act s.24 (governing) IS among the raw provisions, but with Guthi/land-acquisition noise.",
+   "n_kept_sentences": 0
+  },
+  {
+   "answer_id": "rw13",
+   "question": "police le mero jaheri darkhast (FIR) nai lina maandaina. ab ke garne?",
+   "question_script": "romanised",
+   "mode": "structured",
+   "usefulness_0_2": 2,
+   "notes": "Complete, precise, actionable. Both sentences verbatim; steps match s.5.",
+   "n_kept_sentences": 2
+  },
+  {
+   "answer_id": "rw14",
+   "question": "mero dai lai police le arrest garyo. jamanat/dharauti rakhera kasari chhutaune?",
+   "question_script": "romanised",
+   "mode": "structured",
+   "usefulness_0_2": 1,
+   "notes": "Detention (s.67), power to seek bail (s.71) and refund (s.76) but not s.68 (when the court takes धरौट/जमानत and releases), which is the answer; s.68 in corpus. User-facing error: the 'sources do not cover' section is in English inside a Nepali answer.",
+   "n_kept_sentences": 3
+  },
+  {
+   "answer_id": "rw15",
+   "question": "kasaile mero naam ra photo ko fake Facebook ID banayera saathi haru lai abusive message pathairaheko chha",
+   "question_script": "romanised",
+   "mode": "structured",
+   "usefulness_0_2": 1,
+   "notes": "Lists five offences; none is the impersonation offence itself (answer admits). s.300 is a weak fit. 'Nepal Police Cyber Bureau' named without a source (uncited institution/procedure). Two sentences risk being read as complete penalties (see s.307 dangling 'थप').",
+   "n_kept_sentences": 5
+  },
+  {
+   "answer_id": "rw16",
+   "question": "Shreemati lai sasu ra shreemanle dowry nadeko bhanera rojai sataunchhan. kunai kanoon chha?",
+   "question_script": "romanised",
+   "mode": "none",
+   "usefulness_0_2": 1,
+   "notes": "mode none (LLM unavailable). DV Act s.4(1) shown (expected) but Criminal Code s.174 (dowry harassment) not shown.",
+   "n_kept_sentences": 0
+  },
+  {
+   "answer_id": "rw17",
+   "question": "please help, my husband beat me again last night and says he will throw me out. what can i do right now",
+   "question_script": "english",
+   "mode": "structured",
+   "usefulness_0_2": 2,
+   "notes": "Correct, urgent, actionable; all three sentences verbatim and governing; steps are consistent with s.6.",
+   "n_kept_sentences": 3
+  },
+  {
+   "answer_id": "rw18",
+   "question": "online order gareko phone ko satta nakali aayo. seller le return garna dinna, paisa firta paunchhu?",
+   "question_script": "romanised",
+   "mode": "none",
+   "usefulness_0_2": 1,
+   "notes": "mode none (LLM unavailable). Consumer Protection Act s.14 (7-day return) shown; E-Commerce Act s.10 not.",
+   "n_kept_sentences": 0
+  },
+  {
+   "answer_id": "rw19",
+   "question": "ward office ma sucahnako hak ma application diyeko 1 mahina bhayo, jawaf chhaina. ab kaha appeal garne?",
+   "question_script": "romanised",
+   "mode": "structured",
+   "usefulness_0_2": 2,
+   "notes": "Right Act and the right escalation path (head, then Commission). Omits the 35-day appeal window in s.10(1) (in corpus) and does not warn the user that the 7-day complaint window under s.9(1) may already have run. Advice substitutes 'local-level head' for the statute's 'प्रमुख' (uncited).",
+   "n_kept_sentences": 3
+  },
+  {
+   "answer_id": "rw20",
+   "question": "private company register garna kati jana shareholder chahinchha? kati din ma certificate aauchha?",
+   "question_script": "romanised",
+   "mode": "structured",
+   "usefulness_0_2": 1,
+   "notes": "Registration time answered (7 days). User also asked how many shareholders: Companies Act s.9 (max 101 for a private company) is in the corpus but the gap says nothing on the number. A surviving 'procedural advice' line ('keep certified copies of founders' citizenship') is an uncited document requirement (the check removed a sibling uncited_procedure line but let this one through).",
+   "n_kept_sentences": 3
+  },
+  {
+   "answer_id": "rw21",
+   "question": "public company ko AGM 2 barsa dekhi bolayeko chhaina. shareholder le ke garna sakchha?",
+   "question_script": "romanised",
+   "mode": "structured",
+   "usefulness_0_2": 2,
+   "notes": "Right ladder (Office direction -> court petition; EGM at 10%/30 days). One filler precedent (wrong-law). Advice line is minimal.",
+   "n_kept_sentences": 6
+  },
+  {
+   "answer_id": "rw22",
+   "question": "sano pasal chalauchhu. VAT ma darta kailey garnu parchha? darta garena bhane ke hunchha?",
+   "question_script": "romanised",
+   "mode": "structured",
+   "usefulness_0_2": 1,
+   "notes": "Registration timing correct but the heading 'penalty for not registering' over s.15 mislabels it; threshold for a small shop (the actual answer) is missing and s.10(1) is stated as absolute.",
+   "n_kept_sentences": 5
+  },
+  {
+   "answer_id": "rw23",
+   "question": "bank le account ma minimum balance nabhayeko bhanera paisa katyo. yo milchha?",
+   "question_script": "romanised",
+   "mode": "extractive_fallback",
+   "usefulness_0_2": 0,
+   "notes": "extractive_fallback. Shows Foreign Employment Act s.36/44/43/64 and Banking Offence Act s.3क: wrong playbook pin. Governing NRB Unified Directive clause 6(ga) not shown.",
+   "n_kept_sentences": 0
+  },
+  {
+   "answer_id": "rw24",
+   "question": "बैंकले मेरो गुनासो सुन्दैन। कहाँ उजुरि गर्ने?",
+   "question_script": "devanagari",
+   "mode": "extractive_fallback",
+   "usefulness_0_2": 0,
+   "notes": "extractive_fallback. Shows Consumer Protection Act s.3/36/50/14/16, not the NRB complaint-handling directive (clause 9) that governs banks.",
+   "n_kept_sentences": 0
+  },
+  {
+   "answer_id": "rw25",
+   "question": "bank loan ma late payment ko penal interest kati lagauna milchha?",
+   "question_script": "romanised",
+   "mode": "structured",
+   "usefulness_0_2": 0,
+   "notes": "All three kept sentences are wrong-law; NRB Unified Directive IPD 15/082 (penal rate <= 2 percentage points on the overdue instalment, no interest on penal interest) is in the corpus but not retrieved. A user would take '10% p.a.' as the bank cap.",
+   "n_kept_sentences": 3
+  },
+  {
+   "answer_id": "rw26",
+   "question": "kampani ko bhitri suchana thaha pai share kinbech gareko ma ke sajaya hunchha?",
+   "question_script": "romanised",
+   "mode": "structured",
+   "usefulness_0_2": 2,
+   "notes": "Best answer: governing s.91/92/101, every sentence literal, both prohibited acts and penalty, honest gaps.",
+   "n_kept_sentences": 5
+  },
+  {
+   "answer_id": "rw27",
+   "question": "नागरिकतामा मेरो नाम थर र उमेर SLC सँग मिलेको छैन, कसरी सच्याउने?",
+   "question_script": "devanagari",
+   "mode": "structured",
+   "usefulness_0_2": 1,
+   "notes": "s.17 is exactly right, but the second sentence fabricates a rule number and document, and no authority or document list is given ('prescribed officer').",
+   "n_kept_sentences": 3
+  },
+  {
+   "answer_id": "rw28",
+   "question": "bike le hit garera ghaite bhayo, driver bhagyo. insurance ra compensation kasari paune?",
+   "question_script": "romanised",
+   "mode": "structured",
+   "usefulness_0_2": 2,
+   "notes": "Right Act, compensation heads, insurance route via CDO, one useful precedent. Does not address the hit-and-run (unidentified vehicle) case; asks for the vehicle number instead. Rendered as clean structured text.",
+   "n_kept_sentences": 6
+  },
+  {
+   "answer_id": "rw29",
+   "question": "doctor le galat operation garera bihari ko mrityu bho. ke garne?",
+   "question_script": "romanised",
+   "mode": "structured",
+   "usefulness_0_2": 1,
+   "notes": "Correct penal provision (s.232, more specific than the eval set's s.181) and compensation precedent; no route (who to complain to) or limitation; advice is just 'keep documents'.",
+   "n_kept_sentences": 4
+  },
+  {
+   "answer_id": "rw30",
+   "question": "Facebook ma kasaile mero barema jhutho lekhera badnam garyo. police ma jana milchha?",
+   "question_script": "romanised",
+   "mode": "structured",
+   "usefulness_0_2": 1,
+   "notes": "Strong on penalty, 3-month limit and compensation. Direct question 'can I go to the police?' is not answered (gap says unclear). Rendered duplicate marker '[5][5]'.",
+   "n_kept_sentences": 6
+  }
+ ],
+ "sentences": [
+  {
+   "answer_id": "rw01",
+   "sentence_index": 1,
+   "question_script": "devanagari",
+   "kind": "rule",
+   "sentence": "मुलुकी देवानी संहिता, २०७४ को दफा ३८६ अनुसार घर बहालमा दिँदा घर बहाल लिने र दिने व्यक्तिको विवरण खुलाई लिखित सम्झौता गर्नु पर्छ।",
+   "label": "supported",
+   "evidence_quote": "कुनै व्यक्तिले घर बहालमा दिँदा देहायका कुराहरू खुलाई बहालमा लिने व्यक्तिसँग लिखित सम्झौता गर्नु पर्नेछ",
+   "cited": [
+    "मुलुकी देवानी संहिता, २०७४, दफा 386"
+   ],
+   "note": "Literal. Omits s.386(2) (no written agreement needed up to Rs 20,000/month). Tenancy background only; does not govern deposit refund."
+  },
+  {
+   "answer_id": "rw01",
+   "sentence_index": 2,
+   "question_script": "devanagari",
+   "kind": "rule",
+   "sentence": "मुलुकी देवानी संहिता, २०७४ को दफा ३८९ अनुसार घरधनीले बहालमा बस्ने व्यक्तिलाई सम्झौता बमोजिम घर उपयोग गर्न दिनु पर्छ।",
+   "label": "supported",
+   "evidence_quote": "बहालमा बस्ने व्यक्तिलाई सम्झौता बमोजिम घर उपयोग गर्न दिनु पर्ने",
+   "cited": [
+    "मुलुकी देवानी संहिता, २०७४, दफा 389"
+   ],
+   "note": "Literal (s.389(क)). Tenancy background; not a deposit rule."
+  },
+  {
+   "answer_id": "rw01",
+   "sentence_index": 3,
+   "question_script": "devanagari",
+   "kind": "rule",
+   "sentence": "मुलुकी देवानी संहिता, २०७४ को दफा ४०२ अनुसार बहालमा लिने व्यक्तिले घर छाडेमा घर बहालको सम्झौता समाप्त भएको मानिन्छ।",
+   "label": "supported",
+   "evidence_quote": "बहालमा लिने व्यक्तिले घर छाडेमा",
+   "cited": [
+    "मुलुकी देवानी संहिता, २०७४, दफा 402"
+   ],
+   "note": "Literal (s.402(क)). Says nothing about the deposit; V1 flagged the same section for over-reading, here the sentence stays inside the text."
+  },
+  {
+   "answer_id": "rw01",
+   "sentence_index": 4,
+   "question_script": "devanagari",
+   "kind": "rule",
+   "sentence": "मुलुकी देवानी कार्यविधि संहिता, २०७४ को दफा ९० अनुसार कानून बमोजिम तोकिएको हदम्यादभित्र अदालतमा फिरादपत्र दिनु पर्छ।",
+   "label": "supported",
+   "evidence_quote": "फिरादपत्र दिँदा आफ्नो दाबी सहित कानून बमोजिम तोकिएको हदम्यादभित्र अदालतमा फिरादपत्र दिनु पर्नेछ",
+   "cited": [
+    "मुलुकी देवानी कार्यविधि संहिता, २०७४, दफा 90"
+   ],
+   "note": "Literal generic limitation-period rule (CPC s.90)."
+  },
+  {
+   "answer_id": "rw03",
+   "sentence_index": 1,
+   "question_script": "romanised",
+   "kind": "rule",
+   "sentence": "श्रम ऐन, २०७४ को दफा ३० को उपदफा १ अनुसार प्रतिदिन चार घण्टा र एक हप्तामा चौबीस घण्टाभन्दा बढी नहुने गरी बढी समय काममा लगाउन सकिनेछ।",
+   "label": "supported",
+   "evidence_quote": "प्रतिदिन चार घण्टा र एक हप्तामा चौबीस घण्टाभन्दा बढी नहुने गरी लगाउन सकिनेछ।",
+   "cited": [
+    "श्रम ऐन, २०७४, दफा 30"
+   ],
+   "note": "Literal s.30(1). Does not say whether a 12-hour day is lawful (s.28: 8 h/day, 48 h/week) nor the overtime pay rate (s.31: 1.5x basic wage); both are in the corpus."
+  },
+  {
+   "answer_id": "rw03",
+   "sentence_index": 2,
+   "question_script": "romanised",
+   "kind": "deadline",
+   "sentence": "श्रम ऐन, २०७४ को दफा १६२ अनुसार गैरकानुनी कार्य भएको मितिले छ महिनाभित्र निर्णय गर्ने निकाय समक्ष उजुरी दिन सकिनेछ।",
+   "label": "supported",
+   "evidence_quote": "सो कार्यभए गरेको मितिले छ महिनाभित्र दफा १६३ वा १६४ बमोजिम निर्णय गर्ने निकाय समक्ष उजुरी दिन सक्नेछ।",
+   "cited": [
+    "श्रम ऐन, २०७४, दफा 162"
+   ],
+   "note": "Literal s.162 six-month complaint window."
+  },
+  {
+   "answer_id": "rw04",
+   "sentence_index": 1,
+   "question_script": "romanised",
+   "kind": "rule",
+   "sentence": "वैदेशिक रोजगार ऐन, २०६४ को दफा ४४ अनुसार कुनै इजाजतपत्रवालाले कसैलाई वैदेशिक रोजगारमा लगाइदिनेछु भनी झुट्टो आश्वासन दिई वा प्रलोभन देखाई कुनै रकम लिई विदेश नपठाएमा त्यसरी लिएको रकम र सोको पचास प्रतिशतले हुने रकम भराइनेछ।",
+   "label": "supported",
+   "evidence_quote": "वैदेशिक रोजगारमा लगाइदिनेछु भनी झुट्टो आश्वासन दिई वा प्रलोभन देखाई कुनै रकम लिई विदेश नपठाएमा त्यसरी लिएको रकम र सोको पचास प्रतिशतले हुने रकम भराई",
+   "cited": [
+    "वैदेशिक रोजगार ऐन, २०६४, दफा 44"
+   ],
+   "note": "Literal s.44 (refund + 50% damages). Assumes the manpower is a licensee."
+  },
+  {
+   "answer_id": "rw04",
+   "sentence_index": 2,
+   "question_script": "romanised",
+   "kind": "penalty",
+   "sentence": "यस्तो अवस्थामा इजाजतपत्रवालालाई तीन लाख रूपैयाँदेखि पाँच लाख रूपैयाँसम्म जरिबाना र तीन वर्षदेखि सात वर्षसम्म कैद हुने व्यवस्था छ।",
+   "label": "supported",
+   "evidence_quote": "त्यस्तो इजाजतपत्रवालालाई तीन लाख रूपैयाँदेखि पाँच लाख रूपैयाँसम्म जरिबाना र तीन वर्षदेखि सात वर्षसम्म कैद हुनेछ",
+   "cited": [
+    "वैदेशिक रोजगार ऐन, २०६४, दफा 44"
+   ],
+   "note": "Literal s.44 penalty band."
+  },
+  {
+   "answer_id": "rw04",
+   "sentence_index": 3,
+   "question_script": "romanised",
+   "kind": "penalty",
+   "sentence": "यदि इजाजतपत्र नलिई कसैले वैदेशिक रोजगारीमा लगाइदिने उद्देश्यले रकम लिएको भए विदेश पठाइ नसकेको अवस्थामा आधा सजाय हुनेछ।",
+   "label": "supported",
+   "evidence_quote": "विदेश पठाइ नसकेको भए सो सजायको आधा सजाय हुनेछ।",
+   "cited": [
+    "वैदेशिक रोजगार ऐन, २०६४, दफा 43"
+   ],
+   "note": "Literal s.43 (unlicensed person: half the punishment if not yet sent abroad)."
+  },
+  {
+   "answer_id": "rw04",
+   "sentence_index": 4,
+   "question_script": "romanised",
+   "kind": "rule",
+   "sentence": "सर्वोच्च अदालतका अनुसार वैदेशिक रोजगारको लागि रकम लिएको तथ्य शंकास्पद देखिएमा फौजदारी दायित्वमा सजाय गर्नु फौजदारी कानूनको मान्य सिद्धान्तविपरीत हुन्छ।",
+   "label": "wrong-law",
+   "evidence_quote": "वैदेशिक रोजगारको लागि रकम लिएको भन्ने जाहेरी व्यहोराको तथ्य नै शंकास्पद र सन्देहपूर्ण देखिन आएको अवस्थामा ... सजाय गर्नु फौजदारी कानूनको मान्य सिद्धान्तविपरीत हुने",
+   "cited": [
+    "ने.का.प. २०७५ अंक १ नि.नं. ९९३९"
+   ],
+   "note": "Precedent is about acquitting an accused where the COMPLAINANT's version is doubtful. Shown to a victim who holds receipts it reads as 'money-taking claims may be doubted'; it does not govern the user's situation and does not help them. Sentence also drops that it is the FIR account that must be doubtful."
+  },
+  {
+   "answer_id": "rw06",
+   "sentence_index": 1,
+   "question_script": "english",
+   "kind": "rule",
+   "sentence": "Under the Negotiable Instruments Act, 2034, Section 65, if the drawer of a cheque fails to pay the required amount, the cheque is considered dishonoured.",
+   "label": "supported",
+   "evidence_quote": "चेकको ड्रयीले भुक्तानी दिनुपर्नेरकमको भुक्तानी नदिएमा सो प्रतिज्ञापत्र, विनिमेयपत्र वा चेक भुक्तानी दिन इन्कार गरी अनादर गरेको मानिनेछ।",
+   "cited": [
+    "The Negotiable Instruments Act, 2034, Section 65"
+   ],
+   "note": "Literal NIA s.65."
+  },
+  {
+   "answer_id": "rw06",
+   "sentence_index": 2,
+   "question_script": "english",
+   "kind": "procedure",
+   "sentence": "Under the Banking Offence and Punishment Act, 2064, Section 3A, if sufficient funds are lacking when payment is requested, the bank must certify the cheque dishonour within three days and return the cheque to the holder.",
+   "label": "unsupported",
+   "evidence_quote": "आफ्नो खातामा आवश्यक रकम जम्मा गर्न सम्बन्धित खातावालालाई ... पैँतालिस दिनको म्याद दिइ ... (५) उपदफा (३) बमोजिम तोकिएको म्याद समाप्त भएपछि धारकले ... भुक्तानी माग्दा ... तीन दिनभित्र ... प्रमाणित गरी ... फिर्ता",
+   "cited": [
+    "The Banking Offence and Punishment Act, 2064, Section 3क"
+   ],
+   "note": "Missing condition. The 3-day certification runs only AFTER the bank has given the drawer up to 45 days' notice to fund the account (s.3क(3)-(5)). Sentence says the bank must certify within three days of the payment request, which a holder will read as a 3-day process."
+  },
+  {
+   "answer_id": "rw06",
+   "sentence_index": 3,
+   "question_script": "english",
+   "kind": "penalty",
+   "sentence": "Under the Banking Offence and Punishment Act, 2064, Section 15(1), if cheque dishonour is proven for an amount exceeding five lakh rupees up to fifty lakh rupees, the account holder is liable to repay the principal amount along with interest, face a fine of five percent of the principal amount, and face imprisonment from one month up to three months.",
+   "label": "hallucinated-number-or-section",
+   "evidence_quote": "(क) पन्ध्र लाख रुपैयाँसम्म बिगो भए एक महिनासम्म कैद, (ख) पन्ध्र लाख रुपैयाँभन्दा बढी पचास लाख रुपैयाँसम्म बिगो भए एक महिनादेखि तीन महिनासम्म कैद",
+   "cited": [
+    "The Banking Offence and Punishment Act, 2064, Section 15 (1)"
+   ],
+   "note": "Wrong number. Band is 'more than FIFTEEN lakh up to fifty lakh' (पन्ध्र), sentence says 'five lakh'. For the user's Rs 5 lakh cheque the applicable band is (क) up to 15 lakh = up to 1 month, so the stated 1-3 months is wrong for them. Also cites 's.15(1)' but the text is s.15(1क). The number check passed because 'पाँच प्रतिशत' (5%) is elsewhere in the quote."
+  },
+  {
+   "answer_id": "rw06",
+   "sentence_index": 4,
+   "question_script": "english",
+   "kind": "deadline",
+   "sentence": "Under the Banking Offence and Punishment Act, 2064, Section 17, a case must be filed before the concerned District Court within six months from the date the complaint is lodged.",
+   "label": "supported",
+   "evidence_quote": "त्यसरी जाहेरी परेको मितिले छ महिनाभित्र सम्बन्धित जिल्ला अदालत समक्ष मुद्दा दायर गरिसक्नु पर्नेछ।",
+   "cited": [
+    "The Banking Offence and Punishment Act, 2064, Section 17"
+   ],
+   "note": "Literal s.17(1क). But the answer's gap section then says the complaint limitation is not covered, although this same passage gives it (one year from the certified dishonour)."
+  },
+  {
+   "answer_id": "rw08",
+   "sentence_index": 1,
+   "question_script": "romanised",
+   "kind": "rule",
+   "sentence": "मुलुकी देवानी संहिता, २०७४ को दफा ८९ अनुसार पति आफ्नो इज्जत र क्षमता अनुसार पत्नी र बच्चाहरूलाई खान लगाउन तथा स्वास्थ्योपचारको व्यवस्था गर्नु पर्छ।",
+   "label": "unsupported",
+   "evidence_quote": "पति वा पत्नीले एक अर्कालाई आफ्नो इज्जत र क्षमता अनुसार खान लगाउन तथा स्वास्थ्योपचारको व्यवस्था गर्नु वा गराउनु पर्नेछ",
+   "cited": [
+    "मुलुकी देवानी संहिता, २०७४, दफा 89"
+   ],
+   "note": "Wrong subject. s.89 binds spouses towards EACH OTHER; children are not mentioned. Sentence extends it to 'पत्नी र बच्चाहरू'."
+  },
+  {
+   "answer_id": "rw08",
+   "sentence_index": 2,
+   "question_script": "romanised",
+   "kind": "rule",
+   "sentence": "दफा २११ ले पनि पतिपत्नी, छोरा, छोरी, बाबु र आमालाई आफ्नो इज्जत आम्दानुसार खान लाउन दिन र आर्थिक हैसियत अनुसार शिक्षा र स्वास्थ्य उपचारको व्यवस्था गर्नु पर्नेछ।",
+   "label": "unsupported",
+   "evidence_quote": "सगोलको सम्पत्ति भएका पति, पत्नी, बाबु, आमा, छोरा, छोरीले पत्नी, पति, छोरा ... लाई ... खान लाउन दिन ... पर्नेछ",
+   "cited": [
+    "मुलुकी देवानी संहिता, २०७४, दफा 211"
+   ],
+   "note": "Missing condition. s.211(1) applies to members who hold joint (सगोल) property; the sentence states it as a universal duty. The section's heading and (2) concern taking a share and living apart."
+  },
+  {
+   "answer_id": "rw08",
+   "sentence_index": 3,
+   "question_script": "romanised",
+   "kind": "rule",
+   "sentence": "यदि पतिको आम्दानी छ भने, अदालतले सम्बन्ध विच्छेद भएको अवस्थामा पत्नीलाई खान लगाउने खर्च भरार्ई दिन सक्नेछ।",
+   "label": "wrong-law",
+   "evidence_quote": "पतिबाट अंश नपाएकी पत्नीले ... खान लाउन खर्च भराउन चाहेमा ... अदालतले त्यस्ती पत्नीलाई सम्बन्ध विच्छेद भएको पतिको आम्दानीको आधारमा खान लगाउने खर्च भराइ दिन सक्नेछ",
+   "cited": [
+    "मुलुकी देवानी संहिता, २०७४, दफा 101"
+   ],
+   "note": "s.101 governs a wife who has been divorced and got no share at partition under s.99, with provisos (remarriage; wife earns more). User's husband merely left; she is not divorced. Sentence also drops the provisos."
+  },
+  {
+   "answer_id": "rw11",
+   "sentence_index": 1,
+   "question_script": "romanised",
+   "kind": "rule",
+   "sentence": "मुलुकी देवानी संहिता, २०७४ को दफा २०५ अनुसार सगोलको सम्पत्ति अंशबण्डा गर्ने प्रयोजनको लागि पति, पत्नी, बाबु, आमा, छोरा, छोरी अंशियार मानिनेछन्।",
+   "label": "supported",
+   "evidence_quote": "पति, पत्नी, बाबु, आमा, छोरा, छोरी अंशियार मानिनेछन्",
+   "cited": [
+    "मुलुकी देवानी संहिता, २०७४, दफा 205"
+   ],
+   "note": "Literal s.205. Says who counts as अंशियार; does not itself state the widow's share (s.214/s.239 not retrieved)."
+  },
+  {
+   "answer_id": "rw11",
+   "sentence_index": 2,
+   "question_script": "romanised",
+   "kind": "deadline",
+   "sentence": "मुलुकी देवानी संहिता, २०७४ को दफा २३५ को खण्ड (क) अनुसार अंशबण्डा नै नभएको अवस्थामा जहिलेसुकै नालिस गर्न सकिनेछ।",
+   "label": "supported",
+   "evidence_quote": "अंशबण्डा नै नभएको वा अंशबण्डा हुँदा गोश्वाराको लिखत भएको र लिखत नभए पनि हिसाब गरी दुवै पक्षले भोग गरेकोमा जहिलेसुकै",
+   "cited": [
+    "मुलुकी देवानी संहिता, २०७४, दफा 235"
+   ],
+   "note": "Literal s.235(क). Deadline sentence sits next to a 3-year rule (next sentence) with no explanation of which applies."
+  },
+  {
+   "answer_id": "rw11",
+   "sentence_index": 3,
+   "question_script": "romanised",
+   "kind": "deadline",
+   "sentence": "मुलुकी देवानी संहिता, २०७४ को दफा २५० अनुसार अपुताली खुला भएको मितिले तीन वर्षभित्र नालिस गर्न सकिनेछ।",
+   "label": "supported",
+   "evidence_quote": "अपुताली खुला भएको मितिले तीन वर्षभित्र नालिस गर्न सकिनेछ",
+   "cited": [
+    "मुलुकी देवानी संहिता, २०७४, दफा 250"
+   ],
+   "note": "Literal s.250 default limitation; omits the lead-in 'unless another period is written elsewhere in this chapter'. Judged acceptable as a paraphrase; reader is left with 'anytime' vs '3 years' unresolved."
+  },
+  {
+   "answer_id": "rw13",
+   "sentence_index": 1,
+   "question_script": "romanised",
+   "kind": "rule",
+   "sentence": "मुलुकी फौजदारी कार्यविधि संहिता, २०७४ को दफा ५ अनुसार सम्बन्धित प्रहरी कार्यालयले जाहेरी दरखास्त वा सूचना दर्ता गर्न इन्कार गरेमा जाहेरी दिने व्यक्तिले सो व्यहोरा खुलाई सम्बन्धित जिल्ला सरकारी वकिल कार्यालय वा सो प्रहरी कार्यालयभन्दा माथिल्लो तहको प्रहरी कार्यालयमा उजुर गर्न सक्नेछ।",
+   "label": "supported",
+   "evidence_quote": "सम्बन्धित प्रहरी कार्यालयले दर्ता गर्न इन्कार गरेमा जाहेरी दरखास्त वा सूचना गर्ने व्यक्तिले त्यस्तो व्यहोरा खुलाई सम्बन्धित जिल्ला सरकारी वकिल कार्यालय वा त्यस्तो जाहेरी दरखास्त वा सूचना दर्ता गर्नु पर्ने प्रहरी कार्यालयभन्दा माथिल्लो तहको प्रहरी कार्यालयमा जाहेरी दरखास्त वा सूचना सहित उजुर गर्न सक्नेछ",
+   "cited": [
+    "मुलुकी फौजदारी कार्यविधि संहिता, २०७४, दफा 5"
+   ],
+   "note": "Verbatim rule, governing."
+  },
+  {
+   "answer_id": "rw13",
+   "sentence_index": 2,
+   "question_script": "romanised",
+   "kind": "rule",
+   "sentence": "मुलुकी फौजदारी कार्यविधि संहिता, २०७४ को दफा ४ (१) अनुसार जाहेरी दरखास्त आफैँ उपस्थित भई, हुलाक वा अन्य व्यक्ति मार्फत वा विद्युतीय माध्यमबाट पनि दिन सकिनेछ।",
+   "label": "supported",
+   "evidence_quote": "जाहेरी दरखास्त वा सूचना कुनै व्यक्तिले सम्बन्धित प्रहरी कार्यालयमा आफैँ उपस्थित भई दिएमा वा हुलाक वा कुनै व्यक्ति मार्फत्पठाएमा वा विद्युतीय माध्यमबाट सूचना दिएमा त्यस्तो प्रहरी कार्यालयले त्यस्तो जाहेरी दरखास्त वा सूचना दर्ता गरी निजलाई अनुसूची-६ बमोजिमको ढाँचामा भरपाई दिनु पर्नेछ",
+   "cited": [
+    "मुलुकी फौजदारी कार्यविधि संहिता, २०७४, दफा 4 (1)"
+   ],
+   "note": "Literal s.4(1)."
+  },
+  {
+   "answer_id": "rw14",
+   "sentence_index": 1,
+   "question_script": "romanised",
+   "kind": "rule",
+   "sentence": "मुलुकी फौजदारी कार्यविधि संहिता, २०७४ को दफा ६७ अनुसार जन्म कैदको सजाय हुन सक्ने कसूर वा तीन वर्षभन्दा बढी कैदको सजाय हुन सक्ने अनुसूची-१ वा अनुसूची-२ अन्तर्गतका कसूरको अभियोग लागेको अभियुक्त तत्काल प्राप्त प्रमाणबाट कसूरदार देखिने भएमा वा कसूरदार हो भन्ने विश्वास गर्ने मनासिब आधार भएमा अदालतले पुर्पक्षको लागि थुनामा राख्नेछ।",
+   "label": "supported",
+   "evidence_quote": "जन्म कैदको सजाय हुन सक्ने कसूर, (ख) तीन वर्षभन्दा बढी कैदको सजाय हुन सक्ने अनुसूची-१ वा अनुसूची-२ अन्तर्गतका कसूर",
+   "cited": [
+    "मुलुकी फौजदारी कार्यविधि संहिता, २०७४, दफा 67"
+   ],
+   "note": "Literal s.67(1). This is the detention rule; the release rule s.68 was not retrieved."
+  },
+  {
+   "answer_id": "rw14",
+   "sentence_index": 2,
+   "question_script": "romanised",
+   "kind": "rule",
+   "sentence": "मुलुकी फौजदारी कार्यविधि संहिता, २०७४ को दफा ७१ अनुसार मुद्दाको कारबाही जुनसुकै अवस्थामा पुगेको भए तापनि अदालतले प्रमाण बुझ्दै जाँदा अभियुक्तलाई अवस्था अनुसार दफा ६८ बमोजिम धरौट, जमानत वा बैङ्क जमानत माग्न सक्नेछ।",
+   "label": "supported",
+   "evidence_quote": "मुद्दाको कारबाही जुनसुकै अवस्थामा पुगेको भए तापनि अदालतले प्रमाण बुभ्mदै जाँदा अभियुक्तलाई अवस्था अनुसार दफा ६७ बमोजिम थुनामा राख्न वा दफा ६८ बमोजिम निजसँग धरौट, जमानत वा बैङ्क जमानत माग्न सक्नेछ",
+   "cited": [
+    "मुलुकी फौजदारी कार्यविधि संहिता, २०७४, दफा 71"
+   ],
+   "note": "Literal s.71. Omits the 'or keep in custody under s.67' half of the same clause."
+  },
+  {
+   "answer_id": "rw14",
+   "sentence_index": 3,
+   "question_script": "romanised",
+   "kind": "rule",
+   "sentence": "मुलुकी फौजदारी कार्यविधि संहिता, २०७४ को दफा ७६ अनुसार मुद्दाको अन्तिम निर्णय हुँदा अभियुक्तले सफाई पाएमा अदालतले लिएको धरौटी वा जमानत तुरुन्त फिर्ता वा फुकुवा गरी दिनु पर्नेछ।",
+   "label": "supported",
+   "evidence_quote": "मुद्दाको अन्तिम निर्णय हुँदा अभियुक्तले सफाई पाएमा यस परिच्छेदमा अन्यथा व्यवस्था भएकोमा बाहेक निजलाई तुरुन्त फिर्ता वा फुकुवा गरी दिनु पर्नेछ।",
+   "cited": [
+    "मुलुकी फौजदारी कार्यविधि संहिता, २०७४, दफा 76"
+   ],
+   "note": "Literal s.76(2); omits 'unless otherwise provided in this chapter'."
+  },
+  {
+   "answer_id": "rw15",
+   "sentence_index": 1,
+   "question_script": "romanised",
+   "kind": "rule",
+   "sentence": "मुलुकी अपराध संहिता, २०७४ को दफा २९६ अनुसार कसैले कुनै व्यक्तिको तस्वीर निजको अनुमति विना अरुलाई दिन वा बिक्री गर्न वा निजलाई झिझ्याउन वा सताउने, हैरान पार्ने वा निजबाट कुनै अनुचित फाइदा लिने वा तस्वीरको व्यापारिक प्रयोग गरी फाइदा लिने नियतले प्रकाशन गर्न, प्रचार वा खरिद बिक्री गर्न हुँदैन।",
+   "label": "supported",
+   "evidence_quote": "कसैले कुनै व्यक्तिको तस्वीर निजको अनुमति विना अरुलाई दिन वा बिक्री गर्न वा निजलाई झिझ्याउन वा सताउने, हैरान पार्ने वा निजबाट कुनै अनुचित फाइदा लिने वा तस्वीरको व्यापारिक प्रयोग गरी फाइदा लिने नियतले प्रकाशन गर्न, प्रचार वा खरिद बिक्री गर्न हुँदैन।",
+   "cited": [
+    "मुलुकी अपराध संहिता, २०७४, दफा 296"
+   ],
+   "note": "Literal s.296(1). Fits: the user's photo is published without permission."
+  },
+  {
+   "answer_id": "rw15",
+   "sentence_index": 2,
+   "question_script": "romanised",
+   "kind": "rule",
+   "sentence": "मुलुकी अपराध संहिता, २०७४ को दफा ३०० अनुसार कसैलाई डर, त्रास वा दुःख वा हैरानी दिने, अपमान वा बेइज्जत गर्ने बदनियतले कुनै चिठ्ठी पत्र, पर्चा वा अन्य कुनै किसिमको लिखत लेखी, लेखाई वा विद्युतीय माध्यमद्वारा धम्की दिने, सताउने, जिस्क्याउने वा अन्य कुनै किसिमले अनुचित व्यवहार गर्न वा गराउन हुँदैन।",
+   "label": "wrong-law",
+   "evidence_quote": "कसैलाई डर, त्रास वा दुःख वा हैरानी दिने, अपमान वा बेइज्जत गर्ने बदनियतले कुनै चिठ्ठी पत्र ... वा विद्युतीय माध्यमद्वारा धम्की दिने, सताउने, जिस्क्याउने",
+   "cited": [
+    "मुलुकी अपराध संहिता, २०७४, दफा 300"
+   ],
+   "note": "BORDERLINE. s.300 protects the addressee of threatening/harassing writing; the messages went to the user's friends, and the harm to the user is impersonation, not being threatened. Real text, weak fit. Flagged conservatively."
+  },
+  {
+   "answer_id": "rw15",
+   "sentence_index": 3,
+   "question_script": "romanised",
+   "kind": "penalty",
+   "sentence": "विद्युतीय (इलेक्ट्रोनिक) कारोबार ऐन, २०६३ को दफा ४७ अनुसार कम्प्युटर, इन्टरनेट लगायतका विद्युतीय सञ्चार माध्यमहरुमा महिलालाई जिस्क्याउने, हैरानी गर्ने, अपमान गर्ने वा यस्तै अन्य कुनै किसिमको अमर्यादित कार्य गर्ने वा गर्न लगाउने व्यक्तिलाई एक लाख रुपैयाँसम्म जरिबाना वा पाँच वर्षसम्म कैद वा दुवै सजाय हुनेछ।",
+   "label": "supported",
+   "evidence_quote": "कम्प्युटर, इन्टरनेट लगायतका विद्युतीय सञ्चार माध्यमहरुमा प्रचलित कानूनले प्रकाशन तथा प्रर्दशन गर्ननहुने भनी रोक लगाएका सामग्रीहरु वा सार्वजनिक नैतिकता, शिष्टाचार विरुद्धका सामग्री वा कसैप्रति घृणा वा द्वेष फैलाउने वा विभिन्न जात जाति र सम्प्रदायबीचको सुमधुर सम्बन्धलाई खलल पार्ने किसिमका सामग्रीहरु प्रकाशन वा प्रदर्शन गर्ने, महिलालाई जिस्क्याउने, हैरानी गर्ने, अपमान गर्नेवा यस्तै अन्य कुनै किसिमको अमर्यादित कार्यगर्नेवा गर्नलगाउने व्यक्तिलाई एक लाख रुपैयाँसम्म जरिबाना वा पाँच वर्षसम्म कैद वा दुवै सजाय हुनेछ।",
+   "cited": [
+    "विद्युतीय (इलेक्ट्रोनिक) कारोबार ऐन, २०६३, दफा 47"
+   ],
+   "note": "Literal s.47(1). Clause 'महिलालाई' applies only if the victim is a woman (user's gender not stated); fit otherwise via 'अमर्यादित कार्य'."
+  },
+  {
+   "answer_id": "rw15",
+   "sentence_index": 4,
+   "question_script": "romanised",
+   "kind": "penalty",
+   "sentence": "मुलुकी अपराध संहिता, २०७४ को दफा ३०७ अनुसार विद्युतीय वा अन्य आम सञ्चारका माध्यमबाट बेइज्जती गरे वा गराएमा त्यस्तो सजायमा थप एक वर्षसम्म कैद र दश हजार रुपैयाँसम्म जरिबाना हुनेछ।",
+   "label": "supported",
+   "evidence_quote": "तर विद्युतीय वा अन्य आम सञ्चारका माध्यमबाट बेइज्जती गरे वा गराएमा त्यस्तो सजायमा थप एक वर्षसम्म कैद र दश हजार रुपैयाँसम्म जरिबाना हुनेछ।",
+   "cited": [
+    "मुलुकी अपराध संहिता, २०७४, दफा 307"
+   ],
+   "note": "Literal proviso of s.307(1), but 'त्यस्तो सजायमा थप' is left dangling: the base penalty (2 years / Rs 20,000) is not stated, so the reader gets only the increment. Misleading omission, not a false claim."
+  },
+  {
+   "answer_id": "rw15",
+   "sentence_index": 5,
+   "question_script": "romanised",
+   "kind": "deadline",
+   "sentence": "विद्युतीय (इलेक्ट्रोनिक) कारोबार ऐन, २०६३ को दफा ७४ अनुसार यो ऐन वा यस ऐन अन्तर्गत बनेको नियमको उल्लङ्घन भएकोमा वा यो ऐन बमोजिम कसूर ठहर्ने कुनै कुरा भएकोमा त्यस्तो उल्लङ्घन वा कसूर भए गरेको थाहा पाएको मितिले नब्बे दिनभित्र उजुर गर्नुपर्नेछ।",
+   "label": "supported",
+   "evidence_quote": "त्यस्तो उल्लङ्घन वा कसूर भए गरेको थाहा पाएको मितिले नब्बे दिनभित्र उजुर गर्नुपर्नेछ।",
+   "cited": [
+    "विद्युतीय (इलेक्ट्रोनिक) कारोबार ऐन, २०६३, दफा 74"
+   ],
+   "note": "Literal s.74 (applies to Electronic Transactions Act offences only; answer names the Act)."
+  },
+  {
+   "answer_id": "rw17",
+   "sentence_index": 1,
+   "question_script": "english",
+   "kind": "rule",
+   "sentence": "Under Section 4(1) of the Domestic Violence (Crime and Punishment) Act, 2066, you can file a written or oral complaint with a police office, the National Women's Commission, or your local level.",
+   "label": "supported",
+   "evidence_quote": "प्रहरी कार्यालय वा राष्ट्रिय महिला आयोग वा स्थानीय तह समक्ष लिखित वा मौखिक उजुरी दिन सक्नेछ",
+   "cited": [
+    "Domestic Violence (Crime and Punishment) Act, 2066, Section 4 (1)"
+   ],
+   "note": "Literal s.4(1)."
+  },
+  {
+   "answer_id": "rw17",
+   "sentence_index": 2,
+   "question_script": "english",
+   "kind": "deadline",
+   "sentence": "Under Section 14 of the Domestic Violence (Crime and Punishment) Act, 2066, a complaint must be filed within 90 days of the incident.",
+   "label": "supported",
+   "evidence_quote": "यस ऐन बमोजिमको कसूरमा भए गरेको मितिले नब्बे दिनभित्र उजुरी दिनु पर्नेछ",
+   "cited": [
+    "Domestic Violence (Crime and Punishment) Act, 2066, Section 14"
+   ],
+   "note": "Literal s.14 (90 days)."
+  },
+  {
+   "answer_id": "rw17",
+   "sentence_index": 3,
+   "question_script": "english",
+   "kind": "rule",
+   "sentence": "Under Section 6(1) of the Domestic Violence (Crime and Punishment) Act, 2066, the court can order the abuser to allow you to reside in the home and not to beat you.",
+   "label": "supported",
+   "evidence_quote": "पीडितलाई निज बसी आएको घरमा बसोबास गर्न दिन, खान लाउन दिन, कुटपिट नगर्नतथा शिष्ट र सभ्य व्यवहार गर्न",
+   "cited": [
+    "Domestic Violence (Crime and Punishment) Act, 2066, Section 6"
+   ],
+   "note": "Literal s.6(1)(क); the interim order lasts until final decision."
+  },
+  {
+   "answer_id": "rw19",
+   "sentence_index": 1,
+   "question_script": "romanised",
+   "kind": "deadline",
+   "sentence": "सूचनाको हक सम्बन्धी ऐन, २०६४ को दफा ७ अनुसार निवेदन प्राप्त भएको मितिले पन्ध्र दिनभित्र निवेदकलाई सूचना उपलब्ध गराउनु पर्छ।",
+   "label": "supported",
+   "evidence_quote": "निवेदन प्राप्त भएको मितिले पन्ध्र दिनभित्र निवेदकलाई सूचना उपलब्ध गराउनु पर्नेछ",
+   "cited": [
+    "सूचनाको हक सम्बन्धी ऐन, २०६४, दफा 7"
+   ],
+   "note": "Literal s.7(2) (15 days for information that cannot be given immediately)."
+  },
+  {
+   "answer_id": "rw19",
+   "sentence_index": 2,
+   "question_script": "romanised",
+   "kind": "rule",
+   "sentence": "सूचनाको हक सम्बन्धी ऐन, २०६४ को दफा ९ अनुसार सूचना अधिकारीले सूचना उपलब्ध नगराएमा सो मितिले सात दिनभित्र प्रमुख समक्ष उजूरी दिन सकिन्छ।",
+   "label": "supported",
+   "evidence_quote": "सूचना अधिकारीले सूचना उपलब्ध नगराएमा, सूचना दिन अस्वीकार गरेमा, आंशिक रुपमा सूचना उपलब्ध गराएमा वा गलत सूचना दिएमा वा सरोकारवाला होइन भनी सूचना नदिएमा सम्बन्धित व्यक्तिले त्यसरी सूचना नपाएको वा आंशिक रुपमा सूचना पाएको मितिले सात दिनभित्र प्रमुख समक्ष उजूरी दिन सक्नेछ",
+   "cited": [
+    "सूचनाको हक सम्बन्धी ऐन, २०६४, दफा 9"
+   ],
+   "note": "Literal s.9(1): 7 days from when the information was not received. Answer does not warn that the user (one month waiting) may already be past this window."
+  },
+  {
+   "answer_id": "rw19",
+   "sentence_index": 3,
+   "question_script": "romanised",
+   "kind": "deadline",
+   "sentence": "सूचनाको हक सम्बन्धी ऐन, २०६४ को दफा १० अनुसार आयोगले पुनरावेदन परेको साठी दिनभित्र आवश्यक कारबाही गरी अन्तिम निर्णय गर्नुपर्छ।",
+   "label": "supported",
+   "evidence_quote": "आयोगले पुनरावेदन परेको साठी दिनभित्र सो पुनरावेदनको सम्बन्धमा आवश्यक कारबाही गरी अन्तिम निर्णय गर्नुपर्नेछ",
+   "cited": [
+    "सूचनाको हक सम्बन्धी ऐन, २०६४, दफा 10"
+   ],
+   "note": "Literal s.10(4). The 35-day window to appeal (s.10(1)) is in the corpus but not stated."
+  },
+  {
+   "answer_id": "rw20",
+   "sentence_index": 1,
+   "question_script": "romanised",
+   "kind": "deadline",
+   "sentence": "कम्पनी ऐन, २०६३ को दफा ५ अनुसार कम्पनी संस्थापना गर्न निवेदन परेमा कार्यालयले आवश्यक जाँचबुझ गरी सात दिनभित्र कम्पनी दर्ता गरी प्रमाणपत्र दिनु पर्नेछ।",
+   "label": "supported",
+   "evidence_quote": "सात दिनभित्र तोकिएको दस्तुर लिई त्यस्तो कम्पनी दर्ता गरी तोकिए बमोजिमको ढाँचामा निवेदकलाई कम्पनी दर्ताको प्रमाणपत्र दिनु पर्नेछ",
+   "cited": [
+    "कम्पनी ऐन, २०६३, दफा 5"
+   ],
+   "note": "Literal s.5(1)."
+  },
+  {
+   "answer_id": "rw20",
+   "sentence_index": 2,
+   "question_script": "romanised",
+   "kind": "rule",
+   "sentence": "यदि तोकिएको समयभित्र दर्ता नभएमा कार्यालयले तीन दिनभित्र कारण सहितको जानकारी दिनुपर्ने कानुनी व्यवस्था छ।",
+   "label": "supported",
+   "evidence_quote": "तोकिएको समयभित्र दर्ता नभएमा कार्यालयले प्रस्तावित कम्पनीलाई तीन दिनभित्र कारण सहितको जानकारी दिनुपर्ने छ",
+   "cited": [
+    "कम्पनी ऐन, २०६३, दफा 5"
+   ],
+   "note": "Literal s.5(1) second para."
+  },
+  {
+   "answer_id": "rw20",
+   "sentence_index": 3,
+   "question_script": "romanised",
+   "kind": "deadline",
+   "sentence": "कम्पनी ऐन, २०६३ को दफा ३३ बमोजिम शेयर बाँडफाँड भएको मितिले दुई महिनाभित्र शेयरधनीलाई शेयर प्रमाणपत्र दिनु पर्नेछ।",
+   "label": "supported",
+   "evidence_quote": "प्रत्येक शेयरधनीलाई निजले लिएको शेयर बापत शेयर बाँडफाँड भएको मितिले दुई महिनाभित्र",
+   "cited": [
+    "कम्पनी ऐन, २०६३, दफा 33"
+   ],
+   "note": "Literal s.33(1). Share certificate, not the registration certificate the user asked about; tangential."
+  },
+  {
+   "answer_id": "rw21",
+   "sentence_index": 1,
+   "question_script": "romanised",
+   "kind": "rule",
+   "sentence": "कम्पनी ऐन, २०६३ को दफा ७६ अनुसार कम्पनीले वार्षिक साधारण सभा नबोलाएमा कम्पनी रजिष्ट्रारको कार्यालयले त्यस्तो सभा बोलाउन निर्देशन दिन सक्नेछ।",
+   "label": "supported",
+   "evidence_quote": "वार्षिक साधारण सभा नबोलाएमा कार्यालयले त्यस्तो कम्पनीको वार्षिक साधारण सभा बोलाउन निर्देशन दिन सक्नेछ।",
+   "cited": [
+    "कम्पनी ऐन, २०६३, दफा 76"
+   ],
+   "note": "Literal s.76(2); omits that the Office may direct only after a further 3 months past the AGM deadline. Immaterial for a 2-year default."
+  },
+  {
+   "answer_id": "rw21",
+   "sentence_index": 2,
+   "question_script": "romanised",
+   "kind": "deadline",
+   "sentence": "यदि कार्यालयको निर्देशन प्राप्त भएको तीन महिनाभित्र पनि कम्पनीले सभा नबोलाएमा शेयरधनीले अदालतमा निवेदन दिन सक्ने अधिकार छ।",
+   "label": "supported",
+   "evidence_quote": "निर्देशन प्राप्त गरेको तीन महिनाभित्र पनि कम्पनीले वार्षिक साधारण सभा नबोलाएमा सो कुरा खुलाई कुनै शेयरधनीले अदालतमा निवेदन दिन सक्नेछ।",
+   "cited": [
+    "कम्पनी ऐन, २०६३, दफा 76"
+   ],
+   "note": "Literal s.76(3)."
+  },
+  {
+   "answer_id": "rw21",
+   "sentence_index": 3,
+   "question_script": "romanised",
+   "kind": "rule",
+   "sentence": "अदालतमा निवेदन परेमा अदालतले वार्षिक साधारण सभा गर्न लगाउन वा अन्य उपयुक्त आदेश जारी गर्न सक्ने व्यवस्था कम्पनी ऐन, २०६३ को दफा ७६ (३) मा छ।",
+   "label": "supported",
+   "evidence_quote": "त्यस्तो निवेदन दिएमा अदालतले वार्षिक साधारण सभा गर्न लगाउन वा अन्य उपयुक्त आदेश जारी गर्न सक्नेछ।",
+   "cited": [
+    "कम्पनी ऐन, २०६३, दफा 76"
+   ],
+   "note": "Literal s.76(3) second sentence."
+  },
+  {
+   "answer_id": "rw21",
+   "sentence_index": 4,
+   "question_script": "romanised",
+   "kind": "rule",
+   "sentence": "कम्पनीको चुक्ता पूँजीको कम्तीमा दश प्रतिशत शेयर लिने शेयरधनीहरूले कारण खुलाई विशेष साधारण सभा बोलाउन निवेदन दिन सक्छन्।",
+   "label": "supported",
+   "evidence_quote": "कम्पनीको चुक्ता पूँजीको कम्तीमा दश प्रतिशत शेयर लिने शेयरधनीहरु वा शेयरधनीहरुको जम्मा सङ्ख्याको कम्तीमा पच्चीस प्रतिशत शेयरधनीहरुले कारण खुलाई विशेष साधारण सभा बोलाउन कम्पनीको रजिष्टर्ड कार्यालयमा निवेदन दिई माग गरेमा",
+   "cited": [
+    "कम्पनी ऐन, २०६३, दफा 82"
+   ],
+   "note": "Literal s.82(3); omits the alternative 25%-of-shareholders trigger (does not change the claim)."
+  },
+  {
+   "answer_id": "rw21",
+   "sentence_index": 5,
+   "question_script": "romanised",
+   "kind": "deadline",
+   "sentence": "यस्तो माग गरिएको बढीमा तीस दिनभित्र सञ्चालक समितिले विशेष साधारण सभा बोलाउनु पर्नेछ।",
+   "label": "supported",
+   "evidence_quote": "त्यस्तो माग गरेको मितिले बढीमा तीस दिनभित्र बस्ने गरी कम्पनीको विशेष साधारण सभा बोलाउनु पर्नेछ।",
+   "cited": [
+    "कम्पनी ऐन, २०६३, दफा 82"
+   ],
+   "note": "Literal s.82(3)."
+  },
+  {
+   "answer_id": "rw21",
+   "sentence_index": 6,
+   "question_script": "romanised",
+   "kind": "rule",
+   "sentence": "सर्वोच्च अदालतका अनुसार शेयरधनीले संविधान र कानूनले तोकेको समय, शर्त र प्रक्रियालाई अनिवार्य रूपमा पालना गर्नुपर्दछ।",
+   "label": "wrong-law",
+   "evidence_quote": "संविधान र कानूनद्वारा प्रदत्त हक उपभोग गर्ने व्यक्तिले संविधान र कानूनले तोकेको समय, शर्त र प्रक्रियालाई पनि अनिवार्यरुपमा पालना गर्नुपर्ने",
+   "cited": [
+    "ने.का.प. २०६७ अंक ५ नि.नं. ८३६२"
+   ],
+   "note": "Precedent concerns a shareholder who failed to collect a declared DIVIDEND within the statutory period (case text: 'लाभांश ... कानूनले निर्धारण गरिदिएको अवधिभित्र लिनुपर्ने'). Says nothing about an AGM not being called. Vacuous filler that does not govern the user's situation."
+  },
+  {
+   "answer_id": "rw22",
+   "sentence_index": 1,
+   "question_script": "romanised",
+   "kind": "rule",
+   "sentence": "मूल्य अभिवृद्धि कर ऐन, २०५२ को दफा १० (१) अनुसार कुनै कारोबारमा संलग्न हुन चाहने व्यक्तिले कारोबार सुरु गर्नुभन्दा अघि नै दर्ताको लागि दरखास्त दिनुपर्छ।",
+   "label": "supported",
+   "evidence_quote": "कुनै कारोबारमा संलग्न हुन चाहने व्यक्तिले कारोबार सुरु गर्नुभन्दा अघि कारोबार दर्ताको लागि तोकिएको ढाँचामा कर अधिकृत समक्ष दरखास्त दिनु पर्नेछ",
+   "cited": [
+    "मूल्य अभिवृद्धि कर ऐन, २०५२, दफा 10"
+   ],
+   "note": "Literal s.10(1). Stated as absolute; the annual-turnover threshold that matters to a small shop is not in the sources (answer admits this)."
+  },
+  {
+   "answer_id": "rw22",
+   "sentence_index": 2,
+   "question_script": "romanised",
+   "kind": "deadline",
+   "sentence": "यदि कर लाग्ने वस्तु वा सेवाको कारोबार सुरु भइसकेको छ भने सो मितिले तीस दिनभित्र दर्ताका लागि दरखास्त दिनुपर्ने व्यवस्था दफा १० (२) मा छ।",
+   "label": "supported",
+   "evidence_quote": "कारोबार सञ्चालन गरेको मितिले तीस दिनभित्र त्यस्तो कारोबार दर्ताको लागि तोकिएको ढाँचामा कर अधिकृतसमक्ष दरखास्त दिनु पर्नेछ",
+   "cited": [
+    "मूल्य अभिवृद्धि कर ऐन, २०५२, दफा 10"
+   ],
+   "note": "Literal s.10(2)."
+  },
+  {
+   "answer_id": "rw22",
+   "sentence_index": 3,
+   "question_script": "romanised",
+   "kind": "rule",
+   "sentence": "तर अनुसूची–१ मा उल्लेख गरिएका कर छुट हुने वस्तु वा सेवाको मात्र कारोबार गर्ने व्यक्तिले भने दर्ता गराउनु पर्दैन।",
+   "label": "supported",
+   "evidence_quote": "अनुसूची–१ मा उल्लिखित कर छुट हुने वस्तु वा सेवाको मात्र कारोबार गर्ने व्यक्तिले दर्तागराउनुपर्ने छैन",
+   "cited": [
+    "मूल्य अभिवृद्धि कर ऐन, २०५२, दफा 10"
+   ],
+   "note": "Literal s.10(3). Sentence starts with a dangling 'तर' (but)."
+  },
+  {
+   "answer_id": "rw22",
+   "sentence_index": 4,
+   "question_script": "romanised",
+   "kind": "rule",
+   "sentence": "दर्ता नभएको व्यक्तिले कर असुल गरेको देखिने कुनै बीजक जारी गर्न वा कर उठाउन पाउँदैन।",
+   "label": "supported",
+   "evidence_quote": "दर्तानभएको व्यक्तिले कर असुल गरेको देखिने कुनै बीजक वा कागजात जारी गर्नर कर उठाउन हुँदैन",
+   "cited": [
+    "मूल्य अभिवृद्धि कर ऐन, २०५२, दफा 15"
+   ],
+   "note": "Literal s.15(1). It is a prohibition on collecting tax, not a penalty for failing to register, yet it sits under the heading 'दर्ता नगर्दा हुने सजाय'."
+  },
+  {
+   "answer_id": "rw22",
+   "sentence_index": 5,
+   "question_script": "romanised",
+   "kind": "penalty",
+   "sentence": "यदि दर्ता नभएको व्यक्तिले कर उठाएमा सो रकम कर निर्धारण गरी निजबाटै असुल उपर गरिनेछ।",
+   "label": "supported",
+   "evidence_quote": "दर्तानभएको कुनै व्यक्तिले कर उठाएमा त्यसरी उठाएको कर निर्धारण गरी निजबाट असुल उपर गरिनेछ",
+   "cited": [
+    "मूल्य अभिवृद्धि कर ऐन, २०५२, दफा 15"
+   ],
+   "note": "Literal s.15(2). Same heading problem: recovery of collected tax, not a penalty for non-registration."
+  },
+  {
+   "answer_id": "rw25",
+   "sentence_index": 1,
+   "question_script": "romanised",
+   "kind": "rule",
+   "sentence": "मुलुकी देवानी संहिता, २०७४ को दफा ४७८ अनुसार साहूले ऋणीबाट लिन पाउने ब्याजको रकम साँवा रकमको वार्षिक दश प्रतिशतभन्दा बढी हुने छैन।",
+   "label": "wrong-law",
+   "evidence_quote": "साहूले ऋणीबाट लिन पाउने ब्याजको रकम साँवा रकमको वार्षिक दश प्रतिशतभन्दा बढी हुने छैन",
+   "cited": [
+    "मुलुकी देवानी संहिता, २०७४, दफा 478"
+   ],
+   "note": "Real text but it is the private-creditor (साहू) interest cap in the Civil Code. The user asks about a BANK loan's penal interest; the governing text is the NRB Unified Directive (IPD 15/082, clause 3(dha2): penal rate at most 2 percentage points, on the overdue instalment only), which is in the corpus but was not retrieved. Also the sentence is about interest, not late-payment penalty. Answer's own gap says bank penal rates are not covered, contradicting the 10% presentation."
+  },
+  {
+   "answer_id": "rw25",
+   "sentence_index": 2,
+   "question_script": "romanised",
+   "kind": "rule",
+   "sentence": "यही संहिताको दफा ४९२ ले ब्याजको ब्याज लिएको वा ब्याजमा दश प्रतिशत भन्दा बढी लिएको विषयमा नालिस गर्न हदम्याद नलाग्ने व्यवस्था गरेको छ।",
+   "label": "wrong-law",
+   "evidence_quote": "ब्याजको ब्याज लिएको वा ब्याजमा दश प्रतिशत भन्दा बढी लिएको विषयमा नालिस गर्न हदम्याद लाग्ने छैन",
+   "cited": [
+    "मुलुकी देवानी संहिता, २०७४, दफा 492"
+   ],
+   "note": "Limitation rule for excess-interest suits between private lenders/borrowers (s.492(1) also covers incapable persons). Does not answer the bank penal-interest question. Text itself is faithfully paraphrased."
+  },
+  {
+   "answer_id": "rw25",
+   "sentence_index": 3,
+   "question_script": "romanised",
+   "kind": "rule",
+   "sentence": "पुरानो कानुन अन्तर्गतको एक मुद्दामा ऋण रकमको हर्जना र ब्याज भराई पाउन निवेदन दिएको देखिएको थियो।",
+   "label": "wrong-law",
+   "evidence_quote": "ऋण रकमको हर्जना र व्याज कृषि औजार कारखानाबाट भराई पाउँ भनि २०४७।१२।२७ मा निवेदन दिएको समेत देखिएबाट",
+   "cited": [
+    "ने.का.प. २०५६ अंक २ नि.नं. ६६७७"
+   ],
+   "note": "A 1990s writ about an agricultural loan reconciliation; the quote only records that a petition was filed. Not a rule, does not govern the question, and 'पुरानो कानुन अन्तर्गत' (old law) is the answer's own characterisation, absent from the passage."
+  },
+  {
+   "answer_id": "rw26",
+   "sentence_index": 1,
+   "question_script": "romanised",
+   "kind": "rule",
+   "sentence": "धितोपत्र सम्बन्धी ऐन, २०६३ को दफा ९१ अनुसार सार्वजनिक नभएका धितोपत्रको मूल्यमा असर पार्न सक्ने भित्री सूचनाको आधारमा धितोपत्र कारोबार गरेमा भित्री कारोबार गरेको मानिन्छ।",
+   "label": "supported",
+   "evidence_quote": "सार्वजनिक नभएका धितोपत्रको मूल्यमा असर पार्न सक्ने भित्री सूचना वा जानकारीहरुको आधारमा आफूले धितोपत्र कारोबार गरेमा",
+   "cited": [
+    "धितोपत्र सम्बन्धी ऐन, २०६३, दफा 91"
+   ],
+   "note": "Literal s.91(1) incl. explanation."
+  },
+  {
+   "answer_id": "rw26",
+   "sentence_index": 2,
+   "question_script": "romanised",
+   "kind": "rule",
+   "sentence": "आफ्नो कर्तव्य पालनाको सिलसिलामा बाहेक अरु कसैलाई त्यस्तो सूचना दिएमा पनि भित्री कारोबार गरेको मानिने व्यवस्था सोही दफामा छ।",
+   "label": "supported",
+   "evidence_quote": "आफ्नो कर्तव्य पालनाको सिलसिलामा बाहेक अरु कसैलाई दिएमा त्यस्तो व्यक्तिले धितोपत्रको भित्री कारोबार गरेको मानिनेछ",
+   "cited": [
+    "धितोपत्र सम्बन्धी ऐन, २०६३, दफा 91"
+   ],
+   "note": "Literal s.91(1) (tipping)."
+  },
+  {
+   "answer_id": "rw26",
+   "sentence_index": 3,
+   "question_script": "romanised",
+   "kind": "penalty",
+   "sentence": "धितोपत्र सम्बन्धी ऐन, २०६३ को दफा १०१ बमोजिम भित्री कारोबार गर्नेलाई विगो बमोजिम जरिबाना वा एक वर्षसम्म कैद वा दुवै सजाय हुन सक्छ।",
+   "label": "supported",
+   "evidence_quote": "भित्री कारोबार गर्नेलाई भित्री कारोबार गरेको ठहरेमा विगो बमोजिम जरिबाना वा एक वर्षसम्म कैद वा दुवै सजाय हुनेछ",
+   "cited": [
+    "धितोपत्र सम्बन्धी ऐन, २०६३, दफा 101"
+   ],
+   "note": "Literal s.101(1)."
+  },
+  {
+   "answer_id": "rw26",
+   "sentence_index": 4,
+   "question_script": "romanised",
+   "kind": "rule",
+   "sentence": "संगठित संस्थाका सञ्चालक, कर्मचारी वा शेयरवालाको हैसियतले सूचना प्राप्त गर्न सक्ने व्यक्तिलाई भित्री सूचनामा पहुँच भएको मानिन्छ।",
+   "label": "supported",
+   "evidence_quote": "सो संगठित संस्थाका सञ्चालक, कर्मचारी वा शेयरवालाको हैसियतले कुनै सूचना वा जानकारी प्राप्त गर्न सक्ने व्यक्ति",
+   "cited": [
+    "धितोपत्र सम्बन्धी ऐन, २०६३, दफा 92"
+   ],
+   "note": "Literal s.92(क)."
+  },
+  {
+   "answer_id": "rw26",
+   "sentence_index": 5,
+   "question_script": "romanised",
+   "kind": "rule",
+   "sentence": "संस्थालाई पेशागत सेवा प्रदान गर्ने नाताले वा त्यस्ता व्यक्तिहरूसँग प्रत्यक्ष वा अप्रत्यक्ष सम्पर्क भई सूचना पाउने व्यक्ति पनि यसमा पर्न सक्छन्।",
+   "label": "supported",
+   "evidence_quote": "सो संगठित संस्थालाई पेशागत सेवा प्रदान गर्ने नाताले कुनै सूचना वा जानकारी प्राप्त गर्न सक्ने व्यक्ति",
+   "cited": [
+    "धितोपत्र सम्बन्धी ऐन, २०६३, दफा 92"
+   ],
+   "note": "Literal s.92(ख),(ग); hedged with 'पर्न सक्छन्'."
+  },
+  {
+   "answer_id": "rw27",
+   "sentence_index": 1,
+   "question_script": "devanagari",
+   "kind": "rule",
+   "sentence": "नेपाल नागरिकता ऐन, २०६३ को दफा १७ अनुसार नागरिकता प्रमाणपत्रमा उल्लिखित थर वा उमेर शैक्षिक योग्यताको प्रमाणपत्रमा फरक पर्न गई विवरण सच्याउन चाहेमा आवश्यक प्रमाण सहित तोकिएको अधिकारी समक्ष निवेदन दिनु पर्छ।",
+   "label": "supported",
+   "evidence_quote": "थर वा उमेर शैक्षिक योग्यताको प्रमाणपत्रमा फरक पर्नगई वा नागरिकताको प्रमाणपत्रमा सानातिना त्रुटी भई सो विवरण सच्याउन चाहेमा आवश्यक प्रमाण सहित तोकिएको अधिकारी समक्ष निवेदन दिनु पर्नेछ",
+   "cited": [
+    "नेपाल नागरिकता ऐन, २०६३, दफा 17"
+   ],
+   "note": "Literal s.17(1); governs the situation exactly (name/age differs from academic certificate)."
+  },
+  {
+   "answer_id": "rw27",
+   "sentence_index": 2,
+   "question_script": "devanagari",
+   "kind": "procedure",
+   "sentence": "राष्ट्रिय परिचयपत्र तथा पञ्जीकरण नियमावली, २०७७ को नियम २२ अनुसार नागरिकता प्रमाणपत्रमा उल्लिखित नाम, थर, उमेर वा अन्य विवरणमा त्रुटि भई वा फरक परी सच्याउनु परेमा ऐनको दफा १८ बमोजिमको सम्बन्धित व्यक्तिले देहाय बमोजिमका कागजातको प्रमाणित प्रतिलिपि संलग्न गरी अनुसूची-२६ बमोजिमको ढाँचामा स्थानीय पञ्जिकाधिकारीको कार्यालयमा निवेदन दिनु पर्छ।",
+   "label": "hallucinated-number-or-section",
+   "evidence_quote": "२३. विवरण सच्याउने : (१) ऐनको दफा 25 बमोजिम कुनै व्यक्तिगत घटना दर्ताको प्रमाणपत्रमा उल्लिखित नाम, थर, उमेर वा अन्य विवरणमा त्रुटि ...",
+   "cited": [
+    "राष्ट्रिय परिचयपत्र तथा पञ्‍जीकरण नियमावली, २०७७, नियम 22 (1)"
+   ],
+   "note": "Wrong section AND altered quote. The cited passage is Rule 22 (duplicate registration) followed by Rule 23, which corrects a VITAL-EVENT (birth etc.) registration certificate under Act s.25. The quote in the answer says 'नागरिकता प्रमाणपत्रमा' which does not occur in the passage (quote is not verbatim; 'quote in passage' = False), so the rule number (22) and the document (citizenship certificate) are both invented. Passed the verifier via fuzzy match and because the passage is filed under section 22."
+  },
+  {
+   "answer_id": "rw27",
+   "sentence_index": 3,
+   "question_script": "devanagari",
+   "kind": "rule",
+   "sentence": "नेपाल नागरिकता ऐन, २०६३ को दफा १७ को स्पष्टीकरण अनुसार नागरिकताको प्रमाणपत्रमा उल्लिखित विवरणमा तात्विक अन्तर नपर्ने जस्तै “कुमारी”, “देवी”, “बहादुर”, “प्रसाद” जस्ता शब्द बढी राखिएको वा छुटेको वा आकार, इकारमा फरक परेको वा यस्तै अन्य सानातिना त्रुटिलाई सानातिना त्रुटी भनिन्छ।",
+   "label": "supported",
+   "evidence_quote": "नागरिकताको प्रमाणपत्रमा उल्लिखित विवरणमा तात्विक अन्तर नपर्ने जस्तैः “कुमारी”, “देवी”, “बहादुर”, “प्रसाद” जस्ता शब्द बढी राखिएको वा छुटेको वा आकार, इकारमा फरक परेको वा यस्तै अन्य सानातिना त्रुटिलाई जनाउनेछ",
+   "cited": [
+    "नेपाल नागरिकता ऐन, २०६३, दफा 17"
+   ],
+   "note": "Literal explanation to s.17(1)."
+  },
+  {
+   "answer_id": "rw28",
+   "sentence_index": 1,
+   "question_script": "romanised",
+   "kind": "rule",
+   "sentence": "सवारी तथा यातायात व्यवस्था ऐन, २०४९ को दफा १६३ अनुसार अङ्ग काम लाग्ने भएमा घाइतेले घा खर्चबापत पच्चीस हजार देखि पचास हजार रुपैयाँसम्म पाउने व्यवस्था छ।",
+   "label": "supported",
+   "evidence_quote": "त्यस्तो अङ्ग काम लाग्ने भए घा खर्चबापत पच्चीस हजार देखि पचास हजार रुपैयाँसम्म।",
+   "cited": [
+    "सवारी तथा यातायात व्यवस्था ऐन, २०४९, दफा 163"
+   ],
+   "note": "Literal s.163(1)(ख) fragment. Applies to अङ्गभङ्ग (limb injury) and the payer is driver/owner/insurer; sentence keeps only 'अङ्ग काम लाग्ने'."
+  },
+  {
+   "answer_id": "rw28",
+   "sentence_index": 2,
+   "question_script": "romanised",
+   "kind": "rule",
+   "sentence": "सवारी तथा यातायात व्यवस्था ऐन, २०४९ को दफा १५२ बमोजिम सवारी धनीले तेस्रो पक्षको बीमा नगराएको भएमा बीमा बापतको रकम निजले नै क्षतिपूर्ति स्वरूप दिनु पर्छ।",
+   "label": "supported",
+   "evidence_quote": "बीमा रकम निज वा निजको हकवालालाई सवारी धनी वा व्यवस्थापकले क्षतिपूर्तिबापत दिनु पर्छ।",
+   "cited": [
+    "सवारी तथा यातायात व्यवस्था ऐन, २०४९, दफा 152"
+   ],
+   "note": "Literal s.152(3) (uninsured vehicle)."
+  },
+  {
+   "answer_id": "rw28",
+   "sentence_index": 3,
+   "question_script": "romanised",
+   "kind": "rule",
+   "sentence": "सवारी तथा यातायात व्यवस्था ऐन, २०४९ को दफा १६६ अनुसार चालकले लापरवाही गरेको अवस्था बाहेक अन्यमा क्षतिपूर्तिको रकम सवारी धनी वा व्यवस्थापकले तिर्नु पर्नेछ।",
+   "label": "supported",
+   "evidence_quote": "क्षतिपूर्तिको रकम सम्बन्धित सवारी धनी वा व्यवस्थापकले तिरी दिनु पर्छ।",
+   "cited": [
+    "सवारी तथा यातायात व्यवस्था ऐन, २०४९, दफा 166"
+   ],
+   "note": "Literal s.166; drops the 'or acted in bad faith / violated the Act' part of the exception. Note it implies the owner is NOT liable if the (fled) driver was negligent."
+  },
+  {
+   "answer_id": "rw28",
+   "sentence_index": 4,
+   "question_script": "romanised",
+   "kind": "deadline",
+   "sentence": "सवारी तथा यातायात व्यवस्था नियमावली, २०५४ को नियम ५५ग अनुसार प्रमुख जिल्ला अधिकारीले मृत्यु बाहेकका अन्य अवस्थामा तीन महिनाभित्र बीमाको रकम उपलब्ध गराइदिनु पर्नेछ।",
+   "label": "supported",
+   "evidence_quote": "अन्य अवस्थामा तीन महिनाभित्र सम्बन्धित व्यक्तिलाई सम्बन्धित सवारी धनी वा व्यवस्थापकको रोहवरमा बिमकबाट उपलब्ध गराइदिनु पर्नेछ।",
+   "cited": [
+    "सवारी तथा यातायात व्यवस्था नियमावली, २०५४, नियम 55ग"
+   ],
+   "note": "Literal rule 55ग. The 3 months run from the CDO's receipt of the certificate and policy (rule 55ख), and it presumes an identified, insured vehicle (driver fled)."
+  },
+  {
+   "answer_id": "rw28",
+   "sentence_index": 5,
+   "question_script": "romanised",
+   "kind": "procedure",
+   "sentence": "सवारी तथा यातायात व्यवस्था नियमावली, २०५४ को नियम ५५ख बमोजिम दुर्घटना भएपछि सवारी धनीले प्रमुख जिल्ला अधिकारी समक्ष बीमाको प्रमाणपत्र बुझाउनु पर्छ।",
+   "label": "supported",
+   "evidence_quote": "सवारी साधनको धनी वा व्यस्थापकले दुर्घटनास्थल रहेको जिल्लाको प्रमुख जिल्ला अधिकारी समक्ष बीमाको प्रमाणपत्र र बीमालेख बुझाउनु पर्नेछ।",
+   "cited": [
+    "सवारी तथा यातायात व्यवस्था नियमावली, २०५४, नियम 55ख"
+   ],
+   "note": "Literal rule 55ख. A duty of the vehicle owner, not an action the user can take."
+  },
+  {
+   "answer_id": "rw28",
+   "sentence_index": 6,
+   "question_script": "romanised",
+   "kind": "rule",
+   "sentence": "सर्वोच्च अदालतले ने.का.प. २०६३, नि.नं. ७७५८ मा क्षतिपूर्ति तिर्ने दायित्व केवल सवारी चालकको मात्र नभई सवारी धनीको पनि हुने भनी व्याख्या गरेको छ।",
+   "label": "supported",
+   "evidence_quote": "क्षतिपूर्तिको रकम तिर्नुपर्ने दायित्व केबल सवारी चालक मात्रको भन्न नमिल्ने ।",
+   "cited": [
+    "ने.का.प. २०६३ अंक ९ नि.नं. ७७५८"
+   ],
+   "note": "Literal quote. Correctly attributes the case."
+  },
+  {
+   "answer_id": "rw29",
+   "sentence_index": 1,
+   "question_script": "romanised",
+   "kind": "rule",
+   "sentence": "मुलुकी अपराध संहिता, २०७४ को दफा २३२ अनुसार कानून बमोजिम इलाज गर्न पाउने व्यक्तिले कसैको इलाज गर्दा गम्भीर लापरबाही वा हेलचेक्र्याइँ गरी चिरफार गर्न हुँदैन।",
+   "label": "supported",
+   "evidence_quote": "कानून बमोजिम इलाज गर्न पाउने व्यक्तिले कसैको इलाज गर्दा गम्भीर लापरबाही वा हेलचेक्र्याइँ गरी इलाज गर्न, औषधि खान दिन वा खान सिफारिस गर्न वा चिरफार गर्न हुँदैन।",
+   "cited": [
+    "मुलुकी अपराध संहिता, २०७४, दफा 232"
+   ],
+   "note": "Literal s.232(1). Narrowed to 'चिरफार' (surgery); the text also covers treatment/medicine."
+  },
+  {
+   "answer_id": "rw29",
+   "sentence_index": 2,
+   "question_script": "romanised",
+   "kind": "penalty",
+   "sentence": "यदि लापरबाहीपूर्ण काम गरेको कारणबाट कसैको ज्यान मरेमा पाँच वर्षसम्म कैद र पचास हजार रुपैयाँसम्म जरिबाना हुने व्यवस्था सोही संहिताको दफा २३२ (२) मा छ।",
+   "label": "supported",
+   "evidence_quote": "लापरबाहीपूर्ण काम गरेको कारणबाट ज्यान मरेमा वा अङ्गभङ्ग भएमा पाँच वर्षसम्म कैद र पचास हजार रुपैयाँसम्म जरिबाना",
+   "cited": [
+    "मुलुकी अपराध संहिता, २०७४, दफा 232"
+   ],
+   "note": "Literal s.232(2) (5 years / Rs 50,000 for negligent act)."
+  },
+  {
+   "answer_id": "rw29",
+   "sentence_index": 3,
+   "question_script": "romanised",
+   "kind": "penalty",
+   "sentence": "हेलचेक्र्याइँ गरेको कारणबाट ज्यान मरेको अवस्थामा भने तीन वर्षसम्म कैद र तीस हजार रुपैयाँसम्म जरिबाना हुने प्रावधान छ।",
+   "label": "supported",
+   "evidence_quote": "हेलचत्र्mयाई गरेको कारणबाट मरेकोमा वा अङ्गभङ्ग भएकोमा तीन वर्षसम्म कैद र तीस हजार रुपैयाँसम्म जरिबाना हुनेछ।",
+   "cited": [
+    "मुलुकी अपराध संहिता, २०७४, दफा 232"
+   ],
+   "note": "Literal s.232(2) (3 years / Rs 30,000)."
+  },
+  {
+   "answer_id": "rw29",
+   "sentence_index": 4,
+   "question_script": "romanised",
+   "kind": "rule",
+   "sentence": "सर्वोच्च अदालतले प्रतिपादन गरेको नजिर अनुसार चिकित्सकले लापरवाहीपूर्ण कार्य गरेको कारणबाट उपभोक्तालाई हानि नोक्सानी पुग्न गएको अवस्थामा क्षतिपूर्ति पाउनु पीडितको कानूनी अधिकार हो।",
+   "label": "supported",
+   "evidence_quote": "चिकित्सकले गलत सेवा प्रदान गरेको वा लापरवाहीपूर्ण कार्य गरेको कारणबाट उपभोक्तालाई असर वा हानि नोक्सानीको पुग्‍न गएको अवस्थामा क्षतिपूर्ति पाउनु पीडित उपभोक्ताको कानूनी अधिकार पनि हो ।",
+   "cited": [
+    "ने.का.प. २०७४ अंक ५ नि.नं. ९८१४"
+   ],
+   "note": "Literal precedent, consumer-protection route to compensation."
+  },
+  {
+   "answer_id": "rw30",
+   "sentence_index": 1,
+   "question_script": "romanised",
+   "kind": "rule",
+   "sentence": "मुलुकी अपराध संहिता, २०७४ को दफा ३०६ (१) अनुसार कसैले कसैको बेइज्जती गर्न हुँदैन।",
+   "label": "supported",
+   "evidence_quote": "कसैले कसैको बेइज्जती गर्न हुँदैन।",
+   "cited": [
+    "मुलुकी अपराध संहिता, २०७४, दफा 306 (1)"
+   ],
+   "note": "Literal s.306(1)."
+  },
+  {
+   "answer_id": "rw30",
+   "sentence_index": 2,
+   "question_script": "romanised",
+   "kind": "penalty",
+   "sentence": "विद्युतीय वा अन्य आम सञ्चारका माध्यमबाट बेइज्जती गरेमा थप एक वर्षसम्म कैद र दश हजार रुपैयाँसम्म जरिबाना हुने व्यवस्था मुलुकी अपराध संहिता, २०७४ को दफा ३०७ मा छ।",
+   "label": "supported",
+   "evidence_quote": "विद्युतीय वा अन्य आम सञ्चारका माध्यमबाट बेइज्जती गरे वा गराएमा त्यस्तो सजायमा थप एक वर्षसम्म कैद र दश हजार रुपैयाँसम्म जरिबाना हुनेछ।",
+   "cited": [
+    "मुलुकी अपराध संहिता, २०७४, दफा 307"
+   ],
+   "note": "Literal proviso of s.307(1), 'थप' dangling without the base penalty (2 years / Rs 20,000); misleading omission."
+  },
+  {
+   "answer_id": "rw30",
+   "sentence_index": 3,
+   "question_script": "romanised",
+   "kind": "penalty",
+   "sentence": "विद्युतीय (इलेक्ट्रोनिक) कारोबार ऐन, २०६३ को दफा ४७ अनुसार इन्टरनेटमा कसैप्रति घृणा वा द्वेष फैलाउने सामग्री प्रकाशन गर्नेलाई एक लाख रुपैयाँसम्म जरिबाना वा पाँच वर्षसम्म कैद वा दुवै सजाय हुन सक्छ।",
+   "label": "supported",
+   "evidence_quote": "कम्प्युटर, इन्टरनेट लगायतका विद्युतीय सञ्चार माध्यमहरुमा प्रचलित कानूनले प्रकाशन तथा प्रर्दशन गर्ननहुने भनी रोक लगाएका सामग्रीहरु वा सार्वजनिक नैतिकता, शिष्टाचार विरुद्धका सामग्री वा कसैप्रति घृणा वा द्वेष फैलाउने",
+   "cited": [
+    "विद्युतीय (इलेक्ट्रोनिक) कारोबार ऐन, २०६३, दफा 47",
+    "विद्युतीय (इलेक्ट्रोनिक) कारोबार ऐन, २०६३, दफा 47"
+   ],
+   "note": "Literal s.47(1) ('कसैप्रति घृणा वा द्वेष फैलाउने'). Fit to a false defamatory post is weak (hatred vs defamation) but the eval set lists s.47 as a parallel provision. Duplicated citation marker '[5][5]' in the rendered text."
+  },
+  {
+   "answer_id": "rw30",
+   "sentence_index": 4,
+   "question_script": "romanised",
+   "kind": "deadline",
+   "sentence": "मुलुकी अपराध संहिता, २०७४ को दफा ३०८ अनुसार यस्तो कसूर भएको थाहा पाएको मितिले तीन महिना नाघेपछि उजुर लाग्ने छैन।",
+   "label": "supported",
+   "evidence_quote": "यस परिच्छेद अन्तर्गतको कसूर भएको कुरा थाहा पाएको मितिले तीन महिना नाघेपछि उजुर लाग्ने छैन।",
+   "cited": [
+    "मुलुकी अपराध संहिता, २०७४, दफा 308"
+   ],
+   "note": "Literal s.308: 3 months from knowing of the offence. Useful and correct."
+  },
+  {
+   "answer_id": "rw30",
+   "sentence_index": 5,
+   "question_script": "romanised",
+   "kind": "rule",
+   "sentence": "कसूरदार ठहरिएमा पीडित व्यक्तिलाई कसूरको गम्भीरता र प्रतिष्ठामा परेको असर हेरी मनासिब क्षतिपूर्ति र मुद्दाको खर्च समेत भराउनु पर्नेछ।",
+   "label": "supported",
+   "evidence_quote": "कसूरदारबाट मनासिब क्षतिपूर्ति र त्यस्तो व्यक्तिलाई कसूरदारबाट मुद्दामा लागेको खर्च समेत भराउनु पर्नेछ।",
+   "cited": [
+    "मुलुकी अपराध संहिता, २०७४, दफा 307"
+   ],
+   "note": "Literal s.307(2)."
+  },
+  {
+   "answer_id": "rw30",
+   "sentence_index": 6,
+   "question_script": "romanised",
+   "kind": "rule",
+   "sentence": "सर्वोच्च अदालतले ने.का.प. २०८१ मा प्रतिपादन गरेको सिद्धान्त अनुसार गाली बेइज्जतीले व्यक्तिको चरित्र र प्रतिष्ठामा पारेको असर तथा समाजमा जीविकोपार्जन गर्न परेको असहजतालाई विचार गर्नुपर्ने हुन्छ।",
+   "label": "supported",
+   "evidence_quote": "गाली बेइज्जतीले व्यक्तिको चरित्रमा कति असर र प्रभाव पारेको छ त्यसबाट सिर्जित परिणामले निजलाई समाजमा जीविकोपार्जन गर्न तथा समाजमा निजको प्रतिष्ठामा तथा निजी जीवनमा कति असहज बनाएको भन्ने विषय पनि विचार गर्नुपर्ने ।",
+   "cited": [
+    "ने.का.प. २०८१ अंक ९ नि.नं. ११३५१"
+   ],
+   "note": "Literal precedent, relevance generic (how the court weighs insult effects)."
+  }
+ ]
+}
