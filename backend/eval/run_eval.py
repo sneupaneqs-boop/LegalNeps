@@ -2,6 +2,8 @@
 Evaluation harness for Kanooni Sathi.
 
     python3 eval/run_eval.py retrieval            # hand-written questions, raw + LLM-rewritten queries
+    python3 eval/run_eval.py retrieval --set realworld   # also: --set heldout (milestones only, never for tuning)
+    python3 eval/run_eval.py verify --set realworld      # check each case's governing sections against the corpus
     python3 eval/run_eval.py synth-gen --n 200    # generate questions from random real provisions
     python3 eval/run_eval.py synth                # retrieval on the synthetic set (known gold chunk)
     python3 eval/run_eval.py e2e --n 20           # full answers, auto-checks + LLM judge
@@ -24,6 +26,7 @@ from concurrent.futures import ThreadPoolExecutor
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, os.path.dirname(HERE))
+sys.path.insert(0, HERE)  # casecheck (same dir) importable when run as a module too
 
 from app import llm  # noqa: E402
 from app.generation import _match_playbook, analyze_query, answer_question, search  # noqa: E402
@@ -33,9 +36,23 @@ from app.text_norm import detect_language  # noqa: E402
 REPORTS = os.path.join(HERE, "reports")
 SYNTH = os.path.join(HERE, "synth.jsonl")
 
+# Named question sets. "default" is the original tuning set and stays the default
+# everywhere. "heldout" must never be used by the tuning workflow (see the header
+# of questions_heldout.jsonl): run it only at milestones.
+SETS = {
+    "default": "questions.jsonl",
+    "realworld": "questions_realworld.jsonl",
+    "heldout": "questions_heldout.jsonl",
+}
+
+
+def set_path(name):
+    return os.path.join(HERE, SETS[name or "default"])
+
 
 def load(path):
-    return [json.loads(l) for l in open(path, encoding="utf-8") if l.strip()]
+    """JSONL loader; blank lines and '#' comment lines are skipped."""
+    return [json.loads(l) for l in open(path, encoding="utf-8") if l.strip() and not l.lstrip().startswith("#")]
 
 
 def _save(name, data):
@@ -54,16 +71,60 @@ def _first_hit(results, expect):
     return None
 
 
+def _section_key(e):
+    """(document title, section label) of a retrieved passage."""
+    return (e.get("doc_title_ne") or "", str(e.get("section") or ""))
+
+
+def _first_section_hit(results, sections):
+    """Rank of the first passage that is one of the case's governing provisions
+    (only for cases that list `sections`; None otherwise or when absent).
+    Directive entries listed by title_contains are matched on the entry title."""
+    if not sections:
+        return None
+    for rank, r in enumerate(results, 1):
+        title, sec = _section_key(r)
+        for s in sections:
+            if not title.startswith(s["doc"]):
+                continue
+            if s.get("section") is not None and sec == str(s["section"]):
+                return rank
+            if s.get("title_contains") and s["title_contains"] in (r.get("title_ne") or ""):
+                return rank
+    return None
+
+
+def cmd_verify(args):
+    """Check every case's governing provisions against the corpus text."""
+    from casecheck import DocResolver, verify_case
+    idx = get_index()
+    resolver = DocResolver(idx)
+    qs = load(set_path(args.set))
+    bad = 0
+    for q in qs:
+        problems = verify_case(q, idx, resolver)
+        if problems:
+            bad += 1
+            print("FAIL", q.get("id"), q["q"][:60])
+            for p in problems:
+                print("    ", p)
+    print(f"{len(qs) - bad}/{len(qs)} cases verified against the corpus (set={args.set or 'default'})")
+    sys.exit(1 if bad else 0)
+
+
 def cmd_retrieval(args):
     idx = get_index()
     titles = {e.get("doc_title_ne") or "" for e in idx.entries
               if e.get("doc_type") in ("act", "rule", "constitution", "order", "directive")}
-    qs = load(os.path.join(HERE, "questions.jsonl"))
+    set_name = getattr(args, "set", None) or "default"
+    qs = load(set_path(set_name))
     modes = ["raw"] + (["llm"] if llm.available() and not args.raw_only else [])
     rows = []
 
     def run(q):
         out = {"q": q["q"], "area": q["area"], "expect": q["expect"]}
+        if q.get("sections"):
+            out["sections"] = q["sections"]
         out["in_corpus"] = any(any(x in t for x in q["expect"]) for t in titles)
         for mode in modes:
             t = time.time()
@@ -82,6 +143,8 @@ def cmd_retrieval(args):
                 "ms": int((time.time() - t) * 1000),
                 "queries": analysis.get("queries_ne", [])[:4],
             }
+            if q.get("sections"):
+                out[mode]["sec_rank"] = _first_section_hit(laws, q["sections"])
         return out
 
     with ThreadPoolExecutor(args.workers) as ex:
@@ -98,7 +161,14 @@ def cmd_retrieval(args):
             "median_ms": statistics.median(r[mode]["ms"] for r in rows),
             "with_precedent": round(sum(1 for r in rows if r[mode]["precedents"]) / len(rows), 3),
         }
+        with_sec = [r for r in covered if r.get("sections")]
+        if with_sec:  # only sets that list governing provisions (realworld/heldout)
+            sranks = [r[mode]["sec_rank"] for r in with_sec]
+            summary[mode]["section hit@k"] = round(sum(1 for x in sranks if x) / len(with_sec), 3)
+            summary[mode]["section hit@3"] = round(sum(1 for x in sranks if x and x <= 3) / len(with_sec), 3)
     summary["questions"] = len(rows)
+    if set_name != "default":
+        summary["set"] = set_name
     summary["coverage_gaps"] = sorted({"/".join(r["expect"]) for r in rows if not r["in_corpus"]})
     print(json.dumps(summary, ensure_ascii=False, indent=1))
     worst_mode = modes[-1]
@@ -106,7 +176,8 @@ def cmd_retrieval(args):
     print(f"\nMisses in '{worst_mode}' mode ({len(misses)}):")
     for r in misses:
         print(" -", r["q"][:70], "| expect", r["expect"], "| got", [t[:40] for t in r[worst_mode]["top"] if t])
-    print("report:", _save("retrieval", {"summary": summary, "rows": rows}))
+    rname = "retrieval" if set_name == "default" else f"retrieval-{set_name}"
+    print("report:", _save(rname, {"summary": summary, "rows": rows}))
 
 
 GEN_SYSTEM = """You write realistic evaluation questions for a Nepali legal Q&A assistant. \
@@ -245,11 +316,13 @@ def main():
     ap = argparse.ArgumentParser()
     sub = ap.add_subparsers(dest="cmd", required=True)
     p = sub.add_parser("retrieval"); p.add_argument("--k", type=int, default=8); p.add_argument("--workers", type=int, default=4); p.add_argument("--raw-only", action="store_true")
+    p.add_argument("--set", choices=sorted(SETS), default="default", help="named question set (default: the original tuning set)")
+    p = sub.add_parser("verify"); p.add_argument("--set", choices=sorted(SETS), default="realworld", help="check each case's governing provisions against the corpus text")
     p = sub.add_parser("synth-gen"); p.add_argument("--n", type=int, default=120); p.add_argument("--seed", type=int, default=7)
     p = sub.add_parser("synth"); p.add_argument("--k", type=int, default=8); p.add_argument("--workers", type=int, default=4); p.add_argument("--limit", type=int, default=0); p.add_argument("--raw-only", action="store_true")
     p = sub.add_parser("e2e"); p.add_argument("--n", type=int, default=15); p.add_argument("--seed", type=int, default=3)
     args = ap.parse_args()
-    {"retrieval": cmd_retrieval, "synth-gen": cmd_synth_gen, "synth": cmd_synth, "e2e": cmd_e2e}[args.cmd](args)
+    {"retrieval": cmd_retrieval, "verify": cmd_verify, "synth-gen": cmd_synth_gen, "synth": cmd_synth, "e2e": cmd_e2e}[args.cmd](args)
 
 
 if __name__ == "__main__":

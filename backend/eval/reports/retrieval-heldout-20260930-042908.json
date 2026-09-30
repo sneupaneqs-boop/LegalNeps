@@ -1,0 +1,1475 @@
+{
+ "summary": {
+  "raw": {
+   "hit@k (covered)": 0.76,
+   "hit@3 (covered)": 0.56,
+   "MRR": 0.503,
+   "median_ms": 540.5,
+   "with_precedent": 0.94,
+   "section hit@k": 0.54,
+   "section hit@3": 0.32
+  },
+  "questions": 50,
+  "set": "heldout",
+  "coverage_gaps": []
+ },
+ "rows": [
+  {
+   "q": "My landlord says he needs the house for his son and wants me out. Does he have to give notice?",
+   "area": "tenancy",
+   "expect": [
+    "मुलुकी देवानी संहिता"
+   ],
+   "sections": [
+    {
+     "doc": "मुलुकी देवानी संहिता, २०७४",
+     "section": "401",
+     "contains": [
+      "कम्तीमा पैँतीस दिनको अग्रिम लिखित सूचना"
+     ]
+    }
+   ],
+   "in_corpus": true,
+   "raw": {
+    "rank": 1,
+    "precedents": 3,
+    "top": [
+     "मुलुकी देवानी संहिता, २०७४, दफा 401",
+     "मुलुकी देवानी संहिता, २०७४, दफा 402",
+     "मुलुकी देवानी संहिता, २०७४, दफा 385"
+    ],
+    "ms": 2649,
+    "queries": [],
+    "sec_rank": 1
+   }
+  },
+  {
+   "q": "ghar bhada ma basna lekhit sammauta garnai parchha? masik 15 hajar ko kotha ho",
+   "area": "tenancy",
+   "expect": [
+    "मुलुकी देवानी संहिता"
+   ],
+   "sections": [
+    {
+     "doc": "मुलुकी देवानी संहिता, २०७४",
+     "section": "386",
+     "contains": [
+      "मासिक बीस हजार रूपैयाँसम्मको घर बहालमा"
+     ]
+    }
+   ],
+   "in_corpus": true,
+   "raw": {
+    "rank": 1,
+    "precedents": 3,
+    "top": [
+     "मुलुकी देवानी संहिता, २०७४, दफा 395",
+     "मुलुकी देवानी संहिता, २०७४, दफा 401",
+     "मुलुकी देवानी संहिता, २०७४, दफा 394"
+    ],
+    "ms": 1450,
+    "queries": [],
+    "sec_rank": null
+   }
+  },
+  {
+   "q": "A tenant vanished owing me 4 months of rent and left his things behind. How do I legally get my house back?",
+   "area": "tenancy",
+   "expect": [
+    "मुलुकी देवानी संहिता"
+   ],
+   "sections": [
+    {
+     "doc": "मुलुकी देवानी संहिता, २०७४",
+     "section": "404",
+     "contains": [
+      "तीन महिना वा सोभन्दा बढी अवधिसम्म बहाल रकम"
+     ]
+    }
+   ],
+   "in_corpus": true,
+   "raw": {
+    "rank": 3,
+    "precedents": 3,
+    "top": [
+     "बिर्ता उन्मूलन ऐन, २०१६, दफा 12",
+     "भूमि सम्बन्धी ऐन, २०२१, दफा 25 (2)",
+     "मुलुकी देवानी संहिता, २०७४, दफा 395"
+    ],
+    "ms": 1751,
+    "queries": [],
+    "sec_rank": null
+   }
+  },
+  {
+   "q": "बहालमा बसेको घरको मर्मत कसले गर्ने?",
+   "area": "tenancy",
+   "expect": [
+    "मुलुकी देवानी संहिता"
+   ],
+   "sections": [
+    {
+     "doc": "मुलुकी देवानी संहिता, २०७४",
+     "section": "394",
+     "contains": [
+      "आवश्यक मर्मत सम्भार गर्ने दायित्व बहालमा लिने व्यक्तिको"
+     ]
+    }
+   ],
+   "in_corpus": true,
+   "raw": {
+    "rank": 1,
+    "precedents": 3,
+    "top": [
+     "मुलुकी देवानी संहिता, २०७४, दफा 394",
+     "मुलुकी देवानी संहिता, २०७४, दफा 401",
+     "मुलुकी देवानी संहिता, २०७४, दफा 386"
+    ],
+    "ms": 1284,
+    "queries": [],
+    "sec_rank": 1
+   }
+  },
+  {
+   "q": "I'm resigning after two years. How many days' notice must I give the company?",
+   "area": "labour",
+   "expect": [
+    "श्रम ऐन"
+   ],
+   "sections": [
+    {
+     "doc": "श्रम ऐन, २०७४",
+     "section": "144",
+     "contains": [
+      "एक वर्षभन्दा बढी अवधिको रोजगारीको हकमा कम्तीमा तीस दिन"
+     ]
+    }
+   ],
+   "in_corpus": true,
+   "raw": {
+    "rank": null,
+    "precedents": 3,
+    "top": [
+     "मुलुकी देवानी संहिता, २०७४, दफा 401",
+     "मुलुकी देवानी संहिता, २०७४, दफा 402",
+     "मुलुकी देवानी संहिता, २०७४, दफा 385"
+    ],
+    "ms": 1266,
+    "queries": [],
+    "sec_rank": null
+   }
+  },
+  {
+   "q": "राजीनामा दिएपछि कम्पनीले स्वीकृत नै गरेन भने के हुन्छ?",
+   "area": "labour",
+   "expect": [
+    "श्रम ऐन"
+   ],
+   "sections": [
+    {
+     "doc": "श्रम ऐन, २०७४",
+     "section": "141",
+     "contains": [
+      "स्वतः स्वीकृत भएको मानिनेछ"
+     ]
+    }
+   ],
+   "in_corpus": true,
+   "raw": {
+    "rank": 1,
+    "precedents": 3,
+    "top": [
+     "श्रम ऐन, २०७४, दफा 141",
+     "शिक्षा नियमावली, २०५९, नियम 23क",
+     "सैनिक सेवा नियमावली, २०६९, नियम 78"
+    ],
+    "ms": 323,
+    "queries": [],
+    "sec_rank": 1
+   }
+  },
+  {
+   "q": "company le contract nai nagari kaam ma lagayeko chha, ke yo milchha?",
+   "area": "labour",
+   "expect": [
+    "श्रम ऐन"
+   ],
+   "sections": [
+    {
+     "doc": "श्रम ऐन, २०७४",
+     "section": "11",
+     "contains": [
+      "रोजगार सम्झौता नगरी कसैलाई काममा लगाउन हुँदैन"
+     ]
+    }
+   ],
+   "in_corpus": true,
+   "raw": {
+    "rank": 3,
+    "precedents": 3,
+    "top": [
+     "कम्पनी ऐन, २०६३, दफा 17",
+     "कमैया श्रम (निषेध गर्ने) सम्बन्धी ऐन, २०५८, दफा 6",
+     "श्रम ऐन, २०७४, दफा 11"
+    ],
+    "ms": 217,
+    "queries": [],
+    "sec_rank": 3
+   }
+  },
+  {
+   "q": "Does my employer have to enrol me in the social security fund and how soon?",
+   "area": "social security",
+   "expect": [
+    "सामाजिक सुरक्षा ऐन"
+   ],
+   "sections": [
+    {
+     "doc": "योगदानमा आधारित सामाजिक सुरक्षा ऐन, २०७४",
+     "section": "20",
+     "contains": [
+      "तीन महिनाभित्र कोषमा सूचीकरण"
+     ]
+    }
+   ],
+   "in_corpus": true,
+   "raw": {
+    "rank": 5,
+    "precedents": 3,
+    "top": [
+     "मुलुकी देवानी संहिता, २०७४, दफा 386",
+     "मुलुकी देवानी संहिता, २०७४, दफा 389",
+     "मुलुकी देवानी संहिता, २०७४, दफा 402"
+    ],
+    "ms": 1821,
+    "queries": [],
+    "sec_rank": 6
+   }
+  },
+  {
+   "q": "The agency put me in a different company at lower pay than my contract promised. What can I do?",
+   "area": "foreign employment",
+   "expect": [
+    "वैदेशिक रोजगार"
+   ],
+   "sections": [
+    {
+     "doc": "वैदेशिक रोजगार ऐन, २०६४",
+     "section": "55",
+     "contains": [
+      "सोभन्दा कम पारिश्रमिक र सुविधा"
+     ]
+    }
+   ],
+   "in_corpus": true,
+   "raw": {
+    "rank": null,
+    "precedents": 3,
+    "top": [
+     "श्रम ऐन, २०७४, दफा 34",
+     "श्रम ऐन, २०७४, दफा 162",
+     "बीमा ऐन २०७९, दफा 77"
+    ],
+    "ms": 1151,
+    "queries": [],
+    "sec_rank": null
+   }
+  },
+  {
+   "q": "एजेन्सीले भिसा लगाएर कति समयभित्र पठाउनुपर्छ, नपठाए पैसा फिर्ता कति आउँछ?",
+   "area": "foreign employment",
+   "expect": [
+    "वैदेशिक रोजगार"
+   ],
+   "sections": [
+    {
+     "doc": "वैदेशिक रोजगार ऐन, २०६४",
+     "section": "20",
+     "contains": [
+      "वार्षिक पच्चीस प्रतिशत"
+     ]
+    }
+   ],
+   "in_corpus": true,
+   "raw": {
+    "rank": null,
+    "precedents": 3,
+    "top": [
+     "युद्धको समयमा गैरसैनिक व्यक्तिहरुको संरक्षण सम्बन्धी (चौथो) महासन्धि",
+     "उच्च अदालत नियमावली, २०७३, नियम 135",
+     "युद्धबन्दीहरुसँग गरिने व्यवहरा सम्बन्धी (तेस्रो) महासन्धि जेनेभा"
+    ],
+    "ms": 135,
+    "queries": [],
+    "sec_rank": null
+   }
+  },
+  {
+   "q": "How long do I have to file a bounced cheque case?",
+   "area": "cheque bounce",
+   "expect": [
+    "बैङ्किङ्ग कसूर"
+   ],
+   "sections": [
+    {
+     "doc": "बैङ्किङ्ग कसूर तथा सजाय ऐन, २०६४",
+     "section": "17",
+     "contains": [
+      "चेक अनादर गरेको प्रमाणित भएको मितिले एक वर्षभित्र जाहेरी"
+     ]
+    }
+   ],
+   "in_corpus": true,
+   "raw": {
+    "rank": 2,
+    "precedents": 3,
+    "top": [
+     "विनिमेय अधिकारपत्र ऐन, २०३४, दफा 65",
+     "बैङ्किङ्ग कसूर तथा सजाय ऐन, २०६४, दफा 3क",
+     "बैङ्किङ्ग कसूर तथा सजाय ऐन, २०६४, दफा 15 (1)"
+    ],
+    "ms": 1047,
+    "queries": [],
+    "sec_rank": 4
+   }
+  },
+  {
+   "q": "Can a moneylender collect interest greater than the amount he lent me?",
+   "area": "loans/interest",
+   "expect": [
+    "मुलुकी देवानी संहिता"
+   ],
+   "sections": [
+    {
+     "doc": "मुलुकी देवानी संहिता, २०७४",
+     "section": "481",
+     "contains": [
+      "साँवाभन्दा बढी ब्याज लिन पाउने छैन"
+     ]
+    }
+   ],
+   "in_corpus": true,
+   "raw": {
+    "rank": null,
+    "precedents": 3,
+    "top": [
+     "सार्वजनिक ऋण व्यवस्थापन नियमावली, २०८०, नियम 24",
+     "अन्तः शुल्क ऐन, २०५८, दफा 10झ",
+     "सिंचाइ नियमावली, २०५६, नियम 30"
+    ],
+    "ms": 130,
+    "queries": [],
+    "sec_rank": null
+   }
+  },
+  {
+   "q": "बैंकले एउटै किसिमको कर्जामा दुई ग्राहकलाई फरक ब्याजदर लगाउन मिल्छ?",
+   "area": "loans/interest",
+   "expect": [
+    "एकीकृत निर्देशन"
+   ],
+   "sections": [
+    {
+     "doc": "परिपत्र नं. १० (क, ख, ग) २०८२/८३: एकीकृत निर्देशन, २०८२",
+     "title_contains": "कर्जाको ब्याजदर",
+     "contains": [
+      "एउटै प्रकृतिका कर्जा तथा सापटको ब्याजदर अन्तर"
+     ]
+    }
+   ],
+   "in_corpus": true,
+   "raw": {
+    "rank": 3,
+    "precedents": 3,
+    "top": [
+     "नेपाल राष्ट्र बैंक निरीक्षण तथा सुपरिवेक्षण विनियमावली, २०७४ (दोस्रो संशोधन २०८०), नियम 22 (2)",
+     "नेपाल राष्ट्र बैंक विदेशी लगानी तथा विदेशी ऋण व्यवस्थापन विनियमावली, २०७८ (तेस्रो संशोधनसहित – मिति २०८०|१०|२६), नियम 5 (3)",
+     "परिपत्र नं. ६ (घ) २०८२/८३: एकीकृत निर्देशन, २०८२ जारी गरिएको सम्बन्धमा ।, निर्देशन नं. १४/०८२, बुँदा 2 (1)"
+    ],
+    "ms": 96,
+    "queries": [],
+    "sec_rank": 7
+   }
+  },
+  {
+   "q": "My husband has lived away from me for over three years without my consent. Can I divorce him?",
+   "area": "divorce",
+   "expect": [
+    "मुलुकी देवानी संहिता"
+   ],
+   "sections": [
+    {
+     "doc": "मुलुकी देवानी संहिता, २०७४",
+     "section": "95",
+     "contains": [
+      "लगातार तीन वर्ष"
+     ]
+    }
+   ],
+   "in_corpus": true,
+   "raw": {
+    "rank": 1,
+    "precedents": 3,
+    "top": [
+     "मुलुकी देवानी संहिता, २०७४, दफा 96",
+     "मुलुकी देवानी संहिता, २०७४, दफा 97",
+     "मुलुकी देवानी संहिता, २०७४, दफा 98"
+    ],
+    "ms": 898,
+    "queries": [],
+    "sec_rank": 7
+   }
+  },
+  {
+   "q": "duijana ko sahamati chha bhane divorce kahile sukai garna milchha?",
+   "area": "divorce",
+   "expect": [
+    "मुलुकी देवानी संहिता"
+   ],
+   "sections": [
+    {
+     "doc": "मुलुकी देवानी संहिता, २०७४",
+     "section": "93",
+     "contains": [
+      "जहिलेसुकै पनि"
+     ]
+    }
+   ],
+   "in_corpus": true,
+   "raw": {
+    "rank": 1,
+    "precedents": 3,
+    "top": [
+     "मुलुकी देवानी संहिता, २०७४, दफा 96",
+     "मुलुकी देवानी संहिता, २०७४, दफा 97",
+     "मुलुकी देवानी संहिता, २०७४, दफा 98"
+    ],
+    "ms": 660,
+    "queries": [],
+    "sec_rank": 5
+   }
+  },
+  {
+   "q": "आमा र बाबु छुट्टिएपछि बच्चा भेट्न पाइन्छ?",
+   "area": "custody",
+   "expect": [
+    "मुलुकी देवानी संहिता"
+   ],
+   "sections": [
+    {
+     "doc": "मुलुकी देवानी संहिता, २०७४",
+     "section": "117",
+     "contains": [
+      "समय समयमा भेट गर्न"
+     ]
+    }
+   ],
+   "in_corpus": true,
+   "raw": {
+    "rank": 7,
+    "precedents": 3,
+    "top": [
+     "राष्ट्रिय परिचयपत्र तथा पञ्‍जीकरण नियमावली, २०७७, नियम 4 (4)",
+     "मध्यस्थता ऐन, २०५५ को संशोधन सम्बन्धी अध्ययन, दफा 6 (9)",
+     "कारागार ऐन, २०७९, दफा 33"
+    ],
+    "ms": 59,
+    "queries": [],
+    "sec_rank": null
+   }
+  },
+  {
+   "q": "If a widow remarries, does she lose the property she took as her share?",
+   "area": "inheritance",
+   "expect": [
+    "मुलुकी देवानी संहिता"
+   ],
+   "sections": [
+    {
+     "doc": "मुलुकी देवानी संहिता, २०७४",
+     "section": "214",
+     "contains": [
+      "अर्को विवाह गरेमा"
+     ]
+    }
+   ],
+   "in_corpus": true,
+   "raw": {
+    "rank": 1,
+    "precedents": 3,
+    "top": [
+     "मुलुकी देवानी संहिता, २०७४, दफा 206",
+     "मुलुकी देवानी संहिता, २०७४, दफा 222",
+     "मुलुकी देवानी संहिता, २०७४, दफा 235"
+    ],
+    "ms": 1361,
+    "queries": [],
+    "sec_rank": 8
+   }
+  },
+  {
+   "q": "अंशबण्डा गर्दा भाउजू गर्भवती छिन् भने गर्भमा रहेको बच्चाको भाग कसरी छुट्याउने?",
+   "area": "partition",
+   "expect": [
+    "मुलुकी देवानी संहिता"
+   ],
+   "sections": [
+    {
+     "doc": "मुलुकी देवानी संहिता, २०७४",
+     "section": "206",
+     "contains": [
+      "गर्भवती भएमा"
+     ]
+    }
+   ],
+   "in_corpus": true,
+   "raw": {
+    "rank": 1,
+    "precedents": 3,
+    "top": [
+     "मुलुकी देवानी संहिता, २०७४, दफा 206",
+     "मुलुकी देवानी संहिता, २०७४, दफा 222",
+     "मुलुकी देवानी संहिता, २०७४, दफा 235"
+    ],
+    "ms": 658,
+    "queries": [],
+    "sec_rank": 1
+   }
+  },
+  {
+   "q": "How long does a landowner have to apply to remove a tenant farmer?",
+   "area": "land",
+   "expect": [
+    "भूमि सम्बन्धी ऐन"
+   ],
+   "sections": [
+    {
+     "doc": "भूमि सम्बन्धी ऐन, २०२१",
+     "section": "29क",
+     "contains": [
+      "निवेदन दिईसक्नुपर्छ"
+     ]
+    }
+   ],
+   "in_corpus": true,
+   "raw": {
+    "rank": 2,
+    "precedents": 3,
+    "top": [
+     "बिर्ता उन्मूलन ऐन, २०१६, दफा 12",
+     "भूमि सम्बन्धी ऐन, २०२१, दफा 25 (2)",
+     "भूमि सम्बन्धी ऐन, २०२१, दफा 26घ"
+    ],
+    "ms": 508,
+    "queries": [],
+    "sec_rank": null
+   }
+  },
+  {
+   "q": "मोहीले आफ्नो मोहियानी हक अरूलाई बेच्न पाउँछ?",
+   "area": "land",
+   "expect": [
+    "भूमि सम्बन्धी ऐन"
+   ],
+   "sections": [
+    {
+     "doc": "भूमि सम्बन्धी ऐन, २०२१",
+     "section": "26क",
+     "contains": [
+      "मोहीयानी हक खरीद गर्नवा"
+     ]
+    }
+   ],
+   "in_corpus": true,
+   "raw": {
+    "rank": 1,
+    "precedents": 3,
+    "top": [
+     "भूमि सम्बन्धी ऐन, २०२१, दफा 25 (1)",
+     "बिर्ता उन्मूलन ऐन, २०१६, दफा 12",
+     "भूमि सम्बन्धी ऐन, २०२१, दफा 26क"
+    ],
+    "ms": 324,
+    "queries": [],
+    "sec_rank": 3
+   }
+  },
+  {
+   "q": "What happens to bail money if the accused misses a court date?",
+   "area": "criminal procedure",
+   "expect": [
+    "मुलुकी फौजदारी कार्यविधि संहिता"
+   ],
+   "sections": [
+    {
+     "doc": "मुलुकी फौजदारी कार्यविधि संहिता, २०७४",
+     "section": "75",
+     "contains": [
+      "धरौटी जफत हुनेछ"
+     ]
+    }
+   ],
+   "in_corpus": true,
+   "raw": {
+    "rank": 4,
+    "precedents": 3,
+    "top": [
+     "सपुर्दगी ऐन, २०७०, दफा 14",
+     "अपराध पीडित संरक्षण ऐन, २०७५, दफा 9 (2)",
+     "सपुर्दगी ऐन, २०७०, दफा 12"
+    ],
+    "ms": 573,
+    "queries": [],
+    "sec_rank": null
+   }
+  },
+  {
+   "q": "1 barsa thunama basyo, mudda ko faisala aayena. jamanat ma chhutna sakinchha?",
+   "area": "criminal procedure",
+   "expect": [
+    "मुलुकी फौजदारी कार्यविधि संहिता"
+   ],
+   "sections": [
+    {
+     "doc": "मुलुकी फौजदारी कार्यविधि संहिता, २०७४",
+     "section": "77",
+     "contains": [
+      "एक वर्षभित्र मुद्दाको किनारा हुन नसकेमा"
+     ]
+    }
+   ],
+   "in_corpus": true,
+   "raw": {
+    "rank": 8,
+    "precedents": 3,
+    "top": [
+     "जग्गा (नाप जाँच) ऐन, २०१९, दफा 8",
+     "स्थानीय सरकार सञ्‍चालन ऐन, २०७४, दफा 47 (2)",
+     "मुलुकी देवानी संहिता, २०७४, दफा 287"
+    ],
+    "ms": 1211,
+    "queries": [],
+    "sec_rank": null
+   }
+  },
+  {
+   "q": "What is the punishment for stealing a mobile phone?",
+   "area": "criminal",
+   "expect": [
+    "मुलुकी अपराध संहिता"
+   ],
+   "sections": [
+    {
+     "doc": "मुलुकी अपराध संहिता, २०७४",
+     "section": "242",
+     "contains": [
+      "तीन वर्षसम्म कैद र तीस हजार रुपैयााँसम्म जरिबाना"
+     ]
+    }
+   ],
+   "in_corpus": true,
+   "raw": {
+    "rank": 1,
+    "precedents": 3,
+    "top": [
+     "मुलुकी अपराध संहिता, २०७४, दफा 242",
+     "मुलुकी फौजदारी कार्यविधि संहिता, २०७४, दफा 4 (1)",
+     "मुलुकी अपराध संहिता, २०७४, दफा 241"
+    ],
+    "ms": 1326,
+    "queries": [],
+    "sec_rank": 1
+   }
+  },
+  {
+   "q": "Within how many days must a complaint under the Electronic Transactions Act be filed?",
+   "area": "cyber",
+   "expect": [
+    "विद्युतीय (इलेक्ट्रोनिक) कारोबार"
+   ],
+   "sections": [
+    {
+     "doc": "विद्युतीय (इलेक्ट्रोनिक) कारोबार ऐन, २०६३",
+     "section": "74",
+     "contains": [
+      "नब्बे दिनभित्र"
+     ]
+    }
+   ],
+   "in_corpus": true,
+   "raw": {
+    "rank": null,
+    "precedents": 3,
+    "top": [
+     "उपभोक्ता संरक्षण ऐन, २०७५, दफा 3",
+     "उपभोक्ता संरक्षण ऐन, २०७५, दफा 36",
+     "उपभोक्ता संरक्षण ऐन, २०७५, दफा 50"
+    ],
+    "ms": 866,
+    "queries": [],
+    "sec_rank": null
+   }
+  },
+  {
+   "q": "As a crime victim, am I entitled to information about the case and compensation?",
+   "area": "constitutional",
+   "expect": [
+    "नेपालको संविधान"
+   ],
+   "sections": [
+    {
+     "doc": "नेपालको संविधान",
+     "section": "21",
+     "contains": [
+      "क्षतिपूर्ति"
+     ]
+    }
+   ],
+   "in_corpus": true,
+   "raw": {
+    "rank": 5,
+    "precedents": 3,
+    "top": [
+     "सूचनाको हक सम्बन्धी ऐन, २०६४, दफा 7",
+     "सूचनाको हक सम्बन्धी ऐन, २०६४, दफा 9",
+     "अपराध पीडित संरक्षण ऐन, २०७५, दफा 34 (1)"
+    ],
+    "ms": 1348,
+    "queries": [],
+    "sec_rank": 5
+   }
+  },
+  {
+   "q": "Is torture of a person in police custody prohibited? Can the victim get compensation?",
+   "area": "constitutional",
+   "expect": [
+    "नेपालको संविधान"
+   ],
+   "sections": [
+    {
+     "doc": "नेपालको संविधान",
+     "section": "22",
+     "contains": [
+      "क्षतिपूर्ति पाउने हक हुनेछ"
+     ]
+    }
+   ],
+   "in_corpus": true,
+   "raw": {
+    "rank": 3,
+    "precedents": 3,
+    "top": [
+     "यातना सम्बन्धी क्षतिपूर्ति ऐन, २०५३, दफा 8",
+     "यातना सम्बन्धी क्षतिपूर्ति ऐन, २०५३, दफा 2",
+     "नेपालको संविधान, धारा 22"
+    ],
+    "ms": 332,
+    "queries": [],
+    "sec_rank": 3
+   }
+  },
+  {
+   "q": "Can I speak to a lawyer immediately after being arrested?",
+   "area": "constitutional",
+   "expect": [
+    "नेपालको संविधान"
+   ],
+   "sections": [
+    {
+     "doc": "नेपालको संविधान",
+     "section": "20",
+     "contains": [
+      "आफूले रोजेको कानून व्यवसायीसँग सल्लाह लिन पाउने"
+     ]
+    }
+   ],
+   "in_corpus": true,
+   "raw": {
+    "rank": 4,
+    "precedents": 3,
+    "top": [
+     "प्रमाण ऐन, २०३१, दफा 45",
+     "मुलुकी फौजदारी कार्यविधि संहिता, २०७४, दफा 180",
+     "कानूनी सहायता सम्बन्धी ऐन, २०५४, दफा 5"
+    ],
+    "ms": 502,
+    "queries": [],
+    "sec_rank": null
+   }
+  },
+  {
+   "q": "Can the court make my abusive husband pay my hospital bills?",
+   "area": "domestic violence",
+   "expect": [
+    "घरेलु हिंसा"
+   ],
+   "sections": [
+    {
+     "doc": "घरेलु हिंसा (कसूर र सजाय) ऐन, २०६६",
+     "section": "9",
+     "contains": [
+      "व्यहोर्नुपर्नेछ"
+     ]
+    }
+   ],
+   "in_corpus": true,
+   "raw": {
+    "rank": 1,
+    "precedents": 3,
+    "top": [
+     "घरेलु हिंसा (कसूर र सजाय) ऐन, २०६६, दफा 6",
+     "घरेलु हिंसा (कसूर र सजाय) ऐन, २०६६, दफा 12क",
+     "घरेलु हिंसा (कसूर र सजाय) ऐन, २०६६, दफा 14"
+    ],
+    "ms": 1127,
+    "queries": [],
+    "sec_rank": null
+   }
+  },
+  {
+   "q": "घरेलु हिंसा गर्नेलाई के सजाय हुन्छ?",
+   "area": "domestic violence",
+   "expect": [
+    "घरेलु हिंसा"
+   ],
+   "sections": [
+    {
+     "doc": "घरेलु हिंसा (कसूर र सजाय) ऐन, २०६६",
+     "section": "13",
+     "contains": [
+      "छ महिनासम्म कैद वा दुवै सजाय"
+     ]
+    }
+   ],
+   "in_corpus": true,
+   "raw": {
+    "rank": 1,
+    "precedents": 3,
+    "top": [
+     "घरेलु हिंसा (कसूर र सजाय) ऐन, २०६६, दफा 6",
+     "घरेलु हिंसा (कसूर र सजाय) ऐन, २०६६, दफा 12क",
+     "घरेलु हिंसा (कसूर र सजाय) ऐन, २०६६, दफा 14"
+    ],
+    "ms": 590,
+    "queries": [],
+    "sec_rank": 7
+   }
+  },
+  {
+   "q": "How many days do I have to return goods I bought at a shop if I changed my mind?",
+   "area": "consumer",
+   "expect": [
+    "उपभोक्ता संरक्षण"
+   ],
+   "sections": [
+    {
+     "doc": "उपभोक्ता संरक्षण ऐन, २०७५",
+     "section": "14",
+     "contains": [
+      "सात दिनभित्र"
+     ]
+    }
+   ],
+   "in_corpus": true,
+   "raw": {
+    "rank": null,
+    "precedents": 3,
+    "top": [
+     "सामयिक कर असुल ऐन, २०१२ को दफा ३ ले दिएको अधिकार प्रयोग गरी नेपाल सरकारले जारी गरेको सूचित आदेश, दफा 18 (1)",
+     "सेफगार्ड्स, एन्टी-डम्पिङ्ग तथा काउण्टरभेलिङ्ग ऐन, २०७६, दफा 2 (4)",
+     "सामयिक कर असुल ऐन, २०१२ को दफा ३ ले दिएको अधिकार प्रयोग गरी नेपाल सरकारले जारी गरेको सूचित आदेश, दफा 18 (2)"
+    ],
+    "ms": 241,
+    "queries": [],
+    "sec_rank": null
+   }
+  },
+  {
+   "q": "उपभोक्तालाई क्षति पुगेमा क्षतिपूर्तिको लागि कति समयभित्र उजुरी गर्ने?",
+   "area": "consumer",
+   "expect": [
+    "उपभोक्ता संरक्षण"
+   ],
+   "sections": [
+    {
+     "doc": "उपभोक्ता संरक्षण ऐन, २०७५",
+     "section": "50",
+     "contains": [
+      "छ महिनाभित्र उजुरी गर्न"
+     ]
+    }
+   ],
+   "in_corpus": true,
+   "raw": {
+    "rank": 1,
+    "precedents": 3,
+    "top": [
+     "उपभोक्ता संरक्षण ऐन, २०७५, दफा 50",
+     "नेपालको संविधान, धारा 44",
+     "यातना सम्बन्धी क्षतिपूर्ति ऐन, २०५३, दफा 5"
+    ],
+    "ms": 40,
+    "queries": [],
+    "sec_rank": 1
+   }
+  },
+  {
+   "q": "Can I get information within a day if my life is in danger?",
+   "area": "RTI",
+   "expect": [
+    "सूचनाको हक"
+   ],
+   "sections": [
+    {
+     "doc": "सूचनाको हक सम्बन्धी ऐन, २०६४",
+     "section": "7",
+     "contains": [
+      "चौबीस घण्टाभित्र"
+     ]
+    }
+   ],
+   "in_corpus": true,
+   "raw": {
+    "rank": 1,
+    "precedents": 3,
+    "top": [
+     "सूचनाको हक सम्बन्धी ऐन, २०६४, दफा 7",
+     "सूचनाको हक सम्बन्धी ऐन, २०६४, दफा 9",
+     "E-Commerce Act, 2081, दफा 33"
+    ],
+    "ms": 60,
+    "queries": [],
+    "sec_rank": 1
+   }
+  },
+  {
+   "q": "सूचना माग्दा कति शुल्क तिर्नुपर्छ?",
+   "area": "RTI",
+   "expect": [
+    "सूचनाको हक"
+   ],
+   "sections": [
+    {
+     "doc": "सूचनाको हक सम्बन्धी ऐन, २०६४",
+     "section": "8",
+     "contains": [
+      "वास्तविक लागतको आधारमा"
+     ]
+    }
+   ],
+   "in_corpus": true,
+   "raw": {
+    "rank": null,
+    "precedents": 3,
+    "top": [
+     "मुलुकी देवानी कार्यविधि संहिता, २०७४, दफा 65",
+     "सरकारी वकील सम्बन्धी नियमावली, २०७७, नियम 38",
+     "गोरखापत्र कर्पोरेशन नियमहरु, २०२१, नियम 38"
+    ],
+    "ms": 47,
+    "queries": [],
+    "sec_rank": null
+   }
+  },
+  {
+   "q": "कम्पनीले अल्पसंख्यक शेयरधनीको हक हित विरुद्ध काम गरे अदालतमा जान मिल्छ?",
+   "area": "company",
+   "expect": [
+    "कम्पनी ऐन"
+   ],
+   "sections": [
+    {
+     "doc": "कम्पनी ऐन, २०६३",
+     "section": "139 (1)",
+     "contains": [
+      "अदालतमा उजूरी निवेदन दिन सक्नेछ"
+     ]
+    }
+   ],
+   "in_corpus": true,
+   "raw": {
+    "rank": 1,
+    "precedents": 3,
+    "top": [
+     "कम्पनी ऐन, २०६३, दफा 139 (1)",
+     "कम्पनी ऐन, २०६३, दफा 138",
+     "कम्पनी ऐन, २०६३, दफा 140"
+    ],
+    "ms": 29,
+    "queries": [],
+    "sec_rank": 1
+   }
+  },
+  {
+   "q": "How do I register a small shop as a private firm?",
+   "area": "business registration",
+   "expect": [
+    "प्राइभेट फर्म"
+   ],
+   "sections": [
+    {
+     "doc": "प्राइभेट फर्म रजिष्ट्रेशन ऐन, २०१४",
+     "section": "3",
+     "contains": [
+      "रजिष्टर नगराई कसैले पनि प्राइभेट फर्म खोल्न हुँदैन"
+     ]
+    },
+    {
+     "doc": "प्राइभेट फर्म रजिष्ट्रेशन ऐन, २०१४",
+     "section": "4",
+     "contains": [
+      "प्राइभेट फर्म रजिष्टर गराउन चाहने व्यक्तिले"
+     ]
+    }
+   ],
+   "in_corpus": true,
+   "raw": {
+    "rank": 1,
+    "precedents": 3,
+    "top": [
+     "प्राइभेट फर्म रजिष्ट्रेशन ऐन, २०१४, दफा 3",
+     "प्राइभेट फर्म रजिष्ट्रेशन ऐन, २०१४, दफा 5क",
+     "प्राइभेट फर्म रजिष्ट्रेशन ऐन, २०१४, दफा 2"
+    ],
+    "ms": 246,
+    "queries": [],
+    "sec_rank": 1
+   }
+  },
+  {
+   "q": "NGO/sangh sanstha darta garna kati jana chahinchha?",
+   "area": "business registration",
+   "expect": [
+    "संस्था दर्ता ऐन"
+   ],
+   "sections": [
+    {
+     "doc": "संस्था दर्ता ऐन, २०३४",
+     "section": "4",
+     "contains": [
+      "सात जना वा सो भन्दा बढी"
+     ]
+    }
+   ],
+   "in_corpus": true,
+   "raw": {
+    "rank": null,
+    "precedents": 3,
+    "top": [
+     "जीवनाशक विषादी व्यवस्थापन नियमावली, २०८१, नियम 26 (2)",
+     "पानी जहाज दर्ता ऐन, २०२७, दफा 9",
+     "पानी जहाज दर्ता ऐन, २०२७, दफा 7"
+    ],
+    "ms": 303,
+    "queries": [],
+    "sec_rank": null
+   }
+  },
+  {
+   "q": "Can a trader who is not VAT-registered show VAT on his bill?",
+   "area": "tax/VAT",
+   "expect": [
+    "मूल्य अभिवृद्धि कर"
+   ],
+   "sections": [
+    {
+     "doc": "मूल्य अभिवृद्धि कर ऐन, २०५२",
+     "section": "15",
+     "contains": [
+      "कर उठाउन हुँदैन"
+     ]
+    }
+   ],
+   "in_corpus": true,
+   "raw": {
+    "rank": 5,
+    "precedents": 3,
+    "top": [
+     "मुलुकी फौजदारी कार्यविधि संहिता, २०७४, दफा 4 (1)",
+     "मुलुकी फौजदारी कार्यविधि संहिता, २०७४, दफा 5",
+     "मुलुकी फौजदारी कार्यविधि संहिता, २०७४, दफा 4 (2)"
+    ],
+    "ms": 1434,
+    "queries": [],
+    "sec_rank": null
+   }
+  },
+  {
+   "q": "Are banks allowed to charge me for stopping payment on a cheque?",
+   "area": "banking/NRB",
+   "expect": [
+    "एकीकृत निर्देशन"
+   ],
+   "sections": [
+    {
+     "doc": "परिपत्र नं. १० (क, ख, ग) २०८२/८३: एकीकृत निर्देशन, २०८२",
+     "title_contains": "खाता सञ्चालन तथा बन्द गर्दा लाग्ने शुल्क",
+     "contains": [
+      "Stop Payment"
+     ]
+    }
+   ],
+   "in_corpus": true,
+   "raw": {
+    "rank": 6,
+    "precedents": 0,
+    "top": [
+     "विनिमेय अधिकारपत्र ऐन, २०३४, दफा 65",
+     "बैङ्किङ्ग कसूर तथा सजाय ऐन, २०६४, दफा 3क",
+     "बैङ्किङ्ग कसूर तथा सजाय ऐन, २०६४, दफा 15 (1)"
+    ],
+    "ms": 77,
+    "queries": [],
+    "sec_rank": null
+   }
+  },
+  {
+   "q": "What counts as an artificial or false trade in shares?",
+   "area": "securities",
+   "expect": [
+    "धितोपत्र सम्बन्धी ऐन"
+   ],
+   "sections": [
+    {
+     "doc": "धितोपत्र सम्बन्धी ऐन, २०६३",
+     "section": "94",
+     "contains": [
+      "वास्तविक स्वामित्वमा फरक नपर्ने"
+     ]
+    }
+   ],
+   "in_corpus": true,
+   "raw": {
+    "rank": null,
+    "precedents": 0,
+    "top": [
+     "नेपालको संविधानको अनुसूचीमा उल्लिखित साझा अधिकारको विषयमा कानून निर्माणको आवश्यकता, धारा 16",
+     "Guidelines on Targeted Financial Sanctions for Securities Markets Participants, बुँदा 4 (4)",
+     "E-Commerce Act, 2081, दफा 19"
+    ],
+    "ms": 34,
+    "queries": [],
+    "sec_rank": null
+   }
+  },
+  {
+   "q": "Can I hold two Nepali citizenship certificates at the same time?",
+   "area": "citizenship",
+   "expect": [
+    "नागरिकता"
+   ],
+   "sections": [
+    {
+     "doc": "नेपाल नागरिकता ऐन, २०६३",
+     "section": "13",
+     "contains": [
+      "एकभन्दा बढी नागरिकताको प्रमाणपत्र लिन हुँदैन"
+     ]
+    }
+   ],
+   "in_corpus": true,
+   "raw": {
+    "rank": 2,
+    "precedents": 3,
+    "top": [
+     "नेपालको संविधान, धारा 11",
+     "नेपाल नागरिकता ऐन, २०६३, दफा 3 (1)",
+     "नेपाल नागरिकता ऐन, २०६३, दफा 8 (1)"
+    ],
+    "ms": 1392,
+    "queries": [],
+    "sec_rank": 6
+   }
+  },
+  {
+   "q": "बाबु आमाको पहिचान नभएको बच्चाले नेपाली नागरिकता पाउँछ?",
+   "area": "citizenship",
+   "expect": [
+    "नागरिकता"
+   ],
+   "sections": [
+    {
+     "doc": "नेपाल नागरिकता ऐन, २०६३",
+     "section": "3 (1)",
+     "contains": [
+      "पितृत्व र मातृत्वको ठेगान नभएको"
+     ]
+    }
+   ],
+   "in_corpus": true,
+   "raw": {
+    "rank": 2,
+    "precedents": 3,
+    "top": [
+     "नेपालको संविधान, धारा 11",
+     "नेपाल नागरिकता ऐन, २०६३, दफा 3 (1)",
+     "नेपाल नागरिकता ऐन, २०६३, दफा 8 (1)"
+    ],
+    "ms": 1343,
+    "queries": [],
+    "sec_rank": 2
+   }
+  },
+  {
+   "q": "I knocked someone down with my car by accident. What must I do straight away?",
+   "area": "traffic accident",
+   "expect": [
+    "सवारी तथा यातायात"
+   ],
+   "sections": [
+    {
+     "doc": "सवारी तथा यातायात व्यवस्था ऐन, २०४९",
+     "section": "133",
+     "contains": [
+      "उपचारको लागि तुरून्त आवश्यक व्यवस्था"
+     ]
+    }
+   ],
+   "in_corpus": true,
+   "raw": {
+    "rank": 1,
+    "precedents": 3,
+    "top": [
+     "सवारी तथा यातायात व्यवस्था ऐन, २०४९, दफा 163",
+     "सवारी तथा यातायात व्यवस्था ऐन, २०४९, दफा 152",
+     "सवारी तथा यातायात व्यवस्था ऐन, २०४९, दफा 166"
+    ],
+    "ms": 1351,
+    "queries": [],
+    "sec_rank": 8
+   }
+  },
+  {
+   "q": "gadi ko third party insurance nagareko chha. accident bhayo bhane compensation kasle dinuparchha?",
+   "area": "traffic accident",
+   "expect": [
+    "सवारी तथा यातायात"
+   ],
+   "sections": [
+    {
+     "doc": "सवारी तथा यातायात व्यवस्था ऐन, २०४९",
+     "section": "152",
+     "contains": [
+      "सवारी धनी वा व्यवस्थापकले क्षतिपूर्तिबापत दिनु पर्छ"
+     ]
+    }
+   ],
+   "in_corpus": true,
+   "raw": {
+    "rank": 1,
+    "precedents": 3,
+    "top": [
+     "सवारी तथा यातायात व्यवस्था ऐन, २०४९, दफा 163",
+     "सवारी तथा यातायात व्यवस्था ऐन, २०४९, दफा 152",
+     "सवारी तथा यातायात व्यवस्था ऐन, २०४९, दफा 166"
+    ],
+    "ms": 908,
+    "queries": [],
+    "sec_rank": 2
+   }
+  },
+  {
+   "q": "A hospital refused to treat my father in an emergency. Is that legal?",
+   "area": "medical",
+   "expect": [
+    "जनस्वास्थ्य सेवा ऐन"
+   ],
+   "sections": [
+    {
+     "doc": "जनस्वास्थ्य सेवा ऐन, २०७५",
+     "section": "4",
+     "contains": [
+      "आकस्मिक स्वास्थ्य सेवा प्रदान गर्नुपर्नेछ"
+     ]
+    }
+   ],
+   "in_corpus": true,
+   "raw": {
+    "rank": null,
+    "precedents": 0,
+    "top": [
+     "कसूरको अनुसन्धान सम्बन्धी नियमावली, २०७५, नियम 22",
+     "नेपालको संविधान, धारा 35",
+     "मुलुकी फौजदारी कार्यविधि संहिता, २०७४, दफा 12 (1)"
+    ],
+    "ms": 58,
+    "queries": [],
+    "sec_rank": null
+   }
+  },
+  {
+   "q": "मरिसकेका बुवालाई फेसबुकमा बेइज्जती गर्दा हामीले क्षतिपूर्ति पाउँछौं?",
+   "area": "defamation",
+   "expect": [
+    "मुलुकी अपराध संहिता"
+   ],
+   "sections": [
+    {
+     "doc": "मुलुकी अपराध संहिता, २०७४",
+     "section": "307",
+     "contains": [
+      "निजको नजिकको हकवालालाई"
+     ]
+    }
+   ],
+   "in_corpus": true,
+   "raw": {
+    "rank": 1,
+    "precedents": 3,
+    "top": [
+     "मुलुकी अपराध संहिता, २०७४, दफा 306 (1)",
+     "मुलुकी अपराध संहिता, २०७४, दफा 307",
+     "मुलुकी अपराध संहिता, २०७४, दफा 308"
+    ],
+    "ms": 450,
+    "queries": [],
+    "sec_rank": 2
+   }
+  },
+  {
+   "q": "My savings cooperative collapsed. Will I get my deposit back?",
+   "area": "cooperative",
+   "expect": [
+    "सहकारी ऐन"
+   ],
+   "sections": [
+    {
+     "doc": "सहकारी ऐन, २०७४",
+     "section": "108क",
+     "contains": [
+      "पाँच लाख रुपैयाँ सम्मको बचत"
+     ]
+    }
+   ],
+   "in_corpus": true,
+   "raw": {
+    "rank": 7,
+    "precedents": 3,
+    "top": [
+     "मुलुकी देवानी संहिता, २०७४, दफा 386",
+     "मुलुकी देवानी संहिता, २०७४, दफा 389",
+     "मुलुकी देवानी संहिता, २०७४, दफा 402"
+    ],
+    "ms": 448,
+    "queries": [],
+    "sec_rank": null
+   }
+  },
+  {
+   "q": "दाइजो माग्ने बिहे गर्न मिल्छ?",
+   "area": "criminal",
+   "expect": [
+    "मुलुकी अपराध संहिता"
+   ],
+   "sections": [
+    {
+     "doc": "मुलुकी अपराध संहिता, २०७४",
+     "section": "174",
+     "contains": [
+      "तीन वर्षसम्म कैद"
+     ]
+    }
+   ],
+   "in_corpus": true,
+   "raw": {
+    "rank": 7,
+    "precedents": 3,
+    "top": [
+     "सामाजिक व्यवहार (सुधार) ऐन, २०३३, दफा 11",
+     "सामाजिक व्यवहार (सुधार) ऐन, २०३३, दफा 5",
+     "भूमि सम्बन्धी ऐन, २०२१, दफा 36क"
+    ],
+    "ms": 124,
+    "queries": [],
+    "sec_rank": 7
+   }
+  },
+  {
+   "q": "My employee took money I trusted him to deposit and spent it. Is that a crime?",
+   "area": "criminal",
+   "expect": [
+    "मुलुकी अपराध संहिता"
+   ],
+   "sections": [
+    {
+     "doc": "मुलुकी अपराध संहिता, २०७४",
+     "section": "252",
+     "contains": [
+      "आफ्नो जिम्मा वा संरक्षणमा रहेको अर्काको सम्पत्ति बेइमानीपूर्वक"
+     ]
+    }
+   ],
+   "in_corpus": true,
+   "raw": {
+    "rank": null,
+    "precedents": 3,
+    "top": [
+     "मुलुकी देवानी संहिता, २०७४, दफा 386",
+     "मुलुकी देवानी संहिता, २०७४, दफा 389",
+     "मुलुकी देवानी संहिता, २०७४, दफा 402"
+    ],
+    "ms": 627,
+    "queries": [],
+    "sec_rank": null
+   }
+  },
+  {
+   "q": "Can the land revenue office freeze a property that is in dispute?",
+   "area": "land/malpot",
+   "expect": [
+    "मालपोत ऐन"
+   ],
+   "sections": [
+    {
+     "doc": "मालपोत ऐन, २०३४",
+     "section": "8ख",
+     "contains": [
+      "रोक्का राख्न आवश्यक देखिएमा मालपोत कार्यालयले"
+     ]
+    }
+   ],
+   "in_corpus": true,
+   "raw": {
+    "rank": null,
+    "precedents": 3,
+    "top": [
+     "जग्गा (नाप जाँच) ऐन, २०१९, दफा 8",
+     "स्थानीय सरकार सञ्‍चालन ऐन, २०७४, दफा 47 (2)",
+     "मुलुकी देवानी संहिता, २०७४, दफा 287"
+    ],
+    "ms": 337,
+    "queries": [],
+    "sec_rank": null
+   }
+  },
+  {
+   "q": "What is the legal punishment if someone beats me up?",
+   "area": "criminal",
+   "expect": [
+    "मुलुकी अपराध संहिता"
+   ],
+   "sections": [
+    {
+     "doc": "मुलुकी अपराध संहिता, २०७४",
+     "section": "191",
+     "contains": [
+      "तीन वर्षसम्म कैद वा तीस हजार रुपैयाँसम्म जरिबाना"
+     ]
+    }
+   ],
+   "in_corpus": true,
+   "raw": {
+    "rank": 1,
+    "precedents": 3,
+    "top": [
+     "मुलुकी अपराध संहिता, २०७४, दफा 191",
+     "मुलुकी फौजदारी कार्यविधि संहिता, २०७४, दफा 4 (1)",
+     "मुलुकी अपराध संहिता, २०७४, दफा 199"
+    ],
+    "ms": 404,
+    "queries": [],
+    "sec_rank": 1
+   }
+  }
+ ]
+}
