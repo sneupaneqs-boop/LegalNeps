@@ -220,3 +220,15 @@ def test_regulator_directives_only_surface_for_banking_securities_company_questi
     assert _is_regulator_query("How do I apply for an IPO?", {})
     assert not _is_regulator_query("घरबेटीले धरौटी फिर्ता गरेन", {})
     assert not _is_regulator_query("My employer has not paid my salary", {})
+
+
+@pytest.mark.parametrize("query,expected", [
+    ("मेरो श्रीमानले मलाई कुटपिट गर्छ, के गर्ने?", "domestic_violence"),
+    ("my husband hits me every night", "domestic_violence"),
+    ("छिमेकीले कुटपिट गर्यो", "physical_assault"),  # not domestic: shared word alone mustn't win
+    ("manpower le thagyo", "foreign_employment_fraud"),
+])
+def test_playbook_matcher_real_phrasings(query, expected):
+    from app.playbook_matcher import _reset_cache_for_tests, match
+    _reset_cache_for_tests()
+    assert match(query) == expected

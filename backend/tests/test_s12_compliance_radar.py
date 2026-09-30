@@ -226,9 +226,10 @@ def test_upcoming_obligations_filters_by_profile_and_window(compliance_client):
         assert ob["citation"]
         assert ob["days_remaining"] >= 0
 
-    # A 1-day window should exclude everything (nothing is due tomorrow).
+    # A 1-day window only returns what is due today or tomorrow (a monthly
+    # deadline can legitimately fall inside it, e.g. TDS on the 25th).
     r = c.get("/api/obligations/upcoming?within_days=1", headers=headers)
-    assert r.json()["obligations"] == []
+    assert all(0 <= o["days_remaining"] <= 1 for o in r.json()["obligations"])
 
 
 def test_upcoming_obligations_sorted_by_due_date(compliance_client):

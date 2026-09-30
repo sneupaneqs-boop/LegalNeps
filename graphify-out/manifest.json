@@ -126,9 +126,9 @@
     "semantic_hash": ""
   },
   "backend/app/playbook_matcher.py": {
-    "mtime": 1790700724.2322981,
-    "seen": 1790700871.4805062,
-    "ast_hash": "778ac3a1f00cfa179af94b656c8a949b",
+    "mtime": 1790743295.1362884,
+    "seen": 1790743442.853586,
+    "ast_hash": "5ed422174550642e5a8cec99b2412f9f",
     "semantic_hash": ""
   },
   "backend/app/playbooks.py": {
@@ -150,9 +150,9 @@
     "semantic_hash": "d41d8cd98f00b204e9800998ecf8427e"
   },
   "backend/app/routes/chat.py": {
-    "mtime": 1790704499.4413154,
-    "seen": 1790704760.678921,
-    "ast_hash": "c83e51cdd40d39e8208f46f707f0555e",
+    "mtime": 1790743172.407687,
+    "seen": 1790743442.8535984,
+    "ast_hash": "7e2c09ec683e83ce464443567d251528",
     "semantic_hash": ""
   },
   "backend/app/schemas.py": {
@@ -258,9 +258,9 @@
     "semantic_hash": "8735d705efcd189c952b6e921518409f"
   },
   "backend/tests/test_calculators.py": {
-    "mtime": 1790704608.3570392,
-    "seen": 1790704760.6789534,
-    "ast_hash": "a33fb0b297709b5dc31665e4e0e38fa0",
+    "mtime": 1790743172.411687,
+    "seen": 1790743442.8536673,
+    "ast_hash": "0325ebaabb758da361f63b5d9215e3b2",
     "semantic_hash": ""
   },
   "backend/tests/test_doc_meta.py": {
@@ -528,9 +528,9 @@
     "semantic_hash": ""
   },
   "backend/app/data/playbooks/domestic_violence.yaml": {
-    "mtime": 1790700614.3586278,
-    "seen": 1790700871.4806647,
-    "ast_hash": "96f52a184755917f6518f9ac8a760433",
+    "mtime": 1790743272.990743,
+    "seen": 1790743442.8538888,
+    "ast_hash": "fd9aacc65540b96baaeff98b6a0d6214",
     "semantic_hash": ""
   },
   "backend/app/data/playbooks/fir_not_registered.yaml": {
@@ -540,9 +540,9 @@
     "semantic_hash": ""
   },
   "backend/app/data/playbooks/foreign_employment_fraud.yaml": {
-    "mtime": 1790700787.4841871,
-    "seen": 1790700871.4806666,
-    "ast_hash": "1dba16a2870eb67e5250afeaeb014968",
+    "mtime": 1790743304.3253076,
+    "seen": 1790743442.853892,
+    "ast_hash": "edd40222acbc41f76129c84ef9104c7c",
     "semantic_hash": ""
   },
   "backend/app/data/playbooks/inheritance_share.yaml": {
@@ -708,9 +708,9 @@
     "semantic_hash": ""
   },
   "docs/PROGRESS.md": {
-    "mtime": 1790700906.0347488,
-    "seen": 1790702795.6941414,
-    "ast_hash": "1434d844fc37c4094e346f7b4f51194f",
+    "mtime": 1790704856.7309418,
+    "seen": 1790743442.8539236,
+    "ast_hash": "62aabb75f2175f75a11a1a2b33e9342f",
     "semantic_hash": ""
   },
   "docs/SESSION_PROMPTS.md": {
@@ -786,9 +786,9 @@
     "semantic_hash": ""
   },
   "backend/tests/test_s12_compliance_radar.py": {
-    "mtime": 1790655571.8843737,
-    "seen": 1790655627.2926214,
-    "ast_hash": "6df21e805a347421d4aa106ed192002c",
+    "mtime": 1790743262.218797,
+    "seen": 1790743442.8537073,
+    "ast_hash": "b48d131ef1255158bc4486964e60d1c3",
     "semantic_hash": ""
   },
   "backend/app/prompt_guard.py": {
@@ -840,9 +840,9 @@
     "semantic_hash": ""
   },
   "backend/tests/test_v1_trust_engine.py": {
-    "mtime": 1790702781.0427566,
-    "seen": 1790702795.693929,
-    "ast_hash": "c129a42216ed56aa2d46d60224b21d2e",
+    "mtime": 1790743305.091681,
+    "seen": 1790743442.853717,
+    "ast_hash": "254938162a62790d022bcafa23c6702e",
     "semantic_hash": ""
   },
   "docs/SESSION_PROMPTS_V2.md": {
@@ -936,9 +936,9 @@
     "semantic_hash": ""
   },
   "frontend/app/audit/page.tsx": {
-    "mtime": 1790699746.8529851,
-    "seen": 1790699891.6967595,
-    "ast_hash": "ed18c34c2bff2409d6099f2ac41515ed",
+    "mtime": 1790743172.4156868,
+    "seen": 1790743442.8537252,
+    "ast_hash": "c4bac5478fd737c01e0e3fcbd7c53e55",
     "semantic_hash": ""
   },
   "frontend/app/compliance/page.tsx": {
@@ -1323,6 +1323,12 @@
     "mtime": 1790704499.434603,
     "seen": 1790704760.6790783,
     "ast_hash": "5036e9128f54d6f60ad3516044416f54",
+    "semantic_hash": ""
+  },
+  "frontend/app/icon.svg": {
+    "mtime": 1790743172.4156868,
+    "seen": 1790743442.8539484,
+    "ast_hash": "c086fec5b33fdb108e9361bf79c3bab9",
     "semantic_hash": ""
   }
 }

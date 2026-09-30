@@ -83,12 +83,18 @@ def score_playbooks(query: str) -> list[Match]:
     q_lower = query.lower()
     scores: dict[str, float] = {}
     for playbook_id, keywords in _playbook_keywords():
-        total = 0.0
+        # exact phrase hits add up; partial hits count once (the best one),
+        # so many variants sharing one word ("श्रीमानले कुटपिट", "पतिले कुटपिट")
+        # can't pile up credit from that single word
+        total, best_partial = 0.0, 0.0
         for kw in keywords:
             kw_tokens = _tokens(kw)
             fraction = _keyword_hit_fraction(kw, kw_tokens, q_tokens, q_lower)
-            if fraction >= 0.5:
-                total += _keyword_weight(kw) * fraction
+            if fraction >= 1.0:
+                total += _keyword_weight(kw)
+            elif fraction >= 0.5:
+                best_partial = max(best_partial, _keyword_weight(kw) * fraction)
+        total += best_partial
         if total > 0:
             scores[playbook_id] = total
     return sorted((Match(pid, s) for pid, s in scores.items()), key=lambda m: -m.score)
