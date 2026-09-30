@@ -15,3 +15,6 @@ scrapling[fetchers]==0.4.15
 # never in production (requirements.txt / the Render build):
 #   apt-get install -y tesseract-ocr tesseract-ocr-nep tesseract-ocr-eng poppler-utils
 # (poppler-utils is optional: pymupdf renders the pages; pdftoppm/pdfinfo are handy for checks)
+
+# dense retrieval tooling (scripts/build_dense.py, eval/measure_resources.py)
+psutil

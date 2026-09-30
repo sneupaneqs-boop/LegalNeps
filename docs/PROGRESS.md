@@ -200,6 +200,71 @@ S7's own "done when" bar (25 playbooks, ≥90% precision) doesn't require it.
 
 ## Done
 
+### V2 — Hybrid retrieval, dense half (2026-09-30)
+
+BM25 + semantic (multilingual-e5-small) retrieval fused inside `Index.search`. **Exit bar NOT met:
+held-out hit@8 = 0.78 (bar 0.80, BM25 baseline 0.76)** — see numbers; do not claim V2 done. Corpus:
+73,667 passages, digest `7cbc6666770d2b74`; all runs raw mode (no LLM), production path (`search()` +
+playbook). Config was tuned on default + realworld only; held-out was run twice (below).
+
+- **Code:** `app/dense.py` (encoder, vector store, model prep), fusion in `retrieval.Index.search`
+  (`mode=` "hybrid"/"bm25"/"dense", `HYBRID` knobs, `Index.dense`; result dicts gain `dense` = best
+  cosine; `score`/`rrf` keep their BM25 meaning-ish), `scripts/build_dense.py`, `scripts/prebuild_index.py`
+  (downloads + prunes + warms the encoder), `eval/run_eval.py retrieval --modes bm25,dense,hybrid`,
+  `eval/measure_resources.py`, `eval/dense_model_compare.py`, `tests/test_dense.py` (22 tests; suite 1446 green,
+  also with `DENSE=0`).
+- **Encoder:** `intfloat/multilingual-e5-small` via Xenova's int8 ONNX export, onnxruntime + sentencepiece
+  (the `tokenizers` package costs ~280MB RSS for this 250k-piece vocab; sentencepiece ~58MB, identical
+  segmentation). The 250k-row embedding table is pruned to the 90.8k Devanagari/ASCII pieces (118MB -> 57MB
+  model); prune is deterministic (byte-identical) and done by prebuild. Query/passage prefixes as e5 requires.
+  Passage text = doc title (+ English title) + section heading + body, 256 tokens.
+- **Artifact:** `app/data/dense/vectors.npz`, 26MB committed (int8 + float16 scale per passage, ids, meta
+  incl. corpus digest + model name). Digest mismatch -> vectors reused by id, missing count logged; absent/
+  corrupt/foreign artifact or missing model -> BM25-only, never an error. `DENSE=0` forces BM25-only;
+  `DENSE_MODEL_DIR`, `DENSE_VECTORS`, `DENSE_THREADS` (default 2) override paths/threads.
+- **Regenerate after ANY corpus change:** `cd backend && python scripts/build_dense.py` (4 cores: ~27 min;
+  resumable; commit the new `vectors.npz`). Until then the artifact is reused by id and new passages have no
+  dense signal. Changing model, `MAX_TOKENS` or `passage_text` also needs `dense.ARTIFACT_VERSION` bumped.
+- **Fusion:** per query, dense ranking (cosine x authority prior^0.5, top 100) is RRF-added to its BM25
+  ranking (weight 1.5, k=100; dense-only candidates x0.6); single glossary terms (<0.3) skip dense; English
+  queries get a dense weight floor of 1.0 (BM25 down-weights English, e5 reads it well). Boosts and all
+  filters (category, doc_type, status, bills/lapsed, per_doc_cap, text_key dedupe) run after fusion.
+- **Model choice** (pool re-rank on default+realworld, hit@8/MRR default; BM25-top30 U e5-small-top30 pool,
+  so it favours e5-small): e5-small .720/.534, e5-base .747/.570, LaBSE .733/.582, paraphrase-MiniLM .620/.484.
+  e5-base is +3 points (noise) and does not fit 512MB; e5-small kept.
+
+| Set (n) | config | hit@8 | hit@3 | MRR | section hit@8 |
+|---|---|---|---|---|---|
+| default (150) | BM25 / dense / **hybrid** | .863 / .897 / **.918** | .705 / .712 / **.774** | .672 / .668 / **.725** | - |
+| realworld (30) | BM25 / dense / **hybrid** | .700 / .533 / **.700** | .467 / .433 / **.433** | .490 / .438 / **.485** | .533 / .367 / **.533** |
+| held-out (50), run 1 (before the English floor) | BM25 / dense / hybrid | .76 / .68 / .76 | .54 / .52 / .58 | .511 / .469 / .532 | .54 / .44 / .56 |
+| held-out (50), run 2 (final) | BM25 / dense / **hybrid** | .76 / .72 / **.78** | .54 / .54 / **.60** | .511 / .483 / **.539** | .54 / .46 / **.54** |
+
+  Held-out hit@8 by language (bm25 -> hybrid): en 21/30 -> 22/30, ne 12/14 -> 12/14, roman 5/6 -> 5/6.
+  Realworld: en 4/4, ne 6/6, roman 11/20 in both BM25 and hybrid (dense-only: roman 8/20). Run 1 -> run 2
+  changed one thing only: the English dense floor, chosen from default-set evidence (English questions where
+  dense alone found the Constitution but BM25's glossary expansion outvoted it). No held-out miss was inspected.
+- **Why it isn't higher:** dense (e5-small, int8) is good on English and Devanagari but does not read romanised
+  Nepali, and the romanised questions are the ones BM25 also misses; those need Devanagari query expansion
+  (glossary/transliteration - query-understanding work) so the dense side gets a readable query. In production
+  the LLM's `queries_ne` phrasings (weight 1.0, Devanagari) go through dense too - unmeasurable here (no LLM).
+  Remaining misses (tuning sets): "How do I make a valid will in Nepal?", "law on hacking and cyber crime"
+  (both find no expected-law passage in the top 8), romanised "doctor le galat operation garera bihari ko mrityu
+  bho" / "kampani ko bhitri suchana thaha pai share kinbech gareko ma ke sajaya hunchha?".
+- **Resources** (this sandbox, 4 cores; Render free is ~0.1 CPU so expect roughly 10x slower encoding/scoring):
+  warm RSS (psutil, fresh process, after 230 queries) 356MB index+dense (BM25-only 182MB); with the whole FastAPI
+  app imported and 180 queries: 386MB (BM25-only 212MB) — under the 420MB budget, ~125MB under Render's limit.
+  Cold index build peak 382MB (unchanged: dense loads after the build). Search p50 103ms / p95 135ms
+  (`generation.search()`, raw, was 10/19ms): ~9ms query encode + ~18ms brute-force scoring per call, the rest is
+  the two `Index.search` calls (law + precedent) each rescoring. `eval/measure_resources.py warm|cold`.
+- **Deploy:** Render build `cd backend && pip install -r requirements.txt && python scripts/prebuild_index.py`
+  (now also downloads ~118MB of model files from the HF hub at pinned revisions, prunes them, and warms them; a
+  failed download only logs a warning and the service runs BM25-only). New requirements: onnxruntime==1.30.0,
+  sentencepiece==0.2.2, onnx==1.23.1 (build-time only). No new env vars required; optional `DENSE=0` kill switch.
+  Verify after deploy: build log shows `dense ready: 73667/73667 passages have vectors (exact)`.
+- **Next for retrieval:** romanised-query expansion (feeds both sides), then re-run held-out once more as a
+  milestone; consider per-query score caching across the law + precedent searches (halves dense latency).
+
 ### V1 baselines (2026-09-30)
 
 Finishes V1: eval cases, held-out set, baselines. **All numbers are on today's

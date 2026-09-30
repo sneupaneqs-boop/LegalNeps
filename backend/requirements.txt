@@ -14,3 +14,10 @@ pypdf==6.19.0
 Jinja2==3.1.6
 python-multipart==0.0.32
 pymupdf==1.28.2
+
+# Hybrid retrieval (app/dense.py). onnxruntime + sentencepiece run the int8 e5-small query encoder;
+# onnx is imported only by scripts/prebuild_index.py (build time: prunes the embedding table), never at request time.
+# No torch / transformers / tokenizers in production.
+onnxruntime==1.30.0
+sentencepiece==0.2.2
+onnx==1.23.1
