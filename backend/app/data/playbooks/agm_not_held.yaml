@@ -1,0 +1,61 @@
+id: agm_not_held
+area: company
+keywords:
+  - "agm"
+  - "annual general meeting"
+  - "agm bolayeko chhaina"
+  - "agm nabolayeko"
+  - "sadharan sabha bolayeko chhaina"
+  - "sadharan sabha nabolayeko"
+  - "साधारण सभा बोलाएको छैन"
+  - "साधारणसभा नबोलाएको"
+  - "वार्षिक साधारण सभा"
+  - "वार्षिक साधारणसभा"
+  - "agm nagareko"
+  - "company le agm"
+issue:
+  en: "A public company has not held its annual general meeting (AGM) and I am a shareholder"
+  ne: "पब्लिक कम्पनीले वार्षिक साधारण सभा गरेको छैन र म शेयरधनी हुँ"
+fact_questions:
+  - en: "Which company is it, is it a public company, and when was the last AGM held?"
+    ne: "कुन कम्पनी हो, पब्लिक कम्पनी हो, र पछिल्लो साधारण सभा कहिले भएको थियो?"
+  - en: "Has the Company Registrar's Office already directed the company to call the meeting?"
+    ne: "कम्पनी रजिष्ट्रारको कार्यालयले कम्पनीलाई सभा बोलाउन निर्देशन दिइसकेको छ?"
+  - en: "How many shares do you hold, and do other shareholders support you?"
+    ne: "तपाईंसँग कति शेयर छ, र अन्य शेयरधनीले साथ दिन्छन्?"
+provisions:
+  - law_title_ne: "कम्पनी ऐन, २०६३"
+    section: "76"
+    note:
+      en: "Every public company must hold its first AGM within one year of getting permission to start business, and after that an AGM every year within six months of the end of its financial year. If it has not called the AGM within three months after that deadline, the Company Registrar's Office may direct it to call one. If the company still does not call it within three months of that direction, any shareholder can apply to the court, and the court may order the AGM to be held or make another suitable order. A meeting held on the court's order has a valid quorum however many shareholders attend."
+      ne: "प्रत्येक पब्लिक कम्पनीले कारोबार शुरु गर्ने इजाजत पाएको एक वर्षभित्र प्रथम वार्षिक साधारण सभा गर्नुपर्छ र त्यसपछि प्रत्येक वर्ष आर्थिक वर्ष पूरा भएको छ महिनाभित्र वार्षिक साधारण सभा गर्नुपर्छ। म्याद नाघेको तीन महिनाभित्र पनि सभा नबोलाएमा कम्पनी रजिष्ट्रारको कार्यालयले सभा बोलाउन निर्देशन दिन सक्छ। निर्देशन पाएको तीन महिनाभित्र पनि नबोलाएमा कुनै पनि शेयरधनीले अदालतमा निवेदन दिन सक्छ, र अदालतले वार्षिक साधारण सभा गर्न लगाउन वा अन्य उपयुक्त आदेश जारी गर्न सक्छ। अदालतको आदेशले बोलाइएको सभामा जतिसुकै शेयरधनी उपस्थित भए पनि गणपूरक सङ्ख्या पुगेको मानिन्छ।"
+  - law_title_ne: "कम्पनी ऐन, २०६३"
+    section: "77"
+    note:
+      en: "At each AGM the directors must present the audited annual financial statements, the auditor's report and the directors' report. Shareholders holding at least 5 percent of the votes can, by applying to the directors before the notice of the meeting is issued, have a matter put to the AGM for discussion and decision."
+      ne: "प्रत्येक पब्लिक कम्पनीको वार्षिक साधारण सभामा सञ्चालकहरूले लेखापरीक्षण भइसकेको वार्षिक आर्थिक विवरण, लेखापरीक्षकको प्रतिवेदन र सञ्चालकको प्रतिवेदन पेश गर्नुपर्छ। जम्मा मत सङ्ख्याको कम्तीमा पाँच प्रतिशत मतको प्रतिनिधित्व गर्ने शेयरधनीले सभाको सूचना जारी हुनुअघि सञ्चालकहरू समक्ष निवेदन दिई कुनै विषय वार्षिक साधारण सभामा छलफल र निर्णयका लागि पेश गर्न लगाउन सक्छन्।"
+evidence:
+  - en: "Proof that you are a shareholder (share certificate or register extract)"
+    ne: "तपाईं शेयरधनी भएको प्रमाण (शेयर प्रमाणपत्र वा दर्ता किताबको उतार)"
+  - en: "The date of the last AGM and the company's financial year end (from its published reports or the Registrar's Office)"
+    ne: "पछिल्लो साधारण सभाको मिति र कम्पनीको आर्थिक वर्ष समाप्त हुने मिति (प्रकाशित प्रतिवेदन वा रजिष्ट्रारको कार्यालयबाट)"
+  - en: "Copies of any request you made to the company or to the Registrar's Office and their replies"
+    ne: "कम्पनी वा रजिष्ट्रारको कार्यालयमा दिएको अनुरोधको प्रतिलिपि र जवाफ"
+forum:
+  en: "First the Company Registrar's Office, which may direct the company to call the AGM once the deadline is over by three months. If the company still does not call it within three months of that direction, any shareholder can apply to the court (section 76)."
+  ne: "पहिले कम्पनी रजिष्ट्रारको कार्यालय, जसले म्याद नाघेको तीन महिनापछि कम्पनीलाई सभा बोलाउन निर्देशन दिन सक्छ। निर्देशन पाएको तीन महिनाभित्र पनि कम्पनीले नबोलाएमा कुनै पनि शेयरधनीले अदालतमा निवेदन दिन सक्छ (दफा ७६)।"
+limitation:
+  note:
+    en: "The steps run on fixed periods: the AGM is due within six months after the financial year ends; the Office may direct the company once three months more have passed; a shareholder may go to court if the company still has not called the meeting three months after the direction (section 76)."
+    ne: "प्रक्रिया तोकिएका अवधिमा चल्छ: आर्थिक वर्ष पूरा भएको छ महिनाभित्र सभा हुनुपर्छ; थप तीन महिना नाघेपछि कार्यालयले निर्देशन दिन सक्छ; निर्देशन पाएको तीन महिनाभित्र पनि सभा नबोलाएमा शेयरधनी अदालत जान सक्छ (दफा ७६)।"
+  provision:
+    law_title_ne: "कम्पनी ऐन, २०६३"
+    section: "76"
+next_steps:
+  - en: "Work out the dates: the AGM was due within six months of the financial year end; check whether a further three months have passed."
+    ne: "मितिहरू निकाल्नुहोस्: आर्थिक वर्ष पूरा भएको छ महिनाभित्र सभा हुनुपर्ने थियो; थप तीन महिना नाघेको छ कि हेर्नुहोस्।"
+  - en: "Write to the company and to the Company Registrar's Office asking that the AGM be called, and keep copies."
+    ne: "कम्पनी र कम्पनी रजिष्ट्रारको कार्यालयलाई सभा बोलाउन माग गर्दै पत्र लेख्नुहोस् र प्रतिलिपि राख्नुहोस्।"
+  - en: "If the Office has directed the company and three more months have passed without a meeting, ask an advocate to apply to the court as a shareholder."
+    ne: "कार्यालयले निर्देशन दिएको र थप तीन महिना नाघ्दा पनि सभा नभएको भए शेयरधनीको हैसियतले अदालतमा निवेदन दिन वकिललाई भन्नुहोस्।"
+template_link: null

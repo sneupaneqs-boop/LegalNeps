@@ -1,0 +1,96 @@
+id: bank_loan_penal_interest
+area: banking
+keywords:
+  - "bank loan"
+  - "bank ko karja"
+  - "bank le karja"
+  - "bank karja"
+  - "banks loan"
+  - "loan penal"
+  - "penal interest"
+  - "penal rate"
+  - "penal byaj"
+  - "penalty interest"
+  - "loan ko byaj"
+  - "loan interest rate"
+  - "interest rate on my loan"
+  - "loan late payment"
+  - "loan ma late payment"
+  - "kisti nabhareko"
+  - "किस्ता नतिरेको"
+  - "बैंकको कर्जा"
+  - "बैंक कर्जा"
+  - "बैंकले कर्जा"
+  - "पेनाल ब्याज"
+  - "कर्जाको ब्याजदर"
+  - "कर्जाको ब्याज"
+  - "थप ब्याज बैंक"
+  - "आधार दर"
+  - "base rate"
+not_keywords:
+  - "sahu"
+  - "sahuji"
+  - "moneylender"
+  - "money lender"
+  - "साहु"
+  - "सापटी"
+issue:
+  en: "My bank or finance company charges penal interest or a high interest rate on my loan"
+  ne: "मेरो बैंक वा वित्तीय संस्थाले कर्जामा पेनाल ब्याज वा उच्च ब्याजदर लगाएको छ"
+fact_questions:
+  - en: "Is the lender a bank, finance company or microfinance institution licensed by Nepal Rastra Bank, or a private person or cooperative?"
+    ne: "कर्जा दिने नेपाल राष्ट्र बैङ्कबाट इजाजतपत्रप्राप्त बैङ्क, वित्त कम्पनी वा लघुवित्त हो, कि निजी व्यक्ति वा सहकारी?"
+  - en: "What penal rate and interest rate does your loan agreement or offer letter state, and on what amount is it being charged?"
+    ne: "तपाईंको कर्जा सम्झौता वा प्रस्ताव पत्रमा पेनाल दर र ब्याजदर कति लेखिएको छ, र कुन रकममा लगाइएको छ?"
+  - en: "Is the penal interest charged on an overdue instalment only, or on the whole loan or on interest already owed?"
+    ne: "पेनाल ब्याज म्याद नाघेको किस्तामा मात्र लगाइएको हो, कि पूरै कर्जामा वा बाँकी ब्याजमा पनि?"
+provisions:
+  - law_title_ne: "परिपत्र नं. १० (क, ख, ग) २०८२/८३: एकीकृत निर्देशन, २०८२ जारी गरिएको सम्बन्धमा ।"
+    entry_title_contains: "१५/०८२ - कर्जाको ब्याजदर"
+    contains: ["पेनाल ब्याजदर", "प्रतिशत विन्दु भन्दा बढी नहुने"]
+    note:
+      en: "NRB's Unified Directive (IPD 15/082, clause 3) says the loan agreement must state an annual penal interest rate of no more than 2 percentage points. Penal interest is worked out on the principal of the overdue instalment for the period of delay only; the lender may not collect more than that and may not charge interest on penal interest. Loan interest rates are tied to the lender's Base Rate plus a stated premium."
+      ne: "नेपाल राष्ट्र बैङ्कको एकीकृत निर्देशन (इ.प्रा. निर्देशन नं. १५/०८२, बुँदा ३) अनुसार कर्जा सम्झौतामा वार्षिक पेनाल ब्याजदर २ प्रतिशत विन्दुभन्दा बढी नहुने गरी उल्लेख गर्नुपर्छ। पेनाल ब्याज म्याद नाघेको किस्ताको साँवा रकममा विलम्ब भएको अवधिको लागि मात्र गणना गरिन्छ; त्योभन्दा बढी लिन र पेनाल ब्याजमा ब्याज लगाउन पाइँदैन। कर्जाको ब्याजदर आधार दरसँग आबद्ध गरी प्रिमियम थपेर तोकिन्छ।"
+  - law_title_ne: "बैङ्क तथा वित्तीय संस्था सम्बन्धी ऐन, २०७३"
+    section: "55 (2)"
+    note:
+      en: "The terms, due dates and interest of a loan from a bank or financial institution are as written in the loan document or contract. The institution must state the loan amount, the interest, the penalty and the repayment schedule clearly in that document and tell the borrower and guarantor. The borrower may ask for a statement of principal, interest, penalty and other charges paid or payable, and the institution must provide it."
+      ne: "बैङ्क वा वित्तीय संस्थासँग लिएको कर्जाको शर्त, भाका र ब्याज लिखत वा करारमा उल्लेख भए बमोजिम हुन्छ। संस्थाले कर्जा रकम, ब्याज, हर्जाना र तिर्नुपर्ने समयतालिका लिखत वा करारमा स्पष्ट खुलाई ऋणी र जमानतकर्तालाई जानकारी दिनुपर्छ। ऋणीले तिर्नुपर्ने वा तिरेको साँवा, ब्याज, हर्जाना र अन्य शुल्कको विवरण माग्न सक्छ र संस्थाले उपलब्ध गराउनुपर्छ।"
+  - law_title_ne: "बैङ्क तथा वित्तीय संस्था सम्बन्धी ऐन, २०७३"
+    section: "57 (1)"
+    note:
+      en: "If a borrower breaks the loan terms or does not pay the loan and its interest or penalty within the period in the loan document, the bank or financial institution may recover its principal and interest by auctioning the security the borrower gave or by other arrangement."
+      ne: "ऋणीले कर्जाको शर्त पालना नगरेमा वा लिखत वा करारको भाकाभित्र कर्जा र सोमा लागेको ब्याज वा हर्जाना चुक्ता नगरेमा बैङ्क वा वित्तीय संस्थाले ऋणीले राखेको सुरक्षण लिलाम बिक्री गरी वा अन्य व्यवस्था गरी आफ्नो साँवा, ब्याज असुल उपर गर्न सक्छ।"
+  - law_title_ne: "परिपत्र नं. १० (क, ख, ग) २०८२/८३: एकीकृत निर्देशन, २०८२ जारी गरिएको सम्बन्धमा ।"
+    entry_title_contains: "गुनासो सुनवाई सम्बन्धी व्यवस्था"
+    contains: ["gunaso.nrb.org.np"]
+    note:
+      en: "Every licensed bank or financial institution must resolve its customers' complaints, keep a complaints desk with a named senior officer and a hotline, and link NRB's complaints portal (gunaso.nrb.org.np) on its website."
+      ne: "प्रत्येक इजाजतपत्रप्राप्त बैङ्क वा वित्तीय संस्थाले ग्राहकको गुनासो समाधान गर्नुपर्छ, वरिष्ठ अधिकारी तोकेको गुनासो सुनुवाई डेस्क र हटलाइन राख्नुपर्छ, र आफ्नो वेबसाइटमा नेपाल राष्ट्र बैङ्कको गुनासो पोर्टल (gunaso.nrb.org.np) को लिङ्क राख्नुपर्छ।"
+exclude_provisions:
+  - law_title_ne: "मुलुकी देवानी संहिता, २०७४"
+    section: "478"
+  - law_title_ne: "मुलुकी देवानी संहिता, २०७४"
+    section: "481"
+evidence:
+  - en: "The loan agreement, offer letter and repayment schedule"
+    ne: "कर्जा सम्झौता, प्रस्ताव पत्र र भुक्तानी तालिका"
+  - en: "The loan account statement showing how the penal interest and each charge was calculated"
+    ne: "पेनाल ब्याज र प्रत्येक शुल्क कसरी गणना गरियो देखाउने कर्जा खाताको विवरण"
+  - en: "Any notice, message or receipt from the bank about the overdue instalment"
+    ne: "म्याद नाघेको किस्ताबारे बैङ्कले दिएको सूचना, म्यासेज वा रसिद"
+forum:
+  en: "First the bank's own complaints desk and grievance officer (NRB's Unified Directive requires every licensed institution to keep one). If it is not resolved, NRB's complaints portal, which the bank must link on its website. A civil claim in court is a separate route for which an advocate's advice is needed."
+  ne: "पहिले बैङ्कको आफ्नै गुनासो सुनुवाई डेस्क र गुनासो सुन्ने अधिकारीलाई (नेपाल राष्ट्र बैङ्कको एकीकृत निर्देशनले प्रत्येक इजाजतपत्रप्राप्त संस्थालाई यो राख्न अनिवार्य गरेको छ)। समाधान नभए नेपाल राष्ट्र बैङ्कको गुनासो पोर्टल, जसको लिङ्क बैङ्कले आफ्नो वेबसाइटमा राख्नुपर्छ। अदालतमा देवानी दाबी गर्नु अर्को बाटो हो, जसका लागि वकिलको सल्लाह चाहिन्छ।"
+limitation:
+  note:
+    en: "The provisions cited here set no deadline for complaining to the bank or to NRB, so do not wait. A court claim has its own limitation period; ask an advocate about the exact period for your situation."
+    ne: "यहाँ उल्लिखित व्यवस्थाहरूले बैङ्क वा नेपाल राष्ट्र बैङ्कमा गुनासो गर्ने कुनै म्याद तोकेका छैनन्, त्यसैले ढिलो नगर्नुहोस्। अदालतमा दाबी गर्ने भए त्यसको आफ्नै हदम्याद हुन्छ; आफ्नो अवस्थाको ठ्याक्कै हदम्यादका लागि वकिलसँग सोध्नुहोस्।"
+next_steps:
+  - en: "Read your loan agreement and offer letter for the penal rate and check it against the 2-percentage-point limit and the rule that penal interest runs only on the overdue instalment."
+    ne: "आफ्नो कर्जा सम्झौता र प्रस्ताव पत्रमा पेनाल दर हेर्नुहोस् र २ प्रतिशत विन्दुको सीमा तथा पेनाल ब्याज म्याद नाघेको किस्तामा मात्र लाग्ने नियमसँग मिलाएर जाँच्नुहोस्।"
+  - en: "Ask the bank in writing for a statement of principal, interest, penalty and other charges (you are entitled to it under section 55 of the Bank and Financial Institutions Act)."
+    ne: "बैङ्कसँग साँवा, ब्याज, हर्जाना र अन्य शुल्कको विवरण लिखित रूपमा माग्नुहोस् (बैङ्क तथा वित्तीय संस्था सम्बन्धी ऐन दफा ५५ अनुसार यो तपाईंको हक हो)।"
+  - en: "If the bank charged more than the directive allows, complain in writing to its grievance officer and, if it is not resolved, through NRB's complaints portal."
+    ne: "बैङ्कले निर्देशनले अनुमति दिएभन्दा बढी लगाएको भए गुनासो सुन्ने अधिकारीलाई लिखित रूपमा उजुरी दिनुहोस् र समाधान नभए नेपाल राष्ट्र बैङ्कको गुनासो पोर्टलमार्फत जानुहोस्।"
+template_link: null

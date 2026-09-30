@@ -1,0 +1,74 @@
+id: bank_account_charges_complaint
+area: banking
+keywords:
+  - "minimum balance"
+  - "min balance"
+  - "balance nabhayeko"
+  - "balance nabhaeko"
+  - "न्यूनतम मौज्दात"
+  - "मौज्दात कम भएको"
+  - "bank le paisa katyo"
+  - "bank le paisa kaatyo"
+  - "bank charge"
+  - "bank charges"
+  - "service charge"
+  - "atm charge"
+  - "account ma paisa katyo"
+  - "khata bata paisa katyo"
+  - "खाताबाट पैसा काट्यो"
+  - "खाता शुल्क"
+  - "बैंकले शुल्क"
+  - "बैंकले पैसा काट्यो"
+  - "bank gunaso"
+  - "bank ko gunaso"
+  - "bank complaint"
+  - "complaint against bank"
+  - "बैंकको गुनासो"
+  - "बैंकको उजुरी"
+  - "बैंकले मेरो गुनासो"
+  - "बैंकमा गुनासो"
+issue:
+  en: "My bank deducted money or charged me a fee on my account, or is not listening to my complaint"
+  ne: "मेरो बैङ्कले मेरो खाताबाट रकम कट्टा गर्यो वा शुल्क लगायो, वा मेरो गुनासो सुन्दैन"
+fact_questions:
+  - en: "What exactly did the bank deduct or charge (for example for a low balance, a card, a statement, closing the account), how much, and on what date?"
+    ne: "बैङ्कले ठ्याक्कै के कट्टा गर्यो वा के शुल्क लगायो (जस्तै मौज्दात कम भएको, कार्ड, स्टेटमेन्ट, खाता बन्द), कति रकम र कुन मितिमा?"
+  - en: "Is it a commercial bank, development bank or finance company licensed by Nepal Rastra Bank?"
+    ne: "यो नेपाल राष्ट्र बैङ्कबाट इजाजतपत्रप्राप्त वाणिज्य बैङ्क, विकास बैङ्क वा वित्त कम्पनी हो?"
+  - en: "Have you already complained to the bank in writing, and did you get a reply?"
+    ne: "तपाईंले बैङ्कमा लिखित गुनासो गरिसक्नुभएको छ, र जवाफ आयो?"
+provisions:
+  - law_title_ne: "परिपत्र नं. १० (क, ख, ग) २०८२/८३: एकीकृत निर्देशन, २०८२ जारी गरिएको सम्बन्धमा ।"
+    entry_title_contains: "खाता सञ्चालन तथा बन्द गर्दा लाग्ने शुल्क"
+    contains: ["न्यूनतम मौज्दात भन्दा कम"]
+    note:
+      en: "NRB's Unified Directive (IPD 20/082, clause 6) says a bank or financial institution may not deduct money from an account, or reduce the balance, because the balance is below the minimum balance; interest must still be paid on the amount kept as minimum balance. It also may not charge for opening, operating or closing an account, issuing a cheque, stopping a cheque, a balance certificate, a statement (more than one statement of the same period may carry a minimum fee), or crediting remittance. Reactivating a dormant account is free. Any other customer fee needs prior notice to the customer."
+      ne: "नेपाल राष्ट्र बैङ्कको एकीकृत निर्देशन (इ.प्रा. निर्देशन नं. २०/०८२, बुँदा ६) अनुसार खातामा रकम न्यूनतम मौज्दातभन्दा कम भएको कारणले बैङ्क वा वित्तीय संस्थाले रकम कट्टा गरी मौज्दात घटाउन पाउँदैन; न्यूनतम मौज्दात बापत राखिएको रकममा समेत तोकिएको ब्याज दिनुपर्छ। खाता खोल्दा, सञ्चालन गर्दा, बन्द गर्दा, चेक जारी गर्दा, चेकको स्टप पेमेन्ट गर्दा, मौज्दात प्रमाणित गर्दा, स्टेटमेन्ट दिँदा (एउटै अवधिको एकपटकभन्दा बढी माग्दा न्यूनतम शुल्क लिन सकिन्छ) र विप्रेषण रकम जम्मा गर्दा शुल्क लिन पाइँदैन। निष्क्रिय खाता सक्रिय गर्दा शुल्क लाग्दैन। अन्य शुल्क ग्राहकलाई पूर्व जानकारी दिएर मात्र लिन सकिन्छ।"
+  - law_title_ne: "परिपत्र नं. १० (क, ख, ग) २०८२/८३: एकीकृत निर्देशन, २०८२ जारी गरिएको सम्बन्धमा ।"
+    entry_title_contains: "गुनासो सुनवाई सम्बन्धी व्यवस्था"
+    contains: ["gunaso.nrb.org.np"]
+    note:
+      en: "The bank or financial institution itself must resolve customer complaints and keep a record of what it did. It must set up an information and complaints desk with a senior officer named as the officer who hears complaints (name, phone, e-mail on the front of its website) and a hotline, and must link NRB's complaints portal (gunaso.nrb.org.np) and its own online complaints portal on its website."
+      ne: "ग्राहकको गुनासो समाधान गर्ने दायित्व सम्बन्धित बैङ्क वा वित्तीय संस्थाको हुन्छ र गरेको कामकारबाहीको अभिलेख राख्नुपर्छ। संस्थाले सूचना तथा गुनासो सुनुवाई डेस्क स्थापना गरी वरिष्ठ अधिकारीलाई गुनासो सुन्ने अधिकारी तोक्नुपर्छ (नाम, फोन, इमेल वेबसाइटको अग्र भागमा), हटलाइन राख्नुपर्छ, र नेपाल राष्ट्र बैङ्कको गुनासो पोर्टल (gunaso.nrb.org.np) तथा आफ्नो अनलाइन गुनासो पोर्टलको लिङ्क वेबसाइटमा राख्नुपर्छ।"
+evidence:
+  - en: "Account statement or SMS/e-mail alert showing the deduction, with its date and amount"
+    ne: "कट्टा भएको रकम, मिति र रकम देखाउने खाताको स्टेटमेन्ट वा एसएमएस/इमेल सूचना"
+  - en: "Your account opening form or the bank's schedule of charges, if you have it"
+    ne: "खाता खोलेको फारम वा बैङ्कको शुल्क तालिका, भए"
+  - en: "Copies of your complaint to the bank and any reply"
+    ne: "बैङ्कमा गरेको गुनासोको प्रतिलिपि र आएको जवाफ (यदि छ भने)"
+forum:
+  en: "First the bank's own complaints desk and its complaints officer (the Unified Directive requires every licensed bank and finance company to keep one). If it does not resolve the matter, use NRB's complaints portal, which the bank must link on its website."
+  ne: "पहिले बैङ्कको आफ्नै गुनासो सुनुवाई डेस्क र गुनासो सुन्ने अधिकारीलाई (एकीकृत निर्देशनले प्रत्येक इजाजतपत्रप्राप्त बैङ्क र वित्त कम्पनीलाई यो राख्न अनिवार्य गरेको छ)। समाधान नभए नेपाल राष्ट्र बैङ्कको गुनासो पोर्टलमा जानुहोस्, जसको लिङ्क बैङ्कले आफ्नो वेबसाइटमा राख्नुपर्छ।"
+limitation:
+  note:
+    en: "The provisions cited here set no deadline for a complaint to the bank or to NRB, so do not wait. A court claim would have its own limitation period; ask an advocate."
+    ne: "यहाँ उल्लिखित व्यवस्थाहरूले बैङ्क वा नेपाल राष्ट्र बैङ्कमा गुनासो गर्ने कुनै म्याद तोकेका छैनन्, त्यसैले ढिलो नगर्नुहोस्। अदालतमा दाबी गर्ने भए त्यसको आफ्नै हदम्याद हुन्छ; वकिलसँग सोध्नुहोस्।"
+next_steps:
+  - en: "Keep the statement or alert showing the deduction and note the date, the amount and what the bank said it was for."
+    ne: "कट्टा देखाउने स्टेटमेन्ट वा सूचना राख्नुहोस् र मिति, रकम र बैङ्कले के बापत भनेको हो टिप्नुहोस्।"
+  - en: "Write to the bank's complaints officer asking for the deduction to be reversed, quoting that a balance below the minimum is not a reason to deduct money under NRB's Unified Directive."
+    ne: "बैङ्कको गुनासो सुन्ने अधिकारीलाई पत्र लेखी कट्टा गरिएको रकम फिर्ता माग्नुहोस्, र न्यूनतम मौज्दातभन्दा कम भएको कारणले रकम कट्टा गर्न नेपाल राष्ट्र बैङ्कको एकीकृत निर्देशनले दिँदैन भन्ने उल्लेख गर्नुहोस्।"
+  - en: "If the bank does not resolve it, file the complaint on NRB's complaints portal (gunaso.nrb.org.np) with the same documents."
+    ne: "बैङ्कले समाधान नगरे उही कागजातसहित नेपाल राष्ट्र बैङ्कको गुनासो पोर्टल (gunaso.nrb.org.np) मा उजुरी दिनुहोस्।"
+template_link: null

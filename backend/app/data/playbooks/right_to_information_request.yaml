@@ -11,6 +11,13 @@ keywords:
   - "suchana mageko"
   - "suchana maagda"
   - "suchana dinna"
+  - "sucahnako hak"
+  - "sucahna ko hak"
+  - "soochanako hak"
+  - "suchna ko hak"
+  - "suchana adhikari le jawaf"
+  - "सूचना अधिकारी"
+  - "सूचना दिएन"
 issue:
   en: "I want information from a government office and don't know how to request it"
   ne: "मलाई सरकारी कार्यालयबाट सूचना चाहिन्छ तर कसरी माग्ने थाहा छैन"
@@ -32,6 +39,11 @@ provisions:
     note:
       en: "If the Information Officer does not give the information, refuses, gives only part of it or gives wrong information, you can complain to the head of the public body within 7 days of not receiving (or partly receiving) it. The head examines it and can order the officer to give the information and can take departmental action against an officer who acted knowingly or in bad faith."
       ne: "सूचना अधिकारीले सूचना उपलब्ध नगराएमा, अस्वीकार गरेमा, आंशिक वा गलत सूचना दिएमा वा सरोकारवाला होइन भनी नदिएमा सूचना नपाएको वा आंशिक पाएको मितिले सात दिनभित्र सार्वजनिक निकायको प्रमुख समक्ष उजूरी दिन सकिन्छ। प्रमुखले जाँचबुझ गरी सूचना दिन अधिकारीलाई आदेश दिन्छ र जानीजानी वा बदनियतले नदिएको अधिकारीलाई विभागीय कारबाही गर्न सक्छ।"
+  - law_title_ne: "सूचनाको हक सम्बन्धी ऐन, २०६४"
+    section: "10"
+    note:
+      en: "A person who is not satisfied with the head's decision under section 9 can appeal to the National Information Commission within 35 days of being told of that decision. The Commission must decide within 60 days of the appeal, and if the appeal is reasonable it can order the head to give you the information free of charge within a set time."
+      ne: "दफा ९ बमोजिम प्रमुखले गरेको निर्णयमा चित्त नबुझ्ने व्यक्तिले निर्णयको जानकारी पाएको मितिले पैंतीस दिनभित्र राष्ट्रिय सूचना आयोग समक्ष पुनरावेदन दिन सक्छ। आयोगले पुनरावेदन परेको साठी दिनभित्र अन्तिम निर्णय गर्नुपर्छ, र पुनरावेदनको व्यहोरा मनासिब देखिएमा समयावधि तोकी विना शुल्क सूचना उपलब्ध गराउन प्रमुखलाई आदेश दिन सक्छ।"
 evidence:
   - en: "A copy of your written information request, if you already made one"
     ne: "पहिले नै दिनुभएको भए लिखित सूचना माग गरेको निवेदनको प्रति"

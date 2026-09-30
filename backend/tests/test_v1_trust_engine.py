@@ -206,9 +206,18 @@ def test_supreme_court_claim_citing_only_a_statute_is_flagged():
 
 @requires_corpus
 def test_playbook_excluded_provision_never_reaches_the_evidence():
-    q = "घरबेटीले deposit फिर्ता दिएन, के गर्ने?"
-    res = generation.search(q, dict(RAW), playbook=generation._match_playbook(q, dict(RAW)))
-    assert not any(r.get("source_ne") == "मुलुकी देवानी संहिता, २०७४, दफा 400" for r in res)
+    # V2.5: s.400 is no longer excluded from the deposit plan (the V3 review found s.400(3) - deduction of the
+    # rent for a missing notice from the ADVANCE - governs the question); the exclude_provisions mechanism itself
+    # is exercised by the bank plan, which keeps the private-creditor cap of s.478 out of a bank-loan answer
+    q = "bank loan ma late payment ko penal interest kati lagauna milchha?"
+    pb = generation._match_playbook(q, dict(RAW))
+    assert pb and pb["id"] == "bank_loan_penal_interest" and pb["exclude_provisions"]
+    res = generation.search(q, dict(RAW), playbook=pb)
+    assert not any(r.get("source_ne") == "मुलुकी देवानी संहिता, २०७४, दफा 478" for r in res)
+    dq = "घरबेटीले deposit फिर्ता दिएन, के गर्ने?"
+    dpb = generation._match_playbook(dq, dict(RAW))
+    assert not dpb.get("exclude_provisions")
+    assert any(p["section"] == "400" for p in dpb["provisions"])
 
 
 def test_old_ordinances_are_lapsed_and_recent_ones_temporary():

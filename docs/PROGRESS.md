@@ -200,6 +200,75 @@ S7's own "done when" bar (25 playbooks, ≥90% precision) doesn't require it.
 
 ## Done
 
+### V2.5 — Retrieval / playbook-routing fixes from the V3 live review (2026-09-30, offline raw path)
+
+The V3 review found the governing provision in the corpus but not in the answer (wrong playbook pins, no NRB directive for
+bank questions, missing playbooks, lexicon gaps). Fixed in `generation.py`, `playbook_matcher.py`, `playbooks.py`,
+`translit.py` and the playbook YAML; `retrieval.py` ranking/fusion untouched, no LLM/verifier/prompt files touched.
+
+| Failure (V3 review) | Why it missed | Fix |
+|---|---|---|
+| rw05 Kuwait, no job (Civil Code maintenance pinned) | `maintenance_alimony` scored 8.0: a multi-word keyword ("ghar kharcha dinna") got full credit for its words spread over three sentences; the loose match had no lexicon signal, so it passed on score alone | scattered words count half; a match with no exact phrase and no lexicon agreement must be corroborated by retrieval (relevance gate); FE plan gets keywords + ss.55, 60 |
+| rw23 min balance (Foreign Employment Act pinned) | one shared word ("paisa") half-matched `foreign_employment_fraud` (score 2.0, no lexicon law for bank words) | bank words now carry the BFI Act as their statute (lexicon), the gate drops an uncorroborated plan, new `bank_account_charges_complaint` pins NRB IPD 20/082 cl.6, cl.9 |
+| rw25 bank penal interest (Civil Code s.478 10% cap) | lexicon "byaj/karja" -> Civil Code confirmed the private-lender plan; NRB directive never retrieved | `not_keywords` veto (bank vs private lender), Civil Code lender rules filtered from bank answers, NRB directive routed in (below), new `bank_loan_penal_interest` (IPD 15/082 cl.3 + BFI Act s.55(2), 57(1)) |
+| rw24 bank complaint (consumer plan pinned) | Devanagari message matched "गुनासो" | consumer plan vetoed for bank words; NRB IPD 20/082 cl.9 pinned by the new plan and routed |
+| rw10 daughter denied अंश (assault plan pinned) | spelling "अन्श" not an index word; assault plan matched on nothing | `respell_devanagari` (nasal+sibilant respelling, accepted only if the index knows it); inheritance keywords; gate |
+| rw01 s.400(3), rw03 s.28/29/30, rw07 s.479, rw09 s.115, rw11 s.214, rw14 s.68, rw16 s.174, rw18 s.10, rw19 s.10, rw20 s.9, rw21 s.76, rw29 s.181 | no plan / plan without the section / custody question routed to the divorce plan | new playbooks (below), sections added to existing plans, custody + Devanagari keywords, lexicon entries |
+
+- **Wrong-pin gate** (`search_with_playbook`): a plan is *trusted* when an exact keyword phrase is in the question or the
+  lexicon names a statute its provisions come from; a non-trusted plan is kept only if one of its provisions (or a
+  neighbour, +-2 sections, of the same law) is among the top 20 passages the question retrieves *without* the plan's title
+  boost; otherwise pins, action-plan card and prompt guide are all dropped (`run()` follows). Pins are capped at
+  `top_k - 3` (retrieval-backed ones survive first) so a 7-provision plan can no longer fill the list.
+- **Matcher**: `not_keywords` veto per playbook; multi-word keywords whose words are scattered count half.
+- **Regulator routing**: `_is_bank_query` (bank/BFI/NRB/card actor + a banking service word, or a standalone phrase such as
+  minimum balance / penal interest / forex / remittance / hundi; English, romanised, Devanagari). Then the NRB directive
+  shards are searched explicitly (`_nrb_directive_hits`, retail "क, ख, ग" shard first, microfinance "घ" for laghubitta
+  questions), up to 3 passages placed behind a leading banking statute, and Civil Code private-creditor sections
+  (headings with साहू/ऋणी/ब्याज/साँवा) are dropped unless the question names a private lender. The existing filters that keep
+  regulators out of non-banking questions are unchanged (cues extended: `_REGULATOR_QUERY`).
+- **Playbooks** (9 new, all NEEDS-ADVOCATE-REVIEW in `docs/PLAYBOOK_AUDIT.md`; provisions read in corpus text, resolved by
+  `tests/test_v25_routing.py`): `overtime_working_hours` (Labour Act 28-31, 113, 162), `bank_loan_penal_interest`,
+  `bank_account_charges_complaint` (NRB directive clauses pinned by heading+text - new `entry_title_contains`/`contains`
+  provision reference, since clause numbers repeat across directives), `loan_interest_dispute` (Civil Code 478-482),
+  `bail_release_after_arrest` (CrPC 67, 68, 71, 75, 76), `dowry_harassment` (Criminal Code 174, 176; DV Act 4, 6),
+  `company_registration_shareholders` (Companies Act 9, 5), `agm_not_held` (76, 77), `medical_negligence_death` (Criminal
+  Code 181, 195; 187 as limitation). Changed: deposit (s.400 now pinned with a scope note; the old exclusion is lifted
+  because the review and eval set treat s.400(3) as governing - flagged for the advocate), inheritance (+214, 216), custody
+  and RTI (+s.10) keywords, FE (+60, 55), consumer (+E-Commerce s.10), loan/deposit/consumer vetoes for bank words.
+- **Lexicon** (validated against the index vocabulary by `tests/test_translit.py`): minimum balance, penal interest, bank
+  complaint, working hours/overtime terms, return of online goods (+E-Commerce Act, BFI Act as law tags), private company,
+  returned-from-abroad, custody terms.
+- **Tests**: `tests/test_v25_routing.py` (51); `test_playbooks.py` (34 ids), `test_query_understanding.py` (the BOSS overtime
+  message now matches its own plan) and `test_v1_trust_engine.py` (s.400 no longer excluded) updated. Suite 1647 green
+  (BM25-only here; also green with the dense model).
+
+Measured 2026-09-30, raw mode (no LLM), production path (`search()` + playbook), hybrid BM25+e5-small (this sandbox has no
+dense model files: they were read from the main checkout via `DENSE_MODEL_DIR`), corpus digest unchanged:
+
+| Set | hit@8 | hit@3 | MRR | section hit@8 | section hit@3 |
+|---|---|---|---|---|---|
+| default (150) before -> after | 0.932 -> **0.938** | 0.822 -> **0.856** | 0.780 -> **0.821** | - | - |
+| realworld (30) before -> after | 0.967 -> **1.000** | 0.800 -> **0.967** | 0.831 -> **0.975** | 0.733 -> **1.000** | 0.533 -> 0.900 |
+| BM25-only default before -> after | 0.884 -> 0.884 | 0.767 -> 0.795 | 0.738 -> 0.764 | - | - |
+| heldout (50), ONE run at the end | **0.82** | 0.70 | 0.631 | 0.64 | 0.36 |
+
+- The realworld and default numbers are tuning-set numbers (playbooks and keywords were written for these failures) - do not
+  read the realworld 1.000 as generalisation. Heldout was run once, aggregate only, no miss inspected and nothing tuned on it;
+  the previous heldout hybrid run (V2, before the English floor) was 0.78 / 0.60 / 0.539 / 0.54, the live deployed pipeline 0.84.
+  Heldout runs so far: raw x4 (incl. this one) + live x1 - stop.
+- Search p50 unchanged (`generation.search()` + `_match_playbook`, single thread, 180 tuning questions, warm): 67 ms before
+  (old `generation.py` from HEAD) vs 67 ms after, mean 82 -> 81 ms. Gate and routing add a loop over <= 20 results; the extra
+  directive search only runs for banking questions.
+- **Not measured**: the live LLM-rewrite path (the V3 pins for rw05/rw23/rw25 came from the analysis "question" text); the gate
+  and vetoes are exercised offline on the same message texts and by unit tests, but a live re-run of `answer_review.py` is needed.
+- **Still misses** (default set, all pre-existing, not investigated in V2.5): valid-will procedure, hacking/cyber crime,
+  "घुस लिएमा के सजाय" (Corruption Act), impeachment of a judge, how long police custody lasts, forgery, guarantee (jamani),
+  dog bites, depositors' protection when a bank fails. They are single-topic retrieval gaps, not routing failures.
+  Also open: plans exist only for situations we have seen, so any other situation depends on raw retrieval; NRB directive
+  shards repeat the same clause in several circulars and only the "क, ख, ग" shard is preferred; the s.400 decision for the
+  deposit plan needs the advocate's view (see PLAYBOOK_AUDIT).
+
 ### V3.1 — Progressive streaming with per-sentence verification (2026-09-30, offline; live latency pending)
 
 The model's JSON is now STREAMED (`llm.stream_json`: OpenAI-compatible providers in JSON mode, then Gemini JSON

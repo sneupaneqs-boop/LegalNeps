@@ -14,6 +14,14 @@ keywords:
   - "gharbeti le dharauti"
   - "ghardhani le deposit"
   - "advance firta"
+# money kept in a bank / cooperative is not a tenancy deposit
+not_keywords:
+  - "bank"
+  - "बैंक"
+  - "बैङ्क"
+  - "fixed deposit"
+  - "sahakari"
+  - "सहकारी"
 issue:
   en: "My landlord won't return my rental deposit"
   ne: "घरबेटीले मेरो धरौटी फिर्ता दिएको छैन"
@@ -40,16 +48,16 @@ provisions:
     note:
       en: "The tenancy agreement ends when the tenant leaves, the term expires, or both agree to end it - from then the deposit falls due under the agreement's terms."
       ne: "बहालमा लिने व्यक्तिले घर छाडेमा, अवधि समाप्त भएमा वा आपसी सहमतिमा सम्झौता समाप्त हुन्छ - त्यसपछि सम्झौताका सर्तअनुसार धरौटी फिर्ता हुनुपर्छ।"
+  - law_title_ne: "मुलुकी देवानी संहिता, २०७४"
+    section: "400"
+    note:
+      en: "Only for a tenant who leaves before the term ends because the house is no longer needed for its purpose: the tenant must give at least 35 days' written notice unless the agreement says otherwise. If the tenant leaves without that notice, the landlord may deduct the rent for that period from any ADVANCE (अग्रिम) the tenant paid, or recover it from the tenant if no advance was paid. This is not a general right to keep a deposit, and the Code speaks of an advance, not a deposit by name."
+      ne: "बहालको अवधि समाप्त नहुँदै घर नचाहिने भएर छाड्ने बहालवालाको हकमा मात्र: सम्झौतामा अन्यथा नभए कम्तीमा ३५ दिन अगावै लिखित सूचना दिनुपर्छ। सूचना नदिई छाडेमा घरधनीले त्यस्तो समयको बहाल रकम बहालवालाले अग्रिम दिएको भए त्यसबाट कट्टा गर्न र नदिएको भए निजबाट भराई लिन पाउँछ। यो धरौटी राखिदिने सामान्य अधिकार होइन, र संहिताले धरौटी नभई 'अग्रिम' भनेको छ।"
   - law_title_ne: "मुलुकी देवानी कार्यविधि संहिता, २०७४"
     section: "90"
     note:
       en: "A civil claim (including one to recover a withheld deposit) must be filed in court within the legally prescribed limitation period."
       ne: "धरौटी फिर्ताको दाबी लगायत जुनसुकै देवानी फिरादपत्र कानुनले तोकेको हदम्यादभित्रै अदालतमा दायर गर्नुपर्छ।"
-# Retrieved on keyword overlap but governs a tenant leaving early, not deposit
-# recovery - its 35-day notice rule got misapplied to deposits. Keep it out.
-exclude_provisions:
-  - law_title_ne: "मुलुकी देवानी संहिता, २०७४"
-    section: "400"
 evidence:
   - en: "Rental agreement and deposit receipt"
     ne: "घरबहाल सम्झौता र धरौटी रसिद"

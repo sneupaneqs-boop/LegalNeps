@@ -68,10 +68,13 @@ def test_boss_overtime_message_is_not_confident_and_needs_the_llm(llm_on):
 
 
 def test_the_wrong_playbook_is_not_a_confident_match():
-    """The half-match on "boss" must neither skip the LLM nor pin the
-    Workplace Sexual Harassment provisions."""
-    assert generation.strong_playbook_match(BOSS) is None
-    assert generation._playbook_id_for(BOSS) is None
+    """The half-match on "boss" must not pin the Workplace Sexual Harassment
+    provisions. (V2.5: the overtime / working-hours plan now exists, so the
+    message is matched to it on its own exact phrases - the LLM rewrite is
+    still needed because the glossary expansion of this message is not precise.)"""
+    assert generation.strong_playbook_match(BOSS) == "overtime_working_hours"
+    assert generation._playbook_id_for(BOSS) == "overtime_working_hours"
+    assert generation._playbook_id_for(BOSS) != "workplace_sexual_harassment"
 
 
 def test_glossary_no_longer_treats_paisa_pani_as_land_units_and_water():

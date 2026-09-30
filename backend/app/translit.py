@@ -40,6 +40,8 @@ _LAW = {
     "BANKOFF": "बैङ्किङ्ग कसूर तथा सजाय ऐन, २०६४",
     "CONS": "उपभोक्ता संरक्षण ऐन, २०७५",
     "ETA": "विद्युतीय (इलेक्ट्रोनिक) कारोबार ऐन, २०६३",
+    "ECOM": "विद्युतिय व्यापार (इ-कमर्स) ऐन, २०८१",
+    "BFI": "बैङ्क तथा वित्तीय संस्था सम्बन्धी ऐन, २०७३",
     "MAL": "मालपोत ऐन, २०३४",
     "MV": "सवारी तथा यातायात व्यवस्था ऐन, २०४९",
     "CIT": "नेपाल नागरिकता ऐन, २०६३",
@@ -52,8 +54,8 @@ _LAW = {
 # S = strong (specific, safe alone), W = weak (generic: only alongside a strong hit)
 _LEXICON = """
 S ; talab|talabh|tallab|salary|salaries|wage|wages|jyala|jyaala|paritramik|paaritramik|pariswamik ; पारिश्रमिक|तलब|ज्याला ; LAB
-S ; ghanta kaam|ghanta ko kaam|ghanta duty|working hours|work hours|duty hours|hours of work|kaam ko samay|kam ko samay ; कार्य घण्टा|दैनिक कार्य समय|अतिरिक्त समय ; LAB
-S ; overtime|over time|ovartime|obhartime|extra kaam|thap kaam|thap samay ; अतिरिक्त समय|अतिरिक्त समयको पारिश्रमिक ; LAB
+S ; ghanta kaam|ghanta ko kaam|ghanta duty|working hours|work hours|duty hours|hours of work|kaam ko samay|kam ko samay|ghanta bhanda badhi ; कार्य घण्टा|दैनिक कार्य समय|आठ घण्टा|अठ्चालीस घण्टा|अतिरिक्त समय ; LAB
+S ; overtime|over time|ovartime|obhartime|extra kaam|thap kaam|thap samay ; अतिरिक्त समय|अतिरिक्त समयको पारिश्रमिक|अतिरिक्त पारिश्रमिक|डेढी ; LAB
 S ; barkhasta|barkhast|terminated|termination|kaam bata nikalyo|kaam bata nikaalyo|job bata nikalyo|nikaaldiyo kaam bata|kaam bata hataayo|kaam bata hatayo ; बर्खास्त|सेवाबाट हटाउने|सेवा समाप्त ; LAB
 S ; rajinama|rajinaama|rajinamaa|resign|resigned|resignation ; राजिनामा|सेवाबाट राजिनामा ; LAB
 S ; gratuity|upadan|upadaan|upadhan ; उपदान ; LAB
@@ -76,6 +78,9 @@ S ; bidhwa|bidhuwa|bidhwaa|widow|vidhwa ; विधवा|पति|सम्प
 S ; shreeman|shriman|shreemaan|shrimaan|shrimaan|pati|patiko|husband ; पति ; CIV
 S ; shreemati|shrimati|srimati|shreematee|patni|swasni|swasnee|wife ; पत्नी ; CIV
 W ; sampatti|sampati|sampatti ko|property|properties ; सम्पत्ति
+W ; ticket|tikat|hawai tikat|air ticket|agency|ejensi ; हवाई टिकट|क्षतिपूर्ति
+S ; ghar pharkiye|ghar farkiye|ghar pharkeko|pharkera aaye|returned home|deported|nepal pharkiye ; स्वदेश|वैदेशिक रोजगार|क्षतिपूर्ति ; FE
+W ; job chhaina|kaam chhaina|kaam nadine|job nadiyeko|no work ; रोजगार उपलब्ध|क्षतिपूर्ति
 W ; haq|hak|adhikar|adhikaar|right|rights ; हक|अधिकार
 W ; mrityu|mritu|mrtyu|nidhan|death|died|dekhant|marechha|marecha ; मृत्यु
 W ; chora|chhora|chhoro|choro|son|sons|chhori|chhoree|daughter|daughters|santan|santaan|bachha|bachcha|bachchha|bachhaa|children|kids ; छोरा|छोरी|सन्तान|बालबालिका
@@ -86,7 +91,7 @@ S ; kutpit|kutpeet|kutai|kuteko|kutyo|kutera|marpit|marpeet|beat|beaten|beating|
 S ; daijo|daijo maagyo|dahej|dowry|daaijo ; दाइजो|दाइजो माग्ने ; CRIM
 S ; ghar kharcha|kharcha dinna|kharcha nadine|kharch dinna|bharanposhan|bharan poshan|bharnposhan|maintenance|alimony|bhattha ; भरणपोषण|खर्च ; CIV
 S ; ghareloo hinsa|gharelu hinsa|ghareluhinsa|domestic violence|hinsa ; घरेलु हिंसा|हिंसा ; DV
-S ; custody|sarankshan|sanrakshan|abhibhawak|abhibhabak|guardian ; संरक्षकत्व|संरक्षण|बालबालिका ; CIV
+S ; custody|sarankshan|sanrakshan|abhibhawak|abhibhabak|guardian ; संरक्षकत्व|नाबालक|जिम्मा|संरक्षण|बालबालिका ; CIV
 S ; dattak|dattak putra|adoption|adopt|adopting ; धर्मपुत्र|धर्मपुत्री|धर्मपुत्रको ; CIV
 S ; jagga|jaggaa|jamin|jaminn|zamin|jaggajamin|jagga jamin|land|plot|ropani|bigha|kattha|kaththa ; जग्गा|घर जग्गा ; MAL
 S ; lalpurja|lal purja|lalpurza|lalpurja haru|jagga dhani|jaggadhani|jaggadhani purja|land ownership certificate ; जग्गाधनी प्रमाणपुर्जा|प्रमाणपुर्जा ; MAL
@@ -117,6 +122,7 @@ S ; jariwana|jarimana|jaribana|dandajarimana ; जरिवाना|सजा�
 S ; hadmyad|hadmyaad|hadmiyad|limitation|time limit|time bar ; हदम्याद ; CIVP
 W ; sabut|saboot|proof|evidence|praman ; प्रमाण|सबुद
 W ; company|kampani|kampanee|pvt ltd|private limited|private company|public company|limited company ; कम्पनी|कम्पनी दर्ता
+S ; private company|private limited|pvt ltd|private limited company|prive company|prayibhet kampani ; प्राइभेट कम्पनी|शेयरधनीहरुको सङ्ख्या|कम्पनी दर्ता ; COMP
 S ; company darta|kampani darta|company register|kampani register|company registration|kampani registration|register garna|company registrar ; कम्पनी दर्ता|कम्पनी रजिस्ट्रार|प्रवर्तक ; COMP
 S ; shareholder|shareholders|share holder|sheyardhani|sheyar dhani|sherdhani|shareholder le ; शेयरधनी|सेयरधनी ; COMP
 S ; agm|annual general meeting|sadharan sabha|saadharan sabha|shadharan sabha|saadharan sava ; साधारणसभा|वार्षिक साधारणसभा ; COMP
@@ -126,7 +132,7 @@ S ; dhito|dhito rakhera|collateral|mortgage|bandhaki|bandhak|bandhaki rakhera|dh
 S ; insider|insider trading|bhitri suchana|bhitri karobar|bhitri karobar|bhitree suchana|bhitri jankari ; भित्री कारोबार|भित्री सूचना|धितोपत्र ; SEC
 S ; cheque|cheques|chek|cheek|cheque bounce|check bounce|cheque bouncing|dishonour|dishonor|bounced|bounce|chek bounce|cheque fail|cheque return ; चेक अनादर|चेक|विनिमेय अधिकारपत्र ; BANKOFF|NEG
 S ; byaj|byaaj|bayaj|byaz|interest|byaj dar|byajdar|byaj ko dar|sud|byajko ; ब्याज|ब्याजदर ; CIV
-S ; penal interest|late payment|delay payment|late fee|penalty interest|pheri byaj ; ब्याज|जरिवाना|थप ब्याज
+S ; penal interest|penal rate|penal byaj|penalty rate|late payment|delay payment|late fee|penalty interest|pheri byaj|kisti nabhareko ; पेनाल ब्याज|हर्जाना|म्याद नाघेको किस्ता|ब्याज|जरिवाना|थप ब्याज
 S ; rin|rinn|karja|karjaa|kaarja|loan|loans|rin liyeko|karja liyeko ; कर्जा|ऋण ; CIV
 S ; sahu|sahuji|moneylender|money lender|lender|byajwala|sudkhor ; साहु|साहुको ब्याज ; CIV
 S ; udhar|udhaar|udharo|sapati|sapaati|paisa liyeko|paisa lieko|paisa maagyo ; सापटी|ऋण|लेनदेन ; CIV
@@ -142,7 +148,7 @@ S ; muabja|muaabja|muabjaa|compensation|kshatipurti|khatipurti|harjana|harjaana 
 S ; bike|motorbike|motorcycle|scooter|scooty|bus|truck|tempo|microbus|gadi|gaadi|sawari|sabari|vehicle ; सवारी साधन|सवारी|मोटरसाइकल ; MV
 S ; driving license|driving licence|driving lisence|driving lisans|driver license|driver licence ; सवारी चालक अनुमतिपत्र|इजाजतपत्र ; MV
 S ; doctor|daktar|dactar|doktor|dr|physician|nurse|hospital|aspatal|aspataal|clinic ; चिकित्सक|स्वास्थ्यकर्मी|उपचार
-S ; galat operation|galat ilaj|galat upachar|galat treatment|operation|opreshan|surgery|medical negligence|laparwahi|laparbahi|lapar ; लापरबाही गरी मृत्यु गराएमा|उपचारमा लापरबाही|मृत्यु ; CRIM
+S ; galat operation|galat ilaj|galat upachar|galat treatment|operation|opreshan|surgery|medical negligence|laparwahi|laparbahi|lapar ; लापरवाहीपूर्ण काम गरी ज्यान मार्न|लापरबाही गरी मृत्यु गराएमा|उपचारमा लापरबाही|मृत्यु ; CRIM
 S ; facebook|fb|instagram|tiktok|whatsapp|messenger|twitter|youtube|social media ; विद्युतीय माध्यम|सामाजिक सञ्जाल|विद्युतीय कारोबार ; ETA
 S ; hack|hacked|hacking|hacker|cyber|cyber crime|cybercrime|online fraud|online thagi ; साइबर|कम्प्युटर|विद्युतीय कारोबार ; ETA
 S ; fake id|fake account|fake profile|nakali id|nakkali id|nakali account|fake facebook id|fake facebook ; नक्कली|विद्युतीय माध्यम|विद्युतीय कारोबार ; ETA|CRIM
@@ -150,9 +156,11 @@ S ; abusive|abusive message|abusive messages|gali|gaali|gali gareko|dhamki|dhamk
 S ; badnam|badnami|badnaam|jhutho|jhuto|jhutto|defame|defamation|bejjat|bejjati|izzat|ijjat|maanhani|manhani|apaman|apamaan|insult ; बदनाम|इज्जत|अपमान|झुटो ; CRIM
 S ; grahak|grahakko|consumer|customer ; उपभोक्ता|उपभोक्ता संरक्षण ; CONS
 S ; nakali|nakkali|nakli|fake|duplicate|expiry|expired|kharab|kharaab|defective|damaged|faulty ; नक्कली|गुणस्तर|उपभोक्ता ; CONS
-S ; online order|online shopping|order gareko|daraz|e commerce|ecommerce|e-commerce|sellhub ; इ-कमर्स|उपभोक्ता|विद्युतीय कारोबार ; CONS
-S ; minimum balance|min balance|balance nabhayeko|balance nabhaeko ; न्यूनतम मौज्दात|खाता|एकीकृत निर्देशन|बैंक
-S ; bank|banks|bfi|nrb|rastra bank|atm|debit card|credit card ; बैंक|वित्तीय संस्था|एकीकृत निर्देशन
+S ; online order|online shopping|order gareko|daraz|e commerce|ecommerce|e-commerce|sellhub ; इ-कमर्स|उपभोक्ता|विद्युतीय कारोबार ; CONS|ECOM
+S ; return garna dinna|return garna|return gardina|return nagarne|firta garna dinna|firta gardaina|wapas garna dinna ; वस्तु फिर्ता|क्रेता|व्यवसायी ; ECOM|CONS
+S ; minimum balance|min balance|balance nabhayeko|balance nabhaeko|balance kam ; न्यूनतम मौज्दात|खाता सञ्चालन शुल्क|रकम कट्टा|सेवा शुल्क|एकीकृत निर्देशन|बैंक ; BFI
+S ; bank gunaso|bank ko gunaso|bank complaint|complaint against bank|bank le gunaso|bank ma gunaso ; गुनासो सुनवाई|गुनासो|हटलाइन|एकीकृत निर्देशन ; BFI
+S ; bank|banks|bfi|nrb|rastra bank|atm|debit card|credit card ; बैंक|वित्तीय संस्था|एकीकृत निर्देशन ; BFI
 W ; khata|khataa|account|accounts ; खाता
 S ; sahakari|sahakaari|cooperative|cooperatives|co-operative|bachat sahakari|saving cooperative|savings cooperative ; सहकारी|सहकारी संस्था|निक्षेप ; COOP
 S ; laghubitta|laghu bitta|laghubita|microfinance|finance company ; लघुवित्त|वित्तीय संस्था

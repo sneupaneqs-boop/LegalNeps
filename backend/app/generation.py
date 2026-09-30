@@ -320,6 +320,9 @@ def build_queries(message: str, analysis: dict) -> list[tuple[str, float]]:
     lex_terms = translit.expand(message)
     queries: list[tuple[str, float]] = [
         (message, 1.0 if is_ne else (0.35 if (expansion or llm_q or lex_terms) else 1.0))]
+    fixed = respell_devanagari(message) if is_ne else message
+    if fixed != message:
+        queries.append((fixed, 1.0))
     queries += [(q, 1.0) for q in llm_q]
     queries += [(q, 0.4) for q in analysis.get("queries_en", [])]
     if lex_terms:
@@ -352,8 +355,70 @@ _REGULATOR_QUERY = re.compile(
     r"(\bbank|\bbfi\b|\bnrb\b|rastra bank|loan|interest rate|foreign exchange|forex|remittance|kyc|\baml\b|"
     r"microfinance|cooperative|securit|share|\bipo\b|sebon|broker|mutual fund|debenture|stock|"
     r"company regist|annual return|\bocr\b|"
-    r"बैंक|राष्ट्र बैंक|ऋण|कर्जा|ब्याज|विदेशी विनिमय|सटही|रेमिट|लघुवित्त|वित्तीय संस्था|सहकारी|"
+    # romanised + English retail-banking words (a message typed in Latin script never contains the Devanagari)
+    r"\bbaink|\bbyank|\batm\b|debit card|credit card|minimum balance|penal (?:interest|rate|byaj)|base rate|mobile banking|"
+    r"finance compan|laghubitta|\bkarja|\bbyaj|\bhundi\b|videshi mudra|remit|"
+    r"बैंक|बैङ्क|राष्ट्र बैंक|ऋण|कर्जा|ब्याज|विदेशी विनिमय|विदेशी मुद्रा|सटही|रेमिट|विप्रेषण|लघुवित्त|वित्तीय संस्था|सहकारी|"
+    r"एटीएम|डेबिट कार्ड|क्रेडिट कार्ड|न्यूनतम मौज्दात|पेनाल|आधार दर|हुण्डी|"
     r"धितोपत्र|शेयर|सेयर|आईपीओ|ब्रोकर|दलाल|डिबेन्चर|म्युचुअल|कम्पनी रजिस्ट्रार|वार्षिक विवरण)", re.I)
+# A question a retail-banking regulator (NRB) directive answers: it names a bank / financial institution / card
+# AND something a bank does to a customer (a loan, interest, a charge, an account balance, a complaint,
+# remittance...), or is one of the unmistakable banking phrases on its own. Then the NRB Unified Directive
+# passages are searched for explicitly (they rank below the Acts on generic overlap) and private-lender
+# Civil Code rules are kept out. "cheque" and "jamanat" are deliberately not service words: a bounced-cheque
+# or bail question that mentions a bank is a statute question.
+_BANK_ACTOR = re.compile(
+    r"(\bbank|\bbfi\b|\bnrb\b|rastra bank|\bbaink|\bbyank|finance compan|laghubitta|microfinance|\batm\b|"
+    r"debit card|credit card|बैंक|बैङ्क|वित्तीय संस्था|लघुवित्त|फाइनान्स|एटीएम|डेबिट कार्ड|क्रेडिट कार्ड)", re.I)
+_BANK_SERVICE = re.compile(
+    r"(loan|karja|\brin\b|कर्जा|ऋण|byaj|interest|ब्याज|penal|पेनाल|charge|\bfees?\b|shulka|शुल्क|"
+    r"account|\bkhata|खाता|balance|mauj?dat|मौज्दात|fixed deposit|savings|निक्षेप|complain|gunaso|गुनासो|"
+    r"\bkaa?t(?:yo|eko|era|ti|a[yi]e|ayo|e)\b|कट्टा|remit|विप्रेषण|forex|exchange|सटही|kyc|\bcard|कार्ड|mobile banking|"
+    r"statement|locker|emi\b|kisti|किस्ता|late payment|delay|hidden|service)", re.I)
+_BANK_STANDALONE = re.compile(
+    r"(minimum balance|penal interest|penal rate|base rate|foreign exchange|forex|remittance|\bhundi\b|"
+    r"न्यूनतम मौज्दात|पेनाल ब्याज|आधार दर|विदेशी विनिमय|विप्रेषण|हुण्डी)", re.I)
+# a question about a loan between private people: the Civil Code's private-creditor rules DO apply
+_PRIVATE_LENDER = re.compile(
+    r"(\bsahu|sahuji|moneylender|money lender|byajwala|sudkhor|\bfriend\b|\bsathi|\budhar|\budhaar|sapati|"
+    r"relative|neighbou?r|साहु|सापटी|उधारो|साथी|छिमेकी|नातेदार)", re.I)
+_CIVIL_CODE = "मुलुकी देवानी संहिता"
+_PRIVATE_CREDIT_HEADING = re.compile(r"(साहू|ऋणी|ब्याज|साँवा|सावाँ)")
+# the retail-customer directive shard: commercial banks / development banks / finance companies ("क, ख, ग");
+# "घ" is the microfinance shard, so it is preferred only when the question is about microfinance
+_NRB_RETAIL_SHARD = "परिपत्र नं. १० (क, ख, ग)"
+_NRB_MICRO_SHARD = "परिपत्र नं. ६ (घ)"
+_MICRO_QUERY = re.compile(r"(microfinance|laghubitta|लघुवित्त)", re.I)
+_BANK_DOC = re.compile(r"(बैङ्क|बैंक|वित्तीय|निक्षेप)")  # a banking statute may lead the list; any other Act follows the directives
+
+
+# Devanagari spelling slips that the index cannot read: a nasal written as a half consonant before a sibilant
+# (अन्श for अंश). A respelling is accepted only when every token of it is an index word and the original is not.
+_NASAL_RESPELL = (("न्श", "ंश"), ("न्स", "ंस"), ("म्श", "ंश"), ("म्स", "ंस"))
+_DEV_WORD = re.compile(r"[\u0900-\u0963\u0966-\u097f]+")
+
+
+def respell_devanagari(text: str) -> str:
+    """`text` with known Devanagari spelling slips corrected (unchanged when nothing needs it)."""
+    if not text or not re.search(r"[\u0900-\u097f]", text):
+        return text
+    vocab = getattr(get_index(), "vocab", None)
+    if not vocab:
+        return text
+
+    def known(word: str) -> bool:
+        return all(t in vocab for t in tokenize(word))
+
+    def fix(m: re.Match) -> str:
+        word = m.group(0)
+        if known(word):
+            return word
+        for a, b in _NASAL_RESPELL:
+            if a in word and known(word.replace(a, b)):
+                return word.replace(a, b)
+        return word
+
+    return _DEV_WORD.sub(fix, text)
 # the same rule for the other regulators: each only answers its own field
 _AUTHORITY_DOMAIN = {
     "ppmo": re.compile(r"(procure|tender|bid\b|bidding|contractor|e-gp|खरिद|बोलपत्र|टेन्डर|ठेक्का|निर्माण व्यवसायी|ई-जीपी)", re.I),
@@ -374,6 +439,11 @@ def _is_fiscal_query(message: str, analysis: dict) -> bool:
 def _is_regulator_query(message: str, analysis: dict) -> bool:
     text = " ".join([message, analysis.get("question") or "", analysis.get("area") or ""])
     return bool(_REGULATOR_QUERY.search(text))
+
+
+def _is_bank_query(text: str) -> bool:
+    """A retail-banking question (see _BANK_ACTOR/_BANK_SERVICE): NRB directives are the governing text."""
+    return bool(_BANK_STANDALONE.search(text) or (_BANK_ACTOR.search(text) and _BANK_SERVICE.search(text)))
 
 
 def _bs_year(pattern: re.Pattern, text: str) -> int | None:
@@ -409,23 +479,76 @@ def pinned_provisions(playbook: dict | None) -> list[dict]:
     for p in playbook.get("provisions", []):
         if not (p.get("slug") and p.get("section")):
             continue
-        entry = idx.section(p["slug"], p["section"])
+        entry = playbooks.lookup_entry(idx, {"law_title_ne": p.get("law_title_ne") or "", "section": p["section"],
+                                             "entry_title_contains": p.get("entry_title_contains"),
+                                             "contains": p.get("contains")}) if p.get("law_title_ne") else None
+        if entry is None:
+            entry = idx.section(p["slug"], p["section"])
         if entry:
             entry = {k: v for k, v in entry.items() if k not in ("prev", "next")}
             out.append({**entry, "score": 1.0, "pinned": True})
     return out
 
 
+# ---- relevance gate for a curated playbook's pins ---------------------------------------------------------
+# A playbook is matched from keywords, which are loose: one shared word can pin a plan for a different
+# situation, and its provisions then displace the law that governs. A pin is therefore trusted only when
+#  (a) an exact keyword phrase of the plan is in the question, or the romanised-Nepali lexicon independently
+#      names a statute the plan's provisions come from (a trusted match), or
+#  (b) retrieval independently agrees: one of the plan's own provisions (or a neighbouring section of the
+#      same document) is among the top PIN_SUPPORT_DEPTH passages the QUESTION retrieves without the plan's help.
+# Otherwise the plan is dropped (pins, action-plan card and guide), and retrieval stands on its own.
+PIN_SUPPORT_DEPTH = 20
+PIN_NEIGHBOUR = 2
+PIN_RESERVED_FOR_RETRIEVAL = 3  # of the top_k statute slots, at least this many stay with retrieval
+PIN_MIN_SLOTS = 3
+_SEC_NUM_ASCII = re.compile(r"^\s*(\d+)")
+
+
+def _sec_number(section) -> int | None:
+    m = _SEC_NUM_ASCII.match(str(section or ""))
+    return int(m.group(1)) if m else None
+
+
+def _ref_supported_by(ref: dict, s: dict) -> bool:
+    """`s` (a retrieved passage) is the plan's provision `ref` or a neighbouring section of the same document."""
+    if (s.get("doc_title_ne") or "") != (ref.get("law_title_ne") or ""):
+        return False
+    if ref.get("entry_title_contains"):
+        return ref["entry_title_contains"] in (s.get("title_ne") or "")
+    a, b = _sec_number(ref.get("section")), _sec_number(s.get("section"))
+    if a is None or b is None:
+        return str(ref.get("section") or "") == str(s.get("section") or "")
+    return abs(a - b) <= PIN_NEIGHBOUR
+
+
+def playbook_support(playbook: dict | None, retrieved: list[dict], depth: int = PIN_SUPPORT_DEPTH) -> int:
+    """How many of the top `depth` retrieved passages back one of the plan's provisions."""
+    if not playbook:
+        return 0
+    refs = playbook.get("provisions", [])
+    return sum(1 for s in retrieved[:depth] if any(_ref_supported_by(r, s) for r in refs))
+
+
 def search(message: str, analysis: dict, top_k: int | None = None, precedent_k: int | None = None,
            playbook: dict | None = None) -> list[dict]:
+    return search_with_playbook(message, analysis, top_k, precedent_k, playbook)[0]
+
+
+def search_with_playbook(message: str, analysis: dict, top_k: int | None = None, precedent_k: int | None = None,
+                         playbook: dict | None = None) -> tuple[list[dict], dict | None]:
+    """Retrieval for one question -> (sources, the playbook that survived the relevance gate or None).
+    Callers that show the plan (card, guide) must use the returned playbook, not the one they passed in."""
     idx = get_index()
     top_k = top_k or config.TOP_K
     precedent_k = config.PRECEDENT_K if precedent_k is None else precedent_k
     queries = build_queries(message, analysis)
-    pinned = pinned_provisions(playbook)
+    # only a confidently matched plan may steer retrieval (title boost) before the gate has looked at it
+    trusted = bool(playbook and playbook.get("_trusted"))
     boost = (list(analysis.get("laws", [])) + translit.laws(message)
-             + [p.get("law_title_ne") for p in (playbook or {}).get("provisions", [])])
-    laws = idx.search(queries, top_k=top_k + 6, boost_titles=[b for b in boost if b], category="law")
+             + ([p.get("law_title_ne") for p in playbook.get("provisions", [])] if trusted else []))
+    depth = max(top_k + 6, PIN_SUPPORT_DEPTH) if playbook else top_k + 6
+    laws = idx.search(queries, top_k=depth, boost_titles=[b for b in boost if b], category="law")
     if not _is_fiscal_query(message, analysis):
         on_domain = [s for s in laws if not _FISCAL_DOC.search(s.get("doc_title_ne") or "")
                      and not s["id"].startswith("reg-ird-")]
@@ -437,19 +560,67 @@ def search(message: str, analysis: dict, top_k: int | None = None, precedent_k: 
     on_domain = [s for s in laws if not (m := _AUTHORITY_ID.match(s["id"]))
                  or _AUTHORITY_DOMAIN[m.group(1)].search(q_text)]
     laws = on_domain or laws
+
+    bank = _is_bank_query(q_text)
+    if bank and not _PRIVATE_LENDER.search(q_text):
+        # a bank's loan/charge is governed by the BFI Act and NRB directives, not by the Civil Code's rules
+        # between private lender and borrower (10% cap, interest-in-writing...)
+        on_domain = [s for s in laws if not ((s.get("doc_title_ne") or "").startswith(_CIVIL_CODE)
+                                             and _PRIVATE_CREDIT_HEADING.search(s.get("title_ne") or ""))]
+        laws = on_domain or laws
+
+    if playbook and not trusted and not playbook_support(playbook, laws):
+        log.info("playbook %s dropped: none of its provisions is among the top %d retrieved for the question",
+                 playbook.get("id"), PIN_SUPPORT_DEPTH)
+        playbook = None
+    pinned = pinned_provisions(playbook)
+    retrieved_ids = [s["id"] for s in laws]
+    # pins the question's own retrieval also found lead; the rest keep the editor's order
+    # a plan with many provisions must not fill the whole list: keep room for what retrieval found. Which pins
+    # stay: the ones the question's own retrieval also found first, then the editor's order; the survivors keep
+    # the editor's order (first provision = most important)
+    keep = max(PIN_MIN_SLOTS, top_k - PIN_RESERVED_FOR_RETRIEVAL)
+    if len(pinned) > keep:
+        ranked = sorted(range(len(pinned)),
+                        key=lambda i: (pinned[i]["id"] not in retrieved_ids, i))[:keep]
+        pinned = [pinned[i] for i in sorted(ranked)]
     seen = {p["id"] for p in pinned}
     # sections the curated plan marks as misleading for this situation
     # (e.g. deposit recovery vs. the tenant's early-departure notice rule)
     excluded = {(x.get("law_title_ne"), str(x.get("section"))) for x in (playbook or {}).get("exclude_provisions", [])}
-    laws = pinned + [s for s in laws if s["id"] not in seen
-                     and (s.get("doc_title_ne"), str(s.get("section") or "")) not in excluded]
-    laws = laws[:max(top_k, len(pinned))]
+    rest = [s for s in laws if s["id"] not in seen
+            and (s.get("doc_title_ne"), str(s.get("section") or "")) not in excluded]
+    if bank:
+        # NRB directives rank below the Acts on generic overlap, so a banking question that names its
+        # governing directive would otherwise never see it: search the directive shards explicitly and
+        # put their best passages right behind the leading statute
+        reg = [s for s in _nrb_directive_hits(idx, queries, q_text, boost) if s["id"] not in seen]
+        reg_ids = {s["id"] for s in reg}
+        lead = [s for s in rest[:1] if s["id"] not in reg_ids and _BANK_DOC.search(s.get("doc_title_ne") or "")]
+        rest = lead + reg + [s for s in rest if s["id"] not in reg_ids and s not in lead]
+    laws = (pinned + rest)[:max(top_k, len(pinned))]
     precedents = []
     if precedent_k and analysis.get("wants_precedent", True):
         precedents = idx.search(queries, top_k=precedent_k + 2, category="precedent", per_doc_cap=1)
         precedents = mark_stale_precedents(laws, precedents)[:precedent_k]
     # interleave so the strongest statute passages lead, precedents follow
-    return laws + precedents
+    return laws + precedents, playbook
+
+
+NRB_ROUTE_MAX = 3
+
+
+def _nrb_directive_hits(idx, queries, q_text: str, boost: list) -> list[dict]:
+    """The best NRB directive passages for a banking question, from the customer-facing shard first."""
+    shard = _NRB_MICRO_SHARD if _MICRO_QUERY.search(q_text) else _NRB_RETAIL_SHARD
+    try:
+        hits = idx.search(queries, top_k=NRB_ROUTE_MAX * 3, boost_titles=[b for b in boost if b] + [shard],
+                          category="law", doc_type="directive", per_doc_cap=NRB_ROUTE_MAX)
+    except Exception as e:  # noqa: BLE001 - routing is an extra; never break retrieval
+        log.warning("regulator routing failed: %s", str(e)[:200])
+        return []
+    hits = [s for s in hits if s["id"].startswith("reg-nrb-")]
+    return hits[:NRB_ROUTE_MAX]
 
 
 _SENT_SPLIT = re.compile(r"(?<=[।?!])\s+|\n+|(?=\([क-ह०-९0-9]{1,3}\)\s)")
@@ -571,38 +742,55 @@ def _playbook_id_for(text: str) -> str | None:
     of the answer. So a match is trusted when (a) an exact keyword phrase is in
     the text, or (b) the lexicon knows which statutes the message is about and
     the playbook's own provisions come from one of them, or (c) with no lexicon
-    signal, the keyword score is high (>= 3)."""
+    signal, the keyword score is high (>= 3).
+
+    Whatever passes here is still only a candidate: `search_with_playbook` drops a
+    non-strong candidate that the question's own retrieval does not corroborate
+    (see PIN_SUPPORT_DEPTH)."""
+    return _playbook_pick(text)[0]
+
+
+def _playbook_pick(text: str) -> tuple[str | None, bool]:
+    """(playbook id or None, trusted). Trusted = an exact keyword phrase of the plan is in `text`, or the lexicon
+    independently names a statute the plan's provisions come from. A match on loose keyword overlap alone (no
+    lexicon signal) is not trusted: search_with_playbook keeps it only if retrieval corroborates it."""
     strong = strong_playbook_match(text)
     if strong:
-        return strong
+        return strong, True
     got = match_playbook_scored(text)
     if not got:
-        return None
+        return None, False
     pid, score = got
     lex_laws = translit.laws(text)
     if lex_laws:
         try:
             pb_laws = {p.get("law_title_ne") for p in playbooks.get_playbook(pid).get("provisions", [])}
         except playbooks.UnresolvedProvision:
-            return None
-        return pid if pb_laws & set(lex_laws) else None
-    return pid if score >= PLAYBOOK_LOOSE_MIN_SCORE else None
+            return None, False
+        return (pid, True) if pb_laws & set(lex_laws) else (None, False)
+    return (pid if score >= PLAYBOOK_LOOSE_MIN_SCORE else None), False
 
 
 def _match_playbook(message: str, analysis: dict) -> dict | None:
     """The curated action plan for this situation, when the keyword matcher
     is confident. Tries the raw message, then the LLM's standalone rewrite
-    (which resolves follow-ups like "what about my deposit?")."""
-    for text in (message, analysis.get("question") or ""):
+    (which resolves follow-ups like "what about my deposit?"). The result carries
+    `_trusted` (exact keyword phrase, or the lexicon agrees on the statute); a plan
+    that is not trusted must be corroborated by retrieval before it is used
+    (search_with_playbook)."""
+    for text in (message, respell_devanagari(message), analysis.get("question") or ""):
         if text:
-            pid = _playbook_id_for(text)
+            pid, trusted = _playbook_pick(text)
             if pid:
                 try:
-                    return playbooks.get_playbook(pid)
+                    pb = playbooks.get_playbook(pid)
                 except playbooks.UnresolvedProvision as e:
                     # corpus drift: answer without the playbook rather than fail the chat
                     log.warning("playbook %s unresolved: %s", pid, e)
                     return None
+                if pb is not None:
+                    pb["_trusted"] = trusted
+                return pb
     return None
 
 
@@ -712,7 +900,6 @@ def run(message: str, language: str = "auto", history: list[dict] | None = None,
     playbook = _match_playbook(message, analysis)
     if playbook and analysis.get("intent") in ("unclear", "off_topic"):
         analysis["intent"] = "legal"  # a curated action plan matched: that's a legal question we can answer
-    playbook_card = _playbook_card(playbook)
 
     if analysis.get("intent", "legal") != "legal":
         reply = (analysis.get("reply") or "").strip()
@@ -725,6 +912,9 @@ def run(message: str, language: str = "auto", history: list[dict] | None = None,
 
     query = analysis.get("question") or message
     sources = search(query, analysis, playbook=playbook)
+    if playbook and not any(s.get("pinned") for s in sources):
+        playbook = None  # the relevance gate (search_with_playbook) dropped the plan: no card, no guide
+    playbook_card = _playbook_card(playbook)
     yield "meta", {"language": lang, "sources": sources, "analysis": meta_analysis, "playbook": playbook_card}
 
     if not sources:

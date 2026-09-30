@@ -14,6 +14,19 @@ keywords:
   - "expiry bhayeko saman"
   - "seller le return garna dinna"
   - "return garna dinna"
+  - "online order"
+  - "online shopping"
+  - "daraz"
+  - "nakali aayo"
+  - "wrong product"
+  - "अनलाइन अर्डर"
+# a bank's or finance company's customer complaint goes through the bank's complaints desk and NRB
+# (see bank_account_charges_complaint)
+not_keywords:
+  - "bank"
+  - "बैंक"
+  - "बैङ्क"
+  - "वित्तीय संस्था"
 issue:
   en: "I bought a defective product or was cheated as a consumer"
   ne: "मैले किनेको सामान बिग्रेको छ वा उपभोक्ताको रूपमा ठगिएँ"
@@ -47,6 +60,11 @@ provisions:
     note:
       en: "If you are not satisfied with goods you bought, you can return them to the seller within 7 days (15 days if sealed and the seal is unbroken) and take either a replacement of the same value or your money back. The seller cannot deduct anything or charge extra, and you must show the bill or receipt. You cannot return goods you have already used, altered, or that are perishable (milk, fruit, meat) or past their use-by period."
       ne: "खरिद गरेको वस्तुमा चित्त नबुझे सात दिनभित्र (सिलबन्दी र सिल नतोडिएको भए पन्ध्र दिनभित्र) बिक्रेतालाई फिर्ता गरी सोही मूल्यको अर्को वस्तु वा तिरेको रकम फिर्ता लिन सकिन्छ। बिक्रेताले कटौती वा थप शुल्क लिन पाउँदैन, र बिल वा रसिद देखाउनुपर्छ। प्रयोग गरिसकेको, गुणस्तर वा परिमाण फेरिएको, सडीगल्ने (दूध, फलफूल, मासु) वा उपभोग अवधि नाघेको वस्तु फिर्ता गर्न मिल्दैन।"
+  - law_title_ne: "विद्युतिय व्यापार (इ-कमर्स) ऐन, २०८१"
+    section: "10"
+    note:
+      en: "If you bought goods or services through an e-commerce seller and they do not match the details the seller gave, you may return them, unused and undamaged, and the seller must take them back without any condition. If you do not want a replacement of the same value, the seller must refund the price you paid including the tax."
+      ne: "विद्युतीय माध्यमबाट खरिद गरेको वस्तु वा सेवा व्यवसायीले दिएको विवरण बमोजिम नभएमा क्रेताले प्रयोग नगरी वा क्षति नपुर्याई फिर्ता गर्न सक्छ, र व्यवसायीले बिना कुनै सर्त फिर्ता लिनुपर्छ। सोही मूल्यको अर्को वस्तु वा सेवा लिन क्रेताले अस्वीकार गरेमा व्यवसायीले खरिद गर्दा भुक्तानी गरेको कर सहितको रकम फिर्ता दिनुपर्छ।"
   - law_title_ne: "उपभोक्ता संरक्षण ऐन, २०७५"
     section: "16 (1)"
     note:

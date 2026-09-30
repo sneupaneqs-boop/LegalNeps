@@ -1,0 +1,87 @@
+id: overtime_working_hours
+area: employment
+keywords:
+  - "overtime"
+  - "overtime ko paisa"
+  - "overtime dinna"
+  - "ovartime"
+  - "ओभरटाइम"
+  - "अतिरिक्त समय"
+  - "बढी समय काम"
+  - "अतिरिक्त पारिश्रमिक"
+  - "ghanta kaam"
+  - "ghanta ko kaam"
+  - "12 ghanta"
+  - "working hours"
+  - "hours a day"
+  - "extra hours"
+  - "काम गर्ने समय"
+  - "कार्य घण्टा"
+  - "दैनिक आठ घण्टा"
+  - "din ko ghanta kaam"
+issue:
+  en: "I am made to work long hours / overtime and am not paid extra for it"
+  ne: "मलाई धेरै घण्टा / ओभरटाइम काम लगाइन्छ तर थप पारिश्रमिक दिइँदैन"
+fact_questions:
+  - en: "How many hours a day and days a week do you actually work, and is there a written contract or timetable that says otherwise?"
+    ne: "तपाईं वास्तवमा दिनमा कति घण्टा र हप्तामा कति दिन काम गर्नुहुन्छ, र फरक कुरा लेखेको लिखित सम्झौता वा समयतालिका छ?"
+  - en: "Are you paid a fixed monthly salary, and does anything in your contract or a collective agreement say what happens to extra hours?"
+    ne: "तपाईंको तोकिएको मासिक तलब हो, र रोजगार सम्झौता वा सामूहिक सम्झौतामा बढी समयको काम सम्बन्धमा केही लेखिएको छ?"
+  - en: "Are you in a managerial post, or do you work on days off without a substitute day off?"
+    ne: "तपाईं व्यवस्थापकीय श्रेणीमा हुनुहुन्छ, वा सट्टा बिदा नपाई बिदाका दिन काम गर्नुपर्छ?"
+provisions:
+  - law_title_ne: "श्रम ऐन, २०७४"
+    section: "28"
+    note:
+      en: "An employer may not make a worker work more than 8 hours a day and 48 hours a week. After five continuous hours of work the worker must be given a half-hour rest, and that rest counts as working time."
+      ne: "रोजगारदाताले श्रमिकलाई प्रतिदिन आठ घण्टा र एक हप्तामा अठ्चालीस घण्टाभन्दा बढी समय हुने गरी काममा लगाउन पाउँदैन। लगातार पाँच घण्टा काम गरेपछि आधा घण्टा विश्रामको समय दिनुपर्छ र त्यो विश्राम कार्य समयमा गणना हुन्छ।"
+  - law_title_ne: "श्रम ऐन, २०७४"
+    section: "29"
+    note:
+      en: "The employer may not force a worker to work beyond the hours in section 28. The only exception is when leaving work unfinished could endanger life, safety or health or seriously harm the employer, and even then the overtime limit of section 30(1) applies."
+      ne: "रोजगारदाताले दफा २८ मा भएको समयभन्दा बढी काम गर्न श्रमिकलाई बाध्य पार्नुहुँदैन। काम सम्पन्न नहुँदा कसैको जीवन, सुरक्षा वा स्वास्थ्यमा प्रतिकूल असर पर्ने वा रोजगारदातालाई गम्भीर हानी नोक्सानी हुने अवस्थामा मात्र दफा ३० (१) को अधीनमा रही अतिरिक्त समय काममा लगाउन सकिन्छ।"
+  - law_title_ne: "श्रम ऐन, २०७४"
+    section: "30"
+    note:
+      en: "If an employer needs a worker to work beyond the fixed hours, the extra work may not exceed 4 hours a day and 24 hours a week. Work done on a day off without a substitute day off is treated as overtime."
+      ne: "रोजगारदाताले तोकिएको कार्य समयभन्दा बढी समय काममा लगाउनुपरेमा प्रतिदिन चार घण्टा र एक हप्तामा चौबीस घण्टाभन्दा बढी नहुने गरी लगाउन सकिन्छ। सट्टा बिदा नदिई लगाइएको कामलाई बढी समय काम गरेको मानिन्छ।"
+  - law_title_ne: "श्रम ऐन, २०७४"
+    section: "31"
+    note:
+      en: "For overtime the employer must pay one and a half times the worker's regular basic pay. A collective agreement may give certain benefits instead, and for managerial-level workers the employment contract decides."
+      ne: "बढी समय काममा लगाउँदा रोजगारदाताले श्रमिकलाई नियमित रूपमा काम गर्दा पाउने आधारभूत पारिश्रमिकको डेढी पारिश्रमिक दिनुपर्छ। सामूहिक सम्झौताले अतिरिक्त पारिश्रमिकको सट्टा निश्चित सुविधा दिने व्यवस्था गर्न सक्छ, र व्यवस्थापकीय श्रेणीका श्रमिकको हकमा रोजगार सम्झौता बमोजिम हुन्छ।"
+  - law_title_ne: "श्रम ऐन, २०७४"
+    section: "113"
+    note:
+      en: "A worker who has a personal claim about a right under the Labour Act can give the employer a written application; the employer must acknowledge it and discuss it with the worker within fifteen days."
+      ne: "श्रमिकले श्रम ऐन बमोजिम प्राप्त हकको विषयमा व्यक्तिगत दाबी भए रोजगारदातालाई लिखित निवेदन दिन सक्छ; रोजगारदाताले निस्सा दिनुपर्छ र पन्ध्र दिनभित्र छलफल गरी विवाद समाधान गर्नुपर्छ।"
+  - law_title_ne: "श्रम ऐन, २०७४"
+    section: "162"
+    note:
+      en: "A person harmed by a breach of the Labour Act can complain to the body that decides under section 163 or 164 within six months of the act complained of."
+      ne: "श्रम ऐन वा नियम विपरीत कार्यबाट मर्का पर्ने पक्षले सो कार्य भए गरेको मितिले छ महिनाभित्र दफा १६३ वा १६४ बमोजिम निर्णय गर्ने निकाय समक्ष उजुरी दिन सक्छ।"
+evidence:
+  - en: "Appointment letter or contract and any written duty roster or timetable"
+    ne: "नियुक्तिपत्र वा रोजगार सम्झौता र लिखित ड्युटी तालिका वा समयतालिका"
+  - en: "Attendance records, messages or a personal diary showing the days and hours you worked, and any co-workers who can confirm them"
+    ne: "उपस्थिति विवरण, म्यासेज वा आफ्नो डायरीमा काम गरेका दिन र घण्टा, र त्यो पुष्टि गर्न सक्ने सहकर्मी"
+  - en: "Salary slips or bank statements showing what you were actually paid"
+    ne: "वास्तवमा पाएको रकम देखाउने तलब पर्ची वा बैङ्क विवरण"
+forum:
+  en: "Start with a written claim to your employer (section 113). If it is not settled, complain to the body that decides Labour Act complaints under section 163 or 164, within six months of the act complained of (section 162)."
+  ne: "पहिले रोजगारदातालाई लिखित दाबी दिनुहोस् (दफा ११३)। समाधान नभए सो कार्य भए गरेको मितिले छ महिनाभित्र श्रम ऐनको उजुरीमा दफा १६३ वा १६४ बमोजिम निर्णय गर्ने निकाय समक्ष उजुरी दिनुहोस् (दफा १६२)।"
+limitation:
+  note:
+    en: "Complain within six months of the act complained of (Labour Act section 162). For unpaid overtime, count from the time the overtime pay fell due; do not wait, because older overtime may be out of time."
+    ne: "उजुरी सो कार्य भए गरेको मितिले छ महिनाभित्र दिनुपर्छ (श्रम ऐन दफा १६२)। ओभरटाइम नपाएको भए त्यो पारिश्रमिक तिर्नुपर्ने मितिबाट गन्नुहोस्; ढिलो नगर्नुहोस्, पुरानो ओभरटाइम हदम्याद नाघेको हुन सक्छ।"
+  provision:
+    law_title_ne: "श्रम ऐन, २०७४"
+    section: "162"
+next_steps:
+  - en: "Write down the days and hours you worked beyond 8 a day / 48 a week, and keep copies of any roster, message or record that shows them."
+    ne: "दिनको आठ घण्टा र हप्ताको अठ्चालीस घण्टाभन्दा बढी काम गरेका दिन र घण्टा लेखेर राख्नुहोस्, र देखाउने तालिका, म्यासेज वा अभिलेखको प्रतिलिपि राख्नुहोस्।"
+  - en: "Give the employer a written claim for the overtime pay (one and a half times the basic pay) and get an acknowledgement; the employer must discuss it within fifteen days."
+    ne: "ओभरटाइम बापतको रकम (आधारभूत पारिश्रमिकको डेढी) माग्दै रोजगारदातालाई लिखित दाबी दिई निस्सा लिनुहोस्; रोजगारदाताले पन्ध्र दिनभित्र छलफल गर्नुपर्छ।"
+  - en: "If it is not settled, file a complaint with the body that decides under section 163 or 164 within six months, with your evidence."
+    ne: "समाधान नभए प्रमाणसहित छ महिनाभित्र दफा १६३ वा १६४ बमोजिम निर्णय गर्ने निकायमा उजुरी दिनुहोस्।"
+template_link: null

@@ -1,0 +1,71 @@
+id: medical_negligence_death
+area: criminal
+keywords:
+  - "galat operation"
+  - "galat ilaj"
+  - "galat upachar"
+  - "galat treatment"
+  - "medical negligence"
+  - "doctor negligence"
+  - "doctor ko laparwahi"
+  - "doctor le laparwahi"
+  - "wrong treatment"
+  - "died during surgery"
+  - "died after operation"
+  - "गलत उपचार"
+  - "गलत अपरेसन"
+  - "डाक्टरको लापरवाही"
+  - "चिकित्सकको लापरवाही"
+  - "उपचारमा लापरवाही"
+  - "अपरेसनमा मृत्यु"
+issue:
+  en: "A doctor's or hospital's negligence during treatment or an operation caused a death or an injury in my family"
+  ne: "उपचार वा अपरेसनका बेला डाक्टर वा अस्पतालको लापरवाहीले मेरो परिवारका सदस्यको मृत्यु वा चोट भयो"
+fact_questions:
+  - en: "Did the person die, or was there an injury, and what exactly happened during the treatment or operation?"
+    ne: "व्यक्तिको मृत्यु भयो कि चोट लाग्यो, र उपचार वा अपरेसनका बेला ठ्याक्कै के भयो?"
+  - en: "Do you have the treatment papers, prescriptions, bills and the hospital's records?"
+    ne: "उपचारका कागज, प्रिस्क्रिप्सन, बिल र अस्पतालको अभिलेख तपाईंसँग छन्?"
+  - en: "Has any complaint been made to the police or to the hospital, and when did you learn of the negligence?"
+    ne: "प्रहरी वा अस्पतालमा कुनै उजुरी गरिएको छ, र लापरवाही भएको कुरा तपाईंले कहिले थाहा पाउनुभयो?"
+provisions:
+  - law_title_ne: "मुलुकी अपराध संहिता, २०७४"
+    section: "181"
+    note:
+      en: "No one may cause a death by a negligent act. Causing death by negligence is punished with 3 to 10 years' imprisonment and a fine of Rs 30,000 to Rs 1 lakh (except in the cases covered by sections 177, 178 and 179). The Code has no separate section that names doctors, so this general rule is the text that applies; whether a particular treatment was negligent is for the investigation and the court to decide."
+      ne: "कसैले लापरवाहीपूर्ण काम गरी कसैको ज्यान मार्न हुँदैन। लापरवाहीपूर्ण काम गरी ज्यान मारेमा (दफा १७७, १७८ र १७९ को अवस्थामा बाहेक) तीनदेखि दश वर्षसम्म कैद र तीस हजारदेखि एक लाख रुपैयाँसम्म जरिबाना हुन्छ। संहितामा डाक्टरको नाम लिएर छुट्टै दफा छैन, त्यसैले यही सामान्य व्यवस्था लागू हुन्छ; कुनै उपचार लापरवाहीपूर्ण थियो कि थिएन भन्ने अनुसन्धान र अदालतले निर्णय गर्छ।"
+  - law_title_ne: "मुलुकी अपराध संहिता, २०७४"
+    section: "195"
+    note:
+      en: "If negligence (or carelessness) causes injury rather than death: negligent maiming carries up to 2 years' imprisonment or a fine up to Rs 20,000 or both, and other injury up to 1 year or Rs 10,000 or both; carelessness carries up to 6 months or Rs 5,000 or both."
+      ne: "मृत्यु नभई चोट पुगेको भए: लापरवाहीपूर्ण काम गरी अङ्गभङ्ग गरेमा दुई वर्षसम्म कैद वा बीस हजार रुपैयाँसम्म जरिबाना वा दुवै, अन्य चोट पुर्याएमा एक वर्षसम्म कैद वा दश हजार रुपैयाँसम्म जरिबाना वा दुवै; हेलचेक्र्याइँले भएको भए छ महिनासम्म कैद वा पाँच हजार रुपैयाँसम्म जरिबाना वा दुवै सजाय हुन्छ।"
+  - law_title_ne: "मुलुकी फौजदारी कार्यविधि संहिता, २०७४"
+    section: "4 (1)"
+    note:
+      en: "Anyone who knows that an offence listed in Schedule 1 of the Code has been, is being or is about to be committed should report it, in writing, orally or electronically, to the nearest police office as soon as possible, with the evidence they have or have seen. An advocate can confirm whether the offence you are reporting is listed in Schedule 1."
+      ne: "अनुसूची-१ मा उल्लिखित कुनै कसूर भएको, भइरहेको वा हुन लागेको कुरा थाहा पाउने व्यक्तिले आफूसँग भएको वा देखे जानेसम्मको सबुद प्रमाण खुलाई लिखित जाहेरी दरखास्त वा मौखिक वा विद्युतीय माध्यमको सूचना नजिकको प्रहरी कार्यालयमा यथाशीघ्र दिनुपर्छ। तपाईंले जाहेरी दिन लागेको कसूर अनुसूची-१ मा परेको छ कि छैन भन्ने वकिलले पुष्टि गर्न सक्छन्।"
+evidence:
+  - en: "Hospital records: admission papers, prescriptions, operation or treatment notes, test reports and bills"
+    ne: "अस्पतालको अभिलेख: भर्ना कागज, प्रिस्क्रिप्सन, अपरेसन वा उपचारको विवरण, परीक्षण रिपोर्ट र बिल"
+  - en: "Death certificate or post-mortem report, if any, and photographs of any injury"
+    ne: "मृत्युको प्रमाणपत्र वा पोस्टमार्टम रिपोर्ट, भए, र चोटको फोटो"
+  - en: "Names of relatives or others who were present and can say what happened"
+    ne: "त्यहाँ उपस्थित भएका र के भयो भन्न सक्ने नातेदार वा अरूको नाम"
+forum:
+  en: "Report to the nearest police office (Criminal Procedure Code section 4); if it refuses to register the report, complain to the District Government Attorney's office or a higher police office (section 5). Because whether the treatment was negligent is a technical question, get an advocate's help early."
+  ne: "नजिकको प्रहरी कार्यालयमा जाहेरी दिनुहोस् (फौजदारी कार्यविधि संहिता दफा ४); दर्ता गर्न इन्कार गरे जिल्ला सरकारी वकिल कार्यालय वा माथिल्लो तहको प्रहरी कार्यालयमा उजुर गर्नुहोस् (दफा ५)। उपचार लापरवाहीपूर्ण थियो कि थिएन भन्ने प्राविधिक प्रश्न भएकाले चाँडै वकिलको सहयोग लिनुहोस्।"
+limitation:
+  note:
+    en: "Criminal Code section 187 sets the time limits for negligent killing: two years from the incident where no complaint was made, with other periods where the culprit confessed or could not be found; six months from learning of it for the other offences in that chapter. Because these can be short, do not wait."
+    ne: "लापरवाहीपूर्ण ज्यानको हदम्याद मुलुकी अपराध संहिता दफा १८७ ले तोकेको छ: कर्तव्यको उजुर नपरेकोमा वारदात भएको दुई वर्ष, कसूरदार आफैँ साबित भई पोलेकोमा वा पत्ता नलागेकोमा अन्य अवधि, र त्यस परिच्छेदका अन्य कसूरमा थाहा पाएको मितिले छ महिना। ती छोटो हुन सक्ने भएकाले ढिलो नगर्नुहोस्।"
+  provision:
+    law_title_ne: "मुलुकी अपराध संहिता, २०७४"
+    section: "187"
+next_steps:
+  - en: "Collect every medical record and bill now and ask the hospital in writing for copies of the treatment file."
+    ne: "अहिल्यै सबै मेडिकल अभिलेख र बिल जम्मा गर्नुहोस् र अस्पतालसँग उपचारको फाइलको प्रतिलिपि लिखित रूपमा माग्नुहोस्।"
+  - en: "Talk to an advocate about whether the facts fit the negligence offences (Criminal Code sections 181 or 195) and about the time limit (section 187)."
+    ne: "तथ्यहरू लापरवाही सम्बन्धी कसूर (मुलुकी अपराध संहिता दफा १८१ वा १९५) सँग मिल्छन् कि र हदम्याद (दफा १८७) बारे वकिलसँग सल्लाह लिनुहोस्।"
+  - en: "Give a written report to the nearest police office and get a receipt; if they refuse, go to the District Government Attorney's office or a higher police office."
+    ne: "नजिकको प्रहरी कार्यालयमा लिखित जाहेरी दिई भरपाई लिनुहोस्; इन्कार गरे जिल्ला सरकारी वकिल कार्यालय वा माथिल्लो प्रहरी कार्यालयमा जानुहोस्।"
+template_link: null

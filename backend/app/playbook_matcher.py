@@ -41,6 +41,29 @@ def _playbook_keywords() -> tuple[tuple[str, list[str]], ...]:
     return tuple((data["id"], data.get("keywords") or []) for data in _load_yaml_files())
 
 
+@lru_cache(maxsize=1)
+def _playbook_vetoes() -> dict[str, tuple[re.Pattern, ...]]:
+    """Per playbook, phrases that mean "this is a different situation" (`not_keywords` in the YAML): a
+    private-lender loan plan must not be pinned to a question about a bank loan, whatever else overlaps.
+    Latin phrases match on word boundaries, Devanagari ones as substrings."""
+    out: dict[str, tuple[re.Pattern, ...]] = {}
+    for data in _load_yaml_files():
+        pats = []
+        for kw in data.get("not_keywords") or []:
+            kw = kw.strip().lower()
+            if not kw:
+                continue
+            # a Latin phrase must start at a word boundary but may carry a glued postposition (bankle, banklai)
+            pats.append(re.compile(rf"\b{re.escape(kw)}" if re.fullmatch(r"[a-z0-9 '\-]+", kw) else re.escape(kw)))
+        if pats:
+            out[data["id"]] = tuple(pats)
+    return out
+
+
+def _vetoed(playbook_id: str, q_lower: str) -> bool:
+    return any(p.search(q_lower) for p in _playbook_vetoes().get(playbook_id, ()))
+
+
 def _query_tokens(query: str) -> set[str]:
     toks = _tokens(query)
     for term in glossary.expand(query):
@@ -59,11 +82,40 @@ _GENERIC = {"हक", "अधिकार", "right", "rights", "law", "laws", "�
             "court", "अदालत", "case", "मुद्दा", "नेपाल", "nepal", "सरकारी", "government", "office", "कार्यालय"}
 
 
-def _keyword_hit_fraction(kw: str, kw_tokens: set[str], q_tokens: set[str], q_lower: str) -> float:
+def _positions(query: str) -> dict[str, list[int]]:
+    pos: dict[str, list[int]] = {}
+    for i, t in enumerate(_WORD.findall(query.lower())):
+        pos.setdefault(t, []).append(i)
+    return pos
+
+
+def _scattered(content: set[str], pos: dict[str, list[int]]) -> bool:
+    """True when every word of the keyword is in the message itself but no occurrence of them lies close
+    together: "ghar kharcha dinna" is not in "ghar pharkiye ... kharcha ... dinna" (three different
+    sentences). Words that only came from the glossary expansion have no position and never count as scattered."""
+    if len(content) < 2 or not all(t in pos for t in content):
+        return False
+    starts = sorted(i for t in content for i in pos[t])
+    # smallest window holding every word of the keyword
+    best = len(starts) and max(starts) - min(starts) + 1
+    for lo in starts:
+        seen: set[str] = set()
+        for i in (j for j in starts if j >= lo):
+            for t in content:
+                if i in pos[t]:
+                    seen.add(t)
+            if seen == content:
+                best = min(best, i - lo + 1)
+                break
+    return best > len(content) + 3
+
+
+def _keyword_hit_fraction(kw: str, kw_tokens: set[str], q_tokens: set[str], q_lower: str,
+                          pos: dict[str, list[int]] | None = None) -> float:
     """1.0 for an exact phrase hit, else the fraction of the keyword's own
     words that appear anywhere in the query - so a query that only echoes
     part of a multi-word keyword still contributes partial credit instead
-    of an all-or-nothing miss."""
+    of an all-or-nothing miss. Words spread over the message (not near each other) count half."""
     if kw.lower() in q_lower:
         return 1.0
     content = kw_tokens - _STOP
@@ -74,22 +126,28 @@ def _keyword_hit_fraction(kw: str, kw_tokens: set[str], q_tokens: set[str], q_lo
         # a partial match made only of generic legal words ("हक" = right,
         # "law", "court") is not evidence of any specific situation
         return 0.0
-    return len(shared) / len(content)
+    frac = len(shared) / len(content)
+    if pos is not None and frac >= 1.0 and _scattered(content, pos):
+        return 0.5
+    return frac
 
 
 def score_playbooks(query: str) -> list[Match]:
     """Every playbook with a non-zero score, highest first."""
     q_tokens = _query_tokens(query)
     q_lower = query.lower()
+    pos = _positions(query)
     scores: dict[str, float] = {}
     for playbook_id, keywords in _playbook_keywords():
+        if _vetoed(playbook_id, q_lower):
+            continue
         # exact phrase hits add up; partial hits count once (the best one),
         # so many variants sharing one word ("श्रीमानले कुटपिट", "पतिले कुटपिट")
         # can't pile up credit from that single word
         total, best_partial = 0.0, 0.0
         for kw in keywords:
             kw_tokens = _tokens(kw)
-            fraction = _keyword_hit_fraction(kw, kw_tokens, q_tokens, q_lower)
+            fraction = _keyword_hit_fraction(kw, kw_tokens, q_tokens, q_lower, pos)
             if fraction >= 1.0:
                 total += _keyword_weight(kw)
             elif fraction >= 0.5:
@@ -123,6 +181,7 @@ def match(query: str, min_score: float = 1.0, min_margin: float = 0.5) -> str | 
 
 def _reset_cache_for_tests() -> None:
     _playbook_keywords.cache_clear()
+    _playbook_vetoes.cache_clear()
 
 
 def strong_match(query: str) -> str | None:

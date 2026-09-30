@@ -1,0 +1,96 @@
+id: loan_interest_dispute
+area: debt
+keywords:
+  - "sahu le byaj"
+  - "sahule byaj"
+  - "sahu ko byaj"
+  - "sahu byaj"
+  - "byaj magyo"
+  - "byaj maagyo"
+  - "byaj magyeko"
+  - "byaj lekheko chhaina"
+  - "byaj lekheko chaina"
+  - "likhat ma byaj"
+  - "byaj ko byaj"
+  - "sanwa bhanda badhi byaj"
+  - "moneylender interest"
+  - "interest not written"
+  - "interest not in the agreement"
+  - "interest not mentioned"
+  - "interest on interest"
+  - "साहुले ब्याज"
+  - "साहूले ब्याज"
+  - "साहुको ब्याज"
+  - "ब्याज मागेको"
+  - "ब्याज माग्यो"
+  - "लिखतमा ब्याज"
+  - "ब्याज कतै लेखेको"
+  - "ब्याजको ब्याज"
+  - "साँवाभन्दा बढी ब्याज"
+not_keywords:
+  - "bank"
+  - "बैंक"
+  - "बैङ्क"
+  - "वित्तीय संस्था"
+  - "finance company"
+issue:
+  en: "A private lender (sahu) is demanding interest from me that is not written in the loan document, or too much interest"
+  ne: "साहुले मसँग लिखतमा नलेखिएको वा धेरै ब्याज माग्दैछ"
+fact_questions:
+  - en: "Is there a written loan document, and does it mention interest at all (and at what rate)?"
+    ne: "लिखित लेनदेनको लिखत छ, र त्यसमा ब्याज (र कति दर) उल्लेख छ?"
+  - en: "Is the lender a private person or moneylender, or a bank, finance company or cooperative?"
+    ne: "ऋण दिने निजी व्यक्ति वा साहु हो, कि बैङ्क, वित्त कम्पनी वा सहकारी?"
+  - en: "How much did you borrow, how much have you paid so far, and how much interest is now being demanded?"
+    ne: "कति रकम सापटी लिनुभएको थियो, अहिलेसम्म कति तिरिसक्नुभयो, र अहिले कति ब्याज माग्दैछन्?"
+provisions:
+  - law_title_ne: "मुलुकी देवानी संहिता, २०७४"
+    section: "479"
+    note:
+      en: "If the loan document does not say that interest is to be charged or paid, the creditor cannot take interest from the borrower."
+      ne: "लेनदेन हुँदा लिखतमा ब्याज लिने दिने कुरा उल्लेख नभएमा साहूले ऋणीबाट ब्याज लिन पाउँदैन।"
+  - law_title_ne: "मुलुकी देवानी संहिता, २०७४"
+    section: "478"
+    note:
+      en: "If the document mentions interest, the creditor can take the interest written in it, but never more than 10 percent a year of the principal. If the document says interest is payable without fixing a rate, 10 percent a year applies."
+      ne: "लिखतमा ब्याज लिने दिने कुरा उल्लेख भएमा साहूले लिखतमा लेखिएको ब्याज लिन पाउँछ, तर साँवाको वार्षिक दश प्रतिशतभन्दा बढी हुँदैन। दर किटान नगरी ब्याज लिने दिने कुरासम्म उल्लेख भएमा वार्षिक दश प्रतिशतका दरले ब्याज लिन पाइन्छ।"
+  - law_title_ne: "मुलुकी देवानी संहिता, २०७४"
+    section: "480"
+    note:
+      en: "A creditor cannot take interest on interest. If one has, the amount is deducted from the principal, and if the principal is already paid, the interest taken must be returned."
+      ne: "साहूले ऋणीबाट ब्याजको ब्याज लिन पाउँदैन। लिएको रहेछ भने साँवामा कट्टी हुन्छ, र साँवा चुक्ता भइसकेको रहेछ भने त्यस्तो ब्याज फिर्ता गर्नुपर्छ।"
+  - law_title_ne: "मुलुकी देवानी संहिता, २०७४"
+    section: "481"
+    note:
+      en: "A creditor cannot take more interest than the principal."
+      ne: "साहूले ऋणीबाट साँवाभन्दा बढी ब्याज लिन पाउँदैन।"
+  - law_title_ne: "मुलुकी देवानी संहिता, २०७४"
+    section: "482"
+    note:
+      en: "When the borrower pays back principal and interest in full, the creditor must tear up the loan document or write on it that payment was received and sign it, and return it; if the document cannot be found, give a written receipt. For part payments the creditor must write the date and amount on the back of the document, or give a separate receipt."
+      ne: "ऋणीले साँवा, ब्याजको सबै रकम चुक्ता गरेमा साहूले लिखत च्याती वा असूल भएको व्यहोरा लेखी सहीछाप गरी लिखत फिर्ता गर्नुपर्छ; लिखत फेला नपरे भरपाई गरिदिनुपर्छ। केही रकम बुझाउँदा मिति र रकम लिखतको पिठमा लेखी वा छुट्टै भरपाई गरी दिनुपर्छ।"
+evidence:
+  - en: "The loan document (or, if none, cheque, voucher, bank record or messages showing the loan)"
+    ne: "ऋणको लिखत (नभए चेक, भौचर, बैङ्क अभिलेख वा ऋण देखाउने म्यासेज)"
+  - en: "Receipts or records of every payment you have made"
+    ne: "तपाईंले गरेका सबै भुक्तानीका रसिद वा अभिलेख"
+  - en: "Any message or notice in which the lender demands the interest"
+    ne: "साहुले ब्याज माग्दा पठाएको म्यासेज वा सूचना"
+forum:
+  en: "Try to settle directly with a written reply that cites the rule. If the lender sues or you want a court to fix the amount, this is a civil matter for the District Court; ask an advocate about the correct court and the time limit."
+  ne: "नियम उल्लेख गरी लिखित जवाफ दिएर सिधै मिलाउने प्रयास गर्नुहोस्। साहुले मुद्दा हालेमा वा रकम अदालतबाट तय गराउन चाहेमा यो जिल्ला अदालतको देवानी विषय हो; कुन अदालत र म्याद हो भन्नेबारे वकिलसँग सोध्नुहोस्।"
+limitation:
+  note:
+    en: "A suit over a loan generally must be filed within one year (Civil Code section 492), but that section says there is no time limit for claims about interest on interest or interest above the 10 percent cap. Do not wait; ask an advocate about your exact dates."
+    ne: "ऋण सम्बन्धी नालिस सामान्यतया एक वर्षभित्र गर्नुपर्छ (देवानी संहिता दफा ४९२), तर ब्याजको ब्याज वा १० प्रतिशतको सीमाभन्दा बढी ब्याजको विषयमा हदम्याद लाग्दैन भनी सो दफामा छ। ढिलो नगर्नुहोस्; आफ्ना मितिबारे वकिलसँग सोध्नुहोस्।"
+  provision:
+    law_title_ne: "मुलुकी देवानी संहिता, २०७४"
+    section: "492"
+next_steps:
+  - en: "Check the loan document: does it say interest is payable, and at what rate? If it does not mention interest, the creditor cannot take any (section 479)."
+    ne: "ऋणको लिखत हेर्नुहोस्: ब्याज तिर्ने कुरा र दर लेखिएको छ? ब्याज उल्लेख छैन भने साहूले ब्याज लिन पाउँदैन (दफा ४७९)।"
+  - en: "If interest is written, check it against the 10 percent yearly cap, the ban on interest on interest and on interest above the principal (sections 478, 480, 481)."
+    ne: "ब्याज लेखिएको छ भने वार्षिक १० प्रतिशतको सीमा, ब्याजको ब्याज र साँवाभन्दा बढी ब्याजको निषेधसँग मिलाएर जाँच्नुहोस् (दफा ४७८, ४८०, ४८१)।"
+  - en: "Answer the demand in writing, keep receipts for every payment, and ask for the document back once you have paid in full (section 482)."
+    ne: "मागको लिखित जवाफ दिनुहोस्, प्रत्येक भुक्तानीको रसिद राख्नुहोस्, र सबै तिरिसकेपछि लिखत फिर्ता माग्नुहोस् (दफा ४८२)।"
+template_link: null
