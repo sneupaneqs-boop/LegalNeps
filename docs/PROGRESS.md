@@ -200,6 +200,85 @@ S7's own "done when" bar (25 playbooks, ≥90% precision) doesn't require it.
 
 ## Done
 
+### V3 — Structured answer + citation verifier (2026-09-30, offline; live measurement pending)
+
+Generate-then-verify: the model returns ONE JSON object (blocks -> sentences with `kind`, `cites:[{n, quote}]`,
+`gaps`, `follow_up_questions`); `verifier.verify_structured` keeps only sentences whose quote is a verbatim
+span of the cited source and REMOVES the rest; `structured.render` turns survivors into the markdown the UI
+already shows. **The <5% unsupported-claim bar is NOT measured yet** - it needs the deployed pipeline plus a
+human/LLM review (commands below). Nothing here claims it.
+
+- `app/structured.py` (new): compact JSON prompt (2 worked examples, en + ne, incl. a correctly refused claim),
+  tolerant parser that salvages every complete sentence of a cut-off object, one JSON-repair attempt, render,
+  optional entailment pass, simulated-stream chunker. `app/verifier.py`: `verify()` untouched; new
+  `check_structured_sentence` / `verify_structured`. `app/generation.py`: `_generate_verified`, `status` event,
+  `PIPELINE_VERSION` p9 (fingerprint now covers structured.py and text_norm.py). `app/llm.py`:
+  `last_finish_reason()/was_cut_off()`, `complete(call_timeout_s=)`. `app/config.py`: `ANSWER_MAX_TOKENS_EN/NE`
+  (3200/6000), `ANSWER_JSON_BUDGET_S` 50, `ANSWER_JSON_CALL_TIMEOUT_S` 35, `ENTAILMENT_CHECK`, `STREAM_CHUNK_DELAY_S`.
+- Deterministic checks per sentence (any sentence with rule words, numbers, section refs or a law name is checked
+  whatever `kind` the model gave it): every cite's quote verbatim after normalisation (NFC, PUA glyphs, danda and
+  punctuation, digit script, spelling folds; >=90% contiguous token match for OCR, digits exact); every number in
+  the quote (word->digit tables incl. lakh/crore; the law's own year allowed); every section = cited source's
+  section or in the quote; content-word overlap with the quote >= 0.30 (English<->Nepali bridged through the
+  glossary); source not repealed/lapsed/bill/stale unless the sentence says "older law"; ordinance labelled;
+  "Supreme Court held" must cite a precedent. Uncited empathy/advice pass only with no numbers/rule words;
+  uncited "procedure" passes only if it comes from the matched playbook's steps.
+- Fewer than 2 verified rule/deadline/penalty sentences, or JSON unparseable after one repair -> extractive
+  provisions with an explicit "could not verify a written summary" header (`llm_used:false`, never cached).
+- `/api/chat/stream`: same meta -> delta* -> done protocol plus an early `status` event
+  (`{"stage":"checking sources"}`); deltas are the verified text in ~40-char chunks. `verification` keeps its
+  shape (`supported == claims`, `unverified == []`) and gains `removed {count, reasons[], by_reason, blocks_dropped}`,
+  `mode`, `truncated`, `evidence[]` (rendered sentences + quotes). UI: "Checking sources..." while waiting,
+  "N statements were removed because they couldn't be verified" in the Evidence block (en/ne).
+- Entailment (`ENTAILMENT_CHECK=1`, always on for paid tiers): one fast-tier call over all cited sentences,
+  removes "no"; fails open. Default OFF on the free tier.
+- Behaviour changes users will see: no ⚠ marks any more (unverifiable text is removed); the answer appears after
+  the whole JSON is generated and checked (no token-by-token growth), then streams in quickly; empathy lines that
+  restate the user's own numbers ("four months") are removed; more fallbacks to the raw provisions when the model
+  cannot quote its claims. Tests: `tests/test_v3_structured.py` (55); `test_v1_trust_engine.py::test_run_emits_...`
+  migrated to the JSON format. Full suite 1568 passed.
+
+**Offline calibration** (`python eval/verifier_calibration.py`, report `eval/reports/verifier-calibration-20260930.json`):
+the 119 V1-labelled claims (48 bad / 71 good); each claim's cited passage is the quote source and the *best
+matching span* of it is the quote (the most favourable quote a model could pick). Claims are the reviewer's English
+paraphrases, so overlap for Nepali answers is cross-language.
+
+| what is measured | bad caught | good wrongly removed |
+|---|---|---|
+| new pipeline, all 119 claims (uncited legal claim = removed) | 26/48 (P 0.50, R 0.54, F1 0.52) | 26/71 |
+| old verifier (V1) | 12/48 (P 0.44, R 0.25) | 15/71 |
+| new *content* checks only (quote-vs-claim), 74 cited claims | 1/23 (R 0.04) | 6/51 |
+| - unsupported (29) | 20 (all because they had no citation) | |
+| - wrong-law (15) | 2 (no citation) | |
+| - hallucinated number/section (4) | 4 (3 uncited, 1 number not in quote) | |
+
+Per check on the 119: no_citation 25 TP/20 FP; numbers 1/1; sections 0/1; status 0/0; court 0/0; lexical 0/4.
+Synthetic mutations of supported cited claims: a changed number was removed 5/5, a changed section 8/8. Lexical
+threshold sweep (own passage wrongly rejected / unrelated passage rejected): 0.2 -> 2%/29%, 0.3 -> 8%/49%
+(chosen), 0.4 -> 8%/60%, 0.6 -> 24%/82%. 0.3 is tuned on these 119 claims - do not over-read it.
+**What deterministic code cannot catch**: a real, verbatim quote from a provision that does not govern the
+question (wrong-law: 13/15 pass every check), and a claim that shares topic words with the quote but asserts
+something the passage does not say (cited-yet-unsupported: 22/23 pass). The offline win comes from forcing a
+quote for every legal claim (the V1 review had 25/48 bad claims with no citation) and from number/section
+checks; the semantic gap is what the entailment pass and the human review must cover. The 20 "good" claims
+removed for no citation are V1 prose lacking [n]; in the new format such statements need a quote, so this is
+pessimistic for the new pipeline but optimistic for what the checks alone can do.
+
+**Latency**: one non-streamed JSON call replaces the streamed one. First visible answer text arrives after the full
+generation (est. 6-14 s English, 12-30 s Nepali on the free chain, vs. ~2-4 s to first token before) + ~30-80 ms
+verification (fuzzy fallback only when a quote is not verbatim) + ~0.4 s simulated streaming; the sources and the
+"Checking sources..." state show immediately. Entailment adds one fast call (~1-2 s) when enabled. Not measured live.
+
+**Post-deploy measurement (do this next)**:
+`cd backend && python eval/answer_review.py --set realworld --limit 30 --out eval/reports/answer-review-realworld-<date>.json`
+(then `--set heldout --limit 30`, sparingly). Read `aggregate`: fallback_rate, truncation_rate, removal_reasons,
+`uncited_numbers_in_rendered_sentences` (target 0). A human/LLM reviewer then labels each `answers[].sentences[]`
+(text + quote + full passage) as supported / unsupported / wrong-law / hallucinated number, and also judges: (1)
+does the quote actually entail the sentence, (2) is the cited provision the one that governs the user's situation
+(wrong-law), (3) are any legal statements hiding in `advice`/`procedure`/`gaps` text, (4) is the answer still useful
+after removals (over-removal). Bar: unsupported rate < 5% over 30 answers and 0 uncited numbers. If it misses,
+turn on `ENTAILMENT_CHECK=1` and re-measure before touching thresholds.
+
 ### V2 exit — live held-out measurement (2026-09-30)
 
 Held-out set (50) through the **deployed** pipeline (`eval/live_retrieval.py`, LLM query

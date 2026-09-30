@@ -1,0 +1,2599 @@
+{
+ "rows": [
+  {
+   "id": "rw01",
+   "claim": "Written agreement must state the deposit amount, refund time and process [1: s.386]",
+   "label": "unsupported",
+   "lang": "ne",
+   "cited": true,
+   "flags": {
+    "no_citation": false,
+    "number": false,
+    "section": false,
+    "status": false,
+    "court": false,
+    "lexical": false
+   },
+   "removed": false,
+   "reason": null,
+   "lex": [
+    0.83
+   ],
+   "verifier_flagged": false
+  },
+  {
+   "id": "rw01",
+   "claim": "Landlord duties: let tenant use house per agreement; keep other agreed terms [2: s.389]",
+   "label": "supported",
+   "lang": "ne",
+   "cited": true,
+   "flags": {
+    "no_citation": false,
+    "number": false,
+    "section": false,
+    "status": false,
+    "court": false,
+    "lexical": false
+   },
+   "removed": false,
+   "reason": null,
+   "lex": [
+    1.0
+   ],
+   "verifier_flagged": false
+  },
+  {
+   "id": "rw01",
+   "claim": "Non-return of deposit brings the agreement to an end under 'landlord removes tenant / cancels' [3: s.402]",
+   "label": "unsupported",
+   "lang": "ne",
+   "cited": true,
+   "flags": {
+    "no_citation": false,
+    "number": false,
+    "section": false,
+    "status": false,
+    "court": false,
+    "lexical": false
+   },
+   "removed": false,
+   "reason": null,
+   "lex": [
+    0.71
+   ],
+   "verifier_flagged": false
+  },
+  {
+   "id": "rw01",
+   "claim": "If landlord does not return the deposit by the date, the agreement can be treated as ended [3]",
+   "label": "unsupported",
+   "lang": "ne",
+   "cited": true,
+   "flags": {
+    "no_citation": false,
+    "number": false,
+    "section": false,
+    "status": false,
+    "court": false,
+    "lexical": false
+   },
+   "removed": false,
+   "reason": null,
+   "lex": [
+    0.67
+   ],
+   "verifier_flagged": false
+  },
+  {
+   "id": "rw01",
+   "claim": "File a civil case in district court and state the Act you claim under [4: CPC s.90]",
+   "label": "unsupported",
+   "lang": "ne",
+   "cited": true,
+   "flags": {
+    "no_citation": false,
+    "number": false,
+    "section": false,
+    "status": false,
+    "court": false,
+    "lexical": false
+   },
+   "removed": false,
+   "reason": null,
+   "lex": [
+    0.8
+   ],
+   "verifier_flagged": false
+  },
+  {
+   "id": "rw01",
+   "claim": "Supreme Court confirmed that a party breaching contract terms must pay damages [7: NKP 2081/5/11281]",
+   "label": "unsupported",
+   "lang": "ne",
+   "cited": true,
+   "flags": {
+    "no_citation": false,
+    "number": false,
+    "section": false,
+    "status": false,
+    "court": false,
+    "lexical": false
+   },
+   "removed": false,
+   "reason": null,
+   "lex": [
+    0.83
+   ],
+   "verifier_flagged": false
+  },
+  {
+   "id": "rw02",
+   "claim": "Worker entitled to wages and benefits from the day work starts, not below contract/Act [1: s.34]",
+   "label": "supported",
+   "lang": "en",
+   "cited": true,
+   "flags": {
+    "no_citation": false,
+    "number": false,
+    "section": false,
+    "status": false,
+    "court": false,
+    "lexical": false
+   },
+   "removed": false,
+   "reason": null,
+   "lex": [
+    0.6
+   ],
+   "verifier_flagged": false
+  },
+  {
+   "id": "rw02",
+   "claim": "Complaint about a breach of the Act within six months, decided by the body under s.163/164 [2: s.162]",
+   "label": "supported",
+   "lang": "en",
+   "cited": true,
+   "flags": {
+    "no_citation": false,
+    "number": false,
+    "section": false,
+    "status": false,
+    "court": false,
+    "lexical": false
+   },
+   "removed": false,
+   "reason": null,
+   "lex": [
+    0.67
+   ],
+   "verifier_flagged": false
+  },
+  {
+   "id": "rw02",
+   "claim": "Lodge a formal complaint with the district Labour Office within the six-month period",
+   "label": "unsupported",
+   "lang": "en",
+   "cited": false,
+   "flags": {
+    "no_citation": true,
+    "number": false,
+    "section": false,
+    "status": false,
+    "court": false,
+    "lexical": false
+   },
+   "removed": true,
+   "reason": "no_citation",
+   "lex": [],
+   "verifier_flagged": true
+  },
+  {
+   "id": "rw02",
+   "claim": "Labour Office can order the employer to pay wages; then Labour Court remedy",
+   "label": "unsupported",
+   "lang": "en",
+   "cited": false,
+   "flags": {
+    "no_citation": true,
+    "number": false,
+    "section": false,
+    "status": false,
+    "court": false,
+    "lexical": false
+   },
+   "removed": true,
+   "reason": "no_citation",
+   "lex": [],
+   "verifier_flagged": true
+  },
+  {
+   "id": "rw02",
+   "claim": "Employer cannot reduce wages below the contract or the Act's minimum [1]",
+   "label": "supported",
+   "lang": "en",
+   "cited": true,
+   "flags": {
+    "no_citation": false,
+    "number": false,
+    "section": false,
+    "status": false,
+    "court": false,
+    "lexical": false
+   },
+   "removed": false,
+   "reason": null,
+   "lex": [
+    1.0
+   ],
+   "verifier_flagged": false
+  },
+  {
+   "id": "rw02",
+   "claim": "Right to complain expires six months after the last unpaid salary date [2]",
+   "label": "unsupported",
+   "lang": "en",
+   "cited": true,
+   "flags": {
+    "no_citation": false,
+    "number": false,
+    "section": false,
+    "status": false,
+    "court": false,
+    "lexical": false
+   },
+   "removed": false,
+   "reason": null,
+   "lex": [
+    0.33
+   ],
+   "verifier_flagged": false
+  },
+  {
+   "id": "rw03",
+   "claim": "See Labour Act s.132 for labour rights other than sexual harassment",
+   "label": "hallucinated-number-or-section",
+   "lang": "ne",
+   "cited": false,
+   "flags": {
+    "no_citation": true,
+    "number": false,
+    "section": false,
+    "status": false,
+    "court": false,
+    "lexical": false
+   },
+   "removed": true,
+   "reason": "no_citation",
+   "lex": [],
+   "verifier_flagged": true
+  },
+  {
+   "id": "rw03",
+   "claim": "Send a written complaint to the employer within at least 15 days",
+   "label": "hallucinated-number-or-section",
+   "lang": "ne",
+   "cited": false,
+   "flags": {
+    "no_citation": true,
+    "number": false,
+    "section": false,
+    "status": false,
+    "court": false,
+    "lexical": false
+   },
+   "removed": true,
+   "reason": "no_citation",
+   "lex": [],
+   "verifier_flagged": true
+  },
+  {
+   "id": "rw03",
+   "claim": "Complain to the Labour Inspector's office or Labour Court",
+   "label": "unsupported",
+   "lang": "ne",
+   "cited": false,
+   "flags": {
+    "no_citation": true,
+    "number": false,
+    "section": false,
+    "status": false,
+    "court": false,
+    "lexical": false
+   },
+   "removed": true,
+   "reason": "no_citation",
+   "lex": [],
+   "verifier_flagged": false
+  },
+  {
+   "id": "rw04",
+   "claim": "Foreign Educational Programme Rules 2083 r.5 (building within 5 years) applies as reference",
+   "label": "wrong-law",
+   "lang": "ne",
+   "cited": false,
+   "flags": {
+    "no_citation": true,
+    "number": false,
+    "section": false,
+    "status": false,
+    "court": false,
+    "lexical": false
+   },
+   "removed": true,
+   "reason": "no_citation",
+   "lex": [],
+   "verifier_flagged": true
+  },
+  {
+   "id": "rw04",
+   "claim": "Complain to the Labour Ministry's foreign-employment agency regulation office",
+   "label": "unsupported",
+   "lang": "ne",
+   "cited": false,
+   "flags": {
+    "no_citation": true,
+    "number": false,
+    "section": false,
+    "status": false,
+    "court": false,
+    "lexical": false
+   },
+   "removed": true,
+   "reason": "no_citation",
+   "lex": [],
+   "verifier_flagged": false
+  },
+  {
+   "id": "rw04",
+   "claim": "File a criminal complaint at the police station if fraud is found",
+   "label": "unsupported",
+   "lang": "ne",
+   "cited": false,
+   "flags": {
+    "no_citation": true,
+    "number": false,
+    "section": false,
+    "status": false,
+    "court": false,
+    "lexical": false
+   },
+   "removed": true,
+   "reason": "no_citation",
+   "lex": [],
+   "verifier_flagged": false
+  },
+  {
+   "id": "rw06",
+   "claim": "Issuing a cheque without funds is a banking offence",
+   "label": "supported",
+   "lang": "en",
+   "cited": false,
+   "flags": {
+    "no_citation": true,
+    "number": false,
+    "section": false,
+    "status": false,
+    "court": false,
+    "lexical": false
+   },
+   "removed": true,
+   "reason": "no_citation",
+   "lex": [],
+   "verifier_flagged": false
+  },
+  {
+   "id": "rw06",
+   "claim": "Cheque is dishonoured when the drawee fails to pay [1: NIA s.65]",
+   "label": "supported",
+   "lang": "en",
+   "cited": true,
+   "flags": {
+    "no_citation": false,
+    "number": false,
+    "section": false,
+    "status": false,
+    "court": false,
+    "lexical": false
+   },
+   "removed": false,
+   "reason": null,
+   "lex": [
+    1.0
+   ],
+   "verifier_flagged": false
+  },
+  {
+   "id": "rw06",
+   "claim": "Bank must give the drawer a notice of up to 45 days to fund the account [2: BOA s.3ka(3)]",
+   "label": "supported",
+   "lang": "en",
+   "cited": true,
+   "flags": {
+    "no_citation": false,
+    "number": false,
+    "section": false,
+    "status": false,
+    "court": false,
+    "lexical": false
+   },
+   "removed": false,
+   "reason": null,
+   "lex": [
+    0.6
+   ],
+   "verifier_flagged": true
+  },
+  {
+   "id": "rw08",
+   "claim": "Spouses must feed, clothe and provide health care to each other per honour and capacity [1: s.89]",
+   "label": "supported",
+   "lang": "ne",
+   "cited": true,
+   "flags": {
+    "no_citation": false,
+    "number": false,
+    "section": false,
+    "status": false,
+    "court": false,
+    "lexical": false
+   },
+   "removed": false,
+   "reason": null,
+   "lex": [
+    0.67
+   ],
+   "verifier_flagged": false
+  },
+  {
+   "id": "rw08",
+   "claim": "Husband with joint property must provide wife and children food, education, health care [3: s.211(1)]",
+   "label": "supported",
+   "lang": "ne",
+   "cited": true,
+   "flags": {
+    "no_citation": false,
+    "number": false,
+    "section": false,
+    "status": false,
+    "court": false,
+    "lexical": false
+   },
+   "removed": false,
+   "reason": null,
+   "lex": [
+    0.75
+   ],
+   "verifier_flagged": false
+  },
+  {
+   "id": "rw09",
+   "claim": "Divorce petition is filed in the concerned District Court [1: s.96]",
+   "label": "supported",
+   "lang": "en",
+   "cited": true,
+   "flags": {
+    "no_citation": false,
+    "number": false,
+    "section": false,
+    "status": false,
+    "court": false,
+    "lexical": false
+   },
+   "removed": false,
+   "reason": null,
+   "lex": [
+    1.0
+   ],
+   "verifier_flagged": false
+  },
+  {
+   "id": "rw09",
+   "claim": "Court must attempt reconciliation [2: s.97]",
+   "label": "supported",
+   "lang": "en",
+   "cited": true,
+   "flags": {
+    "no_citation": false,
+    "number": false,
+    "section": false,
+    "status": false,
+    "court": false,
+    "lexical": false
+   },
+   "removed": false,
+   "reason": null,
+   "lex": [
+    0.5
+   ],
+   "verifier_flagged": false
+  },
+  {
+   "id": "rw09",
+   "claim": "If no reconciliation and a spouse does not consent, divorce after one year from the petition [3: s.98]",
+   "label": "supported",
+   "lang": "en",
+   "cited": true,
+   "flags": {
+    "no_citation": false,
+    "number": false,
+    "section": false,
+    "status": false,
+    "court": false,
+    "lexical": false
+   },
+   "removed": false,
+   "reason": null,
+   "lex": [
+    0.71
+   ],
+   "verifier_flagged": false
+  },
+  {
+   "id": "rw09",
+   "claim": "Both spouses can divorce at any time by mutual consent [5: s.93]",
+   "label": "supported",
+   "lang": "en",
+   "cited": true,
+   "flags": {
+    "no_citation": false,
+    "number": false,
+    "section": false,
+    "status": false,
+    "court": false,
+    "lexical": true
+   },
+   "removed": true,
+   "reason": "quote_unrelated",
+   "lex": [
+    0.25
+   ],
+   "verifier_flagged": false
+  },
+  {
+   "id": "rw09",
+   "claim": "Partition before divorce where the wife asks and the cause is the husband [4: s.99]",
+   "label": "supported",
+   "lang": "en",
+   "cited": true,
+   "flags": {
+    "no_citation": false,
+    "number": false,
+    "section": false,
+    "status": false,
+    "court": false,
+    "lexical": false
+   },
+   "removed": false,
+   "reason": null,
+   "lex": [
+    0.8
+   ],
+   "verifier_flagged": false
+  },
+  {
+   "id": "rw09",
+   "claim": "Petition goes to the District Court where you or your spouse resides [1]",
+   "label": "unsupported",
+   "lang": "en",
+   "cited": true,
+   "flags": {
+    "no_citation": false,
+    "number": false,
+    "section": false,
+    "status": false,
+    "court": false,
+    "lexical": false
+   },
+   "removed": false,
+   "reason": null,
+   "lex": [
+    1.0
+   ],
+   "verifier_flagged": false
+  },
+  {
+   "id": "rw11",
+   "claim": "The motor-vehicle rules contain nothing on inheritance or marital rights",
+   "label": "supported",
+   "lang": "ne",
+   "cited": false,
+   "flags": {
+    "no_citation": true,
+    "number": false,
+    "section": false,
+    "status": false,
+    "court": false,
+    "lexical": false
+   },
+   "removed": true,
+   "reason": "no_citation",
+   "lex": [],
+   "verifier_flagged": true
+  },
+  {
+   "id": "rw11",
+   "claim": "Owner must insure third parties for min Rs50 lakh (r.55(1)) [4]",
+   "label": "wrong-law",
+   "lang": "ne",
+   "cited": true,
+   "flags": {
+    "no_citation": false,
+    "number": false,
+    "section": false,
+    "status": false,
+    "court": false,
+    "lexical": false
+   },
+   "removed": false,
+   "reason": null,
+   "lex": [
+    0.75
+   ],
+   "verifier_flagged": false
+  },
+  {
+   "id": "rw11",
+   "claim": "Insurance certificate goes to the CDO (r.55kha) [6]",
+   "label": "wrong-law",
+   "lang": "ne",
+   "cited": true,
+   "flags": {
+    "no_citation": false,
+    "number": false,
+    "section": false,
+    "status": false,
+    "court": false,
+    "lexical": false
+   },
+   "removed": false,
+   "reason": null,
+   "lex": [
+    1.0
+   ],
+   "verifier_flagged": false
+  },
+  {
+   "id": "rw11",
+   "claim": "CDO pays insurance to heirs in 21 days on death (r.55ga) [5]",
+   "label": "wrong-law",
+   "lang": "ne",
+   "cited": true,
+   "flags": {
+    "no_citation": false,
+    "number": false,
+    "section": false,
+    "status": false,
+    "court": false,
+    "lexical": false
+   },
+   "removed": false,
+   "reason": null,
+   "lex": [
+    0.5
+   ],
+   "verifier_flagged": false
+  },
+  {
+   "id": "rw11",
+   "claim": "If uninsured, owner/manager pays costs and compensation (s.163, 166) [1][3]",
+   "label": "wrong-law",
+   "lang": "ne",
+   "cited": true,
+   "flags": {
+    "no_citation": false,
+    "number": false,
+    "section": false,
+    "status": false,
+    "court": false,
+    "lexical": false
+   },
+   "removed": false,
+   "reason": null,
+   "lex": [
+    0.6,
+    0.6
+   ],
+   "verifier_flagged": false
+  },
+  {
+   "id": "rw11",
+   "claim": "Consult the Civil Code ss.571-575 for inheritance",
+   "label": "hallucinated-number-or-section",
+   "lang": "ne",
+   "cited": false,
+   "flags": {
+    "no_citation": true,
+    "number": false,
+    "section": false,
+    "status": false,
+    "court": false,
+    "lexical": false
+   },
+   "removed": true,
+   "reason": "no_citation",
+   "lex": [],
+   "verifier_flagged": true
+  },
+  {
+   "id": "rw11",
+   "claim": "Claim under ss.163/166 in the local court if the owner refuses",
+   "label": "unsupported",
+   "lang": "ne",
+   "cited": false,
+   "flags": {
+    "no_citation": true,
+    "number": false,
+    "section": false,
+    "status": false,
+    "court": false,
+    "lexical": false
+   },
+   "removed": true,
+   "reason": "no_citation",
+   "lex": [],
+   "verifier_flagged": true
+  },
+  {
+   "id": "rw13",
+   "claim": "Report of an offence goes to the nearest police office, in writing/oral/electronic [1: CrPC s.4(1)]",
+   "label": "supported",
+   "lang": "ne",
+   "cited": true,
+   "flags": {
+    "no_citation": false,
+    "number": false,
+    "section": false,
+    "status": false,
+    "court": false,
+    "lexical": false
+   },
+   "removed": false,
+   "reason": null,
+   "lex": [
+    0.83
+   ],
+   "verifier_flagged": false
+  },
+  {
+   "id": "rw13",
+   "claim": "If police refuse to register, complain to the District Government Attorney's office or the higher police office [2: s.5(1)]",
+   "label": "supported",
+   "lang": "ne",
+   "cited": true,
+   "flags": {
+    "no_citation": false,
+    "number": false,
+    "section": false,
+    "status": false,
+    "court": false,
+    "lexical": false
+   },
+   "removed": false,
+   "reason": null,
+   "lex": [
+    0.86
+   ],
+   "verifier_flagged": false
+  },
+  {
+   "id": "rw13",
+   "claim": "On receiving the complaint the office must register it and give you a receipt/copy of the record [2][3]",
+   "label": "unsupported",
+   "lang": "ne",
+   "cited": true,
+   "flags": {
+    "no_citation": false,
+    "number": false,
+    "section": false,
+    "status": false,
+    "court": false,
+    "lexical": false
+   },
+   "removed": false,
+   "reason": null,
+   "lex": [
+    0.83,
+    0.83
+   ],
+   "verifier_flagged": false
+  },
+  {
+   "id": "rw13",
+   "claim": "Supreme Court: an FIR is not conclusive evidence and needs corroboration [7][8]",
+   "label": "supported",
+   "lang": "ne",
+   "cited": true,
+   "flags": {
+    "no_citation": false,
+    "number": false,
+    "section": false,
+    "status": false,
+    "court": false,
+    "lexical": false
+   },
+   "removed": false,
+   "reason": null,
+   "lex": [
+    0.75,
+    0.67
+   ],
+   "verifier_flagged": false
+  },
+  {
+   "id": "rw13",
+   "claim": "That precedent 'strengthens your complaint'",
+   "label": "unsupported",
+   "lang": "ne",
+   "cited": false,
+   "flags": {
+    "no_citation": true,
+    "number": false,
+    "section": false,
+    "status": false,
+    "court": false,
+    "lexical": false
+   },
+   "removed": true,
+   "reason": "no_citation",
+   "lex": [],
+   "verifier_flagged": false
+  },
+  {
+   "id": "rw15",
+   "claim": "The available sources contain no cyber-crime / fake-ID provision (only ID-card and arbitration texts)",
+   "label": "supported",
+   "lang": "ne",
+   "cited": false,
+   "flags": {
+    "no_citation": true,
+    "number": false,
+    "section": false,
+    "status": false,
+    "court": false,
+    "lexical": false
+   },
+   "removed": true,
+   "reason": "no_citation",
+   "lex": [],
+   "verifier_flagged": false
+  },
+  {
+   "id": "rw15",
+   "claim": "File a written complaint with the Nepal Police Cyber Bureau / nearest police office with screenshots",
+   "label": "unsupported",
+   "lang": "ne",
+   "cited": false,
+   "flags": {
+    "no_citation": true,
+    "number": false,
+    "section": false,
+    "status": false,
+    "court": false,
+    "lexical": false
+   },
+   "removed": true,
+   "reason": "no_citation",
+   "lex": [],
+   "verifier_flagged": false
+  },
+  {
+   "id": "rw19",
+   "claim": "A prisoner files petitions through the prison office (Prison Act 2079 s.27(1)) [1]",
+   "label": "wrong-law",
+   "lang": "ne",
+   "cited": true,
+   "flags": {
+    "no_citation": false,
+    "number": false,
+    "section": false,
+    "status": false,
+    "court": false,
+    "lexical": false
+   },
+   "removed": false,
+   "reason": null,
+   "lex": [
+    1.0
+   ],
+   "verifier_flagged": false
+  },
+  {
+   "id": "rw19",
+   "claim": "The prison administrator forwards the petition and fee (s.27(2)) [1]",
+   "label": "wrong-law",
+   "lang": "ne",
+   "cited": true,
+   "flags": {
+    "no_citation": false,
+    "number": false,
+    "section": false,
+    "status": false,
+    "court": false,
+    "lexical": false
+   },
+   "removed": false,
+   "reason": null,
+   "lex": [
+    1.0
+   ],
+   "verifier_flagged": false
+  },
+  {
+   "id": "rw19",
+   "claim": "Government offices file plaints through the administrative head (CPC s.93(3)) [2]",
+   "label": "wrong-law",
+   "lang": "ne",
+   "cited": true,
+   "flags": {
+    "no_citation": false,
+    "number": false,
+    "section": false,
+    "status": false,
+    "court": false,
+    "lexical": false
+   },
+   "removed": false,
+   "reason": null,
+   "lex": [
+    0.4
+   ],
+   "verifier_flagged": false
+  },
+  {
+   "id": "rw19",
+   "claim": "The available sections give no RTI appeal body or time limit",
+   "label": "supported",
+   "lang": "ne",
+   "cited": false,
+   "flags": {
+    "no_citation": true,
+    "number": false,
+    "section": false,
+    "status": false,
+    "court": false,
+    "lexical": false
+   },
+   "removed": true,
+   "reason": "no_citation",
+   "lex": [],
+   "verifier_flagged": true
+  },
+  {
+   "id": "rw20",
+   "claim": "A private company cannot have more than 100 shareholders [2: Companies Act s.9]",
+   "label": "hallucinated-number-or-section",
+   "lang": "ne",
+   "cited": true,
+   "flags": {
+    "no_citation": false,
+    "number": true,
+    "section": false,
+    "status": false,
+    "court": false,
+    "lexical": false
+   },
+   "removed": true,
+   "reason": "number_not_in_quote",
+   "lex": [
+    1.0
+   ],
+   "verifier_flagged": false
+  },
+  {
+   "id": "rw20",
+   "claim": "The sources give no time limit for the registration certificate",
+   "label": "supported",
+   "lang": "ne",
+   "cited": false,
+   "flags": {
+    "no_citation": true,
+    "number": false,
+    "section": false,
+    "status": false,
+    "court": false,
+    "lexical": false
+   },
+   "removed": true,
+   "reason": "no_citation",
+   "lex": [],
+   "verifier_flagged": false
+  },
+  {
+   "id": "rw20",
+   "claim": "No Supreme Court precedent on the time limit is available",
+   "label": "supported",
+   "lang": "ne",
+   "cited": false,
+   "flags": {
+    "no_citation": true,
+    "number": false,
+    "section": false,
+    "status": false,
+    "court": false,
+    "lexical": false
+   },
+   "removed": true,
+   "reason": "no_citation",
+   "lex": [],
+   "verifier_flagged": true
+  },
+  {
+   "id": "rw22",
+   "claim": "The sources only say a PAN is compulsory to trade [6: VAT Directive 2069 cl.1]",
+   "label": "supported",
+   "lang": "ne",
+   "cited": true,
+   "flags": {
+    "no_citation": false,
+    "number": false,
+    "section": false,
+    "status": false,
+    "court": false,
+    "lexical": false
+   },
+   "removed": false,
+   "reason": null,
+   "lex": [
+    0.75
+   ],
+   "verifier_flagged": false
+  },
+  {
+   "id": "rw22",
+   "claim": "Invoices must show the buyer's and seller's PAN [5: VAT Rules r.17(4)]",
+   "label": "supported",
+   "lang": "ne",
+   "cited": true,
+   "flags": {
+    "no_citation": false,
+    "number": false,
+    "section": false,
+    "status": false,
+    "court": false,
+    "lexical": false
+   },
+   "removed": false,
+   "reason": null,
+   "lex": [
+    0.67
+   ],
+   "verifier_flagged": false
+  },
+  {
+   "id": "rw24",
+   "claim": "A bank complaint can be made under the Consumer Protection Act",
+   "label": "supported",
+   "lang": "ne",
+   "cited": false,
+   "flags": {
+    "no_citation": true,
+    "number": false,
+    "section": false,
+    "status": false,
+    "court": false,
+    "lexical": false
+   },
+   "removed": true,
+   "reason": "no_citation",
+   "lex": [],
+   "verifier_flagged": true
+  },
+  {
+   "id": "rw24",
+   "claim": "Anyone may complain in writing, orally or electronically to the Central Market Monitoring Committee, the Department or an inspection officer [2: s.36(1)]",
+   "label": "supported",
+   "lang": "ne",
+   "cited": true,
+   "flags": {
+    "no_citation": false,
+    "number": false,
+    "section": false,
+    "status": false,
+    "court": false,
+    "lexical": false
+   },
+   "removed": false,
+   "reason": null,
+   "lex": [
+    0.88
+   ],
+   "verifier_flagged": false
+  },
+  {
+   "id": "rw24",
+   "claim": "A complainant's name is kept secret on request [2: s.36(2)]",
+   "label": "supported",
+   "lang": "ne",
+   "cited": true,
+   "flags": {
+    "no_citation": false,
+    "number": false,
+    "section": false,
+    "status": false,
+    "court": false,
+    "lexical": true
+   },
+   "removed": true,
+   "reason": "quote_unrelated",
+   "lex": [
+    0.25
+   ],
+   "verifier_flagged": false
+  },
+  {
+   "id": "rw24",
+   "claim": "Also complain to the local inspection officer (s.36)",
+   "label": "supported",
+   "lang": "ne",
+   "cited": false,
+   "flags": {
+    "no_citation": true,
+    "number": false,
+    "section": false,
+    "status": false,
+    "court": false,
+    "lexical": false
+   },
+   "removed": true,
+   "reason": "no_citation",
+   "lex": [],
+   "verifier_flagged": true
+  },
+  {
+   "id": "rw24",
+   "claim": "Court compensation claim under s.50 must be filed within 6 months of the complaint date",
+   "label": "unsupported",
+   "lang": "ne",
+   "cited": false,
+   "flags": {
+    "no_citation": true,
+    "number": false,
+    "section": false,
+    "status": false,
+    "court": false,
+    "lexical": false
+   },
+   "removed": true,
+   "reason": "no_citation",
+   "lex": [],
+   "verifier_flagged": true
+  },
+  {
+   "id": "rw26",
+   "claim": "The available sources contain no insider-trading rule",
+   "label": "supported",
+   "lang": "ne",
+   "cited": false,
+   "flags": {
+    "no_citation": true,
+    "number": false,
+    "section": false,
+    "status": false,
+    "court": false,
+    "lexical": false
+   },
+   "removed": true,
+   "reason": "no_citation",
+   "lex": [],
+   "verifier_flagged": true
+  },
+  {
+   "id": "rw26",
+   "claim": "RTI Act s.7: procedure and deadline for information [1]",
+   "label": "wrong-law",
+   "lang": "ne",
+   "cited": true,
+   "flags": {
+    "no_citation": false,
+    "number": false,
+    "section": false,
+    "status": false,
+    "court": false,
+    "lexical": false
+   },
+   "removed": false,
+   "reason": null,
+   "lex": [
+    0.75
+   ],
+   "verifier_flagged": false
+  },
+  {
+   "id": "rw26",
+   "claim": "RTI Act s.9: complain to the office head if no information [2]",
+   "label": "wrong-law",
+   "lang": "ne",
+   "cited": true,
+   "flags": {
+    "no_citation": false,
+    "number": false,
+    "section": false,
+    "status": false,
+    "court": false,
+    "lexical": false
+   },
+   "removed": false,
+   "reason": null,
+   "lex": [
+    0.75
+   ],
+   "verifier_flagged": false
+  },
+  {
+   "id": "rw26",
+   "claim": "Criminal Code s.78: no tearing of posted summons/notices [3]",
+   "label": "wrong-law",
+   "lang": "ne",
+   "cited": true,
+   "flags": {
+    "no_citation": false,
+    "number": false,
+    "section": false,
+    "status": false,
+    "court": false,
+    "lexical": false
+   },
+   "removed": false,
+   "reason": null,
+   "lex": [
+    0.33
+   ],
+   "verifier_flagged": false
+  },
+  {
+   "id": "rw26",
+   "claim": "Contact SEBON for official action and punishment details",
+   "label": "unsupported",
+   "lang": "ne",
+   "cited": false,
+   "flags": {
+    "no_citation": true,
+    "number": false,
+    "section": false,
+    "status": false,
+    "court": false,
+    "lexical": false
+   },
+   "removed": true,
+   "reason": "no_citation",
+   "lex": [],
+   "verifier_flagged": true
+  },
+  {
+   "id": "rw27",
+   "claim": "The Citizenship Act lets details be corrected on the basis of the academic certificate",
+   "label": "supported",
+   "lang": "ne",
+   "cited": false,
+   "flags": {
+    "no_citation": true,
+    "number": false,
+    "section": false,
+    "status": false,
+    "court": false,
+    "lexical": false
+   },
+   "removed": true,
+   "reason": "no_citation",
+   "lex": [],
+   "verifier_flagged": true
+  },
+  {
+   "id": "rw27",
+   "claim": "Where surname/age differs from the academic certificate or minor errors exist, apply with evidence to the prescribed officer [2: s.17(1)]",
+   "label": "supported",
+   "lang": "ne",
+   "cited": true,
+   "flags": {
+    "no_citation": false,
+    "number": false,
+    "section": false,
+    "status": false,
+    "court": false,
+    "lexical": false
+   },
+   "removed": false,
+   "reason": null,
+   "lex": [
+    0.71
+   ],
+   "verifier_flagged": false
+  },
+  {
+   "id": "rw27",
+   "claim": "'Minor errors' means extra/missing words like kumari, devi, bahadur, prasad or spelling variants [2: explanation]",
+   "label": "supported",
+   "lang": "ne",
+   "cited": true,
+   "flags": {
+    "no_citation": false,
+    "number": false,
+    "section": false,
+    "status": false,
+    "court": false,
+    "lexical": false
+   },
+   "removed": false,
+   "reason": null,
+   "lex": [
+    0.5
+   ],
+   "verifier_flagged": false
+  },
+  {
+   "id": "rw27",
+   "claim": "The officer examines evidence and witnesses and then corrects the record [2: s.17(2)]",
+   "label": "supported",
+   "lang": "ne",
+   "cited": true,
+   "flags": {
+    "no_citation": false,
+    "number": false,
+    "section": false,
+    "status": false,
+    "court": false,
+    "lexical": false
+   },
+   "removed": false,
+   "reason": null,
+   "lex": [
+    1.0
+   ],
+   "verifier_flagged": false
+  },
+  {
+   "id": "rw27",
+   "claim": "Apply to the District Administration Office of issue [2]",
+   "label": "unsupported",
+   "lang": "ne",
+   "cited": true,
+   "flags": {
+    "no_citation": false,
+    "number": false,
+    "section": false,
+    "status": false,
+    "court": false,
+    "lexical": false
+   },
+   "removed": false,
+   "reason": null,
+   "lex": [
+    1.0
+   ],
+   "verifier_flagged": false
+  },
+  {
+   "id": "rw29",
+   "claim": "File a civil suit against the hospital/doctor; medical negligence must be proved",
+   "label": "unsupported",
+   "lang": "ne",
+   "cited": false,
+   "flags": {
+    "no_citation": true,
+    "number": false,
+    "section": false,
+    "status": false,
+    "court": false,
+    "lexical": false
+   },
+   "removed": true,
+   "reason": "no_citation",
+   "lex": [],
+   "verifier_flagged": false
+  },
+  {
+   "id": "rw29",
+   "claim": "Complain to the Nepal Medical Council or the Health Ministry",
+   "label": "unsupported",
+   "lang": "ne",
+   "cited": false,
+   "flags": {
+    "no_citation": true,
+    "number": false,
+    "section": false,
+    "status": false,
+    "court": false,
+    "lexical": false
+   },
+   "removed": true,
+   "reason": "no_citation",
+   "lex": [],
+   "verifier_flagged": false
+  },
+  {
+   "id": "rw29",
+   "claim": "The Motor Vehicles Act and rules do not apply to medical negligence",
+   "label": "supported",
+   "lang": "ne",
+   "cited": false,
+   "flags": {
+    "no_citation": true,
+    "number": false,
+    "section": false,
+    "status": false,
+    "court": false,
+    "lexical": false
+   },
+   "removed": true,
+   "reason": "no_citation",
+   "lex": [],
+   "verifier_flagged": true
+  },
+  {
+   "id": "ho01",
+   "claim": "Landlord may ask you to vacate for his personal or family use, following notice rules",
+   "label": "unsupported",
+   "lang": "en",
+   "cited": false,
+   "flags": {
+    "no_citation": true,
+    "number": false,
+    "section": false,
+    "status": false,
+    "court": false,
+    "lexical": false
+   },
+   "removed": true,
+   "reason": "no_citation",
+   "lex": [],
+   "verifier_flagged": false
+  },
+  {
+   "id": "ho01",
+   "claim": "At least 35 days' written notice where the owner needs the house [1: s.401(2)]",
+   "label": "supported",
+   "lang": "en",
+   "cited": true,
+   "flags": {
+    "no_citation": false,
+    "number": false,
+    "section": false,
+    "status": false,
+    "court": false,
+    "lexical": false
+   },
+   "removed": false,
+   "reason": null,
+   "lex": [
+    0.75
+   ],
+   "verifier_flagged": false
+  },
+  {
+   "id": "ho01",
+   "claim": "Owner cannot re-let the house to others for three months [1: s.401(3)]",
+   "label": "supported",
+   "lang": "en",
+   "cited": true,
+   "flags": {
+    "no_citation": false,
+    "number": false,
+    "section": false,
+    "status": false,
+    "court": false,
+    "lexical": false
+   },
+   "removed": false,
+   "reason": null,
+   "lex": [
+    1.0
+   ],
+   "verifier_flagged": false
+  },
+  {
+   "id": "ho01",
+   "claim": "The former tenant has first priority if he re-lets within three months [1: s.401(4)]",
+   "label": "supported",
+   "lang": "en",
+   "cited": true,
+   "flags": {
+    "no_citation": false,
+    "number": false,
+    "section": false,
+    "status": false,
+    "court": false,
+    "lexical": false
+   },
+   "removed": false,
+   "reason": null,
+   "lex": [
+    0.5
+   ],
+   "verifier_flagged": false
+  },
+  {
+   "id": "ho01",
+   "claim": "Agreement ends on tenant leaving, eviction, mutual cancellation or expiry [2: s.402]",
+   "label": "supported",
+   "lang": "en",
+   "cited": true,
+   "flags": {
+    "no_citation": false,
+    "number": false,
+    "section": false,
+    "status": false,
+    "court": false,
+    "lexical": false
+   },
+   "removed": false,
+   "reason": null,
+   "lex": [
+    0.86
+   ],
+   "verifier_flagged": false
+  },
+  {
+   "id": "ho01",
+   "claim": "Rent term is as agreed, up to five years at a time for general housing [3: s.385]",
+   "label": "supported",
+   "lang": "en",
+   "cited": true,
+   "flags": {
+    "no_citation": false,
+    "number": false,
+    "section": false,
+    "status": false,
+    "court": false,
+    "lexical": false
+   },
+   "removed": false,
+   "reason": null,
+   "lex": [
+    0.57
+   ],
+   "verifier_flagged": false
+  },
+  {
+   "id": "ho01",
+   "claim": "Landlord must let you use the house and keep out harassment [5: s.389]",
+   "label": "supported",
+   "lang": "en",
+   "cited": true,
+   "flags": {
+    "no_citation": false,
+    "number": false,
+    "section": false,
+    "status": false,
+    "court": false,
+    "lexical": false
+   },
+   "removed": false,
+   "reason": null,
+   "lex": [
+    0.6
+   ],
+   "verifier_flagged": false
+  },
+  {
+   "id": "ho01",
+   "claim": "Written agreement under s.386 [4]",
+   "label": "supported",
+   "lang": "en",
+   "cited": true,
+   "flags": {
+    "no_citation": false,
+    "number": false,
+    "section": false,
+    "status": false,
+    "court": false,
+    "lexical": false
+   },
+   "removed": false,
+   "reason": null,
+   "lex": [
+    1.0
+   ],
+   "verifier_flagged": false
+  },
+  {
+   "id": "ho01",
+   "claim": "The municipal Judicial Committee hears house-rent disputes up to Rs 25 lakh a year [6: LGOA s.47(1)(ja)]",
+   "label": "supported",
+   "lang": "en",
+   "cited": true,
+   "flags": {
+    "no_citation": false,
+    "number": false,
+    "section": false,
+    "status": false,
+    "court": false,
+    "lexical": true
+   },
+   "removed": true,
+   "reason": "quote_unrelated",
+   "lex": [
+    0.22
+   ],
+   "verifier_flagged": true
+  },
+  {
+   "id": "ho01",
+   "claim": "Supreme Court: possession does not displace ownership [7]",
+   "label": "wrong-law",
+   "lang": "en",
+   "cited": true,
+   "flags": {
+    "no_citation": false,
+    "number": false,
+    "section": false,
+    "status": false,
+    "court": false,
+    "lexical": false
+   },
+   "removed": false,
+   "reason": null,
+   "lex": [
+    1.0
+   ],
+   "verifier_flagged": true
+  },
+  {
+   "id": "ho05",
+   "claim": "The provided passages concern house rental only and contain no resignation-notice rule",
+   "label": "supported",
+   "lang": "en",
+   "cited": false,
+   "flags": {
+    "no_citation": true,
+    "number": false,
+    "section": false,
+    "status": false,
+    "court": false,
+    "lexical": false
+   },
+   "removed": true,
+   "reason": "no_citation",
+   "lex": [],
+   "verifier_flagged": false
+  },
+  {
+   "id": "ho09",
+   "claim": "Labour Act s.34: wages not below the Act/contract [1]",
+   "label": "wrong-law",
+   "lang": "en",
+   "cited": true,
+   "flags": {
+    "no_citation": false,
+    "number": false,
+    "section": false,
+    "status": false,
+    "court": false,
+    "lexical": false
+   },
+   "removed": false,
+   "reason": null,
+   "lex": [
+    1.0
+   ],
+   "verifier_flagged": false
+  },
+  {
+   "id": "ho09",
+   "claim": "Labour Act s.162: complain within six months of the violation [2]",
+   "label": "wrong-law",
+   "lang": "en",
+   "cited": true,
+   "flags": {
+    "no_citation": false,
+    "number": false,
+    "section": false,
+    "status": false,
+    "court": false,
+    "lexical": false
+   },
+   "removed": false,
+   "reason": null,
+   "lex": [
+    1.0
+   ],
+   "verifier_flagged": false
+  },
+  {
+   "id": "ho09",
+   "claim": "If the employer does not correct it within the six-month period, file a complaint with the district Labour Office",
+   "label": "unsupported",
+   "lang": "en",
+   "cited": false,
+   "flags": {
+    "no_citation": true,
+    "number": false,
+    "section": false,
+    "status": false,
+    "court": false,
+    "lexical": false
+   },
+   "removed": true,
+   "reason": "no_citation",
+   "lex": [],
+   "verifier_flagged": false
+  },
+  {
+   "id": "ho09",
+   "claim": "The Labour Office will consider and decide the complaint under the Labour Act",
+   "label": "unsupported",
+   "lang": "en",
+   "cited": false,
+   "flags": {
+    "no_citation": true,
+    "number": false,
+    "section": false,
+    "status": false,
+    "court": false,
+    "lexical": false
+   },
+   "removed": true,
+   "reason": "no_citation",
+   "lex": [],
+   "verifier_flagged": true
+  },
+  {
+   "id": "ho09",
+   "claim": "No Supreme Court decision in the sources addresses this",
+   "label": "supported",
+   "lang": "en",
+   "cited": false,
+   "flags": {
+    "no_citation": true,
+    "number": false,
+    "section": false,
+    "status": false,
+    "court": false,
+    "lexical": false
+   },
+   "removed": true,
+   "reason": "no_citation",
+   "lex": [],
+   "verifier_flagged": true
+  },
+  {
+   "id": "ho12",
+   "claim": "The provided passages contain no rule on maximum interest",
+   "label": "supported",
+   "lang": "en",
+   "cited": false,
+   "flags": {
+    "no_citation": true,
+    "number": false,
+    "section": false,
+    "status": false,
+    "court": false,
+    "lexical": false
+   },
+   "removed": true,
+   "reason": "no_citation",
+   "lex": [],
+   "verifier_flagged": false
+  },
+  {
+   "id": "ho12",
+   "claim": "Consult a lawyer or the District Court on the applicable law, e.g. the 'Usury Act, if in force'",
+   "label": "unsupported",
+   "lang": "en",
+   "cited": false,
+   "flags": {
+    "no_citation": true,
+    "number": false,
+    "section": false,
+    "status": false,
+    "court": false,
+    "lexical": false
+   },
+   "removed": true,
+   "reason": "no_citation",
+   "lex": [],
+   "verifier_flagged": true
+  },
+  {
+   "id": "ho12",
+   "claim": "Ask the lawyer to check whether the rate violates any statute",
+   "label": "supported",
+   "lang": "en",
+   "cited": false,
+   "flags": {
+    "no_citation": true,
+    "number": false,
+    "section": false,
+    "status": false,
+    "court": false,
+    "lexical": false
+   },
+   "removed": true,
+   "reason": "no_citation",
+   "lex": [],
+   "verifier_flagged": true
+  },
+  {
+   "id": "ho16",
+   "claim": "After separation or divorce a parent can still meet the child [7: NKP 2079/12/11000]",
+   "label": "supported",
+   "lang": "ne",
+   "cited": true,
+   "flags": {
+    "no_citation": false,
+    "number": false,
+    "section": false,
+    "status": false,
+    "court": false,
+    "lexical": false
+   },
+   "removed": false,
+   "reason": null,
+   "lex": [
+    1.0
+   ],
+   "verifier_flagged": false
+  },
+  {
+   "id": "ho19",
+   "claim": "If owner and tenant cannot agree, either may apply alone and the land is divided equally, removing the tenant from the record [3: Land Act s.26gha(1)]",
+   "label": "supported",
+   "lang": "en",
+   "cited": true,
+   "flags": {
+    "no_citation": false,
+    "number": false,
+    "section": false,
+    "status": false,
+    "court": false,
+    "lexical": false
+   },
+   "removed": false,
+   "reason": null,
+   "lex": [
+    0.8
+   ],
+   "verifier_flagged": false
+  },
+  {
+   "id": "ho19",
+   "claim": "The provided statutes give no time limit for the landowner's application",
+   "label": "supported",
+   "lang": "en",
+   "cited": false,
+   "flags": {
+    "no_citation": true,
+    "number": false,
+    "section": false,
+    "status": false,
+    "court": false,
+    "lexical": false
+   },
+   "removed": true,
+   "reason": "no_citation",
+   "lex": [],
+   "verifier_flagged": false
+  },
+  {
+   "id": "ho19",
+   "claim": "Joint-owner certificate if the plot cannot be split [4: s.26nya]",
+   "label": "supported",
+   "lang": "en",
+   "cited": true,
+   "flags": {
+    "no_citation": false,
+    "number": false,
+    "section": false,
+    "status": false,
+    "court": false,
+    "lexical": false
+   },
+   "removed": false,
+   "reason": null,
+   "lex": [
+    0.8
+   ],
+   "verifier_flagged": false
+  },
+  {
+   "id": "ho19",
+   "claim": "Persons who cannot claim tenancy: home-plot cultivators, non-Nepalis, govt land, industrial land [2: s.25(5)]",
+   "label": "supported",
+   "lang": "en",
+   "cited": true,
+   "flags": {
+    "no_citation": false,
+    "number": false,
+    "section": false,
+    "status": false,
+    "court": false,
+    "lexical": false
+   },
+   "removed": false,
+   "reason": null,
+   "lex": [
+    0.71
+   ],
+   "verifier_flagged": false
+  },
+  {
+   "id": "ho19",
+   "claim": "Supreme Court: on the tenant's death, tenancy passes to one family member the landowner accepts [7]",
+   "label": "supported",
+   "lang": "en",
+   "cited": true,
+   "flags": {
+    "no_citation": false,
+    "number": false,
+    "section": false,
+    "status": false,
+    "court": false,
+    "lexical": false
+   },
+   "removed": false,
+   "reason": null,
+   "lex": [
+    0.67
+   ],
+   "verifier_flagged": false
+  },
+  {
+   "id": "ho19",
+   "claim": "Supreme Court: equal division protects both sides; heirs' filing does not extinguish a prior partition claim [8]",
+   "label": "supported",
+   "lang": "en",
+   "cited": true,
+   "flags": {
+    "no_citation": false,
+    "number": false,
+    "section": false,
+    "status": false,
+    "court": false,
+    "lexical": false
+   },
+   "removed": false,
+   "reason": null,
+   "lex": [
+    0.78
+   ],
+   "verifier_flagged": false
+  },
+  {
+   "id": "ho21",
+   "claim": "The Extradition Act and Crime Victims Act do not address bail money",
+   "label": "supported",
+   "lang": "en",
+   "cited": false,
+   "flags": {
+    "no_citation": true,
+    "number": false,
+    "section": false,
+    "status": false,
+    "court": false,
+    "lexical": false
+   },
+   "removed": true,
+   "reason": "no_citation",
+   "lex": [],
+   "verifier_flagged": true
+  },
+  {
+   "id": "ho21",
+   "claim": "CrPC s.76: deposit/bail is released when detention is ordered and refunded on acquittal at the final decision [6]",
+   "label": "supported",
+   "lang": "en",
+   "cited": true,
+   "flags": {
+    "no_citation": false,
+    "number": false,
+    "section": false,
+    "status": false,
+    "court": false,
+    "lexical": false
+   },
+   "removed": false,
+   "reason": null,
+   "lex": [
+    0.75
+   ],
+   "verifier_flagged": false
+  },
+  {
+   "id": "ho21",
+   "claim": "The law only mandates return of bail on acquittal; it does not specify forfeiture for failing to appear",
+   "label": "unsupported",
+   "lang": "en",
+   "cited": false,
+   "flags": {
+    "no_citation": true,
+    "number": false,
+    "section": false,
+    "status": false,
+    "court": false,
+    "lexical": false
+   },
+   "removed": true,
+   "reason": "no_citation",
+   "lex": [],
+   "verifier_flagged": false
+  },
+  {
+   "id": "ho29",
+   "claim": "Domestic violence can be punished with imprisonment of some months, or with fine [7: s.13(1ka)]",
+   "label": "supported",
+   "lang": "ne",
+   "cited": true,
+   "flags": {
+    "no_citation": false,
+    "number": false,
+    "section": false,
+    "status": false,
+    "court": false,
+    "lexical": false
+   },
+   "removed": false,
+   "reason": null,
+   "lex": [
+    1.0
+   ],
+   "verifier_flagged": false
+  },
+  {
+   "id": "ho29",
+   "claim": "A public-office holder who commits it against wife, elder, disabled, minor or pregnant woman gets 10% more [7: s.13(4)]",
+   "label": "supported",
+   "lang": "ne",
+   "cited": true,
+   "flags": {
+    "no_citation": false,
+    "number": false,
+    "section": false,
+    "status": false,
+    "court": false,
+    "lexical": false
+   },
+   "removed": false,
+   "reason": null,
+   "lex": [
+    0.86
+   ],
+   "verifier_flagged": true
+  },
+  {
+   "id": "ho29",
+   "claim": "Complain to police, National Women Commission or local level (s.4) [4]",
+   "label": "supported",
+   "lang": "ne",
+   "cited": true,
+   "flags": {
+    "no_citation": false,
+    "number": false,
+    "section": true,
+    "status": false,
+    "court": false,
+    "lexical": false
+   },
+   "removed": true,
+   "reason": "section_not_in_quote",
+   "lex": [
+    0.5
+   ],
+   "verifier_flagged": true
+  },
+  {
+   "id": "ho29",
+   "claim": "After the complaint the district court starts proceedings (s.5) [5]",
+   "label": "supported",
+   "lang": "ne",
+   "cited": true,
+   "flags": {
+    "no_citation": false,
+    "number": false,
+    "section": false,
+    "status": false,
+    "court": false,
+    "lexical": false
+   },
+   "removed": false,
+   "reason": null,
+   "lex": [
+    0.5
+   ],
+   "verifier_flagged": false
+  },
+  {
+   "id": "ho29",
+   "claim": "Court may issue an interim protection order such as separate residence and treatment (s.6) [1]",
+   "label": "supported",
+   "lang": "ne",
+   "cited": true,
+   "flags": {
+    "no_citation": false,
+    "number": false,
+    "section": false,
+    "status": false,
+    "court": false,
+    "lexical": false
+   },
+   "removed": false,
+   "reason": null,
+   "lex": [
+    0.75
+   ],
+   "verifier_flagged": false
+  },
+  {
+   "id": "ho29",
+   "claim": "Complain within 90 days; the limitation is 90 days [3: s.14]",
+   "label": "supported",
+   "lang": "ne",
+   "cited": true,
+   "flags": {
+    "no_citation": false,
+    "number": false,
+    "section": false,
+    "status": false,
+    "court": false,
+    "lexical": false
+   },
+   "removed": false,
+   "reason": null,
+   "lex": [
+    1.0
+   ],
+   "verifier_flagged": false
+  },
+  {
+   "id": "ho38",
+   "claim": "The passages discuss dishonour and penalties but contain no rule on stop-payment fees",
+   "label": "supported",
+   "lang": "en",
+   "cited": false,
+   "flags": {
+    "no_citation": true,
+    "number": false,
+    "section": false,
+    "status": false,
+    "court": false,
+    "lexical": false
+   },
+   "removed": true,
+   "reason": "no_citation",
+   "lex": [],
+   "verifier_flagged": false
+  },
+  {
+   "id": "ho38",
+   "claim": "Contact Nepal Rastra Bank's consumer-protection department",
+   "label": "unsupported",
+   "lang": "en",
+   "cited": false,
+   "flags": {
+    "no_citation": true,
+    "number": false,
+    "section": false,
+    "status": false,
+    "court": false,
+    "lexical": false
+   },
+   "removed": true,
+   "reason": "no_citation",
+   "lex": [],
+   "verifier_flagged": false
+  },
+  {
+   "id": "ho44",
+   "claim": "It is not legal for a hospital to refuse treatment in an emergency [1][5]",
+   "label": "supported",
+   "lang": "en",
+   "cited": true,
+   "flags": {
+    "no_citation": false,
+    "number": false,
+    "section": false,
+    "status": false,
+    "court": false,
+    "lexical": false
+   },
+   "removed": false,
+   "reason": null,
+   "lex": [
+    0.5,
+    1.0
+   ],
+   "verifier_flagged": false
+  },
+  {
+   "id": "ho44",
+   "claim": "Constitution Art.35(1): no one may be deprived of emergency health services [1]",
+   "label": "supported",
+   "lang": "en",
+   "cited": true,
+   "flags": {
+    "no_citation": false,
+    "number": true,
+    "section": false,
+    "status": false,
+    "court": false,
+    "lexical": false
+   },
+   "removed": true,
+   "reason": "number_not_in_quote",
+   "lex": [
+    0.71
+   ],
+   "verifier_flagged": false
+  },
+  {
+   "id": "ho44",
+   "claim": "A health institution unable to give all emergency services must still give first treatment and refer (Public Health Service Act s.4(3)) [5]",
+   "label": "supported",
+   "lang": "en",
+   "cited": true,
+   "flags": {
+    "no_citation": false,
+    "number": false,
+    "section": false,
+    "status": false,
+    "court": false,
+    "lexical": false
+   },
+   "removed": false,
+   "reason": null,
+   "lex": [
+    0.75
+   ],
+   "verifier_flagged": false
+  },
+  {
+   "id": "ho46",
+   "claim": "The provided sources contain no rule on recovering deposits from a collapsed cooperative",
+   "label": "supported",
+   "lang": "en",
+   "cited": false,
+   "flags": {
+    "no_citation": true,
+    "number": false,
+    "section": false,
+    "status": false,
+    "court": false,
+    "lexical": false
+   },
+   "removed": true,
+   "reason": "no_citation",
+   "lex": [],
+   "verifier_flagged": false
+  },
+  {
+   "id": "ho46",
+   "claim": "What the sources cover: house-rental contracts, landlord duties and civil filing (Civil Code s.386, s.389, CPC s.90)",
+   "label": "wrong-law",
+   "lang": "en",
+   "cited": false,
+   "flags": {
+    "no_citation": true,
+    "number": false,
+    "section": false,
+    "status": false,
+    "court": false,
+    "lexical": false
+   },
+   "removed": true,
+   "reason": "no_citation",
+   "lex": [],
+   "verifier_flagged": false
+  },
+  {
+   "id": "ho46",
+   "claim": "Contact the Department of Cooperatives to check whether the cooperative was declared problematic",
+   "label": "unsupported",
+   "lang": "en",
+   "cited": false,
+   "flags": {
+    "no_citation": true,
+    "number": false,
+    "section": false,
+    "status": false,
+    "court": false,
+    "lexical": false
+   },
+   "removed": true,
+   "reason": "no_citation",
+   "lex": [],
+   "verifier_flagged": false
+  },
+  {
+   "id": "ho49",
+   "claim": "The passages do not specify the Land Revenue Office's power to freeze property in a dispute",
+   "label": "supported",
+   "lang": "en",
+   "cited": false,
+   "flags": {
+    "no_citation": true,
+    "number": false,
+    "section": false,
+    "status": false,
+    "court": false,
+    "lexical": false
+   },
+   "removed": true,
+   "reason": "no_citation",
+   "lex": [],
+   "verifier_flagged": false
+  },
+  {
+   "id": "ho49",
+   "claim": "Freezing is typically ordered by a court, investigating authority or statutory body 'rather than by the Land Revenue Office on its own motion'",
+   "label": "unsupported",
+   "lang": "en",
+   "cited": false,
+   "flags": {
+    "no_citation": true,
+    "number": false,
+    "section": false,
+    "status": false,
+    "court": false,
+    "lexical": false
+   },
+   "removed": true,
+   "reason": "no_citation",
+   "lex": [],
+   "verifier_flagged": false
+  },
+  {
+   "id": "ho49",
+   "claim": "Civil Code s.287: no one may cultivate or use another's land without consent [3]",
+   "label": "supported",
+   "lang": "en",
+   "cited": true,
+   "flags": {
+    "no_citation": false,
+    "number": false,
+    "section": false,
+    "status": false,
+    "court": false,
+    "lexical": true
+   },
+   "removed": true,
+   "reason": "quote_unrelated",
+   "lex": [
+    0.17
+   ],
+   "verifier_flagged": false
+  },
+  {
+   "id": "ho49",
+   "claim": "Land (Survey) Act s.8(1): the ownership certificate is issued after survey as proof of ownership [1]",
+   "label": "supported",
+   "lang": "en",
+   "cited": true,
+   "flags": {
+    "no_citation": false,
+    "number": false,
+    "section": false,
+    "status": false,
+    "court": false,
+    "lexical": false
+   },
+   "removed": false,
+   "reason": null,
+   "lex": [
+    0.83
+   ],
+   "verifier_flagged": false
+  },
+  {
+   "id": "ho49",
+   "claim": "The municipal Judicial Committee can mediate encroachment and building-on-others'-land disputes (LGOA s.47(2)(a),(b)) [2]",
+   "label": "supported",
+   "lang": "en",
+   "cited": true,
+   "flags": {
+    "no_citation": false,
+    "number": false,
+    "section": false,
+    "status": false,
+    "court": false,
+    "lexical": false
+   },
+   "removed": false,
+   "reason": null,
+   "lex": [
+    0.43
+   ],
+   "verifier_flagged": false
+  },
+  {
+   "id": "ho49",
+   "claim": "Pending court cases can be referred to mediation (CPC s.194; Mediation Act s.3) [4][6]",
+   "label": "supported",
+   "lang": "en",
+   "cited": true,
+   "flags": {
+    "no_citation": false,
+    "number": false,
+    "section": false,
+    "status": false,
+    "court": false,
+    "lexical": false
+   },
+   "removed": false,
+   "reason": null,
+   "lex": [
+    1.0,
+    1.0
+   ],
+   "verifier_flagged": false
+  }
+ ],
+ "summary": {
+  "claims": 119,
+  "bad": 48,
+  "good": 71,
+  "by_check": {
+   "no_citation": {
+    "tp": 25,
+    "fp": 20,
+    "fn": 23,
+    "precision": 0.556,
+    "recall": 0.521,
+    "f1": 0.538
+   },
+   "number": {
+    "tp": 1,
+    "fp": 1,
+    "fn": 47,
+    "precision": 0.5,
+    "recall": 0.021,
+    "f1": 0.04
+   },
+   "section": {
+    "tp": 0,
+    "fp": 1,
+    "fn": 48,
+    "precision": 0.0,
+    "recall": 0.0,
+    "f1": 0.0
+   },
+   "status": {
+    "tp": 0,
+    "fp": 0,
+    "fn": 48,
+    "precision": 0.0,
+    "recall": 0.0,
+    "f1": 0.0
+   },
+   "court": {
+    "tp": 0,
+    "fp": 0,
+    "fn": 48,
+    "precision": 0.0,
+    "recall": 0.0,
+    "f1": 0.0
+   },
+   "lexical": {
+    "tp": 0,
+    "fp": 4,
+    "fn": 48,
+    "precision": 0.0,
+    "recall": 0.0,
+    "f1": 0.0
+   }
+  },
+  "by_type": {
+   "hallucinated-number-or-section": {
+    "n": 4,
+    "removed": 4,
+    "recall": 1.0,
+    "old_verifier_recall": 0.75,
+    "by_reason": {
+     "no_citation": 3,
+     "number_not_in_quote": 1
+    }
+   },
+   "unsupported": {
+    "n": 29,
+    "removed": 20,
+    "recall": 0.69,
+    "old_verifier_recall": 0.241,
+    "by_reason": {
+     "no_citation": 20
+    }
+   },
+   "wrong-law": {
+    "n": 15,
+    "removed": 2,
+    "recall": 0.133,
+    "old_verifier_recall": 0.133,
+    "by_reason": {
+     "no_citation": 2
+    }
+   }
+  },
+  "combined": {
+   "tp": 26,
+   "fp": 26,
+   "fn": 22,
+   "precision": 0.5,
+   "recall": 0.542,
+   "f1": 0.52
+  },
+  "combined_excluding_no_citation": {
+   "tp": 1,
+   "fp": 6,
+   "fn": 47,
+   "precision": 0.143,
+   "recall": 0.021,
+   "f1": 0.036
+  },
+  "cited_claims_only": {
+   "n": 74,
+   "bad": 23,
+   "content_checks": {
+    "tp": 1,
+    "fp": 6,
+    "fn": 22,
+    "precision": 0.143,
+    "recall": 0.043,
+    "f1": 0.067
+   }
+  },
+  "old_verifier": {
+   "tp": 12,
+   "fp": 15,
+   "fn": 36,
+   "precision": 0.444,
+   "recall": 0.25,
+   "f1": 0.32
+  },
+  "good_wrongly_removed": {
+   "n": 26,
+   "of": 71,
+   "by_reason": {
+    "no_citation": 20,
+    "number_not_in_quote": 1,
+    "quote_unrelated": 4,
+    "section_not_in_quote": 1
+   }
+  },
+  "lexical_threshold_sweep": [
+   {
+    "threshold": 0.1,
+    "own_passage_wrongly_rejected": 0.0,
+    "unrelated_passage_rejected": 0.242,
+    "n_own": 51,
+    "n_unrelated": 153
+   },
+   {
+    "threshold": 0.2,
+    "own_passage_wrongly_rejected": 0.02,
+    "unrelated_passage_rejected": 0.288,
+    "n_own": 51,
+    "n_unrelated": 153
+   },
+   {
+    "threshold": 0.3,
+    "own_passage_wrongly_rejected": 0.078,
+    "unrelated_passage_rejected": 0.49,
+    "n_own": 51,
+    "n_unrelated": 153
+   },
+   {
+    "threshold": 0.4,
+    "own_passage_wrongly_rejected": 0.078,
+    "unrelated_passage_rejected": 0.601,
+    "n_own": 51,
+    "n_unrelated": 153
+   },
+   {
+    "threshold": 0.5,
+    "own_passage_wrongly_rejected": 0.098,
+    "unrelated_passage_rejected": 0.68,
+    "n_own": 51,
+    "n_unrelated": 153
+   },
+   {
+    "threshold": 0.6,
+    "own_passage_wrongly_rejected": 0.235,
+    "unrelated_passage_rejected": 0.817,
+    "n_own": 51,
+    "n_unrelated": 153
+   }
+  ],
+  "synthetic_mutations": {
+   "number_mutations": 5,
+   "number_mutations_removed": 5,
+   "section_mutations": 8,
+   "section_mutations_removed": 8
+  }
+ }
+}

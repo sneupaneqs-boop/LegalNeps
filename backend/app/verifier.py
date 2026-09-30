@@ -17,9 +17,12 @@ Failing claims stay in the answer but are marked, and counted in the report.
 """
 from __future__ import annotations
 
+import difflib
 import re
+import unicodedata
+from functools import lru_cache
 
-from .text_norm import DEV_DIGITS
+from .text_norm import DEV_DIGITS, DEVANAGARI_RE, TOKEN_RE, detect_language, fold, tokenize
 
 _CITE = re.compile(r"\[(\d{1,2})\]")
 _SENT = re.compile(r"(?<=[.।!?])\s+(?=\S)|\n+")
@@ -198,3 +201,305 @@ def verify(answer: str, sources: list[dict], lang: str = "en") -> tuple[str, dic
         else:
             report["cited_laws"] += 1
     return "\n".join(out_lines), report
+
+
+# =========================================================================
+# V3: structured (JSON) answers. The model proposes sentences, each with the
+# verbatim passage span ("quote") it rests on; this code keeps only the
+# sentences whose quote is really in the cited source and actually says what
+# the sentence says. A sentence that fails is REMOVED, never marked.
+# =========================================================================
+KINDS = ("rule", "deadline", "penalty", "procedure", "advice", "empathy")
+STRICT_KINDS = {"rule", "deadline", "penalty"}
+MIN_QUOTE_TOKENS = 4
+FUZZY_MIN_TOKENS = 6
+FUZZY_RATIO = 0.9
+LEX_MIN_RATIO = 0.3       # share of the sentence's content words found in its quote (calibrated, see docs/PROGRESS.md)
+GUIDANCE_MIN_RATIO = 0.4  # uncited procedure text must come from the curated playbook this much
+
+_PUA = re.compile(r"[-]")
+_PUNCT = re.compile(r"[।॥|.,;:!?\"'“”‘’()\[\]{}<>«»–—\-‐/\\*_…•·~`^]")
+_CITE_ANY = re.compile(r"[\[【]\s*[0-9०-९]{1,2}\s*(?:†[^】\]]*)?[\]】]")
+_CLAUSE_REF = re.compile(r"\(\s*[0-9०-९]{1,2}\s*\)")
+_SECTION_REF2 = re.compile(
+    r"(?:\bSections?|\bRules?|\bArticles?|\bsub-?sections?|दफा|उपदफा|नियम|धारा|अनुच्छेद)\s*\(?\s*([0-9०-९]{1,3}[क-ह]?)", re.I)
+_ANY_NUM = re.compile(r"[0-9]+(?:\.[0-9]+)?")
+_THOUSANDS = re.compile(r"(?<=[0-9]),(?=[0-9]{3}(?![0-9]))")
+_OLDER_LABEL = re.compile(
+    r"(older law|earlier law|old law|previous law|previously|formerly|historical|no longer|repealed|superseded|"
+    r"पुरानो|पहिलेको|अघिल्लो|खारेज|ऐतिहासिक)", re.I)
+_ORDINANCE_LABEL = re.compile(r"(ordinance|अध्यादेश)", re.I)
+_BAD_STATUS = {"bill", "repealed", "lapsed"}
+
+_GENERIC_WORDS = (
+    "act law legal section rule provision code article court person may must shall provide state states say says "
+    "allow allowed require required nepal nepali under also other any such "
+    "ऐन दफा उपदफा संहिता नियम कानुन कानून व्यक्ति बमोजिम सम्बन्धी अनुसार नेपाल अन्य कुनै"
+)
+_GENERIC = frozenset(tokenize(_GENERIC_WORDS))
+
+
+def _qtokens(text: str) -> list[str]:
+    """Quote tokens: NFC, PUA glyphs and punctuation/danda gone, digits ASCII, spelling variants folded."""
+    text = _PUA.sub("", unicodedata.normalize("NFC", text or ""))
+    return TOKEN_RE.findall(fold(_PUNCT.sub(" ", text)))
+
+
+def _numbers_in(text: str) -> set[str]:
+    body = _words_to_digits(_CITE_ANY.sub(" ", text or "")).translate(DEV_DIGITS)
+    body = _THOUSANDS.sub("", body)
+    return {_norm_num(n) for n in _ANY_NUM.findall(body)}
+
+
+def _sentence_numbers(text: str) -> set[str]:
+    """Numbers/quantities the sentence asserts. Section references and (1)-style
+    clause markers are checked separately."""
+    body = _CLAUSE_REF.sub(" ", _SECTION_REF2.sub(" ", _CITE_ANY.sub(" ", text)))
+    return _numbers_in(body)
+
+
+def _section_refs(text: str) -> set[str]:
+    return {m.group(1).translate(DEV_DIGITS) for m in _SECTION_REF2.finditer(_CITE_ANY.sub(" ", text))}
+
+
+def looks_rule_like(text: str) -> bool:
+    """A sentence that states or implies law, whatever kind the model gave it."""
+    body = _CITE_ANY.sub(" ", text)
+    return bool(_RULE_WORDS.search(body) or _LAW_REF.search(body) or _sentence_numbers(body) or _section_refs(body))
+
+
+class _View:
+    """One source prepared for span matching."""
+    __slots__ = ("src", "texts", "joined", "numbers")
+
+    def __init__(self, src: dict):
+        self.src = src
+        self.texts = [t for t in (_qtokens(src.get("text_ne")), _qtokens(src.get("text_en"))) if t]
+        self.joined = [" " + " ".join(t) + " " for t in self.texts]
+        head = " ".join(str(src.get(k) or "") for k in ("source_ne", "source_en", "title_ne", "title_en"))
+        self.numbers = {n for n in _numbers_in(head) if len(n) == 4}  # the law's own year, e.g. 2074
+
+
+def _fuzzy_span(qtok: list[str], stok: list[str]) -> bool:
+    """>=90% of the quote's tokens found in one contiguous run of the source
+    (OCR'd passages drop or garble a word); every digit token must be exact."""
+    n = len(qtok)
+    if n < FUZZY_MIN_TOKENS or len(stok) < n // 2:
+        return False
+    lead = set(qtok[:3])
+    digits = {t for t in qtok if t.isdigit()}
+    tried = 0
+    for i, t in enumerate(stok):
+        if t not in lead:
+            continue
+        window = stok[max(0, i - 2): i + n + 2]
+        if digits - set(window):
+            continue
+        blocks = difflib.SequenceMatcher(None, qtok, window, autojunk=False).get_matching_blocks()
+        if sum(b.size for b in blocks) / n >= FUZZY_RATIO:
+            return True
+        tried += 1
+        if tried > 200:
+            break
+    return False
+
+
+def quote_in_source(quote: str, view: _View) -> str | None:
+    """None if the quote is a verbatim span of the source, else a reason code."""
+    qtok = _qtokens(quote)
+    if len(qtok) < MIN_QUOTE_TOKENS:
+        return "quote_too_short"
+    needle = " " + " ".join(qtok) + " "
+    if any(needle in j for j in view.joined):
+        return None
+    if any(_fuzzy_span(qtok, t) for t in view.texts):
+        return None
+    return "quote_not_verbatim"
+
+
+@lru_cache(maxsize=1)
+def _bridge() -> tuple[dict[str, frozenset[str]], dict[str, frozenset[str]]]:
+    """English content word <-> Nepali stems, from the local glossary, so an
+    English sentence can be compared with the Nepali statute text it quotes."""
+    from . import glossary
+    idx, _ = glossary._index()
+    en2ne: dict[str, set[str]] = {}
+    ne2en: dict[str, set[str]] = {}
+    for key, ne_terms in idx.items():
+        ne_stems = {t for term in ne_terms for t in tokenize(term)}
+        for w in key:
+            stem = tokenize(w)
+            if not stem or stem[0] in _GENERIC:
+                continue
+            for s in ne_stems:
+                en2ne.setdefault(stem[0], set()).add(s)
+                ne2en.setdefault(s, set()).add(stem[0])
+    return ({k: frozenset(v) for k, v in en2ne.items()}, {k: frozenset(v) for k, v in ne2en.items()})
+
+
+def _same(a: str, b: str) -> bool:
+    return a == b or (len(a) >= 5 and len(b) >= 5 and a[:5] == b[:5])
+
+
+def _in_terms(term: str, pool: set[str]) -> bool:
+    return term in pool or (len(term) >= 5 and any(_same(term, p) for p in pool))
+
+
+def lexical_support(sentence: str, quote: str) -> tuple[float, int, int]:
+    """(share of the sentence's content words the quote supports, hits, words
+    compared). Words in the other script than the quote are compared through
+    the glossary; those it cannot translate are not counted either way."""
+    terms = {t for t in tokenize(_CITE_ANY.sub(" ", sentence)) if not t.isdigit() and len(t) > 1 and t not in _GENERIC}
+    pool = {t for t in tokenize(quote) if not t.isdigit()}
+    quote_dev = detect_language(quote) == "ne"
+    en2ne, ne2en = _bridge()
+    hits = considered = 0
+    for t in terms:
+        if _in_terms(t, pool):
+            hits += 1
+            considered += 1
+            continue
+        t_dev = bool(DEVANAGARI_RE.match(t))
+        if t_dev == quote_dev:
+            considered += 1
+            continue
+        cands = (en2ne if quote_dev else ne2en).get(t) or frozenset()
+        if cands:
+            considered += 1
+            if any(_in_terms(c, pool) for c in cands):
+                hits += 1
+    return (hits / considered if considered else 1.0), hits, considered
+
+
+def _guidance_ok(text: str, guidance_terms: set[str]) -> bool:
+    terms = {t for t in tokenize(text) if not t.isdigit() and len(t) > 1 and t not in _GENERIC}
+    if not terms or not guidance_terms:
+        return False
+    return sum(_in_terms(t, guidance_terms) for t in terms) / len(terms) >= GUIDANCE_MIN_RATIO
+
+
+def _cite_list(sent: dict) -> list[tuple[int, str]]:
+    out = []
+    for c in sent.get("cites") or []:
+        if not isinstance(c, dict):
+            continue
+        try:
+            n = int(re.sub(r"[^0-9]", "", str(c.get("n")).translate(DEV_DIGITS)) or 0)
+        except ValueError:
+            n = 0
+        out.append((n, str(c.get("quote") or "")))
+    return out
+
+
+def check_structured_sentence(sent: dict, sources: list[dict], views: list[_View],
+                              guidance_terms: set[str] | None = None) -> tuple[str | None, list[dict]]:
+    """(None, kept cites) if the sentence may be shown, else (reason code, [])."""
+    text = str(sent.get("text") or "").strip()
+    kind = sent.get("kind") if sent.get("kind") in KINDS else "rule"
+    if not text:
+        return "empty", []
+    body = _CITE_ANY.sub(" ", text)
+    cites = _cite_list(sent)
+    if not (kind in STRICT_KINDS or cites or looks_rule_like(body)):
+        # empathy / advice / plain procedure with no number and no rule wording;
+        # a procedure step must come from the curated playbook, not the model's memory
+        if kind != "procedure" or _guidance_ok(body, guidance_terms or set()):
+            return None, []
+        return "uncited_procedure", []
+    if not cites:
+        return "no_citation", []
+
+    valid: list[tuple[int, str]] = []
+    first_bad = "bad_citation"
+    for n, quote in cites:
+        if not 1 <= n <= len(sources):
+            first_bad = "bad_citation"
+            continue
+        why = quote_in_source(quote, views[n - 1])
+        if why:
+            first_bad = why
+            continue
+        valid.append((n, quote))
+    if not valid:
+        return first_bad, []
+
+    older = bool(_OLDER_LABEL.search(body))
+    ordinance = bool(_ORDINANCE_LABEL.search(body))
+    good = []
+    for n, quote in valid:
+        s = sources[n - 1]
+        status = s.get("status")
+        if (status in _BAD_STATUS or s.get("stale")) and not older:
+            first_bad = "stale_or_repealed_source"
+            continue
+        if status == "ordinance" and not ordinance:
+            first_bad = "ordinance_unlabelled"
+            continue
+        good.append((n, quote))
+    if not good:
+        return first_bad, []
+
+    if _COURT_CLAIM.search(body) and not any(sources[n - 1].get("category") == "precedent" for n, _ in good):
+        return "court_claim_cites_statute", []
+
+    quote_nums: set[str] = set()
+    for _, q in good:
+        quote_nums |= _numbers_in(q)
+    pool = quote_nums | set().union(*(views[n - 1].numbers for n, _ in good))
+    if not _sentence_numbers(body) <= pool:
+        return "number_not_in_quote", []
+    section_pool = set(quote_nums)
+    for n, _ in good:
+        section_pool.add(((sources[n - 1].get("section") or "").translate(DEV_DIGITS).split(" ")[0]) or "-")
+    if not _section_refs(body) <= section_pool:
+        return "section_not_in_quote", []
+
+    # the best-supporting of the cited quotes decides; words it cannot compare are not held against it
+    ratio, hits, considered = max((lexical_support(body, q) for _, q in good), key=lambda r: (r[0], r[1]))
+    if considered and (hits < 1 or ratio < LEX_MIN_RATIO):
+        return "quote_unrelated", []
+    return None, [{"n": n, "quote": q} for n, q in good]
+
+
+def _clean_doc_sentence(s) -> dict | None:
+    if not isinstance(s, dict) or not str(s.get("text") or "").strip():
+        return None
+    return {"text": _CITE_ANY.sub("", str(s["text"])).strip(), "kind": s.get("kind"), "cites": s.get("cites") or []}
+
+
+def verify_structured(doc: dict, sources: list[dict], guidance: str = "") -> tuple[dict, dict]:
+    """(verified doc, report). Failing sentences are dropped; blocks left with
+    nothing under their heading are dropped; the report keeps the legacy
+    verification shape (supported == claims for what is rendered) plus `removed`
+    (counts and reason codes only - never the removed text)."""
+    views = [_View(s) for s in sources]
+    guidance_terms = {t for t in tokenize(guidance) if not t.isdigit()}
+    reasons: dict[str, int] = {}
+    kept_blocks, claims, dropped_blocks = [], 0, 0
+    cited: set[int] = set()
+    for block in doc.get("blocks") or []:
+        kept = []
+        for raw in block.get("sentences") or []:
+            s = _clean_doc_sentence(raw)
+            if s is None:
+                continue
+            reason, cites = check_structured_sentence(s, sources, views, guidance_terms)
+            if reason:
+                reasons[reason] = reasons.get(reason, 0) + 1
+                continue
+            kept.append({"text": s["text"], "kind": s["kind"] if s["kind"] in KINDS else "rule", "cites": cites})
+            if cites:
+                claims += 1
+                cited |= {c["n"] - 1 for c in cites}
+        if kept:
+            kept_blocks.append({"heading": str(block.get("heading") or "").strip(), "sentences": kept})
+        elif block.get("sentences"):
+            dropped_blocks += 1
+    report = {
+        "claims": claims, "supported": claims, "unverified": [],
+        "cited_laws": sum(sources[i].get("category") != "precedent" for i in cited),
+        "cited_precedents": sum(sources[i].get("category") == "precedent" for i in cited),
+        "removed": {"count": sum(reasons.values()), "reasons": sorted(reasons, key=lambda r: -reasons[r]),
+                    "by_reason": reasons, "blocks_dropped": dropped_blocks},
+    }
+    return {**doc, "blocks": kept_blocks}, report
