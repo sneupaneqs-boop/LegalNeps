@@ -44,9 +44,16 @@ the master prompt from `docs/SESSION_PROMPTS_V2.md`). STRATEGY v1's S15
 (QA + launch) is folded into V21–V22.
 
 **V2 — Hybrid retrieval**, then **V6 — Deep Research (Pro)** (STRATEGY_V2 §6).
-V1, V3, V4 (ordinance part), V5, V7–V11 (UI) and V12–V13 (Document AI) were
-done in one combined session on 2026-09-29 — see "V-batch 1" under Done.
-Before V2: confirm the founder has set the Render build command below
+V1 (now complete, incl. baselines), V3, V4 (ordinance part), V5, V7–V11 (UI)
+and V12–V13 (Document AI) were done on 2026-09-29/30 — see "V1 baselines" and
+"V-batch 1" under Done. **V2 exit bar: hit@8 ≥ 0.80 on the held-out set**
+(`python3 eval/run_eval.py retrieval --set heldout`; baseline **0.760**, MRR
+0.503 — run it only at milestones, **never tune against it**: the tuning loop
+uses `questions.jsonl` and `--set realworld`, and every playbook/glossary
+keyword change must be justified from those or from real query logs, not from
+held-out misses). V2 must also fix the failure patterns listed under "V1
+baselines" (romanised queries, wrong-playbook pinning) — the vectors alone
+won't. Before V2: confirm the founder has set the Render build command below
 (memory headroom for vectors depends on the prebuilt index).
 
 **Founder action (30 seconds, blocks faster cold starts):** Render →
@@ -55,9 +62,10 @@ kanooni-sathi-api → Settings → Build Command:
 (index loads in 0.7s / 168MB instead of rebuilding for ~45s / 312MB peak
 after every wake; the MCP tools here can't edit build settings).
 
-**Still outstanding from V-batch 1:** (a) the 50-question held-out eval set
-and the 30 new real-query eval cases were NOT built — every number below is
-on the original 150 questions, which were also used to tune; (b) nothing
+**Still outstanding from V-batch 1:** (a) ~~held-out set and 30 real-query
+cases~~ built 2026-09-30 (see "V1 baselines"); the V-batch 1 numbers on the
+150 questions are tuned-on numbers, so use the held-out figure as the honest
+one; (b) nothing
 signed-in (contract audit, matters, drafts, compliance, account) has run
 against the real backend with a real login, and the contract audit's LLM
 extraction has never run against a real model — only a regex stand-in;
@@ -191,6 +199,89 @@ do yet. Left for whichever session next touches the chat UI/pipeline, since
 S7's own "done when" bar (25 playbooks, ≥90% precision) doesn't require it.
 
 ## Done
+
+### V1 baselines (2026-09-30)
+
+Finishes V1: eval cases, held-out set, baselines. **All numbers are on today's
+corpus only** (71,789 passages, digest `bed440a3d0753019`, commit `bb68d6f`);
+other agents are changing the corpus, so re-run before comparing. Retrieval is
+"raw" mode (no LLM query rewrite; same production path otherwise: `search()` +
+`_match_playbook`; live `analysis.queries_ne` was empty anyway).
+
+- **New:** `eval/questions_realworld.jsonl` (30: the two §1.2.1 queries verbatim
+  + 28 real-style: 20 romanised, 6 Devanagari incl. misspellings, 4 English),
+  `eval/questions_heldout.jsonl` (50, 40% Nepali/romanised, disjoint from the
+  other sets; **do-not-tune rule in its header** — run at milestones only, a
+  fixed miss is "burned": move it to realworld and write a new one),
+  `eval/casecheck.py`, `run_eval.py --set {default,realworld,heldout}` and
+  `run_eval.py verify --set X`, `tests/test_eval_sets.py`. Every case has `why`
+  (governing provision) and `sections` with quoted phrases **checked against the
+  corpus text** (`verify`, also a test): 80/80 pass. Same schema as
+  `questions.jsonl` plus `id, lang, sections, why`.
+- **Retrieval** (`eval/reports/baselines-20260930.json` has the misses lists):
+
+| Set | n | hit@8 | hit@3 | MRR | governing-section hit@8 |
+|---|---|---|---|---|---|
+| tuning (`questions.jsonl`) | 150 | 0.863 | 0.699 | 0.668 | – |
+| real-world | 30 | 0.700 | 0.500 | 0.499 | 0.500 |
+| **held-out** | 50 | **0.760** | 0.560 | 0.503 | 0.540 |
+
+  The 0.863 was tuned on; **0.76 is the honest number** (V2 bar: ≥ 0.80).
+  Held-out hit@8 by language: en 0.70, ne 0.86, roman 0.83; real-world: roman
+  0.55 (11/20), ne 1.00, en 1.00.
+- **Answer quality** — 30 live answers (`kanooni-sathi-api`, 18 real-world + 12
+  held-out) reviewed claim by claim against the returned sources
+  (`eval/reports/live-answers-20260930.json` raw, `live-review-20260930.json`
+  labels; single reviewer, advice with no source counted as unsupported):
+
+| 119 claims | supported | unsupported | wrong-law | hallucinated number/section |
+|---|---|---|---|---|
+| count | 71 | 29 | 15 | 4 |
+
+  **Unsupported-claim rate 40% of claims (48/119)**; 70% of answers (21/30) hold
+  ≥1 bad claim; only 10/30 cite the governing provision; 6/30 are cut off
+  mid-sentence. Real-world 51% vs held-out 24%. Excluding wrong-law: 28%.
+- **Built-in verifier vs my review:** claim level precision 0.44 / recall 0.25
+  (12 TP, 15 FP, 36 FN); answer level (flagged vs has-a-bad-claim) precision
+  0.88 / recall 0.67. It reported `claims: 0` on 7/30 answers (several fully
+  cited), cannot see wrong-law (a Motor Vehicles Act plan for a widow's
+  inheritance passed 6/9), and passed "100 shareholders" for s.9's "101". False
+  alarms: sentences saying "the sources don't cover X" (no `[n]`) and Devanagari
+  number words ("पच्चीस लाख" vs 2,500,000; "दश प्रतिशत" vs 10%).
+- **Top failure patterns**
+  1. *Romanised Nepali never reaches the Devanagari index*: 9/9 real-world
+     misses are romanised ("manpower le thagyo…" → Seed Rules, Foreign Education
+     Rules; "kampani ko bhitri suchana…" → RTI Act; "fake Facebook ID…" → ID-card
+     rules). English is next-worst (held-out en 0.70: "moneylender interest >
+     principal" → Public Debt Rules instead of Civil Code s.481).
+  2. *Wrong playbook pins irrelevant provisions* (8/30 live answers): widow's
+     inheritance → traffic_accident playbook; doctor negligence → traffic;
+     resignation notice → tenant eviction; savings-cooperative deposit →
+     house-deposit; insider trading → RTI; overtime → workplace sexual harassment.
+     The answer then cites the wrong law or says "not covered" while the right
+     section (Civil Code s.239/214, Criminal Code s.181, Labour Act s.144,
+     Cooperatives Act s.108Ka, Securities Act s.91) sits unretrieved.
+  3. *Answers that say "the sources don't cover it" are true of the sources but
+     false of the corpus* (17/30); one flatly denies a rule that exists ("the law
+     does not specify forfeiture of bail" — CrPC s.75 does).
+  4. *Misapplied/embellished provisions even with the right section*: the
+     deposit query (§1.2.1) now cites s.386/402 but claims the deposit term is a
+     mandatory agreement item and that non-return ends the tenancy (neither is
+     in the text); a consumer answer runs s.50's 6 months from the complaint
+     date (it runs from the harm).
+  5. *Truncation*: 6/30 end mid-sentence (one after two sentences, no law given).
+- **What V2/V3/V5 should fix:** V2 — romanised→Devanagari query expansion (the
+  glossary + dense vectors; `manpower/thagyo/talab/jamanat/jaheri` tokens) and
+  English→Nepali legal terms, then re-run held-out. V5 — require a playbook
+  match to clear a relevance bar against the question's own terms before it
+  pins provisions (and never let a pin displace a better BM25 hit). V3 —
+  verifier must (a) evaluate Nepali/`[n]`-less answers (0-claim blind spot),
+  (b) normalise Devanagari number words, (c) flag "cited provision doesn't
+  concern the question", (d) not treat "not covered" statements as claims,
+  (e) fix truncation. Target: <5% unsupported on a fresh 30-answer review.
+- Tests: 1,393 pass; `test_s12_compliance_radar::test_upcoming_obligations_
+  filters_by_profile_and_window` fails only because it asserts "nothing is due
+  tomorrow" and something is due on 2026-10-01 (wall-clock dependent, pre-existing).
 
 ### V-batch 2 — regulator corpus, official drafting formats, tools, prod fixes (2026-09-29)
 

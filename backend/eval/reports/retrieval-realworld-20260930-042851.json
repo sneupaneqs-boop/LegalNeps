@@ -1,0 +1,1083 @@
+{
+ "summary": {
+  "raw": {
+   "hit@k (covered)": 0.7,
+   "hit@3 (covered)": 0.5,
+   "MRR": 0.499,
+   "median_ms": 631.5,
+   "with_precedent": 0.933,
+   "section hit@k": 0.5,
+   "section hit@3": 0.4
+  },
+  "questions": 30,
+  "set": "realworld",
+  "coverage_gaps": []
+ },
+ "rows": [
+  {
+   "q": "घरबेटीले deposit फिर्ता दिएन, के गर्ने?",
+   "area": "tenancy",
+   "expect": [
+    "मुलुकी देवानी संहिता"
+   ],
+   "sections": [
+    {
+     "doc": "मुलुकी देवानी संहिता, २०७४",
+     "section": "400",
+     "contains": [
+      "अग्रिम दिएको भए"
+     ]
+    },
+    {
+     "doc": "मुलुकी देवानी संहिता, २०७४",
+     "section": "386",
+     "contains": [
+      "लिखित सम्झौता गर्नु पर्नेछ"
+     ]
+    },
+    {
+     "doc": "मुलुकी देवानी संहिता, २०७४",
+     "section": "402",
+     "contains": [
+      "सम्झौता समाप्त भएको मानिनेछ"
+     ]
+    }
+   ],
+   "in_corpus": true,
+   "raw": {
+    "rank": 1,
+    "precedents": 3,
+    "top": [
+     "मुलुकी देवानी संहिता, २०७४, दफा 386",
+     "मुलुकी देवानी संहिता, २०७४, दफा 389",
+     "मुलुकी देवानी संहिता, २०७४, दफा 402"
+    ],
+    "ms": 3687,
+    "queries": [],
+    "sec_rank": 1
+   }
+  },
+  {
+   "q": "My employer has not paid my salary for 4 months. What can I do?",
+   "area": "labour",
+   "expect": [
+    "श्रम ऐन"
+   ],
+   "sections": [
+    {
+     "doc": "श्रम ऐन, २०७४",
+     "section": "162",
+     "contains": [
+      "छ महिनाभित्र"
+     ]
+    },
+    {
+     "doc": "श्रम ऐन, २०७४",
+     "section": "35",
+     "contains": [
+      "एक महिनाभन्दा बढी हुने छैन"
+     ]
+    }
+   ],
+   "in_corpus": true,
+   "raw": {
+    "rank": 1,
+    "precedents": 3,
+    "top": [
+     "श्रम ऐन, २०७४, दफा 34",
+     "श्रम ऐन, २०७४, दफा 162",
+     "श्रम ऐन, २०७४, दफा 64"
+    ],
+    "ms": 2628,
+    "queries": [],
+    "sec_rank": 2
+   }
+  },
+  {
+   "q": "boss le din ko 12 ghanta kaam garauchha, overtime ko paisa pani dinna. yo milchha?",
+   "area": "labour",
+   "expect": [
+    "श्रम ऐन"
+   ],
+   "sections": [
+    {
+     "doc": "श्रम ऐन, २०७४",
+     "section": "28",
+     "contains": [
+      "आठ घण्टा"
+     ]
+    },
+    {
+     "doc": "श्रम ऐन, २०७४",
+     "section": "31",
+     "contains": [
+      "डेढी"
+     ]
+    }
+   ],
+   "in_corpus": true,
+   "raw": {
+    "rank": 8,
+    "precedents": 3,
+    "top": [
+     "कार्यस्थलमा हुने यौनजन्य दुर्व्यवहार ( निवारण) ऐन, २०७१, दफा 5",
+     "कार्यस्थलमा हुने यौनजन्य दुर्व्यवहार ( निवारण) ऐन, २०७१, दफा 7",
+     "कार्यस्थलमा हुने यौनजन्य दुर्व्यवहार ( निवारण) ऐन, २०७१, दफा 4"
+    ],
+    "ms": 2574,
+    "queries": [],
+    "sec_rank": null
+   }
+  },
+  {
+   "q": "manpower le thagyo. Malaysia pathaidinchhu bhanera 3 lakh liyo, 8 mahina bhayo visa aayena. paisa kasari firta paune?",
+   "area": "foreign employment",
+   "expect": [
+    "वैदेशिक रोजगार",
+    "मुलुकी अपराध संहिता"
+   ],
+   "sections": [
+    {
+     "doc": "वैदेशिक रोजगार ऐन, २०६४",
+     "section": "43",
+     "contains": [
+      "झुट्टो आश्वासन"
+     ]
+    },
+    {
+     "doc": "मुलुकी अपराध संहिता, २०७४",
+     "section": "249",
+     "contains": [
+      "फकाई, झुक्याई"
+     ]
+    }
+   ],
+   "in_corpus": true,
+   "raw": {
+    "rank": null,
+    "precedents": 3,
+    "top": [
+     "बीउ बिजन नियमावली, २०८१, नियम 8",
+     "विदेशी शैक्षिक कार्यक्रम (सञ्‍चालन र नियमन) नियमावली, २०८३, नियम 5",
+     "वन नियमावली, २०७९, नियम 2 (5)"
+    ],
+    "ms": 1418,
+    "queries": [],
+    "sec_rank": null
+   }
+  },
+  {
+   "q": "Kuwait pugda job chhaina, company le kaam nai dinna. ghar pharkiye. ticket ra agency ko kharcha kasari firta paune?",
+   "area": "foreign employment",
+   "expect": [
+    "वैदेशिक रोजगार"
+   ],
+   "sections": [
+    {
+     "doc": "वैदेशिक रोजगार ऐन, २०६४",
+     "section": "36",
+     "contains": [
+      "सम्पूर्ण खर्चको क्षतिपूर्ति"
+     ]
+    },
+    {
+     "doc": "वैदेशिक रोजगार ऐन, २०६४",
+     "section": "60",
+     "contains": [
+      "एक वर्षभित्र"
+     ]
+    }
+   ],
+   "in_corpus": true,
+   "raw": {
+    "rank": null,
+    "precedents": 3,
+    "top": [
+     "मुलुकी देवानी संहिता, २०७४, दफा 89",
+     "मुलुकी देवानी संहिता, २०७४, दफा 101",
+     "मुलुकी देवानी संहिता, २०७४, दफा 211"
+    ],
+    "ms": 2542,
+    "queries": [],
+    "sec_rank": null
+   }
+  },
+  {
+   "q": "I'm desperate. My friend took 5 lakh from me and gave a cheque, but the cheque bounced and now he avoids me. What can I do?",
+   "area": "cheque bounce",
+   "expect": [
+    "बैङ्किङ्ग कसूर",
+    "विनिमेय अधिकारपत्र"
+   ],
+   "sections": [
+    {
+     "doc": "बैङ्किङ्ग कसूर तथा सजाय ऐन, २०६४",
+     "section": "3क",
+     "contains": [
+      "पैँतालिस दिनको म्याद"
+     ]
+    },
+    {
+     "doc": "बैङ्किङ्ग कसूर तथा सजाय ऐन, २०६४",
+     "section": "15 (1)",
+     "contains": [
+      "पन्ध्र लाख रुपैयाँसम्म बिगो भए एक महिनासम्म कैद"
+     ]
+    }
+   ],
+   "in_corpus": true,
+   "raw": {
+    "rank": 1,
+    "precedents": 3,
+    "top": [
+     "विनिमेय अधिकारपत्र ऐन, २०३४, दफा 65",
+     "बैङ्किङ्ग कसूर तथा सजाय ऐन, २०६४, दफा 3क",
+     "बैङ्किङ्ग कसूर तथा सजाय ऐन, २०६४, दफा 15 (1)"
+    ],
+    "ms": 578,
+    "queries": [],
+    "sec_rank": 2
+   }
+  },
+  {
+   "q": "साहुले ब्याज मागेको छ तर लिखतमा त बयाज कतै लेखेकै छैन, तिर्नै पर्छ?",
+   "area": "loans/interest",
+   "expect": [
+    "मुलुकी देवानी संहिता"
+   ],
+   "sections": [
+    {
+     "doc": "मुलुकी देवानी संहिता, २०७४",
+     "section": "479",
+     "contains": [
+      "उल्लेख नभएमा साहूले ऋणीबाट ब्याज लिन पाउने छैन"
+     ]
+    }
+   ],
+   "in_corpus": true,
+   "raw": {
+    "rank": 1,
+    "precedents": 3,
+    "top": [
+     "मुलुकी देवानी संहिता, २०७४, दफा 478",
+     "मुलुकी देवानी संहिता, २०७४, दफा 482",
+     "मुलुकी देवानी संहिता, २०७४, दफा 479"
+    ],
+    "ms": 239,
+    "queries": [],
+    "sec_rank": 3
+   }
+  },
+  {
+   "q": "husband le chhadera gayo, ghar kharcha dinna, 3 ota bachha chha. maintenance kasari paune?",
+   "area": "maintenance",
+   "expect": [
+    "मुलुकी देवानी संहिता"
+   ],
+   "sections": [
+    {
+     "doc": "मुलुकी देवानी संहिता, २०७४",
+     "section": "211",
+     "contains": [
+      "खान लाउन दिन"
+     ]
+    },
+    {
+     "doc": "मुलुकी देवानी संहिता, २०७४",
+     "section": "213",
+     "contains": [
+      "शारीरिक वा मानसिक यातना दिएमा"
+     ]
+    }
+   ],
+   "in_corpus": true,
+   "raw": {
+    "rank": 1,
+    "precedents": 3,
+    "top": [
+     "मुलुकी देवानी संहिता, २०७४, दफा 89",
+     "मुलुकी देवानी संहिता, २०७४, दफा 101",
+     "मुलुकी देवानी संहिता, २०७४, दफा 211"
+    ],
+    "ms": 820,
+    "queries": [],
+    "sec_rank": 3
+   }
+  },
+  {
+   "q": "My wife wants a divorce and I'm terrified I'll lose my 4-year-old daughter. Who gets custody?",
+   "area": "custody",
+   "expect": [
+    "मुलुकी देवानी संहिता"
+   ],
+   "sections": [
+    {
+     "doc": "मुलुकी देवानी संहिता, २०७४",
+     "section": "115",
+     "contains": [
+      "पाँच वर्ष उमेर पूरा नभएको नाबालक"
+     ]
+    }
+   ],
+   "in_corpus": true,
+   "raw": {
+    "rank": 1,
+    "precedents": 3,
+    "top": [
+     "मुलुकी देवानी संहिता, २०७४, दफा 96",
+     "मुलुकी देवानी संहिता, २०७४, दफा 97",
+     "मुलुकी देवानी संहिता, २०७४, दफा 98"
+    ],
+    "ms": 887,
+    "queries": [],
+    "sec_rank": null
+   }
+  },
+  {
+   "q": "बुबाले अन्श दिनुभएन, दाजुले सबै जग्गा आफ्नो नाममा गर्यो। म छोरी हुँ, मलाई केही छैन भन्छन्।",
+   "area": "partition",
+   "expect": [
+    "मुलुकी देवानी संहिता"
+   ],
+   "sections": [
+    {
+     "doc": "मुलुकी देवानी संहिता, २०७४",
+     "section": "206",
+     "contains": [
+      "प्रत्येक अंशियार अंशको समान हकदार हुनेछन्"
+     ]
+    },
+    {
+     "doc": "मुलुकी देवानी संहिता, २०७४",
+     "section": "205",
+     "contains": [
+      "छोरा, छोरी अंशियार मानिनेछन्"
+     ]
+    },
+    {
+     "doc": "मुलुकी देवानी संहिता, २०७४",
+     "section": "216",
+     "contains": [
+      "लिखित रूपमा बण्डापत्र"
+     ]
+    }
+   ],
+   "in_corpus": true,
+   "raw": {
+    "rank": 4,
+    "precedents": 3,
+    "top": [
+     "मुलुकी अपराध संहिता, २०७४, दफा 191",
+     "मुलुकी फौजदारी कार्यविधि संहिता, २०७४, दफा 4 (1)",
+     "मुलुकी अपराध संहिता, २०७४, दफा 199"
+    ],
+    "ms": 1089,
+    "queries": [],
+    "sec_rank": null
+   }
+  },
+  {
+   "q": "mero shreemanko mrityu bhayo. sasu-sasura le sampatti ma tero kei haq chhaina bhanchhan. hamro ek chhora chha.",
+   "area": "inheritance",
+   "expect": [
+    "मुलुकी देवानी संहिता"
+   ],
+   "sections": [
+    {
+     "doc": "मुलुकी देवानी संहिता, २०७४",
+     "section": "239",
+     "contains": [
+      "सगोलको पति वा पत्नी"
+     ]
+    },
+    {
+     "doc": "मुलुकी देवानी संहिता, २०७४",
+     "section": "214",
+     "contains": [
+      "विधवाले जहिलेसुकै आफ्नो अंश लिई भिन्न हुन सक्नेछ"
+     ]
+    }
+   ],
+   "in_corpus": true,
+   "raw": {
+    "rank": null,
+    "precedents": 3,
+    "top": [
+     "सवारी तथा यातायात व्यवस्था ऐन, २०४९, दफा 163",
+     "सवारी तथा यातायात व्यवस्था ऐन, २०४९, दफा 152",
+     "सवारी तथा यातायात व्यवस्था ऐन, २०४९, दफा 166"
+    ],
+    "ms": 1319,
+    "queries": [],
+    "sec_rank": null
+   }
+  },
+  {
+   "q": "जग्गा किनेपछि सरकारी जग्गा रहेछ भनेर मालपोतले दर्ता खारेज गर्छ भन्छन्। के गर्ने?",
+   "area": "land/malpot",
+   "expect": [
+    "मालपोत ऐन"
+   ],
+   "sections": [
+    {
+     "doc": "मालपोत ऐन, २०३४",
+     "section": "24",
+     "contains": [
+      "बदर हुनेछ"
+     ]
+    }
+   ],
+   "in_corpus": true,
+   "raw": {
+    "rank": 1,
+    "precedents": 3,
+    "top": [
+     "मालपोत ऐन, २०३४, दफा 8",
+     "मालपोत ऐन, २०३४, दफा 24",
+     "मालपोत नियमावली, २०३६, नियम 22क"
+    ],
+    "ms": 498,
+    "queries": [],
+    "sec_rank": 2
+   }
+  },
+  {
+   "q": "police le mero jaheri darkhast (FIR) nai lina maandaina. ab ke garne?",
+   "area": "police/FIR",
+   "expect": [
+    "मुलुकी फौजदारी कार्यविधि संहिता"
+   ],
+   "sections": [
+    {
+     "doc": "मुलुकी फौजदारी कार्यविधि संहिता, २०७४",
+     "section": "5",
+     "contains": [
+      "जिल्ला सरकारी वकिल कार्यालय"
+     ]
+    },
+    {
+     "doc": "मुलुकी फौजदारी कार्यविधि संहिता, २०७४",
+     "section": "4 (1)",
+     "contains": [
+      "नजिकको प्रहरी कार्यालयमा यथाशिघ्र"
+     ]
+    }
+   ],
+   "in_corpus": true,
+   "raw": {
+    "rank": 1,
+    "precedents": 3,
+    "top": [
+     "मुलुकी फौजदारी कार्यविधि संहिता, २०७४, दफा 4 (1)",
+     "मुलुकी फौजदारी कार्यविधि संहिता, २०७४, दफा 5",
+     "मुलुकी फौजदारी कार्यविधि संहिता, २०७४, दफा 4 (2)"
+    ],
+    "ms": 727,
+    "queries": [],
+    "sec_rank": 1
+   }
+  },
+  {
+   "q": "mero dai lai police le arrest garyo. jamanat/dharauti rakhera kasari chhutaune?",
+   "area": "bail",
+   "expect": [
+    "मुलुकी फौजदारी कार्यविधि संहिता"
+   ],
+   "sections": [
+    {
+     "doc": "मुलुकी फौजदारी कार्यविधि संहिता, २०७४",
+     "section": "68",
+     "contains": [
+      "धरौट, जमानत वा बैङ्क जमानत लिई"
+     ]
+    },
+    {
+     "doc": "मुलुकी फौजदारी कार्यविधि संहिता, २०७४",
+     "section": "67",
+     "contains": [
+      "तीन वर्षभन्दा बढी कैदको सजाय हुन सक्ने"
+     ]
+    }
+   ],
+   "in_corpus": true,
+   "raw": {
+    "rank": 5,
+    "precedents": 3,
+    "top": [
+     "मुलुकी देवानी संहिता, २०७४, दफा 386",
+     "मुलुकी देवानी संहिता, २०७४, दफा 389",
+     "मुलुकी देवानी संहिता, २०७४, दफा 402"
+    ],
+    "ms": 210,
+    "queries": [],
+    "sec_rank": 5
+   }
+  },
+  {
+   "q": "kasaile mero naam ra photo ko fake Facebook ID banayera saathi haru lai abusive message pathairaheko chha",
+   "area": "cyber",
+   "expect": [
+    "विद्युतीय (इलेक्ट्रोनिक) कारोबार",
+    "मुलुकी अपराध संहिता"
+   ],
+   "sections": [
+    {
+     "doc": "विद्युतीय (इलेक्ट्रोनिक) कारोबार ऐन, २०६३",
+     "section": "47",
+     "contains": [
+      "अमर्यादित"
+     ]
+    },
+    {
+     "doc": "विद्युतीय (इलेक्ट्रोनिक) कारोबार ऐन, २०६३",
+     "section": "74",
+     "contains": [
+      "नब्बे दिनभित्र"
+     ]
+    },
+    {
+     "doc": "मुलुकी अपराध संहिता, २०७४",
+     "section": "307",
+     "contains": [
+      "विद्युतीय वा अन्य आम सञ्चारका माध्यमबाट बेइज्जती"
+     ]
+    }
+   ],
+   "in_corpus": true,
+   "raw": {
+    "rank": null,
+    "precedents": 0,
+    "top": [
+     "राष्ट्रिय परिचयपत्र तथा पञ्‍जीकरण नियमावली, २०७७, नियम 4 (1)",
+     "गैर आवासीय नेपाली सम्बन्धी नियमावली, २०६६, नियम 1 (2)",
+     "गैर आवासीय नेपाली सम्बन्धी नियमावली, २०६६, नियम 1 (1)"
+    ],
+    "ms": 88,
+    "queries": [],
+    "sec_rank": null
+   }
+  },
+  {
+   "q": "Shreemati lai sasu ra shreemanle dowry nadeko bhanera rojai sataunchhan. kunai kanoon chha?",
+   "area": "domestic violence",
+   "expect": [
+    "मुलुकी अपराध संहिता",
+    "घरेलु हिंसा"
+   ],
+   "sections": [
+    {
+     "doc": "मुलुकी अपराध संहिता, २०७४",
+     "section": "174",
+     "contains": [
+      "दाइजो नदिएको कारणले"
+     ]
+    },
+    {
+     "doc": "घरेलु हिंसा (कसूर र सजाय) ऐन, २०६६",
+     "section": "4 (1)",
+     "contains": [
+      "प्रहरी कार्यालय वा राष्ट्रिय महिला आयोग वा स्थानीय तह"
+     ]
+    }
+   ],
+   "in_corpus": true,
+   "raw": {
+    "rank": 8,
+    "precedents": 3,
+    "top": [
+     "सामाजिक व्यवहार (सुधार) ऐन, २०३३, दफा 3",
+     "सशस्त्र प्रहरी नियमावली, २०७२, नियम 10",
+     "सामाजिक व्यवहार (सुधार) ऐन, २०३३, दफा 11"
+    ],
+    "ms": 198,
+    "queries": [],
+    "sec_rank": 8
+   }
+  },
+  {
+   "q": "please help, my husband beat me again last night and says he will throw me out. what can i do right now",
+   "area": "domestic violence",
+   "expect": [
+    "घरेलु हिंसा"
+   ],
+   "sections": [
+    {
+     "doc": "घरेलु हिंसा (कसूर र सजाय) ऐन, २०६६",
+     "section": "6",
+     "contains": [
+      "पीडितलाई निज बसी आएको घरमा बसोबास गर्न दिन"
+     ]
+    },
+    {
+     "doc": "घरेलु हिंसा (कसूर र सजाय) ऐन, २०६६",
+     "section": "4 (1)",
+     "contains": [
+      "चौबीस घण्टाभित्र"
+     ]
+    }
+   ],
+   "in_corpus": true,
+   "raw": {
+    "rank": 1,
+    "precedents": 3,
+    "top": [
+     "घरेलु हिंसा (कसूर र सजाय) ऐन, २०६६, दफा 6",
+     "घरेलु हिंसा (कसूर र सजाय) ऐन, २०६६, दफा 12क",
+     "घरेलु हिंसा (कसूर र सजाय) ऐन, २०६६, दफा 14"
+    ],
+    "ms": 1554,
+    "queries": [],
+    "sec_rank": 1
+   }
+  },
+  {
+   "q": "online order gareko phone ko satta nakali aayo. seller le return garna dinna, paisa firta paunchhu?",
+   "area": "consumer",
+   "expect": [
+    "इ-कमर्स",
+    "उपभोक्ता संरक्षण"
+   ],
+   "sections": [
+    {
+     "doc": "विद्युतिय व्यापार (इ-कमर्स) ऐन, २०८१",
+     "section": "10",
+     "contains": [
+      "बिना कुनै सर्त फिर्ता लिनु पर्नेछ"
+     ]
+    },
+    {
+     "doc": "उपभोक्ता संरक्षण ऐन, २०७५",
+     "section": "14",
+     "contains": [
+      "सात दिनभित्र"
+     ]
+    }
+   ],
+   "in_corpus": true,
+   "raw": {
+    "rank": 2,
+    "precedents": 3,
+    "top": [
+     "वस्तुको प्रत्यक्ष बिक्री (व्यवस्थापन तथा नियमन गर्ने) ऐन, २०७४, दफा 18",
+     "विद्युतिय व्यापार (इ-कमर्स) ऐन, २०८१, दफा 14",
+     "विद्युतिय व्यापार (इ-कमर्स) ऐन, २०८१, दफा 16"
+    ],
+    "ms": 91,
+    "queries": [],
+    "sec_rank": null
+   }
+  },
+  {
+   "q": "ward office ma sucahnako hak ma application diyeko 1 mahina bhayo, jawaf chhaina. ab kaha appeal garne?",
+   "area": "RTI",
+   "expect": [
+    "सूचनाको हक"
+   ],
+   "sections": [
+    {
+     "doc": "सूचनाको हक सम्बन्धी ऐन, २०६४",
+     "section": "7",
+     "contains": [
+      "पन्ध्र दिनभित्र"
+     ]
+    },
+    {
+     "doc": "सूचनाको हक सम्बन्धी ऐन, २०६४",
+     "section": "9",
+     "contains": [
+      "सात दिनभित्र प्रमुख समक्ष उजूरी"
+     ]
+    },
+    {
+     "doc": "सूचनाको हक सम्बन्धी ऐन, २०६४",
+     "section": "10",
+     "contains": [
+      "पैंतीस दिनभित्र आयोग समक्ष"
+     ]
+    }
+   ],
+   "in_corpus": true,
+   "raw": {
+    "rank": null,
+    "precedents": 3,
+    "top": [
+     "कारागार ऐन, २०७९, दफा 27",
+     "मुलुकी देवानी कार्यविधि संहिता, २०७४, दफा 93",
+     "मुलुकी देवानी कार्यविधि संहिता, २०७४, दफा 9 (2)"
+    ],
+    "ms": 107,
+    "queries": [],
+    "sec_rank": null
+   }
+  },
+  {
+   "q": "private company register garna kati jana shareholder chahinchha? kati din ma certificate aauchha?",
+   "area": "company",
+   "expect": [
+    "कम्पनी ऐन"
+   ],
+   "sections": [
+    {
+     "doc": "कम्पनी ऐन, २०६३",
+     "section": "9",
+     "contains": [
+      "एकसय एकभन्दा बढी हुनु हुँदैन"
+     ]
+    },
+    {
+     "doc": "कम्पनी ऐन, २०६३",
+     "section": "5",
+     "contains": [
+      "सात दिनभित्र"
+     ]
+    }
+   ],
+   "in_corpus": true,
+   "raw": {
+    "rank": 1,
+    "precedents": 3,
+    "top": [
+     "कम्पनी ऐन, २०६३, दफा 146",
+     "कम्पनी ऐन, २०६३, दफा 9",
+     "कम्पनी ऐन, २०६३, दफा 149"
+    ],
+    "ms": 68,
+    "queries": [],
+    "sec_rank": 2
+   }
+  },
+  {
+   "q": "public company ko AGM 2 barsa dekhi bolayeko chhaina. shareholder le ke garna sakchha?",
+   "area": "company",
+   "expect": [
+    "कम्पनी ऐन"
+   ],
+   "sections": [
+    {
+     "doc": "कम्पनी ऐन, २०६३",
+     "section": "76",
+     "contains": [
+      "कुनै शेयरधनीले अदालतमा निवेदन दिन"
+     ]
+    },
+    {
+     "doc": "कम्पनी ऐन, २०६३",
+     "section": "76",
+     "contains": [
+      "छ महिनाभित्र वार्षिक साधारण सभा"
+     ]
+    }
+   ],
+   "in_corpus": true,
+   "raw": {
+    "rank": 1,
+    "precedents": 3,
+    "top": [
+     "कम्पनी ऐन, २०६३, दफा 67 (1)",
+     "कम्पनी ऐन, २०६३, दफा 77",
+     "कम्पनी ऐन, २०६३, दफा 76"
+    ],
+    "ms": 65,
+    "queries": [],
+    "sec_rank": 3
+   }
+  },
+  {
+   "q": "sano pasal chalauchhu. VAT ma darta kailey garnu parchha? darta garena bhane ke hunchha?",
+   "area": "tax/VAT",
+   "expect": [
+    "मूल्य अभिवृद्धि कर"
+   ],
+   "sections": [
+    {
+     "doc": "मूल्य अभिवृद्धि कर ऐन, २०५२",
+     "section": "10",
+     "contains": [
+      "तीस दिनभित्र"
+     ]
+    },
+    {
+     "doc": "मूल्य अभिवृद्धि कर ऐन, २०५२",
+     "section": "15",
+     "contains": [
+      "असुल उपर"
+     ]
+    }
+   ],
+   "in_corpus": true,
+   "raw": {
+    "rank": 1,
+    "precedents": 3,
+    "top": [
+     "मूल्य अभिवृद्धि कर नियमावली, २०५३ (सत्ताइसौं संशोधन सहित), नियम 2",
+     "मूल्य अभिवृद्धि कर नियमावली, २०५३ (सत्ताइसौं संशोधन सहित), नियम 2",
+     "स्थायी संस्थापन सम्बन्धी निर्देशिका, २०७७, बुँदा 11 (3)"
+    ],
+    "ms": 687,
+    "queries": [],
+    "sec_rank": null
+   }
+  },
+  {
+   "q": "bank le account ma minimum balance nabhayeko bhanera paisa katyo. yo milchha?",
+   "area": "banking/NRB",
+   "expect": [
+    "एकीकृत निर्देशन"
+   ],
+   "sections": [
+    {
+     "doc": "परिपत्र नं. १० (क, ख, ग) २०८२/८३: एकीकृत निर्देशन, २०८२",
+     "title_contains": "खाता सञ्चालन तथा बन्द गर्दा लाग्ने शुल्क",
+     "contains": [
+      "न्यूनतम मौज्दात भन्दा कम भएका कारणले रकम कट्टा गरी"
+     ]
+    }
+   ],
+   "in_corpus": true,
+   "raw": {
+    "rank": null,
+    "precedents": 3,
+    "top": [
+     "बीउ बिजन नियमावली, २०८१, नियम 8",
+     "विदेशी शैक्षिक कार्यक्रम (सञ्‍चालन र नियमन) नियमावली, २०८३, नियम 5",
+     "वन नियमावली, २०७९, नियम 2 (5)"
+    ],
+    "ms": 265,
+    "queries": [],
+    "sec_rank": null
+   }
+  },
+  {
+   "q": "बैंकले मेरो गुनासो सुन्दैन। कहाँ उजुरि गर्ने?",
+   "area": "banking/NRB",
+   "expect": [
+    "एकीकृत निर्देशन"
+   ],
+   "sections": [
+    {
+     "doc": "परिपत्र नं. १० (क, ख, ग) २०८२/८३: एकीकृत निर्देशन, २०८२",
+     "title_contains": "गुनासो सुनवाई",
+     "contains": [
+      "सूचना तथा गुनासो सुनुवाई डेस्क"
+     ]
+    }
+   ],
+   "in_corpus": true,
+   "raw": {
+    "rank": 7,
+    "precedents": 3,
+    "top": [
+     "उपभोक्ता संरक्षण ऐन, २०७५, दफा 3",
+     "उपभोक्ता संरक्षण ऐन, २०७५, दफा 36",
+     "उपभोक्ता संरक्षण ऐन, २०७५, दफा 50"
+    ],
+    "ms": 1100,
+    "queries": [],
+    "sec_rank": 7
+   }
+  },
+  {
+   "q": "bank loan ma late payment ko penal interest kati lagauna milchha?",
+   "area": "loans/interest",
+   "expect": [
+    "एकीकृत निर्देशन"
+   ],
+   "sections": [
+    {
+     "doc": "परिपत्र नं. १० (क, ख, ग) २०८२/८३: एकीकृत निर्देशन, २०८२",
+     "title_contains": "कर्जाको ब्याजदर",
+     "contains": [
+      "वार्षिक पेनाल ब्याजदर २ प्रतिशत विन्दु भन्दा बढी नहुने"
+     ]
+    }
+   ],
+   "in_corpus": true,
+   "raw": {
+    "rank": 8,
+    "precedents": 3,
+    "top": [
+     "मुलुकी देवानी संहिता, २०७४, दफा 495",
+     "मुलुकी देवानी संहिता, २०७४, दफा 492",
+     "मुलुकी देवानी संहिता, २०७४, दफा 474"
+    ],
+    "ms": 1064,
+    "queries": [],
+    "sec_rank": null
+   }
+  },
+  {
+   "q": "kampani ko bhitri suchana thaha pai share kinbech gareko ma ke sajaya hunchha?",
+   "area": "securities",
+   "expect": [
+    "धितोपत्र सम्बन्धी ऐन"
+   ],
+   "sections": [
+    {
+     "doc": "धितोपत्र सम्बन्धी ऐन, २०६३",
+     "section": "91",
+     "contains": [
+      "भित्री कारोबार गरेको मानिनेछ"
+     ]
+    },
+    {
+     "doc": "धितोपत्र सम्बन्धी ऐन, २०६३",
+     "section": "101",
+     "contains": [
+      "एक वर्षसम्म कैद"
+     ]
+    }
+   ],
+   "in_corpus": true,
+   "raw": {
+    "rank": null,
+    "precedents": 3,
+    "top": [
+     "सूचनाको हक सम्बन्धी ऐन, २०६४, दफा 7",
+     "सूचनाको हक सम्बन्धी ऐन, २०६४, दफा 9",
+     "मुलुकी अपराध संहिता, २०७४, दफा 78"
+    ],
+    "ms": 685,
+    "queries": [],
+    "sec_rank": null
+   }
+  },
+  {
+   "q": "नागरिकतामा मेरो नाम थर र उमेर SLC सँग मिलेको छैन, कसरी सच्याउने?",
+   "area": "citizenship",
+   "expect": [
+    "नागरिकता"
+   ],
+   "sections": [
+    {
+     "doc": "नेपाल नागरिकता ऐन, २०६३",
+     "section": "17",
+     "contains": [
+      "उमेर शैक्षिक योग्यताको प्रमाणपत्रमा फरक"
+     ]
+    }
+   ],
+   "in_corpus": true,
+   "raw": {
+    "rank": 2,
+    "precedents": 3,
+    "top": [
+     "राष्ट्रिय परिचयपत्र तथा पञ्‍जीकरण नियमावली, २०७७, नियम 22 (2)",
+     "नेपाल नागरिकता ऐन, २०६३, दफा 17",
+     "राष्ट्रिय परिचयपत्र तथा पञ्‍जीकरण नियमावली, २०७७, नियम 22 (1)"
+    ],
+    "ms": 158,
+    "queries": [],
+    "sec_rank": 2
+   }
+  },
+  {
+   "q": "bike le hit garera ghaite bhayo, driver bhagyo. insurance ra compensation kasari paune?",
+   "area": "traffic accident",
+   "expect": [
+    "सवारी तथा यातायात"
+   ],
+   "sections": [
+    {
+     "doc": "सवारी तथा यातायात व्यवस्था ऐन, २०४९",
+     "section": "152",
+     "contains": [
+      "निज वा निजको हकवालाले"
+     ]
+    },
+    {
+     "doc": "सवारी तथा यातायात व्यवस्था ऐन, २०४९",
+     "section": "163",
+     "contains": [
+      "सवारी धनी वा व्यवस्थापकबाट भराई दिनु पर्छ"
+     ]
+    },
+    {
+     "doc": "सवारी तथा यातायात व्यवस्था ऐन, २०४९",
+     "section": "133",
+     "contains": [
+      "उपचारको लागि तुरून्त आवश्यक व्यवस्था"
+     ]
+    }
+   ],
+   "in_corpus": true,
+   "raw": {
+    "rank": 1,
+    "precedents": 3,
+    "top": [
+     "सवारी तथा यातायात व्यवस्था ऐन, २०४९, दफा 163",
+     "सवारी तथा यातायात व्यवस्था ऐन, २०४९, दफा 152",
+     "सवारी तथा यातायात व्यवस्था ऐन, २०४९, दफा 166"
+    ],
+    "ms": 90,
+    "queries": [],
+    "sec_rank": 1
+   }
+  },
+  {
+   "q": "doctor le galat operation garera bihari ko mrityu bho. ke garne?",
+   "area": "medical negligence",
+   "expect": [
+    "मुलुकी अपराध संहिता"
+   ],
+   "sections": [
+    {
+     "doc": "मुलुकी अपराध संहिता, २०७४",
+     "section": "181",
+     "contains": [
+      "लापरवाहीपूर्ण काम गरी कसैको"
+     ]
+    }
+   ],
+   "in_corpus": true,
+   "raw": {
+    "rank": null,
+    "precedents": 3,
+    "top": [
+     "सवारी तथा यातायात व्यवस्था ऐन, २०४९, दफा 163",
+     "सवारी तथा यातायात व्यवस्था ऐन, २०४९, दफा 152",
+     "सवारी तथा यातायात व्यवस्था ऐन, २०४९, दफा 166"
+    ],
+    "ms": 74,
+    "queries": [],
+    "sec_rank": null
+   }
+  },
+  {
+   "q": "Facebook ma kasaile mero barema jhutho lekhera badnam garyo. police ma jana milchha?",
+   "area": "defamation",
+   "expect": [
+    "मुलुकी अपराध संहिता",
+    "विद्युतीय (इलेक्ट्रोनिक) कारोबार"
+   ],
+   "sections": [
+    {
+     "doc": "मुलुकी अपराध संहिता, २०७४",
+     "section": "307",
+     "contains": [
+      "विद्युतीय वा अन्य आम सञ्चारका माध्यमबाट बेइज्जती गरे वा गराएमा"
+     ]
+    },
+    {
+     "doc": "विद्युतीय (इलेक्ट्रोनिक) कारोबार ऐन, २०६३",
+     "section": "47",
+     "contains": [
+      "अमर्यादित"
+     ]
+    }
+   ],
+   "in_corpus": true,
+   "raw": {
+    "rank": null,
+    "precedents": 0,
+    "top": [
+     "सुरक्षित मातृत्व तथा प्रजनन स्वास्थ्य अधिकार नियमावली, २०७७, नियम 1",
+     "सुरक्षित मातृत्व तथा प्रजनन स्वास्थ्य अधिकार नियमावली, २०७७, नियम 30 (8)",
+     "सुरक्षित मातृत्व तथा प्रजनन स्वास्थ्य अधिकार नियमावली, २०७७, नियम 20"
+    ],
+    "ms": 23,
+    "queries": [],
+    "sec_rank": null
+   }
+  }
+ ]
+}

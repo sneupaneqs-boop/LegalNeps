@@ -1,0 +1,2932 @@
+{
+ "summary": {
+  "raw": {
+   "hit@k (covered)": 0.863,
+   "hit@3 (covered)": 0.699,
+   "MRR": 0.668,
+   "median_ms": 135.5,
+   "with_precedent": 0.973
+  },
+  "questions": 150,
+  "coverage_gaps": [
+   "राष्ट्रिय निकुञ्ज तथा वन्यजन्तु संरक्षण",
+   "लागु औषध",
+   "स्थानीय सरकार सञ्चालन"
+  ]
+ },
+ "rows": [
+  {
+   "q": "My landlord won't return my security deposit after I moved out. What can I do?",
+   "area": "tenancy",
+   "expect": [
+    "मुलुकी देवानी संहिता"
+   ],
+   "in_corpus": true,
+   "raw": {
+    "rank": 1,
+    "precedents": 3,
+    "top": [
+     "मुलुकी देवानी संहिता, २०७४, दफा 386",
+     "मुलुकी देवानी संहिता, २०७४, दफा 389",
+     "मुलुकी देवानी संहिता, २०७४, दफा 402"
+    ],
+    "ms": 4432,
+    "queries": []
+   }
+  },
+  {
+   "q": "घरबेटीले धरौटी फिर्ता दिएन, म के गर्न सक्छु?",
+   "area": "tenancy",
+   "expect": [
+    "मुलुकी देवानी संहिता"
+   ],
+   "in_corpus": true,
+   "raw": {
+    "rank": 1,
+    "precedents": 3,
+    "top": [
+     "मुलुकी देवानी संहिता, २०७४, दफा 386",
+     "मुलुकी देवानी संहिता, २०७४, दफा 389",
+     "मुलुकी देवानी संहिता, २०७४, दफा 402"
+    ],
+    "ms": 5046,
+    "queries": []
+   }
+  },
+  {
+   "q": "Can my landlord evict me without notice?",
+   "area": "tenancy",
+   "expect": [
+    "मुलुकी देवानी संहिता"
+   ],
+   "in_corpus": true,
+   "raw": {
+    "rank": 1,
+    "precedents": 3,
+    "top": [
+     "मुलुकी देवानी संहिता, २०७४, दफा 401",
+     "मुलुकी देवानी संहिता, २०७४, दफा 402",
+     "मुलुकी देवानी संहिता, २०७४, दफा 385"
+    ],
+    "ms": 3505,
+    "queries": []
+   }
+  },
+  {
+   "q": "How much notice must a tenant give before leaving a rented house?",
+   "area": "tenancy",
+   "expect": [
+    "मुलुकी देवानी संहिता"
+   ],
+   "in_corpus": true,
+   "raw": {
+    "rank": 1,
+    "precedents": 3,
+    "top": [
+     "मुलुकी देवानी संहिता, २०७४, दफा 401",
+     "मुलुकी देवानी संहिता, २०७४, दफा 402",
+     "मुलुकी देवानी संहिता, २०७४, दफा 385"
+    ],
+    "ms": 3189,
+    "queries": []
+   }
+  },
+  {
+   "q": "What are the grounds on which a wife can seek divorce?",
+   "area": "family",
+   "expect": [
+    "मुलुकी देवानी संहिता"
+   ],
+   "in_corpus": true,
+   "raw": {
+    "rank": 1,
+    "precedents": 3,
+    "top": [
+     "मुलुकी देवानी संहिता, २०७४, दफा 96",
+     "मुलुकी देवानी संहिता, २०७४, दफा 97",
+     "मुलुकी देवानी संहिता, २०७४, दफा 98"
+    ],
+    "ms": 756,
+    "queries": []
+   }
+  },
+  {
+   "q": "सम्बन्ध विच्छेद गर्दा श्रीमतीले अंश पाउँछिन्?",
+   "area": "family",
+   "expect": [
+    "मुलुकी देवानी संहिता"
+   ],
+   "in_corpus": true,
+   "raw": {
+    "rank": 1,
+    "precedents": 3,
+    "top": [
+     "मुलुकी देवानी संहिता, २०७४, दफा 96",
+     "मुलुकी देवानी संहिता, २०७४, दफा 97",
+     "मुलुकी देवानी संहिता, २०७४, दफा 98"
+    ],
+    "ms": 441,
+    "queries": []
+   }
+  },
+  {
+   "q": "Who gets custody of children after divorce?",
+   "area": "family",
+   "expect": [
+    "मुलुकी देवानी संहिता",
+    "बालबालिका सम्बन्धी ऐन"
+   ],
+   "in_corpus": true,
+   "raw": {
+    "rank": 1,
+    "precedents": 3,
+    "top": [
+     "मुलुकी देवानी संहिता, २०७४, दफा 96",
+     "मुलुकी देवानी संहिता, २०७४, दफा 97",
+     "मुलुकी देवानी संहिता, २०७४, दफा 98"
+    ],
+    "ms": 354,
+    "queries": []
+   }
+  },
+  {
+   "q": "What is the legal age for marriage in Nepal?",
+   "area": "family",
+   "expect": [
+    "मुलुकी अपराध संहिता",
+    "मुलुकी देवानी संहिता"
+   ],
+   "in_corpus": true,
+   "raw": {
+    "rank": 1,
+    "precedents": 3,
+    "top": [
+     "मुलुकी अपराध संहिता, २०७४, दफा 173",
+     "मुलुकी अपराध संहिता, २०७४, दफा 176",
+     "मुलुकी देवानी संहिता, २०७४, दफा 76"
+    ],
+    "ms": 1532,
+    "queries": []
+   }
+  },
+  {
+   "q": "बाल विवाह गरेमा के सजाय हुन्छ?",
+   "area": "criminal",
+   "expect": [
+    "मुलुकी अपराध संहिता"
+   ],
+   "in_corpus": true,
+   "raw": {
+    "rank": 1,
+    "precedents": 3,
+    "top": [
+     "मुलुकी अपराध संहिता, २०७४, दफा 173",
+     "मुलुकी अपराध संहिता, २०७४, दफा 176",
+     "मुलुकी अपराध संहिता, २०७४, दफा 172"
+    ],
+    "ms": 2051,
+    "queries": []
+   }
+  },
+  {
+   "q": "Is polygamy a crime in Nepal and what is the punishment?",
+   "area": "criminal",
+   "expect": [
+    "मुलुकी अपराध संहिता"
+   ],
+   "in_corpus": true,
+   "raw": {
+    "rank": 1,
+    "precedents": 3,
+    "top": [
+     "मुलुकी अपराध संहिता, २०७४, दफा 173",
+     "मुलुकी अपराध संहिता, २०७४, दफा 176",
+     "मुलुकी अपराध संहिता, २०७४, दफा 175"
+    ],
+    "ms": 2187,
+    "queries": []
+   }
+  },
+  {
+   "q": "My husband beats me. What legal protection do I have?",
+   "area": "domestic violence",
+   "expect": [
+    "घरेलु हिंसा"
+   ],
+   "in_corpus": true,
+   "raw": {
+    "rank": 1,
+    "precedents": 3,
+    "top": [
+     "घरेलु हिंसा (कसूर र सजाय) ऐन, २०६६, दफा 6",
+     "घरेलु हिंसा (कसूर र सजाय) ऐन, २०६६, दफा 12क",
+     "घरेलु हिंसा (कसूर र सजाय) ऐन, २०६६, दफा 14"
+    ],
+    "ms": 457,
+    "queries": []
+   }
+  },
+  {
+   "q": "श्रीमानले कुटपिट गर्छन्, म कहाँ उजुरी दिन सक्छु?",
+   "area": "domestic violence",
+   "expect": [
+    "घरेलु हिंसा"
+   ],
+   "in_corpus": true,
+   "raw": {
+    "rank": 1,
+    "precedents": 3,
+    "top": [
+     "घरेलु हिंसा (कसूर र सजाय) ऐन, २०६६, दफा 6",
+     "मुलुकी फौजदारी कार्यविधि संहिता, २०७४, दफा 22",
+     "कार्यस्थलमा हुने यौनजन्य दुर्व्यवहार ( निवारण) ऐन, २०७१, दफा 7"
+    ],
+    "ms": 52,
+    "queries": []
+   }
+  },
+  {
+   "q": "What is the punishment for rape in Nepal?",
+   "area": "criminal",
+   "expect": [
+    "मुलुकी अपराध संहिता"
+   ],
+   "in_corpus": true,
+   "raw": {
+    "rank": 2,
+    "precedents": 3,
+    "top": [
+     "जवरजस्ती करणी लगायत यौनजन्य हिंसा विरुद्धका कानूनमा रहेको हदम्याद सम्बन्धी अध्ययन प्रतिवेदन",
+     "मुलुकी अपराध संहिता, २०७४, दफा 219 (3)",
+     "मुलुकी अपराध संहिता, २०७४, दफा 219 (2)"
+    ],
+    "ms": 73,
+    "queries": []
+   }
+  },
+  {
+   "q": "जबरजस्ती करणीको उजुरी गर्ने हदम्याद कति हो?",
+   "area": "criminal",
+   "expect": [
+    "मुलुकी अपराध संहिता"
+   ],
+   "in_corpus": true,
+   "raw": {
+    "rank": 2,
+    "precedents": 3,
+    "top": [
+     "जवरजस्ती करणी लगायत यौनजन्य हिंसा विरुद्धका कानूनमा रहेको हदम्याद सम्बन्धी अध्ययन प्रतिवेदन",
+     "मुलुकी अपराध संहिता, २०७४, दफा 219 (1)",
+     "मुलुकी अपराध संहिता, २०७४, दफा 219 (3)"
+    ],
+    "ms": 77,
+    "queries": []
+   }
+  },
+  {
+   "q": "Someone cheated me by taking money for a fake job abroad.",
+   "area": "fraud",
+   "expect": [
+    "वैदेशिक रोजगार",
+    "मुलुकी अपराध संहिता"
+   ],
+   "in_corpus": true,
+   "raw": {
+    "rank": 1,
+    "precedents": 1,
+    "top": [
+     "वैदेशिक रोजगार ऐन, २०६४, दफा 36",
+     "वैदेशिक रोजगार ऐन, २०६४, दफा 44",
+     "वैदेशिक रोजगार ऐन, २०६४, दफा 43"
+    ],
+    "ms": 1419,
+    "queries": []
+   }
+  },
+  {
+   "q": "ठगी गरेमा के सजाय हुन्छ?",
+   "area": "fraud",
+   "expect": [
+    "मुलुकी अपराध संहिता"
+   ],
+   "in_corpus": true,
+   "raw": {
+    "rank": 5,
+    "precedents": 3,
+    "top": [
+     "वैदेशिक रोजगार ऐन, २०६४, दफा 36",
+     "वैदेशिक रोजगार ऐन, २०६४, दफा 44",
+     "वैदेशिक रोजगार ऐन, २०६४, दफा 43"
+    ],
+    "ms": 2009,
+    "queries": []
+   }
+  },
+  {
+   "q": "What is the punishment for theft?",
+   "area": "criminal",
+   "expect": [
+    "मुलुकी अपराध संहिता"
+   ],
+   "in_corpus": true,
+   "raw": {
+    "rank": 1,
+    "precedents": 3,
+    "top": [
+     "मुलुकी अपराध संहिता, २०७४, दफा 242",
+     "मुलुकी फौजदारी कार्यविधि संहिता, २०७४, दफा 4 (1)",
+     "मुलुकी अपराध संहिता, २०७४, दफा 241"
+    ],
+    "ms": 2366,
+    "queries": []
+   }
+  },
+  {
+   "q": "What happens if someone is killed in a road accident caused by a driver?",
+   "area": "criminal",
+   "expect": [
+    "मुलुकी अपराध संहिता",
+    "सवारी तथा यातायात"
+   ],
+   "in_corpus": true,
+   "raw": {
+    "rank": 1,
+    "precedents": 3,
+    "top": [
+     "सवारी तथा यातायात व्यवस्था ऐन, २०४९, दफा 163",
+     "सवारी तथा यातायात व्यवस्था ऐन, २०४९, दफा 152",
+     "सवारी तथा यातायात व्यवस्था ऐन, २०४९, दफा 166"
+    ],
+    "ms": 2900,
+    "queries": []
+   }
+  },
+  {
+   "q": "Is defamation a crime in Nepal?",
+   "area": "criminal",
+   "expect": [
+    "मुलुकी अपराध संहिता"
+   ],
+   "in_corpus": true,
+   "raw": {
+    "rank": 1,
+    "precedents": 3,
+    "top": [
+     "मुलुकी अपराध संहिता, २०७४, दफा 306 (1)",
+     "मुलुकी अपराध संहिता, २०७४, दफा 307",
+     "मुलुकी अपराध संहिता, २०७४, दफा 308"
+    ],
+    "ms": 710,
+    "queries": []
+   }
+  },
+  {
+   "q": "गाली बेइज्जती गरेमा के कारबाही हुन्छ?",
+   "area": "criminal",
+   "expect": [
+    "मुलुकी अपराध संहिता"
+   ],
+   "in_corpus": true,
+   "raw": {
+    "rank": 1,
+    "precedents": 3,
+    "top": [
+     "मुलुकी अपराध संहिता, २०७४, दफा 306 (1)",
+     "मुलुकी अपराध संहिता, २०७४, दफा 307",
+     "मुलुकी अपराध संहिता, २०७४, दफा 308"
+    ],
+    "ms": 41,
+    "queries": []
+   }
+  },
+  {
+   "q": "What are my rights if I am arrested by the police?",
+   "area": "criminal procedure",
+   "expect": [
+    "नेपालको संविधान",
+    "मुलुकी फौजदारी कार्यविधि संहिता"
+   ],
+   "in_corpus": true,
+   "raw": {
+    "rank": 1,
+    "precedents": 0,
+    "top": [
+     "नेपालको संविधान, धारा 20",
+     "नेपालको संविधान, धारा 22",
+     "नेपालको संविधान, धारा 39"
+    ],
+    "ms": 35,
+    "queries": []
+   }
+  },
+  {
+   "q": "पक्राउ परेको व्यक्तिलाई कति घण्टाभित्र अदालतमा पेश गर्नुपर्छ?",
+   "area": "criminal procedure",
+   "expect": [
+    "नेपालको संविधान",
+    "मुलुकी फौजदारी कार्यविधि संहिता"
+   ],
+   "in_corpus": true,
+   "raw": {
+    "rank": 8,
+    "precedents": 3,
+    "top": [
+     "सपुर्दगी ऐन, २०७०, दफा 12",
+     "विदेशी विनिमय (नियमित गर्ने) ऐन, २०१९, दफा 11ङ",
+     "वन ऐन, २०७६, दफा 58"
+    ],
+    "ms": 38,
+    "queries": []
+   }
+  },
+  {
+   "q": "How do I file a civil case (फिराद) in district court?",
+   "area": "civil procedure",
+   "expect": [
+    "मुलुकी देवानी कार्यविधि संहिता"
+   ],
+   "in_corpus": true,
+   "raw": {
+    "rank": null,
+    "precedents": 3,
+    "top": [
+     "नेपालको संविधान, धारा 145",
+     "न्याय प्रशासन ऐन, २०७३, दफा 8",
+     "नेपालको संविधान, धारा 151"
+    ],
+    "ms": 276,
+    "queries": []
+   }
+  },
+  {
+   "q": "What is the limitation period to file a case for recovery of a loan?",
+   "area": "debt",
+   "expect": [
+    "मुलुकी देवानी संहिता",
+    "मुलुकी देवानी कार्यविधि संहिता"
+   ],
+   "in_corpus": true,
+   "raw": {
+    "rank": 1,
+    "precedents": 3,
+    "top": [
+     "मुलुकी देवानी संहिता, २०७४, दफा 495",
+     "मुलुकी देवानी संहिता, २०७४, दफा 492",
+     "मुलुकी देवानी संहिता, २०७४, दफा 474"
+    ],
+    "ms": 930,
+    "queries": []
+   }
+  },
+  {
+   "q": "Someone borrowed money from me and won't pay back. What can I do?",
+   "area": "debt",
+   "expect": [
+    "मुलुकी देवानी संहिता"
+   ],
+   "in_corpus": true,
+   "raw": {
+    "rank": 1,
+    "precedents": 3,
+    "top": [
+     "मुलुकी देवानी संहिता, २०७४, दफा 495",
+     "मुलुकी देवानी संहिता, २०७४, दफा 492",
+     "मुलुकी देवानी संहिता, २०७४, दफा 474"
+    ],
+    "ms": 695,
+    "queries": []
+   }
+  },
+  {
+   "q": "ऋण लिएको मानिसले पैसा फिर्ता गरेन भने के गर्ने?",
+   "area": "debt",
+   "expect": [
+    "मुलुकी देवानी संहिता"
+   ],
+   "in_corpus": true,
+   "raw": {
+    "rank": 1,
+    "precedents": 3,
+    "top": [
+     "मुलुकी देवानी संहिता, २०७४, दफा 475",
+     "मुलुकी देवानी संहिता, २०७४, दफा 586",
+     "मुलुकी देवानी संहिता, २०७४, दफा 444"
+    ],
+    "ms": 44,
+    "queries": []
+   }
+  },
+  {
+   "q": "When is a contract void under Nepali law?",
+   "area": "contract",
+   "expect": [
+    "मुलुकी देवानी संहिता"
+   ],
+   "in_corpus": true,
+   "raw": {
+    "rank": 2,
+    "precedents": 3,
+    "top": [
+     "ब्रेटन उड्स सम्झौता ऐन, २०१८, दफा 3",
+     "मुलुकी देवानी संहिता, २०७४, दफा 710",
+     "कमैया श्रम (निषेध गर्ने) सम्बन्धी ऐन, २०५८, दफा 6"
+    ],
+    "ms": 136,
+    "queries": []
+   }
+  },
+  {
+   "q": "करार बदर हुने अवस्था के के हुन्?",
+   "area": "contract",
+   "expect": [
+    "मुलुकी देवानी संहिता"
+   ],
+   "in_corpus": true,
+   "raw": {
+    "rank": 1,
+    "precedents": 3,
+    "top": [
+     "मुलुकी देवानी संहिता, २०७४, दफा 527",
+     "मुलुकी देवानी संहिता, २०७४, दफा 517 (2)",
+     "मुलुकी देवानी संहिता, २०७४, दफा 568"
+    ],
+    "ms": 42,
+    "queries": []
+   }
+  },
+  {
+   "q": "Can a minor enter into a contract?",
+   "area": "contract",
+   "expect": [
+    "मुलुकी देवानी संहिता"
+   ],
+   "in_corpus": true,
+   "raw": {
+    "rank": 1,
+    "precedents": 3,
+    "top": [
+     "मुलुकी देवानी संहिता, २०७४, दफा 196",
+     "बिफर नियन्‍त्रण ऐन, २०२०, दफा 2",
+     "कम्पनी ऐन, २०६३, दफा 66"
+    ],
+    "ms": 690,
+    "queries": []
+   }
+  },
+  {
+   "q": "How is ancestral property divided among sons and daughters?",
+   "area": "inheritance",
+   "expect": [
+    "मुलुकी देवानी संहिता"
+   ],
+   "in_corpus": true,
+   "raw": {
+    "rank": 1,
+    "precedents": 3,
+    "top": [
+     "मुलुकी देवानी संहिता, २०७४, दफा 206",
+     "मुलुकी देवानी संहिता, २०७४, दफा 222",
+     "मुलुकी देवानी संहिता, २०७४, दफा 235"
+    ],
+    "ms": 850,
+    "queries": []
+   }
+  },
+  {
+   "q": "छोरीले पैतृक सम्पत्तिमा अंश पाउँछे?",
+   "area": "inheritance",
+   "expect": [
+    "मुलुकी देवानी संहिता",
+    "नेपालको संविधान"
+   ],
+   "in_corpus": true,
+   "raw": {
+    "rank": 1,
+    "precedents": 3,
+    "top": [
+     "मुलुकी देवानी संहिता, २०७४, दफा 206",
+     "मुलुकी देवानी संहिता, २०७४, दफा 222",
+     "मुलुकी देवानी संहिता, २०७४, दफा 235"
+    ],
+    "ms": 672,
+    "queries": []
+   }
+  },
+  {
+   "q": "How do I make a valid will in Nepal?",
+   "area": "inheritance",
+   "expect": [
+    "मुलुकी देवानी संहिता"
+   ],
+   "in_corpus": true,
+   "raw": {
+    "rank": null,
+    "precedents": 3,
+    "top": [
+     "युद्धको समयमा गैरसैनिक व्यक्तिहरुको संरक्षण सम्बन्धी (चौथो) महासन्धि",
+     "सार्वजनिक ऋण व्यवस्थापन  ऐन, २०७९, दफा 12",
+     "पर्वतारोहण सम्बन्धी नियमावली, २०५९, नियम 17"
+    ],
+    "ms": 90,
+    "queries": []
+   }
+  },
+  {
+   "q": "Who inherits property if someone dies without a will?",
+   "area": "inheritance",
+   "expect": [
+    "मुलुकी देवानी संहिता"
+   ],
+   "in_corpus": true,
+   "raw": {
+    "rank": 1,
+    "precedents": 3,
+    "top": [
+     "मुलुकी देवानी संहिता, २०७४, दफा 206",
+     "मुलुकी देवानी संहिता, २०७४, दफा 222",
+     "मुलुकी देवानी संहिता, २०७४, दफा 235"
+    ],
+    "ms": 690,
+    "queries": []
+   }
+  },
+  {
+   "q": "Can I adopt a child in Nepal? What are the conditions?",
+   "area": "family",
+   "expect": [
+    "मुलुकी देवानी संहिता"
+   ],
+   "in_corpus": true,
+   "raw": {
+    "rank": 1,
+    "precedents": 3,
+    "top": [
+     "मुलुकी देवानी संहिता, २०७४, दफा 197",
+     "मुलुकी देवानी संहिता, २०७४, दफा 179",
+     "मुलुकी देवानी संहिता, २०७४, दफा 190"
+    ],
+    "ms": 677,
+    "queries": []
+   }
+  },
+  {
+   "q": "How can a child get citizenship through the mother?",
+   "area": "citizenship",
+   "expect": [
+    "नेपालको संविधान",
+    "नागरिकता"
+   ],
+   "in_corpus": true,
+   "raw": {
+    "rank": 1,
+    "precedents": 3,
+    "top": [
+     "नेपालको संविधान, धारा 11",
+     "नेपाल नागरिकता ऐन, २०६३, दफा 3 (1)",
+     "नेपाल नागरिकता ऐन, २०६३, दफा 8 (1)"
+    ],
+    "ms": 2291,
+    "queries": []
+   }
+  },
+  {
+   "q": "वंशजको आधारमा नागरिकता कसले पाउँछ?",
+   "area": "citizenship",
+   "expect": [
+    "नेपालको संविधान",
+    "नागरिकता"
+   ],
+   "in_corpus": true,
+   "raw": {
+    "rank": 1,
+    "precedents": 3,
+    "top": [
+     "नेपालको संविधान, धारा 11",
+     "नेपाल नागरिकता ऐन, २०६३, दफा 3 (1)",
+     "नेपाल नागरिकता ऐन, २०६३, दफा 8 (1)"
+    ],
+    "ms": 1543,
+    "queries": []
+   }
+  },
+  {
+   "q": "Can a foreign woman married to a Nepali man get citizenship?",
+   "area": "citizenship",
+   "expect": [
+    "नेपालको संविधान",
+    "नागरिकता"
+   ],
+   "in_corpus": true,
+   "raw": {
+    "rank": 1,
+    "precedents": 3,
+    "top": [
+     "नेपालको संविधान, धारा 11",
+     "नेपाल नागरिकता ऐन, २०६३, दफा 3 (1)",
+     "नेपाल नागरिकता ऐन, २०६३, दफा 8 (1)"
+    ],
+    "ms": 1112,
+    "queries": []
+   }
+  },
+  {
+   "q": "What fundamental rights does the constitution guarantee?",
+   "area": "constitutional",
+   "expect": [
+    "नेपालको संविधान"
+   ],
+   "in_corpus": true,
+   "raw": {
+    "rank": 1,
+    "precedents": 3,
+    "top": [
+     "नेपालको संविधान, धारा 1",
+     "नेपालको संविधान, धारा 47",
+     "नेपालको संविधान, धारा 133 (1)"
+    ],
+    "ms": 360,
+    "queries": []
+   }
+  },
+  {
+   "q": "Is there a right to free education in Nepal?",
+   "area": "constitutional",
+   "expect": [
+    "नेपालको संविधान",
+    "शिक्षा"
+   ],
+   "in_corpus": true,
+   "raw": {
+    "rank": 1,
+    "precedents": 3,
+    "top": [
+     "अनिवार्य तथा निःशुल्क शिक्षा सम्बन्धी ऐन, २०७५, दफा 20",
+     "अनिवार्य तथा निःशुल्क शिक्षा सम्बन्धी ऐन, २०७५, दफा 5",
+     "अनिवार्य तथा निःशुल्क शिक्षा सम्बन्धी ऐन, २०७५, दफा 17"
+    ],
+    "ms": 53,
+    "queries": []
+   }
+  },
+  {
+   "q": "सूचनाको हक कसरी प्रयोग गर्ने?",
+   "area": "rti",
+   "expect": [
+    "सूचनाको हक",
+    "नेपालको संविधान"
+   ],
+   "in_corpus": true,
+   "raw": {
+    "rank": 1,
+    "precedents": 3,
+    "top": [
+     "सूचनाको हक सम्बन्धी ऐन, २०६४, दफा 7",
+     "सूचनाको हक सम्बन्धी ऐन, २०६४, दफा 9",
+     "सूचनाको हक सम्बन्धी ऐन, २०६४, दफा 31"
+    ],
+    "ms": 372,
+    "queries": []
+   }
+  },
+  {
+   "q": "How do I request information from a government office?",
+   "area": "rti",
+   "expect": [
+    "सूचनाको हक"
+   ],
+   "in_corpus": true,
+   "raw": {
+    "rank": 1,
+    "precedents": 3,
+    "top": [
+     "सूचनाको हक सम्बन्धी ऐन, २०६४, दफा 7",
+     "सूचनाको हक सम्बन्धी ऐन, २०६४, दफा 9",
+     "सार्वजनिक खरिद ऐन, २०६३, दफा 66ख"
+    ],
+    "ms": 51,
+    "queries": []
+   }
+  },
+  {
+   "q": "Can I file a writ in the Supreme Court if my fundamental right is violated?",
+   "area": "constitutional",
+   "expect": [
+    "नेपालको संविधान"
+   ],
+   "in_corpus": true,
+   "raw": {
+    "rank": 1,
+    "precedents": 3,
+    "top": [
+     "नेपालको संविधान, धारा 133 (1)",
+     "नेपालको संविधान, धारा 144",
+     "सर्वोच्च अदालत नियमावली, २०७४, नियम 32"
+    ],
+    "ms": 87,
+    "queries": []
+   }
+  },
+  {
+   "q": "What is the right against untouchability and caste discrimination?",
+   "area": "constitutional",
+   "expect": [
+    "नेपालको संविधान",
+    "जातीय भेदभाव"
+   ],
+   "in_corpus": true,
+   "raw": {
+    "rank": 1,
+    "precedents": 3,
+    "top": [
+     "नेपालको संविधान, धारा 24",
+     "जातीय तथा अन्य सामाजिक छुवाछूत र भेदभाव (कसूर र सजाय) ऐन, २०६८, दफा 6",
+     "जातीय तथा अन्य सामाजिक छुवाछूत र भेदभाव (कसूर र सजाय) ऐन, २०६८, दफा 4 (3)"
+    ],
+    "ms": 176,
+    "queries": []
+   }
+  },
+  {
+   "q": "My employer hasn't paid my salary for 3 months.",
+   "area": "labour",
+   "expect": [
+    "श्रम ऐन"
+   ],
+   "in_corpus": true,
+   "raw": {
+    "rank": 1,
+    "precedents": 3,
+    "top": [
+     "श्रम ऐन, २०७४, दफा 34",
+     "श्रम ऐन, २०७४, दफा 162",
+     "श्रम ऐन, २०७४, दफा 64"
+    ],
+    "ms": 1605,
+    "queries": []
+   }
+  },
+  {
+   "q": "कम्पनीले विना सूचना कामबाट निकाल्यो, के गर्ने?",
+   "area": "labour",
+   "expect": [
+    "श्रम ऐन"
+   ],
+   "in_corpus": true,
+   "raw": {
+    "rank": 1,
+    "precedents": 3,
+    "top": [
+     "श्रम ऐन, २०७४, दफा 144",
+     "श्रम ऐन, २०७४, दफा 162",
+     "श्रम ऐन, २०७४, दफा 139"
+    ],
+    "ms": 1444,
+    "queries": []
+   }
+  },
+  {
+   "q": "How many days of maternity leave does a woman worker get?",
+   "area": "labour",
+   "expect": [
+    "श्रम ऐन",
+    "नेपालको संविधान"
+   ],
+   "in_corpus": true,
+   "raw": {
+    "rank": 1,
+    "precedents": 3,
+    "top": [
+     "श्रम ऐन, २०७४, दफा 45",
+     "राष्ट्रिय सतर्कता प्रहरी नियमावली, २०७१, नियम 34",
+     "सुरक्षित मातृत्व तथा प्रजनन् स्वास्थ्य अधिकार ऐन, २०७५, दफा 13"
+    ],
+    "ms": 835,
+    "queries": []
+   }
+  },
+  {
+   "q": "What is the minimum wage rule for workers?",
+   "area": "labour",
+   "expect": [
+    "श्रम ऐन"
+   ],
+   "in_corpus": true,
+   "raw": {
+    "rank": 1,
+    "precedents": 3,
+    "top": [
+     "श्रम ऐन, २०७४, दफा 34",
+     "श्रम ऐन, २०७४, दफा 162",
+     "श्रम ऐन, २०७४, दफा 88"
+    ],
+    "ms": 1275,
+    "queries": []
+   }
+  },
+  {
+   "q": "Is child labour prohibited?",
+   "area": "labour",
+   "expect": [
+    "बाल श्रम",
+    "नेपालको संविधान",
+    "बालबालिका"
+   ],
+   "in_corpus": true,
+   "raw": {
+    "rank": 3,
+    "precedents": 3,
+    "top": [
+     "मुलुकी अपराध संहिता, २०७४, दफा 173",
+     "मुलुकी अपराध संहिता, २०७४, दफा 176",
+     "बाल श्रम (निषेध र नियमित गर्ने) ऐन, २०५६, दफा 3"
+    ],
+    "ms": 89,
+    "queries": []
+   }
+  },
+  {
+   "q": "A shop sold me an expired product. Where can I complain?",
+   "area": "consumer",
+   "expect": [
+    "उपभोक्ता संरक्षण"
+   ],
+   "in_corpus": true,
+   "raw": {
+    "rank": 1,
+    "precedents": 1,
+    "top": [
+     "उपभोक्ता संरक्षण ऐन, २०७५, दफा 3",
+     "उपभोक्ता संरक्षण ऐन, २०७५, दफा 36",
+     "उपभोक्ता संरक्षण ऐन, २०७५, दफा 50"
+    ],
+    "ms": 502,
+    "queries": []
+   }
+  },
+  {
+   "q": "उपभोक्ताको हक के के हुन्?",
+   "area": "consumer",
+   "expect": [
+    "उपभोक्ता संरक्षण",
+    "नेपालको संविधान"
+   ],
+   "in_corpus": true,
+   "raw": {
+    "rank": 1,
+    "precedents": 3,
+    "top": [
+     "नेपालको संविधान, धारा 44",
+     "उपभोक्ता संरक्षण ऐन, २०७५, दफा 3",
+     "सिंचाइ नियमावली, २०५६, नियम 3 (1)"
+    ],
+    "ms": 124,
+    "queries": []
+   }
+  },
+  {
+   "q": "Someone posted my private photos on Facebook without consent.",
+   "area": "cyber",
+   "expect": [
+    "विद्युतीय कारोबार",
+    "मुलुकी अपराध संहिता",
+    "गोपनीयता"
+   ],
+   "in_corpus": true,
+   "raw": {
+    "rank": null,
+    "precedents": 3,
+    "top": [
+     "नेपाल स्वास्थ्य सेवा ऐन, २०५३, दफा 46",
+     "विज्ञापन (नियमन) गर्ने ऐन, २०७६, दफा 10",
+     "विपद् जोखिम न्यूनिकरण तथा व्यवस्थापन ऐन, २०७४, दफा 35"
+    ],
+    "ms": 390,
+    "queries": []
+   }
+  },
+  {
+   "q": "What is the law on hacking and cyber crime in Nepal?",
+   "area": "cyber",
+   "expect": [
+    "विद्युतीय कारोबार"
+   ],
+   "in_corpus": true,
+   "raw": {
+    "rank": null,
+    "precedents": 3,
+    "top": [
+     "मुलुकी अपराध संहिता, २०७४, दफा 298",
+     "मुलुकी अपराध संहिता, २०७४, दफा 307",
+     "विद्युतीय (इलेक्ट्रोनिक) कारोबार ऐन, २०६३, दफा 47"
+    ],
+    "ms": 685,
+    "queries": []
+   }
+  },
+  {
+   "q": "Is my personal data protected by law?",
+   "area": "privacy",
+   "expect": [
+    "गोपनीयता",
+    "नेपालको संविधान"
+   ],
+   "in_corpus": true,
+   "raw": {
+    "rank": 1,
+    "precedents": 3,
+    "top": [
+     "नेपालको संविधानको अनुसूचीमा उल्लिखित साझा अधिकारको विषयमा कानून निर्माणको आवश्यकता, धारा 9 (4)",
+     "नेपाल कानून आयोग ऐन, २०६३",
+     "नेपाल कानून व्यवसायी परिषद् ऐन, २०५०, दफा 26"
+    ],
+    "ms": 287,
+    "queries": []
+   }
+  },
+  {
+   "q": "How do I register a private company in Nepal?",
+   "area": "company",
+   "expect": [
+    "कम्पनी ऐन"
+   ],
+   "in_corpus": true,
+   "raw": {
+    "rank": 1,
+    "precedents": 3,
+    "top": [
+     "कम्पनी ऐन, २०६३, दफा 13",
+     "कम्पनी ऐन, २०६३, दफा 14",
+     "कम्पनी ऐन, २०६३, दफा 83"
+    ],
+    "ms": 70,
+    "queries": []
+   }
+  },
+  {
+   "q": "कम्पनी दर्ता गर्न के के कागजात चाहिन्छ?",
+   "area": "company",
+   "expect": [
+    "कम्पनी ऐन",
+    "कम्पनी"
+   ],
+   "in_corpus": true,
+   "raw": {
+    "rank": 1,
+    "precedents": 3,
+    "top": [
+     "कम्पनी ऐन, २०६३, दफा 5",
+     "कम्पनी ऐन, २०६३, दफा 85",
+     "कम्पनी ऐन, २०६३, दफा 146"
+    ],
+    "ms": 39,
+    "queries": []
+   }
+  },
+  {
+   "q": "What is the income tax rate for individuals?",
+   "area": "tax",
+   "expect": [
+    "आयकर",
+    "आर्थिक ऐन"
+   ],
+   "in_corpus": true,
+   "raw": {
+    "rank": 1,
+    "precedents": 3,
+    "top": [
+     "मूल्य अभिवृद्धि कर ऐन, २०५२ (आर्थिक ऐन,२०८२ ले गरेको संशोधन सहित), दफा 7",
+     "मूल्य अभिवृद्धि कर ऐन, २०५२, दफा 7",
+     "आयकर ऐन, २०५८, दफा 88 (1)"
+    ],
+    "ms": 108,
+    "queries": []
+   }
+  },
+  {
+   "q": "How is VAT charged in Nepal?",
+   "area": "tax",
+   "expect": [
+    "मूल्य अभिवृद्धि कर",
+    "आर्थिक ऐन"
+   ],
+   "in_corpus": true,
+   "raw": {
+    "rank": 1,
+    "precedents": 3,
+    "top": [
+     "मूल्य अभिवृद्धि कर नियमावली, २०५३ (सत्ताइसौं संशोधन सहित), नियम 2",
+     "मूल्य अभिवृद्धि कर नियमावली, २०५३ (सत्ताइसौं संशोधन सहित), नियम 2",
+     "मूल्य अभिवृद्धि कर नियमावली, २०५३ (सत्ताइसौं संशोधन सहित), नियम 2 (15)"
+    ],
+    "ms": 74,
+    "queries": []
+   }
+  },
+  {
+   "q": "What is the punishment for taking a bribe as a government employee?",
+   "area": "corruption",
+   "expect": [
+    "भ्रष्टाचार निवारण"
+   ],
+   "in_corpus": true,
+   "raw": {
+    "rank": 2,
+    "precedents": 3,
+    "top": [
+     "निजामती सेवा ऐन, २०४९, दफा 54ख",
+     "भ्रष्टाचार निवारण ऐन, २०५९, दफा 3",
+     "सामाजिक व्यवहार (सुधार) ऐन, २०३३, दफा 20"
+    ],
+    "ms": 104,
+    "queries": []
+   }
+  },
+  {
+   "q": "घुस लिएमा के सजाय हुन्छ?",
+   "area": "corruption",
+   "expect": [
+    "भ्रष्टाचार निवारण"
+   ],
+   "in_corpus": true,
+   "raw": {
+    "rank": null,
+    "precedents": 3,
+    "top": [
+     "मध्यस्थता ऐन, २०५५ को संशोधन सम्बन्धी अध्ययन, दफा 6 (55)",
+     "संस्थान ऐन, २०२१, दफा 5",
+     "लागू औषध (नियन्त्रण) ऐन, २०३३, दफा 21"
+    ],
+    "ms": 44,
+    "queries": []
+   }
+  },
+  {
+   "q": "What counts as money laundering?",
+   "area": "aml",
+   "expect": [
+    "सम्पत्ति शुद्धीकरण"
+   ],
+   "in_corpus": true,
+   "raw": {
+    "rank": 7,
+    "precedents": 3,
+    "top": [
+     "मुलुकी देवानी संहिता, २०७४, दफा 495",
+     "मुलुकी देवानी संहिता, २०७४, दफा 492",
+     "मुलुकी देवानी संहिता, २०७४, दफा 474"
+    ],
+    "ms": 148,
+    "queries": []
+   }
+  },
+  {
+   "q": "What is the punishment for human trafficking?",
+   "area": "trafficking",
+   "expect": [
+    "मानव बेचबिखन"
+   ],
+   "in_corpus": true,
+   "raw": {
+    "rank": 1,
+    "precedents": 3,
+    "top": [
+     "मानव बेचबिखन तथा ओसारपसार (नियन्त्रण) ऐन, २०६४, दफा 4",
+     "मानव बेचबिखन तथा ओसारपसार (नियन्त्रण) ऐन, २०६४, दफा 3",
+     "मानव बेचबिखन तथा ओसारपसार (नियन्त्रण) ऐन, २०६४, दफा 24"
+    ],
+    "ms": 166,
+    "queries": []
+   }
+  },
+  {
+   "q": "Is drug possession a crime? What is the punishment for carrying marijuana?",
+   "area": "narcotics",
+   "expect": [
+    "लागु औषध"
+   ],
+   "in_corpus": false,
+   "raw": {
+    "rank": null,
+    "precedents": 3,
+    "top": [
+     "लागू औषध (नियन्त्रण) ऐन, २०३३, दफा 17क",
+     "लागू औषध (नियन्त्रण) ऐन, २०३३, दफा 17",
+     "लागू औषध (नियन्त्रण) ऐन, २०३३, दफा 14 (2)"
+    ],
+    "ms": 164,
+    "queries": []
+   }
+  },
+  {
+   "q": "Can the government acquire my land for a road? Do I get compensation?",
+   "area": "land",
+   "expect": [
+    "जग्गा प्राप्ति",
+    "नेपालको संविधान"
+   ],
+   "in_corpus": true,
+   "raw": {
+    "rank": 1,
+    "precedents": 3,
+    "top": [
+     "जग्गा प्राप्ति ऐन, २०३४, दफा 37",
+     "अपराध पीडित संरक्षण ऐन, २०७५, दफा 30",
+     "जग्गा प्राप्ति ऐन, २०३४, दफा 20"
+    ],
+    "ms": 368,
+    "queries": []
+   }
+  },
+  {
+   "q": "जग्गा नामसारी कसरी गर्ने?",
+   "area": "land",
+   "expect": [
+    "मालपोत",
+    "मुलुकी देवानी संहिता"
+   ],
+   "in_corpus": true,
+   "raw": {
+    "rank": 2,
+    "precedents": 3,
+    "top": [
+     "जग्गा प्राप्ति ऐन, २०३४, दफा 23",
+     "मुलुकी देवानी संहिता, २०७४, दफा 297",
+     "मालपोत ऐन, २०३४, दफा 8"
+    ],
+    "ms": 284,
+    "queries": []
+   }
+  },
+  {
+   "q": "What is the ceiling on how much land a person can own?",
+   "area": "land",
+   "expect": [
+    "भूमि सम्बन्धी ऐन"
+   ],
+   "in_corpus": true,
+   "raw": {
+    "rank": null,
+    "precedents": 0,
+    "top": [
+     "1721034137_45.pdf.pdf",
+     "नेपालको संविधान, धारा 25",
+     "कानूनी सूक्तिहरू"
+    ],
+    "ms": 270,
+    "queries": []
+   }
+  },
+  {
+   "q": "My neighbour built a wall on my land. What can I do?",
+   "area": "land",
+   "expect": [
+    "मुलुकी देवानी संहिता"
+   ],
+   "in_corpus": true,
+   "raw": {
+    "rank": 3,
+    "precedents": 3,
+    "top": [
+     "जग्गा (नाप जाँच) ऐन, २०१९, दफा 8",
+     "स्थानीय सरकार सञ्‍चालन ऐन, २०७४, दफा 47 (2)",
+     "मुलुकी देवानी संहिता, २०७४, दफा 287"
+    ],
+    "ms": 416,
+    "queries": []
+   }
+  },
+  {
+   "q": "Can a tenant farmer (mohi) claim ownership of land?",
+   "area": "land",
+   "expect": [
+    "भूमि सम्बन्धी ऐन"
+   ],
+   "in_corpus": true,
+   "raw": {
+    "rank": 2,
+    "precedents": 3,
+    "top": [
+     "बिर्ता उन्मूलन ऐन, २०१६, दफा 12",
+     "भूमि सम्बन्धी ऐन, २०२१, दफा 25 (2)",
+     "भूमि सम्बन्धी ऐन, २०२१, दफा 26ङ"
+    ],
+    "ms": 148,
+    "queries": []
+   }
+  },
+  {
+   "q": "What are the rights of senior citizens?",
+   "area": "social",
+   "expect": [
+    "ज्येष्ठ नागरिक",
+    "नेपालको संविधान"
+   ],
+   "in_corpus": true,
+   "raw": {
+    "rank": null,
+    "precedents": 3,
+    "top": [
+     "स्थानीय सरकार सञ्‍चालन ऐन, २०७४, दफा 11 (11)",
+     "आवासको अधिकार सम्बन्धी ऐन, २०७५, दफा 5",
+     "समाज कल्याण ऐन, २०४९, दफा 25"
+    ],
+    "ms": 94,
+    "queries": []
+   }
+  },
+  {
+   "q": "अपाङ्गता भएका व्यक्तिको अधिकार के के छन्?",
+   "area": "social",
+   "expect": [
+    "अपाङ्गता",
+    "नेपालको संविधान"
+   ],
+   "in_corpus": true,
+   "raw": {
+    "rank": 1,
+    "precedents": 3,
+    "top": [
+     "अपाङ्गता भएका व्यक्तिको अधिकार सम्बन्धी ऐन, २०७४, दफा 51",
+     "अपाङ्गता भएका व्यक्तिको अधिकार सम्बन्धी ऐन, २०७४, दफा 52",
+     "अपाङ्गता भएका व्यक्तिको अधिकार सम्बन्धी ऐन, २०७४, दफा 25"
+    ],
+    "ms": 41,
+    "queries": []
+   }
+  },
+  {
+   "q": "Can a child be kept in jail? What about juvenile justice?",
+   "area": "children",
+   "expect": [
+    "बालबालिका सम्बन्धी ऐन"
+   ],
+   "in_corpus": true,
+   "raw": {
+    "rank": 7,
+    "precedents": 3,
+    "top": [
+     "मुलुकी अपराध संहिता, २०७४, दफा 173",
+     "मुलुकी अपराध संहिता, २०७४, दफा 176",
+     "मुलुकी फौजदारी कार्यविधि संहिता, २०७४, दफा 154"
+    ],
+    "ms": 129,
+    "queries": []
+   }
+  },
+  {
+   "q": "How do I get free legal aid if I can't afford a lawyer?",
+   "area": "legal aid",
+   "expect": [
+    "कानूनी सहायता",
+    "नेपालको संविधान"
+   ],
+   "in_corpus": true,
+   "raw": {
+    "rank": 1,
+    "precedents": 3,
+    "top": [
+     "कानूनी सहायता सम्बन्धी ऐन, २०५४, दफा 5",
+     "कानूनी सहायता सम्बन्धी ऐन, २०५४, दफा 7",
+     "कानूनी सहायता सम्बन्धी नियमावली, २०५५, नियम 8"
+    ],
+    "ms": 127,
+    "queries": []
+   }
+  },
+  {
+   "q": "What compensation can a crime victim get?",
+   "area": "victims",
+   "expect": [
+    "अपराध पीडित",
+    "मुलुकी अपराध संहिता",
+    "पीडित"
+   ],
+   "in_corpus": true,
+   "raw": {
+    "rank": 1,
+    "precedents": 3,
+    "top": [
+     "अपराध पीडित संरक्षण ऐन, २०७५, दफा 30",
+     "अपराध पीडित संरक्षण ऐन, २०७५, दफा 34 (1)",
+     "अपराध पीडित संरक्षण ऐन, २०७५, दफा 34 (3)"
+    ],
+    "ms": 133,
+    "queries": []
+   }
+  },
+  {
+   "q": "What are the rules for foreign workers going abroad for employment?",
+   "area": "foreign employment",
+   "expect": [
+    "वैदेशिक रोजगार"
+   ],
+   "in_corpus": true,
+   "raw": {
+    "rank": 1,
+    "precedents": 3,
+    "top": [
+     "वैदेशिक रोजगार ऐन, २०६४, दफा 36",
+     "वैदेशिक रोजगार ऐन, २०६४, दफा 44",
+     "वैदेशिक रोजगार ऐन, २०६४, दफा 43"
+    ],
+    "ms": 114,
+    "queries": []
+   }
+  },
+  {
+   "q": "Is it legal to carry a gun in Nepal without a license?",
+   "area": "arms",
+   "expect": [
+    "हातहतियार"
+   ],
+   "in_corpus": true,
+   "raw": {
+    "rank": 1,
+    "precedents": 3,
+    "top": [
+     "हातहतियार खरखजाना नियमावली, २०२८, नियम 14",
+     "हातहतियार खरखजाना नियमावली, २०२८, नियम 5 (5)",
+     "हातहतियार खरखजाना नियमावली, २०२८, नियम 5"
+    ],
+    "ms": 109,
+    "queries": []
+   }
+  },
+  {
+   "q": "Do I need a license to drive a motorbike and what is the fine for drunk driving?",
+   "area": "traffic",
+   "expect": [
+    "सवारी तथा यातायात"
+   ],
+   "in_corpus": true,
+   "raw": {
+    "rank": 4,
+    "precedents": 3,
+    "top": [
+     "जीवनाशक विषादी व्यवस्थापन ऐन, २०७६, दफा 33",
+     "विष्‍फोटक पदार्थ ऐन, २०१८, दफा 10",
+     "लागू औषध (नियन्त्रण) ऐन, २०३३, दफा 14 (2)"
+    ],
+    "ms": 132,
+    "queries": []
+   }
+  },
+  {
+   "q": "What powers does a local ward office (वडा) have?",
+   "area": "local government",
+   "expect": [
+    "स्थानीय सरकार सञ्चालन"
+   ],
+   "in_corpus": false,
+   "raw": {
+    "rank": null,
+    "precedents": 3,
+    "top": [
+     "स्थानीय सरकार सञ्‍चालन ऐन, २०७४, दफा 107",
+     "स्थानीय सरकार सञ्‍चालन ऐन, २०७४, दफा 16 (2)",
+     "स्थानीय सरकार सञ्‍चालन ऐन, २०७४, दफा 18"
+    ],
+    "ms": 66,
+    "queries": []
+   }
+  },
+  {
+   "q": "Can the judicial committee of a municipality settle disputes?",
+   "area": "local government",
+   "expect": [
+    "स्थानीय सरकार सञ्चालन"
+   ],
+   "in_corpus": false,
+   "raw": {
+    "rank": null,
+    "precedents": 3,
+    "top": [
+     "नेपालको संविधान, धारा 235",
+     "नेपालको संविधान, धारा 217",
+     "स्थानीय सरकार सञ्‍चालन ऐन, २०७४, दफा 49 (1)"
+    ],
+    "ms": 400,
+    "queries": []
+   }
+  },
+  {
+   "q": "What is the procedure for mediation of disputes?",
+   "area": "adr",
+   "expect": [
+    "मेलमिलाप",
+    "मुलुकी देवानी कार्यविधि संहिता"
+   ],
+   "in_corpus": true,
+   "raw": {
+    "rank": 1,
+    "precedents": 3,
+    "top": [
+     "मेलमिलाप सम्बन्धी ऐन, २०६८, दफा 15",
+     "मेलमिलाप सम्बन्धी ऐन, २०६८, दफा 3",
+     "मेलमिलाप सम्बन्धी ऐन, २०६८, दफा 16"
+    ],
+    "ms": 389,
+    "queries": []
+   }
+  },
+  {
+   "q": "How can I register a copyright for my song?",
+   "area": "ip",
+   "expect": [
+    "प्रतिलिपि अधिकार"
+   ],
+   "in_corpus": true,
+   "raw": {
+    "rank": 1,
+    "precedents": 3,
+    "top": [
+     "प्रतिलिपि अधिकार ऐन, २०५९, दफा 40",
+     "प्रतिलिपि अधिकार ऐन, २०५९, दफा 28",
+     "प्रतिलिपि अधिकार ऐन, २०५९, दफा 3"
+    ],
+    "ms": 368,
+    "queries": []
+   }
+  },
+  {
+   "q": "What happens if a bank cheque bounces?",
+   "area": "banking",
+   "expect": [
+    "विनिमेय अधिकारपत्र",
+    "बैंकिङ कसूर"
+   ],
+   "in_corpus": true,
+   "raw": {
+    "rank": 1,
+    "precedents": 3,
+    "top": [
+     "विनिमेय अधिकारपत्र ऐन, २०३४, दफा 65",
+     "बैङ्किङ्ग कसूर तथा सजाय ऐन, २०६४, दफा 3क",
+     "बैङ्किङ्ग कसूर तथा सजाय ऐन, २०६४, दफा 15 (1)"
+    ],
+    "ms": 626,
+    "queries": []
+   }
+  },
+  {
+   "q": "mero shreemati le divorce magdai chhin, ke garne?",
+   "area": "family",
+   "expect": [
+    "मुलुकी देवानी संहिता"
+   ],
+   "in_corpus": true,
+   "raw": {
+    "rank": 1,
+    "precedents": 3,
+    "top": [
+     "मुलुकी देवानी संहिता, २०७४, दफा 96",
+     "मुलुकी देवानी संहिता, २०७४, दफा 97",
+     "मुलुकी देवानी संहिता, २०७४, दफा 98"
+    ],
+    "ms": 115,
+    "queries": []
+   }
+  },
+  {
+   "q": "gharbeti le ghar khali garna bhanyo, kati din ko suchana dinu parchha?",
+   "area": "tenancy",
+   "expect": [
+    "मुलुकी देवानी संहिता"
+   ],
+   "in_corpus": true,
+   "raw": {
+    "rank": 1,
+    "precedents": 3,
+    "top": [
+     "मुलुकी देवानी संहिता, २०७४, दफा 404",
+     "मुलुकी देवानी संहिता, २०७४, दफा 394",
+     "मुलुकी देवानी संहिता, २०७४, दफा 400"
+    ],
+    "ms": 114,
+    "queries": []
+   }
+  },
+  {
+   "q": "police le bina warrant pakrau garna milchha?",
+   "area": "criminal procedure",
+   "expect": [
+    "मुलुकी फौजदारी कार्यविधि संहिता",
+    "नेपालको संविधान"
+   ],
+   "in_corpus": true,
+   "raw": {
+    "rank": 1,
+    "precedents": 3,
+    "top": [
+     "मुलुकी फौजदारी कार्यविधि संहिता, २०७४, दफा 58 (1)",
+     "मुलुकी फौजदारी कार्यविधि संहिता, २०७४, दफा 63 (2)",
+     "मुलुकी फौजदारी कार्यविधि संहिता, २०७४, दफा 63 (1)"
+    ],
+    "ms": 49,
+    "queries": []
+   }
+  },
+  {
+   "q": "How is the President of Nepal elected?",
+   "area": "constitutional",
+   "expect": [
+    "नेपालको संविधान"
+   ],
+   "in_corpus": true,
+   "raw": {
+    "rank": 1,
+    "precedents": 3,
+    "top": [
+     "नेपालको संविधानको अनुसूचीमा उल्लिखित साझा अधिकारको विषयमा कानून निर्माणको आवश्यकता, धारा 12 (1)",
+     "राष्ट्रपति र उपराष्ट्रपतिको पारिश्रमिक तथा सुविधा सम्बन्धी ऐन, २०७४, दफा 15",
+     "नेपालको संविधान, धारा 71"
+    ],
+    "ms": 68,
+    "queries": []
+   }
+  },
+  {
+   "q": "What is the tenure of the House of Representatives?",
+   "area": "constitutional",
+   "expect": [
+    "नेपालको संविधान"
+   ],
+   "in_corpus": true,
+   "raw": {
+    "rank": null,
+    "precedents": 3,
+    "top": [
+     "सङ्घीय संसदका महासचिव, प्रविनिधिसभाका सचिव तथा राष्ट्रीयसभाका सचिवको पारिश्रमिक, सेवाको शर्त र सुविधा सम्बन्धी ऐन, २०७५",
+     "नेपाल नागरिकता ऐन, २०६३",
+     "राष्ट्रिय न्यायिक प्रतिष्ठान ऐन, २०६३"
+    ],
+    "ms": 46,
+    "queries": []
+   }
+  },
+  {
+   "q": "प्रदेश सरकारको अधिकार के के हुन्?",
+   "area": "constitutional",
+   "expect": [
+    "नेपालको संविधान"
+   ],
+   "in_corpus": true,
+   "raw": {
+    "rank": 1,
+    "precedents": 0,
+    "top": [
+     "नेपालको संविधान, धारा 162",
+     "नेपालको संविधानको अनुसूचीमा उल्लिखित साझा अधिकारको विषयमा कानून निर्माणको आवश्यकता, धारा 2 (6)",
+     "प्रतिलिपि अधिकार ऐन, २०५९, दफा 40"
+    ],
+    "ms": 38,
+    "queries": []
+   }
+  },
+  {
+   "q": "What is the procedure for impeachment of a judge?",
+   "area": "constitutional",
+   "expect": [
+    "नेपालको संविधान"
+   ],
+   "in_corpus": true,
+   "raw": {
+    "rank": null,
+    "precedents": 3,
+    "top": [
+     "महाभियोग (कार्यविधि नियमित गर्ने) ऐन, २०५९, दफा 14",
+     "बालबालिका सम्बन्धी ऐन, २०७५, दफा 86",
+     "मुलुकी देवानी कार्यविधि संहिता, २०७४, दफा 185"
+    ],
+    "ms": 128,
+    "queries": []
+   }
+  },
+  {
+   "q": "Can a public servant be dismissed without a hearing?",
+   "area": "administrative",
+   "expect": [
+    "निजामती सेवा",
+    "नेपालको संविधान"
+   ],
+   "in_corpus": true,
+   "raw": {
+    "rank": null,
+    "precedents": 3,
+    "top": [
+     "श्रम ऐन, २०७४, दफा 144",
+     "श्रम ऐन, २०७४, दफा 162",
+     "श्रम ऐन, २०७४, दफा 139"
+    ],
+    "ms": 129,
+    "queries": []
+   }
+  },
+  {
+   "q": "What evidence is admissible in court?",
+   "area": "evidence",
+   "expect": [
+    "प्रमाण ऐन"
+   ],
+   "in_corpus": true,
+   "raw": {
+    "rank": null,
+    "precedents": 3,
+    "top": [
+     "नेपालको संविधान, धारा 300",
+     "बैङ्क तथा वित्तीय संस्थाको ऋण असुली ऐन, २०५८, दफा 24",
+     "सूचना प्रविधि न्यायाधिकरण (कार्यविधि) नियमावली, २०६४, नियम 13"
+    ],
+    "ms": 135,
+    "queries": []
+   }
+  },
+  {
+   "q": "Is witchcraft accusation (बोक्सी) a crime?",
+   "area": "criminal",
+   "expect": [
+    "बोक्सी",
+    "मुलुकी अपराध संहिता"
+   ],
+   "in_corpus": true,
+   "raw": {
+    "rank": 1,
+    "precedents": 3,
+    "top": [
+     "बोक्सीको आरोप (कसूर र सजाय) ऐन, २०७२, दफा 2",
+     "बोक्सीको आरोप (कसूर र सजाय) ऐन, २०७२, दफा 9",
+     "बोक्सीको आरोप (कसूर र सजाय) ऐन, २०७२, दफा 4"
+    ],
+    "ms": 111,
+    "queries": []
+   }
+  },
+  {
+   "q": "What are the qualifications to become Prime Minister of Nepal?",
+   "area": "constitutional",
+   "expect": [
+    "नेपालको संविधान"
+   ],
+   "in_corpus": true,
+   "raw": {
+    "rank": 1,
+    "precedents": 3,
+    "top": [
+     "नेपालको संविधान, धारा 298 (1)",
+     "नेपालको संविधान, धारा 76 (1)",
+     "नेपालको संविधान, धारा 76 (2)"
+    ],
+    "ms": 103,
+    "queries": []
+   }
+  },
+  {
+   "q": "How many members are in the National Assembly?",
+   "area": "constitutional",
+   "expect": [
+    "नेपालको संविधान"
+   ],
+   "in_corpus": true,
+   "raw": {
+    "rank": 4,
+    "precedents": 0,
+    "top": [
+     "राष्ट्रिय सभा सदस्य निर्वाचन ऐन, २०७५, दफा 1",
+     "राष्ट्रिय सभा सदस्य निर्वाचन ऐन, २०७५, दफा 45",
+     "राष्ट्रिय सभा सदस्य निर्वाचन ऐन, २०७५"
+    ],
+    "ms": 57,
+    "queries": []
+   }
+  },
+  {
+   "q": "राष्ट्रपतिको पदावधि कति वर्षको हुन्छ?",
+   "area": "constitutional",
+   "expect": [
+    "नेपालको संविधान"
+   ],
+   "in_corpus": true,
+   "raw": {
+    "rank": 1,
+    "precedents": 3,
+    "top": [
+     "नेपालको संविधान, धारा 63",
+     "नेपालको संविधान, धारा 163",
+     "नेपालको संविधान, धारा 86"
+    ],
+    "ms": 41,
+    "queries": []
+   }
+  },
+  {
+   "q": "Can the constitution of Nepal be amended? How?",
+   "area": "constitutional",
+   "expect": [
+    "नेपालको संविधान"
+   ],
+   "in_corpus": true,
+   "raw": {
+    "rank": 1,
+    "precedents": 3,
+    "top": [
+     "नेपालको संविधान, धारा 1",
+     "नेपालको संविधान, धारा 56",
+     "नेपालको संविधान, धारा 304"
+    ],
+    "ms": 438,
+    "queries": []
+   }
+  },
+  {
+   "q": "What is the official language of Nepal?",
+   "area": "constitutional",
+   "expect": [
+    "नेपालको संविधान"
+   ],
+   "in_corpus": true,
+   "raw": {
+    "rank": 1,
+    "precedents": 1,
+    "top": [
+     "नेपालको संविधान, धारा 7",
+     "नेपालको संविधान, धारा 32",
+     "नेपालको संविधानको अनुसूचीमा उल्लिखित साझा अधिकारको विषयमा कानून निर्माणको आवश्यकता, धारा 2 (17)"
+    ],
+    "ms": 44,
+    "queries": []
+   }
+  },
+  {
+   "q": "What is the right to property under the constitution?",
+   "area": "constitutional",
+   "expect": [
+    "नेपालको संविधान"
+   ],
+   "in_corpus": true,
+   "raw": {
+    "rank": 8,
+    "precedents": 3,
+    "top": [
+     "मुलुकी देवानी संहिता, २०७४, दफा 206",
+     "मुलुकी देवानी संहिता, २०७४, दफा 222",
+     "मुलुकी देवानी संहिता, २०७४, दफा 235"
+    ],
+    "ms": 486,
+    "queries": []
+   }
+  },
+  {
+   "q": "Does the constitution guarantee the right to a clean environment?",
+   "area": "constitutional",
+   "expect": [
+    "नेपालको संविधान"
+   ],
+   "in_corpus": true,
+   "raw": {
+    "rank": 5,
+    "precedents": 3,
+    "top": [
+     "मुलुकी देवानी संहिता, २०७४, दफा 115",
+     "मुलुकी देवानी संहिता, २०७४, दफा 116",
+     "मुलुकी देवानी संहिता, २०७४, दफा 117"
+    ],
+    "ms": 905,
+    "queries": []
+   }
+  },
+  {
+   "q": "महिलाको हक के के छन्?",
+   "area": "constitutional",
+   "expect": [
+    "नेपालको संविधान"
+   ],
+   "in_corpus": true,
+   "raw": {
+    "rank": 1,
+    "precedents": 3,
+    "top": [
+     "नेपालको संविधान, धारा 38",
+     "नेपालको संविधान, धारा 253",
+     "नेपालको संविधान, धारा 252"
+    ],
+    "ms": 358,
+    "queries": []
+   }
+  },
+  {
+   "q": "What are the rights of an accused person to a fair trial?",
+   "area": "criminal procedure",
+   "expect": [
+    "नेपालको संविधान",
+    "मुलुकी फौजदारी कार्यविधि संहिता"
+   ],
+   "in_corpus": true,
+   "raw": {
+    "rank": 8,
+    "precedents": 3,
+    "top": [
+     "सैनिक ऐन, २०६३, दफा 94",
+     "वन ऐन, २०७६, दफा 66",
+     "अपराध पीडित संरक्षण ऐन, २०७५, दफा 9 (2)"
+    ],
+    "ms": 121,
+    "queries": []
+   }
+  },
+  {
+   "q": "Who appoints the Chief Justice of Nepal?",
+   "area": "constitutional",
+   "expect": [
+    "नेपालको संविधान"
+   ],
+   "in_corpus": true,
+   "raw": {
+    "rank": null,
+    "precedents": 3,
+    "top": [
+     "महान्यायाधिवक्ताको पारिश्रमिक, सेवाको शर्त र सुविधा सम्बन्धी ऐन, २०५२, दफा 21",
+     "नेपाल राष्ट्र बैङ्क ऐन, २०५८, दफा 108",
+     "न्याय प्रशासन ऐन, २०७३, दफा 24"
+    ],
+    "ms": 53,
+    "queries": []
+   }
+  },
+  {
+   "q": "What is the jurisdiction of the High Court?",
+   "area": "judiciary",
+   "expect": [
+    "नेपालको संविधान",
+    "न्याय प्रशासन"
+   ],
+   "in_corpus": true,
+   "raw": {
+    "rank": 2,
+    "precedents": 3,
+    "top": [
+     "सैनिक ऐन, २०६३, दफा 68",
+     "न्याय प्रशासन ऐन, २०७३, दफा 5",
+     "न्याय प्रशासन ऐन, २०७३, दफा 8"
+    ],
+    "ms": 265,
+    "queries": []
+   }
+  },
+  {
+   "q": "How long does police custody last before charges must be filed?",
+   "area": "criminal procedure",
+   "expect": [
+    "मुलुकी फौजदारी कार्यविधि संहिता"
+   ],
+   "in_corpus": true,
+   "raw": {
+    "rank": 5,
+    "precedents": 3,
+    "top": [
+     "मुलुकी देवानी संहिता, २०७४, दफा 115",
+     "मुलुकी देवानी संहिता, २०७४, दफा 116",
+     "मुलुकी देवानी संहिता, २०७४, दफा 117"
+    ],
+    "ms": 411,
+    "queries": []
+   }
+  },
+  {
+   "q": "जाहेरी दरखास्त कहाँ दिने?",
+   "area": "criminal procedure",
+   "expect": [
+    "मुलुकी फौजदारी कार्यविधि संहिता"
+   ],
+   "in_corpus": true,
+   "raw": {
+    "rank": 1,
+    "precedents": 3,
+    "top": [
+     "मुलुकी फौजदारी कार्यविधि संहिता, २०७४, दफा 1",
+     "मुलुकी फौजदारी कार्यविधि संहिता, २०७४, दफा 4 (1)",
+     "मुलुकी फौजदारी कार्यविधि संहिता, २०७४, दफा 5"
+    ],
+    "ms": 290,
+    "queries": []
+   }
+  },
+  {
+   "q": "Can I get bail for a criminal case?",
+   "area": "criminal procedure",
+   "expect": [
+    "मुलुकी फौजदारी कार्यविधि संहिता"
+   ],
+   "in_corpus": true,
+   "raw": {
+    "rank": 5,
+    "precedents": 3,
+    "top": [
+     "मुलुकी देवानी संहिता, २०७४, दफा 386",
+     "मुलुकी देवानी संहिता, २०७४, दफा 389",
+     "मुलुकी देवानी संहिता, २०७४, दफा 402"
+    ],
+    "ms": 193,
+    "queries": []
+   }
+  },
+  {
+   "q": "What is the time limit to appeal a district court decision?",
+   "area": "appeal",
+   "expect": [
+    "मुलुकी देवानी कार्यविधि संहिता",
+    "मुलुकी फौजदारी कार्यविधि संहिता"
+   ],
+   "in_corpus": true,
+   "raw": {
+    "rank": 5,
+    "precedents": 3,
+    "top": [
+     "मध्यस्थता ऐन, २०५५ को संशोधन सम्बन्धी अध्ययन, दफा 6 (22)",
+     "श्रम ऐन, २०७४, दफा 161",
+     "न्याय प्रशासन ऐन, २०७३, दफा 8"
+    ],
+    "ms": 136,
+    "queries": []
+   }
+  },
+  {
+   "q": "पुनरावेदन गर्ने म्याद कति दिन हो?",
+   "area": "appeal",
+   "expect": [
+    "मुलुकी देवानी कार्यविधि संहिता",
+    "मुलुकी फौजदारी कार्यविधि संहिता"
+   ],
+   "in_corpus": true,
+   "raw": {
+    "rank": 2,
+    "precedents": 3,
+    "top": [
+     "बैङ्क तथा वित्तीय संस्थाको ऋण असुली ऐन, २०५८, दफा 19",
+     "मुलुकी देवानी कार्यविधि संहिता, २०७४, दफा 118",
+     "प्रशासकीय अदालत ऐन, २०७६, दफा 12"
+    ],
+    "ms": 36,
+    "queries": []
+   }
+  },
+  {
+   "q": "How is a court judgment executed if the losing party doesn't comply?",
+   "area": "execution",
+   "expect": [
+    "मुलुकी देवानी कार्यविधि संहिता"
+   ],
+   "in_corpus": true,
+   "raw": {
+    "rank": null,
+    "precedents": 3,
+    "top": [
+     "नेपालको संविधान, धारा 300",
+     "राजश्व न्यायाधिकरण ऐन, २०३१, दफा 11",
+     "राजनीतिक दल सम्बन्धी ऐन, २०७३, दफा 46"
+    ],
+    "ms": 386,
+    "queries": []
+   }
+  },
+  {
+   "q": "What is the punishment for murder in Nepal?",
+   "area": "criminal",
+   "expect": [
+    "मुलुकी अपराध संहिता"
+   ],
+   "in_corpus": true,
+   "raw": {
+    "rank": 1,
+    "precedents": 3,
+    "top": [
+     "मुलुकी अपराध संहिता, २०७४, दफा 177",
+     "औषधि ऐन, २०३५, दफा 34",
+     "मुलुकी अपराध संहिता, २०७४, दफा 183"
+    ],
+    "ms": 113,
+    "queries": []
+   }
+  },
+  {
+   "q": "ज्यान मार्ने कसूरमा के सजाय हुन्छ?",
+   "area": "criminal",
+   "expect": [
+    "मुलुकी अपराध संहिता"
+   ],
+   "in_corpus": true,
+   "raw": {
+    "rank": 1,
+    "precedents": 3,
+    "top": [
+     "मुलुकी अपराध संहिता, २०७४, दफा 177",
+     "मुलुकी अपराध संहिता, २०७४, दफा 183",
+     "भ्रष्टाचार निवारण ऐन, २०५९, दफा 18"
+    ],
+    "ms": 38,
+    "queries": []
+   }
+  },
+  {
+   "q": "Is abortion legal in Nepal?",
+   "area": "health",
+   "expect": [
+    "सुरक्षित मातृत्व",
+    "मुलुकी अपराध संहिता"
+   ],
+   "in_corpus": true,
+   "raw": {
+    "rank": 1,
+    "precedents": 3,
+    "top": [
+     "मुलुकी अपराध संहिता, २०७४, दफा 188",
+     "मुलुकी अपराध संहिता, २०७४, दफा 189",
+     "सुरक्षित मातृत्व तथा प्रजनन् स्वास्थ्य अधिकार ऐन, २०७५, दफा 15"
+    ],
+    "ms": 78,
+    "queries": []
+   }
+  },
+  {
+   "q": "गर्भपतन गर्न कानूनले कहिले अनुमति दिन्छ?",
+   "area": "health",
+   "expect": [
+    "सुरक्षित मातृत्व",
+    "मुलुकी अपराध संहिता"
+   ],
+   "in_corpus": true,
+   "raw": {
+    "rank": 1,
+    "precedents": 3,
+    "top": [
+     "मुलुकी अपराध संहिता, २०७४, दफा 188",
+     "सुरक्षित मातृत्व तथा प्रजनन् स्वास्थ्य अधिकार ऐन, २०७५, दफा 16",
+     "मध्यस्थता ऐन, २०५५ को संशोधन सम्बन्धी अध्ययन, दफा 6 (58)"
+    ],
+    "ms": 62,
+    "queries": []
+   }
+  },
+  {
+   "q": "What is the punishment for kidnapping or hostage taking?",
+   "area": "criminal",
+   "expect": [
+    "मुलुकी अपराध संहिता"
+   ],
+   "in_corpus": true,
+   "raw": {
+    "rank": 1,
+    "precedents": 3,
+    "top": [
+     "मुलुकी अपराध संहिता, २०७४, दफा 214",
+     "मुलुकी अपराध संहिता, २०७४, दफा 213",
+     "फौजदारी कसूर (सजाय निर्धारण तथा कार्यान्वयन) ऐन, २०७४, दफा 37"
+    ],
+    "ms": 364,
+    "queries": []
+   }
+  },
+  {
+   "q": "Is sexual harassment at the workplace punishable?",
+   "area": "harassment",
+   "expect": [
+    "कार्यस्थलमा हुने यौनजन्य दुर्व्यवहार",
+    "मुलुकी अपराध संहिता"
+   ],
+   "in_corpus": true,
+   "raw": {
+    "rank": 1,
+    "precedents": 3,
+    "top": [
+     "कार्यस्थलमा हुने यौनजन्य दुर्व्यवहार ( निवारण) ऐन, २०७१, दफा 5",
+     "कार्यस्थलमा हुने यौनजन्य दुर्व्यवहार ( निवारण) ऐन, २०७१, दफा 7",
+     "कार्यस्थलमा हुने यौनजन्य दुर्व्यवहार ( निवारण) ऐन, २०७१, दफा 4"
+    ],
+    "ms": 499,
+    "queries": []
+   }
+  },
+  {
+   "q": "What is the law on public offence like disturbing peace?",
+   "area": "criminal",
+   "expect": [
+    "सार्वजनिक अपराध",
+    "मुलुकी अपराध संहिता"
+   ],
+   "in_corpus": true,
+   "raw": {
+    "rank": 2,
+    "precedents": 3,
+    "top": [
+     "सङ्गठित अपराध निवारण ऐन, २०७०, दफा 3",
+     "मुलुकी अपराध संहिता, २०७४, दफा 6",
+     "अपराध पीडित संरक्षण ऐन, २०७५, दफा 32"
+    ],
+    "ms": 366,
+    "queries": []
+   }
+  },
+  {
+   "q": "What happens if someone forges a document or signature?",
+   "area": "criminal",
+   "expect": [
+    "मुलुकी अपराध संहिता"
+   ],
+   "in_corpus": true,
+   "raw": {
+    "rank": null,
+    "precedents": 3,
+    "top": [
+     "राहदानी नियमावली, २०७७, नियम 2",
+     "मध्यस्थता ऐन, २०५५ को संशोधन सम्बन्धी अध्ययन, दफा 6 (2)",
+     "कसूरको अनुसन्धान सम्बन्धी नियमावली, २०७५, नियम 10"
+    ],
+    "ms": 76,
+    "queries": []
+   }
+  },
+  {
+   "q": "कीर्ते कागज बनाएमा के सजाय हुन्छ?",
+   "area": "criminal",
+   "expect": [
+    "मुलुकी अपराध संहिता"
+   ],
+   "in_corpus": true,
+   "raw": {
+    "rank": 1,
+    "precedents": 3,
+    "top": [
+     "मुलुकी अपराध संहिता, २०७४, दफा 281",
+     "मुलुकी देवानी कार्यविधि संहिता, २०७४, दफा 172",
+     "मुलुकी फौजदारी कार्यविधि संहिता, २०७४, दफा 104"
+    ],
+    "ms": 44,
+    "queries": []
+   }
+  },
+  {
+   "q": "Can a husband be punished for marital rape?",
+   "area": "criminal",
+   "expect": [
+    "मुलुकी अपराध संहिता"
+   ],
+   "in_corpus": true,
+   "raw": {
+    "rank": 8,
+    "precedents": 3,
+    "top": [
+     "घरेलु हिंसा (कसूर र सजाय) ऐन, २०६६, दफा 6",
+     "घरेलु हिंसा (कसूर र सजाय) ऐन, २०६६, दफा 12क",
+     "घरेलु हिंसा (कसूर र सजाय) ऐन, २०६६, दफा 14"
+    ],
+    "ms": 170,
+    "queries": []
+   }
+  },
+  {
+   "q": "What is the punishment for caste-based discrimination?",
+   "area": "discrimination",
+   "expect": [
+    "जातीय भेदभाव",
+    "मुलुकी अपराध संहिता"
+   ],
+   "in_corpus": true,
+   "raw": {
+    "rank": 5,
+    "precedents": 3,
+    "top": [
+     "जातीय तथा अन्य सामाजिक छुवाछूत र भेदभाव (कसूर र सजाय) ऐन, २०६८, दफा 8",
+     "जातीय तथा अन्य सामाजिक छुवाछूत र भेदभाव (कसूर र सजाय) ऐन, २०६८, दफा 4 (2)",
+     "जातीय तथा अन्य सामाजिक छुवाछूत र भेदभाव (कसूर र सजाय) ऐन, २०६८, दफा 3"
+    ],
+    "ms": 94,
+    "queries": []
+   }
+  },
+  {
+   "q": "How do I register a marriage?",
+   "area": "family",
+   "expect": [
+    "जन्म, मृत्यु तथा अन्य व्यक्तिगत घटना",
+    "मुलुकी देवानी संहिता"
+   ],
+   "in_corpus": true,
+   "raw": {
+    "rank": 3,
+    "precedents": 3,
+    "top": [
+     "मुलुकी अपराध संहिता, २०७४, दफा 173",
+     "मुलुकी अपराध संहिता, २०७४, दफा 176",
+     "मुलुकी देवानी संहिता, २०७४, दफा 76"
+    ],
+    "ms": 80,
+    "queries": []
+   }
+  },
+  {
+   "q": "विवाह दर्ता कसरी गर्ने?",
+   "area": "family",
+   "expect": [
+    "जन्म, मृत्यु तथा अन्य व्यक्तिगत घटना",
+    "मुलुकी देवानी संहिता"
+   ],
+   "in_corpus": true,
+   "raw": {
+    "rank": 3,
+    "precedents": 3,
+    "top": [
+     "मुलुकी अपराध संहिता, २०७४, दफा 173",
+     "मुलुकी अपराध संहिता, २०७४, दफा 176",
+     "मुलुकी देवानी संहिता, २०७४, दफा 76"
+    ],
+    "ms": 179,
+    "queries": []
+   }
+  },
+  {
+   "q": "How do I register a birth and get a birth certificate?",
+   "area": "registration",
+   "expect": [
+    "जन्म, मृत्यु तथा अन्य व्यक्तिगत घटना"
+   ],
+   "in_corpus": true,
+   "raw": {
+    "rank": 3,
+    "precedents": 3,
+    "top": [
+     "बालबालिका सम्बन्धी ऐन, २०७५, दफा 83",
+     "मुलुकी देवानी संहिता, २०७४, दफा 113",
+     "जन्म, मृत्यु तथा अन्य व्यक्तिगत घटना (दर्ता गर्ने)नियमावली, २०३४, नियम 7"
+    ],
+    "ms": 368,
+    "queries": []
+   }
+  },
+  {
+   "q": "Is a husband obliged to pay maintenance (alimony) to his wife?",
+   "area": "family",
+   "expect": [
+    "मुलुकी देवानी संहिता"
+   ],
+   "in_corpus": true,
+   "raw": {
+    "rank": 1,
+    "precedents": 3,
+    "top": [
+     "मुलुकी देवानी संहिता, २०७४, दफा 89",
+     "मुलुकी देवानी संहिता, २०७४, दफा 101",
+     "मुलुकी देवानी संहिता, २०७४, दफा 211"
+    ],
+    "ms": 488,
+    "queries": []
+   }
+  },
+  {
+   "q": "Can a woman keep her own personal property (daijo/pewa) after marriage?",
+   "area": "family",
+   "expect": [
+    "मुलुकी देवानी संहिता"
+   ],
+   "in_corpus": true,
+   "raw": {
+    "rank": 4,
+    "precedents": 3,
+    "top": [
+     "मुलुकी अपराध संहिता, २०७४, दफा 173",
+     "मुलुकी अपराध संहिता, २०७४, दफा 176",
+     "मुलुकी अपराध संहिता, २०७४, दफा 174"
+    ],
+    "ms": 389,
+    "queries": []
+   }
+  },
+  {
+   "q": "What is the law on surrogacy or artificial insemination?",
+   "area": "family",
+   "expect": [
+    "मुलुकी देवानी संहिता",
+    "मुलुकी अपराध संहिता"
+   ],
+   "in_corpus": true,
+   "raw": {
+    "rank": 1,
+    "precedents": 3,
+    "top": [
+     "मुलुकी देवानी संहिता, २०७४, दफा 638",
+     "सार्वजनिक खरिद ऐन, २०६३, दफा 43",
+     "मुलुकी देवानी संहिता, २०७४, दफा 633"
+    ],
+    "ms": 258,
+    "queries": []
+   }
+  },
+  {
+   "q": "Can a guardian sell a minor's property?",
+   "area": "guardianship",
+   "expect": [
+    "मुलुकी देवानी संहिता"
+   ],
+   "in_corpus": true,
+   "raw": {
+    "rank": 1,
+    "precedents": 3,
+    "top": [
+     "मुलुकी देवानी संहिता, २०७४, दफा 206",
+     "मुलुकी देवानी संहिता, २०७४, दफा 222",
+     "मुलुकी देवानी संहिता, २०७४, दफा 235"
+    ],
+    "ms": 128,
+    "queries": []
+   }
+  },
+  {
+   "q": "What is joint property (sagol) and how is it managed?",
+   "area": "property",
+   "expect": [
+    "मुलुकी देवानी संहिता"
+   ],
+   "in_corpus": true,
+   "raw": {
+    "rank": 1,
+    "precedents": 3,
+    "top": [
+     "मुलुकी देवानी संहिता, २०७४, दफा 206",
+     "मुलुकी देवानी संहिता, २०७४, दफा 222",
+     "मुलुकी देवानी संहिता, २०७४, दफा 235"
+    ],
+    "ms": 158,
+    "queries": []
+   }
+  },
+  {
+   "q": "How long does a lease of land or house remain valid?",
+   "area": "property",
+   "expect": [
+    "मुलुकी देवानी संहिता"
+   ],
+   "in_corpus": true,
+   "raw": {
+    "rank": null,
+    "precedents": 1,
+    "top": [
+     "1721034137_45.pdf.pdf",
+     "वन क्षेत्र नीति २०००",
+     "कानूनी सूक्तिहरू"
+    ],
+    "ms": 23,
+    "queries": []
+   }
+  },
+  {
+   "q": "What is a guarantee (jamani) and when is the guarantor liable?",
+   "area": "contract",
+   "expect": [
+    "मुलुकी देवानी संहिता"
+   ],
+   "in_corpus": true,
+   "raw": {
+    "rank": null,
+    "precedents": 3,
+    "top": [
+     "सार्वजनिक खरिद नियमावली, २०६४, नियम 110",
+     "कसूरको अनुसन्धान सम्बन्धी नियमावली, २०७५, नियम 21 (2)",
+     "कसूरको अनुसन्धान सम्बन्धी नियमावली, २०७५, नियम 21 (1)"
+    ],
+    "ms": 115,
+    "queries": []
+   }
+  },
+  {
+   "q": "What remedies do I have if the seller breaches a sale contract?",
+   "area": "contract",
+   "expect": [
+    "मुलुकी देवानी संहिता"
+   ],
+   "in_corpus": true,
+   "raw": {
+    "rank": 5,
+    "precedents": 3,
+    "top": [
+     "सार्वजनिक खरिद ऐन, २०६३, दफा 8 (2)",
+     "सार्वजनिक खरिद नियमावली, २०६४, नियम 128",
+     "विद्युतिय व्यापार (इ-कमर्स) ऐन, २०८१, दफा 14"
+    ],
+    "ms": 367,
+    "queries": []
+   }
+  },
+  {
+   "q": "Who is liable if a dog bites someone?",
+   "area": "tort",
+   "expect": [
+    "मुलुकी देवानी संहिता",
+    "मुलुकी अपराध संहिता"
+   ],
+   "in_corpus": true,
+   "raw": {
+    "rank": null,
+    "precedents": 3,
+    "top": [
+     "E-Commerce Act, 2081, दफा 7",
+     "पशु स्वास्थ्य तथा पशु सेवा नियमावली, २०५६, नियम 9",
+     "कानूनी सूक्तिहरू"
+    ],
+    "ms": 48,
+    "queries": []
+   }
+  },
+  {
+   "q": "Can I claim compensation for medical negligence?",
+   "area": "tort",
+   "expect": [
+    "मुलुकी देवानी संहिता",
+    "जनस्वास्थ्य",
+    "उपभोक्ता"
+   ],
+   "in_corpus": true,
+   "raw": {
+    "rank": 3,
+    "precedents": 3,
+    "top": [
+     "अपराध पीडित संरक्षण ऐन, २०७५, दफा 30",
+     "जग्गा प्राप्ति ऐन, २०३४, दफा 37",
+     "मुलुकी देवानी संहिता, २०७४, दफा 537"
+    ],
+    "ms": 386,
+    "queries": []
+   }
+  },
+  {
+   "q": "How is land registered after purchase (rajinama)?",
+   "area": "land",
+   "expect": [
+    "मुलुकी देवानी संहिता",
+    "मालपोत"
+   ],
+   "in_corpus": true,
+   "raw": {
+    "rank": 6,
+    "precedents": 3,
+    "top": [
+     "मुलुकी फौजदारी कार्यविधि संहिता, २०७४, दफा 4 (1)",
+     "मुलुकी फौजदारी कार्यविधि संहिता, २०७४, दफा 5",
+     "मुलुकी फौजदारी कार्यविधि संहिता, २०७४, दफा 4 (2)"
+    ],
+    "ms": 484,
+    "queries": []
+   }
+  },
+  {
+   "q": "What is the procedure for land acquisition by the government?",
+   "area": "land",
+   "expect": [
+    "जग्गा प्राप्ति"
+   ],
+   "in_corpus": true,
+   "raw": {
+    "rank": 1,
+    "precedents": 3,
+    "top": [
+     "जग्गा प्राप्ति ऐन, २०३४, दफा 15",
+     "जग्गा प्राप्ति ऐन, २०३४, दफा 38क",
+     "जग्गा प्राप्ति ऐन, २०३४, दफा 14"
+    ],
+    "ms": 416,
+    "queries": []
+   }
+  },
+  {
+   "q": "Can a foreigner buy land in Nepal?",
+   "area": "land",
+   "expect": [
+    "मुलुकी देवानी संहिता",
+    "भूमि"
+   ],
+   "in_corpus": true,
+   "raw": {
+    "rank": 5,
+    "precedents": 1,
+    "top": [
+     "राष्ट्रिय परिचयपत्र तथा पञ्‍जीकरण नियमावली, २०७७, नियम 4 (7)",
+     "राष्ट्रिय परिचयपत्र तथा पञ्‍जीकरण नियमावली, २०७७, नियम 4 (1)",
+     "1721034137_45.pdf.pdf"
+    ],
+    "ms": 77,
+    "queries": []
+   }
+  },
+  {
+   "q": "How much gratuity does an employee get on retirement?",
+   "area": "labour",
+   "expect": [
+    "श्रम ऐन",
+    "निजामती सेवा"
+   ],
+   "in_corpus": true,
+   "raw": {
+    "rank": 2,
+    "precedents": 3,
+    "top": [
+     "श्रमजीवी पत्रकार सम्बन्धी ऐन, २०५१, दफा 18",
+     "श्रम ऐन, २०७४, दफा 53",
+     "श्रम ऐन, २०७४, दफा 57"
+    ],
+    "ms": 105,
+    "queries": []
+   }
+  },
+  {
+   "q": "What is the social security fund and who must contribute?",
+   "area": "social security",
+   "expect": [
+    "सामाजिक सुरक्षा",
+    "योगदानमा आधारित"
+   ],
+   "in_corpus": true,
+   "raw": {
+    "rank": 5,
+    "precedents": 3,
+    "top": [
+     "मुलुकी देवानी संहिता, २०७४, दफा 386",
+     "मुलुकी देवानी संहिता, २०७४, दफा 389",
+     "मुलुकी देवानी संहिता, २०७४, दफा 402"
+    ],
+    "ms": 84,
+    "queries": []
+   }
+  },
+  {
+   "q": "Can workers form a trade union?",
+   "area": "labour",
+   "expect": [
+    "ट्रेड युनियन",
+    "नेपालको संविधान"
+   ],
+   "in_corpus": true,
+   "raw": {
+    "rank": 8,
+    "precedents": 3,
+    "top": [
+     "श्रम ऐन, २०७४, दफा 145 (1)",
+     "निजामती सेवा ऐन, २०४९, दफा 53 (1)",
+     "ट्रेड यूनियन ऐन, २०४९, दफा 2 (1)"
+    ],
+    "ms": 109,
+    "queries": []
+   }
+  },
+  {
+   "q": "What leave is a civil servant entitled to?",
+   "area": "civil service",
+   "expect": [
+    "निजामती सेवा"
+   ],
+   "in_corpus": true,
+   "raw": {
+    "rank": 1,
+    "precedents": 3,
+    "top": [
+     "निजामती सेवा ऐन, २०४९, दफा 71",
+     "नेपाल स्वास्थ्य सेवा ऐन, २०५३, दफा 86",
+     "सरकारी वकील सम्बन्धी नियमावली, २०७७, नियम 8"
+    ],
+    "ms": 97,
+    "queries": []
+   }
+  },
+  {
+   "q": "What is the penalty for tax evasion?",
+   "area": "tax",
+   "expect": [
+    "आयकर",
+    "राजस्व चुहावट"
+   ],
+   "in_corpus": true,
+   "raw": {
+    "rank": 4,
+    "precedents": 3,
+    "top": [
+     "जीवनाशक विषादी व्यवस्थापन ऐन, २०७६, दफा 33",
+     "नागरिक लगानी कोष ऐन, २०४७, दफा 58",
+     "अध्यागमन ऐन, २०४९, दफा 10"
+    ],
+    "ms": 113,
+    "queries": []
+   }
+  },
+  {
+   "q": "What goods are prohibited from import through customs?",
+   "area": "customs",
+   "expect": [
+    "भन्सार"
+   ],
+   "in_corpus": true,
+   "raw": {
+    "rank": null,
+    "precedents": 3,
+    "top": [
+     "सामयिक कर असुल ऐन, २०१२ को दफा ३ ले दिएको अधिकार प्रयोग गरी नेपाल सरकारले जारी गरेको सूचित आदेश, दफा 18 (1)",
+     "निकासी पैठारी नियमहरु, २०३४, नियम 2",
+     "छापाखाना र प्रकाशन सम्बन्धी ऐन, २०४८, दफा 27"
+    ],
+    "ms": 110,
+    "queries": []
+   }
+  },
+  {
+   "q": "How does a cooperative society get registered?",
+   "area": "cooperative",
+   "expect": [
+    "सहकारी"
+   ],
+   "in_corpus": true,
+   "raw": {
+    "rank": 5,
+    "precedents": 3,
+    "top": [
+     "मुलुकी फौजदारी कार्यविधि संहिता, २०७४, दफा 4 (1)",
+     "मुलुकी फौजदारी कार्यविधि संहिता, २०७४, दफा 5",
+     "मुलुकी फौजदारी कार्यविधि संहिता, २०७४, दफा 4 (2)"
+    ],
+    "ms": 83,
+    "queries": []
+   }
+  },
+  {
+   "q": "What is the law on insurance claims?",
+   "area": "insurance",
+   "expect": [
+    "बीमा"
+   ],
+   "in_corpus": true,
+   "raw": {
+    "rank": 6,
+    "precedents": 3,
+    "top": [
+     "सवारी तथा यातायात व्यवस्था ऐन, २०४९, दफा 152",
+     "सवारी तथा यातायात व्यवस्था नियमावली, २०५४, नियम 55",
+     "सवारी तथा यातायात व्यवस्था ऐन, २०४९, दफा 163"
+    ],
+    "ms": 99,
+    "queries": []
+   }
+  },
+  {
+   "q": "What protections exist for depositors if a bank fails?",
+   "area": "banking",
+   "expect": [
+    "निक्षेप तथा कर्जा सुरक्षण",
+    "बैंक तथा वित्तीय संस्था"
+   ],
+   "in_corpus": true,
+   "raw": {
+    "rank": null,
+    "precedents": 3,
+    "top": [
+     "उपभोक्ता संरक्षण ऐन, २०७५, दफा 3",
+     "उपभोक्ता संरक्षण ऐन, २०७५, दफा 36",
+     "उपभोक्ता संरक्षण ऐन, २०७५, दफा 50"
+    ],
+    "ms": 116,
+    "queries": []
+   }
+  },
+  {
+   "q": "What is the punishment for cutting trees in a national forest?",
+   "area": "environment",
+   "expect": [
+    "वन ऐन",
+    "वन नियमावली"
+   ],
+   "in_corpus": true,
+   "raw": {
+    "rank": 1,
+    "precedents": 3,
+    "top": [
+     "वन ऐन, २०७६, दफा 11",
+     "वन ऐन, २०७६, दफा 4",
+     "वन ऐन, २०७६, दफा 3"
+    ],
+    "ms": 97,
+    "queries": []
+   }
+  },
+  {
+   "q": "Is hunting wildlife like rhinos punishable?",
+   "area": "environment",
+   "expect": [
+    "राष्ट्रिय निकुञ्ज तथा वन्यजन्तु संरक्षण"
+   ],
+   "in_corpus": false,
+   "raw": {
+    "rank": null,
+    "precedents": 3,
+    "top": [
+     "राष्ट्रिय निकुञ्‍ज तथा वन्यजन्तु संरक्षण ऐन, २०२९, दफा 21",
+     "राष्ट्रिय निकुञ्‍ज तथा वन्यजन्तु संरक्षण नियमावली, २०३०, नियम 35",
+     "मुलुकी देवानी संहिता, २०७४, दफा 676"
+    ],
+    "ms": 75,
+    "queries": []
+   }
+  },
+  {
+   "q": "What are the rules for building construction permits?",
+   "area": "construction",
+   "expect": [
+    "भवन"
+   ],
+   "in_corpus": true,
+   "raw": {
+    "rank": 4,
+    "precedents": 3,
+    "top": [
+     "स्थानीय सरकार सञ्‍चालन ऐन, २०७४, दफा 38",
+     "स्थानीय सरकार सञ्‍चालन ऐन, २०७४, दफा 28",
+     "स्थानीय सरकार सञ्‍चालन ऐन, २०७४, दफा 33"
+    ],
+    "ms": 113,
+    "queries": []
+   }
+  },
+  {
+   "q": "What does the Supreme Court say about the rights of women to property after divorce?",
+   "area": "precedent",
+   "expect": [
+    "मुलुकी देवानी संहिता",
+    "नेपालको संविधान"
+   ],
+   "in_corpus": true,
+   "raw": {
+    "rank": 1,
+    "precedents": 3,
+    "top": [
+     "मुलुकी देवानी संहिता, २०७४, दफा 96",
+     "मुलुकी देवानी संहिता, २०७४, दफा 97",
+     "मुलुकी देवानी संहिता, २०७४, दफा 98"
+    ],
+    "ms": 97,
+    "queries": []
+   }
+  },
+  {
+   "q": "सर्वोच्च अदालतले घरेलु हिंसासम्बन्धी के नजिर स्थापित गरेको छ?",
+   "area": "precedent",
+   "expect": [
+    "घरेलु हिंसा",
+    "मुलुकी अपराध संहिता"
+   ],
+   "in_corpus": true,
+   "raw": {
+    "rank": 1,
+    "precedents": 3,
+    "top": [
+     "घरेलु हिंसा (कसूर र सजाय) ऐन, २०६६, दफा 6",
+     "घरेलु हिंसा (कसूर र सजाय) ऐन, २०६६, दफा 12क",
+     "घरेलु हिंसा (कसूर र सजाय) ऐन, २०६६, दफा 14"
+    ],
+    "ms": 78,
+    "queries": []
+   }
+  },
+  {
+   "q": "What has the Supreme Court held about writ of habeas corpus?",
+   "area": "precedent",
+   "expect": [
+    "नेपालको संविधान"
+   ],
+   "in_corpus": true,
+   "raw": {
+    "rank": 1,
+    "precedents": 3,
+    "top": [
+     "नेपालको संविधान, धारा 151",
+     "सर्वोच्च अदालत नियमावली, २०७४, नियम 38",
+     "नेपालको संविधान, धारा 133 (1)"
+    ],
+    "ms": 77,
+    "queries": []
+   }
+  },
+  {
+   "q": "Which international treaties on human rights has Nepal ratified?",
+   "area": "treaty",
+   "expect": [
+    "सन्धि",
+    "महासन्धि",
+    "प्रतिज्ञापत्र"
+   ],
+   "in_corpus": true,
+   "raw": {
+    "rank": null,
+    "precedents": 3,
+    "top": [
+     "नेपालको संविधान, धारा 51",
+     "राष्ट्रिय मानव अधिकार आयोग ऐन, २०६८, दफा 18",
+     "राष्ट्रिय मानव अधिकार आयोग ऐन, २०६८, दफा 26"
+    ],
+    "ms": 20,
+    "queries": []
+   }
+  }
+ ]
+}
