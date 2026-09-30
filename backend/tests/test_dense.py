@@ -83,8 +83,8 @@ def test_dense_weight_shifts_the_order(idx, hybrid, monkeypatch):
 
 
 def test_light_glossary_terms_skip_the_dense_side(idx, hybrid):
-    hybrid({"zzzqqq": {"law-civ-99": 0.9}, "tenant": {"law-civ-400": 0.99}})
-    hits = idx.search([("zzzqqq", 1.0), ("tenant", 0.25)], top_k=5)  # 0.25 < dense_min_w: "tenant" is not encoded
+    hybrid({"zzzqqq": {"law-civ-99": 0.9}, "सजाय": {"law-civ-400": 0.99}})
+    hits = idx.search([("zzzqqq", 1.0), ("सजाय", 0.25)], top_k=5)  # 0.25 < dense_min_w: "सजाय" is not encoded
     assert hits[0]["id"] == "law-civ-99"
     assert all(h["dense"] < 0.95 for h in hits if h["id"] == "law-civ-400")
 
@@ -93,6 +93,25 @@ def test_first_query_is_primary_even_with_low_bm25_weight(idx, hybrid):
     hybrid({"my message": {"law-civ-400": 0.9}})
     hits = idx.search([("my message", 0.35)], top_k=3)
     assert hits[0]["id"] == "law-civ-400"
+
+
+def test_english_queries_get_a_dense_weight_floor(idx, hybrid, monkeypatch):
+    en, ne = "who may rent a house to a tenant", "सजाय"
+    fake = hybrid({}).dense
+    seen = []
+    orig = fake.scores
+    fake.scores = lambda texts: (seen.append(list(texts)), orig(texts))[1]
+    # a light glossary-weight query (0.2 < dense_min_w) is normally skipped by the dense side ...
+    idx.search([("बाल विवाह कैद", 1.0), (ne, 0.2)], top_k=3)
+    assert seen[-1] == ["बाल विवाह कैद"]
+    # ... but an English one is encoded, because BM25 down-weights English and e5 does not
+    idx.search([("बाल विवाह कैद", 1.0), (en, 0.2)], top_k=3)
+    assert seen[-1] == ["बाल विवाह कैद", en]
+    monkeypatch.setitem(retrieval.HYBRID, "en_floor", 0.0)
+    idx.search([("बाल विवाह कैद", 1.0), (en, 0.2)], top_k=3)
+    assert seen[-1] == ["बाल विवाह कैद"]
+    romanised = "mero ghar ko bhada badhayo ra le lai ko"  # Latin-script Nepali is not English
+    assert not retrieval._is_english(romanised) and retrieval._is_english(en)
 
 
 # -- filters still apply after fusion ------------------------------------------------------

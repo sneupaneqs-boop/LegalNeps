@@ -37,7 +37,7 @@ import numpy as np
 from scipy import sparse
 
 from .doc_meta import classify_status, extract_doc_meta
-from .text_norm import detect_language, fold, tokenize  # noqa: F401  (re-exported)
+from .text_norm import detect_language, fold, guess_language, tokenize  # noqa: F401  (re-exported)
 
 DATA_DIR = Path(__file__).parent / "data"
 CORPUS_DIR = DATA_DIR / "corpus"
@@ -58,6 +58,7 @@ HYBRID = {
     "dense_rrf_k": 100,     # RRF constant for the dense ranking (flatter than BM25's: cosines are compressed)
     "dense_depth": 100,     # passages taken from each dense ranking
     "dense_min_w": 0.3,     # queries lighter than this (single glossary terms) skip the dense side
+    "en_floor": 1.0,        # dense weight of an English query is at least this (BM25 down-weights English; e5 reads it well)
     "primary_floor": 0.0,   # dense weight of the first query (the user's message) is at least this
     "solo": 0.6,            # dense-only candidates (absent from every BM25 top-`gate_depth`) count this fraction
     "gate_depth": 300,
@@ -511,6 +512,8 @@ class Index:
         items = []
         for k, (q, w) in enumerate(weighted.items()):
             dw = max(w, h["primary_floor"]) if k == 0 else w
+            if _is_english(q):
+                dw = max(dw, h["en_floor"])
             if dw >= h["dense_min_w"]:
                 items.append((q, dw))
         if not items:
@@ -530,6 +533,12 @@ class Index:
             gate = np.where(bm_best[top] < h["gate_depth"], 1.0, h["solo"]).astype(np.float32)
             fused[top] += h["dense_weight"] * dw * gate / (h["dense_rrf_k"] + np.arange(len(top), dtype=np.float32))
         return cos.max(axis=1)
+
+
+@lru_cache(maxsize=4096)
+def _is_english(text: str) -> bool:
+    """Latin-script and not romanised Nepali ("mero ghardhani le bhada badhayo")."""
+    return detect_language(text) == "en" and guess_language(text) != "ne"
 
 
 @lru_cache(maxsize=20000)
