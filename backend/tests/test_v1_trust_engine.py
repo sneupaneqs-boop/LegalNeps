@@ -249,3 +249,13 @@ def test_procurement_insurance_labour_regulator_passages_stay_in_their_field(mon
     assert "reg-nia-b-1" in ids("बीमा दाबी भुक्तानी भएन") and "reg-ppmo-a-1" not in ids("बीमा दाबी भुक्तानी भएन")
     assert "reg-moless-c-1" in ids("company le talab diyena")
     assert "reg-ppmo-a-1" in ids("बोलपत्र रद्द भयो")
+
+
+def test_pipeline_version_tracks_prompts_lexicon_and_playbooks(tmp_path, monkeypatch):
+    # a stale answer_cache row survived a prompt/lexicon change once: the
+    # romanised "boss ... overtime" question kept its pre-fix answer
+    from app import generation
+    base = generation._pipeline_fingerprint()
+    assert generation.PIPELINE_VERSION.endswith("-" + base)
+    monkeypatch.setattr(generation, "ANALYZE_SYSTEM", generation.ANALYZE_SYSTEM + " ")
+    assert generation._pipeline_fingerprint() != base

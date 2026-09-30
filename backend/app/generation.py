@@ -13,8 +13,10 @@ Without any LLM key the app still works: raw query search + extractive answer.
 """
 from __future__ import annotations
 
+import hashlib
 import logging
 import re
+from pathlib import Path
 from collections import OrderedDict
 from threading import Lock
 
@@ -168,7 +170,24 @@ def _answer_cache_key(message: str, lang: str) -> str:
 # Bump whenever answer construction changes (retrieval filters, pinned
 # playbook provisions, verifier), so answers cached by an older pipeline -
 # including the persistent Supabase answer_cache - are never served again.
-PIPELINE_VERSION = "p7"
+# The fingerprint below also retires them automatically when the prompts,
+# the romanised lexicon or any playbook file changes.
+PIPELINE_VERSION = "p8"
+
+
+def _pipeline_fingerprint() -> str:
+    h = hashlib.sha256()
+    h.update(ANALYZE_SYSTEM.encode())
+    h.update(ANSWER_SYSTEM.encode())
+    here = Path(__file__).parent
+    for f in [here / "translit.py", here / "verifier.py", *sorted((here / "data" / "playbooks").glob("*.yaml"))]:
+        if f.exists():
+            h.update(f.name.encode())
+            h.update(f.read_bytes())
+    return h.hexdigest()[:8]
+
+
+PIPELINE_VERSION = f"{PIPELINE_VERSION}-{_pipeline_fingerprint()}"
 
 
 GREETING_RE = re.compile(
