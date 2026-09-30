@@ -465,9 +465,9 @@ def test_run_provider_failure_gives_the_extractive_answer(pipeline, monkeypatch)
     assert by["done"]["llm_used"] is False and "AI summary unavailable" in by["done"]["answer"]
 
 
-def test_free_tier_entailment_is_on_by_default_as_one_extra_call_and_env_flag_disables_it(pipeline, monkeypatch):
+def test_free_tier_entailment_is_off_by_default_and_env_flag_enables_it_as_one_extra_call(pipeline, monkeypatch):
     import inspect
-    assert 'getenv("ENTAILMENT_CHECK", "1")' in inspect.getsource(config)   # V3.2: default ON, ENTAILMENT_CHECK=0 disables
+    assert 'getenv("ENTAILMENT_CHECK", "0")' in inspect.getsource(config)   # default OFF on the free tier (over-removal, 2026-09-30); ENTAILMENT_CHECK=1 enables
     monkeypatch.setattr(config, "ENTAILMENT_CHECK", True)
     pipeline["reply"] = json.dumps(GOOD)
     _run()

@@ -107,9 +107,11 @@ PROMPT_FULL_WINDOW_LAWS = int(os.getenv("PROMPT_FULL_WINDOW_LAWS", "3"))  # stat
 PRECEDENT_PASSAGE_CHARS = int(os.getenv("PRECEDENT_PASSAGE_CHARS", "450"))
 # LLM entailment pass over the surviving cited sentences: ONE fast-tier call over a compact payload (the user's
 # situation once + each statement and its quote, each cut to ~300 chars; ~0.5k tokens for a typical answer).
-# Default ON (V3.2: wrong-law was 7 of 12 bad sentences and only judgement can see it); ENTAILMENT_CHECK=0 turns it
+# Default OFF on the free tier: the fast-tier judge removed 44% of sentences that had passed every deterministic
+# check and 19/30 live answers fell back to the plain provisions (2026-09-30, answers30). Paid tiers still run it.
+# ENTAILMENT_CHECK=1 turns it on; it was default ON in V3.2 (wrong-law was 7 of 12 bad sentences); ENTAILMENT_CHECK=0 turns it
 # off; it fails open. Paid tiers always run it. A "partial" verdict is only counted unless ENTAILMENT_DROP_PARTIAL=1.
-ENTAILMENT_CHECK = os.getenv("ENTAILMENT_CHECK", "1").lower() in ("1", "true", "yes")
+ENTAILMENT_CHECK = os.getenv("ENTAILMENT_CHECK", "0").lower() in ("1", "true", "yes")
 ENTAILMENT_DROP_PARTIAL = os.getenv("ENTAILMENT_DROP_PARTIAL", "0").lower() in ("1", "true", "yes")
 # V3.2 deterministic checks with a judgement-free but strict rule: a quote whose clause is followed by a "तर, ..." proviso
 # may not be stated with no exception wording at all (rw08 s.101). Measured 0 false removals on the 65 good review
