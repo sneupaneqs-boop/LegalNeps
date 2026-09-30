@@ -3,6 +3,7 @@ Evaluation harness for Kanooni Sathi.
 
     python3 eval/run_eval.py retrieval            # hand-written questions, raw + LLM-rewritten queries
     python3 eval/run_eval.py retrieval --set realworld   # also: --set heldout (milestones only, never for tuning)
+    python3 eval/run_eval.py retrieval --raw-only --modes bm25,dense,hybrid   # ablation: one table per mode, per-language hit@k
     python3 eval/run_eval.py verify --set realworld      # check each case's governing sections against the corpus
     python3 eval/run_eval.py synth-gen --n 200    # generate questions from random real provisions
     python3 eval/run_eval.py synth                # retrieval on the synthetic set (known gold chunk)
@@ -30,6 +31,7 @@ sys.path.insert(0, HERE)  # casecheck (same dir) importable when run as a module
 
 from app import llm  # noqa: E402
 from app.generation import _match_playbook, analyze_query, answer_question, search  # noqa: E402
+from app import retrieval as _retrieval  # noqa: E402
 from app.retrieval import get_index  # noqa: E402
 from app.text_norm import detect_language  # noqa: E402
 
@@ -112,17 +114,18 @@ def cmd_verify(args):
     sys.exit(1 if bad else 0)
 
 
-def cmd_retrieval(args):
+def _retrieval_rows(args, set_name, mode_override=None):
+    """Run every question of a set through the production search path; one row per question."""
     idx = get_index()
     titles = {e.get("doc_title_ne") or "" for e in idx.entries
               if e.get("doc_type") in ("act", "rule", "constitution", "order", "directive")}
-    set_name = getattr(args, "set", None) or "default"
     qs = load(set_path(set_name))
     modes = ["raw"] + (["llm"] if llm.available() and not args.raw_only else [])
-    rows = []
+    if mode_override:
+        _retrieval.DEFAULT_MODE = mode_override  # bm25 | dense | hybrid ablation of the ranking itself
 
     def run(q):
-        out = {"q": q["q"], "area": q["area"], "expect": q["expect"]}
+        out = {"q": q["q"], "area": q["area"], "expect": q["expect"], "lang": q.get("lang")}
         if q.get("sections"):
             out["sections"] = q["sections"]
         out["in_corpus"] = any(any(x in t for x in q["expect"]) for t in titles)
@@ -149,7 +152,10 @@ def cmd_retrieval(args):
 
     with ThreadPoolExecutor(args.workers) as ex:
         rows = list(ex.map(run, qs))
+    return rows, modes
 
+
+def _summarise(rows, modes, set_name):
     summary = {}
     covered = [r for r in rows if r["in_corpus"]]
     for mode in modes:
@@ -166,18 +172,35 @@ def cmd_retrieval(args):
             sranks = [r[mode]["sec_rank"] for r in with_sec]
             summary[mode]["section hit@k"] = round(sum(1 for x in sranks if x) / len(with_sec), 3)
             summary[mode]["section hit@3"] = round(sum(1 for x in sranks if x and x <= 3) / len(with_sec), 3)
+        langs = sorted({r["lang"] for r in covered if r.get("lang")})
+        if langs:  # per-language hit@k (realworld/heldout tag each case en / ne / roman)
+            summary[mode]["hit@k by lang"] = {
+                l: f"{sum(1 for r in covered if r.get('lang') == l and r[mode]['rank'])}/{sum(1 for r in covered if r.get('lang') == l)}"
+                for l in langs}
     summary["questions"] = len(rows)
     if set_name != "default":
         summary["set"] = set_name
     summary["coverage_gaps"] = sorted({"/".join(r["expect"]) for r in rows if not r["in_corpus"]})
-    print(json.dumps(summary, ensure_ascii=False, indent=1))
-    worst_mode = modes[-1]
-    misses = [r for r in covered if not r[worst_mode]["rank"]]
-    print(f"\nMisses in '{worst_mode}' mode ({len(misses)}):")
-    for r in misses:
-        print(" -", r["q"][:70], "| expect", r["expect"], "| got", [t[:40] for t in r[worst_mode]["top"] if t])
-    rname = "retrieval" if set_name == "default" else f"retrieval-{set_name}"
-    print("report:", _save(rname, {"summary": summary, "rows": rows}))
+    return summary, covered
+
+
+def cmd_retrieval(args):
+    set_name = getattr(args, "set", None) or "default"
+    for override in (args.modes.split(",") if args.modes else [None]):
+        rows, modes = _retrieval_rows(args, set_name, override)
+        summary, covered = _summarise(rows, modes, set_name)
+        if override:
+            summary["retrieval_mode"] = override
+        print(json.dumps(summary, ensure_ascii=False, indent=1))
+        worst_mode = modes[-1]
+        misses = [r for r in covered if not r[worst_mode]["rank"]]
+        print(f"\nMisses in '{worst_mode}' mode ({len(misses)}):")
+        for r in misses:
+            print(" -", r["q"][:70], "| expect", r["expect"], "| got", [t[:40] for t in r[worst_mode]["top"] if t])
+        rname = "retrieval" if set_name == "default" else f"retrieval-{set_name}"
+        if override:
+            rname += f"-{override}"
+        print("report:", _save(rname, {"summary": summary, "rows": rows}))
 
 
 GEN_SYSTEM = """You write realistic evaluation questions for a Nepali legal Q&A assistant. \
@@ -316,6 +339,7 @@ def main():
     ap = argparse.ArgumentParser()
     sub = ap.add_subparsers(dest="cmd", required=True)
     p = sub.add_parser("retrieval"); p.add_argument("--k", type=int, default=8); p.add_argument("--workers", type=int, default=4); p.add_argument("--raw-only", action="store_true")
+    p.add_argument("--modes", default="", help="comma list of bm25,dense,hybrid: run the set once per ranking mode (ablation); default = production mode")
     p.add_argument("--set", choices=sorted(SETS), default="default", help="named question set (default: the original tuning set)")
     p = sub.add_parser("verify"); p.add_argument("--set", choices=sorted(SETS), default="realworld", help="check each case's governing provisions against the corpus text")
     p = sub.add_parser("synth-gen"); p.add_argument("--n", type=int, default=120); p.add_argument("--seed", type=int, default=7)

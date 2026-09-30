@@ -45,3 +45,7 @@ graphify-out/.graphify_*
 
 # Downloaded official PDFs used to transcribe prescribed drafting formats
 sources/formats/
+
+# Dense retrieval: encoder model is downloaded at build time (scripts/prebuild_index.py); never committed
+backend/app/data/dense_model/
+backend/app/data/dense/*.partial.npz

@@ -11,12 +11,19 @@ Ranking = BM25 over folded/stemmed tokens (text_norm), fused across several
 weighted query phrasings (reciprocal rank fusion), times an authority prior
 (constitution/acts above reports, commencement clauses down-weighted), with a
 per-document cap and duplicate-text collapsing.
+
+Hybrid: when the dense encoder + corpus vectors are available (app/dense.py), each query's
+semantic ranking (multilingual-e5-small cosine over every passage) is fused with its BM25
+ranking, by reciprocal rank, before the boosts and filters run. Without them (no vectors, no
+model files, DENSE=0) search is BM25-only, exactly as before.
 """
 from __future__ import annotations
 
 import gzip
 import hashlib
 import json
+import logging
+import os
 import re
 import sqlite3
 import threading
@@ -45,6 +52,19 @@ AUTHORITY = {
     "directive": 0.97, "treaty": 0.95, "amendment": 1.0, "gazette": 0.95, "other": 0.7,
 }
 RRF_K = 60
+# Hybrid fusion knobs (tuned on the default + realworld eval sets only - never on heldout)
+HYBRID = {
+    "dense_weight": 1.5,    # weight of a query's dense ranking relative to its BM25 ranking
+    "dense_rrf_k": 100,     # RRF constant for the dense ranking (flatter than BM25's: cosines are compressed)
+    "dense_depth": 100,     # passages taken from each dense ranking
+    "dense_min_w": 0.3,     # queries lighter than this (single glossary terms) skip the dense side
+    "primary_floor": 0.0,   # dense weight of the first query (the user's message) is at least this
+    "solo": 0.6,            # dense-only candidates (absent from every BM25 top-`gate_depth`) count this fraction
+    "gate_depth": 300,
+    "prior_pow": 0.5,       # dense ranking score = cosine * prior**prior_pow (0 = pure cosine)
+}
+# "hybrid" (default), "bm25" or "dense" - the last two exist for eval/ablation (RETRIEVAL_MODE env)
+DEFAULT_MODE = os.environ.get("RETRIEVAL_MODE", "hybrid")
 
 _LOW_VALUE_HEADINGS = ("संक्षिप्त नाम र प्रारम्भ", "सङ्क्षिप्त नाम र प्रारम्भ", "संक्षिप्त नाम", "खारेजी र बचाउ", "खारेजी")
 _LOW_VALUE_DOCS = ("वार्षिक प्रतिवेदन", "annual report", "विषय-सूची", "सूचनाको हक बमोजिम सार्वजनिक")
@@ -161,6 +181,7 @@ def corpus_source() -> tuple[Iterable[dict], str]:
 class Index:
     def __init__(self, entries: Iterable[dict], digest: str):
         self.digest = digest
+        self.dense = None  # app.dense.Dense once attach_dense() ran and found vectors + model
         self._local = threading.local()
         if not self._load_cache():
             self._build(entries)
@@ -285,6 +306,12 @@ class Index:
         except OSError:
             pass  # read-only deploy: in-memory index still works for this process
 
+    def attach_dense(self):
+        """Load the query encoder + corpus vectors if available (best-effort, never raises)."""
+        from . import dense
+        self.dense = dense.load_dense(self.ids, self.digest)
+        return self.dense
+
     # -- access -----------------------------------------------------------
     def __len__(self) -> int:
         return len(self.ids)
@@ -400,7 +427,11 @@ class Index:
         include_bills: bool = False,
         doc_type: str | None = None,
         status: str | None = None,
+        mode: str | None = None,
     ) -> list[dict]:
+        """`mode`: "hybrid" (BM25 + dense when available), "bm25" or "dense" (ablations);
+        None = DEFAULT_MODE. The first query is taken to be the user's own message."""
+        mode = mode or DEFAULT_MODE
         weighted: dict[str, float] = {}
         for q in queries:
             text, w = (q, 1.0) if isinstance(q, str) else q
@@ -412,17 +443,25 @@ class Index:
         n = len(self)
         fused = np.zeros(n, dtype=np.float32)
         best_raw = np.zeros(n, dtype=np.float32)
-        for q, w in weighted.items():
-            s = self.bm25(q) * self.prior
-            if not s.any():
-                continue
-            best_raw = np.maximum(best_raw, s)
-            top = np.argpartition(-s, min(300, n - 1))[:300]
-            top = top[np.argsort(-s[top])]
-            for rank, i in enumerate(top):
-                if s[i] <= 0:
-                    break
-                fused[i] += w / (RRF_K + rank)
+        use_bm25 = mode != "dense" or self.dense is None
+        bm_best = np.full(n, 10**6, dtype=np.int32)  # best BM25 rank of each passage over the queries
+        if use_bm25:
+            for q, w in weighted.items():
+                s = self.bm25(q) * self.prior
+                if not s.any():
+                    continue
+                best_raw = np.maximum(best_raw, s)
+                top = np.argpartition(-s, min(300, n - 1))[:300]
+                top = top[np.argsort(-s[top])]
+                for rank, i in enumerate(top):
+                    if s[i] <= 0:
+                        break
+                    fused[i] += w / (RRF_K + rank)
+                    if rank < bm_best[i]:
+                        bm_best[i] = rank
+        best_cos = None
+        if mode != "bm25" and self.dense is not None:
+            best_cos = self._fuse_dense(fused, weighted, bm_best)
 
         boost_toks = [set(tokenize(t)) for t in boost_titles if t]
         if boost_toks:
@@ -458,8 +497,39 @@ class Index:
             if not entry.get("status"):
                 # older shards store no status; the index computed it at build time
                 entry["status"] = self.status[i]
-            results.append({**entry, "score": float(best_raw[i]), "rrf": float(fused[i])})
+            hit = {**entry, "score": float(best_raw[i]), "rrf": float(fused[i])}
+            if best_cos is not None:
+                hit["dense"] = round(float(best_cos[i]), 4)
+            results.append(hit)
         return results
+
+    def _fuse_dense(self, fused: np.ndarray, weighted: dict[str, float], bm_best: np.ndarray) -> np.ndarray | None:
+        """Adds each eligible query's dense (cosine) ranking to `fused` in place, by reciprocal
+        rank. Returns each passage's best cosine over the queries, or None if encoding failed
+        (search then degrades to BM25 alone)."""
+        h = HYBRID
+        items = []
+        for k, (q, w) in enumerate(weighted.items()):
+            dw = max(w, h["primary_floor"]) if k == 0 else w
+            if dw >= h["dense_min_w"]:
+                items.append((q, dw))
+        if not items:
+            return None
+        try:
+            cos = self.dense.scores([q for q, _ in items])  # (n, m)
+        except Exception as e:  # noqa: BLE001 - a broken encoder must not break search
+            logging.getLogger("kanooni.dense").warning("dense query failed, BM25 only: %s", e)
+            return None
+        n = len(self)
+        depth = min(h["dense_depth"], n - 1)
+        prior = self.prior ** h["prior_pow"] if h["prior_pow"] else None
+        for j, (_, dw) in enumerate(items):
+            s = cos[:, j] if prior is None else cos[:, j] * prior
+            top = np.argpartition(-s, depth)[:depth]
+            top = top[np.argsort(-s[top])]
+            gate = np.where(bm_best[top] < h["gate_depth"], 1.0, h["solo"]).astype(np.float32)
+            fused[top] += h["dense_weight"] * dw * gate / (h["dense_rrf_k"] + np.arange(len(top), dtype=np.float32))
+        return cos.max(axis=1)
 
 
 @lru_cache(maxsize=20000)
@@ -477,7 +547,9 @@ def get_index() -> Index:
         with _lock:
             if _index is None:
                 entries, digest = corpus_source()
-                _index = Index(entries, digest)
+                idx = Index(entries, digest)
+                idx.attach_dense()
+                _index = idx
     return _index
 
 
