@@ -229,8 +229,18 @@ def _openai_call(t, system, user, json_mode, max_tokens, temperature, fast, left
     return text
 
 
-def _openai_stream(models, system, user, max_tokens, temperature, first_token_deadline):
-    for t in _targets(models):
+_no_json_stream: set[str] = set()  # models whose streaming endpoint rejects response_format
+
+
+class _RetryNoJson(Exception):
+    pass
+
+
+def _openai_stream(models, system, user, max_tokens, temperature, first_token_deadline, json_mode=False, info=None):
+    targets, ti = _targets(models), 0
+    while ti < len(targets):
+        t = targets[ti]
+        ti += 1
         model = t.model
         left = first_token_deadline - time.time()
         if left < 2:
@@ -246,11 +256,16 @@ def _openai_stream(models, system, user, max_tokens, temperature, first_token_de
                                     read=min(left, config.MODEL_FIRST_TOKEN_S + 2))
             with _client_http().stream(
                 "POST", f"{t.base.rstrip('/')}/chat/completions",
-                json=_openai_payload(model, system, user, False, max_tokens, temperature, stream=True),
+                json=_openai_payload(model, system, user, json_mode and model not in _no_json_stream,
+                                     max_tokens, temperature, stream=True),
                 headers=_openai_headers(t.key), timeout=timeout,
             ) as r:
                 if r.status_code >= 400:
                     err = r.read()[:300]
+                    if r.status_code == 400 and json_mode and model not in _no_json_stream \
+                            and b"response_format" in err.lower():
+                        _no_json_stream.add(model)  # JSON mode not streamable here: the prompt carries the schema
+                        raise _RetryNoJson()
                     if r.status_code == 400 and _reasoning_effort(model) and model not in _no_effort:
                         _no_effort.add(model)  # next request to this model goes without it
                     raise LLMUnavailable(f"{r.status_code} {err!r}")
@@ -263,8 +278,11 @@ def _openai_stream(models, system, user, max_tokens, temperature, first_token_de
                     if data == "[DONE]":
                         break
                     try:
-                        delta = _text_of(json.loads(data)["choices"][0].get("delta", {}).get("content"))
-                    except (ValueError, KeyError, IndexError):
+                        choice = json.loads(data)["choices"][0]
+                        delta = _text_of(choice.get("delta", {}).get("content"))
+                        if info is not None and choice.get("finish_reason"):
+                            info["finish"] = choice["finish_reason"]
+                    except (ValueError, KeyError, IndexError, TypeError):
                         continue
                     if delta:
                         emitted = True
@@ -274,6 +292,8 @@ def _openai_stream(models, system, user, max_tokens, temperature, first_token_de
                 return
             log.warning("openai-compatible stream %s ended without text", t.cool)
             _cool_target(t, "empty")
+        except _RetryNoJson:
+            ti -= 1  # same target again, without response_format
         except Exception as e:  # noqa: BLE001
             if emitted:
                 raise
@@ -347,14 +367,15 @@ def _gemini_complete(models, system, user, json_mode, max_tokens, temperature, d
     raise LLMUnavailable(str(last)[:300] if last else "no gemini model available")
 
 
-def _gemini_stream(system, user, max_tokens, temperature, first_token_deadline):
+def _gemini_stream(system, user, max_tokens, temperature, first_token_deadline, json_mode=False, info=None):
     from google.genai import types
 
     for model in _ready("gemini", config.GEMINI_MODELS):
         left = first_token_deadline - time.time()
         if left < 2:
             return
-        cfg = _gemini_cfg(model, system, False, max_tokens, temperature, min(left, config.LLM_CALL_TIMEOUT_S), 512)
+        cfg = _gemini_cfg(model, system, json_mode, max_tokens, temperature, min(left, config.LLM_CALL_TIMEOUT_S),
+                          0 if json_mode else 512)
         model_deadline = time.time() + min(left, config.MODEL_FIRST_TOKEN_S)
         emitted = False
         try:
@@ -363,6 +384,13 @@ def _gemini_stream(system, user, max_tokens, temperature, first_token_deadline):
                 if not emitted and time.time() > model_deadline:
                     raise LLMUnavailable(f"{model}: no answer text in time")
                 text = chunk.text or ""
+                if info is not None:
+                    try:
+                        fr = chunk.candidates[0].finish_reason
+                        if fr:
+                            info["finish"] = str(fr)
+                    except Exception:  # noqa: BLE001 - best effort
+                        pass
                 if text:
                     emitted = True
                     yield text
@@ -492,6 +520,59 @@ def stream(system: str, user: str, *, max_tokens: int = 1800, temperature: float
         yield complete(system, user, max_tokens=max_tokens, temperature=temperature, budget_s=left)
         return
     raise LLMUnavailable("no model started answering within the time budget")
+
+
+def stream_json(system: str, user: str, *, max_tokens: int = 3200, temperature: float = 0.2,
+                budget_s: float | None = None, info: dict | None = None):
+    """Yield the raw text of a JSON answer as the provider writes it (free-tier chain: OpenAI-compatible
+    providers in JSON mode, then Gemini in JSON mode; a model that refuses streamed JSON mode is retried
+    without it - the prompt carries the schema and the caller's parser is tolerant). A provider is only
+    abandoned before it has emitted anything; an error AFTER text started propagates so the caller can
+    salvage what it has. Raises LLMUnavailable when nothing started. `info` receives {"finish": ...}
+    (a dict rather than thread-local state because the consumer may advance us from different threads)."""
+    budget = budget_s if budget_s is not None else config.ANSWER_JSON_BUDGET_S
+    first_token_deadline = time.time() + min(budget, config.STREAM_JSON_FIRST_TOKEN_S)
+    if _compat_enabled():
+        emitted = False
+        for piece in _openai_stream(config.OPENAI_MODELS, system, user, max_tokens, temperature,
+                                    first_token_deadline, json_mode=True, info=info):
+            emitted = True
+            yield piece
+        if emitted:
+            return
+    if config.GEMINI_API_KEY:
+        emitted = False
+        for piece in _gemini_stream(system, user, max_tokens, temperature, first_token_deadline,
+                                    json_mode=True, info=info):
+            emitted = True
+            yield piece
+        if emitted:
+            return
+    raise LLMUnavailable("no streaming provider started the JSON answer in time")
+
+
+def paid_stream(model: str, system: str, user: str, *, max_tokens: int = 1800, temperature: float = 0.2,
+                budget_s: float | None = None, info: dict | None = None):
+    """Streaming twin of paid_complete (same single Anthropic model, no fallback). Yields text; when the
+    stream ends `info` holds {"usage": {...}, "finish": stop_reason}."""
+    import anthropic
+
+    if not config.ANTHROPIC_API_KEY:
+        raise LLMUnavailable("paid tier requires ANTHROPIC_API_KEY")
+    budget = budget_s if budget_s is not None else config.ANSWER_BUDGET_S
+    client = anthropic.Anthropic(api_key=config.ANTHROPIC_API_KEY, timeout=budget)
+    with client.messages.stream(model=model, max_tokens=max_tokens, temperature=temperature,
+                                system=system, messages=[{"role": "user", "content": user}]) as st:
+        for piece in st.text_stream:
+            if piece:
+                yield piece
+        try:
+            final = st.get_final_message()
+            if info is not None:
+                info["usage"] = {"input_tokens": final.usage.input_tokens, "output_tokens": final.usage.output_tokens}
+                info["finish"] = getattr(final, "stop_reason", None)
+        except Exception:  # noqa: BLE001 - usage is best effort
+            pass
 
 
 def parse_json(text: str) -> dict:

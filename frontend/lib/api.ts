@@ -242,6 +242,8 @@ export async function sendChatMessage(
 export type StreamHandlers = {
   onMeta: (m: { language: "en" | "ne"; sources: Source[]; playbook?: PlaybookCard | null }) => void;
   onDelta: (text: string) => void;
+  // optional: finalisation changed text that was already shown; `text` is the complete final answer
+  onReplace?: (text: string) => void;
   // optional: the server is checking the written answer against the sources before streaming it
   onStatus?: (stage: string) => void;
 };
@@ -291,6 +293,7 @@ export async function streamChatMessage(
           handlers.onStatus?.(ev.stage);
         }
         else if (ev.type === "delta") handlers.onDelta(ev.text);
+        else if (ev.type === "replace") handlers.onReplace?.(ev.text);
         else if (ev.type === "done") return { answer: ev.answer, llm_used: ev.llm_used, verification: ev.verification };
         else if (ev.type === "error") throw new Error("stream error");
       }
