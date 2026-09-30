@@ -225,6 +225,33 @@ the markdown `render` would produce for it. Removed sentences are counted, never
   the first text at ~12.2 s. Real gains depend on how early the 2nd rule appears. Not measured on live providers.
 - Tests: `tests/test_v31_streaming.py` (28).
 
+### V3 live review (2026-09-30)
+
+Independent two-pass review (LLM reviewer, same four labels as the V1 review) of the 30 live real-world answers
+(`eval/reports/answer-review-v3-realworld-20260930.json`, produced by `eval/answer_review.py`); labels + evidence
+quotes per sentence in `eval/reports/answer-review-v3-labels-20260930.json`. **Bar (<5%) NOT met.**
+
+| 77 kept sentences, 20 structured answers | supported | unsupported | wrong-law | hallucinated number/section | bad rate |
+|---|---|---|---|---|---|
+| all | 65 | 3 | 7 | 2 | **15.6% (12/77)** vs V1 40.3% (48/119) |
+| Devanagari question (7) / romanised (63) / English (7) | 6 / 54 / 5 | 0 / 2 / 1 | 0 / 7 / 0 | 1 / 0 / 1 | 14% / 14% / 29% |
+| by kind: rule 48 / deadline 15 / penalty 11 / procedure 3 | 39 / 15 / 10 / 1 | 2 / 0 / 0 / 1 | 7 / 0 / 0 / 0 | 0 / 0 / 1 / 1 | 19% / 0% / 9% / 67% |
+
+- Modes: 20 structured, 5 extractive_fallback, 5 none (LLM unavailable). Only 7/30 answers are fully useful
+  (usefulness 2), 23/30 at least partly (>=1); 7 of 20 structured answers contain a bad sentence.
+- Deadlines (15/15) are clean. Failures are semantic: 7 wrong-law (private-creditor 10% cap for a bank loan, a
+  divorce-only maintenance rule for a merely separated wife, a dividend precedent for an AGM question), 3 dropped
+  conditions (rw06 45-day notice, rw08 children / joint property), 2 wrong numbers/sections (rw06 "five lakh" for
+  "पन्ध्र" fifteen lakh; rw27 rule 22 with a quote altered to say "citizenship certificate").
+- Cause is mostly retrieval, not generation: the governing provision was in the corpus but not retrieved for
+  rw03 (s.28/31), rw11 (s.214/239), rw14 (s.68), rw20 (s.9), rw25 (NRB directive), rw05/07/09/10/23/24; 5 of the 10
+  non-structured answers show a wrong playbook pin.
+- Verifier holes to close: number check accepts a number found anywhere in the quote (fix: bind each number to
+  the word before it); fuzzy quote match (>=90%) accepted a substituted noun (fix: exact match for the noun
+  phrase / reject when a content token of the sentence is absent from the passage); merged multi-section chunks
+  are cited under the first section (fix: quote must sit under the cited rule number); "sources do not cover X"
+  gap lines can be false (rw03, rw06, rw20, rw25) and English gap lines leak into Nepali answers (rw14).
+
 ### V3 — Structured answer + citation verifier (2026-09-30, offline; live measurement pending)
 
 Generate-then-verify: the model returns ONE JSON object (blocks -> sentences with `kind`, `cites:[{n, quote}]`,
