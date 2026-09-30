@@ -1,0 +1,531 @@
+{
+ "summary": {
+  "counted_with": "tokenizers:e5-base",
+  "label": "before",
+  "n": 30,
+  "system_tokens": {
+   "all": {
+    "n": 30,
+    "mean": 1511,
+    "max": 1511
+   },
+   "ne": {
+    "n": 26,
+    "mean": 1511,
+    "max": 1511
+   },
+   "en": {
+    "n": 4,
+    "mean": 1511,
+    "max": 1511
+   }
+  },
+  "prompt_tokens": {
+   "all": {
+    "n": 30,
+    "mean": 1850,
+    "max": 2128
+   },
+   "ne": {
+    "n": 26,
+    "mean": 1837,
+    "max": 2101
+   },
+   "en": {
+    "n": 4,
+    "mean": 1935,
+    "max": 2128
+   }
+  },
+  "input_tokens": {
+   "all": {
+    "n": 30,
+    "mean": 3361,
+    "max": 3639
+   },
+   "ne": {
+    "n": 26,
+    "mean": 3348,
+    "max": 3612
+   },
+   "en": {
+    "n": 4,
+    "mean": 3446,
+    "max": 3639
+   }
+  },
+  "max_tokens": {
+   "all": {
+    "n": 30,
+    "mean": 5627,
+    "max": 6000
+   },
+   "ne": {
+    "n": 26,
+    "mean": 6000,
+    "max": 6000
+   },
+   "en": {
+    "n": 4,
+    "mean": 3200,
+    "max": 3200
+   }
+  },
+  "request_budget_tokens": {
+   "all": {
+    "n": 30,
+    "mean": 8988,
+    "max": 9612
+   },
+   "ne": {
+    "n": 26,
+    "mean": 9348,
+    "max": 9612
+   },
+   "en": {
+    "n": 4,
+    "mean": 6646,
+    "max": 6839
+   }
+  },
+  "sources_sent": {
+   "all": {
+    "n": 30,
+    "mean": 8,
+    "max": 9
+   },
+   "ne": {
+    "n": 26,
+    "mean": 8,
+    "max": 9
+   },
+   "en": {
+    "n": 4,
+    "mean": 8,
+    "max": 9
+   }
+  }
+ },
+ "rows": [
+  {
+   "question": "घरबेटीले deposit फिर्ता दिएन, के गर्ने?",
+   "lang": "ne",
+   "playbook": "deposit_not_returned",
+   "sources_retrieved": 8,
+   "sources_sent": 8,
+   "system_chars": 5013,
+   "system_tokens": 1511,
+   "prompt_chars": 6321,
+   "prompt_tokens": 1789,
+   "input_tokens": 3300,
+   "max_tokens": 6000,
+   "request_budget_tokens": 9300
+  },
+  {
+   "question": "My employer has not paid my salary for 4 months. What can I do?",
+   "lang": "en",
+   "playbook": "unpaid_salary",
+   "sources_retrieved": 8,
+   "sources_sent": 8,
+   "system_chars": 5013,
+   "system_tokens": 1511,
+   "prompt_chars": 6855,
+   "prompt_tokens": 1810,
+   "input_tokens": 3321,
+   "max_tokens": 3200,
+   "request_budget_tokens": 6521
+  },
+  {
+   "question": "boss le din ko 12 ghanta kaam garauchha, overtime ko paisa pani dinna. yo milchha?",
+   "lang": "ne",
+   "playbook": null,
+   "sources_retrieved": 8,
+   "sources_sent": 8,
+   "system_chars": 5013,
+   "system_tokens": 1511,
+   "prompt_chars": 5334,
+   "prompt_tokens": 1457,
+   "input_tokens": 2968,
+   "max_tokens": 6000,
+   "request_budget_tokens": 8968
+  },
+  {
+   "question": "manpower le thagyo. Malaysia pathaidinchhu bhanera 3 lakh liyo, 8 mahina bhayo visa aayena. paisa kasari firta paune?",
+   "lang": "ne",
+   "playbook": "foreign_employment_fraud",
+   "sources_retrieved": 8,
+   "sources_sent": 8,
+   "system_chars": 5013,
+   "system_tokens": 1511,
+   "prompt_chars": 6745,
+   "prompt_tokens": 1823,
+   "input_tokens": 3334,
+   "max_tokens": 6000,
+   "request_budget_tokens": 9334
+  },
+  {
+   "question": "Kuwait pugda job chhaina, company le kaam nai dinna. ghar pharkiye. ticket ra agency ko kharcha kasari firta paune?",
+   "lang": "ne",
+   "playbook": null,
+   "sources_retrieved": 8,
+   "sources_sent": 8,
+   "system_chars": 5013,
+   "system_tokens": 1511,
+   "prompt_chars": 5351,
+   "prompt_tokens": 1495,
+   "input_tokens": 3006,
+   "max_tokens": 6000,
+   "request_budget_tokens": 9006
+  },
+  {
+   "question": "I'm desperate. My friend took 5 lakh from me and gave a cheque, but the cheque bounced and now he avoids me. What can I do?",
+   "lang": "en",
+   "playbook": "cheque_bounce",
+   "sources_retrieved": 8,
+   "sources_sent": 8,
+   "system_chars": 5013,
+   "system_tokens": 1511,
+   "prompt_chars": 7158,
+   "prompt_tokens": 1995,
+   "input_tokens": 3506,
+   "max_tokens": 3200,
+   "request_budget_tokens": 6706
+  },
+  {
+   "question": "साहुले ब्याज मागेको छ तर लिखतमा त बयाज कतै लेखेकै छैन, तिर्नै पर्छ?",
+   "lang": "ne",
+   "playbook": null,
+   "sources_retrieved": 8,
+   "sources_sent": 8,
+   "system_chars": 5013,
+   "system_tokens": 1511,
+   "prompt_chars": 6300,
+   "prompt_tokens": 1928,
+   "input_tokens": 3439,
+   "max_tokens": 6000,
+   "request_budget_tokens": 9439
+  },
+  {
+   "question": "husband le chhadera gayo, ghar kharcha dinna, 3 ota bachha chha. maintenance kasari paune?",
+   "lang": "ne",
+   "playbook": "maintenance_alimony",
+   "sources_retrieved": 8,
+   "sources_sent": 8,
+   "system_chars": 5013,
+   "system_tokens": 1511,
+   "prompt_chars": 6701,
+   "prompt_tokens": 1925,
+   "input_tokens": 3436,
+   "max_tokens": 6000,
+   "request_budget_tokens": 9436
+  },
+  {
+   "question": "My wife wants a divorce and I'm terrified I'll lose my 4-year-old daughter. Who gets custody?",
+   "lang": "en",
+   "playbook": "divorce",
+   "sources_retrieved": 9,
+   "sources_sent": 9,
+   "system_chars": 5013,
+   "system_tokens": 1511,
+   "prompt_chars": 6459,
+   "prompt_tokens": 1808,
+   "input_tokens": 3319,
+   "max_tokens": 3200,
+   "request_budget_tokens": 6519
+  },
+  {
+   "question": "बुबाले अन्श दिनुभएन, दाजुले सबै जग्गा आफ्नो नाममा गर्यो। म छोरी हुँ, मलाई केही छैन भन्छन्।",
+   "lang": "ne",
+   "playbook": "physical_assault",
+   "sources_retrieved": 8,
+   "sources_sent": 8,
+   "system_chars": 5013,
+   "system_tokens": 1511,
+   "prompt_chars": 6688,
+   "prompt_tokens": 2101,
+   "input_tokens": 3612,
+   "max_tokens": 6000,
+   "request_budget_tokens": 9612
+  },
+  {
+   "question": "mero shreemanko mrityu bhayo. sasu-sasura le sampatti ma tero kei haq chhaina bhanchhan. hamro ek chhora chha.",
+   "lang": "ne",
+   "playbook": "inheritance_share",
+   "sources_retrieved": 9,
+   "sources_sent": 9,
+   "system_chars": 5013,
+   "system_tokens": 1511,
+   "prompt_chars": 6680,
+   "prompt_tokens": 2064,
+   "input_tokens": 3575,
+   "max_tokens": 6000,
+   "request_budget_tokens": 9575
+  },
+  {
+   "question": "जग्गा किनेपछि सरकारी जग्गा रहेछ भनेर मालपोतले दर्ता खारेज गर्छ भन्छन्। के गर्ने?",
+   "lang": "ne",
+   "playbook": null,
+   "sources_retrieved": 8,
+   "sources_sent": 8,
+   "system_chars": 5013,
+   "system_tokens": 1511,
+   "prompt_chars": 5591,
+   "prompt_tokens": 1568,
+   "input_tokens": 3079,
+   "max_tokens": 6000,
+   "request_budget_tokens": 9079
+  },
+  {
+   "question": "police le mero jaheri darkhast (FIR) nai lina maandaina. ab ke garne?",
+   "lang": "ne",
+   "playbook": "fir_not_registered",
+   "sources_retrieved": 8,
+   "sources_sent": 8,
+   "system_chars": 5013,
+   "system_tokens": 1511,
+   "prompt_chars": 7053,
+   "prompt_tokens": 1992,
+   "input_tokens": 3503,
+   "max_tokens": 6000,
+   "request_budget_tokens": 9503
+  },
+  {
+   "question": "mero dai lai police le arrest garyo. jamanat/dharauti rakhera kasari chhutaune?",
+   "lang": "ne",
+   "playbook": null,
+   "sources_retrieved": 8,
+   "sources_sent": 8,
+   "system_chars": 5013,
+   "system_tokens": 1511,
+   "prompt_chars": 5929,
+   "prompt_tokens": 1780,
+   "input_tokens": 3291,
+   "max_tokens": 6000,
+   "request_budget_tokens": 9291
+  },
+  {
+   "question": "kasaile mero naam ra photo ko fake Facebook ID banayera saathi haru lai abusive message pathairaheko chha",
+   "lang": "ne",
+   "playbook": "cyber_harassment",
+   "sources_retrieved": 8,
+   "sources_sent": 8,
+   "system_chars": 5013,
+   "system_tokens": 1511,
+   "prompt_chars": 6281,
+   "prompt_tokens": 1827,
+   "input_tokens": 3338,
+   "max_tokens": 6000,
+   "request_budget_tokens": 9338
+  },
+  {
+   "question": "Shreemati lai sasu ra shreemanle dowry nadeko bhanera rojai sataunchhan. kunai kanoon chha?",
+   "lang": "ne",
+   "playbook": "domestic_violence",
+   "sources_retrieved": 9,
+   "sources_sent": 9,
+   "system_chars": 5013,
+   "system_tokens": 1511,
+   "prompt_chars": 6970,
+   "prompt_tokens": 2072,
+   "input_tokens": 3583,
+   "max_tokens": 6000,
+   "request_budget_tokens": 9583
+  },
+  {
+   "question": "please help, my husband beat me again last night and says he will throw me out. what can i do right now",
+   "lang": "en",
+   "playbook": "domestic_violence",
+   "sources_retrieved": 9,
+   "sources_sent": 9,
+   "system_chars": 5013,
+   "system_tokens": 1511,
+   "prompt_chars": 7501,
+   "prompt_tokens": 2128,
+   "input_tokens": 3639,
+   "max_tokens": 3200,
+   "request_budget_tokens": 6839
+  },
+  {
+   "question": "online order gareko phone ko satta nakali aayo. seller le return garna dinna, paisa firta paunchhu?",
+   "lang": "ne",
+   "playbook": "consumer_complaint",
+   "sources_retrieved": 8,
+   "sources_sent": 8,
+   "system_chars": 5013,
+   "system_tokens": 1511,
+   "prompt_chars": 7508,
+   "prompt_tokens": 1994,
+   "input_tokens": 3505,
+   "max_tokens": 6000,
+   "request_budget_tokens": 9505
+  },
+  {
+   "question": "ward office ma sucahnako hak ma application diyeko 1 mahina bhayo, jawaf chhaina. ab kaha appeal garne?",
+   "lang": "ne",
+   "playbook": null,
+   "sources_retrieved": 8,
+   "sources_sent": 8,
+   "system_chars": 5013,
+   "system_tokens": 1511,
+   "prompt_chars": 6695,
+   "prompt_tokens": 1910,
+   "input_tokens": 3421,
+   "max_tokens": 6000,
+   "request_budget_tokens": 9421
+  },
+  {
+   "question": "private company register garna kati jana shareholder chahinchha? kati din ma certificate aauchha?",
+   "lang": "ne",
+   "playbook": null,
+   "sources_retrieved": 8,
+   "sources_sent": 8,
+   "system_chars": 5013,
+   "system_tokens": 1511,
+   "prompt_chars": 6910,
+   "prompt_tokens": 1940,
+   "input_tokens": 3451,
+   "max_tokens": 6000,
+   "request_budget_tokens": 9451
+  },
+  {
+   "question": "public company ko AGM 2 barsa dekhi bolayeko chhaina. shareholder le ke garna sakchha?",
+   "lang": "ne",
+   "playbook": null,
+   "sources_retrieved": 8,
+   "sources_sent": 8,
+   "system_chars": 5013,
+   "system_tokens": 1511,
+   "prompt_chars": 6412,
+   "prompt_tokens": 1735,
+   "input_tokens": 3246,
+   "max_tokens": 6000,
+   "request_budget_tokens": 9246
+  },
+  {
+   "question": "sano pasal chalauchhu. VAT ma darta kailey garnu parchha? darta garena bhane ke hunchha?",
+   "lang": "ne",
+   "playbook": null,
+   "sources_retrieved": 8,
+   "sources_sent": 8,
+   "system_chars": 5013,
+   "system_tokens": 1511,
+   "prompt_chars": 4905,
+   "prompt_tokens": 1385,
+   "input_tokens": 2896,
+   "max_tokens": 6000,
+   "request_budget_tokens": 8896
+  },
+  {
+   "question": "bank le account ma minimum balance nabhayeko bhanera paisa katyo. yo milchha?",
+   "lang": "ne",
+   "playbook": "foreign_employment_fraud",
+   "sources_retrieved": 8,
+   "sources_sent": 8,
+   "system_chars": 5013,
+   "system_tokens": 1511,
+   "prompt_chars": 6888,
+   "prompt_tokens": 1920,
+   "input_tokens": 3431,
+   "max_tokens": 6000,
+   "request_budget_tokens": 9431
+  },
+  {
+   "question": "बैंकले मेरो गुनासो सुन्दैन। कहाँ उजुरि गर्ने?",
+   "lang": "ne",
+   "playbook": "consumer_complaint",
+   "sources_retrieved": 8,
+   "sources_sent": 8,
+   "system_chars": 5013,
+   "system_tokens": 1511,
+   "prompt_chars": 7323,
+   "prompt_tokens": 1959,
+   "input_tokens": 3470,
+   "max_tokens": 6000,
+   "request_budget_tokens": 9470
+  },
+  {
+   "question": "bank loan ma late payment ko penal interest kati lagauna milchha?",
+   "lang": "ne",
+   "playbook": "unpaid_personal_loan",
+   "sources_retrieved": 8,
+   "sources_sent": 8,
+   "system_chars": 5013,
+   "system_tokens": 1511,
+   "prompt_chars": 6569,
+   "prompt_tokens": 1885,
+   "input_tokens": 3396,
+   "max_tokens": 6000,
+   "request_budget_tokens": 9396
+  },
+  {
+   "question": "kampani ko bhitri suchana thaha pai share kinbech gareko ma ke sajaya hunchha?",
+   "lang": "ne",
+   "playbook": null,
+   "sources_retrieved": 8,
+   "sources_sent": 8,
+   "system_chars": 5013,
+   "system_tokens": 1511,
+   "prompt_chars": 6722,
+   "prompt_tokens": 1895,
+   "input_tokens": 3406,
+   "max_tokens": 6000,
+   "request_budget_tokens": 9406
+  },
+  {
+   "question": "नागरिकतामा मेरो नाम थर र उमेर SLC सँग मिलेको छैन, कसरी सच्याउने?",
+   "lang": "ne",
+   "playbook": null,
+   "sources_retrieved": 8,
+   "sources_sent": 8,
+   "system_chars": 5013,
+   "system_tokens": 1511,
+   "prompt_chars": 6420,
+   "prompt_tokens": 1811,
+   "input_tokens": 3322,
+   "max_tokens": 6000,
+   "request_budget_tokens": 9322
+  },
+  {
+   "question": "bike le hit garera ghaite bhayo, driver bhagyo. insurance ra compensation kasari paune?",
+   "lang": "ne",
+   "playbook": "traffic_accident_compensation",
+   "sources_retrieved": 8,
+   "sources_sent": 8,
+   "system_chars": 5013,
+   "system_tokens": 1511,
+   "prompt_chars": 6836,
+   "prompt_tokens": 1850,
+   "input_tokens": 3361,
+   "max_tokens": 6000,
+   "request_budget_tokens": 9361
+  },
+  {
+   "question": "doctor le galat operation garera bihari ko mrityu bho. ke garne?",
+   "lang": "ne",
+   "playbook": null,
+   "sources_retrieved": 8,
+   "sources_sent": 8,
+   "system_chars": 5013,
+   "system_tokens": 1511,
+   "prompt_chars": 6461,
+   "prompt_tokens": 1747,
+   "input_tokens": 3258,
+   "max_tokens": 6000,
+   "request_budget_tokens": 9258
+  },
+  {
+   "question": "Facebook ma kasaile mero barema jhutho lekhera badnam garyo. police ma jana milchha?",
+   "lang": "ne",
+   "playbook": "defamation",
+   "sources_retrieved": 8,
+   "sources_sent": 8,
+   "system_chars": 5013,
+   "system_tokens": 1511,
+   "prompt_chars": 6719,
+   "prompt_tokens": 1921,
+   "input_tokens": 3432,
+   "max_tokens": 6000,
+   "request_budget_tokens": 9432
+  }
+ ]
+}

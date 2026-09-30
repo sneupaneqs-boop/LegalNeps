@@ -200,6 +200,135 @@ S7's own "done when" bar (25 playbooks, ≥90% precision) doesn't require it.
 
 ## Done
 
+### V3.2 — Claim checks from the live review, entailment v2, token diet (2026-09-30, offline; live re-measure pending)
+
+Goal: drive the 15.6% unsupported rate (bar <5%) down with deterministic checks + prompt rules without collapsing
+usefulness. **The <5% bar is NOT claimed** - the checks were designed on the same 12 bad sentences that measure them,
+so the numbers below are a fit, not a hold-out; it must be re-measured on a fresh 30-answer live review
+(`python eval/answer_review.py --set realworld --limit 30`, then label as for V3). Retrieval/playbook routing (the
+other agent's work) is untouched: 5 of the 12 are retrieval failures a sentence check can only limit, not fix.
+
+**Files.** New `app/claim_checks.py` (the checks; pure functions), `app/situation_guards.py` (wrong-law guard table as
+data), `tests/test_v32_claim_checks.py` (76 tests) + `tests/data/v32_review_fixture.json` (the 77 labelled sentences,
+their cites and the FULL cited passages, extracted from `eval/reports/answer-review-v3-*-20260930.json`),
+`eval/prompt_tokens.py` (token measurement). Changed: `verifier.py` (wiring, `_View.layout/ocr`, strict fuzzy,
+`ctx`), `structured.py` (prompt, gap filter, entailment v2, render polish), `generation.py` (`check_context`,
+`prompt_source_numbers`, `answer_max_tokens`, `answer_system(lang)`, PIPELINE_VERSION p10), `config.py`.
+Full suite: **1672 passed** (was 1596; 4 older tests migrated to the new prompt/entailment defaults).
+
+**The 12 bad sentences** (replayed through `verify_sentence` exactly as the pipeline calls it; before V3.2: 0/12):
+
+| # | sentence (review label) | now | check |
+|---|---|---|---|
+| rw04 s4 | SC precedent "doubtful FIR -> no conviction" shown to a victim (wrong-law) | **not caught** | real quote, on the user's topic, states a rule, but about an accused's acquittal: **needs entailment** (which now sees the user's situation) |
+| rw06 s2 | 3-day certification without the 45-day notice (unsupported) | removed | `condition_dropped:notice_period`: the quote's own clause opens "उपदफा (३) बमोजिम तोकिएको **म्याद समाप्त भएपछि**", the sentence does not carry it |
+| rw06 s3 | "five lakh" vs "पन्ध्र लाख" (hallucinated number) | removed | `quote_not_verbatim` (the model spliced band "(ख)" over skipped "(क)"); with a verbatim quote it is `number_role_mismatch` (tested: the V3 number check was blind - it never read "five lakh" as a number and "पाँच प्रतिशत" was in the quote) |
+| rw08 s1 | s.89 stretched from spouses to "पत्नी र बच्चाहरू" (unsupported) | removed | `party_added:child` |
+| rw08 s2 | s.211 without the joint-property (सगोल) condition (unsupported) | removed | `condition_dropped:joint_property` (condition sits in the clause before the quote; the fused "दिनर" in the quote is treated as line-break noise) |
+| rw08 s3 | s.101 (divorced wife) for a husband who only left (wrong-law) | removed | `proviso_dropped` (the "तर, (१) अर्को विवाह… (२)…" provisos follow the quote) **and independently** `wrong_law_guard:separated_not_divorced` (tested with the proviso check off) |
+| rw15 s2 | Criminal Code s.300 for impersonation on Facebook (wrong-law, borderline) | **not caught** | real, on-topic text with a weak fit: **needs entailment** |
+| rw21 s6 | dividend precedent for an AGM question (wrong-law) | removed | `precedent_off_topic` (the quote's nouns - constitution, right, time, procedure - are none of the question's or the retrieved statutes' topic nouns) |
+| rw25 s1 | Civil Code s.478 10% cap for a bank loan (wrong-law) | removed | `wrong_law_guard:bank_loan_vs_private_creditor` |
+| rw25 s2 | s.492 limitation for excess interest (wrong-law) | removed | same guard (Civil Code s.474-492 = the private-lender chapter) |
+| rw25 s3 | precedent that only records "a petition was filed" (wrong-law) | removed | `precedent_not_a_rule` |
+| rw27 s2 | rule 22 + "नागरिकता" substituted into the quote (hallucinated) | removed | `quote_not_verbatim` (strict alignment: "नागरिकता" lines up with "व्यक्तिगत घटना दर्ताको", not a spelling variant); had the quote been verbatim: `section_under_other_heading` (it sits under heading 23 of the merged chunk) |
+
+**Caught deterministically: 10 of 12. Need entailment: 2 (rw04 s4, rw15 s2) - whether the entailment pass catches them is
+UNMEASURED offline.**
+
+**Over-removal: 2 of 65 good sentences removed (limit 5)** - `rw15 s4` and `rw30 s2`, the same Criminal Code s.307 sentence
+("...बेइज्जती गरेमा **थप** एक वर्षसम्म कैद र दश हजार रुपैयाँसम्म जरिबाना") which the reviewer labelled *supported* but flagged
+as a dangling "additional" penalty; work item 5 removes it by design (the base penalty is not in the sentence). Every other
+good sentence still passes. Tuning honesty: an early trigger for "म्याद नाघे" also removed rw21 s1 (a good sentence that omits
+"three months after the deadline"); it was dropped from the trigger list, which is a fit to this set.
+**Usefulness cost of the uncited-forum rule** (not in the 65, which are cited sentences only): of the 40 uncited bullets in
+the 20 structured answers, 16 name an office/tribunal/court/commission or a filing document; with no playbook text all 16
+are removed, with the playbook the offline matcher pins for those questions 7 still are (rw04 Department/CDO/Tribunal,
+rw08 committee/court, rw15 Cyber Bureau, rw20 citizenship copy, ...). That is the point of the rule; it also removes the
+useful rw19/rw17 escalation paths when no playbook names them. Watch the `uncited_forum_claim` count in the next live review.
+
+**The checks** (all in `claim_checks.py`; per sentence, run after the V3 checks; each fails the sentence with a reason
+code that lands in `verification.removed.by_reason`):
+1. `number_role_mismatch` / `number_unit_mismatch`: (value, unit) pairs (lakh/crore/thousand -> rupees, %, days, months,
+   years, weeks, hours, persons; English and Nepali number words; `Rs.` prefix). Same unit with another value, or the
+   value only under another unit, is refused; a number with no unit is left to the old check.
+2. Fuzzy quote matching (>=90% of tokens) now also needs every quote token to line up with the same passage word or a
+   1-2 character variant (fused/split words at a line break allowed); a substituted or added word fails. **Only `ocr:true`
+   sources keep the lenient V3 matching.** Passage words the quote skips (footnotes) are tolerated as before.
+3. `section_under_other_heading`: a passage is split at "N. title :" headings (must open with its own section, numbers
+   increasing); "नियम N/दफा N" must be the heading the quote sits under (that heading is now also accepted as the section,
+   the chunk's first section is not).
+4. Scope: `condition_dropped:{joint_property, divorce, notice_period}` (marker in the quote's clause up to the end of the
+   quote, sentence lacks it in Nepali or English), `party_added:{child, parent, husband, wife}` (party in the sentence, not in
+   the quote's clause), `proviso_dropped` (next clause is a "तर" proviso and the sentence has no exception wording; env
+   `TRAILING_PROVISO_CHECK=0` disables it). **This is a small principled set, not "every वा/यदि clause"**: general
+   conditional scope stays with the entailment pass.
+5. `dangling_additive_penalty`: "additional/थप" penalty whose base amount/period is not before it in the sentence.
+6. `uncited_forum_claim` (any kind, any uncited sentence naming a court/tribunal/commission/committee/department/CDO/bureau/
+   office/local body/authority or a filing-document requirement that the matched playbook text does not name; police and
+   lawyers are exempt; "keep/collect your receipts" is not a filing requirement) and `forum_not_in_source` (a cited sentence
+   naming a forum that none of its cited passages names - the whole passage, not the quote, since the actor is often in the
+   previous clause).
+7. Precedents: `precedent_not_a_rule` (a record of what was filed/found, no holding) and `precedent_off_topic` (the quote
+   shares no distinctive noun with the user's question, its search phrases, or the titles of the retrieved statutes; undecided
+   -> passes when the question yields no usable terms). Deviation from the brief: the test is on the **quote**, not the
+   case "head text" - rw21's head shares "shareholder/AGM" with the question; only the quote shows it is about dividends.
+8. Gaps: dropped when not in the answer language (`gap_wrong_language`, rw14) or when >=3 and >=70% of their content words
+   (glossary-bridged) are inside ONE cited or retrieved passage (`gap_covered_by_sources`, rw06's limitation-period line).
+   Counts land in `verification.gaps_removed`. Not catchable: rw03/rw20 gaps are false only because the governing section
+   was never RETRIEVED (that is the retrieval fix).
+9. Render: adjacent duplicate `[5][5]` merged; a leading "तर/र/But/And" after a removed sentence is stripped (a repair, not a
+   new claim; streamed and final text stay identical); OCR reph typos ("भरार्ई", "लाइर्") cleaned in shown sentences and
+   evidence quotes only, never in matching.
+10. **Entailment v2** (`structured.entail_payload/entailment_filter`): ONE fast-tier call, payload = the user's situation once +
+    each cited statement and quote (cut at 300/320 chars), answer `{"v":["y","n","p"]}`; prompt asks "does this passage state a
+    rule that governs THIS situation and support the exact statement". **`ENTAILMENT_CHECK` now defaults to 1 for the free
+    tier too** (`=0` disables; fails open; paid tiers always run it); "partial" is counted but only dropped with
+    `ENTAILMENT_DROP_PARTIAL=1`. Measured over the 20 real structured answers (XLM-R proxy tokenizer): the call is **564 tokens
+    mean / 921 max input, <=88 output** (V3's format: 531 / 945 - the question added ~60, the truncation bounds the worst
+    case). Cost to know: entailment can now remove a sentence that was already streamed, so `replace` events will be more common.
+    `situation_guards.py`: two rows of data (bank/NRB loan -> Civil Code s.474-492 private-lender chapter; husband left
+    without divorce -> s.99-102 divorced-wife provisions), each with question cues / `unless` cues and a test; add a row when a
+    live review finds a recurring wrong-law pattern.
+11. Prompt rules (in `STRUCTURED_RULES`): whole conditional clause and who/when/only-if words, never widen the subject; a
+    precedent only for a stated rule on this situation; "not covered" only when no passage covers it, in the reply language;
+    numbers tied to their unit, never restate the person's numbers; additional penalties with the base; no office/tribunal/
+    document that no passage or the plan names.
+
+**Token diet** (measured with `python eval/prompt_tokens.py --tokenizer <e5 tokenizer.json> --label before|after` over the 30
+review questions, BM25-only offline retrieval, real playbook matching; the XLM-R tokenizer is a PROXY for Groq/Gemini - use the
+ratios, not the absolutes; Devanagari is usually costlier there). Free-tier 429s came from request size (Groq gpt-oss TPM) and
+a 6000 output cap that Groq's qwen rejects:
+
+| tokens (mean / max) | before | after |
+|---|---|---|
+| system prompt | 1511 / 1511 | **1046** / 1083 (rules 839 -> 720 despite the new rules; ONE worked example in the reply language, 264 (ne) / 307 (en) tokens, instead of both, 616) |
+| user prompt (sources + plan) | 1850 / 2128 | **1410** / 1798 |
+| input total | 3361 / 3639 | **2456** / 2881 (-27%) |
+| max_tokens requested | NE 6000, EN 3200 | **NE <=3500, EN <=2000**, adaptive: base + per-source, floor 1200/800 |
+| request budget (input + max_tokens), Nepali | 9348 / 9612 | **5927 / 6332** (-37%) |
+| request budget, English | 6646 / 6839 | **4641 / 4881** (-30%) |
+| sources sent | 8 / 9 | 7 / 8 |
+
+How: one worked example per language; rules rewritten shorter; one language per passage (English translation only for English
+questions - it was sent alongside the Nepali before); precedent and 4th-and-later statute windows 450 chars (leading/pinned
+700); at most `PROMPT_MAX_LAWS`=5 statutes (with a playbook pin: the pins + 2), `PROMPT_MAX_PRECEDENTS`=1; sources not sent
+keep their numbers (still verifiable). Nothing in the verifier was weakened. Not measured: live 429 rate and latency, whether
+fewer sources/precedents costs usefulness (compare `usefulness` and fallback rate in the next live review), and real Groq/Gemini
+token counts (their limits: gpt-oss TPM 8000 - the Nepali request budget now fits under it, previously it did not).
+
+**What deterministic code still cannot catch** (be honest in the next review): a verbatim, on-topic quote from a provision
+that does not govern the user's facts beyond the two guard rows (rw04 s4, rw15 s2; needs entailment or better retrieval);
+conditions/exceptions outside the four scope classes and the proviso rule; a quote that is real but whose sentence is a
+stretch that shares its nouns; false "not covered" gaps where the governing passage was not retrieved; and 5 of the 12 root
+causes (wrong retrieval / wrong playbook pin) which belong to the retrieval work. Also unchanged: uncited numbers-free advice
+that names no forum (e.g. "keep your receipts") is trusted.
+
+**Re-measure (do this next):** deploy, run the 30-answer live review as in V3, label with the same four labels, and read
+`removed.by_reason` for `uncited_forum_claim`, `condition_dropped:*`, `party_added:*`, `wrong_law_guard:*`,
+`precedent_*`, `gaps_removed`, plus usefulness and fallback rate (over-removal), the free-tier no-model-answer count
+(was 5/30) and latency (was 28-42 s on 429s).
+
 ### V3.1 — Progressive streaming with per-sentence verification (2026-09-30, offline; live latency pending)
 
 The model's JSON is now STREAMED (`llm.stream_json`: OpenAI-compatible providers in JSON mode, then Gemini JSON

@@ -88,13 +88,33 @@ MODEL_FIRST_TOKEN_S = float(os.getenv("MODEL_FIRST_TOKEN_S", "8"))    # ...and e
 
 # V3: the answer is one JSON object (generate, then verify), so it is not streamed from the model.
 # Devanagari costs ~3x the tokens of English and JSON adds keys/quotes; a cut-off object is salvaged
-# sentence by sentence, never shown half-written.
-ANSWER_MAX_TOKENS_EN = int(os.getenv("ANSWER_MAX_TOKENS_EN", "3200"))
-ANSWER_MAX_TOKENS_NE = int(os.getenv("ANSWER_MAX_TOKENS_NE", "6000"))
+# sentence by sentence, never shown half-written. V3.2 token diet: the free-tier chain 429s on Groq TPM and Gemini
+# quota (5/30 live answers got no model answer), and Groq's qwen rejects >~5000 output tokens ("Request too large"),
+# so the output cap is the ceiling and generation.answer_max_tokens() asks for less when fewer sources are sent.
+ANSWER_MAX_TOKENS_EN = int(os.getenv("ANSWER_MAX_TOKENS_EN", "2000"))
+ANSWER_MAX_TOKENS_NE = int(os.getenv("ANSWER_MAX_TOKENS_NE", "3500"))
+ANSWER_TOKENS_BASE_EN = int(os.getenv("ANSWER_TOKENS_BASE_EN", "800"))
+ANSWER_TOKENS_PER_SOURCE_EN = int(os.getenv("ANSWER_TOKENS_PER_SOURCE_EN", "250"))
+ANSWER_TOKENS_BASE_NE = int(os.getenv("ANSWER_TOKENS_BASE_NE", "1400"))
+ANSWER_TOKENS_PER_SOURCE_NE = int(os.getenv("ANSWER_TOKENS_PER_SOURCE_NE", "450"))
 ANSWER_JSON_BUDGET_S = float(os.getenv("ANSWER_JSON_BUDGET_S", "50"))       # whole structured generation
 ANSWER_JSON_CALL_TIMEOUT_S = float(os.getenv("ANSWER_JSON_CALL_TIMEOUT_S", "35"))  # one attempt on one model
-# Optional LLM entailment pass over the surviving rule sentences (off on the free tier: quota); paid tiers always run it.
-ENTAILMENT_CHECK = os.getenv("ENTAILMENT_CHECK", "0").lower() in ("1", "true", "yes")
+# Sources SENT to the model (all retrieved sources stay citable; see generation.prompt_source_numbers):
+PROMPT_MAX_LAWS = int(os.getenv("PROMPT_MAX_LAWS", "5"))                     # statutes when no playbook is pinned
+PROMPT_EXTRA_LAWS_WITH_PIN = int(os.getenv("PROMPT_EXTRA_LAWS_WITH_PIN", "2"))  # non-pinned statutes beside a pin
+PROMPT_MAX_PRECEDENTS = int(os.getenv("PROMPT_MAX_PRECEDENTS", "1"))
+PROMPT_FULL_WINDOW_LAWS = int(os.getenv("PROMPT_FULL_WINDOW_LAWS", "3"))  # statutes that get PASSAGE_CHARS; the rest PRECEDENT_PASSAGE_CHARS
+PRECEDENT_PASSAGE_CHARS = int(os.getenv("PRECEDENT_PASSAGE_CHARS", "450"))
+# LLM entailment pass over the surviving cited sentences: ONE fast-tier call over a compact payload (the user's
+# situation once + each statement and its quote, each cut to ~300 chars; ~0.5k tokens for a typical answer).
+# Default ON (V3.2: wrong-law was 7 of 12 bad sentences and only judgement can see it); ENTAILMENT_CHECK=0 turns it
+# off; it fails open. Paid tiers always run it. A "partial" verdict is only counted unless ENTAILMENT_DROP_PARTIAL=1.
+ENTAILMENT_CHECK = os.getenv("ENTAILMENT_CHECK", "1").lower() in ("1", "true", "yes")
+ENTAILMENT_DROP_PARTIAL = os.getenv("ENTAILMENT_DROP_PARTIAL", "0").lower() in ("1", "true", "yes")
+# V3.2 deterministic checks with a judgement-free but strict rule: a quote whose clause is followed by a "तर, ..." proviso
+# may not be stated with no exception wording at all (rw08 s.101). Measured 0 false removals on the 65 good review
+# sentences; set TRAILING_PROVISO_CHECK=0 if a live review shows it removing useful base rules.
+TRAILING_PROVISO_CHECK = os.getenv("TRAILING_PROVISO_CHECK", "1").lower() in ("1", "true", "yes")
 # Progressive streaming of the model's JSON with per-sentence verification (V3.1). STREAM_VERIFIED=0 restores the
 # single non-streamed call. Nothing is shown until STREAM_MIN_RULES rule/deadline/penalty sentences verified
 # (2 = the document-level minimum, so the extractive fallback almost never replaces already-shown text).
