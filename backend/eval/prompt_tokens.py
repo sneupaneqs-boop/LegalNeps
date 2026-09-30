@@ -23,7 +23,7 @@ from pathlib import Path
 HERE = Path(__file__).resolve().parent
 sys.path.insert(0, str(HERE.parent))
 
-from app import config, generation  # noqa: E402
+from app import config, generation, structured  # noqa: E402
 from app.retrieval import get_index  # noqa: E402
 
 REPORTS = HERE / "reports"
@@ -80,7 +80,22 @@ def main() -> None:
     summary = {"counted_with": how, "label": args.label, "n": len(rows)}
     for k in ("system_tokens", "prompt_tokens", "input_tokens", "max_tokens", "request_budget_tokens", "sources_sent"):
         summary[k] = {"all": col(k), "ne": col(k, lambda r: r["lang"] == "ne"), "en": col(k, lambda r: r["lang"] == "en")}
-    out = {"summary": summary, "rows": rows}
+    # the ONE extra entailment call (free tier, ENTAILMENT_CHECK=1): system + compact payload over the kept cited sentences
+    answers = json.load(open(args.reviewed, encoding="utf8"))["answers"]
+    ent = []
+    for a in answers:
+        sents = [{"text": x["text"], "kind": x["kind"], "cites": [{"n": c["n"], "quote": c["quote"]} for c in x["cites"]]}
+                 for x in a.get("sentences") or []]
+        if not sents or not hasattr(structured, "entail_payload"):
+            continue
+        payload, index = structured.entail_payload({"blocks": [{"heading": "", "sentences": sents}]}, a["question"])
+        ent.append({"id": a["id"], "items": len(index), "tokens": count(structured.ENTAIL_SYSTEM) + count(payload),
+                    "payload_chars": len(payload)})
+    if ent:
+        summary["entailment_call"] = {"answers": len(ent), "tokens_mean": round(statistics.mean(e["tokens"] for e in ent)),
+                                      "tokens_max": max(e["tokens"] for e in ent), "items_mean": round(statistics.mean(e["items"] for e in ent), 1),
+                                      "output_tokens_cap": 40 + 8 * max(e["items"] for e in ent)}
+    out = {"summary": summary, "rows": rows, "entailment_rows": ent}
     path = Path(args.out) if args.out else REPORTS / f"prompt-tokens-{args.label}.json"
     path.write_text(json.dumps(out, ensure_ascii=False, indent=1), encoding="utf8")
     print(json.dumps(summary, ensure_ascii=False, indent=1))

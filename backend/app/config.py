@@ -111,6 +111,10 @@ PRECEDENT_PASSAGE_CHARS = int(os.getenv("PRECEDENT_PASSAGE_CHARS", "450"))
 # off; it fails open. Paid tiers always run it. A "partial" verdict is only counted unless ENTAILMENT_DROP_PARTIAL=1.
 ENTAILMENT_CHECK = os.getenv("ENTAILMENT_CHECK", "1").lower() in ("1", "true", "yes")
 ENTAILMENT_DROP_PARTIAL = os.getenv("ENTAILMENT_DROP_PARTIAL", "0").lower() in ("1", "true", "yes")
+# V3.2 deterministic checks with a judgement-free but strict rule: a quote whose clause is followed by a "तर, ..." proviso
+# may not be stated with no exception wording at all (rw08 s.101). Measured 0 false removals on the 65 good review
+# sentences; set TRAILING_PROVISO_CHECK=0 if a live review shows it removing useful base rules.
+TRAILING_PROVISO_CHECK = os.getenv("TRAILING_PROVISO_CHECK", "1").lower() in ("1", "true", "yes")
 # Progressive streaming of the model's JSON with per-sentence verification (V3.1). STREAM_VERIFIED=0 restores the
 # single non-streamed call. Nothing is shown until STREAM_MIN_RULES rule/deadline/penalty sentences verified
 # (2 = the document-level minimum, so the extractive fallback almost never replaces already-shown text).

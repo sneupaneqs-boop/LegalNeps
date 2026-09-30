@@ -22,7 +22,7 @@ import re
 import unicodedata
 from functools import lru_cache
 
-from . import claim_checks, situation_guards
+from . import claim_checks, config, situation_guards
 from .claim_checks import CheckContext
 from .text_norm import DEV_DIGITS, DEVANAGARI_RE, TOKEN_RE, detect_language, fold, tokenize
 
@@ -218,7 +218,7 @@ FUZZY_MIN_TOKENS = 6
 FUZZY_RATIO = 0.9
 LEX_MIN_RATIO = 0.3       # share of the sentence's content words found in its quote (calibrated, see docs/PROGRESS.md)
 GUIDANCE_MIN_RATIO = 0.4  # uncited procedure text must come from the curated playbook this much
-TRAILING_PROVISO = True   # V3.2: a quote followed by a "तर, ..." proviso may not be stated with no exception wording
+TRAILING_PROVISO = config.TRAILING_PROVISO_CHECK  # V3.2: a quote followed by a "तर, ..." proviso may not be stated with no exception wording
 
 _PUA = re.compile(r"[-]")
 _PUNCT = re.compile(r"[।॥|.,;:!?\"'“”‘’()\[\]{}<>«»–—\-‐/\\*_…•·~`^]")
