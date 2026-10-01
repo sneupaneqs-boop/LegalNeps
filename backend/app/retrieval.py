@@ -67,7 +67,7 @@ HYBRID = {
 # V2.6 section-level knobs (tuned on default + realworld + sections12, never heldout)
 SEARCH = {
     "lead_doc_cap": 3,      # passages allowed from the FIRST result's document (per_doc_cap for the others)
-    "regime_demote": 0.6,   # fused-score factor for passages of a specialist regime the question never mentions (1 = off)
+    "regime_demote": 1.0,   # fused-score factor for passages of a specialist regime the question never mentions (1 = OFF: 0.6 measured -0.6 pt default hit@8 and no section gain)
     "heading_boost": 0.3,   # fused-score gain when the question's words cover a passage's own section heading (0 = off)
     "heading_min_w": 0.5,   # only queries at least this heavy contribute words to the heading match
     "heading_mass0": 10.0,  # idf mass of matched heading words at which the boost is fully on (two ordinary words)
