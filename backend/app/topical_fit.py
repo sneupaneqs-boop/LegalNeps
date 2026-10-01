@@ -123,6 +123,30 @@ def specialist_hits(head_text: str, law_title: str, opening: str, question_side:
     return out
 
 
+# ------------------------------------------------------------------ non-substantive chunks (V2.7)
+_PUA_LEAD = re.compile(r"^[\W\uf000-\uf8ff_]+")
+_SCHEDULE_OPEN = re.compile(r"^(?:अनुसूची|परिशिष्ट|तालिका|Schedule|Annex(?:ure)?)\s*[-–—]?\s*[०-९0-9]*[क-ह]?\s*[.:]?\s*(?:\(|$)", re.I)
+_BLANKS = re.compile(r"…|\.{3,}|_{3,}")
+
+
+def non_substantive(src: dict) -> str | None:
+    """Why a statute chunk is not a provision a person can be answered from: "schedule_form" for a schedule / annex /
+    blank format (the corpus files "अनुसूची-३६ (दफा ८९ ... सँग सम्बन्धित) वारेसनामाको ढाँचा" under the section it is attached
+    to), "blank_form" for a chunk made of blanks to be filled in ("… बस्ने … सँगको … मुद्दामा"). V3.3 live review: a
+    power-of-attorney form, a bail bond and an arms-licence form were shown as "the provisions that match your question".
+    Constitutional schedules (lists of powers) are substantive."""
+    if src.get("category") == "precedent" or src.get("doc_type") == "constitution":
+        return None
+    text = str(src.get("text_ne") or "")
+    head = _PUA_LEAD.sub("", text[:80])
+    if _SCHEDULE_OPEN.match(head):
+        return "schedule_form"
+    blanks = len(_BLANKS.findall(text))
+    if blanks >= 4 and blanks * 100 >= len(text):  # >= 1 blank per 100 characters
+        return "blank_form"
+    return None
+
+
 # ------------------------------------------------------------------ profile of the question
 def _cterms(text: str) -> list[str]:
     return [t for t in dict.fromkeys(tokenize(text or ""))
@@ -145,9 +169,37 @@ class Profile:
     terms: frozenset = frozenset()          # content stems of the message, its rewrites and glossary/translit expansions
     question_side: str = ""                 # raw text the specialist cues are matched on
     guidance: str = ""                      # the matched playbook's text
+    named_laws: frozenset = frozenset()     # V2.7: names (no year) of the statutes the question's concepts point at
+    wants_form: bool = False                # V2.7: the question asks for a form / format / template
 
 
-def make_profile(message: str, analysis: dict | None = None, guidance: str = "", queries=None) -> Profile:
+def law_key(title: str) -> str:
+    """A statute's name without its year or the parenthetical amendment note ("कम्पनी ऐन, २०६३" -> "कम्पनी ऐन")."""
+    return _PAREN_TAIL.sub("", str(title or "")).split(",")[0].strip()
+
+
+def named_laws(message: str, analysis: dict | None = None, playbook_laws=()) -> frozenset:
+    """V2.7: statutes the question's own concepts name: the curated romanised and Devanagari lexicons
+    (translit.laws / laws_ne), the model's rewrite (`analysis["laws"]`) and the matched plan's laws. A passage of a law
+    in this set is a DIRECT fit for the subject; the Companies Act is not one for "my company has not paid my salary"
+    (the lexicon names the Labour Act), however many words (कम्पनी) they share."""
+    analysis = analysis or {}
+    text = " ".join([message, analysis.get("question") or ""])
+    titles = list(translit.laws(text, limit=8)) + list(translit.laws_ne(text, limit=8)) \
+        + [str(x) for x in (analysis.get("laws") or [])] + [str(x) for x in playbook_laws]
+    return frozenset(k for k in (law_key(t) for t in titles) if k)
+
+
+_FORM_ASK = re.compile(
+    r"\bforms?\b|\bformat\b|\btemplates?\b|\bschedule\b|\bannex|\bsample (?:letter|application)|\bdraft\b|dhancha|namuna|"
+    r"फाराम|ढाँचा|नमूना|अनुसूची|निवेदनको ढाँचा|परिशिष्ट", re.I)
+
+
+def asks_for_form(question: str) -> bool:
+    return bool(_FORM_ASK.search(question or ""))
+
+
+def make_profile(message: str, analysis: dict | None = None, guidance: str = "", queries=None, playbook_laws=()) -> Profile:
     """`queries`: weighted (text, weight) list as generation.build_queries makes it (None = derived here)."""
     analysis = analysis or {}
     question = analysis.get("question") or ""
@@ -164,7 +216,8 @@ def make_profile(message: str, analysis: dict | None = None, guidance: str = "",
             qs.append(text)
     if not qs:
         qs = [message]
-    return Profile(message=message, queries=qs[:config.FIT_MAX_QUERIES], terms=terms, question_side=side, guidance=guidance or "")
+    return Profile(message=message, queries=qs[:config.FIT_MAX_QUERIES], terms=terms, question_side=side, guidance=guidance or "",
+                   named_laws=named_laws(message, analysis, playbook_laws), wants_form=asks_for_form(" ".join([message, question])))
 
 
 # ------------------------------------------------------------------ corpus statistics
@@ -350,6 +403,25 @@ class Verdict:
     reasons: list = field(default_factory=list)
     features: dict = field(default_factory=dict)
     pinned: bool = False
+    direct: bool = False        # V2.7: STRICT fit (see direct_fit); a passage can pass the gate and still not be direct
+    direct_why: str = ""
+
+
+def direct_fit(src: dict, f: dict, profile: Profile) -> tuple[bool, str]:
+    """V2.7 strict topical fit, stricter than "not ruled out": the passage is verified (pinned plan provision or routed
+    section), or its LAW is one the question's own concepts name (the lexicon says "salary / resign" -> the Labour Act),
+    or the question's distinctive terms are found in its heading + law title (idf share >= STRICT_COV_HEAD and at most
+    STRICT_H_UNEXPL of the heading's own distinctive terms are unexplained by the question). Used to decide whether the
+    extractive fallback may say "these match the subject of your question" and whether to answer at all."""
+    if src.get("pinned"):
+        return True, "verified"
+    if _is_precedent(src):
+        return False, "precedent"
+    if profile.named_laws and law_key(src.get("doc_title_ne") or src.get("source_ne")) in profile.named_laws:
+        return True, "named_law"
+    if f.get("q_cov_head", 0.0) >= config.FIT_STRICT_COV_HEAD and f.get("h_unexpl", 1.0) <= config.FIT_STRICT_H_UNEXPL:
+        return True, "heading"
+    return False, "low_fit"
 
 
 def judge(cands: list[dict], scorer: Scorer, model: dict | None = None, ranks: list[float] | None = None) -> list[Verdict]:
@@ -368,5 +440,10 @@ def judge(cands: list[dict], scorer: Scorer, model: dict | None = None, ranks: l
         if f["specialist"] and not prec:
             reasons.append("specialist:" + "+".join(f["specialist"]))
         pinned = bool(s.get("pinned"))
-        out.append(Verdict(id=s.get("id", ""), ok=pinned or not reasons, score=z, reasons=reasons, features=f, pinned=pinned))
+        why = None if (prec or pinned or scorer.profile.wants_form) else non_substantive(s)
+        if why:
+            reasons.append("non_substantive:" + why)
+        direct, direct_why = direct_fit(s, f, scorer.profile)
+        out.append(Verdict(id=s.get("id", ""), ok=pinned or not reasons, score=z, reasons=reasons, features=f, pinned=pinned,
+                           direct=direct and (pinned or not reasons), direct_why=direct_why))
     return out

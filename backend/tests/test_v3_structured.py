@@ -506,7 +506,7 @@ def test_verifier_crash_degrades_to_extractive(pipeline, monkeypatch):
 
 def test_pipeline_version_and_fingerprint_cover_the_new_modules():
     import inspect
-    assert generation.PIPELINE_VERSION.startswith("p11-")          # p10 answers (before the V3.3 topical-fit gate) are never served
+    assert generation.PIPELINE_VERSION.startswith("p12-")          # p10 answers (before the V3.3 topical-fit gate) are never served
     src = inspect.getsource(generation._pipeline_fingerprint)
     assert "structured.py" in src and "verifier.py" in src and "text_norm.py" in src
     assert "claim_checks.py" in src and "situation_guards.py" in src

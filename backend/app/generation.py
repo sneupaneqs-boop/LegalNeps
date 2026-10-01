@@ -146,7 +146,7 @@ def _answer_cache_key(message: str, lang: str) -> str:
 # including the persistent Supabase answer_cache - are never served again.
 # The fingerprint below also retires them automatically when the prompts,
 # the romanised lexicon or any playbook file changes.
-PIPELINE_VERSION = "p11"  # p9: structured JSON answers + quote verifier (V3); p10: V3.2 claim checks, gap filter, token diet; p11: V3.3 topical-fit gate, abstain, polish
+PIPELINE_VERSION = "p12"  # p9: structured JSON answers + quote verifier (V3); p10: V3.2 claim checks, gap filter, token diet; p11: V3.3 topical-fit gate, abstain, polish; p12: V2.7 section routes, strict fit, form filter, actor/condition checks, reply language
 
 
 def _pipeline_fingerprint() -> str:
@@ -805,7 +805,8 @@ def apply_topical_gate(message: str, analysis: dict, sources: list[dict], playbo
         if not topical_fit.load_model():
             return None
         queries = build_queries(analysis.get("question") or message, analysis)
-        profile = topical_fit.make_profile(message, analysis, _guidance_terms_text(playbook), queries)
+        profile = topical_fit.make_profile(message, analysis, _guidance_terms_text(playbook), queries,
+                                           playbook_laws=[p.get("law_title_ne") for p in (playbook or {}).get("provisions", [])])
         verdicts = topical_fit.judge(sources, topical_fit.Scorer(profile))
     except Exception:  # noqa: BLE001
         log.exception("topical fit gate failed: answering without it")
@@ -814,6 +815,7 @@ def apply_topical_gate(message: str, analysis: dict, sources: list[dict], playbo
     for s, v in zip(sources, verdicts):
         s.pop("off_topic", None)
         s["fit_score"] = round(v.score, 3)
+        s["fit_direct"] = bool(v.direct)
         if not v.ok:
             s["off_topic"] = True
             s["off_topic_why"] = v.reasons

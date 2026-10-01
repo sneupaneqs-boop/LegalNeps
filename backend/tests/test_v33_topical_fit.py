@@ -158,7 +158,8 @@ def test_abstain_reply_in_nepali_and_english_lists_possibly_related_and_the_plan
 
 def test_extractive_fallback_is_topical_and_says_whether_it_governs():
     srcs = [{"id": "x1", "category": "law", "source_ne": "A", "source_en": "A", "text_ne": "प्रतिलिपि अधिकार", "fit_score": 0.2, "off_topic": True},
-            {"id": "x2", "category": "law", "source_ne": "B", "source_en": "B", "text_ne": "बहाल सम्झौता", "fit_score": -0.1}]
+            {"id": "x2", "category": "law", "source_ne": "B", "source_en": "B", "text_ne": "बहाल सम्झौता", "fit_score": -0.1,
+             "fit_direct": True}]  # V2.7: the "matches the subject" sentence needs the strict fit check too
     out = fit_reply.extractive_answer(srcs, "ne", "DISC")
     assert "बहाल सम्झौता" in out and "प्रतिलिपि अधिकार" not in out
     assert "ठ्याक्कै अवस्थामा सिधै लागू हुन्छन् भन्ने पुष्टि गर्न सकिएन" in out
@@ -197,8 +198,8 @@ def test_run_abstains_without_calling_the_model(monkeypatch):
     assert "".join(d for k, d in events if k == "delta") == done["answer"]
 
 
-def test_pipeline_version_is_p11():
-    assert generation.PIPELINE_VERSION.startswith("p11-")
+def test_pipeline_version_is_p12():
+    assert generation.PIPELINE_VERSION.startswith("p12-")
 
 
 # ------------------------------------------------------------ polish

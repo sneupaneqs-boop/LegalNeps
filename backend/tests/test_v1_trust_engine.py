@@ -132,7 +132,9 @@ def test_salary_question_flags_1970s_precedents_as_stale():
     q = "My employer has not paid my salary for 4 months. What can I do?"
     pb = generation._match_playbook(q, dict(RAW))
     res = generation.search(q, dict(RAW), playbook=pb)
-    assert [r["source_ne"] for r in res if r.get("pinned")] == ["श्रम ऐन, २०७४, दफा 34", "श्रम ऐन, २०७४, दफा 162"]
+    # V2.7: the unpaid-wages route puts Labour Act ss.35 and 148 in front of the plan's own pins (s.34, s.162)
+    assert [r["source_ne"] for r in res if r.get("pinned")] == [
+        "श्रम ऐन, २०७४, दफा 35", "श्रम ऐन, २०७४, दफा 148", "श्रम ऐन, २०७४, दफा 34", "श्रम ऐन, २०७४, दफा 162"]
     old = [r for r in res if r["category"] == "precedent" and (r.get("decided_bs") or 9999) < 2074]
     assert old and all(r["stale"] for r in old)
 
@@ -159,10 +161,10 @@ def test_run_emits_playbook_card_and_verification(monkeypatch):
         {"heading": "", "sentences": [{"text": "I understand that four months without income is very hard.", "kind": "empathy", "cites": []}]},
         {"heading": "Key rules", "sentences": [
             {"text": "Under the Labour Act, 2074, Section 34, a worker gets wages and benefits from the day work starts.",
-             "kind": "rule", "cites": [{"n": 1, "quote": q1}]},
+             "kind": "rule", "cites": [{"n": 3, "quote": q1}]},   # V2.7: routed ss.35, 148 are [1], [2]; s.34 is [3]
             {"text": "A worker's wages cannot be lower than the Act or the employment contract provides.",
-             "kind": "rule", "cites": [{"n": 1, "quote": q2}]},
-            {"text": "You must file within 35 days.", "kind": "deadline", "cites": [{"n": 2, "quote": q3}]}]},
+             "kind": "rule", "cites": [{"n": 3, "quote": q2}]},
+            {"text": "You must file within 35 days.", "kind": "deadline", "cites": [{"n": 4, "quote": q3}]}]},
     ], "gaps": [], "follow_up_questions": []}
     monkeypatch.setattr(llm, "complete", lambda system, user, **kw: json.dumps(reply, ensure_ascii=False))
     monkeypatch.setattr(generation.supa, "cache_get", lambda *a: None)
