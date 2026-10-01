@@ -28,7 +28,8 @@ V25_IDS = {
     "loan_interest_dispute", "bail_release_after_arrest", "dowry_harassment",
     "company_registration_shareholders", "agm_not_held", "medical_negligence_death",
 }
-EXPECTED_IDS = EXPECTED_IDS | V25_IDS
+V26_IDS = {"maternity_leave", "salary_tax_withholding", "company_annual_return_late"}
+EXPECTED_IDS = EXPECTED_IDS | V25_IDS | V26_IDS
 
 
 def test_all_playbooks_exist():

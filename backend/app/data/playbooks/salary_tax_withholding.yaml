@@ -1,0 +1,49 @@
+id: salary_tax_withholding
+area: tax
+keywords:
+  - "salary tax"
+  - "tax on salary"
+  - "tax katauti"
+  - "tds on salary"
+  - "talab ma tax"
+  - "tax deducted from salary"
+  - "तलबबाट कर"
+  - "तलबमा कर"
+  - "तलबबाट कर कटौती"
+  - "कर कट्टी"
+  - "रोजगारदाताबाट कर"
+issue:
+  en: "My employer deducts tax from my salary: how does the withholding work?"
+  ne: "रोजगारदाताले मेरो तलबबाट कर कट्टी गर्छ: यो कसरी हुन्छ?"
+fact_questions:
+  - en: "Is the employer a resident in Nepal and are you an employee or worker (not self-employed)?"
+    ne: "रोजगारदाता नेपालको बासिन्दा हो र तपाईं कर्मचारी वा कामदार हुनुहुन्छ (स्वरोजगार होइन)?"
+  - en: "What is your monthly remuneration, and is the salary your only income?"
+    ne: "तपाईंको मासिक पारिश्रमिक कति हो, र तलब मात्र आम्दानी हो?"
+provisions:
+  - law_title_ne: "आयकर ऐन, २०५८"
+    section: "87"
+    note:
+      en: "Every resident employer must withhold tax, at the rates in Schedule 1, whenever it pays an employee or worker any amount that counts as income from employment with a source in Nepal. The employer's duty is not reduced because it has another right or duty to deduct or hold back from the payment, or because other law bars reducing the employee's employment income. The percentage rates themselves are in Schedule 1, not in section 87."
+      ne: "प्रत्येक बासिन्दा रोजगारदाताले रोजगारीबाट कर्मचारी वा कामदारले प्राप्त गरेको आयको गणना गर्दा समावेश हुने नेपालमा स्रोत भएको कुनै रकम भुक्तानी गर्दा अनुसूची–१ बमोजिमको दरले कर कट्टी गर्नुपर्छ। रोजगारदाताले अन्य रकम कट्टी वा रोक्का गर्ने अधिकार वा कर्तव्य भएको, वा अन्य कानूनले रोजगारीको आय घटाउन नपाउने भएको कारणले यो दायित्व घट्दैन। प्रतिशतका दर दफा ८७ मा होइन, अनुसूची–१ मा छन्।"
+evidence:
+  - en: "Your salary slips showing the tax withheld and the employer's tax-deduction certificate"
+    ne: "कट्टी गरिएको कर देखिने तलबको विवरण र रोजगारदाताको कर कट्टी प्रमाणपत्र"
+  - en: "Your PAN"
+    ne: "तपाईंको स्थायी लेखा नम्बर (प्यान)"
+forum:
+  en: "Ask your employer's payroll or accounts section how the Schedule 1 rate was applied; for a dispute about the amount, consult the Inland Revenue Office or a tax adviser."
+  ne: "अनुसूची–१ को दर कसरी लगाइयो भनेर रोजगारदाताको लेखा/पेरोल शाखालाई सोध्नुहोस्; रकममा विवाद भए आन्तरिक राजस्व कार्यालय वा कर सल्लाहकारसँग परामर्श गर्नुहोस्।"
+limitation:
+  note:
+    en: "Section 87 sets no time limit; the withholding rates are in Schedule 1 of the Act, which the corpus passage for section 87 only refers to."
+    ne: "दफा ८७ ले म्याद तोकेको छैन; कट्टीका दर ऐनको अनुसूची–१ मा छन्, जसलाई दफा ८७ ले मात्र उल्लेख गर्छ।"
+  provision:
+    law_title_ne: "आयकर ऐन, २०५८"
+    section: "87"
+next_steps:
+  - en: "Check the Schedule 1 slab rates for the current fiscal year (the Finance Act may change them) and compare with your salary slip."
+    ne: "चालू आर्थिक वर्षको अनुसूची–१ का दर हेर्नुहोस् (आर्थिक ऐनले परिवर्तन गर्न सक्छ) र तलबको विवरणसँग तुलना गर्नुहोस्।"
+  - en: "If you think too much was withheld, ask the employer to correct it or claim it in your annual return."
+    ne: "बढी कट्टी भएको लागेमा रोजगारदातालाई सच्याउन भन्नुहोस् वा वार्षिक विवरणमा दाबी गर्नुहोस्।"
+template_link: null
