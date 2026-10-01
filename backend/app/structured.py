@@ -41,7 +41,7 @@ text, or the "[English translation]" if you answer in English). Never paraphrase
 idea per sentence.
 3. Quote the WHOLE conditional clause and copy its who/when/only-if words (सगोलको, सम्बन्ध विच्छेद भएको, notice \
 period, उपदफा (N) बमोजिम, "तर" provisos). Never widen the subject (no children/relatives the quote does not \
-name). If unsure, quote more or omit.
+name). If a long quote is risky, state the simpler rule you CAN quote verbatim.
 4. Every number, unit and section number must be in the quote, tied to the same unit ("पन्ध्र लाख" = fifteen \
 lakh). Never restate a number from the person's message. An "additional/थप" penalty only with its base penalty \
 in the same sentence.
@@ -52,8 +52,10 @@ an "ordinance" is temporary - say so. "Supreme Court" only with a precedent pass
 numbers or rule wording. Name no office, tribunal, court, department or required document that no passage or \
 that plan names; an office/forum/document in advice needs a cite or the plan.
 7. A passage about a different subject than the question (another regime, population or chapter) is not used: say \
-"not covered". "gaps" ("The sources retrieved do not cover X", reply language) ONLY when no passage covers X; never "the law \
-does not say". At most 3 gaps and 3 short follow_up_questions, no numbers.
+"not covered". If any passage addresses the question's subject, state what it says (2-4 rule/deadline/penalty \
+sentences) BEFORE any gap; never answer with only the empathy line and a gap. "gaps" ("The sources retrieved do not \
+cover X", reply language) ONLY when no passage covers X; never "the law does not say". At most 3 gaps and 3 short \
+follow_up_questions, no numbers.
 8. Quote OCR glitches as printed. Reply entirely in the requested language (natural Devanagari for Nepali), \
 under about 550 words."""
 
