@@ -1,0 +1,1253 @@
+{
+ "meta": {
+  "date": "2026-10-01",
+  "reviewer": "independent LLM reviewer (Claude), two-pass",
+  "input": "backend/eval/reports/answer-review-v27-answers30c-20261001.json (copy of review-answers30c-final.json; backend/eval/answer_review.py --set answers30c against https://kanooni-sathi-api.onrender.com at 2026-10-01 18:37, entailment pass OFF; V2.7 pipeline p12: section routes, topical-fit gate with abstain, population/actor guards, condition checks)",
+  "labels": {
+   "supported": "cited quote/passage entails everything the sentence asserts",
+   "unsupported": "real quote but sentence says more/different (overreach, dropped condition, wrong subject)",
+   "wrong-law": "real passage that does not govern the user situation (different subject/population/regime)",
+   "hallucinated-number-or-section": "number/section/period not in the passage"
+  },
+  "scheme": "Same four labels and rate definition as answer-review-v33-labels-20261001.json: kept, cited sentences of mode=structured answers only; a real rule from the right law that merely does not answer the question is \"supported\" and flagged tangential; borderline calls flagged and counted separately. Fallback usefulness is 1 only if the governing provision for the main point asked is shown, else 0.",
+  "passes": "Pass 1 labelled all 24 kept sentences against the full Nepali passage. Pass 2 re-read every non-supported and borderline label against the whole section and checked governing provisions with app.retrieval.get_index() (section lookup by title/section, BM25 and regex scans) for every fallback and abstain answer.",
+  "set": "answers30c (30 fresh questions never used for tuning)"
+ },
+ "summary": {
+  "overall": {
+   "n": 24,
+   "supported": 18,
+   "unsupported": 1,
+   "wrong_law": 5,
+   "hallucinated": 0,
+   "bad": 6,
+   "rate": 0.25,
+   "wilson95": [
+    0.12,
+    0.449
+   ]
+  },
+  "by_question_script": {
+   "devanagari": {
+    "n": 0
+   },
+   "romanised": {
+    "n": 13,
+    "supported": 8,
+    "unsupported": 0,
+    "wrong_law": 5,
+    "hallucinated": 0,
+    "bad": 5,
+    "rate": 0.385,
+    "wilson95": [
+     0.177,
+     0.645
+    ]
+   },
+   "english": {
+    "n": 11,
+    "supported": 10,
+    "unsupported": 1,
+    "wrong_law": 0,
+    "hallucinated": 0,
+    "bad": 1,
+    "rate": 0.091,
+    "wilson95": [
+     0.016,
+     0.377
+    ]
+   }
+  },
+  "by_kind": {
+   "deadline": {
+    "n": 3,
+    "supported": 1,
+    "unsupported": 0,
+    "wrong_law": 2,
+    "hallucinated": 0,
+    "bad": 2,
+    "rate": 0.667,
+    "wilson95": [
+     0.208,
+     0.939
+    ]
+   },
+   "penalty": {
+    "n": 4,
+    "supported": 4,
+    "unsupported": 0,
+    "wrong_law": 0,
+    "hallucinated": 0,
+    "bad": 0,
+    "rate": 0.0,
+    "wilson95": [
+     0.0,
+     0.49
+    ]
+   },
+   "procedure": {
+    "n": 1,
+    "supported": 0,
+    "unsupported": 0,
+    "wrong_law": 1,
+    "hallucinated": 0,
+    "bad": 1,
+    "rate": 1.0,
+    "wilson95": [
+     0.207,
+     1.0
+    ]
+   },
+   "rule": {
+    "n": 16,
+    "supported": 13,
+    "unsupported": 1,
+    "wrong_law": 2,
+    "hallucinated": 0,
+    "bad": 3,
+    "rate": 0.188,
+    "wilson95": [
+     0.066,
+     0.43
+    ]
+   }
+  },
+  "sensitivity": {
+   "borderline_labels_flipped_to_supported": {
+    "n": 24,
+    "supported": 22,
+    "unsupported": 0,
+    "wrong_law": 2,
+    "hallucinated": 0,
+    "bad": 2,
+    "rate": 0.083,
+    "wilson95": [
+     0.023,
+     0.258
+    ]
+   },
+   "tangential_supported_counted_as_bad": {
+    "n": 24,
+    "supported": 14,
+    "unsupported": 5,
+    "wrong_law": 5,
+    "hallucinated": 0,
+    "bad": 10,
+    "rate": 0.417,
+    "wilson95": [
+     0.245,
+     0.612
+    ]
+   },
+   "both": {
+    "n": 24,
+    "supported": 18,
+    "unsupported": 4,
+    "wrong_law": 2,
+    "hallucinated": 0,
+    "bad": 6,
+    "rate": 0.25,
+    "wilson95": [
+     0.12,
+     0.449
+    ]
+   },
+   "excluding_c16_shop_registration_cluster": {
+    "n": 20,
+    "supported": 18,
+    "unsupported": 1,
+    "wrong_law": 1,
+    "hallucinated": 0,
+    "bad": 2,
+    "rate": 0.1,
+    "wilson95": [
+     0.028,
+     0.301
+    ]
+   }
+  },
+  "structured_answers_with_zero_bad_sentences": [
+   "c13",
+   "c21",
+   "c25",
+   "c30"
+  ],
+  "headline": {
+   "wrong_claim_rate": "6/24 = 25.0%, 95% Wilson 12-45%",
+   "safe_and_useful": {
+    "strict": "8/30 = 26.7%",
+    "ids": [
+     "c06",
+     "c07",
+     "c13",
+     "c17",
+     "c20",
+     "c21",
+     "c26",
+     "c30"
+    ]
+   },
+   "correct_and_useful (usefulness 2, zero bad sentences)": {
+    "n": 1,
+    "of": 30,
+    "ids": [
+     "c13"
+    ]
+   },
+   "abstain_precision": {
+    "abstains": 7,
+    "justified": 1,
+    "missed_retrieval_or_gate": [
+     "c01",
+     "c03",
+     "c05",
+     "c09",
+     "c10",
+     "c18"
+    ]
+   }
+  }
+ },
+ "modes": {
+  "structured": 7,
+  "extractive_fallback": 16,
+  "abstain": 7,
+  "none": 0
+ },
+ "usefulness": {
+  "distribution": {
+   "0": 17,
+   "1": 11,
+   "2": 2
+  },
+  "mean": 0.5,
+  "at_least_1": 13,
+  "correct_and_useful": [
+   "c13"
+  ],
+  "correct_and_useful_fraction": 0.033
+ },
+ "fallback_summary": {
+  "n": 16,
+  "shows_governing_provisions": {
+   "yes": 2,
+   "partly": 10,
+   "no": 4
+  },
+  "caveat_sentence_accurate_true": 5,
+  "caveat_sentence_accurate_false_or_partly": 11,
+  "governing_in_corpus_but_not_shown": [
+   "c02",
+   "c04",
+   "c07",
+   "c08",
+   "c11",
+   "c14",
+   "c15",
+   "c19",
+   "c20",
+   "c22",
+   "c23",
+   "c26",
+   "c27",
+   "c29"
+  ]
+ },
+ "sentences": [
+  {
+   "id": "c12-s0",
+   "answer": "c12",
+   "question_script": "romanised",
+   "kind": "rule",
+   "label": "supported",
+   "sentence": "श्रम ऐन, २०७४ को दफा ५२ अनुसार सामाजिक सुरक्षा कोष स्थापना भई सञ्चालनमा नआएसम्म रोजगारदाताले सञ्चय कोषको रकम तोकिए बमोजिम हुने गरी जम्मा गर्नुपर्नेछ।",
+   "cited": "श्रम ऐन, २०७४, दफा 52",
+   "cited_quote": "सामाजिक सुरक्षा कोष स्थापना भई सञ्चालनमा नआएसम्म, वा (ख) सम्बन्धित रोजगारदाताको हकमा सामाजिक सुरक्षा कोष सम्बन्धी कानून लागू नभएसम्म",
+   "evidence": "\"सामाजिक सुरक्षा कोष स्थापना भई सञ्चालनमा नआएसम्म ... तोकिए बमोजिम हुने गरी जम्मा गर्नुपर्नेछ\" (Labour Act s.52(3)(क))",
+   "note": "Faithful and the condition is stated. The main rule (s.52(1)-(2): deposit 10%+10% in the SSF from day one) is not stated, so the sentence is the exceptional route only.",
+   "tangential": false,
+   "borderline": false
+  },
+  {
+   "id": "c12-s1",
+   "answer": "c12",
+   "question_script": "romanised",
+   "kind": "rule",
+   "label": "wrong-law",
+   "sentence": "कर्मचारी सञ्चय कोष ऐन, २०१९ को दफा १२ अनुसार प्रत्येक कार्यालयले कर्मचारीको मासिक तलबबाट दश प्रतिशतमा नघट्ने गरी तोकिए बमोजिमका दरले कोष रकम कट्टी गरी कोषमा जम्मा गर्नुपर्नेछ।",
+   "cited": "कर्मचारी सञ्‍चय कोष ऐन, २०१९, दफा 12",
+   "cited_quote": "प्रत्येक कार्यालयले कर्मचारीको मासिक तलबबाट दश प्रतिशतमा नघट्ने गरी तोकिए बमोजिमका दरले कोष रकम कट्टी गरी सो रकमको तोकिए बमोजिमको प्रतिशतले हुने रकम समेत थप गरी कोषमा जम्मा गर्नुपर्नेछ",
+   "evidence": "EPF Act s.12(1) binds \"प्रत्येक कार्यालय\" (s.2(ढ): office/institution with the duty to deduct; s.2(ख) \"कर्मचारी\" = civil servants, army, police, teachers ... and staff of institutions under s.12ख). s.12ख(1): \"सङ्गठित संस्थाले ... कोष रकम कट्टी गरी कोषमा जम्मा गराउन सक्नेछ\" (may), (2) only by Government notice.",
+   "note": "The user asks about a private company. The Employee Provident Fund Act obliges government/public offices; a private company is covered only if it opts in or is notified (s.12ख). The sentence states a flat duty on \"every office\" for the user. Private-employer PF is governed by Labour Act s.52 (sentence 0).",
+   "tangential": false,
+   "borderline": true
+  },
+  {
+   "id": "c12-s2",
+   "answer": "c12",
+   "question_script": "romanised",
+   "kind": "penalty",
+   "label": "supported",
+   "sentence": "श्रम ऐन, २०७४ को दफा १६३ अनुसार सञ्चय कोष वा सामाजिक सुरक्षा कोषमा जम्मा गर्नुपर्ने रकम जम्मा नगर्ने रोजगारदातालाई त्यस्तो क्षतिपूर्ति र सोको दोब्बर हर्जाना भराउने आदेश दिइन्छ।",
+   "cited": "श्रम ऐन, २०७४, दफा 163 (2)–(4)",
+   "cited_quote": "सञ्चय कोष बापतको रकम वा सामाजिक सुरक्षा कोषमा जम्मा गर्नुपर्नेरकम जम्मा नगर्ने वा औषधि उपचार खर्चनदिने वा क्षतिपूर्तिबापतको बीमा नगर्नेरोजगारदातालाई त्यस्तो क्षतिपूर्तिर सोको दोब्बर हर्जाना भराउने आदेश दिन",
+   "evidence": "\"सञ्चय कोष बापतको रकम वा सामाजिक सुरक्षा कोषमा जम्मा गर्नुपर्नेरकम जम्मा नगर्ने ... रोजगारदातालाई त्यस्तो क्षतिपूर्ति र सोको दोब्बर हर्जाना भराउने आदेश दिन\" (Labour Act s.163(2)(घ))",
+   "note": "Right law and remedy. The answer says nothing about who files (Department/Office, s.162) although the gap section admits it.",
+   "tangential": false,
+   "borderline": false
+  },
+  {
+   "id": "c13-s0",
+   "answer": "c13",
+   "question_script": "romanised",
+   "kind": "rule",
+   "label": "supported",
+   "sentence": "मुलुकी अपराध संहिता, २०७४ को दफा १७४ अनुसार कुनै किसिमको चल, अचल, दाइजो वा कुनै सम्पत्ति माग गरी वा लेनदेन शर्त राखी विवाह गर्न वा गराउन हुँदैन।",
+   "cited": "मुलुकी अपराध संहिता, २०७४, दफा 174",
+   "cited_quote": "कुनै किसिमको चल, अचल, दाइजो वा कुनै सम्पत्ति माग गरी वा लेनदेन शर्त राखी विवाह गर्न वा गराउन हुँदैन",
+   "evidence": "\"कुनै किसिमको चल, अचल, दाइजो वा कुनै सम्पत्ति माग गरी वा लेनदेन शर्त राखी विवाह गर्न वा गराउन हुँदैन\" (Criminal Code s.174(1))",
+   "note": "Entailed, but s.174(1) is the PRE-marriage demand rule; the user was already married and expelled after marriage (s.174(3)).",
+   "tangential": true,
+   "borderline": false
+  },
+  {
+   "id": "c13-s1",
+   "answer": "c13",
+   "question_script": "romanised",
+   "kind": "rule",
+   "label": "supported",
+   "sentence": "विवाह गरी सकेपछि दाइजो नदिएको कारणले दुलही वा निजका नातेदारलाई कुनै किसिमले हैरान पार्न, सताउन वा कुनै अमानवीय वा अपमानजन्य व्यवहार गर्न हुँदैन।",
+   "cited": "मुलुकी अपराध संहिता, २०७४, दफा 174",
+   "cited_quote": "दाइजो नदिएको कारणले दुलही वा निजका नातेदारलाई कुनै किसिमले हैरान पार्न, सताउन वा कुनै अमानवीय वा अपमानजन्य व्यवहार गर्न हुँदैन",
+   "evidence": "\"विवाह गरी सकेपछि ... दाइजो नदिएको कारणले दुलही वा निजका नातेदारलाई कुनै किसिमले हैरान पार्न, सताउन वा कुनै अमानवीय वा अपमानजन्य व्यवहार गर्न हुँदैन\" (s.174(3))",
+   "note": "Exactly the user situation (harassment/expulsion after marriage for dowry).",
+   "tangential": false,
+   "borderline": false
+  },
+  {
+   "id": "c13-s2",
+   "answer": "c13",
+   "question_script": "romanised",
+   "kind": "penalty",
+   "label": "supported",
+   "sentence": "दाइजो माग गरी विवाहमा लेनदेन गर्ने व्यक्तिलाई तीन वर्षसम्म कैद वा तीस हजार रुपैयाँसम्म जरिबाना वा दुवै सजाय हुनेछ।",
+   "cited": "मुलुकी अपराध संहिता, २०७४, दफा 174",
+   "cited_quote": "तीन वर्षसम्म कैद वा तीस हजार रुपैयाँसम्म जरिबाना वा दुवै सजाय हुनेछ",
+   "evidence": "\"उपदफा (१) बमोजिमको कसूर गर्ने व्यक्तिलाई तीन वर्षसम्म कैद वा तीस हजार रुपैयाँसम्म जरिबाना वा दुवै सजाय\" (s.174(2))",
+   "note": "Correct for the pre-marriage demand offence; not the penalty for the user situation (that is s.174(4), next sentence).",
+   "tangential": true,
+   "borderline": false
+  },
+  {
+   "id": "c13-s3",
+   "answer": "c13",
+   "question_script": "romanised",
+   "kind": "penalty",
+   "label": "supported",
+   "sentence": "विवाहपछि दाइजो नदिएको कारणले दुलही वा नातेदारलाई हैरान पार्ने वा सताउने व्यक्तिलाई पाँच वर्षसम्म कैद वा पचास हजार रुपैयाँसम्म जरिबाना वा दुवै सजाय हुनेछ।",
+   "cited": "मुलुकी अपराध संहिता, २०७४, दफा 174",
+   "cited_quote": "पाँच वर्षसम्म कैद वा पचास हजार रुपैयाँसम्म जरिबाना वा दुवै सजाय हुनेछ",
+   "evidence": "\"उपदफा (३) बमोजिमको कसूर गर्ने व्यक्तिलाई पाँच वर्षसम्म कैद वा पचास हजार रुपैयाँसम्म जरिबाना वा दुवै सजाय\" (s.174(4))",
+   "note": "Penalty for the user situation.",
+   "tangential": false,
+   "borderline": false
+  },
+  {
+   "id": "c13-s4",
+   "answer": "c13",
+   "question_script": "romanised",
+   "kind": "deadline",
+   "label": "supported",
+   "sentence": "यस परिच्छेद अन्तर्गतको कसूरमा कसूर भए गरेको कुरा थाहा पाएको मितिले तीन महिना नाघेपछि उजुर लाग्ने छैन।",
+   "cited": "मुलुकी अपराध संहिता, २०७४, दफा 176",
+   "cited_quote": "कसूर भए गरेको कुरा थाहा पाएको मितिले तीन महिना नाघेपछि उजुर लाग्ने छैन",
+   "evidence": "\"यस परिच्छेद अन्तर्गतको कसूरमा कसूर भए गरेको कुरा थाहा पाएको मितिले तीन महिना नाघेपछि उजुर लाग्ने छैन\" (Criminal Code s.176)",
+   "note": "The 3-month limitation (from knowledge) applies to the chapter containing s.174. Valuable and correct.",
+   "tangential": false,
+   "borderline": false
+  },
+  {
+   "id": "c13-s5",
+   "answer": "c13",
+   "question_script": "romanised",
+   "kind": "rule",
+   "label": "supported",
+   "sentence": "घरेलु हिंसा भएको, भैरहेको वा हुन लागेको थाहा पाउने जुनसुकै व्यक्तिले सो सम्बन्धी विवरण खुलाई प्रहरी कार्यालय वा राष्ट्रिय महिला आयोग वा स्थानीय तह समक्ष लिखित वा मौखिक उजुरी दिन सक्नेछ।",
+   "cited": "घरेलु हिंसा (कसूर र सजाय) ऐन, २०६६, दफा 4 (1)–(8)",
+   "cited_quote": "घरेलु हिंसा भएको, भैरहेको वा हुन लागेको थाहा पाउने जुनसुकै व्यक्तिले सो सम्बन्धी विवरण खुलाई प्रहरी कार्यालय वा राष्ट्रिय महिला आयोग वा स्थानीय तह समक्ष लिखित वा मौखिक उजुरी दिन सक्नेछ",
+   "evidence": "\"घरेलु हिंसा भएको, भैरहेको वा हुन लागेको थाहा पाउने जुनसुकै व्यक्तिले ... प्रहरी कार्यालय वा राष्ट्रिय महिला आयोग वा स्थानीय तह समक्ष लिखित वा मौखिक उजुरी दिन सक्नेछ\" (Domestic Violence Act s.4(1))",
+   "note": "Entailed word for word; expulsion for dowry is within domestic violence.",
+   "tangential": false,
+   "borderline": false
+  },
+  {
+   "id": "c16-s0",
+   "answer": "c16",
+   "question_script": "romanised",
+   "kind": "rule",
+   "label": "wrong-law",
+   "sentence": "कम्पनी ऐन, २०६३ को दफा ५ अनुसार दस्तुर लिई कम्पनी दर्ता गरी तोकिए बमोजिमको ढाँचामा निवेदकलाई कम्पनी दर्ताको प्रमाणपत्र दिनु पर्नेछ।",
+   "cited": "कम्पनी ऐन, २०६३, दफा 5",
+   "cited_quote": "दस्तुर लिई त्यस्तो कम्पनी दर्ता गरी तोकिए बमोजिमको ढाँचामा निवेदकलाई कम्पनी दर्ताको प्रमाणपत्र दिनु पर्नेछ।",
+   "evidence": "Companies Act s.5: \"कम्पनी संस्थापना गर्न निवेदन परेमा कार्यालयले ... सात दिनभित्र ... कम्पनी दर्ताको प्रमाणपत्र दिनु पर्नेछ\"",
+   "note": "A dokan (shop) is normally a sole proprietorship/firm, registered under the Private Firm Registration Act 2014 s.3-4 (or a local-level business registration), not a company. The sentence is the Registrar's duty to issue a company certificate; it gives neither the documents nor the fee the user asked for.",
+   "tangential": false,
+   "borderline": true
+  },
+  {
+   "id": "c16-s1",
+   "answer": "c16",
+   "question_script": "romanised",
+   "kind": "deadline",
+   "label": "wrong-law",
+   "sentence": "तोकिएको समयभित्र दर्ता नभएमा कार्यालयले प्रस्तावित कम्पनीलाई तीन दिनभित्र कारण सहितको जानकारी दिनुपर्ने छ।",
+   "cited": "कम्पनी ऐन, २०६३, दफा 5",
+   "cited_quote": "तोकिएको समयभित्र दर्ता नभएमा कार्यालयले प्रस्तावित कम्पनीलाई तीन दिनभित्र कारण सहितको जानकारी दिनुपर्ने छ।",
+   "evidence": "Companies Act s.5 second paragraph: \"तोकिएको समयभित्र दर्ता नभएमा कार्यालयले प्रस्तावित कम्पनीलाई तीन दिनभित्र कारण सहितको जानकारी दिनुपर्ने छ\"",
+   "note": "Same: company-incorporation procedure for a shop registration question.",
+   "tangential": false,
+   "borderline": true
+  },
+  {
+   "id": "c16-s2",
+   "answer": "c16",
+   "question_script": "romanised",
+   "kind": "deadline",
+   "label": "wrong-law",
+   "sentence": "औद्योगिक व्यवसाय ऐन, २०७६ को दफा ५ अनुसार आवश्यक विवरण वा कागजात पूरा भएको देखिएमा त्यस्तो विवरण वा कागजात प्राप्त भएको पाँच दिनभित्र उद्योग दर्ताको प्रमाणपत्र दिनु पर्नेछ।",
+   "cited": "औद्योगिक व्यवसाय ऐन, २०७६, दफा 5",
+   "cited_quote": "आवश्यक विवरण वा कागजात पूरा भएको देखिएमा त्यस्तो विवरण वा कागजात प्राप्त भएको पाँच दिनभित्र उद्योग दर्तागर्ने निकायले निवेदकको माग बमोजिमको उद्योग दर्ता गरी तोकिएको ढाँचामा उद्योग दर्ताको प्रमाणपत्र दिनु पर्नेछ।",
+   "evidence": "Industrial Enterprises Act s.5(1): \"... उद्योग दर्तागर्ने निकायले ... उद्योग दर्ताको प्रमाणपत्र दिनु पर्नेछ\"",
+   "note": "Industry registration (s.2(क) \"उद्योग\" = industry under s.17), not retail shop/trade registration.",
+   "tangential": false,
+   "borderline": false
+  },
+  {
+   "id": "c16-s3",
+   "answer": "c16",
+   "question_script": "romanised",
+   "kind": "procedure",
+   "label": "wrong-law",
+   "sentence": "औद्योगिक व्यवसाय ऐन, २०७६ को दफा ४ अनुसार कागजात सहित उद्योग दर्ताको लागि सम्बन्धित प्रदेशको उद्योग दर्तागर्ने निकाय समक्ष निवेदन दिनु पर्नेछ।",
+   "cited": "औद्योगिक व्यवसाय ऐन, २०७६, दफा 4 (2)–(8)",
+   "cited_quote": "कागजात सहित उद्योग दर्ताको लागि सम्बन्धित प्रदेशको उद्योग दर्तागर्ने निकाय समक्ष निवेदन दिनु पर्नेछ।",
+   "evidence": "Industrial Enterprises Act s.4(8): \"... उद्योग स्थापना गर्न चाहने व्यक्ति, फर्म वा कम्पनीले ... उद्योग दर्ताको लागि सम्बन्धित प्रदेशको उद्योग दर्तागर्ने निकाय समक्ष निवेदन दिनु पर्नेछ\"",
+   "note": "Same: industries, not shops. The quote also covers \"अन्य उद्योग\" only.",
+   "tangential": false,
+   "borderline": false
+  },
+  {
+   "id": "c21-s0",
+   "answer": "c21",
+   "question_script": "english",
+   "kind": "rule",
+   "label": "supported",
+   "sentence": "Under the Labour Act, 2074, Section 38, salary may be deducted if an employee intentionally or negligently causes loss or damage to the employer's cash or property.",
+   "cited": "The Labour Act, 2074, Section 38",
+   "cited_quote": "बदनियतपूर्वक वा लापरवाही गरी रोजगारदाताको नगदी वा जिन्सी नोक्सान गरेमा वा हराएमा त्यस्तो नगदी वा जिन्सी किताबमा उल्लेख भए बमोजिमको वा उत्पादित मूल्यको हकमा उत्पादन मूल्य",
+   "evidence": "\"(च) बदनियतपूर्वक वा लापरवाही गरी रोजगारदाताको नगदी वा जिन्सी नोक्सान गरेमा वा हराएमा त्यस्तो नगदी वा जिन्सी किताबमा उल्लेख भए बमोजिमको ... रकम\" (Labour Act s.38(1)(च))",
+   "note": "Faithful. Omits that the amount is limited to the recorded loss and the s.38(2)-(3) limits, and omits the opening rule (no deduction except listed cases), which is the direct answer to \"as a penalty\".",
+   "tangential": false,
+   "borderline": false
+  },
+  {
+   "id": "c21-s1",
+   "answer": "c21",
+   "question_script": "english",
+   "kind": "penalty",
+   "label": "supported",
+   "sentence": "Under the Labour Act, 2074, Section 163, if an employer deducts salary contrary to the law, the Department or Office can order the deducted amount returned along with damages up to double that amount.",
+   "cited": "The Labour Act, 2074, Section 163 (2)–(4)",
+   "cited_quote": "यो ऐन वा यस ऐन अन्तरगत बनेको नियम विपरीत हुने गरी पारिश्रमिक वा सुविधा कट्टा गर्नेरोजगारदाताबाट कट्टा गरिएको रकमको अतिरिक्त दोब्बरसम्म हर्जाना गरी सम्बन्धित श्रमिकलाई भराई दिन",
+   "evidence": "\"यो ऐन वा यस ऐन अन्तरगत बनेको नियम विपरीत हुने गरी पारिश्रमिक वा सुविधा कट्टा गर्ने रोजगारदाताबाट कट्टा गरिएको रकमको अतिरिक्त दोब्बरसम्म हर्जाना गरी सम्बन्धित श्रमिकलाई भराई दिन\" (s.163(2)(क))",
+   "note": "Entailed.",
+   "tangential": false,
+   "borderline": false
+  },
+  {
+   "id": "c25-s0",
+   "answer": "c25",
+   "question_script": "english",
+   "kind": "rule",
+   "label": "supported",
+   "sentence": "Under the Muluki Civil Code, 2074, Section 401, a landlord can remove a tenant if the tenant does any work contrary to the agreement or this section.",
+   "cited": "The Muluki Civil Code, 2074, Section 401",
+   "cited_quote": "बहालमा बस्ने व्यक्तिले सम्झौता वा यस परिच्छेद विपरीत कुनै काम गरेमा",
+   "evidence": "\"(छ) बहालमा बस्ने व्यक्तिले सम्झौता वा यस परिच्छेद विपरीत कुनै काम गरेमा\" (CC s.401(1)(छ))",
+   "note": "Entailed (one of eight eviction grounds, stated as the rule) but answers a different question than rent increase.",
+   "tangential": true,
+   "borderline": false
+  },
+  {
+   "id": "c25-s1",
+   "answer": "c25",
+   "question_script": "english",
+   "kind": "rule",
+   "label": "supported",
+   "sentence": "Under the Muluki Civil Code, 2074, Section 402, a house rental agreement is considered terminated if the tenant leaves the house.",
+   "cited": "The Muluki Civil Code, 2074, Section 402",
+   "cited_quote": "बहालमा लिने व्यक्तिले घर छाडेमा",
+   "evidence": "\"(क) बहालमा लिने व्यक्तिले घर छाडेमा\" (CC s.402(क))",
+   "note": "Entailed but irrelevant to a rent increase.",
+   "tangential": true,
+   "borderline": false
+  },
+  {
+   "id": "c28-s0",
+   "answer": "c28",
+   "question_script": "english",
+   "kind": "rule",
+   "label": "supported",
+   "sentence": "A party is considered to have breached a contract if they fail to fulfill their contractual obligations.",
+   "cited": "The Muluki Civil Code, 2074, Section 535",
+   "cited_quote": "करारको कुनै पक्षले करार बमोजिमको दायित्व पूरा नगरेमा",
+   "evidence": "\"करारको कुनै पक्षले करार बमोजिमको दायित्व पूरा नगरेमा ... निजले करार उल्लङ्घन गरेको मानिनेछ\" (CC s.535(1))",
+   "note": "Entailed.",
+   "tangential": false,
+   "borderline": false
+  },
+  {
+   "id": "c28-s1",
+   "answer": "c28",
+   "question_script": "english",
+   "kind": "rule",
+   "label": "unsupported",
+   "sentence": "Claims for indirect or hypothetical loss or damage are not allowed.",
+   "cited": "The Muluki Civil Code, 2074, Section 537",
+   "cited_quote": "तर अप्रत्यक्ष वा काल्पनिक हानि, नोक्सानी भराई लिन पाउने छैन",
+   "evidence": "s.537(3): \"उपदफा (२) बमोजिम क्षतिपूर्ति पाउने व्यवस्था करारमा नभएकोमा ... प्रत्यक्ष र वास्तविक रूपमा भएको हानि ... तर अप्रत्यक्ष वा काल्पनिक हानि, नोक्सानी भराई लिन पाउने छैन\"",
+   "note": "Dropped condition: the bar on indirect/hypothetical loss is the proviso to s.537(3) and applies only where the contract has no pre-agreed compensation clause (s.537(2) allows a reasonable agreed sum; s.537(1) allows loss the parties foresaw). Stated as a general rule. It also replaces the main rule (actual loss is recoverable) with its limit.",
+   "tangential": false,
+   "borderline": true
+  },
+  {
+   "id": "c28-s2",
+   "answer": "c28",
+   "question_script": "english",
+   "kind": "rule",
+   "label": "supported",
+   "sentence": "If the breach is substantial, the other party may cancel the contract by giving notice.",
+   "cited": "The Muluki Civil Code, 2074, Section 535",
+   "cited_quote": "अर्को पक्षले त्यस्तो पक्षलाई सूचना दिई त्यस्तो करार रद्द गर्न सक्नेछ",
+   "evidence": "\"सारभूत रूपमा करार उल्लङ्घन भएको देखिएमा अर्को पक्षले त्यस्तो पक्षलाई सूचना दिई त्यस्तो करार रद्द गर्न सक्नेछ\" (CC s.535(2))",
+   "note": "Entailed.",
+   "tangential": false,
+   "borderline": false
+  },
+  {
+   "id": "c28-s3",
+   "answer": "c28",
+   "question_script": "english",
+   "kind": "rule",
+   "label": "supported",
+   "sentence": "If monetary compensation is not sufficient, the aggrieved party may claim specific performance of the contract.",
+   "cited": "The Muluki Civil Code, 2074, Section 540",
+   "cited_quote": "त्यसरी मर्का पर्न गएको पक्षले क्षतिपूर्तिको सट्टा करारको यथावत परिपालनाको दाबी गर्न सक्नेछ",
+   "evidence": "\"नगद क्षतिपूर्ति मनासिब र पर्याप्त नहुने भएमा ... क्षतिपूर्तिको सट्टा करारको यथावत परिपालनाको दाबी गर्न सक्नेछ\" (CC s.540(1))",
+   "note": "Entailed; the s.540(2) exceptions (personal-skill contracts etc.) are not stated.",
+   "tangential": false,
+   "borderline": true
+  },
+  {
+   "id": "c30-s0",
+   "answer": "c30",
+   "question_script": "english",
+   "kind": "rule",
+   "label": "supported",
+   "sentence": "The legal heir is also entitled to compensation equal to the third-party insurance amount if the vehicle owner did not have insurance.",
+   "cited": "The Vehicles and Transport Management Act, 2049, Section 163",
+   "cited_quote": "क्षतिपूर्ति बापत तेस्रो पक्षको बीमा नगराएको भए यस ऐन बमोजिम तेश्रो पक्षले पाउने दुर्घटना बीमाको रकम",
+   "evidence": "\"(क) ज्यान मरेकोमा सो मर्नेव्यक्तिको हकवालालाई कृया खर्चबापत पचास हजार रुपैयाँसम्म र क्षतिपूर्ति बापत तेस्रो पक्षको बीमा नगराएको भए यस ऐन बमोजिम तेश्रो पक्षले पाउने दुर्घटना बीमाको रकम\" (Vehicles Act s.163(1)(क))",
+   "note": "Entailed. Omits the Rs 50,000 funeral cost and that the CDO orders it (s.163(2)); the insured case is only in the gap list.",
+   "tangential": false,
+   "borderline": false
+  },
+  {
+   "id": "c30-s1",
+   "answer": "c30",
+   "question_script": "english",
+   "kind": "rule",
+   "label": "supported",
+   "sentence": "The Supreme Court has ruled that the liability to pay compensation is fundamentally the responsibility of the vehicle owner or manager, not just the driver.",
+   "cited": "Nepal Kanoon Patrika 2063, Decision No. 7758",
+   "cited_quote": "क्षतिपूर्तिवापतको दायित्व पूरा गर्ने जिम्मेवारी आधारभूत रुपमा सवारी चालकको नभै सवारीधनी वा व्यवस्थापकको",
+   "evidence": "\"क्षतिपूर्तिवापतको दायित्व पूरा गर्ने जिम्मेवारी आधारभूत रुपमा सवारी चालकको नभै सवारीधनी वा व्यवस्थापकको\" (Nepal Kanoon Patrika 2063, decision 7758)",
+   "note": "Entailed (the holding).",
+   "tangential": false,
+   "borderline": false
+  },
+  {
+   "id": "c30-s2",
+   "answer": "c30",
+   "question_script": "english",
+   "kind": "rule",
+   "label": "supported",
+   "sentence": "If the vehicle was not insured, the vehicle owner or manager must pay the insurance amount that the third party would have received.",
+   "cited": "The Vehicles and Transport Management Act, 2049, Section 152",
+   "cited_quote": "तेस्रो पक्ष वा कम्प्रिहेन्सीभ बीमा नगराई चलाएको सवारी दुर्घटनाग्रस्त भई कुनै तेस्रो पक्ष वा निजको सम्पत्ति नोक्सान भएमा",
+   "evidence": "\"(३) ... तेस्रो पक्ष वा कम्प्रिहेन्सीभ बीमा नगराई चलाएको सवारी दुर्घटनाग्रस्त भई ... तेस्रो पक्ष वा निजको हकवालाले पाउनु पर्ने उपदफा (१) बमोजिमको बीमा रकम ... सवारी धनी वा व्यवस्थापकले क्षतिपूर्तिबापत दिनु पर्छ\" (Vehicles Act s.152(3))",
+   "note": "Entailed.",
+   "tangential": false,
+   "borderline": false
+  }
+ ],
+ "answers": [
+  {
+   "id": "c01",
+   "question": "जग्गाधनी पुर्जा बन्धकी राखेर ऋण लिएको थिएँ, ऋण तिरेपछि पनि बैंकले पुर्जा फिर्ता गरेन, के गर्ने?",
+   "language": "ne",
+   "question_script": "devanagari",
+   "mode": "abstain",
+   "removed": {
+    "count": null,
+    "by_reason": null
+   },
+   "abstain": {
+    "justified": false,
+    "governing_provision_in_corpus": "Civil Code s.586(1): when the loan for which security was given is repaid, the security must be returned to the person who gave it; SC decisions 10168 and 7907 (धितो फिर्ता/फुकुवा); Civil Code s.587.",
+    "related_provisions": null,
+    "note": "Retrieval miss. Shown items are NRB circulars on foreign-exchange risk, restructuring, travel-agency loans (irrelevant); the abstain wording is formally honest but the provision exists."
+   },
+   "usefulness": 0,
+   "usefulness_note": "Abstain: no answer given.",
+   "correct_and_useful": false,
+   "safe_and_useful": false
+  },
+  {
+   "id": "c02",
+   "question": "घरबेटीले म नभएको बेला कोठाको ताला फोडेर सामान बाहिर निकाल्यो, के गर्न सकिन्छ?",
+   "language": "ne",
+   "question_script": "devanagari",
+   "mode": "extractive_fallback",
+   "removed": {
+    "count": 3,
+    "by_reason": {
+     "quote_not_verbatim": 1,
+     "no_citation": 2
+    }
+   },
+   "fallback": {
+    "provisions_shown": "Civil Code s.401 (grounds to remove a tenant), s.404 (vacating an absconding tenant), s.400 (tenant may leave)",
+    "shows_governing_provisions": "partly",
+    "caveat_sentence_accurate": true,
+    "retrieval_note": "Landlord who broke the lock and put goods outside: s.401 (only listed grounds, 35-day notice for own use) is the governing eviction rule and is shown; the remedy provisions are not: Criminal Code s.284 (आपराधिक प्रवेश, criminal trespass), Civil Code s.680 (अनधिकृत प्रवेश liability). Caveat (\"match the subject, not confirmed\") is truthful."
+   },
+   "usefulness": 0,
+   "usefulness_note": "Extractive fallback (unsummarised statute text); 1 only if the governing provision for the main point asked is among those shown.",
+   "correct_and_useful": false,
+   "safe_and_useful": false
+  },
+  {
+   "id": "c03",
+   "question": "कम्पनीले बिना सूचना काममा नबोलाई निकालेको छ, क्षतिपूर्ति पाइन्छ?",
+   "language": "ne",
+   "question_script": "devanagari",
+   "mode": "abstain",
+   "removed": {
+    "count": null,
+    "by_reason": null
+   },
+   "abstain": {
+    "justified": false,
+    "governing_provision_in_corpus": "Labour Act s.139 (no termination except as the Act allows; reasons must be stated), s.144(1)-(2) (notice; if no notice the employer pays the pay for the notice period), s.148 (payment of benefits), s.163(2)(च) (Department may direct), s.162 (complaint).",
+    "related_provisions": null,
+    "note": "Retrieval miss. Shown: Right to Information Act s.33, Civil Procedure Code s.160 (interim order), Health Service Act s.74 (government staff): all irrelevant."
+   },
+   "usefulness": 0,
+   "usefulness_note": "Abstain: no answer given.",
+   "correct_and_useful": false,
+   "safe_and_useful": false
+  },
+  {
+   "id": "c04",
+   "question": "कसैले मलाई धम्की दिएर पैसा मागिरहेको छ, कहाँ उजुरी दिने?",
+   "language": "ne",
+   "question_script": "devanagari",
+   "mode": "extractive_fallback",
+   "removed": {
+    "count": 0,
+    "by_reason": {}
+   },
+   "fallback": {
+    "provisions_shown": "Criminal Code s.253 (extortion), Privacy Act s.16 (photo/morphing), Criminal Code s.22 (duress as defence)",
+    "shows_governing_provisions": "partly",
+    "caveat_sentence_accurate": false,
+    "retrieval_note": "s.253 is the governing offence. Where to complain (Criminal Procedure Code s.4, police) not shown. s.22 (act done under duress is not an offence) and Privacy s.16 are off-point, so the caveat \"these provisions match the subject\" is false for 2 of 3."
+   },
+   "usefulness": 1,
+   "usefulness_note": "Extractive fallback (unsummarised statute text); 1 only if the governing provision for the main point asked is among those shown.",
+   "correct_and_useful": false,
+   "safe_and_useful": false
+  },
+  {
+   "id": "c05",
+   "question": "छोराले आमाबुबालाई हेरचाह गर्दैन, कानुनले के भन्छ?",
+   "language": "ne",
+   "question_script": "devanagari",
+   "mode": "abstain",
+   "removed": {
+    "count": null,
+    "by_reason": null
+   },
+   "abstain": {
+    "justified": false,
+    "governing_provision_in_corpus": "Civil Code s.122(1)-(2) (every son/daughter must respect and look after parents: care, treatment, upkeep, per own means), Senior Citizens Act 2063 s.4 (maintenance and care), s.5 (complaint), Local Government Operation Act s.47(1)(च) (Judicial Committee hears non-maintenance of senior citizens).",
+    "related_provisions": null,
+    "note": "False abstain: s.122 WAS retrieved and shown as [3] under \"possibly related, not confirmed\", but the answer opens by saying no provision directly answers. Senior Citizens Act not retrieved."
+   },
+   "usefulness": 0,
+   "usefulness_note": "Abstain: no answer given.",
+   "correct_and_useful": false,
+   "safe_and_useful": false
+  },
+  {
+   "id": "c06",
+   "question": "होटलले बिल मा सेवा शुल्क र कर थपेर बढी लियो, यो मिल्छ?",
+   "language": "ne",
+   "question_script": "devanagari",
+   "mode": "abstain",
+   "removed": {
+    "count": null,
+    "by_reason": null
+   },
+   "abstain": {
+    "justified": true,
+    "governing_provision_in_corpus": null,
+    "related_provisions": "No provision on a hotel service charge was found (grep of \"सेवा शुल्क\"). Tangential: Consumer Protection Act s.20 (service provider must display a price list), s.16(2)(क) (misstating price); VAT Act s.5 (VAT is charged on services supplied in Nepal) covers only the tax half.",
+    "note": "Abstain is justified for the service-charge half. The tax half (VAT s.5, 13% in force, would justify the VAT line) could have been answered; the shown items (Finance Act s.30 transitional waiver, VAT schedule) are irrelevant. Wording honest."
+   },
+   "usefulness": 0,
+   "usefulness_note": "Abstain: no answer given.",
+   "correct_and_useful": false,
+   "safe_and_useful": true
+  },
+  {
+   "id": "c07",
+   "question": "बुबाले मृत्युपत्र गरेर सबै सम्पत्ति एक छोरालाई दिनुभयो, अरू छोराछोरीले हक पाउँदैनन्?",
+   "language": "ne",
+   "question_script": "devanagari",
+   "mode": "extractive_fallback",
+   "removed": {
+    "count": 0,
+    "by_reason": {}
+   },
+   "fallback": {
+    "provisions_shown": "Civil Code s.205 (who are coparceners), s.214 (widow may take share), s.216 (partition)",
+    "shows_governing_provisions": "partly",
+    "caveat_sentence_accurate": true,
+    "retrieval_note": "s.205 (sons and daughters are अंशियार) is on point. Missing: s.206 (every अंशियार is equally entitled), s.219 (property cannot be given to one coparcener beyond own share without partition/consent; the Civil Code has no will chapter: no \"मृत्युपत्र\" in the corpus). s.214 (widow) off-point."
+   },
+   "usefulness": 1,
+   "usefulness_note": "Extractive fallback (unsummarised statute text); 1 only if the governing provision for the main point asked is among those shown.",
+   "correct_and_useful": false,
+   "safe_and_useful": true
+  },
+  {
+   "id": "c08",
+   "question": "नागरिकता बनाउन जिल्ला प्रशासन कार्यालयले अनावश्यक कागजात माग्यो, के गर्ने?",
+   "language": "ne",
+   "question_script": "devanagari",
+   "mode": "extractive_fallback",
+   "removed": {
+    "count": 2,
+    "by_reason": {
+     "number_not_in_quote": 1,
+     "condition_dropped:divorce": 1
+    }
+   },
+   "fallback": {
+    "provisions_shown": "Citizenship Act s.8(1)-(3) (documents to attach), s.17 (correcting details), s.13 (no double certificate)",
+    "shows_governing_provisions": "partly",
+    "caveat_sentence_accurate": false,
+    "retrieval_note": "s.8 lists the documents that may be demanded: the governing provision for \"unnecessary documents\". s.13 is irrelevant, so \"all match the subject\" is only partly true. Not shown: Good Governance Act s.25 (citizen charter) and Rules r.14 (compensation for unmet service)."
+   },
+   "usefulness": 1,
+   "usefulness_note": "Extractive fallback (unsummarised statute text); 1 only if the governing provision for the main point asked is among those shown.",
+   "correct_and_useful": false,
+   "safe_and_useful": false
+  },
+  {
+   "id": "c09",
+   "question": "भाडाबाट आम्दानी गरेको घरमा कर कसरी तिर्ने?",
+   "language": "ne",
+   "question_script": "devanagari",
+   "mode": "abstain",
+   "removed": {
+    "count": null,
+    "by_reason": null
+   },
+   "abstain": {
+    "justified": false,
+    "governing_provision_in_corpus": "Income Tax Act s.9(2)(क) (rent is investment income), s.88(1)(ख) (no withholding when a natural person receives house rent; shown as [1]), Income Tax Directive 2066 item 15 (tax on rent income), Local Government Operation Act s.57 (घर जग्गा बहाल कर levied by the municipality).",
+    "related_provisions": null,
+    "note": "Retrieval/gate miss: s.88 was retrieved but the charging provision (s.9) and the municipal rental tax (LGOA s.57) were not."
+   },
+   "usefulness": 0,
+   "usefulness_note": "Abstain: no answer given.",
+   "correct_and_useful": false,
+   "safe_and_useful": false
+  },
+  {
+   "id": "c10",
+   "question": "सवारी चलाउँदा लाइसेन्स बिना समातिए कति जरिवाना हुन्छ?",
+   "language": "ne",
+   "question_script": "devanagari",
+   "mode": "abstain",
+   "removed": {
+    "count": null,
+    "by_reason": null
+   },
+   "abstain": {
+    "justified": false,
+    "governing_provision_in_corpus": "Vehicles and Transport Management Act s.45 (no driving without a driving licence), s.160(2)(क) (fine Rs 500-2,000 for breaching s.45), s.164(1)(न) (Rs 500/1,000/1,500 on-the-spot fine for not carrying the licence).",
+    "related_provisions": null,
+    "note": "Retrieval miss: shown items s.147, s.161, s.162 are negligence/death/injury penalties. s.45 + s.160 give the exact answer."
+   },
+   "usefulness": 0,
+   "usefulness_note": "Abstain: no answer given.",
+   "correct_and_useful": false,
+   "safe_and_useful": false
+  },
+  {
+   "id": "c11",
+   "question": "mero jagga ma arko le ghar banayo, kasari hataune?",
+   "language": "ne",
+   "question_script": "romanised",
+   "mode": "extractive_fallback",
+   "removed": {
+    "count": 3,
+    "by_reason": {
+     "section_not_in_quote": 1,
+     "no_citation": 2
+    }
+   },
+   "fallback": {
+    "provisions_shown": "Civil Code s.401 (removing a tenant), s.402 (end of lease), s.385 (lease term)",
+    "shows_governing_provisions": "no",
+    "caveat_sentence_accurate": false,
+    "retrieval_note": "Question: someone built a house on my land. These are landlord-tenant rules, wrong population. Governing: Civil Code s.279 (no house on another's land without written consent; owner may buy at up to 25% below market value, otherwise the builder may remove, sub-ss.2-3) and SC decision 8146 (encroachment gives no title). Caveat false."
+   },
+   "usefulness": 0,
+   "usefulness_note": "Extractive fallback (unsummarised statute text); 1 only if the governing provision for the main point asked is among those shown.",
+   "correct_and_useful": false,
+   "safe_and_useful": false
+  },
+  {
+   "id": "c12",
+   "question": "company le PF kata ta garcha tara jama garena, ke garne?",
+   "language": "ne",
+   "question_script": "romanised",
+   "mode": "structured",
+   "removed": {
+    "count": 2,
+    "by_reason": {
+     "no_citation": 2
+    }
+   },
+   "usefulness": 1,
+   "usefulness_note": "Correct governing rules for a private employer (Labour Act s.52, s.163(2)(घ)); the EPF Act sentence is a wrong-regime claim; no complaint route (s.162) given.",
+   "kept_sentences": 3,
+   "bad_sentences": 1,
+   "correct_and_useful": false,
+   "safe_and_useful": false
+  },
+  {
+   "id": "c13",
+   "question": "dahej nadiyera bhanera sasu le gharbata nikaldiyo, kasari muddha halne?",
+   "language": "ne",
+   "question_script": "romanised",
+   "mode": "structured",
+   "removed": {
+    "count": 5,
+    "by_reason": {
+     "no_citation": 1,
+     "duplicate_sentence": 4
+    }
+   },
+   "usefulness": 2,
+   "usefulness_note": "Governing law (Criminal Code s.174(3)-(4), limitation s.176, DV Act s.4 complaint route). Two sentences are pre-marriage-demand rules (tangential), all entailed.",
+   "kept_sentences": 6,
+   "bad_sentences": 0,
+   "correct_and_useful": true,
+   "safe_and_useful": true
+  },
+  {
+   "id": "c14",
+   "question": "instagram ma mero fake account banayera paisa magdai chha, kaha complaint garne?",
+   "language": "ne",
+   "question_script": "romanised",
+   "mode": "extractive_fallback",
+   "removed": {
+    "count": 0,
+    "by_reason": {
+     "unparseable": 1
+    }
+   },
+   "fallback": {
+    "provisions_shown": "Electronic Transactions Act s.52 (computer fraud), s.64 (tribunal staff), s.78 (rule-making)",
+    "shows_governing_provisions": "partly",
+    "caveat_sentence_accurate": false,
+    "retrieval_note": "s.52 (fraud for gain) is the only relevant item; s.64 and s.78 are administrative. Not shown: Criminal Code s.253 (extortion), Electronic Transactions Act s.47 (harassing/insulting publication, up to 5 years), Police Rules r.56ख (Cyber Bureau: where to complain). Caveat false for 2 of 3."
+   },
+   "usefulness": 0,
+   "usefulness_note": "Extractive fallback (unsummarised statute text); 1 only if the governing provision for the main point asked is among those shown.",
+   "correct_and_useful": false,
+   "safe_and_useful": false
+  },
+  {
+   "id": "c15",
+   "question": "sathi le udhaar liyera pachi inkar garyo, lekhapadhi chhaina, ke garne?",
+   "language": "ne",
+   "question_script": "romanised",
+   "mode": "extractive_fallback",
+   "removed": {
+    "count": 0,
+    "by_reason": {}
+   },
+   "fallback": {
+    "provisions_shown": "Civil Procedure Code s.165 (return of original documents), s.170 (order of evidence), s.196 (withdrawing a claim)",
+    "shows_governing_provisions": "no",
+    "caveat_sentence_accurate": false,
+    "retrieval_note": "Debt denied with no written paper. Governing: Civil Code s.474 (a loan is a transaction; the taker must return it), s.476 (transactions should be documented), s.488 (court orders payment if a transaction shows from other records; Rs 1 lakh+ cash dealing without writing is not enforced). None retrieved; shown items are court-procedure incidentals. Caveat false."
+   },
+   "usefulness": 0,
+   "usefulness_note": "Extractive fallback (unsummarised statute text); 1 only if the governing provision for the main point asked is among those shown.",
+   "correct_and_useful": false,
+   "safe_and_useful": false
+  },
+  {
+   "id": "c16",
+   "question": "dokan darta garna ke ke kagaj lagchha ra kati lagchha?",
+   "language": "ne",
+   "question_script": "romanised",
+   "mode": "structured",
+   "removed": {
+    "count": 2,
+    "by_reason": {
+     "number_not_in_quote": 1,
+     "no_citation": 1
+    }
+   },
+   "usefulness": 0,
+   "usefulness_note": "All four cited rules are company/industry registration; shop registration (Private Firm Registration Act ss.3-4, local-level business registration) not retrieved; no documents, no fee.",
+   "kept_sentences": 4,
+   "bad_sentences": 4,
+   "correct_and_useful": false,
+   "safe_and_useful": false
+  },
+  {
+   "id": "c17",
+   "question": "police le bina warrant ghar ma chhapa maryo, yo milchha?",
+   "language": "ne",
+   "question_script": "romanised",
+   "mode": "extractive_fallback",
+   "removed": {
+    "count": 3,
+    "by_reason": {
+     "section_not_in_quote": 3
+    }
+   },
+   "fallback": {
+    "provisions_shown": "Criminal Procedure Code s.18 (search: notice in Sch.-12, mahazar, daylight, ID card, entry, items taken)",
+    "shows_governing_provisions": "yes",
+    "caveat_sentence_accurate": true,
+    "retrieval_note": "The governing search provision, shown three times with its sub-sections (written notice, search only at sunrise-sunset except urgency, ID, receipt). Raw statute text, no explanation of \"warrant\". Caveat truthful."
+   },
+   "usefulness": 1,
+   "usefulness_note": "Extractive fallback (unsummarised statute text); 1 only if the governing provision for the main point asked is among those shown.",
+   "correct_and_useful": false,
+   "safe_and_useful": true
+  },
+  {
+   "id": "c18",
+   "question": "bachha ko school le TC dina pani bhanera fee lyayo, milchha?",
+   "language": "ne",
+   "question_script": "romanised",
+   "mode": "abstain",
+   "removed": {
+    "count": null,
+    "by_reason": null
+   },
+   "abstain": {
+    "justified": false,
+    "governing_provision_in_corpus": "Compulsory and Free Education Act 2075 s.13(1) (the head teacher must give the transfer certificate immediately on request), s.12, s.9; Education Rules r.80(1)-(2) (complaint to the Education Development and Coordination Unit if a TC is refused); Education Act s.16घ (fees).",
+    "related_provisions": null,
+    "note": "False abstain: s.13 and s.16घ were retrieved and shown as [1], [2] under \"possibly related\", but the answer says no provision answers. s.13 is the directly governing text; the \"fee first\" demand is not discussed in it, r.80 is the route."
+   },
+   "usefulness": 0,
+   "usefulness_note": "Abstain: no answer given.",
+   "correct_and_useful": false,
+   "safe_and_useful": false
+  },
+  {
+   "id": "c19",
+   "question": "ATM bata paisa kateko tara cash aayena, bank le farkaudaina, ke garne?",
+   "language": "ne",
+   "question_script": "romanised",
+   "mode": "extractive_fallback",
+   "removed": {
+    "count": 2,
+    "by_reason": {
+     "quote_not_verbatim": 1,
+     "no_citation": 1
+    }
+   },
+   "fallback": {
+    "provisions_shown": "Banking Offences Act s.3क (cheque without balance), s.6 (misuse of cards), Consumer Protection Act s.50 (damages claim, 6 months)",
+    "shows_governing_provisions": "no",
+    "caveat_sentence_accurate": false,
+    "retrieval_note": "Failed ATM withdrawal: s.3क is about cheques, s.6 about card misuse, s.50 is a generic damages route. Governing in corpus: NRB integrated directive 19/082 s.8 (the bank must resolve the complaint; gunaso.nrb.org.np portal). No explicit ATM-refund provision exists in the corpus. Caveat false."
+   },
+   "usefulness": 0,
+   "usefulness_note": "Extractive fallback (unsummarised statute text); 1 only if the governing provision for the main point asked is among those shown.",
+   "correct_and_useful": false,
+   "safe_and_useful": false
+  },
+  {
+   "id": "c20",
+   "question": "bihe darta nagareko bhae kehi samasya hunchha?",
+   "language": "ne",
+   "question_script": "romanised",
+   "mode": "extractive_fallback",
+   "removed": {
+    "count": 6,
+    "by_reason": {
+     "section_not_in_quote": 6
+    }
+   },
+   "fallback": {
+    "provisions_shown": "Civil Code s.76 (marriage must be registered, 15-day registration), s.80 (registration procedure), s.77 (marriage by registration)",
+    "shows_governing_provisions": "partly",
+    "caveat_sentence_accurate": true,
+    "retrieval_note": "s.76 is the governing duty. The consequence question is not answered: s.67 (marriage is deemed to exist once the couple accept each other by any ceremony) is the provision that says an unregistered marriage is still a marriage; not shown. s.77 is a different mode (marriage by registration)."
+   },
+   "usefulness": 1,
+   "usefulness_note": "Extractive fallback (unsummarised statute text); 1 only if the governing provision for the main point asked is among those shown.",
+   "correct_and_useful": false,
+   "safe_and_useful": true
+  },
+  {
+   "id": "c21",
+   "question": "Is my employer allowed to deduct money from my salary as a penalty?",
+   "language": "en",
+   "question_script": "english",
+   "mode": "structured",
+   "removed": {
+    "count": 1,
+    "by_reason": {
+     "quote_not_verbatim": 1
+    }
+   },
+   "usefulness": 1,
+   "usefulness_note": "Right law (Labour Act ss.38, 163) and entailed, but never says the general rule (no deduction except the listed cases, s.38(1)); a user must infer that a penalty is not allowed.",
+   "kept_sentences": 2,
+   "bad_sentences": 0,
+   "correct_and_useful": false,
+   "safe_and_useful": true
+  },
+  {
+   "id": "c22",
+   "question": "Can a wife claim maintenance without filing for divorce in Nepal?",
+   "language": "en",
+   "question_script": "english",
+   "mode": "extractive_fallback",
+   "removed": {
+    "count": 7,
+    "by_reason": {
+     "no_citation": 2,
+     "quote_not_verbatim": 5
+    }
+   },
+   "fallback": {
+    "provisions_shown": "Civil Code s.96 (divorce petition), s.99 (partition before divorce), s.95 (grounds for wife to divorce)",
+    "shows_governing_provisions": "partly",
+    "caveat_sentence_accurate": false,
+    "retrieval_note": "All three are divorce provisions; the question is maintenance without divorce. Corpus: s.101 (post-divorce maintenance), s.95(ख) (not feeding = divorce ground), Domestic Violence Act s.6 (interim protection order). No explicit pre-divorce maintenance section was found. The caveat \"match the subject\" overclaims."
+   },
+   "usefulness": 0,
+   "usefulness_note": "Extractive fallback (unsummarised statute text); 1 only if the governing provision for the main point asked is among those shown.",
+   "correct_and_useful": false,
+   "safe_and_useful": false
+  },
+  {
+   "id": "c23",
+   "question": "What is the legal process to transfer land ownership after the owner's death?",
+   "language": "en",
+   "question_script": "english",
+   "mode": "extractive_fallback",
+   "removed": {
+    "count": 0,
+    "by_reason": {}
+   },
+   "fallback": {
+    "provisions_shown": "Civil Code s.248 (estate with no heirs goes to local level), s.242 (separated heir), Land Acquisition Act s.23 (name-transfer after government acquisition)",
+    "shows_governing_provisions": "partly",
+    "caveat_sentence_accurate": false,
+    "retrieval_note": "Wrong provisions for the general process. Governing: Civil Code s.297 (heir must apply to the Malpot office within 35 days for नामसारी/दाखिल खारेज) and Land Revenue Act 2034 s.8. The caveat \"Only [1], [2] clearly match\" overclaims for s.248 (no-heir case) and the legal heirs sections 238-241 are not shown."
+   },
+   "usefulness": 0,
+   "usefulness_note": "Extractive fallback (unsummarised statute text); 1 only if the governing provision for the main point asked is among those shown.",
+   "correct_and_useful": false,
+   "safe_and_useful": false
+  },
+  {
+   "id": "c24",
+   "question": "What are my rights if I am arrested by the police in Nepal?",
+   "language": "en",
+   "question_script": "english",
+   "mode": "extractive_fallback",
+   "removed": {
+    "count": 4,
+    "by_reason": {
+     "number_not_in_quote": 4
+    }
+   },
+   "fallback": {
+    "provisions_shown": "Constitution Art. 20 (grounds, counsel, 24 hours), Criminal Procedure Code s.13 (custody, custody slip), Criminal Code s.102 (resisting arrest)",
+    "shows_governing_provisions": "yes",
+    "caveat_sentence_accurate": false,
+    "retrieval_note": "Art. 20(1)-(3) is the directly governing text and is shown, plus s.13. The caveat understates (says only [1] clearly matches although [2] matches best) so it is safe but inaccurate; s.102 is off-point. Not shown: CrPC s.9, s.14 (period of custody)."
+   },
+   "usefulness": 1,
+   "usefulness_note": "Extractive fallback (unsummarised statute text); 1 only if the governing provision for the main point asked is among those shown.",
+   "correct_and_useful": false,
+   "safe_and_useful": false
+  },
+  {
+   "id": "c25",
+   "question": "Can a landlord increase rent suddenly during the tenancy period?",
+   "language": "en",
+   "question_script": "english",
+   "mode": "structured",
+   "removed": {
+    "count": 1,
+    "by_reason": {
+     "no_citation": 1
+    }
+   },
+   "usefulness": 0,
+   "usefulness_note": "Two entailed but irrelevant tenancy sentences; nothing on rent increase mid-term (closest in corpus: CC s.386(1)(ङ)-(च) rent fixed in the written agreement, s.385 term). Never answers the question.",
+   "kept_sentences": 2,
+   "bad_sentences": 0,
+   "correct_and_useful": false,
+   "safe_and_useful": false
+  },
+  {
+   "id": "c26",
+   "question": "What is the penalty for sharing someone's private photos online without consent?",
+   "language": "en",
+   "question_script": "english",
+   "mode": "extractive_fallback",
+   "removed": {
+    "count": 4,
+    "by_reason": {
+     "quote_not_verbatim": 4
+    }
+   },
+   "fallback": {
+    "provisions_shown": "Privacy Act s.19 (electronic privacy), s.34 (non-interference exceptions), s.16 (photographs without consent)",
+    "shows_governing_provisions": "partly",
+    "caveat_sentence_accurate": true,
+    "retrieval_note": "s.16 is the governing prohibition (shown in full with sub-s.3). The asked penalty is Privacy Act s.29 (offences) and ETA s.47; neither shown. Caveat truthful."
+   },
+   "usefulness": 1,
+   "usefulness_note": "Extractive fallback (unsummarised statute text); 1 only if the governing provision for the main point asked is among those shown.",
+   "correct_and_useful": false,
+   "safe_and_useful": true
+  },
+  {
+   "id": "c27",
+   "question": "How can a company be dissolved or struck off in Nepal?",
+   "language": "en",
+   "question_script": "english",
+   "mode": "extractive_fallback",
+   "removed": {
+    "count": 1,
+    "by_reason": {
+     "uncited_forum_claim": 1
+    }
+   },
+   "fallback": {
+    "provisions_shown": "Companies Act s.132 (striking off after liquidation), s.167 (leftover assets of a dissolved company), Nepal Airlines Corporation Act s.24 (dissolution)",
+    "shows_governing_provisions": "partly",
+    "caveat_sentence_accurate": false,
+    "retrieval_note": "s.132 is the final step. Missing: s.126 (voluntary liquidation of a solvent company), s.127, s.131 (liquidator), s.136 (Registrar may strike off), s.137 (restoration). The caveat correctly flags [3] but treats s.167 (non-profit assets rule) as a match."
+   },
+   "usefulness": 1,
+   "usefulness_note": "Extractive fallback (unsummarised statute text); 1 only if the governing provision for the main point asked is among those shown.",
+   "correct_and_useful": false,
+   "safe_and_useful": false
+  },
+  {
+   "id": "c28",
+   "question": "What happens if one party breaches a written contract in Nepal?",
+   "language": "en",
+   "question_script": "english",
+   "mode": "structured",
+   "removed": {
+    "count": 2,
+    "by_reason": {
+     "proviso_dropped": 1,
+     "leading_condition_dropped": 1
+    }
+   },
+   "usefulness": 2,
+   "usefulness_note": "Governing contract-breach law (CC ss.535, 537, 540). The one unsupported sentence replaces the damages rule with its proviso.",
+   "kept_sentences": 4,
+   "bad_sentences": 1,
+   "correct_and_useful": false,
+   "safe_and_useful": false
+  },
+  {
+   "id": "c29",
+   "question": "Do I have to pay tax on money received from relatives abroad?",
+   "language": "en",
+   "question_script": "english",
+   "mode": "extractive_fallback",
+   "removed": {
+    "count": 0,
+    "by_reason": {}
+   },
+   "fallback": {
+    "provisions_shown": "Foreign Employment Act s.36 (compensation complaint), s.44 and s.43 (penalty for recruitment fraud)",
+    "shows_governing_provisions": "no",
+    "caveat_sentence_accurate": false,
+    "retrieval_note": "Remittance tax question; all three are recruitment-fraud provisions, so \"these provisions match the subject of your question\" is false. Corpus: Income Tax Act s.2(ज) (definition of income: employment, business, investment, windfall), s.3-4 (charge), s.10 (exemptions); no explicit rule on remittances from relatives was found, so an honest answer is \"no explicit provision found; not a listed income source\"."
+   },
+   "usefulness": 0,
+   "usefulness_note": "Extractive fallback (unsummarised statute text); 1 only if the governing provision for the main point asked is among those shown.",
+   "correct_and_useful": false,
+   "safe_and_useful": false
+  },
+  {
+   "id": "c30",
+   "question": "My family member died in a road accident. What compensation can we claim?",
+   "language": "en",
+   "question_script": "english",
+   "mode": "structured",
+   "removed": {
+    "count": 3,
+    "by_reason": {
+     "quote_unrelated": 1,
+     "number_not_in_quote": 1,
+     "no_citation": 1
+    }
+   },
+   "usefulness": 1,
+   "usefulness_note": "Governing law (Vehicles Act ss.152, 163) and a precedent; amounts (Rs 50,000 funeral cost, insurance sum), the CDO route (s.163(2)) and the insured case are missing.",
+   "kept_sentences": 3,
+   "bad_sentences": 0,
+   "correct_and_useful": false,
+   "safe_and_useful": true
+  }
+ ],
+ "retrieval_misses": {
+  "c01": "Civil Code s.586(1): when the loan for which security was given is repaid, the security must be returned to the person who gave it; SC decisions 10168 and 7907 (धितो फिर्ता/फुकुवा); Civil Code s.587.",
+  "c03": "Labour Act s.139 (no termination except as the Act allows; reasons must be stated), s.144(1)-(2) (notice; if no notice the employer pays the pay for the notice period), s.148 (payment of benefits), s.163(2)(च) (Department may direct), s.162 (complaint).",
+  "c05": "Civil Code s.122(1)-(2) (every son/daughter must respect and look after parents: care, treatment, upkeep, per own means), Senior Citizens Act 2063 s.4 (maintenance and care), s.5 (complaint), Local Government Operation Act s.47(1)(च) (Judicial Committee hears non-maintenance of senior citizens).",
+  "c09": "Income Tax Act s.9(2)(क) (rent is investment income), s.88(1)(ख) (no withholding when a natural person receives house rent; shown as [1]), Income Tax Directive 2066 item 15 (tax on rent income), Local Government Operation Act s.57 (घर जग्गा बहाल कर levied by the municipality).",
+  "c10": "Vehicles and Transport Management Act s.45 (no driving without a driving licence), s.160(2)(क) (fine Rs 500-2,000 for breaching s.45), s.164(1)(न) (Rs 500/1,000/1,500 on-the-spot fine for not carrying the licence).",
+  "c18": "Compulsory and Free Education Act 2075 s.13(1) (the head teacher must give the transfer certificate immediately on request), s.12, s.9; Education Rules r.80(1)-(2) (complaint to the Education Development and Coordination Unit if a TC is refused); Education Act s.16घ (fees)."
+ },
+ "patterns_and_fixes": "See docs/PROGRESS.md \"V2.7 live review (2026-10-01, fresh set C)\" for the ranked list; evidence per item is in the notes above."
+}
