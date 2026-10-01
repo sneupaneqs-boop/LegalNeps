@@ -201,6 +201,61 @@ S7's own "done when" bar (25 playbooks, ≥90% precision) doesn't require it.
 ## Done
 
 
+### V2.7 live review (2026-10-01, fresh set C)
+
+Independent two-pass LLM review of 30 FRESH live answers (set C, never used for tuning; `eval/reports/answer-review-v27-answers30c-20261001.json`,
+`answer_review.py --set answers30c`, entailment pass OFF; V2.7 pipeline p12 live). Per-sentence labels with decisive passage words, per-answer
+usefulness, fallback/abstain verdicts and governing-section checks in the corpus: `eval/reports/answer-review-v27-labels-20261001.json`.
+**Bar (<5%) NOT met; the wrong-claim rate on kept sentences is 25.0% but on 24 sentences, and the system now abstains or falls back on 77% of
+questions, 6 of 7 abstains were wrong.**
+
+| 24 kept sentences, 7 structured answers | supported | unsupported | wrong-law | halluc. | bad rate |
+|---|---|---|---|---|---|
+| all | 18 | 1 | 5 | 0 | **25.0% (6/24)**, 95% CI 12-45%, vs set B 32.7% (16/49), set A 44.3%, review 1 15.6%, V1 40.3% |
+| romanised (13) / English (11) / Devanagari (0) | 8 / 10 / - | 0 / 1 / - | 5 / 0 / - | 0 | 38% / 9% / - |
+
+- Not a significant improvement over set B (intervals overlap heavily). Sensitivity: 4 borderline calls flipped to supported 2/24 = 8.3%;
+  4 supported-but-tangential counted as bad 10/24 = 41.7%; excluding the one shop-registration answer (c16) 2/20 = 10%. 4 of the 6 bad
+  sentences are one answer. 0 hallucinated numbers/sections again.
+- Bad sentences: c16 x4 wrong-law (a "dokan" registration question answered with Companies Act s.5 and Industrial Enterprises Act ss.4-5
+  (company/industry registration; the shop law is the Private Firm Registration Act ss.3-4, not retrieved)), c12 x1 wrong-law (EPF Act s.12
+  "every office must deduct 10%" applied to a private company; s.12ख makes it optional/by notice for institutions), c28 x1 unsupported
+  (CC s.537(3) proviso "indirect loss not recoverable" stated as a general rule; it applies only where the contract has no agreed
+  compensation). Condition checks and guards did not fire on any of them.
+- Modes: 7 structured / 16 extractive_fallback / 7 abstain / 0 none (set B 17/11/1/1; V3.2 22/6/-/2). Devanagari questions: 0 of 10
+  structured (6 abstain, 4 fallback). 51 sentences were removed against 24 kept (68%: no_citation 13, quote_not_verbatim 12,
+  section_not_in_quote 10, number_not_in_quote 7). Usefulness 0/1/2 = 17/11/2 (mean 0.5; B 0.6, V3.2 0.8), >=1 for 13/30 (B 15/30).
+  **Safe and useful 8/30 = 26.7%** (c06 c07 c13 c17 c20 c21 c26 c30; 11/30 if three fallbacks with a partly-true or over-cautious
+  caveat count). **Correct and useful (usefulness 2, zero bad sentences) 1/30 = 3.3%** (c13 dowry; set B 2/30; c28 would make it 2/30 if its
+  borderline sentence were accepted). Fully usable structured answers: c13, c30; c21 is correct but omits the general rule.
+- Fallbacks (16): governing provision shown for 2 (c17 CrPC s.18, c24 Constitution Art. 20 + CrPC s.13), partly for 10, not at all for 4
+  (c11 built-on-my-land -> tenancy rules, c15 unpaid loan -> evidence procedure, c19 ATM -> cheque/card offences, c29 remittance tax ->
+  recruitment fraud). The V2.7 caveat sentence is accurate for 5/16, false or overclaiming for 11 (all-direct caveat shown over admin
+  sections: c04 duress defence, c14 ETA ss.64/78, c29).
+- **Abstains (7): justified 1/7 (c06 hotel service charge; no such provision, VAT s.5 covers only the tax half); 6/7 are misses.** Two are gate
+  false abstains where the governing text was retrieved and shown under "possibly related": c05 CC s.122 (children must look after parents)
+  and c18 Compulsory Education Act s.13 (TC to be given immediately). Four are retrieval misses: c01 CC s.586 (return of security after the
+  loan is repaid), c03 Labour Act ss.139, 144, 148, c09 ITA s.9(2)(क) + Local Government Operation Act s.57, c10 Vehicles Act s.45 + s.160(2)(क).
+- Governing provision in the corpus but not shown (drives retrieval fixes): c01 CC 586; c02 Criminal Code 284, CC 680 (and 401 shown);
+  c03 Labour 139/144/148/163(2)(च); c04 CrPC 4 (where to complain); c05 CC 122, Senior Citizens Act 4-5; c07 CC 206, 219 (no will chapter exists);
+  c09 ITA 9, LGOA 57; c10 VTMA 45, 160(2)(क); c11 CC 279; c14 Criminal Code 253, ETA 47, Police Rules 56ख; c15 CC 474, 476, 488; c16 Private
+  Firm Registration Act 3-4; c18 CEFEA 13, Education Rules 80; c19 NRB directive 19/082 s.8; c20 CC 67; c23 CC 297, Land Revenue Act 8;
+  c26 Privacy Act 29; c27 Companies Act 126, 136; c29 ITA 2(ज), 3. No explicit provision found (honest "none"): c25 rent increase mid-term
+  (nearest CC 385-386), c06 service charge, c22 pre-divorce maintenance (CC 101 is post-divorce), c29 remittances.
+- **Ranked fixes**: (1) section-TITLE retrieval: 8 of the misses have a section title that is a near paraphrase of the question
+  ("धितो वा धरौट फिर्ता गर्नु पर्ने" s.586, "सवारी चलाउन नहुने" s.45, "सहमति नलिई अर्काको जग्गामा घर बनाउन नहुने" s.279, "नामसारी दाखिल
+  खारेज गर्नु पर्ने" s.297, "रोजगारीको सुरक्षा" s.139, "आमा बाबुलाई आदर, सम्मान र हेरचाह" s.122, "स्थानान्तरण प्रमाणपत्र दिनु पर्ने" s.13,
+  "लिखत नगरी लेनदेन गर्न नहुने" s.476): index/boost `title_ne` with Nepali stemming and a Roman-Nepali gloss; the 14 hand-written routes did not fire
+  on set C. (2) Abstain gate: never abstain when a retrieved passage's title matches the question (c05, c18), and on abstain show only
+  passages above the fit floor (NRB circulars for c01 are noise). (3) Fallback caveat from per-passage fit: show the "match the subject" sentence
+  only over passages that pass `direct_fit`; cap the list at those (c04, c14, c19, c29, c11, c15). (4) Population guards: "dokan/shop" is not
+  a company or industry (c16); EPF Act s.12 binds public offices, not private employers (c12). (5) Proviso check: when the quote is the proviso
+  ("तर ..."), require the parent clause's condition (c28 s.537(3)). (6) Sentence-vs-question concept check to reject entailed but off-point
+  sentences (c25 eviction for a rent-increase question, c13 pre-marriage demand rule).
+- Verdict: **not safe enough to present as verified answers; usable only as "cited provisions, unverified" with the V2.7 caveat fixed.** 25% bad
+  sentences, 6/7 wrong abstains, 11/16 inaccurate fallback caveats and 3% fully correct answers mean the headline "cited and checked" claim
+  cannot be made; the citations are real (0 hallucinated) but not reliably the governing ones.
+
 ### V2.7 — Section routes, form filter, strict fit, actor/regime guards, dropped conditions, language (2026-10-01, offline; live re-measure pending)
 
 Fixes for the V3.3 set-B live review (30 answers, 32.7% bad sentences). **No accuracy target is claimed: a fresh live review (set C)
