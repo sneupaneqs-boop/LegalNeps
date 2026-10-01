@@ -64,6 +64,70 @@ HYBRID = {
     "gate_depth": 300,
     "prior_pow": 0.5,       # dense ranking score = cosine * prior**prior_pow (0 = pure cosine)
 }
+# V2.6 section-level knobs (tuned on default + realworld + sections12, never heldout)
+SEARCH = {
+    "lead_doc_cap": 3,      # passages allowed from the FIRST result's document (per_doc_cap for the others)
+    "regime_demote": 0.6,   # fused-score factor for passages of a specialist regime the question never mentions (1 = off)
+    "heading_boost": 0.5,   # fused-score gain when the question's words cover a passage's own section heading (0 = off)
+    "heading_min_w": 0.5,   # only queries at least this heavy contribute words to the heading match
+    "heading_mass0": 6.0,   # idf mass of matched heading words at which the boost is fully on (two ordinary words)
+}
+AUX_VERSION = 1             # bump when the heading tokenisation or REGIMES change
+
+# Specialist regimes: bodies of law that govern one population or institution (the army, the police service, judges,
+# civil servants, the post, insolvency, customs/excise, one sector). Their passages mention pay, leave, deductions,
+# deposits, notices and penalties like any other law, so on generic word overlap they crowd out the general law that
+# governs an ordinary person's question (a salary-tax question answered from the Army Act, maternity leave from the
+# judges' service Act, a rent eviction from the hire-purchase chapter). Each regime is found from the corpus's own
+# titles (document title, section heading or the opening words of the passage), never from a question list, and its
+# passages are demoted unless the question itself carries one of the regime's cue words.
+# (name, pattern over the document title [and, if `deep`, the section heading + opening words], deep, cue words)
+REGIMES = (
+    ("military", r"सैनिक|नेपाली सेना|सेना ऐन|सेनाका|सेनाको", False,
+     r"सैनिक|सेना|army|military|sainik|fauj|फौज|soldier|jawan|जवान|nepali sena"),
+    ("police_service", r"प्रहरी (?:ऐन|नियमावली|कर्मचारी)|सशस्त्र प्रहरी|सतर्कता प्रहरी", False,
+     r"प्रहरी|police|prahari|pulis|पुलिस|सशस्त्र|armed"),
+    ("judicial_service", r"न्याय परिषद|न्याय सेवा|न्यायाधीश|न्यायाधीशहरू", False,
+     r"न्यायाधीश|न्याय परिषद|न्याय सेवा|\bjudges?\b|judicial council|nyayadhis"),
+    ("civil_service", r"निजामती|लोक सेवा आयोग|शिक्षक सेवा|कर्मचारी समायोजन|कर्मचारी प्रशासन|कर्मचारी कल्याण|कर्मचारी योगदान", False,
+     r"निजामती|सरकारी कर्मचारी|सरकारी जागिर|सरकारी जागीर|लोक सेवा|शिक्षक|पेन्सन|निवृत्तिभरण|civil serv|public serv|government (?:employ|job|servant)|sarkari (?:jagir|karmachari)|teacher|pension|\bpsc\b"),
+    ("postal", r"हुलाक", False,
+     r"हुलाक|post ?office|postal|money ?order|मनिअर्डर|मनी अर्डर|hulak|parcel|पार्सल"),
+    ("insolvency", r"दामासाही", False,
+     r"दामासाही|insolven|bankrupt|दिवालिया|liquidat|damasahi|दामासायी"),
+    ("customs_excise", r"भन्सार|अन्तःशुल्क|अन्त:शुल्क", False,
+     r"भन्सार|अन्तःशुल्क|अन्त:शुल्क|customs|excise|\bimport|\bexport|पैठारी|निकासी|tariff|bhansar"),
+    ("hire_purchase", r"हायर\s?पर्चेज", True,
+     r"हायर|hire[ -]?purchase|किस्तामा|किस्ता|kisti|\bkista|installment|instalment"),
+    ("sector_bodies", r"रेल्वे|दूरसञ्चार|सञ्चार संस्थान|विषादी|खानी तथा खनिज|निकुञ्ज|वन्यजन्तु|(?<![ऀ-ॿ])वन ऐन|(?<![ऀ-ॿ])वन नियमावली", False,
+     r"रेल|railway|train|दूरसञ्चार|telecom|टेलिफोन|\bsim\b|विषादी|pesticide|खानी|खनिज|\bmin(?:e|ing)\b|निकुञ्ज|national park|वन्यजन्तु|wildlife|\bवन\b|वनको|forest|जंगल|jangal"),
+)
+_REGIME_TITLE = tuple(re.compile(p) for _, p, _, _ in REGIMES)
+_REGIME_CUE = tuple(re.compile(c, re.I) for _, _, _, c in REGIMES)
+
+
+def _heading(e: dict) -> str:
+    """A passage's own section heading: title_ne without the trailing " (document title)"."""
+    t = e.get("title_ne") or ""
+    d = e.get("doc_title_ne") or ""
+    if d and t.endswith(f"({d})"):
+        t = t[: -(len(d) + 2)]
+    return t.strip()
+
+
+def _regime_of(doc_title: str, heading: str, opening: str) -> int:
+    """1-based id of the specialist regime a passage belongs to (0 = general law)."""
+    for k, (_, _, deep, _) in enumerate(REGIMES):
+        pat = _REGIME_TITLE[k]
+        if pat.search(doc_title) or (deep and (pat.search(heading) or pat.search(opening))):
+            return k + 1
+    return 0
+
+
+@lru_cache(maxsize=4096)
+def _inactive_regimes(qtext: str) -> tuple:
+    """Regime ids whose cue words the (lower-cased) query text does not contain."""
+    return tuple(k + 1 for k, c in enumerate(_REGIME_CUE) if not c.search(qtext))
 # "hybrid" (default), "bm25" or "dense" - the last two exist for eval/ablation (RETRIEVAL_MODE env)
 DEFAULT_MODE = os.environ.get("RETRIEVAL_MODE", "hybrid")
 
@@ -183,6 +247,7 @@ class Index:
     def __init__(self, entries: Iterable[dict], digest: str):
         self.digest = digest
         self.dense = None  # app.dense.Dense once attach_dense() ran and found vectors + model
+        self.aux = None    # section-level signals (heading matrix, regime ids) once attach_aux() ran
         self._local = threading.local()
         if not self._load_cache():
             self._build(entries)
@@ -306,6 +371,89 @@ class Index:
                      status=np.array(statuses), slug=np.array(slugs))
         except OSError:
             pass  # read-only deploy: in-memory index still works for this process
+
+    # -- V2.6 section-level signals ------------------------------------------
+    def _aux_path(self) -> Path:
+        return Path(f"{CACHE_DIR / f'{self.digest}-v{INDEX_VERSION}'}.aux{AUX_VERSION}.npz")
+
+    def attach_aux(self):
+        """Per-passage heading weights and specialist-regime ids (best-effort, never raises: without them the
+        ranking is exactly the pre-V2.6 one). Derived from the stored passages, cached next to the index."""
+        try:
+            path = self._aux_path()
+            data = None
+            if path.exists():
+                try:
+                    data = np.load(path, allow_pickle=False)
+                    if int(data["n"]) != len(self):
+                        data = None
+                except Exception:  # noqa: BLE001 - corrupt cache: rebuild
+                    data = None
+            if data is None:
+                data = self._build_aux(path)
+            n, v = len(self), len(self.vocab)
+            head = sparse.csc_matrix((data["h_val"], data["h_idx"], data["h_ptr"]), shape=(n, v))
+            self.aux = {"head": head, "hmass": data["hmass"], "regime": data["regime"]}
+        except Exception as e:  # noqa: BLE001
+            logging.getLogger("kanooni.retrieval").warning("section signals unavailable: %s", str(e)[:200])
+            self.aux = None
+        return self.aux
+
+    def _build_aux(self, path: Path) -> dict:
+        n, v = len(self), len(self.vocab)
+        df = np.diff(self.W.indptr).astype(np.float32)
+        idf = np.log(1 + (n - df + 0.5) / (df + 0.5)).astype(np.float32)
+        rows, cols = array("i"), array("i")
+        regime = np.zeros(n, dtype=np.uint8)
+        for i, (doc,) in enumerate(self._db().execute("SELECT doc FROM p ORDER BY rowid")):
+            e = json.loads(doc)
+            heading = _heading(e)
+            for t in {self.vocab[t] for t in tokenize(heading) if t in self.vocab}:
+                rows.append(i)
+                cols.append(t)
+            regime[i] = _regime_of(e.get("doc_title_ne") or "", heading, (e.get("text_ne") or "")[:400])
+        r, c = np.frombuffer(rows, dtype=np.int32), np.frombuffer(cols, dtype=np.int32)
+        val = idf[c].astype(np.float32)
+        head = sparse.csc_matrix((val, (r, c)), shape=(n, v))
+        hmass = np.asarray(head.sum(axis=1)).ravel().astype(np.float32)
+        out = {"n": np.array(n), "h_val": head.data, "h_idx": head.indices, "h_ptr": head.indptr,
+               "hmass": hmass, "regime": regime}
+        try:
+            np.savez(path, **out)
+        except OSError:
+            pass  # read-only deploy: in-memory signals still work for this process
+        return out
+
+    def _section_signals(self, fused: np.ndarray, weighted: dict[str, float], boost_toks: list[set]):
+        """Multiplies the fused scores (in place) by (a) a demotion for passages from a specialist regime the
+        question never mentions, (b) a boost for passages whose HEADING the question's words cover."""
+        aux = self.aux
+        nz = np.nonzero(fused)[0]
+        if not nz.size:
+            return
+        s = SEARCH
+        if s["regime_demote"] < 1.0:
+            qtext = " ".join(weighted).lower()
+            inactive = _inactive_regimes(qtext)
+            if inactive:
+                hit = nz[np.isin(aux["regime"][nz], inactive)]
+                if hit.size and boost_toks:  # a law the question (or its analysis) names explicitly is exempt
+                    hit = np.array([i for i in hit
+                                    if not any(bt and len(bt & _title_tokens(self.doc_title[i])) / len(bt) >= 0.6
+                                               for bt in boost_toks)], dtype=np.int64)
+                if hit.size:
+                    fused[hit] *= s["regime_demote"]
+        if s["heading_boost"] > 0:
+            toks = set()
+            for q, w in weighted.items():
+                if w >= s["heading_min_w"]:
+                    toks.update(tokenize(q))
+            ids = [self.vocab[t] for t in toks if t in self.vocab]
+            if ids:
+                mass = np.asarray(aux["head"][:, ids].sum(axis=1)).ravel()[nz]
+                hm = np.maximum(aux["hmass"][nz], 1e-6)
+                strength = (mass / hm) * np.minimum(1.0, mass / s["heading_mass0"])
+                fused[nz] *= 1.0 + s["heading_boost"] * strength
 
     def attach_dense(self):
         """Load the query encoder + corpus vectors if available (best-effort, never raises)."""
@@ -465,6 +613,8 @@ class Index:
             best_cos = self._fuse_dense(fused, weighted, bm_best)
 
         boost_toks = [set(tokenize(t)) for t in boost_titles if t]
+        if self.aux is not None:
+            self._section_signals(fused, weighted, boost_toks)
         if boost_toks:
             for i in np.nonzero(fused)[0]:
                 title_toks = _title_tokens(self.doc_title[i])
@@ -473,6 +623,7 @@ class Index:
 
         order = np.argsort(-fused)
         results, per_doc, seen_text = [], defaultdict(int), set()
+        lead_doc = None
         for i in order:
             if fused[i] <= 0 or len(results) >= top_k:
                 break
@@ -487,6 +638,10 @@ class Index:
                 continue  # never cite a draft bill or a lapsed ordinance by default
             doc_key = self.doc_title[i]
             cap = 1 if self.doc_type[i] == "other" else per_doc_cap  # reports/dictionaries: one passage
+            if lead_doc is None:
+                lead_doc = doc_key
+            if doc_key == lead_doc and cap > 1:
+                cap = max(cap, SEARCH["lead_doc_cap"])  # the statute the question is mostly about may fill more slots
             if per_doc[doc_key] >= cap:
                 continue
             key = int(self.text_key[i])
@@ -558,6 +713,7 @@ def get_index() -> Index:
                 entries, digest = corpus_source()
                 idx = Index(entries, digest)
                 idx.attach_dense()
+                idx.attach_aux()
                 _index = idx
     return _index
 

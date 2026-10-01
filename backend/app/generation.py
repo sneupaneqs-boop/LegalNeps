@@ -323,8 +323,8 @@ def build_queries(message: str, analysis: dict) -> list[tuple[str, float]]:
     is_ne = detect_language(message) == "ne"
     llm_q = analysis.get("queries_ne") or []
     expansion = glossary.expand(message)
-    lex = translit.match(message)
-    lex_terms = translit.expand(message)
+    lex = translit.match(message) + translit.match_ne(message)
+    lex_terms = list(dict.fromkeys(translit.expand(message) + translit.expand_ne(message)))
     queries: list[tuple[str, float]] = [
         (message, 1.0 if is_ne else (0.35 if (expansion or llm_q or lex_terms) else 1.0))]
     fixed = respell_devanagari(message) if is_ne else message
@@ -552,7 +552,7 @@ def search_with_playbook(message: str, analysis: dict, top_k: int | None = None,
     queries = build_queries(message, analysis)
     # only a confidently matched plan may steer retrieval (title boost) before the gate has looked at it
     trusted = bool(playbook and playbook.get("_trusted"))
-    boost = (list(analysis.get("laws", [])) + translit.laws(message)
+    boost = (list(analysis.get("laws", [])) + translit.laws(message) + translit.laws_ne(message)
              + ([p.get("law_title_ne") for p in playbook.get("provisions", [])] if trusted else []))
     depth = max(top_k + 6, PIN_SUPPORT_DEPTH) if playbook else top_k + 6
     laws = idx.search(queries, top_k=depth, boost_titles=[b for b in boost if b], category="law")
