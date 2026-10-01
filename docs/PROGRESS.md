@@ -201,6 +201,76 @@ S7's own "done when" bar (25 playbooks, ≥90% precision) doesn't require it.
 ## Done
 
 
+### V3.3 live review (2026-10-01, fresh 30 set B)
+
+Independent two-pass LLM review of 30 FRESH live answers (set B, never used for tuning; all 30 served fresh, none cached;
+`eval/reports/answer-review-v33-answers30b-20261001.json`, `answer_review.py --set answers30b`, entailment pass OFF; V3.3
+topical-fit gate + V2.6 retrieval). Per-sentence labels with decisive passage words, per-answer usefulness, fallback verdicts and
+retrieval-miss notes: `eval/reports/answer-review-v33-labels-20261001.json`. **Bar (<5%) NOT met; improvement over V3.2 is
+real in direction but inside the noise, and answer coverage got worse.**
+
+| 49 kept sentences, 17 structured answers | supported | unsupported | wrong-law | halluc. number/section | bad rate |
+|---|---|---|---|---|---|
+| all | 33 | 6 | 10 | 0 | **32.7% (16/49)**, 95% CI 21-47%, vs V3.2 44.3% (31/70), V3 15.6% (12/77), V1 40.3% |
+| Devanagari (10) / romanised (16) / English (23) | 5 / 9 / 19 | 1 / 1 / 4 | 4 / 6 / 0 | 0 / 0 / 0 | 50% / 44% / 17% |
+| rule 35 / deadline 5 / penalty 4 / procedure 5 | 24 / 4 / 1 / 4 | 4 / 1 / 1 / 0 | 7 / 0 / 2 / 1 | 0 | 31% / 20% / 75% / 20% |
+
+- Sensitivity: 5 borderline calls flipped to supported 11/49 = 22.4%; counting 9 supported-but-tangential sentences as bad
+  25/49 = 51.0%; both 30/49 = 61%; excluding the b20 cluster 13/46 = 28.3%. Same labelling scheme as V3/V3.2.
+- Shape: still 0 hallucinated numbers/sections (quote/number/section checks hold). Wrong-law fell from 34% (24/70) to 20%
+  (10/49) of kept sentences but is concentrated in 5 answers: b20 college certificate -> compulsory school-education Act (x3,
+  incl. an invented 15-day deadline), b06 land-sale advance -> Joint Housing (Apartment) Act (x2), b08 tamsuk return ->
+  mortgage redemption + guarantor reimbursement (x2), b15 edited photo -> Criminal Code s.298 confidential-information (x2,
+  borderline), b17 private company -> public-company 7-shareholder rule (x1). Unsupported 6 = dropped conditions:
+  b25 s14 "within seven days" missing, b10 s.3क(6) "after the s.3क(3) notice" missing, b26 ETA s.48 "access under a power
+  granted by this Act" missing, b28 s.400(2) 35-day notice applies only to ground (ख), b23 s.216(3) lot-draw fallback, b14
+  s.99 remarriage ground not in the cited passage.
+- Modes: 17 structured, 11 extractive_fallback, 1 abstain, 1 none (V3.2: 22 / 6 / - / 2). Usefulness 0/1/2 = 15/12/3 (mean
+  0.6; V3.2 0.8, V3 1.0), >=1 for 15/30 (V3.2 18/30). **Answers that were correct and useful (usefulness 2 and zero bad
+  sentences): 2/30 = 6.7%** (b04 police refusal to register a theft report, b30 RTI). 6/17 structured answers have zero bad
+  sentences (b04 b19 b21 b22 b27 b30; V3.2 9/22) but b19 b21 b22 are usefulness 1 and b27 is tangential (VAT bookkeeping for a
+  registration question). Fully usable structured answers: b04, b28 (one over-general notice sentence), b30.
+- Fallback quality (11): governing provisions shown for 1 (b13 hit-and-run, s.163), partly for 6 (b02 s.389(ख), b11 hours
+  but not the s.31 rate, b12 right chapter no refund rule, b18, b24 no limitation, b29 no fine), not at all for 4 (b01
+  forged-signature land sale -> power-of-attorney/bail forms; b03 unpaid wages -> Companies Act AGM/share calls; b05 custody
+  -> widow-property / tenancy / arms-licence form; b16 freelancer tax -> sector exemptions). The on-topic caveat ("these
+  provisions match the subject of your question") is false for those 4 and arguably for b02. The abstain (b07) was honest but
+  shown items were irrelevant press rules. Fallback citation labels skip numbers ([3][4][6], [2][4][5]) and show raw forms.
+- Retrieval misses (governing section in the corpus, not retrieved or not used): b01 Criminal Code ss.276-277, 279, Civil Code
+  s.421; b03 Labour Act ss.35, 141, 148; b05 Civil Code ss.114-116; b07 Consumer Protection Act ss.14, 16(2); b10 Banking
+  Offences Act s.17 (one year to file; gap line "not covered" is a false negative); b11 Labour Act s.31 (1.5x); b14 Civil Code
+  s.95(घ); b15 Privacy Act s.16(1), s.29; b17 Companies Act s.9(1)/s.3(1) (in the retrieved passage, wrong clause chosen);
+  b19 Bank and Financial Institutions Act s.57(1) (in the retrieved passage, not used); b21 Labour Act s.13 (probation); b22
+  Civil Code ss.94-95 (grounds) and s.115(1),(5) (default custody; dropped by proviso_dropped); b23 Civil Code s.419 (written
+  consent of co-parceners to transfer; gap line false negative); b24 Criminal Code s.241, s.255 (one-year limit); b26 Criminal
+  Code s.253 (extortion); b27 VAT Act s.10 (registration; the cited title was the IRD variant with unknown status); b30 RTI
+  Act s.7(1) (Nepali citizens), s.8 (fee; gap line partly false).
+- Hidden legal claims outside checked sentences: uncited forum/procedure lines in advice (b15 police Cyber Bureau, b19 bank
+  grievance desk + NRB portal, b23 "partition suit at the District Court", b25 "Department of Commerce ... or inspection
+  officer", b30 "pay the prescribed fee"), mostly true or plausible; b28 asks about "twenty thousand rupees" rent (a real Civil
+  Code s.386(2) threshold) without stating it. User-facing: b18 romanised-Nepali question answered in English; "Empathy"
+  literal heading (b22); legacy-font garble "आप्mनो" inside a rendered sentence (b08); b14 repeats the court's wrong code name
+  "मुलुकी फौजदारी संहिता"; fallback shows blank schedule forms.
+- Over-removal: 30 sentences removed vs 49 kept (no_citation 12, quote_not_verbatim 7, section_not_in_quote 3, uncited_procedure
+  2, others 1 each); the report stores counts, not text, so this is inferred. Removals look right for no_citation/uncited
+  lines; likely harmful: b22 proviso_dropped (the default custody rule s.115(1)/(5) was the answer), b27 uncited_forum_claim
+  dropped the only registration-relevant block, b10/b25 each lost a sentence to a condition/additive check (text unseen). The
+  larger loss is upstream: 13 of 30 answers (43%) contained no verified sentence at all.
+- **Ranked fixes** (evidence in the labels file): (1) Retrieval / playbook routes for the ~14 misses above - about ten of 17
+  structured answers and 6 of 11 fallbacks lacked the governing section; add `SPECIALIST`-independent keyword->section routes
+  (Labour Act ss.31, 35, 141; BOA s.17; Civil Code ss.419, 115, 94-95; Privacy Act s.16; Criminal Code ss.253, 276, 241/255;
+  VAT s.10; RTI ss.7-8) and drop schedule/form passages (`अनुसूची-`, "…" blanks) from fallback candidates (b01, b02, b05). (2)
+  Deterministic population/regime check: add SPECIALIST rows for basic-school children education (b20), apartment/joint
+  housing (b06), and a public-vs-private company term check (sentence says "पब्लिक" while question says pvt/private, b17); add
+  actor mismatch (guarantor/mortgage vs debtor/tamsuk, b08). (3) Dropped-condition checks: compare the kept sentence with the
+  FULL enclosing passage sentence for deadline/number words (b25 "सात दिनभित्र"), leading cross-reference clauses
+  ("उपदफा (३) बमोजिम ... दिएकोमा", b10), actor/access qualifiers (b26 s.48), alternative branches ("मञ्जुरी हुन नसकेमा
+  गोला", b23) and which sub-clause a notice rule is attached to (b28). (4) Asked-quantity rule: the V3.2 gap rule did not fire
+  for "how long / minimum capital / documents" (b10, b17, b23, b27) and produced false-negative gaps; require a sentence
+  carrying the asked quantity or an accurate gap, otherwise abstain. (5) Fallback: switch to abstain when top fit is below
+  threshold (4 of 11 fallbacks were wholly off-topic yet carried the "matches the subject" caveat; abstain fired once), and
+  renumber citation labels. (6) Language: romanised Nepali must answer in Nepali (b18).
+
 ### V3.3 — Data-driven topical-fit gate, abstain, review polish (2026-10-01, offline; live re-measure pending)
 
 Goal: the V3.2 live review (fresh 30) showed 24 of 31 bad sentences were WRONG-LAW (a real, verbatim, verified quote from a
