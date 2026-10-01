@@ -46,6 +46,8 @@ SETS = {
     "realworld": "questions_realworld.jsonl",
     "heldout": "questions_heldout.jsonl",
     "answers30": "questions_answers30.jsonl",
+    # V2.6 section-level TUNING data (12 governing sections the live answers missed) - never a held-out set
+    "sections12": "questions_sections12.jsonl",
 }
 
 
@@ -92,6 +94,9 @@ def _first_section_hit(results, sections):
                 continue
             if s.get("section") is not None and sec == str(s["section"]):
                 return rank
+            if s.get("any_subsection") and s.get("section") is not None \
+                    and sec.split(" ")[0] == str(s["section"]).split(" ")[0]:
+                return rank  # "219 (2)" is a chunk of section 219
             if s.get("title_contains") and s["title_contains"] in (r.get("title_ne") or ""):
                 return rank
     return None

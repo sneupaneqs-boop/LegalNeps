@@ -1,0 +1,59 @@
+id: company_annual_return_late
+area: company
+keywords:
+  - "annual return"
+  - "late annual return"
+  - "barshik bibaran"
+  - "company annual return"
+  - "वार्षिक विवरण"
+  - "वार्षिक विवरण पेश"
+  - "वार्षिक विवरण नबुझाए"
+  - "कम्पनीको वार्षिक विवरण"
+not_keywords:
+  - "income tax return"
+  - "आयकर"
+issue:
+  en: "My company has not filed its annual return / financial statements with the Company Registrar on time: what is the penalty?"
+  ne: "मेरो कम्पनीले कम्पनी रजिष्ट्रारको कार्यालयमा वार्षिक विवरण समयमा पेश गरेको छैन: जरिबाना कति हो?"
+fact_questions:
+  - en: "How long after the deadline is the filing, and what is the company's paid-up capital (up to Rs 25 lakh, up to Rs 1 crore, or more)?"
+    ne: "म्याद नाघेको कति भयो, र कम्पनीको चुक्ता पूँजी कति छ (२५ लाखसम्म, १ करोडसम्म वा बढी)?"
+  - en: "Is it a public or a private company, and does it distribute profit?"
+    ne: "यो पब्लिक कि प्राइभेट कम्पनी हो, र मुनाफा वितरण गर्छ?"
+provisions:
+  - law_title_ne: "कम्पनी ऐन, २०६३"
+    section: "80"
+    note:
+      en: "A company that holds an AGM must send the Registrar's Office the AGM details, the annual financial statements, the directors' and auditor's reports and the AGM decisions within 30 days of the AGM; every company must file the audited annual financial statements within six months of the end of the financial year. Filing may be done electronically."
+      ne: "वार्षिक साधारण सभा गर्ने कम्पनीले सभा भएको तीस दिनभित्र सभाको विवरण, वार्षिक आर्थिक विवरण, सञ्चालक समिति र लेखापरीक्षकको प्रतिवेदन र सभाका निर्णयको प्रति कार्यालयमा पठाउनुपर्छ; प्रत्येक कम्पनीले आर्थिक वर्ष पूरा भएको छ महिनाभित्र लेखापरीक्षण भएको वार्षिक आर्थिक विवरण कार्यालयमा पेश गर्नुपर्छ। विद्युतीय माध्यमबाट पेश गर्न सकिन्छ।"
+  - law_title_ne: "कम्पनी ऐन, २०६३"
+    section: "81 (1)"
+    note:
+      en: "If a company misses the deadline for a return under sections 51, 78, 80, 120, 131 or 156, the Registrar fines the directors or officers: for the first three months late Rs 1,000 / 2,000 / 5,000 (paid-up capital up to Rs 25 lakh / up to Rs 1 crore / more); for the next three months Rs 1,500 / 3,000 / 7,000; for the following six months Rs 2,500 / 5,000 / 10,000; after that Rs 5,000 / 10,000 / 20,000 for each year. For other returns the fine is Rs 200 for each month after the first month, at most Rs 1,000 in a financial year."
+      ne: "दफा ५१, ७८, ८०, १२०, १३१ वा १५६ बमोजिमको विवरण म्यादभित्र नपठाएमा रजिष्ट्रारले सञ्चालक वा पदाधिकारीलाई जरिबाना गर्छ: म्याद भुक्तान भएको तीन महिनासम्म चुक्ता पूँजी २५ लाखसम्म/१ करोडसम्म/सोभन्दा बढी हुनेलाई रु. १,०००/२,०००/५,०००; थप तीन महिना रु. १,५००/३,०००/७,०००; थप छ महिना रु. २,५००/५,०००/१०,०००; त्यसपछि प्रत्येक वर्ष रु. ५,०००/१०,०००/२०,०००। अन्य विवरणमा म्याद समाप्त भएको एक महिनापछि प्रत्येक महिना रु. २००, एक आर्थिक वर्षमा रु. १,००० भन्दा बढी नहुने।"
+  - law_title_ne: "कम्पनी ऐन, २०६३"
+    section: "81 (2)"
+    note:
+      en: "For a company that does not distribute profit, the officers get the fine of a company with paid-up capital up to Rs 1 crore. The Act also gives a 90 percent discount on late-filing fines for returns outstanding on the date the provision began, if filed by the end of Asar 2082."
+      ne: "मुनाफा वितरण नगर्ने कम्पनीको सञ्चालक वा पदाधिकारीलाई एक करोडसम्म चुक्ता पूँजी भएको कम्पनी सरहको जरिबाना हुन्छ। यो व्यवस्था प्रारम्भ हुँदा बुझाउन बाँकी विवरण २०८२ साल असार मसान्तभित्र बुझाएमा ढिला बुझाए बापतको जरिबानामा ९० प्रतिशत छुट दिइन्छ।"
+evidence:
+  - en: "The company's registration certificate and last filed return"
+    ne: "कम्पनीको दर्ता प्रमाणपत्र र पछिल्लो पेश गरिएको विवरण"
+  - en: "The audited financial statements and the date of the AGM"
+    ne: "लेखापरीक्षण भएको वार्षिक आर्थिक विवरण र साधारण सभाको मिति"
+forum:
+  en: "File the overdue return with the Office of the Company Registrar (it can be uploaded electronically, section 80(3)); the Registrar imposes the fine under section 81."
+  ne: "ढिला भएको विवरण कम्पनी रजिष्ट्रारको कार्यालयमा पेश गर्नुहोस् (विद्युतीय माध्यमबाट अपलोड गर्न सकिन्छ, दफा ८०(३)); जरिबाना दफा ८१ बमोजिम रजिष्ट्रारले गर्छ।"
+limitation:
+  note:
+    en: "The fine grows with the delay: first 3 months, next 3 months, next 6 months, then per year (section 81(2)); file as early as possible."
+    ne: "ढिलाइ बढ्दै जाँदा जरिबाना बढ्छ: पहिलो ३ महिना, थप ३ महिना, थप ६ महिना, त्यसपछि प्रत्येक वर्ष (दफा ८१(२)); सकेसम्म चाँडो पेश गर्नुहोस्।"
+  provision:
+    law_title_ne: "कम्पनी ऐन, २०६३"
+    section: "81 (1)"
+next_steps:
+  - en: "Prepare the audited annual financial statements and file them with the Company Registrar's Office right away."
+    ne: "लेखापरीक्षण भएको वार्षिक आर्थिक विवरण तयार गरी तुरुन्तै कम्पनी रजिष्ट्रारको कार्यालयमा पेश गर्नुहोस्।"
+  - en: "Work out the fine from the table in section 81(2) by months of delay and the company's paid-up capital, and pay it with the filing."
+    ne: "दफा ८१(२) को तालिकाबाट ढिलाइका महिना र चुक्ता पूँजी अनुसार जरिबाना निकाली विवरण सँगै तिर्नुहोस्।"
+template_link: null

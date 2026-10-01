@@ -55,6 +55,11 @@ fact_questions:
     ne: "पहिले नै बण्डा भइसकेको भए, कहिले भयो, र तपाईं त्योसँग असहमत हुनुहुन्छ?"
 provisions:
   - law_title_ne: "मुलुकी देवानी संहिता, २०७४"
+    section: "205"
+    note:
+      en: "For dividing joint family property, the husband, wife, father, mother, sons and daughters are treated as coparceners (अंशियार)."
+      ne: "सगोलको सम्पत्ति अंशबण्डा गर्ने प्रयोजनका लागि पति, पत्नी, बाबु, आमा, छोरा, छोरी अंशियार मानिन्छन्।"
+  - law_title_ne: "मुलुकी देवानी संहिता, २०७४"
     section: "214"
     note:
       en: "A widow may take her own share and live separately at any time, whatever else the chapter says. If she marries again, the property she took as her share goes to the children of her earlier husband or, if none, to her."
@@ -79,11 +84,6 @@ provisions:
     note:
       en: "Time limits for a partition suit: any time if no partition ever happened, or if a partition deed was made or the parties accounted for it and both have been enjoying their shares; 3 months from the date of partition if you disagree with a partition already made; for concealed property, during the lifetime of the coparcener who concealed it; and 6 months from the act in all other cases."
       ne: "अंश सम्बन्धी नालिसको हदम्याद: अंशबण्डा नै नभएको वा गोश्वाराको लिखत भएको र लिखत नभए पनि हिसाब गरी दुवै पक्षले भोग गरेकोमा जहिलेसुकै; अंशबण्डामा चित्त नबुझे बण्डा भएको मितिले ३ महिनाभित्र; सम्पत्ति लुकाएको वा छिपाएको सम्बन्धमा अंशियारको जीवनकालसम्म; अन्य अवस्थामा काम कारबाही भए गरेको मितिले ६ महिनाभित्र।"
-  - law_title_ne: "मुलुकी देवानी संहिता, २०७४"
-    section: "205"
-    note:
-      en: "For dividing joint family property, the husband, wife, father, mother, sons and daughters are treated as coparceners (अंशियार)."
-      ne: "सगोलको सम्पत्ति अंशबण्डा गर्ने प्रयोजनका लागि पति, पत्नी, बाबु, आमा, छोरा, छोरी अंशियार मानिन्छन्।"
   - law_title_ne: "मुलुकी देवानी संहिता, २०७४"
     section: "220"
     note:

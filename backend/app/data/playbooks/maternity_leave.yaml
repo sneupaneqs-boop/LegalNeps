@@ -1,0 +1,54 @@
+id: maternity_leave
+area: labour
+keywords:
+  - "maternity leave"
+  - "prasuti bida"
+  - "prasooti bida"
+  - "pregnant worker leave"
+  - "प्रसूति बिदा"
+  - "सुत्केरी बिदा"
+  - "मातृत्व बिदा"
+  - "गर्भवती श्रमिक"
+  - "maternity leave kati din"
+issue:
+  en: "I work in a private-sector workplace and am pregnant (or about to give birth): how much maternity leave and pay do I get?"
+  ne: "म निजी क्षेत्रको प्रतिष्ठानमा काम गर्छु र गर्भवती छु (वा सुत्केरी हुँदैछु): कति दिन प्रसूति बिदा र तलब पाउँछु?"
+fact_questions:
+  - en: "Are you a worker under the Labour Act (a private-sector or similar workplace), not a civil servant or a judge?"
+    ne: "तपाईं श्रम ऐन अन्तर्गतको श्रमिक (निजी क्षेत्र वा त्यस्तै प्रतिष्ठान) हुनुहुन्छ, निजामती कर्मचारी वा न्यायाधीश होइन?"
+  - en: "When is the expected delivery date, and has a doctor advised more rest after the birth?"
+    ne: "सम्भावित प्रसूति मिति कहिले हो, र प्रसूतिपछि थप आराम गर्न चिकित्सकले सिफारिस गर्नुभएको छ?"
+provisions:
+  - law_title_ne: "श्रम ऐन, २०७४"
+    section: "45"
+    note:
+      en: "A pregnant woman worker gets 14 weeks of maternity leave before or after the birth. She must take leave from at least two weeks before the expected delivery date until at least six weeks after the birth. She gets full pay for sixty days and no pay for the rest of the leave. If a recognised doctor advises more rest, the employer must allow up to one more month of unpaid leave (or leave adjusted against other leave). A woman who is seven months or more pregnant and has a stillbirth or miscarriage gets leave as for a birth. A male worker whose wife gives birth gets 15 days of paid maternity-care leave."
+      ne: "गर्भवती महिला श्रमिकले प्रसूतिको अघि वा पछि चौध हप्ताको प्रसूति बिदा पाउँछिन्। सम्भावित प्रसूति मितिभन्दा कम्तीमा दुई हप्ता अगाडिदेखि प्रसूति भएको कम्तीमा छ हप्तासम्म अनिवार्य बिदा बस्नुपर्छ। साठी दिनको पूरा पारिश्रमिक पाउँछिन् र बाँकी अवधिको पाउँदिनन्। मान्यताप्राप्त चिकित्सकले थप आराम सिफारिस गरेमा रोजगारदाताले थप एक महिनासम्म वेतलबी बिदा (वा अन्य बिदामा समायोजन) दिनुपर्छ। सात महिना वा सोभन्दा बढी गर्भ रहेकी श्रमिकको शिशु मृत जन्मे वा गर्भपतन भए प्रसूति सरह बिदा पाउँछिन्। पुरुष श्रमिकको श्रीमती सुत्केरी हुँदा पारिश्रमिक सहित १५ दिन प्रसूति स्याहार बिदा पाउँछन्।"
+  - law_title_ne: "श्रम ऐन, २०७४"
+    section: "162"
+    note:
+      en: "A worker harmed by a breach of the Labour Act (for example refusal of the leave) can complain to the deciding body (Department or Labour Office) within six months of the act."
+      ne: "श्रम ऐन विपरीत कार्य (जस्तै बिदा नदिनु) गरेमा मर्का पर्ने श्रमिकले सो कार्य भए गरेको मितिले छ महिनाभित्र निर्णय गर्ने निकाय (विभाग वा श्रम कार्यालय) समक्ष उजुरी दिन सक्छ।"
+evidence:
+  - en: "Your appointment letter or contract and recent salary slips"
+    ne: "नियुक्तिपत्र वा सम्झौता र हालका तलबको विवरण"
+  - en: "A doctor's certificate showing the expected delivery date (and any advice for extra rest)"
+    ne: "सम्भावित प्रसूति मिति देखाउने चिकित्सकको प्रमाणपत्र (थप आरामको सिफारिस भए सो समेत)"
+forum:
+  en: "Ask the employer in writing for the leave under section 45; if it is refused, complain to the Labour Office (section 162)."
+  ne: "दफा ४५ बमोजिम बिदाका लागि रोजगारदातालाई लिखित रूपमा अनुरोध गर्नुहोस्; नदिएमा श्रम कार्यालयमा उजुरी दिनुहोस् (दफा १६२)।"
+limitation:
+  note:
+    en: "A complaint about a breach of the Labour Act must be made within six months of the act (section 162)."
+    ne: "श्रम ऐन विपरीत कार्यको उजुरी सो कार्य भए गरेको मितिले छ महिनाभित्र दिनुपर्छ (दफा १६२)।"
+  provision:
+    law_title_ne: "श्रम ऐन, २०७४"
+    section: "162"
+next_steps:
+  - en: "Give the employer written notice with the doctor's certificate before the leave starts; the leave must begin at least two weeks before the expected date."
+    ne: "बिदा सुरु हुनुअघि चिकित्सकको प्रमाणपत्र सहित रोजगारदातालाई लिखित सूचना दिनुहोस्; बिदा सम्भावित मितिभन्दा कम्तीमा दुई हप्ताअघि सुरु हुनुपर्छ।"
+  - en: "If a doctor advises more rest after the birth, ask in writing for the extra month."
+    ne: "प्रसूतिपछि थप आराम गर्न चिकित्सकले भनेमा थप एक महिनाको बिदा लिखित रूपमा माग्नुहोस्।"
+  - en: "If the leave or pay is refused, complain to the Labour Office within six months."
+    ne: "बिदा वा पारिश्रमिक नदिएमा छ महिनाभित्र श्रम कार्यालयमा उजुरी दिनुहोस्।"
+template_link: null

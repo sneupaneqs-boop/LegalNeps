@@ -455,6 +455,85 @@ that names no forum (e.g. "keep your receipts") is trusted.
 `precedent_*`, `gaps_removed`, plus usefulness and fallback rate (over-removal), the free-tier no-model-answer count
 (was 5/30) and latency (was 28-42 s on 429s).
 
+### V2.6 — Section-level retrieval: the governing SECTION, not just the Act (2026-10-01, offline raw path)
+
+Problem (V3.2 live review): the right Act is often retrieved but not the governing section. New tuning set
+`eval/questions_sections12.jsonl` (12 of the answers30 misses; gold re-verified with `Index.section`; `python eval/run_eval.py
+verify --set sections12`; marked TUNING DATA, `any_subsection` matches a chunk "219 (2)" of section 219). Section labels in the
+corpus carry sub-section suffixes ("81 (1)", "219 (2)") and mixed-script digits (the VAT s.11(1)(च) the review named is
+*deregistration*; the registration threshold text is s.10 + s.11(1)(च), both are gold).
+
+**Root cause per question** (rank of the gold section in an UNCAPPED candidate list from `build_queries`, before; then the
+production top-8 rank; V3.2 live answers had none of them):
+
+| Q (answers30) | gold | bm25 / dense / hybrid candidate rank | why it missed | prod top-8 before -> after |
+|---|---|---|---|---|
+| a02 rent eviction | CC 401 (390, 391) | >300 / 34 / 87 | vocabulary: घरबेटी/भाडा/कोठा vs घरधनी/बहाल; the plan `tenant_eviction_without_notice` existed but its gate dropped it (keyword said घर, not कोठा) | miss -> 1 |
+| a03 hit-and-run | MV Act 163 | 168 / 2 / 13 | recall OK in dense; BM25 never saw सवारी/दुर्घटना (मोटरसाइकल/हिर्काएर); fusion diluted the dense hit | miss -> 1 |
+| a04 salary tax | ITA 87 | >300 / >100 / >300 | कटौती vs कट्टी; Army Act outranked it | miss -> 1 (3 w/o heading boost) |
+| a12 maternity (roman) | Labour 45 | 4 / 6 / 2 | already top-3 offline; the live miss was the LLM-rewrite path (not measured here) | 2 -> 1 |
+| a05 dismissal | Labour 53 | 210 / >100 / >300 | concept gap: nothing in the question says "gratuity"; per-doc cap also leaves 3 Labour passages | miss -> 2 (playbook s.53 only) |
+| a25 rape (en) | CC 219, 229 | 2 / 19 / 1 | fine offline (229 at 11) | 1 -> 1 |
+| a10 company docs | Companies 4 | 37 / 6 / 6 | a plan pinned ss.9, 5; s.4 behind the 3-per-doc cap | miss -> 3 |
+| a28 late return (en) | Companies 81 | 95 / 4 / 15 | no "annual return" key; wrong plan (bonus) offered | miss -> 2 |
+| a09 defective phone | Consumer 14 | >300 / 30 / 110 | heading fused in the corpus ("फिर्तागर्नसकिने"): no shared token; dense had it | miss -> 1 |
+| a16 false case (roman) | CC 98 | >300 / 38 / 150 | "jhutho" mapped to defamation; heading says झुठ्ठा उजुरी | miss -> 1 |
+| a11 daughter's share | CC 205 | 20 / 16 / 16 | ranking among 40 CC partition passages; plan pinned 214,216 first | miss -> 1 |
+| a17 VAT turnover | VAT 10 / 11 | 1 / 1 / 1 | already found offline | 1 -> 1 |
+
+So 5 are recall problems for BM25 (a02, a04, a05, a09, a16: vocabulary), 5 are ranking/fusion/cap problems (a03, a07, a08, a11, a12),
+2 were already fine offline (a25, a17).
+
+**Mechanisms** (all in `retrieval.py` `SEARCH`, `translit.py`, playbooks):
+1. **Devanagari concept lexicon** (`translit._LEXICON_NE`, `match_ne/expand_ne/laws_ne`, wired in `build_queries` and the law-title boost):
+   everyday Devanagari wording -> the statute's wording (घरबेटी/कोठा खाली, तलब कर कटौती, मोटरसाइकल हिर्काएर, जागिरबाट निकाल्यो,
+   सुत्केरी, बलात्कार, कम्पनी दर्ता, वार्षिक विवरण, झुट्टा मुद्दा, छोरी अंश, बिग्रेको+फिर्ता, भ्याट दर्ता; 15 entries) with
+   ordered-slot / prefix (`हिर्का*`) / co-occurrence (`a & b`) keys; every target validated against the index vocabulary
+   (`tests/test_v26_sections.py`). Six Latin lines added (annual return, jhutho muddha, eviction, tax katauti, ansha paunchha).
+   `translit.match()` is unchanged (a Devanagari message stays untouched by the Latin lexicon).
+2. **Heading signal**: an `aux` cache next to the index (`<digest>-v5.aux1.npz`, built once from the stored passages, 4 MB) holds
+   idf-weighted heading tokens; fused scores x (1 + 0.3 x coverage x min(1, matched-idf / 10)).
+3. **Specialist-regime prior** (`REGIMES`: military, police service, judicial service, civil service, postal, insolvency,
+   customs/excise, hire-purchase chapter (found by its opening words), sector bodies; found from corpus titles, demoted unless the
+   question carries a cue word, law named in the analysis exempt): implemented and tested, **default OFF** (`regime_demote` 1.0): at 0.6 it
+   lost 0.6 pt default hit@8 and added nothing on sections12.
+4. Playbooks: 3 new (maternity_leave, salary_tax_withholding, company_annual_return_late), s.53 added to wrongful_termination, s.205 moved first
+   in inheritance_share (pin limit). All NEEDS-ADVOCATE-REVIEW (docs/PLAYBOOK_AUDIT.md).
+5. Tried and not kept: `lead_doc_cap` 4/5/6 (a 5th passage from the lead statute: +1 section on sections12, -0.6 pt default hit@8, so kept at 3;
+   knob `SEARCH["lead_doc_cap"]`); dense weight 2.2/3.0 (default +0.7 pt but realworld sec/hit lost one, sections12 section hit unchanged);
+   heading boost 0.5 (default hit@8 -1.3 pt; 0.3 with mass 10 chosen). Not built: neighbour (+-2 section) expansion (no gold section was
+   adjacent to a retrieved one in the diagnosis), a dense re-rank of the top-30 on heading+first sentence (would add one ~10-60 ms encoder
+   batch per query, over the +30 ms budget, and the 12 are already served by the cheaper signals), a separate dense query from the rewrite
+   (the rewritten Nepali phrasings already go through dense with their own weight in `_fuse_dense`; offline there is no rewrite to measure).
+
+**Measured** (raw path, no LLM, production `search()` + playbook, hybrid; tuning sets; hit@8 / hit@3 / MRR, section hit@8 / @3):
+
+| Set | before (V2.5 code) | after | notes |
+|---|---|---|---|
+| sections12 (12) section hit@8 / @3 | 0.25 / 0.25 (bm25 .25, dense .417) | **1.00 / 1.00** (section MRR .21 -> .86) | tuning data |
+| sections12, retrieval only (no plans) | 0.42 / 0.42 | 0.92 / 0.92 | only a05 needs its plan |
+| default (150, 146 covered) | .938 / .856 / .821 | .938 / .849 / .825 | no regression |
+| realworld (30) | 1.000 / .967 / .975, section .733 -> 1.000 / .900 | 1.000 / 1.000 / .978, section 1.000 / .933 | |
+| heldout (50), ONE run, aggregate only | .82 / .70 / .631, section .64 / .36 (V2.5) | **.82 / .70 / .613, section .58 / .32** | **regression of 3 questions on section hit@8**, see below |
+
+Ablation (final minus one mechanism; hit@8 / hit@3 / MRR default | section hit@8 / @3 realworld | section hit@8 / @3 sections12):
+all .938/.849/.825 | 1.0/.933 | 1.0/1.0; no lexicon .932/.849/.819 | 1.0/.933 | .75/.75; no heading .932/.849/.816 | 1.0/.900 | 1.0/1.0;
+none of the three signals .938/.856/.817 | 1.0/.900 | .667/.667. BM25-only (all on): default .877/.788/.761; dense-only .918/.849/.777.
+
+- **Heldout honesty:** the held-out section hit@8 went from 0.64 to 0.58 and MRR .631 -> .613 while every tuning set rose or stayed. No miss was inspected
+  and nothing was tuned on it, so the cause is unknown; the likely suspects are the heading boost (it re-orders passages inside a statute for every
+  question) and Devanagari-lexicon expansions on questions it half-fits. Both are one-line switches (`SEARCH["heading_boost"]=0`; delete the `_LEXICON_NE`
+  lines). The tuning sets cannot say which; a decision on keeping them should wait for a fresh held-out/live review. During the work two heldout
+  questions (ho01, ho02) were displayed by an unfiltered `head` of the file; neither was used for tuning (the tenancy fix was derived from answers30 a02).
+- **Latency/memory** (4 cores, `generation.search()` + matcher, 180 tuning questions, warm, idle machine): p50 90.7 ms with all signals vs
+  90.9 ms with them off (the 94 vs 92 ms runs are noise); the aux arrays are 4.0 MB, process RSS after the run 382 MB (V2 baseline 356-386 MB).
+  First call after process start builds the aux cache from SQLite (~5 s once; `prebuild_index.py` warms it because `get_index()` attaches it).
+- **Not measured:** the live LLM-rewrite path (queries_ne), a02/a12 answer text. a12 (maternity, roman) is already top-3 offline: the live miss came
+  from the rewrite path, which this offline eval cannot reproduce.
+- **Still misses:** a05 gratuity without its plan (no lexical bridge from "निकाल्यो" to s.53); VAT s.11(1)(च) at rank 27 (s.10 is first); the
+  nine pre-existing default-set misses; romanised queries for concepts outside the 21 lexicon entries; sections split across chunks where only a
+  continuation chunk ("219 (3)") has the punishment.
+
 ### V2.5 — Retrieval / playbook-routing fixes from the V3 live review (2026-09-30, offline raw path)
 
 The V3 review found the governing provision in the corpus but not in the answer (wrong playbook pins, no NRB directive for

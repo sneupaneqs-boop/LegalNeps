@@ -137,6 +137,11 @@ S ; rin|rinn|karja|karjaa|kaarja|loan|loans|rin liyeko|karja liyeko ; कर्�
 S ; sahu|sahuji|moneylender|money lender|lender|byajwala|sudkhor ; साहु|साहुको ब्याज ; CIV
 S ; udhar|udhaar|udharo|sapati|sapaati|paisa liyeko|paisa lieko|paisa maagyo ; सापटी|ऋण|लेनदेन ; CIV
 S ; lekhat|likhat|likhit|dastakhat|dastkhat|sahichhap|sahi chhap|signature ; लिखत|सहीछाप|दस्तखत ; CIV
+S ; annual return|annual returns|late annual return|barshik bibaran|barsik bibaran|baarshik bibaran|vaarshik bibaran ; वार्षिक विवरण|विवरण नपठाएमा जरिबाना|कम्पनी रजिस्ट्रार ; COMP
+S ; jhutho muddha|jhutho mudda|jhuto muddha|jhutto muddha|jhutho ujuri|jhutho jaheri|false case|false complaint|false fir|false accusation|fake case ; झुठ्ठा उजुरी|झुठ्ठा उजुरी दिन नहुने|हैरान ; CRIM
+S ; kotha khali|ghar khali|room khali|khali garna lagayo|khali garna bhanyo|evict|evicted|eviction|evicting ; बहालमा लिने व्यक्तिलाई हटाउन सक्ने|घरबाट हटाउन|घरधनी|बहाल ; CIV
+S ; tax katauti|tax kattaune|tax katne|salary tax|tax on salary|withholding tax|withholding|talab ma tax|talabma tax ; रोजगारदाताबाट कर कट्टी|कर कट्टी|रोजगारी|आयकर ; ITX
+S ; ansha paunchha|ansh paunchha|ansha paucha|ansha pauchhin|ansha paune|daughter share|daughters share|share of daughter ; अंशियार मानिने|छोरा छोरी|अंशबण्डा|अंश ; CIV
 S ; sambidhan|samvidhan|samvidhaan|constitution ; संविधान
 S ; nagarikta|nagrikta|nagarikata|nagarita|citizenship|nagarikta pramanpatra ; नागरिकता|नागरिकताको प्रमाणपत्र ; CIT
 S ; naam thar|nam thar|naam ra thar|name correction|naam sachyaune|umer sachyaune|janma miti ; नाम थर|जन्म मिति|उमेर ; CIT
@@ -344,3 +349,125 @@ def laws(text: str, limit: int = 4) -> list[str]:
 
 def strong_count(text: str) -> int:
     return sum(1 for e in match(text) if e.strong)
+
+
+# ---------------------------------------------------------------------------------------------------------------
+# Devanagari everyday wording -> statute wording (V2.6).
+# A message already in Devanagari shares the statutes' script but not always their WORDS: people say घरबेटी / भाडा /
+# कोठा / तलबबाट कर कटौती / जागिरबाट निकाल्यो / मोटरसाइकलले हिर्काएर, the Civil Code says घरधनी / बहाल / घरबाट हटाउन,
+# the Income Tax Act "रोजगारदाताबाट कर कट्टी", the Vehicles Act "सवारी दुर्घटना ... क्षतिपूर्ति". This is the same bridge as
+# the romanised lexicon above, for Devanagari keys. Format (one entry per line, " ; " fields):
+#     S|W ; key / key / ... ; Devanagari targets (|-separated) [; law codes]
+# A key is 1-3 space-separated SLOTS matched against the message's index tokens (same folding/stemming as the index, so
+# postpositions are already gone); a slot is one or more alternatives joined by "|", and "*" after an alternative
+# makes it a prefix (verb endings: हिर्का* = हिर्काएर, हिर्काउँदा). Slots must occur in order with at most one token
+# between them. As above every target token must be an index word occurring in >= 2 passages (tests/test_translit.py).
+_LEXICON_NE = """
+S ; घरबेटी|मकानमालिक|घरमालिक / मकान मालिक / घर मालिक ; घरधनी|बहाल|बहालमा लिने व्यक्ति ; CIV
+S ; कोठा|घर|डेरा भाडा / कोठा|घर|डेरा खाली / डेरा बस* / भाडामा बस* / कोठा|घर बहाल ; बहाल|बहालमा लिने व्यक्ति|घरधनी ; CIV
+S ; खाली लगाय* / खाली भन्* / खाली गराउ* / निकाल्न खोज* / निकालिदि* ; बहालमा लिने व्यक्तिलाई हटाउन सक्ने|घरबाट हटाउन|घरधनी|बहाल ; CIV
+S ; तलब|पारिश्रमिक|ज्याला कर / कर कटौती|कट्टी|कट्ट* / टिडिएस|टीडीएस / स्रोतमा कर ; रोजगारदाताबाट कर कट्टी|कर कट्टी|रोजगारी|आयकर ; ITX
+S ; जागिर|नोकरी|काम निकाल*|हटा*|बर्खास्त* / कारण नदेखाई निकाल* ; बर्खास्त|सेवाबाट हटाउने|उपदान|क्षतिपूर्ति|सेवा समाप्त ; LAB
+S ; ग्र्याच्युटी|ग्रेच्युटी ; उपदान|उपदान पाउने ; LAB
+S ; सुत्केरी|मातृत्व|प्रसूति|गर्भवती बिदा / बच्चा जन्माउ* बिदा ; प्रसूति बिदा|गर्भवती महिला श्रमिक|बिदा ; LAB
+S ; मोटरसाइकल*|मोटरसाईकल*|बाइक*|स्कुटर*|गाडी*|ट्रक*|टेम्पो*|ट्याक्सी*|माइक्रो*|जीप* हिर्का*|ठक्कर*|किच्य*|कुल्च*|दुर्घटना* / सवारी दुर्घटना* ; सवारी दुर्घटना|सवारी साधन|चालक|घा खर्च|क्षतिपूर्ति|पीडित ; MV
+S ; जबरजस्ती|जवर्जस्ती|जबर्जस्ती करणी / बलात्कार* / यौन हिंसा ; जवर्जस्ती करणी|बलात्कार|हदम्याद|कैद ; CRIM
+S ; कम्पनी दर्ता / कम्पनी खोल* / कम्पनी स्थापना / प्राइभेट लिमिटेड ; कम्पनी संस्थापना|संस्थापनाको लागि निवेदन|प्रबन्धपत्र|नियमावली|कम्पनी दर्ता ; COMP
+S ; वार्षिक विवरण / वार्षिक रिटर्न ; वार्षिक विवरण|विवरण नपठाएमा जरिबाना|कम्पनी रजिस्ट्रार ; COMP
+S ; झुट्टा|झुठो|झुटो|झूठा|झुठ्ठा|झुठा मुद्दा|उजुरी|नालिस|जाहेरी ; झुठ्ठा उजुरी|झुठ्ठा उजुरी दिन नहुने|हैरान ; CRIM
+S ; छोरी|दिदीबहिनी अंश / अंश पाउँ* / छोरा छोरी अंश ; अंशियार मानिने|अंशबण्डा|छोरा छोरी|अंश ; CIV
+S ; बिग्रि*|खराब|कमसल|नक्कली|डिफेक्टिभ & फिर्ता|बदली ; वस्तु फिर्ता|उपभोक्ता|बिक्रेता|क्षतिपूर्ति ; CONS
+S ; भ्याट दर्ता / भ्याट टर्नओभर / मूल्य अभिवृद्धि दर्ता ; मूल्य अभिवृद्धि कर|दर्ता|करयोग्य कारोबार ; VAT
+"""
+
+
+@dataclass(frozen=True)
+class NEEntry:
+    strong: bool
+    keys: tuple[tuple[tuple[tuple[str, bool], ...], ...], ...]  # key -> slots -> alternatives (token, is_prefix)
+    terms: tuple[str, ...]
+    laws: tuple[str, ...]
+
+
+def _ne_slots(key: str):
+    if "&" in key:
+        parts = [_ne_slots(p) for p in key.split("&")]
+        return [p for p in parts if p] if all(parts) else ()
+    from .text_norm import tokenize
+    slots = []
+    for slot in key.split():
+        alts = []
+        for alt in slot.split("|"):
+            prefix = alt.endswith("*")
+            toks = tokenize(alt.rstrip("*"))
+            if toks:
+                alts.append((toks[0], prefix))
+        if alts:
+            slots.append(tuple(alts))
+    return tuple(slots)
+
+
+def _parse_ne() -> tuple[NEEntry, ...]:
+    out = []
+    for line in _LEXICON_NE.strip().splitlines():
+        parts = [p.strip() for p in line.split(" ; ")]
+        if len(parts) < 3:
+            continue
+        laws = tuple(_LAW[k] for k in parts[3].split("|")) if len(parts) > 3 and parts[3] else ()
+        keys = tuple(s for s in (_ne_slots(k) for k in parts[1].split(" / ")) if s)
+        out.append(NEEntry(parts[0] == "S", keys, tuple(t.strip() for t in parts[2].split("|") if t.strip()), laws))
+    return tuple(out)
+
+
+NE_ENTRIES: tuple[NEEntry, ...] = _parse_ne()
+
+
+def _slot_hit(slot, tok: str) -> bool:
+    return any(tok == a or (p and tok.startswith(a)) for a, p in slot)
+
+
+def _key_in(key, toks: list[str]) -> bool:
+    if isinstance(key, list):  # "a & b": every part occurs somewhere in the message
+        return all(_key_in(part, toks) for part in key)
+    for i, t in enumerate(toks):
+        if not _slot_hit(key[0], t):
+            continue
+        pos, ok = i, True
+        for slot in key[1:]:
+            nxt = next((j for j in (pos + 1, pos + 2) if j < len(toks) and _slot_hit(slot, toks[j])), None)
+            if nxt is None:
+                ok = False
+                break
+            pos = nxt
+        if ok:
+            return True
+    return False
+
+
+def match_ne(text: str) -> list[NEEntry]:
+    """Devanagari-lexicon entries hit by the Devanagari words of `text` (empty for a message with no Devanagari)."""
+    from .text_norm import DEVANAGARI_RE, tokenize
+    if not text or not DEVANAGARI_RE.search(text):
+        return []
+    toks = tokenize(text)
+    hits = [e for e in NE_ENTRIES if any(_key_in(k, toks) for k in e.keys)]
+    return hits if any(e.strong for e in hits) else []
+
+
+def expand_ne(text: str, max_terms: int = 14) -> list[str]:
+    out: list[str] = []
+    for e in match_ne(text):
+        for t in e.terms:
+            if t not in out:
+                out.append(t)
+    return out[:max_terms]
+
+
+def laws_ne(text: str, limit: int = 4) -> list[str]:
+    out: list[str] = []
+    for e in match_ne(text):
+        if e.strong:
+            for law in e.laws:
+                if law not in out:
+                    out.append(law)
+    return out[:limit]
