@@ -157,7 +157,8 @@ def _pipeline_fingerprint() -> str:
     here = Path(__file__).parent
     for f in [here / "translit.py", here / "verifier.py", here / "structured.py", here / "text_norm.py",
               here / "claim_checks.py", here / "situation_guards.py", here / "topical_fit.py", here / "fit_reply.py",
-              here / "data" / "topical_fit.json",
+              here / "data" / "topical_fit.json", here / "condition_checks.py", here / "section_routes.py",
+              here / "data" / "section_routes.yaml",
               *sorted((here / "data" / "playbooks").glob("*.yaml"))]:
         if f.exists():
             h.update(f.name.encode())
@@ -1026,6 +1027,8 @@ def run(message: str, language: str = "auto", history: list[dict] | None = None,
     if sources:
         fit_reply.relabel_subsections(sources)
         fit_report = apply_topical_gate(message, analysis, sources, playbook)  # V3.3: marks off-topic sources
+        if fit_report is not None:
+            sources[:] = fit_reply.order_for_display(sources)  # V2.7: shown / citable passages first: contiguous [1][2][3]
     yield "meta", {"language": lang, "sources": sources, "analysis": meta_analysis, "playbook": playbook_card}
 
     if not sources:

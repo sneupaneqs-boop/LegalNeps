@@ -72,8 +72,20 @@ def related_candidates(sources: list[dict], limit: int | None = None) -> list[tu
     cand = [(i, s) for i, s in enumerate(sources, 1)
             if s.get("category") != "precedent"
             and not any(str(w).startswith(("specialist:", "non_substantive:")) for w in s.get("off_topic_why") or [])]
-    cand.sort(key=lambda x: (x[1].get("fit_score", 0.0), x[0]))
+    cand.sort(key=lambda x: (bool(x[1].get("off_topic")), x[1].get("fit_score", 0.0), x[0]))
     return sorted(cand[:limit])
+
+
+def order_for_display(sources: list[dict]) -> list[dict]:
+    """V2.7 citation labels: statutes that fit directly first, then the other on-topic statutes, then on-topic precedents,
+    then everything the gate ruled out (each group in its retrieval order). The labels [n] are the source list's own
+    numbers, so a fallback / abstain list shows [1][2][3] (V3.3 review: [3][4][6], [2][4][5]) and an answer never cites
+    a number that skips over passages the model was not shown."""
+    def key(s: dict):
+        keep = not s.get("off_topic")
+        direct = bool(s.get("fit_direct") or s.get("pinned"))
+        return (0 if keep else 1, 0 if (s.get("category") != "precedent") else 1, 0 if direct else 1) if keep else (1, 0, 0)
+    return sorted(sources, key=key)  # sorted() is stable
 
 
 def _excerpt(s: dict, lang: str, limit: int = 260) -> str:
@@ -91,7 +103,7 @@ def abstain_answer(sources: list[dict], lang: str, disclaimer: str, playbook: di
     parts = [t["lead"]]
     rel = related_candidates(sources)
     if rel:
-        parts.append(f"**{t['related']}**\n" + "\n".join(f"- **[{k}] {_cite(s, lang)}**: {_excerpt(s, lang)}" for k, (_, s) in enumerate(rel, 1)))
+        parts.append(f"**{t['related']}**\n" + "\n".join(f"- **[{i}] {_cite(s, lang)}**: {_excerpt(s, lang)}" for i, s in rel))
     if playbook:
         forum = (playbook.get("forum") or {}).get(key) or (playbook.get("forum") or {}).get("en") or ""
         steps = [x for x in ((st.get(key) or st.get("en")) for st in playbook.get("next_steps", [])) if x]
@@ -129,17 +141,17 @@ def extractive_answer(sources: list[dict], lang: str, disclaimer: str, header: s
         if n_direct == len(shown):
             note = DIRECT_NOTE[key]
         elif n_direct:
-            nums = ", ".join(f"[{k}]" for k, (_, s) in enumerate(shown, 1) if s.get("fit_direct") or s.get("pinned"))
+            nums = ", ".join(f"[{i}]" for i, s in shown if s.get("fit_direct") or s.get("pinned"))
             note = PARTIAL_NOTE[key].format(nums=nums)
         else:
             note = CLOSEST_NOTE[key]
     else:
         shown = list(enumerate(sources[:5], 1))
     lines = [header or _EXTRACTIVE_HEADER[key]]
-    # the labels shown are 1..n in display order (the source list's own numbers skip the passages the gate removed)
-    for k, (i, s) in enumerate(shown, 1):
+    # the labels are the source list's own numbers; after `order_for_display` the passages shown come first, so they are 1..n
+    for i, s in shown:
         text = (s.get("text_en") if lang == "en" and s.get("text_en") else s.get("text_ne")) or ""
-        lines.append(f"\n**[{k}] {_cite(s, lang)}**\n{text[:700]}")
+        lines.append(f"\n**[{i}] {_cite(s, lang)}**\n{text[:700]}")
     if note:
         lines.append("\n" + note)
     lines.append("\n" + disclaimer)
