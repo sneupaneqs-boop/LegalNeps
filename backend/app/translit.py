@@ -49,6 +49,7 @@ _LAW = {
     "CORR": "भ्रष्टाचार निवारण ऐन, २०५९",
     "BONUS": "बोनस ऐन, २०३०",
     "SHH": "कार्यस्थलमा हुने यौनजन्य दुर्व्यवहार ( निवारण) ऐन, २०७१",
+    "PRIV": "वैयक्तिक गोपनीयता सम्बन्धी ऐन, २०७५",
 }
 
 # S = strong (specific, safe alone), W = weak (generic: only alongside a strong hit)
@@ -142,6 +143,12 @@ S ; jhutho muddha|jhutho mudda|jhuto muddha|jhutto muddha|jhutho ujuri|jhutho ja
 S ; kotha khali|ghar khali|room khali|khali garna lagayo|khali garna bhanyo|evict|evicted|eviction|evicting ; बहालमा लिने व्यक्तिलाई हटाउन सक्ने|घरबाट हटाउन|घरधनी|बहाल ; CIV
 S ; tax katauti|tax kattaune|tax katne|salary tax|tax on salary|withholding tax|withholding|talab ma tax|talabma tax ; रोजगारदाताबाट कर कट्टी|कर कट्टी|रोजगारी|आयकर ; ITX
 S ; ansha paunchha|ansh paunchha|ansha paucha|ansha pauchhin|ansha paune|daughter share|daughters share|share of daughter ; अंशियार मानिने|छोरा छोरी|अंशबण्डा|अंश ; CIV
+S ; forged|forgery|forge|forging|jali|jaali|kirte|jalsaji|jaalsaji|fabricated document ; कीर्ते|जालसाजी|झुठ्ठा लिखत ; CRIM
+S ; extortion|extort|blackmailing|blackmailed|blyakmel|blakmel ; आपराधिक लाभ|एक्सटर्सन|डर त्रास ; CRIM
+S ; probation|probationary|parikshan kal|parikshankal|trial period ; परीक्षणकाल|परीक्षण ; LAB
+S ; resign garna dinna|resignation not accepted|rajinama dinna|rajinama swikar|job chhadna dinna|kaam chhadna dinna ; राजिनामा|स्वेच्छाले रोजगारी अन्त्य|सुविधा भुक्तानी ; LAB
+S ; edited photo|photo edit|edit garera|photo morph|morphed|morph|photoshop|photoshopped|deepfake|private photo|private photos|intimate photo|nude photo|photo viral|photo leak|leaked photo ; तस्विर|वैयक्तिक गोपनीयता|गोपनीयता ; PRIV
+S ; privacy|personal data|personal information|gopaniyata|gopaniyeta ; वैयक्तिक गोपनीयता|गोपनीयता ; PRIV
 S ; sambidhan|samvidhan|samvidhaan|constitution ; संविधान
 S ; nagarikta|nagrikta|nagarikata|nagarita|citizenship|nagarikta pramanpatra ; नागरिकता|नागरिकताको प्रमाणपत्र ; CIT
 S ; naam thar|nam thar|naam ra thar|name correction|naam sachyaune|umer sachyaune|janma miti ; नाम थर|जन्म मिति|उमेर ; CIT
@@ -378,6 +385,11 @@ S ; झुट्टा|झुठो|झुटो|झूठा|झुठ्ठा
 S ; छोरी|दिदीबहिनी अंश / अंश पाउँ* / छोरा छोरी अंश ; अंशियार मानिने|अंशबण्डा|छोरा छोरी|अंश ; CIV
 S ; बिग्रि*|खराब|कमसल|नक्कली|डिफेक्टिभ & फिर्ता|बदली ; वस्तु फिर्ता|उपभोक्ता|बिक्रेता|क्षतिपूर्ति ; CONS
 S ; भ्याट दर्ता / भ्याट टर्नओभर / मूल्य अभिवृद्धि दर्ता ; मूल्य अभिवृद्धि कर|दर्ता|करयोग्य कारोबार ; VAT
+S ; नक्कली|जाली सहीछाप|हस्ताक्षर|दस्तखत / सहीछाप|हस्ताक्षर|दस्तखत नक्कली|जाली|कीर्ते / कीर्ते गर* / जालसाजी ; कीर्ते|जालसाजी|झुठ्ठा लिखत ; CRIM
+S ; ब्ल्याकमेल*|ब्लैकमेल* / डर त्रास / धम्की दिएर पैसा|रकम ; आपराधिक लाभ|एक्सटर्सन|डर त्रास ; CRIM
+S ; परीक्षणकाल / परीक्षण काल ; परीक्षणकाल|परीक्षण ; LAB
+S ; तस्बिर|तस्विर|तस्वीर|फोटो एडिट*|बनावटी|मोर्फ*|बिगार* / एडिट* तस्बिर|तस्विर|तस्वीर|फोटो ; तस्विर|वैयक्तिक गोपनीयता|गोपनीयता ; PRIV
+S ; राजिनामा नदि* / राजिनामा स्वीकार / जागिर छाड्न दिँदैन / नोकरी छाड्न नदि* ; राजिनामा|स्वेच्छाले रोजगारी अन्त्य|सुविधा भुक्तानी ; LAB
 """
 
 
