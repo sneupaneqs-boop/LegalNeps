@@ -32,7 +32,9 @@ Schema: {"blocks":[{"heading":"","sentences":[{"text":"","kind":"rule|deadline|p
 Rules:
 1. Blocks: heading "" with ONE empathy sentence; direct answer; key rules; next steps; a Supreme Court precedent \
 ONLY if provided and its quote states a rule for this person's situation and topic. Short headings, reply \
-language. Sentence text: plain prose, no [n], no markdown.
+language. Sentence text: plain prose, no [n], no markdown. Answer the asked quantity (how much/many/long) first; \
+never restate a provision under a second heading; never open a sentence with a connective or demonstrative \
+(But, Such, This, तर, त्यसै गरी).
 2. rule/deadline/penalty = anything the law says, requires, allows, punishes or how long it takes. It needs \
 cites: {"n": passage number, "quote": 6-40 words copied CHARACTER FOR CHARACTER from that one passage} (Nepali \
 text, or the "[English translation]" if you answer in English). Never paraphrase, translate or join spans. One \
@@ -48,8 +50,9 @@ as governing" first. "OLDER LAW" only as history, say so. Never present a bill/r
 an "ordinance" is temporary - say so. "Supreme Court" only with a precedent passage.
 6. The "Curated action plan" is guidance, not a source: only for procedure/advice sentences with NO cites, \
 numbers or rule wording. Name no office, tribunal, court, department or required document that no passage or \
-that plan names.
-7. "gaps" ("The sources retrieved do not cover X", reply language) ONLY when no passage covers X; never "the law \
+that plan names; an office/forum/document in advice needs a cite or the plan.
+7. A passage about a different subject than the question (another regime, population or chapter) is not used: say \
+"not covered". "gaps" ("The sources retrieved do not cover X", reply language) ONLY when no passage covers X; never "the law \
 does not say". At most 3 gaps and 3 short follow_up_questions, no numbers.
 8. Quote OCR glitches as printed. Reply entirely in the requested language (natural Devanagari for Nepali), \
 under about 550 words."""
@@ -331,7 +334,9 @@ class StreamVerifier:
                                     law_terms=self.ctx.law_terms, guidance=guidance)
         self._last_block: int | None = None
         self._prev_removed = False
+        self._pos = 0
         self.views = verifier.make_views(sources)
+        self.polisher = verifier.Polisher(self.views)
         self.terms = verifier.guidance_term_set(guidance)
         self.min_rules = min_rules
         self.parser = IncrementalDoc()
@@ -347,6 +352,9 @@ class StreamVerifier:
 
     def _piece(self, block: int, heading: str, k: dict) -> str:
         line, empathy = _line(k), k.get("kind") == "empathy"
+        if block != self._open_block and heading and heading == self._open_heading and self._any:
+            self._open_block = block   # same heading as the block just shown: its bullets continue that block
+            return "\n" + (line if empathy else f"- {line}")
         if block != self._open_block:
             self._open_block, self._open_heading = block, heading
             sep = "\n\n" if self._any else ""
@@ -363,9 +371,12 @@ class StreamVerifier:
             if norm is None:
                 continue
             if block != self._last_block:
-                self._last_block, self._prev_removed = block, False
+                self._last_block, self._prev_removed, self._pos = block, False, 0
             k, reason = verifier.verify_sentence(norm, self.sources, self.views, self.terms, self.ctx,
-                                                 dangling=self._prev_removed)
+                                                 dangling=self._prev_removed, first_in_block=self._pos == 0)
+            self._pos += 1
+            if k is not None and not reason:
+                reason = self.polisher.admit(k)
             self._prev_removed = bool(reason)
             if reason:
                 self.removed += 1
@@ -578,6 +589,13 @@ def build(raw: str, sources: list[dict], lang: str, *, guidance: str = "", discl
     good, gaps_dropped = _clean_side_text(
         {**good, "gaps": doc.get("gaps", []), "follow_up_questions": doc.get("follow_up_questions", [])},
         lang, sources, cited)
+    # V3.3: an asked quantity (कति / how many / what penalty) that no kept sentence answers is said plainly
+    if ctx is not None and claim_checks.asks_quantity(ctx.question) and good["gaps"] is not None:
+        texts = [s["text"] for b in good["blocks"] for s in b["sentences"] if s["cites"]]
+        if not claim_checks.has_figure(texts):
+            gap = claim_checks.QUANTITY_GAP["ne" if lang == "ne" else "en"]
+            good = {**good, "gaps": [gap] + [g for g in good["gaps"] if g != gap][:2]}
+            report["quantity_gap"] = True
     report = {**report, "mode": "structured", "truncated": not complete}
     if gaps_dropped:
         report["gaps_removed"] = gaps_dropped
@@ -586,8 +604,14 @@ def build(raw: str, sources: list[dict], lang: str, *, guidance: str = "", discl
         _log_fallback("too_few_verified", raw, doc, report, cut_off, repaired)
         return {"answer": None, "verification": report, "doc": good, "truncated": not complete, "repaired": repaired}
     # what was rendered and the passage span each sentence rests on (public statute text, no user text)
+    views = verifier.make_views(sources)
+
+    def locate(c):  # the sub-section that actually holds the quote (V3.3), e.g. "(2)"
+        sub = claim_checks.quote_subsection(verifier._qtokens(c["quote"]), views[c["n"] - 1].layout)
+        return {"sub_section": sub} if sub else {}
+
     report["evidence"] = [{"text": claim_checks.clean_ocr_text(s["text"]), "kind": s["kind"],
-                           "cites": [{**c, "quote": claim_checks.clean_ocr_text(c["quote"])} for c in s["cites"]]}
+                           "cites": [{**c, "quote": claim_checks.clean_ocr_text(c["quote"]), **locate(c)} for c in s["cites"]]}
                           for b in good["blocks"] for s in b["sentences"] if s["cites"]]
     return {"answer": render(good, lang, disclaimer), "verification": report, "doc": good,
             "truncated": not complete, "repaired": repaired}

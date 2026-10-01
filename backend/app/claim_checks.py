@@ -571,7 +571,7 @@ def gap_is_false(gap: str, passages: list[str]) -> bool:
     v = _v()
     for p in passages:
         ratio, hits, considered = v.lexical_support(body, p)
-        if considered >= 3 and hits >= 3 and ratio >= 0.7:
+        if (considered >= 3 and hits >= 3 and ratio >= 0.7) or (considered >= 2 and hits >= 2 and ratio >= 0.99):
             return True
     return False
 
@@ -672,7 +672,7 @@ def quote_subsection(qtok: list[str], layout: Layout) -> str | None:
     return None
 
 
-_XREF_LEAD = re.compile(r"(?:उपदफा|दफा|नियम|खण्ड|उपनियम)\s*\(?\s*[0-9a-zक-ह]{1,4}\s*\)?[^।\n]{0,70}?(?:बमोजिम|अनुसार)")
+_XREF_LEAD = re.compile(r"(?:उपदफा|खण्ड|उपनियम)\s*\(?\s*[0-9a-zक-ह]{1,4}\s*\)?[^।\n]{0,70}?(?:बमोजिम|अनुसार)")
 _XREF_CARRY_NE = _rx(r"बमोजिम|उपदफा|उपनियम|माथि|पूर्व|उल्लिखित|तोकिएको|तोकिए")
 _XREF_CARRY_EN = re.compile(
     r"\b(?:sub-?sections?|referred|provided|under (?:the )?(?:preceding|above|this)|in accordance|pursuant|as per|"
@@ -697,9 +697,8 @@ def leading_scope_problem(sentence: str, qtok: list[str], layout: Layout) -> str
     own = layout.clauses[i]
     s_folded, s_raw = _folded(sentence), _CITE_ANY.sub(" ", sentence)
     head = " ".join(own[:18])
-    if _XREF_LEAD.search(head):
-        if not (_XREF_CARRY_NE.search(s_folded) or _XREF_CARRY_EN.search(s_raw)):
-            return "leading_reference_dropped"
+    # (a leading "उपदफा (१) बमोजिम" cross-reference could not be separated from good sentences - rw19 s1, rw29 s2/s3
+    # carry it and were labelled supported - so only the conditional lead-in is checked)
     lab = layout.labels[i] if i < len(layout.labels) else ""
     if lab and not re.fullmatch(r"[0-9]{1,2}", lab):  # an item (क)/(ग): look at the lead-in of its sub-section
         for j in range(i - 1, -1, -1):

@@ -221,7 +221,7 @@ def test_render_makes_the_markdown_the_ui_already_shows():
 
 def test_gaps_with_numbers_and_questions_with_legal_claims_are_not_rendered():
     doc = {"blocks": [{"heading": "R", "sentences": [S("A worker may complain within six months.", "deadline", (1, QUOTE_EN)),
-                                                      S("A worker may complain within 6 months of the act.", "deadline", (1, QUOTE_EN))]}],
+                                                      S("A worker aggrieved by an act may file a complaint.", "rule", (1, "aggrieved by an act contrary to this Act may file a complaint"))]}],
            "gaps": ["The law gives 30 days for wages.", "The sources retrieved do not cover the labour court."],
            "follow_up_questions": ["You must file within 30 days, right?", "Did you sign a contract?"]}
     res = structured.build(json.dumps(doc), [LABOUR], "en")
@@ -342,7 +342,7 @@ def test_entailment_fails_open():
 def test_build_runs_entailment_only_when_given_and_recounts():
     good = doc_of(S("A worker may complain within six months.", "deadline", (1, QUOTE_EN)),
                   S("A worker aggrieved by an act may file a complaint.", "rule", (1, "aggrieved by an act contrary to this Act may file a complaint")),
-                  S("A worker may also complain within 6 months of the act.", "rule", (1, QUOTE_EN)))
+                  S("The complaint must relate to an act contrary to this Act.", "rule", (1, "act contrary to this Act may file a complaint within six months")))
     entail = lambda d: structured.entailment_filter(d, lambda *a, **k: json.dumps({"results": [{"id": 2, "verdict": "no"}]}))  # noqa: E731
     res = structured.build(json.dumps(good), [LABOUR], "en", entail=entail)
     assert res["verification"]["claims"] == 2 and res["verification"]["removed"]["by_reason"] == {"not_entailed": 1}
