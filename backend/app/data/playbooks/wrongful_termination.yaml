@@ -24,6 +24,9 @@ keywords:
   - "बिना सूचना जागिर"
   - "fired from my job"
   - "terminated without notice"
+  - "कारण नदेखाई निकाल्यो"
+  - "कारण नदेखाई जागिरबाट"
+  - "karan nadekhai nikalyo"
 issue:
   en: "I was dismissed from my job without proper notice or process"
   ne: "मलाई उचित सूचना वा प्रक्रिया बिना जागीरबाट हटाइयो"
@@ -40,6 +43,11 @@ provisions:
     note:
       en: "Except where employment ends through disciplinary action for misconduct, the employer must give the worker written notice before ending employment: at least 1 day for up to 4 weeks' service, 7 days for 4 weeks to 1 year, and 30 days for more than one year. If the employer gives no notice, it must pay the worker the pay for the notice period."
       ne: "खराब आचरणमा कारबाही भई रोजगारी अन्त्य भएकोमा बाहेक रोजगार सम्बन्ध अन्त्य गर्नुअघि रोजगारदाताले सूचना दिनुपर्छ: चार हप्तासम्मको रोजगारीमा कम्तीमा १ दिन, चार हप्तादेखि एक वर्षसम्ममा ७ दिन र एक वर्षभन्दा बढीमा ३० दिन अगावै। सूचना नदिई रोजगारी अन्त्य गरे सूचना दिनुपर्ने अवधिको पारिश्रमिक श्रमिकलाई दिनुपर्छ।"
+  - law_title_ne: "श्रम ऐन, २०७४"
+    section: "53"
+    note:
+      en: "The employer must put gratuity of 8.33% of each worker's basic pay every month into the worker's account in the Social Security Fund from the day work starts (until the Fund operates, as prescribed). If it cannot be deposited, the employer pays that amount to the worker directly. The text does not say when the worker may draw it."
+      ne: "रोजगारदाताले प्रत्येक श्रमिकको आधारभूत पारिश्रमिकको ८.३३ प्रतिशत रकम प्रत्येक महिना उपदान बापत काम शुरु गरेको दिनदेखि श्रमिकको नाममा सामाजिक सुरक्षा कोषमा जम्मा गर्नुपर्छ (कोष सञ्चालनमा नआएसम्म तोकिए बमोजिम)। जम्मा गर्न नसकिने भए सो रकम श्रमिकलाई सिधै भुक्तानी दिनुपर्छ। श्रमिकले कहिले निकाल्न पाउने भन्ने कुरा दफामा खुलाइएको छैन।"
   - law_title_ne: "श्रम ऐन, २०७४"
     section: "162"
     note:

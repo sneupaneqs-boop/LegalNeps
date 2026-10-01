@@ -68,9 +68,9 @@ HYBRID = {
 SEARCH = {
     "lead_doc_cap": 3,      # passages allowed from the FIRST result's document (per_doc_cap for the others)
     "regime_demote": 0.6,   # fused-score factor for passages of a specialist regime the question never mentions (1 = off)
-    "heading_boost": 0.5,   # fused-score gain when the question's words cover a passage's own section heading (0 = off)
+    "heading_boost": 0.3,   # fused-score gain when the question's words cover a passage's own section heading (0 = off)
     "heading_min_w": 0.5,   # only queries at least this heavy contribute words to the heading match
-    "heading_mass0": 6.0,   # idf mass of matched heading words at which the boost is fully on (two ordinary words)
+    "heading_mass0": 10.0,  # idf mass of matched heading words at which the boost is fully on (two ordinary words)
 }
 AUX_VERSION = 1             # bump when the heading tokenisation or REGIMES change
 
