@@ -1,0 +1,129 @@
+"""V3.3: what the user sees when the topical-fit gate leaves too little to answer from.
+
+  abstain_answer   "I couldn't find a provision that directly answers this in the sources" + at most FIT_RELATED_MAX
+                   closest statute passages, each labelled "possibly related", + the curated plan's forum/steps
+  extractive_answer the provisions themselves (fallback when no summary could be verified), filtered by the same gate
+                   and followed by one plain sentence on whether they directly govern the question
+  relabel_subsections  a citation label must not name a sub-section the passage does not start at
+
+Pure functions over the source dicts `generation.apply_topical_gate` has marked (`off_topic`, `off_topic_why`,
+`fit_score`).
+"""
+from __future__ import annotations
+
+import re
+
+from . import config
+from .text_norm import DEV_DIGITS
+
+ABSTAIN = {
+    "en": {"lead": "I couldn't find a provision that directly answers this in the sources I searched, so I won't guess "
+                   "at an answer.",
+           "related": "Possibly related (I could not confirm these govern your situation)",
+           "forum": "Where to go", "steps": "General next steps (from our action plan, not a legal source)"},
+    "ne": {"lead": "मैले खोजेका स्रोतहरूमा तपाईंको प्रश्नको सिधै जवाफ दिने प्रावधान भेटिएन, त्यसैले अनुमान गरेर जवाफ दिइरहेको छैन।",
+           "related": "सम्भावित रूपमा सम्बन्धित (तपाईंको अवस्थामा लागू हुन्छ भन्ने पुष्टि भएको छैन)",
+           "forum": "कहाँ जाने", "steps": "सामान्य अर्को कदम (हाम्रो कार्ययोजनाबाट, कानुनी स्रोत होइन)"},
+}
+DIRECT_NOTE = {
+    "en": "These provisions match the subject of your question, but I could not confirm that they directly govern your "
+          "exact situation.",
+    "ne": "यी प्रावधानहरू तपाईंको प्रश्नको विषयसँग मिल्छन्, तर तपाईंको ठ्याक्कै अवस्थामा सिधै लागू हुन्छन् भन्ने पुष्टि गर्न सकिएन।",
+}
+_EXTRACTIVE_HEADER = {
+    "en": "Here are the most relevant official provisions I found (AI summary unavailable right now):",
+    "ne": "सबैभन्दा सान्दर्भिक आधिकारिक कानुनी प्रावधानहरू (AI सारांश अहिले उपलब्ध छैन):",
+}
+
+
+def on_topic_laws(sources: list[dict]) -> list[dict]:
+    return [s for s in sources if s.get("category") != "precedent" and not s.get("off_topic")]
+
+
+def gate_ran(sources: list[dict]) -> bool:
+    return any("fit_score" in s for s in sources)
+
+
+def related_candidates(sources: list[dict], limit: int | None = None) -> list[tuple[int, dict]]:
+    """(number, source) of the closest statute passages the gate did not rule out by REGIME (a passage from the
+    army / postal / hire-purchase chapter is known to be the wrong kind of law and is never offered as "related").
+    Closest = lowest off-topic score, then retrieval rank; returned in source order."""
+    limit = config.FIT_RELATED_MAX if limit is None else limit
+    cand = [(i, s) for i, s in enumerate(sources, 1)
+            if s.get("category") != "precedent"
+            and not any(str(w).startswith("specialist:") for w in s.get("off_topic_why") or [])]
+    cand.sort(key=lambda x: (x[1].get("fit_score", 0.0), x[0]))
+    return sorted(cand[:limit])
+
+
+def _excerpt(s: dict, lang: str, limit: int = 260) -> str:
+    text = " ".join(str((s.get("text_en") if lang == "en" and s.get("text_en") else s.get("text_ne")) or "").split())
+    return text if len(text) <= limit else text[:limit].rsplit(" ", 1)[0] + " …"
+
+
+def _cite(s: dict, lang: str) -> str:
+    return (s.get("source_en") if lang == "en" and s.get("source_en") else s.get("source_ne")) or ""
+
+
+def abstain_answer(sources: list[dict], lang: str, disclaimer: str, playbook: dict | None = None) -> str:
+    key = "en" if lang == "en" else "ne"
+    t = ABSTAIN[key]
+    parts = [t["lead"]]
+    rel = related_candidates(sources)
+    if rel:
+        parts.append(f"**{t['related']}**\n" + "\n".join(f"- **[{i}] {_cite(s, lang)}**: {_excerpt(s, lang)}" for i, s in rel))
+    if playbook:
+        forum = (playbook.get("forum") or {}).get(key) or (playbook.get("forum") or {}).get("en") or ""
+        steps = [x for x in ((st.get(key) or st.get("en")) for st in playbook.get("next_steps", [])) if x]
+        if forum:
+            parts.append(f"**{t['forum']}**\n{forum}")
+        if steps:
+            parts.append(f"**{t['steps']}**\n" + "\n".join(f"- {x}" for x in steps))
+    parts.append(disclaimer)
+    return "\n\n".join(parts)
+
+
+def extractive_answer(sources: list[dict], lang: str, disclaimer: str, header: str | None = None,
+                      playbook: dict | None = None) -> str:
+    """The provisions themselves. With the gate: only passages that passed it (V3.2 review: copyright, land
+    acquisition and pesticide rules showed up here), at most 3, statutes first, then one plain sentence saying they
+    match the subject but were not confirmed to govern the exact situation; nothing passing = the abstain reply.
+    Without the gate (off / no model): the V3.2 list of the first 5."""
+    key = "en" if lang == "en" else "ne"
+    gated = gate_ran(sources)
+    if gated:
+        if not on_topic_laws(sources):
+            return abstain_answer(sources, lang, disclaimer, playbook)
+        ok = [(i, s) for i, s in enumerate(sources, 1) if not s.get("off_topic")]
+        shown = ([x for x in ok if x[1].get("category") != "precedent"] + [x for x in ok if x[1].get("category") == "precedent"])[:3]
+    else:
+        shown = list(enumerate(sources[:5], 1))
+    lines = [header or _EXTRACTIVE_HEADER[key]]
+    for i, s in shown:
+        text = (s.get("text_en") if lang == "en" and s.get("text_en") else s.get("text_ne")) or ""
+        lines.append(f"\n**[{i}] {_cite(s, lang)}**\n{text[:700]}")
+    if gated:
+        lines.append("\n" + DIRECT_NOTE[key])
+    lines.append("\n" + disclaimer)
+    return "\n".join(lines)
+
+
+_SUB_LABEL = re.compile(r"\s*\(\s*([०-९0-9]{1,2})\s*\)\s*$")
+_SUB_MARK = re.compile(r"^[ \t÷]*\(\s*([०-९0-9]{1,2})\s*\)", re.M)
+
+
+def relabel_subsections(sources: list[dict]) -> None:
+    """The corpus files a long section under its FIRST sub-section ("दफा 10 (1)") although the passage holds
+    (1)-(3): a citation label must never name a sub-section the quote is not in (V3.2 review: a17, a20). A chunk
+    that opens at sub-section k and holds up to m > k is labelled with the range it holds: "दफा 10 (1)-(3)"."""
+    for s in sources:
+        m = _SUB_LABEL.search(str(s.get("source_ne") or ""))
+        if not m:
+            continue
+        k = int(m.group(1).translate(DEV_DIGITS))
+        marks = [int(x.translate(DEV_DIGITS)) for x in _SUB_MARK.findall(str(s.get("text_ne") or ""))]
+        top = max((x for x in marks if x < 40), default=k)
+        if top > k:
+            for key in ("source_ne", "source_en"):
+                if s.get(key):
+                    s[key] = _SUB_LABEL.sub(f" ({k})–({top})", str(s[key]))

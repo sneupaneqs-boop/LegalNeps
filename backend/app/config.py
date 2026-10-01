@@ -117,6 +117,15 @@ ENTAILMENT_DROP_PARTIAL = os.getenv("ENTAILMENT_DROP_PARTIAL", "0").lower() in (
 # may not be stated with no exception wording at all (rw08 s.101). Measured 0 false removals on the 65 good review
 # sentences; set TRAILING_PROVISO_CHECK=0 if a live review shows it removing useful base rules.
 TRAILING_PROVISO_CHECK = os.getenv("TRAILING_PROVISO_CHECK", "1").lower() in ("1", "true", "yes")
+# V3.3 topical-fit gate (app/topical_fit.py): a fitted, LLM-free score of whether a passage is ON TOPIC for the
+# question. It filters the sources shown to the model, drops cited sentences whose passage fails it, filters the
+# extractive fallback, and makes the answer abstain ("no provision directly answers this") when fewer than
+# FIT_MIN_ONTOPIC statute passages pass. FIT_GATE=0 restores V3.2 behaviour. Fails open (no model file -> no gate).
+FIT_GATE = os.getenv("FIT_GATE", "1").lower() in ("1", "true", "yes")
+FIT_MAX_QUERIES = int(os.getenv("FIT_MAX_QUERIES", "4"))    # queries (of build_queries) whose cosine is maximised
+FIT_USE_DENSE = os.getenv("FIT_USE_DENSE", "0").lower() in ("1", "true", "yes")  # dense features did not help held-out
+FIT_MIN_ONTOPIC = int(os.getenv("FIT_MIN_ONTOPIC", "2"))    # on-topic statute passages needed to ask the model at all
+FIT_RELATED_MAX = int(os.getenv("FIT_RELATED_MAX", "3"))    # "possibly related" provisions listed when abstaining
 # Progressive streaming of the model's JSON with per-sentence verification (V3.1). STREAM_VERIFIED=0 restores the
 # single non-streamed call. Nothing is shown until STREAM_MIN_RULES rule/deadline/penalty sentences verified
 # (2 = the document-level minimum, so the extractive fallback almost never replaces already-shown text).

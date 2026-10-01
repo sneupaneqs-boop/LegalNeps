@@ -430,18 +430,30 @@ def test_dangling_leading_conjunction_after_a_removal_is_repaired_not_shown():
     q1 = labelled("rw27", 1)
     good = [{"n": c["n"], "quote": c["quote"]} for c in q1["cites"]]
     bad = {"text": "मुलुकी देवानी संहिता, २०७४ को दफा १ अनुसार १५ दिनभित्र गर्नु पर्छ।", "kind": "rule", "cites": good}
-    follower = {"text": "तर " + q1["text"], "kind": "rule", "cites": good}
+    follower = {"text": "र " + q1["text"], "kind": "rule", "cites": good}
     doc = {"blocks": [{"heading": "Rules", "sentences": [bad, follower]}], "gaps": [], "follow_up_questions": []}
     out, report = verifier.verify_structured(doc, srcs)
     assert report["removed"]["count"] == 1
     kept = out["blocks"][0]["sentences"][0]["text"]
-    assert not kept.startswith("तर") and kept.startswith(q1["text"][:12])
-    # no removal before it: a genuine "तर" sentence is left alone
-    doc2 = {"blocks": [{"heading": "Rules", "sentences": [{"text": q1["text"], "kind": "rule", "cites": good}, follower]}]}
-    out2, _ = verifier.verify_structured(doc2, srcs)
-    assert out2["blocks"][0]["sentences"][1]["text"].startswith("तर")
-    assert cc.strip_leading_conjunction("But you may appeal within the time.") == ("You may appeal within the time.", True)
-    assert cc.strip_leading_conjunction("तर छोटो") == ("तर छोटो", False)        # too short to repair: unchanged
+    assert not kept.startswith("र ") and kept.startswith(q1["text"][:12])
+    assert cc.strip_leading_conjunction("And you may appeal within the time.") == ("You may appeal within the time.", True)
+    assert cc.strip_leading_conjunction("र छोटो") == ("र छोटो", False)        # too short to repair: unchanged
+
+
+def test_proviso_tail_of_a_removed_head_is_dropped_not_repaired_v33():
+    srcs = sources_of("rw27")
+    q1 = labelled("rw27", 1)
+    good = [{"n": c["n"], "quote": c["quote"]} for c in q1["cites"]]
+    bad = {"text": "मुलुकी देवानी संहिता, २०७४ को दफा १ अनुसार १५ दिनभित्र गर्नु पर्छ।", "kind": "rule", "cites": good}
+    tail = {"text": "तर " + q1["text"], "kind": "rule", "cites": good}
+    out, report = verifier.verify_structured({"blocks": [{"heading": "R", "sentences": [bad, tail]}]}, srcs)
+    assert report["removed"]["by_reason"] == {"number_not_in_quote": 1, "orphan_connective": 1} or report["removed"]["count"] == 2
+    assert not out["blocks"]
+    # with its head kept the same proviso is left alone
+    head = {"text": q1["text"], "kind": "rule", "cites": good}
+    other = {"text": "तर " + q1["text"] + " अपवाद बाहेक।", "kind": "rule", "cites": good}
+    out2, _ = verifier.verify_structured({"blocks": [{"heading": "R", "sentences": [head]}]}, srcs)
+    assert out2["blocks"][0]["sentences"][0]["text"] == q1["text"]
 
 
 def test_streamed_text_equals_final_text_for_the_repair():

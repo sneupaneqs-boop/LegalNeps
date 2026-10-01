@@ -463,6 +463,9 @@ def check_structured_sentence(sent: dict, sources: list[dict], views: list[_View
         if status == "ordinance" and not ordinance:
             first_bad = "ordinance_unlabelled"
             continue
+        if s.get("off_topic") and not s.get("pinned"):  # V3.3: the topical-fit gate ruled this passage out for the question
+            first_bad = "off_topic_source"
+            continue
         good.append((n, quote))
     if not good:
         return first_bad, []
@@ -509,9 +512,17 @@ def check_structured_sentence(sent: dict, sources: list[dict], views: list[_View
                       for n, _ in good]
         if claim_checks.forum_not_in_sources(body, cited_text, ctx.guidance):
             return "forum_not_in_source", []
+        if claim_checks.invented_subject(body, ctx.question, cited_text):  # V3.3: the person's own brand as the actor
+            return "invented_subject", []
         reason = _cite_conflicts(good, lambda n, q: _guard_hit(ctx, body, q, sources[n - 1]))
         if reason:
             return reason, []
+
+    # V3.3 (after every older check, so their reasons keep priority): a clause that opens with a cross-reference or sits
+    # under a conditional lead-in only applies in that scope
+    reason = _cite_conflicts(good, lambda n, q: claim_checks.leading_scope_problem(body, _qtokens(q), views[n - 1].layout))
+    if reason:
+        return reason, []
 
     # the best-supporting of the cited quotes decides; words it cannot compare are not held against it
     ratio, hits, considered = max((lexical_support(body, q) for _, q in good), key=lambda r: (r[0], r[1]))
@@ -528,14 +539,13 @@ def _section_under_other_heading(body: str, quote: str, view: _View) -> str | No
 
 def _scope_problem(body: str, quote: str, view: _View) -> str | None:
     got = claim_checks.clause_context(_qtokens(quote), view.layout)
-    if got is None:
-        return None
-    upto, after = got
-    reason = claim_checks.scope_conflict(body, upto)
-    if reason:
-        return reason
-    if TRAILING_PROVISO and claim_checks.proviso_dropped(body, after):
-        return "proviso_dropped"
+    if got is not None:
+        upto, after = got
+        reason = claim_checks.scope_conflict(body, upto)
+        if reason:
+            return reason
+        if TRAILING_PROVISO and claim_checks.proviso_dropped(body, after):
+            return "proviso_dropped"
     return None
 
 
@@ -561,18 +571,24 @@ def _clean_doc_sentence(s) -> dict | None:
 
 def verify_sentence(raw, sources: list[dict], views: list[_View],
                     guidance_terms: set[str] | None = None, ctx: CheckContext | None = None,
-                    dangling: bool = False) -> tuple[dict | None, str | None]:
+                    dangling: bool = False, first_in_block: bool = False) -> tuple[dict | None, str | None]:
     """One sentence through the same checks verify_structured applies: (kept sentence, None) when it may be
     shown, (None, reason) when it is removed, (None, None) when it is empty/malformed (skipped, not counted).
     Shared with the streaming path so streamed and final text are decided by identical code."""
     s = _clean_doc_sentence(raw)
     if s is None:
         return None, None
-    if dangling:  # the sentence before it (same block) was removed: "But ..." / "तर ..." must not dangle
-        s["text"], _ = claim_checks.strip_leading_conjunction(s["text"])
     reason, cites = check_structured_sentence(s, sources, views, guidance_terms, ctx)
     if reason:
         return None, reason
+    if cites and (dangling or first_in_block):
+        # V3.3: a sentence that points back ("त्यसै गरी", "यसै संहिताको", "This power", "such leave", "तर ...") whose
+        # antecedent was removed - or that opens its block with nothing before it - is dropped, never repaired: a tail
+        # must not outlive its head
+        if claim_checks.orphan_opener(s["text"]):
+            return None, "orphan_connective"
+    if dangling:  # the sentence before it (same block) was removed: a plain "And ..." must not dangle
+        s["text"], _ = claim_checks.strip_leading_conjunction(s["text"])
     return {"text": s["text"], "kind": s["kind"] if s["kind"] in KINDS else "rule", "cites": cites}, None
 
 
@@ -598,11 +614,15 @@ def verify_structured(doc: dict, sources: list[dict], guidance: str = "",
     reasons: dict[str, int] = {}
     kept_blocks, claims, dropped_blocks = [], 0, 0
     cited: set[int] = set()
+    polisher = Polisher(views)
     for block in doc.get("blocks") or []:
         kept = []
         prev_removed = False
-        for raw in block.get("sentences") or []:
-            k, reason = verify_sentence(raw, sources, views, guidance_terms, ctx, dangling=prev_removed)
+        for si, raw in enumerate(block.get("sentences") or []):
+            k, reason = verify_sentence(raw, sources, views, guidance_terms, ctx, dangling=prev_removed,
+                                        first_in_block=si == 0)
+            if k is not None and not reason:
+                reason = polisher.admit(k)
             prev_removed = bool(reason)
             if reason:
                 reasons[reason] = reasons.get(reason, 0) + 1
@@ -615,7 +635,11 @@ def verify_structured(doc: dict, sources: list[dict], guidance: str = "",
                 claims += 1
                 cited |= {c["n"] - 1 for c in cites}
         if kept:
-            kept_blocks.append({"heading": str(block.get("heading") or "").strip(), "sentences": kept})
+            heading = str(block.get("heading") or "").strip()
+            if kept_blocks and heading and kept_blocks[-1]["heading"] == heading:  # same heading twice in a row: one block
+                kept_blocks[-1]["sentences"] += kept
+            else:
+                kept_blocks.append({"heading": heading, "sentences": kept})
         elif block.get("sentences"):
             dropped_blocks += 1
     report = {
@@ -626,3 +650,48 @@ def verify_structured(doc: dict, sources: list[dict], guidance: str = "",
                     "by_reason": reasons, "blocks_dropped": dropped_blocks},
     }
     return {**doc, "blocks": kept_blocks}, report
+
+
+# ------------------------------------------------------------------ V3.3: duplicates and per-subsection cap
+DUP_JACCARD = 0.8
+SUBSECTION_CAP = 2     # sentences per (passage, sub-section)
+SOURCE_CAP = 5         # sentences per passage
+
+
+class Polisher:
+    """Run on sentences that already passed every check, in answer order: drops a (near-)identical sentence
+    (a11 repeated one 3x), more than SUBSECTION_CAP sentences from one sub-section of one passage and more than
+    SOURCE_CAP from one passage. Shared by verify_structured and the streaming path, so both decide alike."""
+
+    def __init__(self, views: list[_View]):
+        self.views = views
+        self._seen: list[frozenset] = []
+        self._sub: dict[tuple, int] = {}
+        self._src: dict[int, int] = {}
+
+    @staticmethod
+    def _key(text: str) -> frozenset:
+        return frozenset(t for t in tokenize(_CITE_ANY.sub(" ", text)) if not t.isdigit() and t not in _GENERIC)
+
+    def admit(self, k: dict) -> str | None:
+        if not k.get("cites"):
+            return None
+        key = self._key(k["text"])
+        if key:
+            for old in self._seen:
+                if len(key & old) / max(1, len(key | old)) >= DUP_JACCARD:
+                    return "duplicate_sentence"
+        buckets = []
+        for c in k["cites"]:
+            n = c["n"]
+            sub = claim_checks.quote_subsection(_qtokens(c["quote"]), self.views[n - 1].layout)
+            buckets.append((n, sub))
+        if any(self._src.get(n, 0) >= SOURCE_CAP for n, _ in buckets) or \
+                any(sub and self._sub.get((n, sub), 0) >= SUBSECTION_CAP for n, sub in buckets):
+            return "section_cap"
+        self._seen.append(key)
+        for n, sub in buckets:
+            self._src[n] = self._src.get(n, 0) + 1
+            if sub:
+                self._sub[(n, sub)] = self._sub.get((n, sub), 0) + 1
+        return None
