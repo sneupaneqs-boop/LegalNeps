@@ -25,12 +25,13 @@ const x = {
     where: "Where to go",
     sharper: "For a sharper answer, tell me:",
     evidence: "Evidence check",
-    supported: (s: number, n: number) => `${s} of ${n} legal claims are backed by the cited official sources`,
+    supported: (s: number, n: number) => `${s} of ${n} cited statements match the official text word for word`,
     counts: (l: number, p: number) => `${l} law ${l === 1 ? "section" : "sections"} · ${p} ${p === 1 ? "precedent" : "precedents"} cited`,
     unverified: (n: number) =>
       `${n} ${n === 1 ? "claim" : "claims"} could not be matched to a source and ${n === 1 ? "is" : "are"} marked ⚠ — confirm with an advocate before relying on ${n === 1 ? "it" : "them"}.`,
     removed: (n: number) =>
       `${n} ${n === 1 ? "statement was" : "statements were"} removed because ${n === 1 ? "it" : "they"} couldn't be verified against the sources.`,
+    applies: "Not checked: whether each provision applies to your exact situation. Confirm with an advocate before relying on it.",
     checking: "Checking sources…",
     status: {
       in_force: "In force", bill: "Bill — not law", repealed: "Repealed", lapsed: "Lapsed ordinance",
@@ -46,10 +47,11 @@ const x = {
     where: "कहाँ जाने",
     sharper: "अझ सटीक जवाफका लागि भन्नुहोस्:",
     evidence: "प्रमाण जाँच",
-    supported: (s: number, n: number) => `${n} मध्ये ${s} कानुनी भनाइ उद्धृत आधिकारिक स्रोतले पुष्टि गर्छ`,
+    supported: (s: number, n: number) => `${n} मध्ये ${s} उद्धृत भनाइ आधिकारिक पाठसँग शब्दशः मिल्छ`,
     counts: (l: number, p: number) => `${l} कानुनी दफा · ${p} नजिर उद्धृत`,
     unverified: (n: number) => `${n} भनाइ स्रोतसँग मिलाउन सकिएन र ⚠ चिन्ह लगाइएको छ — भर पर्नुअघि अधिवक्तासँग पुष्टि गर्नुहोस्।`,
     removed: (n: number) => `${n} भनाइ स्रोतसँग पुष्टि गर्न नसकिएकाले हटाइयो।`,
+    applies: "जाँच गरिएको छैन: कुनै दफा तपाईंको ठ्याक्कै अवस्थामा लागू हुन्छ कि हुँदैन। भर पर्नुअघि अधिवक्तासँग पुष्टि गर्नुहोस्।",
     checking: "स्रोतसँग जाँच गर्दै…",
     status: {
       in_force: "लागू", bill: "विधेयक — कानुन होइन", repealed: "खारेज", lapsed: "निष्क्रिय अध्यादेश",
@@ -143,6 +145,7 @@ export default function ChatMessage({
             </div>
             <div>{e.supported(v.supported, v.claims)}</div>
             <div className="evidence-sub">{e.counts(v.cited_laws, v.cited_precedents)}</div>
+            <div className="evidence-warn">{e.applies}</div>
             {unverified > 0 && <div className="evidence-warn">{e.unverified(unverified)}</div>}
             {removedN > 0 && <div className="evidence-removed">{e.removed(removedN)}</div>}
           </div>

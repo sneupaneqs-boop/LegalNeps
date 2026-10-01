@@ -402,9 +402,9 @@
     "semantic_hash": "b6aa4e031454da212d49810baacad2ca"
   },
   "frontend/components/ChatMessage.tsx": {
-    "mtime": 1790771235.2901316,
-    "seen": 1790771330.813684,
-    "ast_hash": "5e3427c1b81b12fe11ab54cf8b99b956",
+    "mtime": 1790873831.8766165,
+    "seen": 1790873913.927403,
+    "ast_hash": "b0b244fde2c5ed54b61735991794056c",
     "semantic_hash": ""
   },
   "frontend/lib/api.ts": {
@@ -708,9 +708,9 @@
     "semantic_hash": ""
   },
   "docs/PROGRESS.md": {
-    "mtime": 1790868621.5596852,
-    "seen": 1790868857.158439,
-    "ast_hash": "624927ffd9ce85cd25da4ffd76a75ef0",
+    "mtime": 1790873901.4265082,
+    "seen": 1790873913.9275863,
+    "ast_hash": "da626cffee58ac5cc111e93559ee1b34",
     "semantic_hash": ""
   },
   "docs/SESSION_PROMPTS.md": {
@@ -1452,9 +1452,9 @@
     "semantic_hash": ""
   },
   "backend/app/structured.py": {
-    "mtime": 1790867990.0601993,
-    "seen": 1790868157.091578,
-    "ast_hash": "2b1248469b345962b2028a7ec3b2b567",
+    "mtime": 1790871798.188288,
+    "seen": 1790873913.9271297,
+    "ast_hash": "3f64c29cf4af92dffb4ccbcd8609a60b",
     "semantic_hash": ""
   },
   "backend/eval/answer_review.py": {
@@ -1674,9 +1674,9 @@
     "semantic_hash": ""
   },
   "backend/tests/test_v33_topical_fit.py": {
-    "mtime": 1790867990.0681992,
-    "seen": 1790868157.091802,
-    "ast_hash": "ee85ac45bf6dc2f3bb6cef8e133bf242",
+    "mtime": 1790870563.576184,
+    "seen": 1790873913.9273527,
+    "ast_hash": "82115bbfa87866ac75f3b70ded20fa67",
     "semantic_hash": ""
   },
   "backend/tests/test_v26_sections.py": {
@@ -1701,6 +1701,18 @@
     "mtime": 1790868621.2281954,
     "seen": 1790868857.158419,
     "ast_hash": "ad4c6f610de42b1b5fd9c13107925705",
+    "semantic_hash": ""
+  },
+  "backend/eval/reports/answer-review-v33-answers30b-20261001.json": {
+    "mtime": 1790873818.2801647,
+    "seen": 1790873913.927199,
+    "ast_hash": "64ce913eee2b12bae5d81ef33dcc6724",
+    "semantic_hash": ""
+  },
+  "backend/eval/reports/answer-review-v33-labels-20261001.json": {
+    "mtime": 1790873818.2801647,
+    "seen": 1790873913.9272015,
+    "ast_hash": "76cad36741c4a1bd5174b0c8a6609d2c",
     "semantic_hash": ""
   }
 }

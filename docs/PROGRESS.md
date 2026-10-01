@@ -881,6 +881,22 @@ playbook). Config was tuned on default + realworld only; held-out was run twice 
 - **Next for retrieval:** romanised-query expansion (feeds both sides), then re-run held-out once more as a
   milestone; consider per-query score caching across the law + precedent searches (halves dense latency).
 
+### V3 outcome and next steps (2026-10-01)
+
+Measured on fresh live answers (claim-by-claim review): V1 40.3% bad sentences → V3 15.6% (tuned set) →
+V3.2 44.3% (fresh set A) → V3.3+V2.6 **32.7%** (fresh set B, n=49, 95% CI 21–47%). Only **2/30** answers
+were both useful and fully correct; 17/30 were written answers, 11 fell back to the provisions list.
+0 invented numbers/sections and 0 uncited numbers in every review — the quote/number/section checks hold.
+**The <5% bar is not met and rules + free models are unlikely to reach it.** Dominant failure: WRONG-LAW (a
+verbatim, verified quote from a provision that doesn't govern the user's situation), caused mostly by retrieval
+not surfacing the governing section (≈10 of 17 answers). UI now says quotes match word for word and that
+applicability is NOT checked. Ranked next steps: (1) retrieval/routing for governing sections (keyword→section
+routes, drop forms/schedules from fallback, abstain when topical fit is low); (2) actor/population/regime checks
+(b06/b08/b17/b20 patterns); (3) a STRONGER judge model for the applicability check (the free fast tier removed 44%
+of good sentences) — paid tier only; (4) more free provider keys (Groq TPM / Gemini quota cause 429s and 28–42 s
+latency); (5) advocate review of playbooks and a curated Q&A bank for the top ~200 situations (the real route to
+high accuracy). Do not market the answers as verified-correct; market them as "cited and checked against text".
+
 ### V1 baselines (2026-09-30)
 
 Finishes V1: eval cases, held-out set, baselines. **All numbers are on today's
