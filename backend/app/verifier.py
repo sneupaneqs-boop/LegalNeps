@@ -22,7 +22,7 @@ import re
 import unicodedata
 from functools import lru_cache
 
-from . import claim_checks, config, situation_guards
+from . import claim_checks, condition_checks, config, situation_guards
 from .claim_checks import CheckContext
 from .text_norm import DEV_DIGITS, DEVANAGARI_RE, TOKEN_RE, detect_language, fold, tokenize
 
@@ -523,6 +523,10 @@ def check_structured_sentence(sent: dict, sources: list[dict], views: list[_View
     reason = _cite_conflicts(good, lambda n, q: claim_checks.leading_scope_problem(body, _qtokens(q), views[n - 1].layout))
     if reason:
         return reason, []
+    if config.CONDITION_CHECKS:
+        reason = _cite_conflicts(good, lambda n, q: _condition_problem(body, q, sources[n - 1]))
+        if reason:
+            return reason, []
 
     # the best-supporting of the cited quotes decides; words it cannot compare are not held against it
     ratio, hits, considered = max((lexical_support(body, q) for _, q in good), key=lambda r: (r[0], r[1]))
@@ -559,8 +563,15 @@ def _precedent_problem(good: list[tuple[int, str]], sources: list[dict], ctx: Ch
 
 
 def _guard_hit(ctx: CheckContext, body: str, quote: str, source: dict) -> str | None:
-    gid = situation_guards.violation(ctx.question, body, [quote], source)
+    gid = situation_guards.violation(ctx.question, body, [quote], source, v27=config.GUARDS_V27)
     return f"wrong_law_guard:{gid}" if gid else None
+
+
+def _condition_problem(body: str, quote: str, source: dict) -> str | None:
+    """V2.7: a condition the FULL passage sentence around the quote carries (time limit, leading condition, alternative
+    branch, authority qualifier, grounds named by letter) that the answer sentence drops."""
+    reason = condition_checks.condition_problem(body, quote, str(source.get("text_ne") or ""))
+    return reason
 
 
 def _clean_doc_sentence(s) -> dict | None:

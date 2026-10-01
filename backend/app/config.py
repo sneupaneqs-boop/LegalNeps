@@ -122,6 +122,9 @@ TRAILING_PROVISO_CHECK = os.getenv("TRAILING_PROVISO_CHECK", "1").lower() in ("1
 # extractive fallback, and makes the answer abstain ("no provision directly answers this") when fewer than
 # FIT_MIN_ONTOPIC statute passages pass. FIT_GATE=0 restores V3.2 behaviour. Fails open (no model file -> no gate).
 FIT_GATE = os.getenv("FIT_GATE", "1").lower() in ("1", "true", "yes")
+# V2.7 sentence checks (switches for ablations): dropped-condition checks (condition_checks.py) and the V2.7 rows of situation_guards
+CONDITION_CHECKS = os.getenv("CONDITION_CHECKS", "1").lower() in ("1", "true", "yes")
+GUARDS_V27 = os.getenv("GUARDS_V27", "1").lower() in ("1", "true", "yes")
 # V2.7: verified keyword -> section routes (app/section_routes.py, data/section_routes.yaml); 0 = V3.3 retrieval
 SECTION_ROUTES = os.getenv("SECTION_ROUTES", "1").lower() in ("1", "true", "yes")
 FIT_MAX_QUERIES = int(os.getenv("FIT_MAX_QUERIES", "4"))    # queries (of build_queries) whose cosine is maximised
