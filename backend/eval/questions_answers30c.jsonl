@@ -1,0 +1,32 @@
+# ANSWER-REVIEW SET C (30): FRESH questions for the live claim-by-claim review after V2.7. Never used for tuning.
+# Only q/lang/area matter (expect is empty). Once a failure here is investigated and fixed, the question is burned.
+{"id": "c01", "q": "जग्गाधनी पुर्जा बन्धकी राखेर ऋण लिएको थिएँ, ऋण तिरेपछि पनि बैंकले पुर्जा फिर्ता गरेन, के गर्ने?", "lang": "ne", "area": "land", "expect": []}
+{"id": "c02", "q": "घरबेटीले म नभएको बेला कोठाको ताला फोडेर सामान बाहिर निकाल्यो, के गर्न सकिन्छ?", "lang": "ne", "area": "tenancy", "expect": []}
+{"id": "c03", "q": "कम्पनीले बिना सूचना काममा नबोलाई निकालेको छ, क्षतिपूर्ति पाइन्छ?", "lang": "ne", "area": "employment", "expect": []}
+{"id": "c04", "q": "कसैले मलाई धम्की दिएर पैसा मागिरहेको छ, कहाँ उजुरी दिने?", "lang": "ne", "area": "criminal", "expect": []}
+{"id": "c05", "q": "छोराले आमाबुबालाई हेरचाह गर्दैन, कानुनले के भन्छ?", "lang": "ne", "area": "family", "expect": []}
+{"id": "c06", "q": "होटलले बिल मा सेवा शुल्क र कर थपेर बढी लियो, यो मिल्छ?", "lang": "ne", "area": "consumer", "expect": []}
+{"id": "c07", "q": "बुबाले मृत्युपत्र गरेर सबै सम्पत्ति एक छोरालाई दिनुभयो, अरू छोराछोरीले हक पाउँदैनन्?", "lang": "ne", "area": "inheritance", "expect": []}
+{"id": "c08", "q": "नागरिकता बनाउन जिल्ला प्रशासन कार्यालयले अनावश्यक कागजात माग्यो, के गर्ने?", "lang": "ne", "area": "citizenship", "expect": []}
+{"id": "c09", "q": "भाडाबाट आम्दानी गरेको घरमा कर कसरी तिर्ने?", "lang": "ne", "area": "tax", "expect": []}
+{"id": "c10", "q": "सवारी चलाउँदा लाइसेन्स बिना समातिए कति जरिवाना हुन्छ?", "lang": "ne", "area": "traffic", "expect": []}
+{"id": "c11", "q": "mero jagga ma arko le ghar banayo, kasari hataune?", "lang": "roman", "area": "land", "expect": []}
+{"id": "c12", "q": "company le PF kata ta garcha tara jama garena, ke garne?", "lang": "roman", "area": "employment", "expect": []}
+{"id": "c13", "q": "dahej nadiyera bhanera sasu le gharbata nikaldiyo, kasari muddha halne?", "lang": "roman", "area": "family", "expect": []}
+{"id": "c14", "q": "instagram ma mero fake account banayera paisa magdai chha, kaha complaint garne?", "lang": "roman", "area": "cyber", "expect": []}
+{"id": "c15", "q": "sathi le udhaar liyera pachi inkar garyo, lekhapadhi chhaina, ke garne?", "lang": "roman", "area": "debt", "expect": []}
+{"id": "c16", "q": "dokan darta garna ke ke kagaj lagchha ra kati lagchha?", "lang": "roman", "area": "business", "expect": []}
+{"id": "c17", "q": "police le bina warrant ghar ma chhapa maryo, yo milchha?", "lang": "roman", "area": "police", "expect": []}
+{"id": "c18", "q": "bachha ko school le TC dina pani bhanera fee lyayo, milchha?", "lang": "roman", "area": "school", "expect": []}
+{"id": "c19", "q": "ATM bata paisa kateko tara cash aayena, bank le farkaudaina, ke garne?", "lang": "roman", "area": "bank", "expect": []}
+{"id": "c20", "q": "bihe darta nagareko bhae kehi samasya hunchha?", "lang": "roman", "area": "marriage", "expect": []}
+{"id": "c21", "q": "Is my employer allowed to deduct money from my salary as a penalty?", "lang": "en", "area": "employment", "expect": []}
+{"id": "c22", "q": "Can a wife claim maintenance without filing for divorce in Nepal?", "lang": "en", "area": "family", "expect": []}
+{"id": "c23", "q": "What is the legal process to transfer land ownership after the owner's death?", "lang": "en", "area": "property", "expect": []}
+{"id": "c24", "q": "What are my rights if I am arrested by the police in Nepal?", "lang": "en", "area": "criminal", "expect": []}
+{"id": "c25", "q": "Can a landlord increase rent suddenly during the tenancy period?", "lang": "en", "area": "consumer", "expect": []}
+{"id": "c26", "q": "What is the penalty for sharing someone's private photos online without consent?", "lang": "en", "area": "cyber", "expect": []}
+{"id": "c27", "q": "How can a company be dissolved or struck off in Nepal?", "lang": "en", "area": "company", "expect": []}
+{"id": "c28", "q": "What happens if one party breaches a written contract in Nepal?", "lang": "en", "area": "contract", "expect": []}
+{"id": "c29", "q": "Do I have to pay tax on money received from relatives abroad?", "lang": "en", "area": "tax", "expect": []}
+{"id": "c30", "q": "My family member died in a road accident. What compensation can we claim?", "lang": "en", "area": "accident", "expect": []}

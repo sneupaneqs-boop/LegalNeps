@@ -1,17 +1,17 @@
 # Graph Report - LegalNeps  (2026-10-01)
 
 ## Corpus Check
-- 229 files · ~671,885 words
+- 239 files · ~700,582 words
 - Verdict: corpus is large enough that graph structure adds value.
-- Unclassified: 34 file(s) not represented in the graph (top: .jsonl 14, (none) 6, .css 5)
+- Unclassified: 36 file(s) not represented in the graph (top: .jsonl 16, (none) 6, .css 5)
 
 ## Summary
-- 3705 nodes · 8823 edges · 164 communities (139 shown, 25 thin omitted)
-- Extraction: 96% EXTRACTED · 4% INFERRED · 0% AMBIGUOUS · INFERRED: 352 edges (avg confidence: 0.91)
+- 3827 nodes · 9198 edges · 184 communities (161 shown, 23 thin omitted)
+- Extraction: 96% EXTRACTED · 4% INFERRED · 0% AMBIGUOUS · INFERRED: 360 edges (avg confidence: 0.92)
 - Token cost: 0 input · 0 output
 
 ## Graph Freshness
-- Built from commit: `9b6bcc00`
+- Built from commit: `930f6de6`
 - Run `git rev-parse HEAD` and compare to check if the graph is stale.
 - Run `graphify update .` after code changes (no API cost).
 
@@ -19,17 +19,17 @@
 - claim_checks.py
 - api.ts
 - translit.py
-- dates.py
+- cite
 - test_v1_trust_engine.py
 - llm.py
 - test_dense.py
-- test_api.py
+- respell_devanagari
 - extract_laws.py
 - supa.py
 - test_v25_routing.py
 - Graphify Tool Documentation
 - package.json
-- build_corpus.py
+- test_calculators_tools.py
 - Index
 - devanagari_glyphs.py
 - get
@@ -40,19 +40,19 @@
 - test_s10_ai_and_save.py
 - test_regulators_ingest.py
 - test_calculators.py
-- retrieval.py
+- app/__init__.py
 - audit.py
 - counts
 - Civil Law Playbooks
 - Graph Export Documentation
-- bs
+- _date
 - Graph Query Documentation
 - Criminal Law Playbooks
 - Labor Law Playbooks
-- test_query_understanding.py
+- analyze_query
 - Personal Loan Playbooks
 - Sexual Harassment Playbooks
-- test_calculators_tools.py
+- parametrize
 - Folder Watching Documentation
 - Git Hook Documentation
 - Incremental Update Documentation
@@ -75,29 +75,29 @@
 - Land Dispute Playbook
 - RTI Request Playbook
 - FakeMattersStore
-- Progress
+- _View
 - chat
-- playbooks.py
+- checklists.py
 - limitation.py
 - ocr_regulators.py
 - forms_common.py
 - chat.py
-- _run
+- condition_checks.py
 - documents.py
-- matters/[id]/page.tsx
+- useLang
 - ui.tsx
-- match
+- test_translit.py
 - ingest_regulators.py
-- audit_document
+- tiers.py
 - Kanooni Sathi — Strategy V2: from backend foundations to a commercial legal intelligence platform
 - glossary.py
-- ai_fill.py
+- fill_paid
 - test_ocr_clean.py
 - _bad_input
 - test_documents_audit.py
 - search/page.tsx
 - ics.ts
-- doc_slug
+- test_api.py
 - test_s14_security.py
 - ChatMessage.tsx
 - test_drafting_formats.py
@@ -110,18 +110,18 @@
 - rules.py
 - Session prompts — V2 (commercial build)
 - test_drafting.py
-- complete
+- test_v27_fit.py
 - run_audit
 - [templateId]/page.tsx
 - S5 — Supabase auth + DB (2026-09-26)
 - _require_matter
 - Per-playbook findings
-- test_v31_streaming.py
+- IncrementalDoc
 - docx_out.py
 - embedding_benchmark.py
-- i18n.ts
+- LangContext.tsx
 - render.py
-- extract_doc_meta
+- build_corpus.py
 - verifier.py
 - scrape_lawcommission.py
 - nepali.py
@@ -129,68 +129,88 @@
 - test_v3_structured.py
 - authority
 - test_v32_claim_checks.py
-- _date
+- test_s12_compliance_radar.py
 - scripts
 - ocr_clean.py
 - newest_per_series
-- fake_stream
+- test_v31_streaming.py
 - playbook_matcher.py
-- answer_review.py
+- config.py
 - scrape_regulators.py
 - test_s11_matters.py
-- test_eval_sets.py
 - re
+- test_s13_ai_gateway.py
 - Env
-- main
+- retrieval.py
 - parse_answer
 - ingest_scraped.py
 - Done
 - test_v33_topical_fit.py
 - get_index
 - calendar
-- _line
+- verify_structured
 - topical_fit.py
 - matter_file_create
-- filter_gaps
+- section_routes.py
 - Client
-- entailment_filter
+- build
 - Store
 - scrape_lawcommission_gap
 - generation.py
-- _generate_verified
+- playbooks.py
 - Run the API in Docker (no cloud payment needed)
 - smoke.spec.ts
-- _targets
-- useLang
-- _playbook_id_for
+- main.py
+- normalise_text
+- Dense
 - @playwright/test
 - mark_stale_precedents
 - devDependencies
-- situation_guards.py
+- CheckContext
 - _SSE
 - giwms_listing
 - .search
-- alignment_ok
+- make_profile
 - dependencies
 - pipeline
-- Handler
+- load_dense
 - match_playbooks
-- test_garbage_is_unparseable_and_repair_gets_one_attempt
-- draft_update
+- run
+- ._lexical
+- Playbook audit - the 25 curated action plans
+- preeti.ts
+- ai_fill.py
+- match
 - test_answer_review_rows_and_aggregate
-- test_paid_tier_runs_entailment_on_the_paid_model
+- contract_fixtures.py
+- S13 — AI gateway v2 (2026-09-29)
+- .section
+- quantize
+- ._build_aux
+- page_verdict
+- direct_fit
+- FakeDense
+- laws
+- 6. Session plan (1 session = 1 milestone = 1 commit/PR)
+- cache_put
+- _ocr_page
+- test_chat_route_anonymous_caller_stays_on_free_tier
+- _LRU
+- update_manifest
+- is_table_noise
+- chunks
 
 ## God Nodes (most connected - your core abstractions)
-1. `get_index()` - 71 edges
+1. `get_index()` - 83 edges
 2. `get()` - 61 edges
 3. `available()` - 47 edges
 4. `tokenize()` - 47 edges
-5. `useLang()` - 43 edges
-6. `_http()` - 42 edges
-7. `useTools()` - 41 edges
-8. `S()` - 40 edges
-9. `run()` - 39 edges
-10. `analyze_query()` - 36 edges
+5. `run()` - 43 edges
+6. `useLang()` - 43 edges
+7. `_http()` - 42 edges
+8. `useTools()` - 41 edges
+9. `S()` - 40 edges
+10. `analyze_query()` - 38 edges
 
 ## Surprising Connections (you probably didn't know these)
 - `V-batch 1 — trust engine, full UI, Document AI (2026-09-29)` --references--> `search()`  [INFERRED]
@@ -199,64 +219,64 @@
   docs/PROGRESS.md → backend/app/supa.py
 - `V-batch 2b — OCR of the scanned regulator PDFs + NIA/MoLESS (2026-09-30)` --references--> `nia_rows()`  [INFERRED]
   docs/PROGRESS.md → backend/scripts/scrape_regulators.py
+- `S8 — Calculators (2026-09-27)` --references--> `UnsupportedDate`  [INFERRED]
+  docs/PROGRESS.md → backend/app/calculators/dates.py
 - `V3.2 — Claim checks from the live review, entailment v2, token diet (2026-09-30, offline; live re-measure pending)` --references--> `proviso_dropped()`  [INFERRED]
-  docs/PROGRESS.md → backend/app/claim_checks.py
-- `V3.2 — Claim checks from the live review, entailment v2, token diet (2026-09-30, offline; live re-measure pending)` --references--> `uncited_forum_claim()`  [INFERRED]
   docs/PROGRESS.md → backend/app/claim_checks.py
 
 ## Import Cycles
-- None detected.
+- 3-file cycle: `backend/app/claim_checks.py -> backend/app/verifier.py -> backend/app/condition_checks.py -> backend/app/claim_checks.py`
 
 ## Hyperedges (group relationships)
 - **Criminal Law Playbooks** — backend_app_data_playbooks_child_marriage_protection, backend_app_data_playbooks_cyber_harassment, backend_app_data_playbooks_defamation, backend_app_data_playbooks_physical_assault, backend_app_data_playbooks_fir_not_registered [EXTRACTED 0.90]
 - **Family Law Playbooks** — backend_app_data_playbooks_child_custody, backend_app_data_playbooks_divorce, backend_app_data_playbooks_domestic_violence, backend_app_data_playbooks_maintenance_alimony, backend_app_data_playbooks_inheritance_share [EXTRACTED 0.90]
 - **Employment Law Playbooks** — backend_app_data_playbooks_unpaid_salary, backend_app_data_playbooks_workplace_sexual_harassment, backend_app_data_playbooks_wrongful_termination [EXTRACTED 1.00]
 
-## Communities (164 total, 25 thin omitted)
+## Communities (184 total, 23 thin omitted)
 
 ### Community 0 - "claim_checks.py"
-Cohesion: 0.05
-Nodes (66): clause_context(), _clean(), dangling_additive(), _dev_share(), document_requirement(), _fmt(), _folded(), forum_classes() (+58 more)
+Cohesion: 0.06
+Nodes (49): alignment_ok(), asks_quantity(), dangling_additive(), _dev_share(), filter_gaps(), _fmt(), gap_in_language(), gap_is_false() (+41 more)
 
 ### Community 1 - "api.ts"
-Cohesion: 0.07
-Nodes (43): adToBs(), Amendment, AppealFeeResult, BsDate, bsToAd(), calcGratuity(), calcNotice(), calcSeverance() (+35 more)
+Cohesion: 0.06
+Nodes (51): ActionPlanPage(), Bi(), ProvisionCard(), adToBs(), Amendment, ApiError, AppealFeeResult, Bilingual (+43 more)
 
 ### Community 2 - "translit.py"
-Cohesion: 0.12
-Nodes (25): canon(), Entry, expand_ne(), _key_in(), laws_ne(), _lookup(), loose(), match_ne() (+17 more)
+Cohesion: 0.15
+Nodes (21): canon(), Entry, expand_ne(), _key_in(), _lookup(), loose(), match_ne(), _ne_slots() (+13 more)
 
-### Community 3 - "dates.py"
-Cohesion: 0.18
-Nodes (11): Age calculator for majority and consent-age questions. Age is counted on the…, BsDiff, BS <-> AD date conversion and Bikram Sambat date arithmetic (S8). Nepal's…, Calendar difference between two dates, counted on the BS calendar., BS date arithmetic tools: add years/months/days to a date, and the difference…, Interest on private loans under the Muluki Civil Code, 2074, chapter 15 (लेनदेन…, Where every number in a calculator comes from. Each calculator module lists its…, Source (+3 more)
+### Community 3 - "cite"
+Cohesion: 0.07
+Nodes (37): markers_table(), Age calculator for majority and consent-age questions. Age is counted on the…, flat_fee_types(), Court fee (अदालती शुल्क) calculator (S8). मुलुकी देवानी कार्यविधि संहिता, २०७४…, s. 74: when a review / retrial of a case is granted, an extra 10% of the plaint…, s. 82(1): on a settlement (मिलापत्र) of a fully paid case, the court keeps 25%…, review_fee(), settlement_fee() (+29 more)
 
 ### Community 4 - "test_v1_trust_engine.py"
 Cohesion: 0.07
-Nodes (44): _is_regulator_query(), _pipeline_fingerprint(), _reset_cache_for_tests(), _current_bs_year(), Corrects status/type the source metadata gets wrong for law that isn't…, _temporal_status(), _expand_multiplier(), _haystack_numbers() (+36 more)
+Nodes (48): _is_regulator_query(), Drop a trailing heading with nothing under it (a cut-off stream) and fix "धारा"…, search(), tidy_answer(), _reset_cache_for_tests(), _current_bs_year(), Corrects status/type the source metadata gets wrong for law that isn't…, _temporal_status() (+40 more)
 
 ### Community 5 - "llm.py"
-Cohesion: 0.16
-Nodes (27): _anthropic_complete(), _call_limit(), _client_http(), _cool(), _gemini(), _gemini_cfg(), _gemini_complete(), _gemini_stream() (+19 more)
+Cohesion: 0.06
+Nodes (65): _anthropic_complete(), _call_limit(), _client_http(), _compat_enabled(), complete(), _cool(), _cool_target(), _gemini() (+57 more)
 
 ### Community 6 - "test_dense.py"
-Cohesion: 0.06
-Nodes (42): Dense, enabled(), load_dense(), ndarray, quantize(), float32 (n, DIM) -> int8 + per-vector float16 scale (cos ~ (q . x) * scale)., int8 vectors aligned to an Index's row order. `have[i]` is False for rows with…, Vectors for `ids` (the loaded corpus's passage ids, in row order), or None when… (+34 more)
+Cohesion: 0.18
+Nodes (15): hybrid(), Dense retrieval: vector store (digest mismatch, missing file, id alignment),…, Attach a fake dense, restore afterwards., test_agreement_beats_either_signal_alone(), test_bills_never_surface_by_default_even_if_dense_top(), test_category_filter_after_fusion(), test_dense_finds_what_bm25_cannot(), test_dense_weight_shifts_the_order() (+7 more)
 
-### Community 7 - "test_api.py"
-Cohesion: 0.09
-Nodes (10): focus(), normalize_citations(), The part of a passage that matters for this question: the heading line plus the…, Models sometimes cite as "[Muluki Civil Code 2074, Section 400]" instead of…, client(), fixture, test_focus_keeps_heading_and_the_matching_clause(), test_research_save_list_delete_roundtrip() (+2 more)
+### Community 7 - "respell_devanagari"
+Cohesion: 0.29
+Nodes (7): normalize_citations(), `text` with known Devanagari spelling slips corrected (unchanged when nothing…, Models sometimes cite as "[Muluki Civil Code 2074, Section 400]" instead of…, respell_devanagari(), fix(), known(), test_text_citations_are_mapped_to_numbered_sources()
 
 ### Community 8 - "extract_laws.py"
 Cohesion: 0.08
 Nodes (40): build_glyph_reference(), build_vocab(), chunk_document(), convert_legacy(), drop_redraw_passes(), extract_pdf(), find_sections(), _font_bytes() (+32 more)
 
 ### Community 9 - "supa.py"
-Cohesion: 0.14
-Nodes (41): all_company_profiles(), available(), company_profile_get(), company_profile_upsert(), draft_get(), draft_list(), _http(), llm_usage_list() (+33 more)
+Cohesion: 0.15
+Nodes (37): available(), draft_create(), draft_get(), draft_list(), draft_update(), _draft_version_insert(), draft_versions_list(), _http() (+29 more)
 
 ### Community 10 - "test_v25_routing.py"
-Cohesion: 0.11
-Nodes (36): _is_bank_query(), _is_fiscal_query(), _match_playbook(), _nrb_directive_hits(), playbook_support(), `text` with known Devanagari spelling slips corrected (unchanged when nothing…, A retail-banking question (see _BANK_ACTOR/_BANK_SERVICE): NRB directives are…, How many of the top `depth` retrieved passages back one of the plan's… (+28 more)
+Cohesion: 0.09
+Nodes (43): _is_bank_query(), _match_playbook(), _nrb_directive_hits(), pinned_provisions(), _playbook_id_for(), _playbook_pick(), playbook_support(), A retail-banking question (see _BANK_ACTOR/_BANK_SERVICE): NRB directives are… (+35 more)
 
 ### Community 11 - "Graphify Tool Documentation"
 Cohesion: 0.08
@@ -266,13 +286,13 @@ Nodes (24): For /graphify add and --watch, For /graphify query, For the commit h
 Cohesion: 0.22
 Nodes (8): name, private, version, react-dom, @types/node, @types/react, @types/react-dom, typescript
 
-### Community 13 - "build_corpus.py"
-Cohesion: 0.22
-Nodes (13): curated_entries(), _doc_type(), _is_gov(), law_entries(), main(), merge_constitution_translations(), precedent_entries(), Builds the app's searchable corpus from government sources only: -… (+5 more)
+### Community 13 - "test_calculators_tools.py"
+Cohesion: 0.09
+Nodes (48): age_on(), Age of someone born on `birth` on the date `as_of`, and when they reach each…, flat_fee(), The fixed court fee for a case type where no value is claimed (s. 70, s. 71(2))., check(), get_entry(), Deadline + days remaining for `claim_type`, whose limitation clock started on…, income_tax() (+40 more)
 
 ### Community 14 - "Index"
-Cohesion: 0.08
-Nodes (17): _heading(), Index, Path, A passage's own section heading: title_ne without the trailing " (document…, 1-based id of the specialist regime a passage belongs to (0 = general law)., Per-passage heading weights and specialist-regime ids (best-effort, never…, Load the query encoder + corpus vectors if available (best-effort, never…, All passages (loads everything - for scripts/evals, not requests). (+9 more)
+Cohesion: 0.10
+Nodes (14): Index, _index_text(), _prior(), Authority of the source x usefulness of this particular passage., Load the query encoder + corpus vectors if available (best-effort, never…, All passages (loads everything - for scripts/evals, not requests)., slug -> row indices, in corpus order (which is section order for scraped…, client() (+6 more)
 
 ### Community 15 - "devanagari_glyphs.py"
 Cohesion: 0.14
@@ -280,11 +300,11 @@ Nodes (19): build_glyph_table(), build_reference(), decode_span(), _outline_hash
 
 ### Community 16 - "get"
 Cohesion: 0.09
-Nodes (57): _bad(), _catalog(), court_fee_flat(), court_fee_flat_types(), court_fee_review(), court_fee_settlement(), date_add(), date_age() (+49 more)
+Nodes (58): limitation_claim_types(), _bad(), _catalog(), court_fee_flat(), court_fee_flat_types(), court_fee_review(), court_fee_settlement(), date_add() (+50 more)
 
 ### Community 17 - "tokenize"
-Cohesion: 0.14
-Nodes (20): law_topic_terms(), _party_generic(), `ctx_tokens`: the quote's clause up to the end of the quote (heading text + the…, A quote that names 'the family/relatives' or the couple covers husband/wife., Stemmed section titles of the retrieved STATUTES ("बेइज्जती गर्न नहुने",…, scope_conflict(), fold(), tokenize() (+12 more)
+Cohesion: 0.12
+Nodes (24): law_topic_terms(), Stemmed section titles of the retrieved STATUTES ("बेइज्जती गर्न नहुने",…, focus(), The part of a passage that matters for this question: the heading line plus the…, fold(), _glossary_roman(), Normalisation + tokenisation shared by indexing and querying. Nepali legal text…, Words of the glossary's romanised-Nepali phrases (data/glossary.json "roman"… (+16 more)
 
 ### Community 18 - "Crawler"
 Cohesion: 0.17
@@ -303,20 +323,20 @@ Cohesion: 0.14
 Nodes (14): fill(), Expand `hint` into fuller prose for `field_id` of `template_id`, in `language`,…, requires_corpus, S10: LLM-assisted free-text fill for drafting templates, plus saving a draft…, test_ai_fill_endpoint_bad_field(), test_ai_fill_endpoint_requires_auth_and_is_metered(), test_ai_fill_expands_hint_via_llm(), test_ai_fill_includes_other_answers_as_context() (+6 more)
 
 ### Community 22 - "test_regulators_ingest.py"
-Cohesion: 0.15
-Nodes (10): _ex(), Chunking + schema tests for the regulator pipeline (ingest_regulators.py /…, test_english_documents_use_english_fields(), test_exact_duplicates_of_existing_text_are_dropped(), test_manifest_update_appends_shard_and_recomputes_digest_like_build_corpus(), test_nepali_directive_entries_match_schema(), test_shard_roundtrip(), test_status_is_never_guessed() (+2 more)
+Cohesion: 0.16
+Nodes (10): _text_key(), _ex(), Chunking + schema tests for the regulator pipeline (ingest_regulators.py /…, test_english_documents_use_english_fields(), test_exact_duplicates_of_existing_text_are_dropped(), test_manifest_update_appends_shard_and_recomputes_digest_like_build_corpus(), test_nepali_directive_entries_match_schema(), test_shard_roundtrip() (+2 more)
 
 ### Community 23 - "test_calculators.py"
-Cohesion: 0.06
-Nodes (53): appeal_fee(), court_fee(), estimate(), estimate_appeal(), Court fee (अदालती शुल्क) calculator (S8). मुलुकी देवानी कार्यविधि संहिता, २०७४…, s. 74: when a review / retrial of a case is granted, an extra 10% of the plaint…, s. 82(1): on a settlement (मिलापत्र) of a fully paid case, the court keeps 25%…, The दफा ६९ अदालती शुल्क for a claim of this disclosed value. (+45 more)
+Cohesion: 0.08
+Nodes (42): appeal_fee(), court_fee(), estimate(), estimate_appeal(), The दफा ६९ अदालती शुल्क for a claim of this disclosed value., The दफा ७३ additional appeal fee for appealing a claim of this (portion of the)…, Filing fee + court fee for filing a plaint over `claim_value`, each with its…, bs_to_ad() (+34 more)
 
-### Community 24 - "retrieval.py"
+### Community 24 - "app/__init__.py"
 Cohesion: 0.07
-Nodes (45): argparse, array, Dense (semantic, cross-lingual) retrieval, fused with BM25 inside…, BM25 search over the government-sourced corpus (laws + precedents). The corpus…, _objects_from(), V3: generate-then-verify answers. The model returns ONE JSON object (blocks of…, Complete {...} objects of the array whose items start at `pos`; whether the…, Every complete block, and every complete sentence of the block that was cut off. (+37 more)
+Nodes (38): argparse, entail_payload(), _objects_from(), V3: generate-then-verify answers. The model returns ONE JSON object (blocks of…, Complete {...} objects of the array whose items start at `pos`; whether the…, Every complete block, and every complete sentence of the block that was cut off., (compact JSON for the entailment call, [(block, sentence) per item]). One item…, The answer system prompt for a reply language: rules + the one worked example… (+30 more)
 
 ### Community 25 - "audit.py"
 Cohesion: 0.11
-Nodes (24): AuditError, classify_contract(), _confident(), ContractTypeUnknown, extract_facts(), ExtractionFailed, _fact_lines(), keyword_scores() (+16 more)
+Nodes (22): AuditError, classify_contract(), _confident(), ContractTypeUnknown, extract_facts(), ExtractionFailed, _fact_lines(), keyword_scores() (+14 more)
 
 ### Community 26 - "counts"
 Cohesion: 0.12
@@ -330,9 +350,9 @@ Nodes (9): Bonus Not Paid Playbook, Child Custody Playbook, Rental Deposit Playb
 Cohesion: 0.22
 Nodes (8): graphify reference: extra exports and benchmark, Step 6b - Wiki (only if --wiki flag), Step 7 - Neo4j export (only if --neo4j or --neo4j-push flag), Step 7a - FalkorDB export (only if --falkordb or --falkordb-push flag), Step 7b - SVG export (only if --svg flag), Step 7c - GraphML export (only if --graphml flag), Step 7d - MCP server (only if --mcp flag), Step 8 - Token reduction benchmark (only if total_words > 5000)
 
-### Community 29 - "bs"
-Cohesion: 0.07
-Nodes (50): age_on(), Age of someone born on `birth` on the date `as_of`, and when they reach each…, ad_to_bs(), add_bs_months(), add_bs_years(), add_days(), add_period(), bs_difference() (+42 more)
+### Community 29 - "_date"
+Cohesion: 0.09
+Nodes (42): ad_to_bs(), add_bs_months(), add_bs_years(), add_days(), add_period(), bs_difference(), bs_to_iso(), BsDiff (+34 more)
 
 ### Community 30 - "Graph Query Documentation"
 Cohesion: 0.33
@@ -346,9 +366,9 @@ Nodes (5): Child Marriage Protection Playbook, Cyber Harassment Playbook, Defama
 Cohesion: 0.40
 Nodes (5): Unpaid Salary Playbook, Wrongful Termination Playbook, Shram Ain, 2074 Section 144, Shram Ain, 2074 Section 162, Shram Ain, 2074 Section 34
 
-### Community 33 - "test_query_understanding.py"
+### Community 33 - "analyze_query"
 Cohesion: 0.06
-Nodes (36): analyze_needs_llm(), confidence(), _is_devanagari(), Script check on the message itself. NOT the language hint: the hint is "ne" for…, How sure we are this message can be searched well WITHOUT an LLM rewriting it.…, The one rule for "answer this question without the query-rewrite call" - shared…, Whether analyze_query() will reach a provider for this message., _skip_llm() (+28 more)
+Nodes (46): analyze_needs_llm(), analyze_query(), build_queries(), confidence(), quick_intent(), Obvious non-legal messages, recognised without any LLM., How sure we are this message can be searched well WITHOUT an LLM rewriting it.…, The one rule for "answer this question without the query-rewrite call" - shared… (+38 more)
 
 ### Community 34 - "Personal Loan Playbooks"
 Cohesion: 0.50
@@ -358,9 +378,9 @@ Nodes (4): Unpaid Personal Loan Playbook, Muluki Dewani Sanhita, 2074 Section 49
 Cohesion: 0.50
 Nodes (4): Workplace Sexual Harassment Playbook, Workplace Sexual Harassment (Prevention) Act, 2071 Section 15, Workplace Sexual Harassment (Prevention) Act, 2071 Section 5, Workplace Sexual Harassment (Prevention) Act, 2071 Section 7
 
-### Community 36 - "test_calculators_tools.py"
-Cohesion: 0.05
-Nodes (91): markers_table(), flat_fee(), flat_fee_types(), The fixed court fee for a case type where no value is claimed (s. 70, s. 71(2))., bs_month_length(), Number of days in a BS month (29-32; varies by year)., max_lawful_rate(), Interest on a private loan from `start` to `end`, with the lawful cap applied.… (+83 more)
+### Community 36 - "parametrize"
+Cohesion: 0.07
+Nodes (40): bs_month_length(), Number of days in a BS month (29-32; varies by year)., check_hours(), festival_allowance(), fund_contributions(), leave_accrual(), leave_encashment(), _money() (+32 more)
 
 ### Community 37 - "Folder Watching Documentation"
 Cohesion: 0.50
@@ -386,25 +406,25 @@ Nodes (3): Traffic Accident Compensation Playbook, Sawari tatha Yatayat Wyawasth
 Cohesion: 0.67
 Nodes (3): Backend Dependencies, Script Dependencies, CI Workflow
 
-### Community 60 - "Progress"
-Cohesion: 0.25
-Nodes (9): Pin the headline numbers so an edit to the YAML can't drift from the law., test_numeric_rules_match_the_statute_numbers(), rule(), Known issues, Later (ideas raised but out of scope for the current session), Live deployment (2026-09-28/29 audit), Metrics (S2, real corpus), Next session (+1 more)
+### Community 60 - "_View"
+Cohesion: 0.07
+Nodes (37): clause_context(), Layout, leading_scope_problem(), _locate(), quote_section(), quote_subsection(), Section/rule numbers a sentence names as ITS provision (not sub-section /…, A passage split (a) at section headings ("२३. विवरण सच्याउने :") and (b) at… (+29 more)
 
 ### Community 61 - "chat"
-Cohesion: 0.15
-Nodes (18): stream_answer(), chat(), chat_stream(), events(), _client_ip(), _current_user(), _enforce_limits(), _log_llm_usage() (+10 more)
+Cohesion: 0.10
+Nodes (26): chat(), chat_stream(), events(), _client_ip(), create_draft(), _current_user(), draft_document(), _enforce_limits() (+18 more)
 
-### Community 62 - "playbooks.py"
-Cohesion: 0.07
-Nodes (47): assert_integrity(), _bilingual(), ChecklistError, contract_types(), get_checklist(), get_raw(), _load_all(), public_listing() (+39 more)
+### Community 62 - "checklists.py"
+Cohesion: 0.12
+Nodes (25): assert_integrity(), _bilingual(), ChecklistError, contract_types(), get_checklist(), get_raw(), _load_all(), public_listing() (+17 more)
 
 ### Community 63 - "limitation.py"
-Cohesion: 0.06
-Nodes (57): _by_id(), catalog(), check(), entry_view(), general_rules(), get_entry(), is_computable(), _legacy_note() (+49 more)
+Cohesion: 0.09
+Nodes (36): _by_id(), catalog(), entry_view(), general_rules(), is_computable(), _legacy_note(), list_claim_types(), ne_digits() (+28 more)
 
 ### Community 64 - "ocr_regulators.py"
-Cohesion: 0.10
-Nodes (30): all_ocr_records(), binarise(), build_vocabs(), classify_new(), cmd_ingest(), rank(), _existing_docs(), load_raw_pages() (+22 more)
+Cohesion: 0.12
+Nodes (25): all_ocr_records(), build_vocabs(), classify_new(), cmd_ingest(), rank(), _existing_docs(), load_raw_pages(), main() (+17 more)
 
 ### Community 65 - "forms_common.py"
 Cohesion: 0.09
@@ -412,58 +432,58 @@ Nodes (41): F(), Compact Field builder; fields on prescribed forms are optional 
 
 ### Community 66 - "chat.py"
 Cohesion: 0.06
-Nodes (83): corpus_stats(), create_draft(), create_matter(), create_matter_note(), get_company_profile(), get_draft(), get_drafting_template(), get_matter() (+75 more)
+Nodes (77): corpus_stats(), create_matter(), create_matter_note(), get_company_profile(), get_draft(), get_drafting_template(), get_playbook(), law_doc() (+69 more)
 
-### Community 67 - "_run"
-Cohesion: 0.20
-Nodes (10): answer_system(), test_only_the_reply_language_example_is_sent_and_the_rules_are_smaller_than_before(), _run(), test_free_tier_entailment_is_off_by_default_and_env_flag_enables_it_as_one_extra_call(), test_pipeline_version_and_fingerprint_cover_the_new_modules(), test_run_falls_back_to_the_provisions_when_too_little_survives(), test_run_streams_status_then_verified_deltas_then_done(), test_run_truncated_json_is_salvaged_not_cut_mid_sentence() (+2 more)
+### Community 67 - "condition_checks.py"
+Cohesion: 0.11
+Nodes (29): _clean(), document_requirement(), _folded(), forum_classes(), forum_not_in_sources(), _qtok(), A sentence that says which document a filing needs (as opposed to "keep your…, An uncited sentence that names an office/forum or a filing document that the… (+21 more)
 
 ### Community 68 - "documents.py"
-Cohesion: 0.07
-Nodes (36): asyncio, AuditResult, Bilingual, ChecklistCheckOut, ChecklistTypeOut, ExtractedFactOut, FindingOut, NotEnforcedOut (+28 more)
+Cohesion: 0.11
+Nodes (27): AuditResult, Bilingual, ChecklistCheckOut, ChecklistTypeOut, ExtractedFactOut, FindingOut, NotEnforcedOut, ProvisionOut (+19 more)
 
-### Community 69 - "matters/[id]/page.tsx"
-Cohesion: 0.10
-Nodes (41): FilesTab(), download(), handleFile(), remove(), formatSize(), MatterBackLink(), MatterDetail(), MatterDetailPage() (+33 more)
+### Community 69 - "useLang"
+Cohesion: 0.09
+Nodes (60): Compliance(), CompliancePage(), daysLabel(), ENTITY_TYPES, Obligations(), ProfileForm(), submit(), WINDOWS (+52 more)
 
 ### Community 70 - "ui.tsx"
-Cohesion: 0.11
-Nodes (32): frontend_app_globals, metadata, RootLayout(), viewport, SavedPage(), handleDelete(), AuthWidget(), handleSendCode() (+24 more)
+Cohesion: 0.15
+Nodes (23): Account(), AccountPage(), AuthWidget(), handleSendCode(), handleVerify(), isActive(), NAV, Shell() (+15 more)
 
-### Community 71 - "match"
-Cohesion: 0.10
-Nodes (24): expand(), laws(), match(), Lexicon entries hit by the Latin-script words of `text`, in order of appearance…, Devanagari statute terms for the roman/English words in `text` (deduplicated,…, Exact corpus titles of the statutes the matched strong entries point to., S7: non-LLM playbook matcher - keyword/glossary routing, no embeddings.…, test_matcher_precision_at_least_90_percent() (+16 more)
+### Community 71 - "test_translit.py"
+Cohesion: 0.15
+Nodes (14): expand(), Devanagari statute terms for the roman/English words in `text` (deduplicated,…, index(), fixture, parametrize, V2: the romanised-Nepali -> statute-Nepali lexicon (app/translit.py). The…, The validation that keeps the lexicon honest: after the same tokenisation the…, test_chh_ch_variants_tolerated_but_theft_is_not_daughter() (+6 more)
 
 ### Community 72 - "ingest_regulators.py"
-Cohesion: 0.09
-Nodes (32): _text_key(), assess(), build_entries(), _cache_path(), chunk_directive(), chunk_text(), clean_title(), corpus_digest() (+24 more)
+Cohesion: 0.11
+Nodes (27): assess(), build_entries(), _cache_path(), chunk_directive(), chunk_text(), clean_title(), english_title(), ensure_glyph_reference() (+19 more)
 
-### Community 73 - "audit_document"
-Cohesion: 0.21
-Nodes (13): ai_fill_field(), Expands a free-text field's short hint via the LLM. Signed-in only, metered…, S13: writes one llm_usage row per real (non-cached, non-free-tier) generation,…, _record_llm_usage_sync(), audit_document(), _error(), HTTPException, UploadFile (+5 more)
+### Community 73 - "tiers.py"
+Cohesion: 0.27
+Nodes (9): daily_quota_for(), estimate_cost_usd(), model_for_tier(), S13: plan-based tier routing and token-cost accounting. STRATEGY.md §2's…, test_audit_happy_path_on_the_free_plan_uses_the_free_chain(), test_paid_plan_routes_to_sonnet_and_logs_llm_usage(), test_daily_quota_for_matches_plan_table(), test_estimate_cost_usd_matches_known_pricing() (+1 more)
 
 ### Community 74 - "Kanooni Sathi — Strategy V2: from backend foundations to a commercial legal intelligence platform"
-Cohesion: 0.08
-Nodes (25): 1.1 What exists, 1.2 What's broken or risky (found live, not theoretical), 1.3 Verdict, 1. Audit: where the product actually is (measured 2026-09-29), 2. What to take from the research reports — and what to reject, 3.1 Plans (recommended), 3.2 Unit economics (assume ~Rs 140/USD; Anthropic list prices), 3.3 Fixed costs to run commercially (~$75/mo ≈ Rs 10,500) (+17 more)
+Cohesion: 0.13
+Nodes (14): 2. What to take from the research reports — and what to reject, 3.1 Plans (recommended), 3.2 Unit economics (assume ~Rs 140/USD; Anthropic list prices), 3.3 Fixed costs to run commercially (~$75/mo ≈ Rs 10,500), 3.4 Legal/business prerequisites (founder to-do, confirm with your advocate), 3. Who pays, and for what, 4.1 Must-have for commercial launch, 4.2 Growth (post-launch) (+6 more)
 
 ### Community 75 - "glossary.py"
-Cohesion: 0.23
-Nodes (12): _expansion_precise(), The glossary's word-for-word expansion is trustworthy: it found something, and…, expand(), expand_hits(), _index(), _key(), _norm_en(), Local English / romanised-Nepali -> statute-Nepali query expansion. Statutes… (+4 more)
+Cohesion: 0.26
+Nodes (11): _expansion_precise(), The glossary's word-for-word expansion is trustworthy: it found something, and…, expand(), expand_hits(), _index(), _key(), _norm_en(), Local English / romanised-Nepali -> statute-Nepali query expansion. Statutes… (+3 more)
 
-### Community 76 - "ai_fill.py"
-Cohesion: 0.16
-Nodes (14): _build(), fill_paid(), _get_field(), ValueError, LLM-assisted drafting for free-text fields (S10). Only `textarea` fields go…, Returns (system, user) for the given field, or raises ValueError /…, S13: same expansion, billed to a specific paid-tier model…, UnknownField (+6 more)
+### Community 76 - "fill_paid"
+Cohesion: 0.22
+Nodes (8): fill_paid(), S13: same expansion, billed to a specific paid-tier model…, paid_complete(), S13: a direct call to one specific Anthropic model, no fallback chain. Paid…, test_fill_paid_propagates_unknown_field(), test_fill_paid_wraps_hint_and_uses_the_tiered_model(), test_paid_complete_calls_the_named_model_and_returns_usage(), test_paid_complete_without_api_key_raises()
 
 ### Community 77 - "test_ocr_clean.py"
 Cohesion: 0.08
 Nodes (4): OCR cleaning + quality-gate tests (ocr_clean.py, ocr_regulators.py helpers).…, _seed(), test_part002_rebuild_keeps_part003_after_it_in_the_digest(), test_second_shard_registered_last_with_own_counters()
 
 ### Community 78 - "_bad_input"
-Cohesion: 0.16
-Nodes (17): ad_to_bs(), _bad_input(), bs_to_ad(), calc_gratuity(), calc_notice(), calc_severance(), check_limitation(), draft_document() (+9 more)
+Cohesion: 0.17
+Nodes (16): ad_to_bs(), ai_fill_field(), _bad_input(), bs_to_ad(), calc_gratuity(), calc_notice(), calc_severance(), check_limitation() (+8 more)
 
 ### Community 79 - "test_documents_audit.py"
-Cohesion: 0.09
+Cohesion: 0.08
 Nodes (38): extract_text(), Extract clean text from a PDF or DOCX. Raises a DocumentError subclass…, _esc(), make_docx(), make_pdf(), Generators for the PDF and DOCX fixtures used by test_documents_audit.py. Built…, A minimal text PDF (Helvetica, Latin text only) with one page per inner list of…, A DOCX with one paragraph per line (Unicode/Devanagari safe). (+30 more)
 
 ### Community 80 - "search/page.tsx"
@@ -474,9 +494,9 @@ Nodes (10): DOC_TYPES, docTypeLabel(), ResultCard(), resultHref(), SearchPage(),
 Cohesion: 0.29
 Nodes (9): RFC-5545, buildIcs(), compact(), escapeText(), fold(), IcsEvent, nextDay(), stamp() (+1 more)
 
-### Community 82 - "doc_slug"
-Cohesion: 0.10
-Nodes (9): doc_slug(), Stable, URL-safe id for a document's law-browser page, derived from its title…, test_law_browser_doc_and_section_endpoints(), idx(), fixture, test_cache_roundtrip(), test_law_browser_doc_lists_its_sections_in_order(), test_law_browser_excludes_bill_doc_by_default() (+1 more)
+### Community 82 - "test_api.py"
+Cohesion: 0.06
+Nodes (9): doc_slug(), Stable, URL-safe id for a document's law-browser page, derived from its title…, test_law_browser_doc_and_section_endpoints(), test_research_save_list_delete_roundtrip(), test_cache_roundtrip(), test_law_browser_doc_lists_its_sections_in_order(), test_law_browser_excludes_bill_doc_by_default(), test_law_browser_section_has_prev_next_neighbours() (+1 more)
 
 ### Community 83 - "test_s14_security.py"
 Cohesion: 0.10
@@ -487,16 +507,16 @@ Cohesion: 0.15
 Nodes (20): Home(), handleKeyDown(), handleSaveResearch(), handleSend(), frontend_components_chat_extras, ChatMessage(), Message, statusClass() (+12 more)
 
 ### Community 85 - "test_drafting_formats.py"
-Cohesion: 0.14
-Nodes (35): render_docx(), _all_text(), _answers(), _blank_text(), _dummy(), parametrize, requires_corpus, Prescribed-format drafting: every template renders to a real DOCX and a PDF,… (+27 more)
+Cohesion: 0.12
+Nodes (38): render_docx(), _all_text(), _answers(), _blank_text(), _dummy(), parametrize, requires_corpus, Prescribed-format drafting: every template renders to a real DOCX and a PDF,… (+30 more)
 
 ### Community 86 - "calculators.tsx"
 Cohesion: 0.06
-Nodes (122): AccrualCard(), AccrualResult, AddResult, AgeCard(), AgeResult, AppealFeeCard(), CourtFeeCard(), DateAddCard() (+114 more)
+Nodes (113): AccrualCard(), AccrualResult, AddResult, AgeCard(), AgeResult, AppealFeeCard(), CourtFeeCard(), DateAddCard() (+105 more)
 
 ### Community 87 - "run_eval.py"
-Cohesion: 0.07
-Nodes (44): analyze_query(), build_queries(), quick_intent(), Obvious non-legal messages, recognised without any LLM., Weighted query set. Sources, best first: the LLM's Nepali legal phrasings; the…, search(), available(), parse_json() (+36 more)
+Cohesion: 0.13
+Nodes (28): answer_question(), parse_json(), detect_language(), ask(), main(), cmd_e2e(), cmd_retrieval(), cmd_synth() (+20 more)
 
 ### Community 88 - "audit/page.tsx"
 Cohesion: 0.12
@@ -511,12 +531,12 @@ Cohesion: 0.12
 Nodes (25): CorruptDocumentError, DocumentError, EmptyDocumentError, _extract_docx(), _extract_pdf(), ExtractedDocument, LegacyFontError, looks_garbled() (+17 more)
 
 ### Community 91 - "dsl.py"
-Cohesion: 0.12
-Nodes (31): _cell(), doc(), _flags(), _label_split(), _paragraph(), A tiny line-oriented markup for writing prescribed forms compactly, so the…, `@flags rest` -> (flags, rest); a line without a leading @ has no flags., The ल्याप्चे सहीछाप (thumbprint) block: a bold caption followed by a bordered… (+23 more)
+Cohesion: 0.14
+Nodes (29): _cell(), doc(), _flags(), _label_split(), _paragraph(), A tiny line-oriented markup for writing prescribed forms compactly, so the…, `@flags rest` -> (flags, rest); a line without a leading @ has no flags., The ल्याप्चे सहीछाप (thumbprint) block: a bold caption followed by a bordered… (+21 more)
 
 ### Community 92 - "rules.py"
-Cohesion: 0.10
-Nodes (29): Any, apply_checklist(), _clause_label(), Deterministically judge `facts` against the checklist. Returns (findings,…, applies(), evaluate(), fields_in(), _leaf() (+21 more)
+Cohesion: 0.09
+Nodes (31): Any, apply_checklist(), _clause_label(), _quote(), A short excerpt of the clause, cut by us (never model-written). Prefers the…, Deterministically judge `facts` against the checklist. Returns (findings,…, applies(), evaluate() (+23 more)
 
 ### Community 93 - "Session prompts — V2 (commercial build)"
 Cohesion: 0.40
@@ -524,111 +544,111 @@ Nodes (4): Master prompt (paste at the start of every session), Model guidance, 
 
 ### Community 94 - "test_drafting.py"
 Cohesion: 0.14
-Nodes (12): parametrize, requires_corpus, S9: drafting engine - questionnaire answers -> rendered DOCX, bilingual. Table-…, test_drafting_api_endpoints(), test_generated_docx_opens(), test_invalid_language_raises(), test_legal_notice_salary_includes_answers_and_citation_ne(), test_missing_required_field_raises() (+4 more)
+Nodes (13): parametrize, requires_corpus, S9: drafting engine - questionnaire answers -> rendered DOCX, bilingual. Table-…, test_drafting_api_endpoints(), test_generated_docx_opens(), test_invalid_language_raises(), test_legal_notice_salary_includes_answers_and_citation_ne(), test_list_templates_matches_registry() (+5 more)
 
-### Community 95 - "complete"
-Cohesion: 0.16
-Nodes (17): complete(), One completion within `budget_s` seconds across all providers, or…, Yield answer text incrementally. A provider/model is only abandoned before it…, stream(), gateway(), fixture, test_content_as_list_of_parts_and_reasoning_hint(), test_direct_providers_rotate_keys_and_skip_unconfigured() (+9 more)
+### Community 95 - "test_v27_fit.py"
+Cohesion: 0.12
+Nodes (29): abstain_answer(), _cite(), _excerpt(), extractive_answer(), gate_ran(), V3.3: what the user sees when the topical-fit gate leaves too little to answer…, The provisions themselves. With the gate: only passages that passed it (V3.2…, (number, source) of the closest statute passages the gate did not rule out by… (+21 more)
 
 ### Community 96 - "run_audit"
 Cohesion: 0.12
 Nodes (20): AuditMeta, Side-channel for the route: usage to bill/log, and the injection flag., Audit contract `text`. `contract_type` None/"auto" -> classify. Raises…, run_audit(), Callable with the signature of llm.complete (system, user, **kw) -> str., RegexReader, A model that tries to declare things legal (extra keys, verdicts) has no…, test_classification_keywords_first_then_llm_fallback() (+12 more)
 
 ### Community 97 - "[templateId]/page.tsx"
-Cohesion: 0.09
-Nodes (43): frontend_app_draft_draft, DraftPage(), handleDelete(), Msg, TemplateForm(), cleanAnswers(), handleAiHelp(), handleDownload() (+35 more)
+Cohesion: 0.08
+Nodes (44): addToCalendar(), frontend_app_draft_draft, DraftPage(), handleDelete(), Msg, TemplateForm(), cleanAnswers(), handleAiHelp() (+36 more)
 
 ### Community 98 - "S5 — Supabase auth + DB (2026-09-26)"
-Cohesion: 0.14
-Nodes (18): cache_get(), cache_put(), check_and_increment_quota(), check_ip_rate_limit(), get_user(), jsonb_safe(), None on a miss OR if the cached row is from a stale corpus_version - the whole…, Postgres jsonb rejects the NUL character (\\u0000), which some scanned law… (+10 more)
+Cohesion: 0.13
+Nodes (20): cache_get(), check_and_increment_quota(), check_ip_rate_limit(), get_user(), None on a miss OR if the cached row is from a stale corpus_version - the whole…, Validate a Supabase access token (from the frontend's Authorization header) and…, True if this IP is still under its hourly budget (and records the hit)., Atomic check-and-increment via the increment_usage() RPC (avoids a read-then-… (+12 more)
 
 ### Community 99 - "_require_matter"
-Cohesion: 0.17
-Nodes (15): create_matter_task(), delete_draft(), delete_matter(), delete_matter_file(), delete_matter_note(), delete_matter_task(), delete_research(), download_matter_file() (+7 more)
+Cohesion: 0.16
+Nodes (16): create_matter_task(), delete_draft(), delete_matter(), delete_matter_file(), delete_matter_note(), delete_matter_task(), delete_research(), download_matter_file() (+8 more)
 
 ### Community 100 - "Per-playbook findings"
-Cohesion: 0.05
-Nodes (37): test_salary_question_flags_1970s_precedents_as_stale(), All NEEDS-ADVOCATE-REVIEW items (64), bonus_not_paid - Employer has not paid bonus, cheque_bounce - Cheque given to me bounced, child_custody - Custody of children after separation/divorce, child_marriage_protection - Stop or report a child marriage, citizenship_by_descent - Citizenship by descent (self or child), consumer_complaint - Defective product / cheated as consumer (+29 more)
+Cohesion: 0.08
+Nodes (24): bonus_not_paid - Employer has not paid bonus, cheque_bounce - Cheque given to me bounced, child_custody - Custody of children after separation/divorce, child_marriage_protection - Stop or report a child marriage, citizenship_by_descent - Citizenship by descent (self or child), consumer_complaint - Defective product / cheated as consumer, cyber_harassment - Online harassment / photos or private information shared, defamation - Someone defamed me (+16 more)
 
-### Community 101 - "test_v31_streaming.py"
-Cohesion: 0.12
-Nodes (15): _Frame, IncrementalDoc, Truly incremental reader of the growing answer JSON: feed() consumes only the…, parametrize, V3.1: progressive streaming with per-sentence verification. The provider stream…, _sentences_of(), split_random(), test_incremental_parser_cut_off_mid_sentence_and_prose_prefix() (+7 more)
+### Community 101 - "IncrementalDoc"
+Cohesion: 0.15
+Nodes (11): _Frame, IncrementalDoc, Truly incremental reader of the growing answer JSON: feed() consumes only the…, parametrize, _sentences_of(), split_random(), test_incremental_parser_cut_off_mid_sentence_and_prose_prefix(), test_incremental_parser_devanagari_and_escaped_quotes() (+3 more)
 
 ### Community 102 - "docx_out.py"
-Cohesion: 0.10
-Nodes (37): _add_font_table_fallback(), build_docx(), _get_or_add(), _insert_ordered(), _local(), _page_setup(), _paragraph(), Resolved layout blocks -> a real .docx (python-docx). Page and type set-up… (+29 more)
+Cohesion: 0.11
+Nodes (36): _add_font_table_fallback(), build_docx(), _get_or_add(), _insert_ordered(), _local(), _page_setup(), _paragraph(), Resolved layout blocks -> a real .docx (python-docx). Page and type set-up… (+28 more)
 
 ### Community 103 - "embedding_benchmark.py"
 Cohesion: 0.25
 Nodes (7): E5Small, _first_hit(), load_questions(), main(), ndarray, S4: does adding embeddings to the BM25 ranking actually help? Per STRATEGY.md,…, summarize()
 
-### Community 104 - "i18n.ts"
-Cohesion: 0.10
-Nodes (18): ActionPlanPage(), Bi(), ProvisionCard(), ActionPlansPage(), AREA_LABEL, DOC_TYPE_LABEL, LawDocPage(), LawSectionPage() (+10 more)
+### Community 104 - "LangContext.tsx"
+Cohesion: 0.09
+Nodes (25): ActionPlansPage(), AREA_LABEL, frontend_app_globals, DOC_TYPE_LABEL, LawDocPage(), LawSectionPage(), metadata, RootLayout() (+17 more)
 
 ### Community 105 - "render.py"
-Cohesion: 0.12
-Nodes (30): TemplateSpec, strip_inline(), _build_context(), _effective_language(), get_template(), get_template_detail(), _items(), list_templates() (+22 more)
+Cohesion: 0.13
+Nodes (30): TemplateSpec, strip_inline(), build_pdf(), _build_context(), _effective_language(), get_template(), get_template_detail(), _items() (+22 more)
 
-### Community 106 - "extract_doc_meta"
-Cohesion: 0.18
-Nodes (17): _bs_date(), classify_status(), extract_doc_meta(), _find_enacted_date(), Doc-level status/date metadata shared by scripts/build_corpus.py (which…, First BS date following a certification/gazette-date trigger word, within the…, status/enacted_bs/amended_by/consolidated_upto for one document, from its first…, parametrize (+9 more)
+### Community 106 - "build_corpus.py"
+Cohesion: 0.10
+Nodes (34): _bs_date(), classify_status(), extract_doc_meta(), _find_enacted_date(), Doc-level status/date metadata shared by scripts/build_corpus.py (which…, First BS date following a certification/gazette-date trigger word, within the…, status/enacted_bs/amended_by/consolidated_upto for one document, from its first…, _entry_status() (+26 more)
 
 ### Community 107 - "verifier.py"
-Cohesion: 0.07
-Nodes (58): check_sentence(), check_structured_sentence(), _cite_conflicts(), _cite_list(), _fuzzy_span(), _guidance_ok(), _in_terms(), lexical_support() (+50 more)
+Cohesion: 0.08
+Nodes (48): _bridge(), check_sentence(), check_structured_sentence(), _cite_conflicts(), _cite_list(), _clean_doc_sentence(), _condition_problem(), _guidance_ok() (+40 more)
 
 ### Community 108 - "scrape_lawcommission.py"
-Cohesion: 0.11
-Nodes (23): build_parser(), cmd_crawl(), cmd_ocr(), cmd_stats(), _extractable_text_fraction(), Crawls lawcommission.gov.np (and, optionally, other Nepali legal-source domains…, Rough heuristic: fraction of sampled pages that yield >20 chars of text., Truncate to a byte budget without splitting a multi-byte character (Devanagari… (+15 more)
+Cohesion: 0.09
+Nodes (28): main(), Download the official PDFs that carry prescribed forms (schedules) and dump…, slug(), build_parser(), cmd_crawl(), cmd_ocr(), cmd_stats(), _extractable_text_fraction() (+20 more)
 
 ### Community 109 - "nepali.py"
 Cohesion: 0.17
 Nodes (19): ad_numeric(), _as_date(), blank(), bs_numeric(), bs_parts(), ka(), nd(), opts() (+11 more)
 
 ### Community 110 - "report.py"
-Cohesion: 0.21
-Nodes (11): _add(), _cell(), _fonts(), Render an audit result as a DOCX report (python-docx), in English or Nepali., Latin text in Calibri, Devanagari (complex script) in Mangal so Word renders…, `audit` is the dict returned by audit.run_audit (or the API's JSON)., render_report(), Document (+3 more)
+Cohesion: 0.19
+Nodes (12): _add(), _cell(), _fonts(), Render an audit result as a DOCX report (python-docx), in English or Nepali., Latin text in Calibri, Devanagari (complex script) in Mangal so Word renders…, `audit` is the dict returned by audit.run_audit (or the API's JSON)., render_report(), Document (+4 more)
 
 ### Community 111 - "test_v3_structured.py"
-Cohesion: 0.16
-Nodes (31): check(), parametrize, V3: generate-then-verify. The model's JSON answer is checked sentence by…, S(), test_altered_quote_is_removed(), test_bad_citation_number_is_removed(), test_empathy_and_plain_advice_pass_uncited_but_uncited_procedure_needs_the_playbook(), test_english_sentence_with_english_translation_quote() (+23 more)
+Cohesion: 0.13
+Nodes (35): check(), parametrize, V3: generate-then-verify. The model's JSON answer is checked sentence by…, _run(), S(), test_altered_quote_is_removed(), test_bad_citation_number_is_removed(), test_empathy_and_plain_advice_pass_uncited_but_uncited_procedure_needs_the_playbook() (+27 more)
 
 ### Community 112 - "authority"
 Cohesion: 0.18
 Nodes (11): authority(), _clean(), giwms_table(), nia_rows(), Rows of a GIWMS table listing: | # | title | published | pdf link | ... |, (title, ISO date, pdf url) rows of one NIA /law/ page. Only the main table is…, Nepal Insurance Authority (nia.gov.np; formerly Beema Samiti). Its HTTPS…, Nepal Gazette (rajpatra.dop.gov.np). Not reachable from the build sandbox; the… (+3 more)
 
 ### Community 113 - "test_v32_claim_checks.py"
-Cohesion: 0.07
-Nodes (54): ctx_of(), _ctx_reason(), _doc_with(), judge(), labelled(), parametrize, V3.2: deterministic claim checks, built from the V3 live review (2026-09-30).…, (kept?, reason) of one sentence through verify_sentence exactly as the pipeline… (+46 more)
+Cohesion: 0.05
+Nodes (65): clean_ocr_text(), dedupe_marks(), Remove a leading "But/And/तर/र" that joined the sentence to one that was…, OCR glitches the model copied from a scanned source into its own sentence: a…, [5][5] -> [5]; order kept., strip_leading_conjunction(), _line(), parse_verdicts() (+57 more)
 
-### Community 114 - "_date"
-Cohesion: 0.08
-Nodes (27): bs_to_ad(), add_bs_days(), add_bs_months(), applies_to(), _bs_date(), bs_month_end(), _due_date_ad(), due_date_for_fy_end_rule() (+19 more)
+### Community 114 - "test_s12_compliance_radar.py"
+Cohesion: 0.07
+Nodes (23): add_bs_days(), add_bs_months(), applies_to(), _bs_date(), bs_month_end(), _due_date_ad(), due_date_for_fy_end_rule(), due_date_for_month_end_rule() (+15 more)
 
 ### Community 115 - "scripts"
 Cohesion: 0.25
 Nodes (8): scripts, build, dev, lint, start, test:e2e, test:mock, test:unit
 
 ### Community 116 - "ocr_clean.py"
-Cohesion: 0.07
-Nodes (40): clean_document(), clean_page(), document_verdict(), drop_latin_noise(), _fix_devanagari(), _header_key(), _is_noise_line(), is_table_noise() (+32 more)
+Cohesion: 0.16
+Nodes (18): clean_document(), clean_page(), drop_latin_noise(), _fix_devanagari(), _header_key(), _is_noise_line(), _latin_dominant(), normalise_digits() (+10 more)
 
 ### Community 117 - "newest_per_series"
 Cohesion: 0.20
 Nodes (11): _ad_date(), newest_per_series(), _nrb_listing_pages(), pub_sort_key(), Title with amendment parentheticals, digits and punctuation removed, so 'X ऐन,…, Comparable (year, month, day) for an AD ('July 22, 2025', '2025-07-22') or BS…, Keep the newest document of each title series (dated docs win; ties keep the…, Yield (href, title, date_str) over a paginated NRB category listing. (+3 more)
 
-### Community 118 - "fake_stream"
-Cohesion: 0.15
-Nodes (26): fake_stream(), gen(), Simulated provider at 40 ms per ~3-char token: time to first verified text vs…, What the frontend ends up showing: deltas append, `replace` swaps., run_events(), test_cache_hit_still_has_no_streaming_events(), test_cut_off_stream_shows_only_complete_sentences(), test_document_level_failure_after_release_uses_replace() (+18 more)
+### Community 118 - "test_v31_streaming.py"
+Cohesion: 0.14
+Nodes (29): fake_stream(), gen(), V3.1: progressive streaming with per-sentence verification. The provider stream…, Simulated provider at 40 ms per ~3-char token: time to first verified text vs…, What the frontend ends up showing: deltas append, `replace` swaps., run_events(), test_cache_hit_still_has_no_streaming_events(), test_cut_off_stream_shows_only_complete_sentences() (+21 more)
 
 ### Community 119 - "playbook_matcher.py"
 Cohesion: 0.11
-Nodes (29): _playbook_pick(), (playbook id or None, trusted). Trusted = an exact keyword phrase of the plan…, _keyword_hit_fraction(), _keyword_weight(), Match, match_scored(), _playbook_keywords(), _playbook_vetoes() (+21 more)
+Nodes (28): _keyword_hit_fraction(), _keyword_weight(), Match, match_scored(), _playbook_keywords(), _playbook_vetoes(), _positions(), Pattern (+20 more)
 
-### Community 120 - "answer_review.py"
-Cohesion: 0.10
-Nodes (22): corpus_source(), entail_payload(), (compact JSON for the entailment call, [(block, sentence) per item]). One item…, aggregate(), main(), Passages, post(), Collect answers from a running API for human / LLM review of the V3 generate-… (+14 more)
+### Community 120 - "config.py"
+Cohesion: 0.12
+Nodes (19): _keys(), All keys from comma-separated env vars (GROQ_API_KEYS=k1,k2 and/or…, V2.7: how many labelled `supported` sentences does the PASSAGE-level gate (V3.3…, build(), load_sentences(), main(), V2.7: what the NEW sentence checks (dropped-condition checks on the full…, reason_for() (+11 more)
 
 ### Community 121 - "scrape_regulators.py"
 Cohesion: 0.20
@@ -638,65 +658,65 @@ Nodes (14): download(), fiscal_year_bs(), giwms_files(), _is_doc_url(), _links()
 Cohesion: 0.18
 Nodes (5): matters_client(), fixture, S11: Matter workspace lite - matters, notes, tasks, files. Supabase isn't…, The API-layer proof: every sub-resource route 404s for a matter that isn't the…, test_user_b_cannot_see_user_a_matter_or_its_subresources()
 
-### Community 123 - "test_eval_sets.py"
+### Community 123 - "re"
 Cohesion: 0.09
-Nodes (14): DocResolver, norm(), Corpus verification for eval cases (V1). Each case in questions_realworld.jsonl…, Resolve a case's `doc` (exact title or unambiguous prefix) to a title in the…, Return a list of problems ([] = every cited provision found and confirmed)., verify_case(), _lines(), _norm() (+6 more)
+Nodes (15): DocResolver, norm(), Corpus verification for eval cases (V1). Each case in questions_realworld.jsonl…, Resolve a case's `doc` (exact title or unambiguous prefix) to a title in the…, Return a list of problems ([] = every cited provision found and confirmed)., verify_case(), _lines(), _norm() (+7 more)
 
-### Community 124 - "re"
-Cohesion: 0.05
-Nodes (39): _keys(), All keys from comma-separated env vars (GROQ_API_KEYS=k1,k2 and/or…, looks_like_injection(), S13: prompt-injection guard for user-supplied text going into an LLM prompt.…, wrap_user_text(), Normalisation + tokenisation shared by indexing and querying. Nepali legal text…, Index term for one folded token ('' = drop it)., _stem_en() (+31 more)
+### Community 124 - "test_s13_ai_gateway.py"
+Cohesion: 0.12
+Nodes (12): `task` is "chat" (structured Q&A) or "draft" (AI-fill / document drafting).…, select_tier(), _FakeAnthropicClient, _FakeMessage, _FakeTextBlock, _FakeUsage, gateway_client(), fixture (+4 more)
 
 ### Community 125 - "Env"
 Cohesion: 0.25
 Nodes (4): client(), Env, fixture, Fake Supabase surface for the route tests.
 
-### Community 126 - "main"
-Cohesion: 0.14
-Nodes (15): _download(), Encoder, model_ready(), passage_text(), prepare_model(), Path, L2-normalised float32 embeddings, shape (len(texts), DIM). Batches are length-…, Document title + section heading + body, Nepali first, English title/heading… (+7 more)
+### Community 126 - "retrieval.py"
+Cohesion: 0.09
+Nodes (24): array, passage_text(), Dense (semantic, cross-lingual) retrieval, fused with BM25 inside…, Document title + section heading + body, Nepali first, English title/heading…, corpus_source(), BM25 search over the government-sourced corpus (laws + precedents). The corpus…, build_pool(), embed_pool() (+16 more)
 
 ### Community 127 - "parse_answer"
-Cohesion: 0.12
-Nodes (17): Drop a trailing heading with nothing under it (a cut-off stream) and fix "धारा"…, tidy_answer(), _loose_blocks(), _n_sentences(), _norm_doc(), parse_answer(), Free-tier models sometimes emit JSON-ish text whose structure is broken (keys…, (doc, complete). complete=False when the object was cut off or broken and only… (+9 more)
+Cohesion: 0.17
+Nodes (13): _loose_blocks(), _n_sentences(), _norm_doc(), _norm_sentence(), parse_answer(), Free-tier models sometimes emit JSON-ish text whose structure is broken (keys…, (doc, complete). complete=False when the object was cut off or broken and only…, test_malformed_json_from_a_free_model_keeps_its_intact_cited_sentences() (+5 more)
 
 ### Community 128 - "ingest_scraped.py"
 Cohesion: 0.17
 Nodes (20): add_entries(), ask_json(), ingest_acts(), ingest_constitution(), ingest_maxims(), load_corpus(), One-off ingestion script: reads real Nepali legal PDFs (constitution, legal…, save_corpus() (+12 more)
 
 ### Community 129 - "Done"
-Cohesion: 0.14
-Nodes (16): _entry_status(), _index_text(), _prior(), Authority of the source x usefulness of this particular passage., Done, S2 — Legal data engine v2 (2026-09-26), S3.1 — bill-exclusion gap in curated entries (2026-09-26, pre-S4 check), S4 — Search + law browser UI (2026-09-26) (+8 more)
+Cohesion: 0.09
+Nodes (22): order_for_display(), V2.7 citation labels: statutes that fit directly first, then the other on-topic…, _is_devanagari(), Script check on the message itself. NOT the language hint: the hint is "ne" for…, _is_english(), Latin-script and not romanised Nepali ("mero ghardhani le bhada badhayo")., guess_language(), Reply language for 'auto': Devanagari -> ne; Latin script counts as romanised… (+14 more)
 
 ### Community 130 - "test_v33_topical_fit.py"
-Cohesion: 0.06
-Nodes (49): asks_quantity(), CheckContext, orphan_opener(), What the checks may know about the request. All optional: with none of it the…, Remove a leading "But/And/तर/र" that joined the sentence to one that was…, anaphor" when the sentence opens with a demonstrative / connective that points…, strip_leading_conjunction(), build() (+41 more)
+Cohesion: 0.12
+Nodes (27): orphan_opener(), anaphor" when the sentence opens with a demonstrative / connective that points…, Family ids the passage belongs to although neither the question nor the matched…, specialist_hits(), make_views(), One sentence through the same checks verify_structured applies: (kept sentence,…, verify_sentence(), _flagged() (+19 more)
 
 ### Community 131 - "get_index"
-Cohesion: 0.10
-Nodes (27): clear_query_cache(), Load everything and run one query through it (used by…, warm_up(), pinned_provisions(), The curated playbook's own provisions, fetched as full corpus entries - hand-…, get_index(), _inactive_regimes(), Regime ids whose cue words the (lower-cased) query text does not contain. (+19 more)
+Cohesion: 0.08
+Nodes (29): clear_query_cache(), Load everything and run one query through it (used by…, warm_up(), get_index(), _inactive_regimes(), Regime ids whose cue words the (lower-cased) query text does not contain., Backwards-compatible single-query search., retrieve() (+21 more)
 
-### Community 133 - "_line"
-Cohesion: 0.22
-Nodes (8): clean_ocr_text(), dedupe_marks(), OCR glitches the model copied from a scanned source into its own sentence: a…, [5][5] -> [5]; order kept., _line(), _norm_sentence(), New model text in; the text now safe to show (possibly ""), out., test_duplicate_adjacent_markers_are_merged_rw30()
+### Community 133 - "verify_structured"
+Cohesion: 0.17
+Nodes (12): Verify each sentence the moment it is complete and produce the markdown pieces…, New model text in; the text now safe to show (possibly ""), out., Markdown in the shape the UI already shows: bold headings, bullets, inline [n]., render(), StreamVerifier, (verified doc, report). Failing sentences are dropped; blocks left with nothing…, verify_structured(), test_stream_and_final_agree_when_a_heading_repeats() (+4 more)
 
 ### Community 134 - "topical_fit.py"
-Cohesion: 0.05
-Nodes (63): apply_topical_gate(), _guidance_terms_text(), V3.3: score every retrieved source for topical fit (topical_fit.py) and mark…, Every step/forum/evidence line of the plan in both languages: the only place an…, _cterms(), _f(), Family, _head_string() (+55 more)
+Cohesion: 0.10
+Nodes (29): Family, V3.3: a DATA-DRIVEN topical-fit gate. The V3.2 checks prove a quote is real and…, idf of a stem over the BM25 index's passages (document frequency from the CSC…, Off-topic logit (higher = more likely off topic)., score(), _Stats, auc(), choose_threshold() (+21 more)
 
 ### Community 135 - "matter_file_create"
 Cohesion: 0.29
 Nodes (7): matter_file_create(), A display-safe file name: no directory parts, no "..", no control or path…, Uploads the bytes to Storage, then records the metadata row. Storage upload…, safe_filename(), parametrize, test_safe_filename(), test_uploaded_filename_cannot_steer_the_storage_path()
 
-### Community 136 - "filter_gaps"
-Cohesion: 0.27
-Nodes (10): filter_gaps(), gap_in_language(), (kept gaps, [(dropped gap, reason)]). Cited passages are tested first, then…, _clean_side_text(), _passage_text(), Gaps and follow-up questions carry no legal claim: keep them short and number-…, _gap_case(), test_honest_gaps_of_the_same_review_are_kept() (+2 more)
+### Community 136 - "section_routes.py"
+Cohesion: 0.15
+Nodes (23): Alt, is_suppressed(), load_routes(), matching_routes(), _normalise(), _present(), V2.7: verified keyword -> SECTION routes. A playbook pins the governing…, (corpus entries of the routed sections, in route order and capped at `limit`,… (+15 more)
 
 ### Community 137 - "Client"
 Cohesion: 0.15
 Nodes (13): Client, _first_reachable(), _giwms_site(), Fetch a page/file if robots allows. Returns response (any status < 500) or None., Fetch a page; `patient` re-tries a few times after a pause, for listing pages…, Rate-limited, robots-aware, retrying fetcher built on scrapling.Fetcher., Discover legal-text categories from a GIWMS site's home page and crawl them., One rate-limited request with retry on 5xx/network errors. Returns the… (+5 more)
 
-### Community 138 - "entailment_filter"
-Cohesion: 0.22
-Nodes (7): entailment_filter(), ONE cheap call over every cited sentence: drop those whose quote does NOT…, test_build_runs_entailment_only_when_given_and_recounts(), test_entailment_fails_open(), boom(), test_entailment_removes_no_and_keeps_yes_and_partial(), test_run_provider_failure_gives_the_extractive_answer()
+### Community 138 - "build"
+Cohesion: 0.09
+Nodes (21): build(), _clean_side_text(), entailment_filter(), _log_fallback(), _passage_text(), Gaps and follow-up questions carry no legal claim: keep them short and number-…, ONE cheap call over every cited sentence: drop those whose quote does NOT…, Why an answer fell back to the extractive provisions: structure counts only (no… (+13 more)
 
 ### Community 139 - "Store"
 Cohesion: 0.24
@@ -708,11 +728,11 @@ Nodes (10): existing_corpus_titles(), in_corpus(), Spelling/digit-insensitive id
 
 ### Community 141 - "generation.py"
 Cohesion: 0.06
-Nodes (46): abstain_answer(), _cite(), _excerpt(), extractive_answer(), gate_ran(), on_topic_laws(), V3.3: what the user sees when the topical-fit gate leaves too little to answer…, The corpus files a long section under its FIRST sub-section ("दफा 10 (1)")… (+38 more)
+Nodes (58): direct_laws(), on_topic_laws(), The corpus files a long section under its FIRST sub-section ("दफा 10 (1)")…, On-topic statute passages that also pass the strict fit check (verified, or the…, relabel_subsections(), _answer_cache_key(), answer_max_tokens(), answer_system() (+50 more)
 
-### Community 142 - "_generate_verified"
-Cohesion: 0.12
-Nodes (21): answer_max_tokens(), _generate_verified(), add_usage(), paid_call(), repair(), (structured.build() result | None if no model answered, usage). Never raises.…, The per-piece part of tidy_answer (the constitutional "धारा" fix), so streamed…, Stream the model's JSON, verifying every sentence as it completes. A generator:… (+13 more)
+### Community 142 - "playbooks.py"
+Cohesion: 0.14
+Nodes (21): all_playbooks_resolved(), _get_playbook_cached(), list_playbooks(), lookup_entry(), _norm(), Action Plan engine (S6): loads YAML playbooks (issue -> fact questions -> cited…, Summary list (no provision resolution - cheap, for GET /api/playbooks)., Every playbook with every provision resolved - raises UnresolvedProvision on… (+13 more)
 
 ### Community 143 - "Run the API in Docker (no cloud payment needed)"
 Cohesion: 0.33
@@ -722,21 +742,21 @@ Nodes (5): 1. Start the API, 2. Give it a public HTTPS address (free, no domain,
 Cohesion: 0.25
 Nodes (3): API, API_WAIT, PAGES
 
-### Community 145 - "_targets"
-Cohesion: 0.36
-Nodes (8): _cool_target(), _model_key(), _openai_complete(), (base_url, api_key, model_id sent to the API, cooldown key)., Expand a "provider/model" chain into concrete endpoint+key+model calls:…, _Target, _targets(), tuple
+### Community 145 - "main.py"
+Cohesion: 0.13
+Nodes (16): asyncio, _GZipExceptStreams, health(), lifespan(), Request, gzip buffers a streamed body until it ends, which would defeat…, _reject_oversized_bodies(), root() (+8 more)
 
-### Community 146 - "useLang"
+### Community 146 - "normalise_text"
+Cohesion: 0.13
+Nodes (18): normalise_text(), parse_period_phrase(), Problems with one general rule's citation (the phrase must be in the cited…, Comparison form of a corpus text/phrase: NFC, no zero-width marks, Devanagari…, (value, unit) of the number+unit at the start of a phrase like 'छ महिनाभित्र'…, Problems (empty when fine) with one entry's citation and stated period: the…, section_text(), verify_entry() (+10 more)
+
+### Community 147 - "Dense"
 Cohesion: 0.16
-Nodes (27): Account(), AccountPage(), Compliance(), CompliancePage(), daysLabel(), ENTITY_TYPES, Obligations(), addToCalendar() (+19 more)
-
-### Community 147 - "_playbook_id_for"
-Cohesion: 0.29
-Nodes (7): _playbook_id_for(), A playbook id for `text`, or None. The keyword matcher alone is loose: a single…, The half-match on "boss" must not pin the Workplace Sexual Harassment…, test_the_wrong_playbook_is_not_a_confident_match(), parametrize, test_recurring_situations_route_to_their_playbook(), test_v25_lexicon_entries_map_to_statutory_terms()
+Nodes (8): Dense, Encoder, ndarray, L2-normalised float32 embeddings, shape (len(texts), DIM). Batches are length-…, int8 vectors aligned to an Index's row order. `have[i]` is False for rows with…, (n_passages, n_queries) cosine similarities; -1 where a passage has no vector., Query encoder + vector store for one Index., VectorStore
 
 ### Community 148 - "@playwright/test"
-Cohesion: 0.29
-Nodes (3): Json, ref_node_fs, @playwright/test
+Cohesion: 0.22
+Nodes (4): Json, PAIRS, ref_node_fs, @playwright/test
 
 ### Community 149 - "mark_stale_precedents"
 Cohesion: 0.33
@@ -746,49 +766,137 @@ Nodes (6): _bs_year(), mark_stale_precedents(), Pattern, A precedent decided bef
 Cohesion: 0.33
 Nodes (6): devDependencies, @playwright/test, @types/node, @types/react, @types/react-dom, typescript
 
-### Community 151 - "situation_guards.py"
-Cohesion: 0.25
-Nodes (8): Guard, Pattern, _r(), V3.2: a small DATA table of wrong-law guards - (what the user's question says…, The id of the guard that forbids citing `source` for this question, else None., _section_no(), violation(), _guard_hit()
+### Community 151 - "CheckContext"
+Cohesion: 0.11
+Nodes (23): CheckContext, precedent_problem(), What the checks may know about the request. All optional: with none of it the…, The quote is a holding/rule (must, cannot, entitled...), not just a record of…, Does `text` share a distinctive noun with the user's question? None when the…, states_rule(), topic_overlap(), Guard (+15 more)
 
 ### Community 153 - "giwms_listing"
 Cohesion: 0.40
 Nodes (5): bs_key(), giwms_listing(), १३ असोज, २०८३' or '2083-06-13' -> (2083, 6, 13) for ordering; None if…, Iterate a GIWMS category listing (?page=N). Only the main list is read (not the…, scrape_ocr()
 
 ### Community 154 - ".search"
-Cohesion: 0.38
-Nodes (4): ndarray, Multiplies the fused scores (in place) by (a) a demotion for passages from a…, `mode`: "hybrid" (BM25 + dense when available), "bm25" or "dense" (ablations);…, _title_tokens()
+Cohesion: 0.31
+Nodes (5): ndarray, Multiplies the fused scores (in place) by (a) a demotion for passages from a…, `mode`: "hybrid" (BM25 + dense when available), "bm25" or "dense" (ablations);…, Adds each eligible query's dense (cosine) ranking to `fused` in place, by…, _title_tokens()
 
-### Community 155 - "alignment_ok"
-Cohesion: 0.40
-Nodes (6): alignment_ok(), _lev(), near_variant(), Same word up to a character slip (matra/spelling/OCR): edit distance 1, or 2…, Every token of the quote is in the passage window, or is a near variant of the…, test_fused_or_split_words_are_line_break_noise_not_substitution()
+### Community 155 - "make_profile"
+Cohesion: 0.24
+Nodes (16): asks_for_form(), judge(), make_profile(), `queries`: weighted (text, weight) list as generation.build_queries makes it…, Features (and the score) of the candidate passages for ONE question.…, A verdict per candidate. A passage fails when a specialist regime the question…, Scorer, _variant() (+8 more)
 
 ### Community 156 - "dependencies"
 Cohesion: 0.40
 Nodes (5): dependencies, next, react, react-dom, @supabase/supabase-js
 
-### Community 163 - "draft_update"
-Cohesion: 0.38
-Nodes (7): draft_create(), draft_update(), _draft_version_insert(), draft_versions_list(), Overwrites the draft's current state and appends a new version snapshot;…, Newest first, or None if Supabase is unavailable (distinct from `[]`, a draft…, test_draft_functions_fail_open_without_supabase_configured()
+### Community 158 - "load_dense"
+Cohesion: 0.18
+Nodes (13): _download(), enabled(), load_dense(), model_ready(), prepare_model(), Path, Vectors for `ids` (the loaded corpus's passage ids, in row order), or None when…, Best-effort: a Dense for this corpus, or None (BM25-only). Never raises. (+5 more)
+
+### Community 160 - "run"
+Cohesion: 0.19
+Nodes (13): all_company_profiles(), company_profile_get(), company_profile_upsert(), obligations_list(), One profile per user - create it if missing, otherwise overwrite it., The full seeded obligation catalogue - public reference data, not scoped to any…, Used only by the reminder job (backend/scripts/send_compliance_reminders.py),…, reminder_already_sent() (+5 more)
+
+### Community 161 - "._lexical"
+Cohesion: 0.19
+Nodes (8): _cterms(), _head_string(), heading_of(), _in(), (law title, section heading) of a passage without the parenthetical law name…, d_head, d_head_rel, d_pass_rel per candidate (NaN when the passage has no…, _same(), unexpl()
+
+### Community 162 - "Playbook audit - the 25 curated action plans"
+Cohesion: 0.17
+Nodes (11): All NEEDS-ADVOCATE-REVIEW items (64), Existing playbooks changed in V2.5, How to read the per-playbook sections, Method and limits of this audit, New playbooks (all NEEDS-ADVOCATE-REVIEW), Playbook audit - the 25 curated action plans, Result in one paragraph, Summary table (+3 more)
+
+### Community 163 - "preeti.ts"
+Cohesion: 0.17
+Nodes (9): CHARS, I_MATRA_RE, JOIN_RULES, MATRA_AFTER_HALANT_RE, MATRA_BEFORE_HALANT_RE, NASAL_BEFORE_MATRA_RE, REPH_RE, SEQUENCES (+1 more)
+
+### Community 164 - "ai_fill.py"
+Cohesion: 0.25
+Nodes (9): _build(), _get_field(), ValueError, LLM-assisted drafting for free-text fields (S10). Only `textarea` fields go…, Returns (system, user) for the given field, or raises ValueError /…, UnknownField, S13: prompt-injection guard for user-supplied text going into an LLM prompt.…, wrap_user_text() (+1 more)
+
+### Community 165 - "match"
+Cohesion: 0.22
+Nodes (9): match(), The word itself, then with a glued Nepali postposition (-le/-ko/-lai/-ma ...)…, Lexicon entries hit by the Latin-script words of `text`, in order of appearance…, _stem_variants(), strong_count(), S7: non-LLM playbook matcher - keyword/glossary routing, no embeddings.…, test_matcher_precision_at_least_90_percent(), test_matcher_returns_none_for_empty_query() (+1 more)
+
+### Community 167 - "contract_fixtures.py"
+Cohesion: 0.31
+Nodes (10): _has(), _interest(), _n(), _num(), _payment_interval(), Synthetic contracts with SEEDED defects, plus a stand-in for the LLM reader.…, _search(), _term_years() (+2 more)
+
+### Community 168 - "S13 — AI gateway v2 (2026-09-29)"
+Cohesion: 0.22
+Nodes (10): looks_like_injection(), free(), parametrize, test_looks_like_injection_does_not_flag_ordinary_legal_questions(), test_looks_like_injection_flags_common_patterns(), S13 — AI gateway v2 (2026-09-29), 1.1 What exists, 1.2 What's broken or risky (found live, not theoretical) (+2 more)
+
+### Community 169 - ".section"
+Cohesion: 0.24
+Nodes (6): Doc-level metadata plus its ordered section list, for /law/[doc]., section label -> position within the doc's rows, built once per document…, One section's full entry plus neighbouring sections, for /law/[doc]/[section]., V2.6 additions (2026-10-01): three new playbooks and changes to existing ones, V2.7 additions (2026-10-01): section routes (not playbooks) and guard rows, S6 — Action Plan engine (2026-09-26)
+
+### Community 170 - "quantize"
+Cohesion: 0.31
+Nodes (9): quantize(), float32 (n, DIM) -> int8 + per-vector float16 scale (cos ~ (q . x) * scale)., save_vectors(), test_quantize_roundtrip_keeps_cosine(), test_store_digest_mismatch_reuses_surviving_ids(), test_store_exact_match(), test_store_same_ids_other_digest_is_used_but_flagged(), _vectors() (+1 more)
+
+### Community 171 - "._build_aux"
+Cohesion: 0.25
+Nodes (6): _heading(), Path, A passage's own section heading: title_ne without the trailing " (document…, 1-based id of the specialist regime a passage belongs to (0 = general law)., Per-passage heading weights and specialist-regime ids (best-effort, never…, _regime_of()
+
+### Community 172 - "page_verdict"
+Cohesion: 0.22
+Nodes (8): document_verdict(), page_verdict(), Word-token counts and how many are known words. Nepali tokens are compared…, Vocabulary-free check of Devanagari words: share of words whose combining marks…, (keep, reason, stats) for one cleaned page., Judge every page; a document survives when enough of its words sit on kept…, structural_share(), token_stats()
+
+### Community 173 - "direct_fit"
+Cohesion: 0.25
+Nodes (7): direct_fit(), _is_precedent(), law_key(), Profile, Everything the gate needs to know about one question., A statute's name without its year or the parenthetical amendment note ("कम्पनी…, V2.7 strict topical fit, stricter than "not ruled out": the passage is verified…
+
+### Community 174 - "FakeDense"
+Cohesion: 0.25
+Nodes (5): FakeDense, attach(), idx(), fixture, Stands in for dense.Dense: `wanted` maps query text -> {passage id: cosine};…
+
+### Community 175 - "laws"
+Cohesion: 0.29
+Nodes (7): named_laws(), V2.7: statutes the question's own concepts name: the curated romanised and…, laws(), laws_ne(), Exact corpus titles of the statutes the matched strong entries point to., test_laws_are_reported_for_strong_matches_only(), test_bank_terms_carry_the_bfi_act_as_their_statute()
+
+### Community 176 - "6. Session plan (1 session = 1 milestone = 1 commit/PR)"
+Cohesion: 0.29
+Nodes (7): 6. Session plan (1 session = 1 milestone = 1 commit/PR), Phase A — Trust engine, Phase B — Surface the product, Phase C — Document AI, Phase D — Commercial, Phase E — Retention + moat, Phase F — Launch
+
+### Community 177 - "cache_put"
+Cohesion: 0.40
+Nodes (5): cache_put(), jsonb_safe(), Postgres jsonb rejects the NUL character (\\u0000), which some scanned law…, saved_research_create(), test_answer_cache_strips_nul_characters_postgres_jsonb_rejects()
+
+### Community 178 - "_ocr_page"
+Cohesion: 0.40
+Nodes (5): binarise(), _ocr_page(), Adaptive (local-mean) threshold of a grayscale pixmap -> PNG bytes., Render page `pno` (0-based) of `path` at 300 dpi grayscale and run tesseract., _tesseract()
+
+### Community 179 - "test_chat_route_anonymous_caller_stays_on_free_tier"
+Cohesion: 0.40
+Nodes (4): The core S13 wiring bug surface: a paid-plan user's /api/chat call must route…, test_chat_route_anonymous_caller_stays_on_free_tier(), test_chat_route_selects_tier_from_plan(), fake_answer_question()
+
+### Community 181 - "update_manifest"
+Cohesion: 0.50
+Nodes (4): corpus_digest(), Digest exactly as build_corpus.main(): sha256("".join(ids in shard…, Register `shard` (append if new) and recompute digest + counts. `count_keys`…, update_manifest()
+
+### Community 182 - "is_table_noise"
+Cohesion: 0.50
+Nodes (4): is_table_noise(), numeric_share(), Share of whitespace-separated tokens that are only digits/separators - a…, A chunk that is mostly figures: OCR'd code lists carry no searchable meaning…
+
+### Community 183 - "chunks"
+Cohesion: 0.67
+Nodes (3): chunks(), Word-boundary chunks of ~`size` chars (newlines kept) for simulated streaming., test_chunks_are_small_lossless_and_never_split_a_citation()
 
 ## Knowledge Gaps
 - **308 isolated node(s):** `built_at`, `curated`, `law_chunks`, `precedents`, `total` (+303 more)
-  These have ≤1 connection - possible missing edges or undocumented components. (Counts symbols only; 1247 node(s) total have ≤1 connection when file, concept and rationale nodes are included.)
-- **25 thin communities (<3 nodes) omitted from report** — run `graphify query` to explore isolated nodes.
+  These have ≤1 connection - possible missing edges or undocumented components. (Counts symbols only; 1282 node(s) total have ≤1 connection when file, concept and rationale nodes are included.)
+- **23 thin communities (<3 nodes) omitted from report** — run `graphify query` to explore isolated nodes.
 
 ## Suggested Questions
 _Questions this graph is uniquely positioned to answer:_
 
-- **Why does `S5 — Supabase auth + DB (2026-09-26)` connect `S5 — Supabase auth + DB (2026-09-26)` to `Done`, `get_index`, `ui.tsx`, `generation.py`, `run_eval.py`, `chat`?**
-  _High betweenness centrality (0.156) - this node is a cross-community bridge._
-- **Why does `get_index()` connect `get_index` to `test_v1_trust_engine.py`, `topical_fit.py`, `test_v25_routing.py`, `generation.py`, `Index`, `test_calculators.py`, `retrieval.py`, `chat`, `playbooks.py`, `limitation.py`, `chat.py`, `documents.py`, `match`, `test_documents_audit.py`, `run_eval.py`, `S5 — Supabase auth + DB (2026-09-26)`, `embedding_benchmark.py`, `answer_review.py`, `test_eval_sets.py`, `main`?**
-  _High betweenness centrality (0.150) - this node is a cross-community bridge._
+- **Why does `S5 — Supabase auth + DB (2026-09-26)` connect `S5 — Supabase auth + DB (2026-09-26)` to `Done`, `analyze_query`, `get_index`, `ui.tsx`, `generation.py`, `cache_put`, `chat`?**
+  _High betweenness centrality (0.153) - this node is a cross-community bridge._
+- **Why does `get_index()` connect `get_index` to `test_v1_trust_engine.py`, `topical_fit.py`, `respell_devanagari`, `section_routes.py`, `test_v25_routing.py`, `generation.py`, `playbooks.py`, `Index`, `main.py`, `normalise_text`, `app/__init__.py`, `analyze_query`, `.section`, `direct_fit`, `chat`, `checklists.py`, `limitation.py`, `chat.py`, `test_translit.py`, `test_documents_audit.py`, `run_eval.py`, `test_v27_fit.py`, `S5 — Supabase auth + DB (2026-09-26)`, `embedding_benchmark.py`, `scrape_lawcommission.py`, `re`, `retrieval.py`?**
+  _High betweenness centrality (0.141) - this node is a cross-community bridge._
 - **Why does `AuthWidget()` connect `ui.tsx` to `S5 — Supabase auth + DB (2026-09-26)`?**
-  _High betweenness centrality (0.123) - this node is a cross-community bridge._
+  _High betweenness centrality (0.106) - this node is a cross-community bridge._
 - **Are the 4 inferred relationships involving `get_index()` (e.g. with `lifespan()` and `S5 — Supabase auth + DB (2026-09-26)`) actually correct?**
   _`get_index()` has 4 INFERRED edges - model-reasoned connections that need verification._
 - **What connects `built_at`, `curated`, `law_chunks` to the rest of the system?**
   _308 weakly-connected nodes found - possible documentation gaps or missing edges._
 - **Should `claim_checks.py` be split into smaller, more focused modules?**
-  _Cohesion score 0.04788732394366197 - nodes in this community are weakly interconnected._
+  _Cohesion score 0.058823529411764705 - nodes in this community are weakly interconnected._
 - **Should `api.ts` be split into smaller, more focused modules?**
-  _Cohesion score 0.07293868921775898 - nodes in this community are weakly interconnected._
+  _Cohesion score 0.0593990216631726 - nodes in this community are weakly interconnected._
