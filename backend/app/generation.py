@@ -21,7 +21,7 @@ from pathlib import Path
 from collections import OrderedDict
 from threading import Lock
 
-from . import claim_checks, config, glossary, llm, playbooks, prompt_guard, structured, supa, tiers, translit
+from . import claim_checks, config, fit_reply, glossary, llm, playbooks, prompt_guard, structured, supa, tiers, topical_fit, translit
 from .playbook_matcher import match_scored as match_playbook_scored
 from .playbook_matcher import strong_match as strong_playbook_match
 from .retrieval import get_index
@@ -146,7 +146,7 @@ def _answer_cache_key(message: str, lang: str) -> str:
 # including the persistent Supabase answer_cache - are never served again.
 # The fingerprint below also retires them automatically when the prompts,
 # the romanised lexicon or any playbook file changes.
-PIPELINE_VERSION = "p10"  # p9: structured JSON answers + quote verifier (V3); p10: V3.2 claim checks, gap filter, token diet
+PIPELINE_VERSION = "p11"  # p9: structured JSON answers + quote verifier (V3); p10: V3.2 claim checks, gap filter, token diet; p11: V3.3 topical-fit gate, abstain, polish
 
 
 def _pipeline_fingerprint() -> str:
@@ -156,7 +156,8 @@ def _pipeline_fingerprint() -> str:
     h.update(_ANSWER_SYSTEMS["ne"].encode())
     here = Path(__file__).parent
     for f in [here / "translit.py", here / "verifier.py", here / "structured.py", here / "text_norm.py",
-              here / "claim_checks.py", here / "situation_guards.py",
+              here / "claim_checks.py", here / "situation_guards.py", here / "topical_fit.py", here / "fit_reply.py",
+              here / "data" / "topical_fit.json",
               *sorted((here / "data" / "playbooks").glob("*.yaml"))]:
         if f.exists():
             h.update(f.name.encode())
@@ -697,8 +698,9 @@ def prompt_source_numbers(sources: list[dict], playbook: dict | None = None) -> 
     ride along; without one, the top PROMPT_MAX_LAWS. At most PROMPT_MAX_PRECEDENTS precedents (current-law
     ones first: retrieval already sorts them)."""
     pinned = [i for i, s in enumerate(sources, 1) if s.get("pinned")]
-    laws = [i for i, s in enumerate(sources, 1) if s.get("category") != "precedent"]
-    precs = [i for i, s in enumerate(sources, 1) if s.get("category") == "precedent"]
+    # V3.3: a passage the topical-fit gate marked off-topic is never shown to the model (a pinned one never is marked)
+    laws = [i for i, s in enumerate(sources, 1) if s.get("category") != "precedent" and not s.get("off_topic")]
+    precs = [i for i, s in enumerate(sources, 1) if s.get("category") == "precedent" and not s.get("off_topic")]
     if pinned:
         rest = [i for i in laws if i not in pinned][:config.PROMPT_EXTRA_LAWS_WITH_PIN]
         keep = set(pinned) | set(rest)
@@ -759,16 +761,35 @@ UNVERIFIED_HEADER = {
 }
 
 
-def _extractive(sources: list[dict], lang: str, header: str | None = None) -> str:
-    header = header or ("Here are the most relevant official provisions I found (AI summary unavailable right now):"
-                        if lang == "en" else "सबैभन्दा सान्दर्भिक आधिकारिक कानुनी प्रावधानहरू (AI सारांश अहिले उपलब्ध छैन):")
-    lines = [header]
-    for i, s in enumerate(sources[:5], 1):
-        cite = s.get("source_en") if lang == "en" and s.get("source_en") else s.get("source_ne")
-        text = (s.get("text_en") if lang == "en" and s.get("text_en") else s.get("text_ne")) or ""
-        lines.append(f"\n**[{i}] {cite}**\n{text[:700]}")
-    lines.append("\n" + (DISCLAIMER_EN if lang == "en" else DISCLAIMER_NE))
-    return "\n".join(lines)
+def _extractive(sources: list[dict], lang: str, header: str | None = None, playbook: dict | None = None) -> str:
+    """The provisions themselves (V3.3: only those that passed the topical-fit gate, see fit_reply.py)."""
+    return fit_reply.extractive_answer(sources, lang, DISCLAIMER_EN if lang == "en" else DISCLAIMER_NE, header, playbook)
+
+
+def apply_topical_gate(message: str, analysis: dict, sources: list[dict], playbook: dict | None) -> dict | None:
+    """V3.3: score every retrieved source for topical fit (topical_fit.py) and mark the failing ones `off_topic`
+    (pinned playbook provisions never fail). Returns a small report, or None when the gate is off or has no model.
+    Never raises: a failure leaves every source on topic (V3.2 behaviour)."""
+    if not config.FIT_GATE or not sources:
+        return None
+    try:
+        if not topical_fit.load_model():
+            return None
+        queries = build_queries(analysis.get("question") or message, analysis)
+        profile = topical_fit.make_profile(message, analysis, _guidance_terms_text(playbook), queries)
+        verdicts = topical_fit.judge(sources, topical_fit.Scorer(profile))
+    except Exception:  # noqa: BLE001
+        log.exception("topical fit gate failed: answering without it")
+        return None
+    failed = []
+    for s, v in zip(sources, verdicts):
+        s.pop("off_topic", None)
+        s["fit_score"] = round(v.score, 3)
+        if not v.ok:
+            s["off_topic"] = True
+            s["off_topic_why"] = v.reasons
+            failed.append({"id": s.get("id"), "why": v.reasons})
+    return {"checked": len(sources), "off_topic": len(failed), "failed": failed}
 
 
 PLAYBOOK_LOOSE_MIN_SCORE = 1.0
@@ -970,13 +991,25 @@ def run(message: str, language: str = "auto", history: list[dict] | None = None,
     if playbook and not any(s.get("pinned") for s in sources):
         playbook = None  # the relevance gate (search_with_playbook) dropped the plan: no card, no guide
     playbook_card = _playbook_card(playbook)
+    fit_report = None
+    if sources:
+        fit_reply.relabel_subsections(sources)
+        fit_report = apply_topical_gate(message, analysis, sources, playbook)  # V3.3: marks off-topic sources
     yield "meta", {"language": lang, "sources": sources, "analysis": meta_analysis, "playbook": playbook_card}
 
     if not sources:
         yield "done", {"answer": CANNED[("unclear", lang)], "llm_used": False, "cached": False, "llm_calls": llm_calls}
         return
+    if fit_report is not None and len(fit_reply.on_topic_laws(sources)) < config.FIT_MIN_ONTOPIC \
+            and not any(s.get("pinned") for s in sources):
+        # too few on-topic provisions: do not ask the model to invent an answer (V3.3)
+        answer = fit_reply.abstain_answer(sources, lang, DISCLAIMER_EN if lang == "en" else DISCLAIMER_NE, playbook)
+        yield from _simulate_stream(answer)
+        yield "done", {"answer": answer, "llm_used": False, "cached": False, "llm_calls": llm_calls,
+                       "verification": {"mode": "abstain", "topical_fit": fit_report}}
+        return
     if not llm.available():
-        yield "done", {"answer": _extractive(sources, lang), "llm_used": False, "cached": False, "llm_calls": llm_calls}
+        yield "done", {"answer": _extractive(sources, lang, playbook=playbook), "llm_used": False, "cached": False, "llm_calls": llm_calls}
         return
 
     llm_calls += 1
@@ -993,12 +1026,15 @@ def run(message: str, language: str = "auto", history: list[dict] | None = None,
         (result, usage), streamed = _generate_verified(prompt_text, sources, lang, tier, playbook, ctx=ctx), ""
     verification = None
     if result is None:
-        answer, llm_used = _extractive(sources, lang), False
+        answer, llm_used = _extractive(sources, lang, playbook=playbook), False
     elif result["answer"] is None:
         # nothing (or too little) survived verification: give the provisions themselves, and say so
-        answer, llm_used, verification = _extractive(sources, lang, UNVERIFIED_HEADER[lang]), False, result["verification"]
+        answer, llm_used, verification = (_extractive(sources, lang, UNVERIFIED_HEADER[lang], playbook=playbook), False,
+                                          result["verification"])
     else:
         answer, llm_used, verification = tidy_answer(result["answer"], sources), True, result["verification"]
+    if verification is not None and fit_report is not None:
+        verification = {**verification, "topical_fit": {"checked": fit_report["checked"], "off_topic": fit_report["off_topic"]}}
     if not streamed:
         yield from _simulate_stream(answer)
     elif answer.startswith(streamed):

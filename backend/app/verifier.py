@@ -463,6 +463,9 @@ def check_structured_sentence(sent: dict, sources: list[dict], views: list[_View
         if status == "ordinance" and not ordinance:
             first_bad = "ordinance_unlabelled"
             continue
+        if s.get("off_topic") and not s.get("pinned"):  # V3.3: the topical-fit gate ruled this passage out for the question
+            first_bad = "off_topic_source"
+            continue
         good.append((n, quote))
     if not good:
         return first_bad, []
@@ -509,6 +512,8 @@ def check_structured_sentence(sent: dict, sources: list[dict], views: list[_View
                       for n, _ in good]
         if claim_checks.forum_not_in_sources(body, cited_text, ctx.guidance):
             return "forum_not_in_source", []
+        if claim_checks.invented_subject(body, ctx.question, cited_text):  # V3.3: the person's own brand as the actor
+            return "invented_subject", []
         reason = _cite_conflicts(good, lambda n, q: _guard_hit(ctx, body, q, sources[n - 1]))
         if reason:
             return reason, []
@@ -527,6 +532,9 @@ def _section_under_other_heading(body: str, quote: str, view: _View) -> str | No
 
 
 def _scope_problem(body: str, quote: str, view: _View) -> str | None:
+    reason = claim_checks.leading_scope_problem(body, _qtokens(quote), view.layout)  # V3.3: cross-reference / lead-in scope
+    if reason:
+        return reason
     got = claim_checks.clause_context(_qtokens(quote), view.layout)
     if got is None:
         return None
@@ -561,18 +569,24 @@ def _clean_doc_sentence(s) -> dict | None:
 
 def verify_sentence(raw, sources: list[dict], views: list[_View],
                     guidance_terms: set[str] | None = None, ctx: CheckContext | None = None,
-                    dangling: bool = False) -> tuple[dict | None, str | None]:
+                    dangling: bool = False, first_in_block: bool = False) -> tuple[dict | None, str | None]:
     """One sentence through the same checks verify_structured applies: (kept sentence, None) when it may be
     shown, (None, reason) when it is removed, (None, None) when it is empty/malformed (skipped, not counted).
     Shared with the streaming path so streamed and final text are decided by identical code."""
     s = _clean_doc_sentence(raw)
     if s is None:
         return None, None
-    if dangling:  # the sentence before it (same block) was removed: "But ..." / "तर ..." must not dangle
-        s["text"], _ = claim_checks.strip_leading_conjunction(s["text"])
     reason, cites = check_structured_sentence(s, sources, views, guidance_terms, ctx)
     if reason:
         return None, reason
+    if cites and (dangling or first_in_block):
+        # V3.3: a sentence that points back ("त्यसै गरी", "यसै संहिताको", "This power", "such leave", "तर ...") whose
+        # antecedent was removed - or that opens its block with nothing before it - is dropped, never repaired: a tail
+        # must not outlive its head
+        if claim_checks.orphan_opener(s["text"]):
+            return None, "orphan_connective"
+    if dangling:  # the sentence before it (same block) was removed: a plain "And ..." must not dangle
+        s["text"], _ = claim_checks.strip_leading_conjunction(s["text"])
     return {"text": s["text"], "kind": s["kind"] if s["kind"] in KINDS else "rule", "cites": cites}, None
 
 

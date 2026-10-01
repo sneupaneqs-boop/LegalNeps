@@ -204,6 +204,7 @@ def alignment_ok(qtok: list[str], window: list[str]) -> bool:
 # ============================================================ 3+4. passage layout
 _HEAD = re.compile(r"^[ \t÷]*([०-९0-9]{1,3}[क-ह]?)[ \t]*\.[ \t]+([^\n:ः]{2,200}?)[ \t]*[:ः]", re.M)
 _CLAUSE_START = re.compile(r"^[ \t÷]*(?=\(\s*[०-९0-9]{1,2}[क-ह]?\s*\)|\(\s*[क-ह]{1,2}\s*\)|तर\s*[,:]|तर\s)", re.M)
+_CLAUSE_LABEL = re.compile(r"^[ \t÷]*\(\s*([०-९0-9]{1,2}[क-ह]?|[क-ह]{1,2})\s*\)")
 _TOP_REF = re.compile(
     r"(?:(?<!उप)(?:दफा|नियम|धारा)|(?<!sub-)(?<!sub)\b(?:Section|Rule|Article)|अनुच्छेद)\s*\(?\s*([०-९0-9]{1,3}[क-ह]?)", re.I)
 
@@ -225,11 +226,12 @@ def _qtok(text: str) -> list[str]:
 class Layout:
     """A passage split (a) at section headings ("२३. विवरण सच्याउने :") and (b) at clause starts ("(२)",
     "(क)", "तर,"), each piece as folded tokens. Built once per source."""
-    __slots__ = ("sections", "clauses")
+    __slots__ = ("sections", "clauses", "labels")
 
     def __init__(self, text: str, meta_section: str = ""):
         self.sections: list[tuple[str, list[str]]] = []
         self.clauses: list[list[str]] = []
+        self.labels: list[str] = []   # the "(N)" / "(क)" a clause opens with ("" when none), parallel to clauses
         text = _clean(text)
         heads = self._headings(text, meta_section)
         if len(heads) >= 2:
@@ -238,9 +240,12 @@ class Layout:
                 self.sections.append((num, _qtok(text[at:end])))
         cuts = sorted({0, *(m.start() for m in _CLAUSE_START.finditer(text)), *(h[1] for h in heads)})
         for i, at in enumerate(cuts):
-            piece = _qtok(text[at: cuts[i + 1] if i + 1 < len(cuts) else len(text)])
+            raw = text[at: cuts[i + 1] if i + 1 < len(cuts) else len(text)]
+            piece = _qtok(raw)
             if piece:
                 self.clauses.append(piece)
+                m = _CLAUSE_LABEL.match(raw)
+                self.labels.append(m.group(1).translate(DEV_DIGITS) if m else "")
 
     @staticmethod
     def _headings(text: str, meta_section: str) -> list[tuple[str, int]]:
@@ -587,8 +592,10 @@ def filter_gaps(gaps: list[str], lang: str, cited_passages: list[str], retrieved
 
 
 # ============================================================ 9. render polish
-_LEAD_CONJ_NE = re.compile(r"^\s*(?:तर|र|तथा|अनि|अनी|साथै|त्यसैले|तसर्थ|अतः)\s*[,।]?\s+")
-_LEAD_CONJ_EN = re.compile(r"^\s*(?:but|and|however|also|additionally|moreover|yet|so|therefore|thus|furthermore|"
+# V3.3: "तर"/"But"/"However" are NOT stripped any more: a proviso whose head sentence was removed is an exception to
+# nothing (orphan_opener -> the sentence is dropped); only plain additive/consequence connectives are repaired
+_LEAD_CONJ_NE = re.compile(r"^\s*(?:र|तथा|अनि|अनी|साथै|त्यसैले|तसर्थ|अतः)\s*[,।]?\s+")
+_LEAD_CONJ_EN = re.compile(r"^\s*(?:and|also|additionally|moreover|so|therefore|thus|furthermore|"
                            r"in addition)\b[,\s]+", re.I)
 
 
@@ -620,3 +627,157 @@ def dedupe_marks(numbers: list[int]) -> list[int]:
             seen.add(n)
             out.append(n)
     return out
+
+
+# ============================================================ 10. V3.3: orphan openers, scope lead-ins, invented subjects
+_ORPHAN_NE = _rx(
+    r"^\s*(?:त्यसै\s*गरी|त्यसरी|त्यस्तै|यसै\s*(?:संहिता|ऐन|दफा|नियम|उपदफा)\S*|यस\s*(?:संहिता|ऐन|दफा|उपदफा|नियम)\S*|"
+    r"यही\s*(?:दफा|संहिता|ऐन)\S*|सोही\s*(?:दफा|उपदफा)\S*|उक्त\s*\S+|त्यस्तो\s+\S+|त्यस्ता\s+\S+|यस्तो\s+\S+|यो\s+(?:अधिकार|बिदा|रकम|म्याद)\S*)")
+_PROVISO_NE_RX = re.compile(r"^\s*तर(?![ऀ-ॿ])\s*[,:]?\s+")
+_ANAPHOR_EN = re.compile(
+    r"^\s*(?:(?:if|when|where|once|after)\s+)?(?:(?:this|that|these|those|such)\s+\w+|the same\b|likewise\b|similarly\b|"
+    r"in the same (?:way|manner)\b|under the same\b)", re.I)
+_PROVISO_EN = re.compile(r"^\s*(?:but|however|yet|except that|provided that)\b[,\s]+", re.I)
+# an opening that is not an anaphor although it starts with a demonstrative: "this Act", "this Code", "such as"
+_ANAPHOR_EN_OK = re.compile(r"^\s*(?:if\s+|when\s+|where\s+)?(?:this|that|such)\s+(?:act|code|law|constitution|section is|as\b)", re.I)
+
+
+def orphan_opener(text: str) -> str | None:
+    """"anaphor" when the sentence opens with a demonstrative / connective that points at an earlier sentence
+    (त्यसै गरी, यसै संहिताको, यस दफा, त्यस्तो बिदा, "This power", "Such leave", "If such leave ...", "Likewise"),
+    "proviso" when it opens as an exception to one (तर, "But", "However"); else None. Only meaningful when
+    that earlier sentence is gone (removed, or there never was one in the block)."""
+    body = _CITE_ANY.sub(" ", text or "").lstrip()
+    if _PROVISO_NE_RX.match(body) or _PROVISO_EN.match(body):
+        return "proviso"
+    if _ORPHAN_NE.match(fold(body)):
+        return "anaphor"
+    if _ANAPHOR_EN.match(body) and not _ANAPHOR_EN_OK.match(body):
+        return "anaphor"
+    return None
+
+
+def quote_subsection(qtok: list[str], layout: Layout) -> str | None:
+    """The numeric sub-section ("2" for "(२)") whose clause holds the quote; the nearest numbered clause at or
+    before it when the quote is inside an item ((क), (ख)). None when the quote is not located."""
+    if len(qtok) < 4 or not layout.clauses:
+        return None
+    i = _locate(qtok, layout.clauses)
+    if i is None:
+        return None
+    for j in range(i, -1, -1):
+        lab = layout.labels[j] if j < len(layout.labels) else ""
+        if lab and re.fullmatch(r"[0-9]{1,2}", lab):
+            return lab
+    return None
+
+
+_XREF_LEAD = re.compile(r"(?:उपदफा|दफा|नियम|खण्ड|उपनियम)\s*\(?\s*[0-9a-zक-ह]{1,4}\s*\)?[^।\n]{0,70}?(?:बमोजिम|अनुसार)")
+_XREF_CARRY_NE = _rx(r"बमोजिम|उपदफा|उपनियम|माथि|पूर्व|उल्लिखित|तोकिएको|तोकिए")
+_XREF_CARRY_EN = re.compile(
+    r"\b(?:sub-?sections?|referred|provided|under (?:the )?(?:preceding|above|this)|in accordance|pursuant|as per|"
+    r"as set out|registered|so registered|aforementioned|mentioned above|above)\b", re.I)
+_LEADIN_COND = re.compile(r"(?:नभएकोमा|नभएमा|भएकोमा|भएमा|गरेमा|नगरेमा)\s*(?:[:–—-]+)?\s*$")
+_COND_CARRY_NE = _rx(r"नभएकोमा|नभएमा|भएमा|गरेमा|नगरेमा|यदि|भने|अवस्थामा|अन्यथा|बाहेक|सम्म|पछि|सहमति|असहमति")
+_COND_CARRY_EN = re.compile(
+    r"\b(?:if|where|when|unless|in case|in the event|otherwise|failing|absent|in the absence|provided|subject to|"
+    r"except|no agreement|without agreement|there is no|has not)\b", re.I)
+
+
+def leading_scope_problem(sentence: str, qtok: list[str], layout: Layout) -> str | None:
+    """A clause that opens with a cross-reference ("उपदफा (१) बमोजिम ...", "दफा ७९ बमोजिम ...") or an item under a
+    conditional lead-in ("... त्यस्तो सहमति नभएकोमा: (ग) ...") only applies in that scope. A sentence that states the
+    clause with neither the reference nor any conditional wording generalises it (V3.2 review: a07 s3, a15 s3,
+    a27 s3). Fails open when the quote cannot be located."""
+    if len(qtok) < 4 or not layout.clauses:
+        return None
+    i = _locate(qtok, layout.clauses)
+    if i is None:
+        return None
+    own = layout.clauses[i]
+    s_folded, s_raw = _folded(sentence), _CITE_ANY.sub(" ", sentence)
+    head = " ".join(own[:18])
+    if _XREF_LEAD.search(head):
+        if not (_XREF_CARRY_NE.search(s_folded) or _XREF_CARRY_EN.search(s_raw)):
+            return "leading_reference_dropped"
+    lab = layout.labels[i] if i < len(layout.labels) else ""
+    if lab and not re.fullmatch(r"[0-9]{1,2}", lab):  # an item (क)/(ग): look at the lead-in of its sub-section
+        for j in range(i - 1, -1, -1):
+            lj = layout.labels[j] if j < len(layout.labels) else ""
+            if lj and re.fullmatch(r"[0-9]{1,2}", lj):
+                lead = " ".join(layout.clauses[j][-6:])
+                if _LEADIN_COND.search(lead) and not (_COND_CARRY_NE.search(s_folded) or _COND_CARRY_EN.search(s_raw)):
+                    return "lead_in_condition_dropped"
+                break
+    return None
+
+
+_LATIN = re.compile(r"[A-Za-z][A-Za-z0-9]{2,}")
+_NOT_A_NAME = frozenset(
+    "nepal act code section rule article supreme court law legal labour labor civil criminal constitution muluki sanhita "
+    "the and for not can may must shall under such this that with from have has are was were you your bank vat pan sms "
+    "fir cit ssf cctv nid id pdf".split())
+
+
+def _en_stop() -> frozenset:
+    from .text_norm import EN_STOP
+    return frozenset(EN_STOP)
+
+
+EN_STOP_LOWER = _en_stop()
+
+
+def invented_subject(sentence: str, question: str, source_texts: list[str]) -> str | None:
+    """A proper noun / brand the PERSON typed (eSewa, Khalti, a company) that the sentence turns into the actor of
+    a cited-law statement although no cited passage contains it (V3.2 review: a14 s3/s4, "यदि eSewa ले ... इन्कार
+    गर्छ भने" from the Postal Act). A Latin-script word counts when it is in the question and the sentence, in no cited
+    passage, is not a glossary concept ("bank", "cheque") and - in an English sentence - is capitalised mid-sentence
+    or CamelCase. Returns the word or None."""
+    if not question:
+        return None
+    body = _CITE_ANY.sub(" ", sentence or "")
+    q_words = {w.lower() for w in _LATIN.findall(question)}
+    if not q_words:
+        return None
+    pool = " ".join(source_texts).lower()
+    en2ne, _ = _v()._bridge()
+    dev = _dev_share(body) >= 0.5
+    for m in _LATIN.finditer(body):
+        w, low = m.group(0), m.group(0).lower()
+        if low not in q_words or low in _NOT_A_NAME or low in pool or low in EN_STOP_LOWER:
+            continue
+        stem = tokenize(low)
+        if stem and stem[0] in en2ne:
+            continue
+        if dev:
+            return w
+        prefix = body[: m.start()].rstrip()
+        camel = bool(re.search(r"[a-z][A-Z]", w))
+        mid_cap = w[0].isupper() and bool(prefix) and not re.search(r"[.!?:]\s*$", prefix)
+        if camel or mid_cap:
+            return w
+    return None
+
+
+# ---- an asked quantity
+_QUANTITY_Q = re.compile(
+    r"कति|कतिको|कतिवटा|कतिसम्म|कहिलेसम्म|\bkati\b|how (?:much|many|long|soon|old)|what(?:'s| is| are) the "
+    r"(?:penalty|punishment|fine|limit|rate|amount|deadline|time ?limit|period|percentage|minimum|maximum)|"
+    r"time ?limit|limitation period|how many days", re.I)
+QUANTITY_GAP = {
+    "en": "The sources retrieved do not give the figure you asked about.",
+    "ne": "मैले पाएका स्रोतहरूमा तपाईंले सोध्नुभएको संख्या, रकम वा अवधि खुलाइएको छैन।",
+}
+
+
+def asks_quantity(question: str) -> bool:
+    return bool(_QUANTITY_Q.search(question or ""))
+
+
+def has_figure(sentences: list[str]) -> bool:
+    """Some kept sentence states a number bound to a unit (days, years, %, rupees...)."""
+    for t in sentences:
+        pairs, _ = qty_scan(_CITE_ANY.sub(" ", t))
+        if pairs:
+            return True
+    return False

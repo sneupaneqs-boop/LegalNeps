@@ -506,10 +506,11 @@ def test_verifier_crash_degrades_to_extractive(pipeline, monkeypatch):
 
 def test_pipeline_version_and_fingerprint_cover_the_new_modules():
     import inspect
-    assert generation.PIPELINE_VERSION.startswith("p10-")          # p9 answers (before the V3.2 checks) are never served
+    assert generation.PIPELINE_VERSION.startswith("p11-")          # p10 answers (before the V3.3 topical-fit gate) are never served
     src = inspect.getsource(generation._pipeline_fingerprint)
     assert "structured.py" in src and "verifier.py" in src and "text_norm.py" in src
     assert "claim_checks.py" in src and "situation_guards.py" in src
+    assert "topical_fit.py" in src and "topical_fit.json" in src and "fit_reply.py" in src
     assert generation.ANSWER_SYSTEM.startswith(structured.STRUCTURED_RULES[:40])
     assert structured.EXAMPLE_NE in generation.answer_system("ne") and structured.EXAMPLE_NE not in generation.answer_system("en")
 

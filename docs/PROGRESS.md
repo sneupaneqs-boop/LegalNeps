@@ -200,6 +200,45 @@ S7's own "done when" bar (25 playbooks, ≥90% precision) doesn't require it.
 
 ## Done
 
+### V3.2 live review (2026-09-30, fresh 30)
+
+Independent two-pass LLM review of 30 FRESH live answers (`eval/reports/answer-review-v32-answers30-20260930.json`,
+`answer_review.py --set answers30`, entailment pass OFF; 8 answers came from cache with it ON); per-sentence labels,
+quoted evidence, per-answer usefulness, fallback quality, retrieval-miss notes and removal review in
+`eval/reports/answer-review-v32-labels-20260930.json`. **Bar (<5%) NOT met - and the V3.2 checks did not generalise.**
+
+| 70 kept sentences, 22 structured answers | supported | unsupported | wrong-law | halluc. number/section | bad rate |
+|---|---|---|---|---|---|
+| all | 39 | 7 | 24 | 0 | **44.3% (31/70)** vs V3 15.6% (12/77), V1 40.3% |
+| Devanagari (23) / romanised (30) / English (17) | 9 / 20 / 10 | 1 / 3 / 3 | 13 / 7 / 4 | 0 / 0 / 0 | 61% / 33% / 41% |
+| rule 57 / deadline 6 / penalty 4 / procedure 3 | 29 / 3 / 4 / 3 | 6 / 1 / 0 / 0 | 22 / 2 / 0 / 0 | 0 | 49% / 50% / 0% / 0% |
+
+- Excluding exact duplicate sentences 28/67 = 41.8%; excluding a02 (nine hire-purchase sentences for a tenancy
+  question) 22/61 = 36.1%; counting 7 supported-but-tangential sentences as bad 38/70 = 54%. 9 of 22 structured
+  answers are fully clean (a05 a06 a13 a17 a18 a20 a21 a28 a30). Cached/entailment-ON answers 7/22 = 32% vs fresh 24/48 = 50%.
+- The failure changed shape: 0 hallucinated numbers/sections (the V3.2 quote/number/section checks hold), 7 unsupported
+  (dropped preconditions: a07 s3 warrantless-arrest scope, a24 s2 educational-institution scope, a27 s3 registration-marriage
+  route, a15 s3 no-agreement, a23 s1 dangling "This power"; invented subject a14 s3/s4 "eSewa"), and 24 WRONG-LAW (77% of bad):
+  hire-purchase chapter for a rent eviction (a02 x8), consumer-liability for a hit-and-run (a03), instalment tax + Army Act pay
+  deduction for salary tax (a04), judges' service Act for maternity leave (a12), postal money-order rule for eSewa (a14),
+  widow remarriage for daughters' share (a11 x3), sentencing-confession rule for rape punishment (a25), broker licence /
+  limitation precedent for foreigner land (a26). The governing section is in the corpus and was not retrieved for a03 (Motor
+  Vehicles Act s.163), a04 (ITA s.87), a12 (Labour Act s.45), a25 (Criminal Code s.219/229), a28 (Companies Act s.81),
+  a10 (s.4), a09 (Consumer Act s.14), a16 (Criminal Code s.98), a11 (Civil Code s.205), a02 (Civil Code s.401).
+- Modes: 22 structured, 6 extractive_fallback, 2 none (LLM unavailable). Usefulness 0/1/2 = 12/12/6 (mean 0.8; previous 1.0),
+  >=1 for 18/30. Fallback shows the governing provisions for 1 of 6 (a29 defamation, Nepali text for an English user),
+  partly for 2 (a10, a22), not at all for 3 (a01, a09, a19); the 2 `none` answers (a08, a16) are noise.
+- Hidden legal claims outside the checked sentences: uncited forum/procedure lines in advice text (a13 Department +
+  Tribunal, a18 judicial committee, a27 application contents, a05 lead line) - true per corpus but uncited; false negative
+  gaps ("sources do not cover ...") where the section exists (a04, a12, a17, a28).
+- User-facing errors: a02 heading repeated 8x and a literal "..." mid-clause; identical sentence 3x (a11) / 2x (a14);
+  dangling openers after removal ("त्यसै गरी", "This power", "such leave"); wrong subsection in citation labels (a17, a20).
+- Removal: 65 removed vs 70 kept; the `removed` block has only counts/reasons, not text, so over-removal is inferred
+  (a06, a23, a27, a28 look like good content lost; a04 looks right). `section_not_in_quote` (15) is the largest reason.
+- Next: (1) specialist-population marker + title-overlap guard for wrong-law, (2) sub-section lead-in / leading
+  cross-reference scope check, (3) dedupe + orphan-connective check, (4) asked-quantity gap rule and no false negative gaps,
+  (5) playbook routes for the ten misses above. Details in the labels file `patterns_and_fixes`.
+
 ### V3.2 — Claim checks from the live review, entailment v2, token diet (2026-09-30, offline; live re-measure pending)
 
 Goal: drive the 15.6% unsupported rate (bar <5%) down with deterministic checks + prompt rules without collapsing
