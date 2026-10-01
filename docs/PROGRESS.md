@@ -201,6 +201,78 @@ S7's own "done when" bar (25 playbooks, ≥90% precision) doesn't require it.
 ## Done
 
 
+### V2.7 — Section routes, form filter, strict fit, actor/regime guards, dropped conditions, language (2026-10-01, offline; live re-measure pending)
+
+Fixes for the V3.3 set-B live review (30 answers, 32.7% bad sentences). **No accuracy target is claimed: a fresh live review (set C)
+must measure it.** Set B is now TUNING data (burned); `eval/questions_sections_b.jsonl` (14 gold sections, `run_eval.py verify --set
+sections_b`). Suite: 1844 green (`DENSE_MODEL_DIR=.../dense_model`). Pipeline version p12 (old cached answers retired).
+
+**Root cause per b-question** (retrieval = offline raw path, no LLM rewrite; live may differ):
+
+| Q | Why it failed | Mechanism now |
+|---|---|---|
+| b01 forged signature | no playbook, lexicon had no "forged/नक्कली सहीछाप"; fallback showed 3 forms | route `forged_document` (CC 276, 279, 421) + lexicon + form filter |
+| b03 wages + resign | `unpaid_salary` dropped by the relevance gate (no exact keyword); one plan only | routes `unpaid_wages` (35, 148) + `resignation_not_allowed` (141); plan keywords |
+| b05 custody in divorce | no keyword for "सन्तानको हक" | route `child_custody_on_divorce`; plan keywords |
+| b07 online fake | Devanagari lexicon needed "बिग्रि*&फिर्ता" | route `online_counterfeit_goods` (Consumer 14, 16(2)) |
+| b10, b11, b21, b22, b23, b24, b26, b27, b30 | section behind the plan's pin cap, or no plan | routes (promoted ahead of the plan's pins; b10/b11 were rank 4) |
+| b15 edited photo | plan pinned CC s.298 (wrong law) | route `edited_photo_privacy` (Privacy 16, 29) SUPPRESSES s.298 |
+| b02/b12/b13/b16/b18/b24/b29 fallbacks | forms/irrelevant provisions under a false "matches the subject" | form filter, strict fit, truthful caveat |
+| b06 apartment Act, b20 school Act, b17 public-company rule, b08 guarantor/mortgage, b10 drawer rule | wrong population/regime/actor | `situation_guards` V2.7 rows (sentence AND passage level) |
+| b14 s.99, b23 s.216(3), b25 s.14(1), b26 ETA 48, b28 s.400(2), b10 s.3क(6) | dropped condition | `condition_checks.py` |
+| b18 | `guess_language` saw 1 Nepali word | glossary roman vocabulary + explicit-language requests |
+
+**Mechanisms.** (1) `section_routes.py` + `data/section_routes.yaml` (14 NEEDS-ADVOCATE-REVIEW rows, `docs/PLAYBOOK_AUDIT.md`): every
+group of alternatives must match (Devanagari substring or spelling-tolerant Latin words); routed sections lead the list, are marked
+`routed`+`pinned` (gate never fails them), capped by the room the plan's pins leave; `suppress` drops a known wrong section. Switch
+`SECTION_ROUTES`. (2) ~25 lexicon rows (Latin and Devanagari: forged, extortion, probation, edited photo, rent, तलब, विवाह, सम्बन्ध
+विच्छेद, पक्राउ, चेक, घरधनी, तमसुक ...), 2 plans' keywords. (3) `topical_fit.non_substantive` (schedule/annex/blank-format chunks; unless the
+question asks for a form; constitution/precedents exempt; `FIT_FORM_FILTER`), `direct_fit` (strict fit = verified, or the law the
+question's own concepts name, or heading coverage >= .30 with <= .60 of the heading unexplained; `FIT_STRICT_*`), a passage of a NAMED law is
+exempt from the weak fitted score (it had failed MV s.163 for a hit-and-run), `FIT_ABSTAIN_STRICT` (no direct statute and nothing pinned ->
+abstain, before generation and in the fallback). (4) Fallback caveat: all shown direct -> the V3.3 sentence; some -> "Only [1] clearly match
+... others are the closest found and may not apply"; none -> abstain. `order_for_display` puts direct, other on-topic, precedents, ruled-out
+in that order, so fallback/abstain labels are [1][2][3] and match the source list (was [3][4][6]). (5) `condition_checks.py`: time limit
+("सात दिनभित्र"), leading cross-reference condition, alternative branch, authority/access qualifier, grounds named only by letter, all on the full
+enclosing passage sentence (fail open when the quote is not located). `CONDITION_CHECKS`, `GUARDS_V27`. (6) `guess_language`: glossary romanised vocabulary
++ "in english / nepali ma" requests (b18 now Devanagari). Structured answers keep the source list's own numbers (the frontend links [n] to
+the list), only fallback/abstain labels were made contiguous.
+
+**Retrieval (raw path, hybrid, production `search()` + playbook; section hit @8/@3 where sections exist):**
+
+| Set | before | after | routes OFF (rest on) |
+|---|---|---|---|
+| sections_b (14, tuning) | sec .357/.214, MRR .607 | **1.00/1.00**, MRR 1.0 | .857/.50, MRR .786 |
+| default (150) | .938/.849/.825 | **.952/.863/.839** | .952/.863/.839 |
+| realworld (30) | sec 1.0/.933 | **1.0/.967** | 1.0/.90 |
+| sections12 | 1.0/1.0 | 1.0/1.0 | 1.0/1.0 |
+| heldout (50), ONE run, aggregate | .82/.70/.613, sec .58/.32 | **.82/.70/.653, sec .58/.34** | - |
+
+Sets B and sections_b are tuning data and the routes were written for them: read 14/14 as "the mechanism works", not as generalisation. Routes
+fire on 5/150 default and 5/30 realworld questions, all on-topic (no false fire); the heldout questions were not inspected. Per-question rank
+(first gold section, before -> after): b01 miss->1, b03 miss->1, b05 miss->1, b07 miss->1, b10 4->1, b11 4->1, b15 miss->1, b21 miss->1,
+b22 miss->1, b23 3->1, b24 miss->1, b26 miss->1, b27 1->1, b30 1->1 (lexicon+plans alone, routes off: 10/14 @8).
+
+**Over-removal on the labelled sentences** (137 supported of 196; reviews 1, 2, B): new sentence checks remove **0/135** that passed V3.3
+(conditions only 0, guards only 0); they newly remove 15: 6 unsupported (all six dropped-condition cases) + 9 wrong-law (b06 x2, b08 x2, b10, b17, b20 x3 by guards;
+a02 s2 by the branch check). Passage-level gate (topical fit + form filter + source guards): 1/137 supported removed (0.7%), 33/41 wrong-law
+(V3.3 gate: 0/137, 29/41). Limits: the guard rows and condition rules were written from the set-B labels (in sample); reviews 1-2
+(147 sentences) were not used and lose nothing (weak out-of-sample evidence). 4 of the 10 V3.3-surviving unsupported sentences remain.
+
+**Offline replay of the 30 set-B answers** (`eval/v27_replay.py`; no LLM, live-cited passages added as candidates, sentence survivors from the
+labelled sentences): live modes 17 structured / 11 fallback / 1 abstain / 1 none -> **11 structured, 17 fallback, 2 abstain (b08, b20)**: of the 17 structured answers 11 stay, 4 drop to the provisions list (b06, b10, b17, b26), 2 abstain; b07 (abstain) now shows Consumer ss.14, 16(2);
+b09 (no summary) shows the Civil Code partition provisions; all 11 fallbacks stay fallbacks but now show direct provisions first (b01
+Criminal Code 276/279 + CC 421, b03 Labour 35/141/148, b05 CC 115/116/114, b10 BOA s.17 first, b11 s.31 first). On answers30 (V3.2): 21 structured stay, a14
+abstains, a08 abstains (was none). Ablation: `FIT_ABSTAIN_STRICT=0` changes only a08/a14; form filter and V2.7 guards off do not change set-B modes
+(the sentence checks act after the model answers). Labelled kept sentences in answers that would now abstain: 9 wrong-law + 2 unsupported, 0 supported.
+Examples: NE abstain "मैले खोजेका स्रोतहरूमा तपाईंको प्रश्नको सिधै जवाफ दिने प्रावधान भेटिएन ..." (b03 as retrieved live: Companies Act ss.76/28/53); EN fallback note
+"Only [1] clearly match the subject of your question; the others are the closest I found and may not apply".
+
+**Still misses / not done:** b09 remedy (s.206, forum), b12 deposit-refund rule (none exists), b16 freelancer tax (ITA s.3 not routed), b19 s.57(1) default clause,
+b29 AGM fine, b02 who is billed; structured-answer citations may still skip numbers the model did not cite; no specialist-table rows were added (source-level
+guards do that job); the live LLM-rewrite path and real latency were not re-measured; replay uses offline retrieval; ordering by `order_for_display` moves
+direct passages ahead of other on-topic ones in the prompt.
+
 ### V3.3 live review (2026-10-01, fresh 30 set B)
 
 Independent two-pass LLM review of 30 FRESH live answers (set B, never used for tuning; all 30 served fresh, none cached;

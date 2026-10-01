@@ -49,6 +49,8 @@ SETS = {
     "answers30b": "questions_answers30b.jsonl",
     # V2.6 section-level TUNING data (12 governing sections the live answers missed) - never a held-out set
     "sections12": "questions_sections12.jsonl",
+    # V2.7 section-level TUNING data (set B misses; burned)
+    "sections_b": "questions_sections_b.jsonl",
 }
 
 

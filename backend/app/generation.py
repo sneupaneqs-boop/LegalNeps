@@ -21,7 +21,7 @@ from pathlib import Path
 from collections import OrderedDict
 from threading import Lock
 
-from . import claim_checks, config, fit_reply, glossary, llm, playbooks, prompt_guard, structured, supa, tiers, topical_fit, translit
+from . import claim_checks, config, fit_reply, glossary, llm, playbooks, prompt_guard, section_routes, situation_guards, structured, supa, tiers, topical_fit, translit
 from .playbook_matcher import match_scored as match_playbook_scored
 from .playbook_matcher import strong_match as strong_playbook_match
 from .retrieval import get_index
@@ -146,7 +146,7 @@ def _answer_cache_key(message: str, lang: str) -> str:
 # including the persistent Supabase answer_cache - are never served again.
 # The fingerprint below also retires them automatically when the prompts,
 # the romanised lexicon or any playbook file changes.
-PIPELINE_VERSION = "p11"  # p9: structured JSON answers + quote verifier (V3); p10: V3.2 claim checks, gap filter, token diet; p11: V3.3 topical-fit gate, abstain, polish
+PIPELINE_VERSION = "p12"  # p9: structured JSON answers + quote verifier (V3); p10: V3.2 claim checks, gap filter, token diet; p11: V3.3 topical-fit gate, abstain, polish; p12: V2.7 section routes, strict fit, form filter, actor/condition checks, reply language
 
 
 def _pipeline_fingerprint() -> str:
@@ -157,7 +157,8 @@ def _pipeline_fingerprint() -> str:
     here = Path(__file__).parent
     for f in [here / "translit.py", here / "verifier.py", here / "structured.py", here / "text_norm.py",
               here / "claim_checks.py", here / "situation_guards.py", here / "topical_fit.py", here / "fit_reply.py",
-              here / "data" / "topical_fit.json",
+              here / "data" / "topical_fit.json", here / "condition_checks.py", here / "section_routes.py",
+              here / "data" / "section_routes.yaml",
               *sorted((here / "data" / "playbooks").glob("*.yaml"))]:
         if f.exists():
             h.update(f.name.encode())
@@ -593,11 +594,42 @@ def search_with_playbook(message: str, analysis: dict, top_k: int | None = None,
                         key=lambda i: (pinned[i]["id"] not in retrieved_ids, i))[:keep]
         pinned = [pinned[i] for i in sorted(ranked)]
     seen = {p["id"] for p in pinned}
+    # V2.7 verified keyword->section routes: sections that govern a situation no playbook covers (or that the matched
+    # plan's gate dropped). They sit right behind the plan's pins; routes can also name a section that is the wrong
+    # law for the situation (an edited photo is not s.298 confidential information) and drop it from pins and results
+    routed, suppress = [], []
+    if config.SECTION_ROUTES:
+        try:
+            routed, suppress = section_routes.routed_entries(" ".join([message, analysis.get("question") or ""]))
+            if suppress:  # the wrong-law section leaves the plan's pins first, so the room left is counted without it
+                pinned = [p for p in pinned if not section_routes.is_suppressed(p, suppress)]
+            # a route is more specific than the plan it sits beside: it leads (a section the plan also pins is promoted,
+            # not repeated); sections the plan does not pin are limited so retrieval keeps room
+            in_pins = {p["id"] for p in pinned}
+            room = max(1, top_k - len(pinned) - 2) if pinned else section_routes.ROUTE_MAX
+            new = 0
+            kept = []
+            for r in routed:
+                if r["id"] in in_pins:
+                    kept.append({**r, "plan_pin": True})
+                elif new < room:
+                    kept.append(r)
+                    new += 1
+            routed = kept
+        except Exception:  # noqa: BLE001 - routing is an extra; never break retrieval
+            log.exception("section routes failed")
+            routed, suppress = [], []
+        if suppress:
+            pinned = [p for p in pinned if not section_routes.is_suppressed(p, suppress)]
+        routed_ids = {r["id"] for r in routed}
+        pinned = [p for p in pinned if p["id"] not in routed_ids]
+        seen = {p["id"] for p in pinned} | routed_ids
     # sections the curated plan marks as misleading for this situation
     # (e.g. deposit recovery vs. the tenant's early-departure notice rule)
     excluded = {(x.get("law_title_ne"), str(x.get("section"))) for x in (playbook or {}).get("exclude_provisions", [])}
     rest = [s for s in laws if s["id"] not in seen
-            and (s.get("doc_title_ne"), str(s.get("section") or "")) not in excluded]
+            and (s.get("doc_title_ne"), str(s.get("section") or "")) not in excluded
+            and not section_routes.is_suppressed(s, suppress)]
     if bank:
         # NRB directives rank below the Acts on generic overlap, so a banking question that names its
         # governing directive would otherwise never see it: search the directive shards explicitly and
@@ -606,7 +638,7 @@ def search_with_playbook(message: str, analysis: dict, top_k: int | None = None,
         reg_ids = {s["id"] for s in reg}
         lead = [s for s in rest[:1] if s["id"] not in reg_ids and _BANK_DOC.search(s.get("doc_title_ne") or "")]
         rest = lead + reg + [s for s in rest if s["id"] not in reg_ids and s not in lead]
-    laws = (pinned + rest)[:max(top_k, len(pinned))]
+    laws = (routed + pinned + rest)[:max(top_k, len(pinned) + len(routed))]
     precedents = []
     if precedent_k and analysis.get("wants_precedent", True):
         precedents = idx.search(queries, top_k=precedent_k + 2, category="precedent", per_doc_cap=1)
@@ -776,19 +808,28 @@ def apply_topical_gate(message: str, analysis: dict, sources: list[dict], playbo
         if not topical_fit.load_model():
             return None
         queries = build_queries(analysis.get("question") or message, analysis)
-        profile = topical_fit.make_profile(message, analysis, _guidance_terms_text(playbook), queries)
+        profile = topical_fit.make_profile(message, analysis, _guidance_terms_text(playbook), queries,
+                                           playbook_laws=[p.get("law_title_ne") for p in (playbook or {}).get("provisions", [])])
         verdicts = topical_fit.judge(sources, topical_fit.Scorer(profile))
     except Exception:  # noqa: BLE001
         log.exception("topical fit gate failed: answering without it")
         return None
     failed = []
+    q_text = " ".join([message, analysis.get("question") or ""])
     for s, v in zip(sources, verdicts):
         s.pop("off_topic", None)
         s["fit_score"] = round(v.score, 3)
-        if not v.ok:
+        s["fit_direct"] = bool(v.direct)
+        reasons = list(v.reasons)
+        if v.ok and not s.get("pinned"):
+            gid = situation_guards.source_violation(q_text, s, v27=config.GUARDS_V27)  # V2.7: known wrong-law passages
+            if gid:
+                reasons.append("guard:" + gid)
+        if reasons and not s.get("pinned"):
             s["off_topic"] = True
-            s["off_topic_why"] = v.reasons
-            failed.append({"id": s.get("id"), "why": v.reasons})
+            s["off_topic_why"] = reasons
+            s["fit_direct"] = False
+            failed.append({"id": s.get("id"), "why": reasons})
     return {"checked": len(sources), "off_topic": len(failed), "failed": failed}
 
 
@@ -988,20 +1029,23 @@ def run(message: str, language: str = "auto", history: list[dict] | None = None,
 
     query = analysis.get("question") or message
     sources = search(query, analysis, playbook=playbook)
-    if playbook and not any(s.get("pinned") for s in sources):
+    if playbook and not any(s.get("pinned") and (not s.get("routed") or s.get("plan_pin")) for s in sources):
         playbook = None  # the relevance gate (search_with_playbook) dropped the plan: no card, no guide
     playbook_card = _playbook_card(playbook)
     fit_report = None
     if sources:
         fit_reply.relabel_subsections(sources)
         fit_report = apply_topical_gate(message, analysis, sources, playbook)  # V3.3: marks off-topic sources
+        if fit_report is not None:
+            sources[:] = fit_reply.order_for_display(sources)  # V2.7: shown / citable passages first: contiguous [1][2][3]
     yield "meta", {"language": lang, "sources": sources, "analysis": meta_analysis, "playbook": playbook_card}
 
     if not sources:
         yield "done", {"answer": CANNED[("unclear", lang)], "llm_used": False, "cached": False, "llm_calls": llm_calls}
         return
-    if fit_report is not None and len(fit_reply.on_topic_laws(sources)) < config.FIT_MIN_ONTOPIC \
-            and not any(s.get("pinned") for s in sources):
+    if fit_report is not None and not any(s.get("pinned") for s in sources) and (
+            len(fit_reply.on_topic_laws(sources)) < config.FIT_MIN_ONTOPIC
+            or (config.FIT_ABSTAIN_STRICT and not fit_reply.direct_laws(sources))):
         # too few on-topic provisions: do not ask the model to invent an answer (V3.3)
         answer = fit_reply.abstain_answer(sources, lang, DISCLAIMER_EN if lang == "en" else DISCLAIMER_NE, playbook)
         yield from _simulate_stream(answer)

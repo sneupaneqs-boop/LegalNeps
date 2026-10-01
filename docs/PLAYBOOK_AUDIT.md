@@ -820,3 +820,35 @@ Provisions read in the corpus text (`Index.section`), resolved by `tests/test_pl
 |---|---|---|
 | wrongful_termination | + Labour Act s.53 (gratuity, 8.33% of basic pay into the Social Security Fund; the note says the text does not state when it may be drawn); keywords for "dismissed without a reason" | Whether gratuity is payable on dismissal for misconduct (the section text names no condition). |
 | inheritance_share | Civil Code s.205 (son, daughter, spouse, parents are अंशियार) moved to the front of the provision list so the plan's pin limit keeps it | none new |
+
+## V2.7 additions (2026-10-01): section routes (not playbooks) and guard rows
+
+`backend/app/data/section_routes.yaml` (14 rows, schema in `app/section_routes.py`) routes a situation to the SECTIONS that govern it
+even when no playbook matches or the matched plan's relevance gate dropped it; a route can also name a section that is the wrong law
+for the situation. Provisions were read in the corpus text (`Index.section`), resolved and checked in force by
+`tests/test_v27_routes.py`. **All NEEDS-ADVOCATE-REVIEW.** A route is a retrieval aid: it puts the section in front of the model, it does
+not say the section decides the facts.
+
+| Route | Provisions | NEEDS-ADVOCATE-REVIEW question |
+|---|---|---|
+| forged_document | Criminal Code ss.276 (forgery), 279 (falsification of documents); Civil Code s.421 (no transfer of another's property; such a deed is void) | Whether a brother's forged signature on a land sale is s.276 (कीर्ते) or s.279 (जालसाजी), and the limitation period for the void-deed claim. |
+| unpaid_wages | Labour Act ss.35 (payment of wages), 148 (benefits within 15 days of ending the job) | Whether s.35 applies to workers under the 10-worker threshold and to monthly-salaried managerial staff. |
+| resignation_not_allowed | Labour Act ss.141 (written resignation; 15 days to accept), 148 | What a worker can do when the employer ignores a written resignation after 15 days. |
+| probation_termination | Labour Act s.13 (six-month probation, ending it) | Whether the notice rule of s.144 applies during probation (the passage does not say). |
+| overtime_rate | Labour Act s.31 (1.5x basic pay) | none new (the existing overtime plan also pins it). |
+| divorce_grounds | Civil Code ss.94, 95 (grounds for husband / wife) | Whether the grounds in s.95(ख)-(च) are exhaustive; interaction with s.93 (consent). |
+| child_custody_on_divorce | Civil Code ss.115, 116, 114 | Default custody by the child's age (s.115) when the parents do not agree. |
+| ancestral_property_sale | Civil Code s.419 (written consent of the co-parceners to transfer joint property) | What follows when a co-parcener sells without consent (s.419(3)-(4) was not read in full). |
+| theft_penalty_limitation | Criminal Code ss.241 (theft), 255 (limitation: one year from knowledge) | Whether s.255 is the limitation for every offence in that chapter. |
+| blackmail_extortion | Criminal Code s.253 (extortion); Privacy Act s.16 | Whether the Privacy Act s.29 penalties also apply to threatening to publish a photo that was never published. |
+| edited_photo_privacy | Privacy Act ss.16, 29; SUPPRESSES Criminal Code s.298 | s.298 is electronic confidentiality (unauthorised access / disclosure of information), not photo editing - confirm there is no case where both apply. |
+| online_counterfeit_goods | Consumer Protection Act ss.14 (return within 7 days), 16(2) | Whether s.14's seven days run from delivery and whether a counterfeit is a "defect" or an unfair practice under s.16(2). |
+| cheque_complaint_time | Banking Offences Act s.17 (one year from the date dishonour was certified) | Which date the year runs from for a holder who never asked the bank to certify. |
+| vat_registration | VAT Act s.10 (registration before starting; threshold in s.10(2)/11(1)(च)) | The IRD variant of the Act ("आर्थिक ऐन, २०८२ ले गरेको संशोधन सहित") has unknown status; the route uses the base Act. |
+| rti_request | RTI Act ss.7 (procedure; Nepali citizens), 8 (fee) | none new. |
+
+Existing playbooks changed: `unpaid_salary` (+ keywords "तलब आएको छैन", "salary has not been paid"), `child_custody` (+ "सन्तानको हक",
+"santan ko hak"). Guard rows (`app/situation_guards.py`, V2.7): college student vs compulsory school-education Act; plain land sale
+vs the Apartment/Condominium Act; private vs public company rule (Companies Act s.9(1) vs (2)); guarantor reimbursement (s.567) and
+mortgage redemption (s.444) for a borrower who only repaid a tamsuk; the drawer's right to take a cheque back (Banking Offences Act
+s.3क(6)) for the holder of the cheque. NEEDS-ADVOCATE-REVIEW: whether a person who is BOTH holder and endorser can use the drawer's rule.

@@ -30,6 +30,20 @@ DIRECT_NOTE = {
           "exact situation.",
     "ne": "यी प्रावधानहरू तपाईंको प्रश्नको विषयसँग मिल्छन्, तर तपाईंको ठ्याक्कै अवस्थामा सिधै लागू हुन्छन् भन्ने पुष्टि गर्न सकिएन।",
 }
+# V2.7: the "matches the subject" sentence is only printed when the shown provisions pass the STRICT fit check
+# (topical_fit.direct_fit); otherwise the reader is told plainly that these are merely the closest found
+PARTIAL_NOTE = {
+    "en": "Only {nums} clearly match the subject of your question; the others are the closest I found and may not apply to "
+          "your situation. I could not confirm that any of them directly governs your exact situation.",
+    "ne": "{nums} मात्र तपाईंको प्रश्नको विषयसँग स्पष्ट रूपमा मिल्छन्; बाँकी मैले भेटेका सबैभन्दा नजिकका प्रावधान हुन् र तपाईंको "
+          "अवस्थामा लागू नहुन सक्छन्। तपाईंको ठ्याक्कै अवस्थामा कुनै सिधै लागू हुन्छ भन्ने पुष्टि गर्न सकिएन।",
+}
+CLOSEST_NOTE = {
+    "en": "These are the closest provisions I found. They may not apply to your situation, and I could not find one that "
+          "clearly matches the subject of your question.",
+    "ne": "यी मैले भेटेका सबैभन्दा नजिकका प्रावधान हुन्। तपाईंको अवस्थामा यी लागू नहुन सक्छन्, र तपाईंको प्रश्नको विषयसँग स्पष्ट "
+          "रूपमा मिल्ने प्रावधान मैले भेटिनँ।",
+}
 _EXTRACTIVE_HEADER = {
     "en": "Here are the most relevant official provisions I found (AI summary unavailable right now):",
     "ne": "सबैभन्दा सान्दर्भिक आधिकारिक कानुनी प्रावधानहरू (AI सारांश अहिले उपलब्ध छैन):",
@@ -44,6 +58,12 @@ def gate_ran(sources: list[dict]) -> bool:
     return any("fit_score" in s for s in sources)
 
 
+def direct_laws(sources: list[dict]) -> list[dict]:
+    """On-topic statute passages that also pass the strict fit check (verified, or the law the question names, or a
+    heading that covers its terms)."""
+    return [s for s in on_topic_laws(sources) if s.get("fit_direct") or s.get("pinned")]
+
+
 def related_candidates(sources: list[dict], limit: int | None = None) -> list[tuple[int, dict]]:
     """(number, source) of the closest statute passages the gate did not rule out by REGIME (a passage from the
     army / postal / hire-purchase chapter is known to be the wrong kind of law and is never offered as "related").
@@ -51,9 +71,21 @@ def related_candidates(sources: list[dict], limit: int | None = None) -> list[tu
     limit = config.FIT_RELATED_MAX if limit is None else limit
     cand = [(i, s) for i, s in enumerate(sources, 1)
             if s.get("category") != "precedent"
-            and not any(str(w).startswith("specialist:") for w in s.get("off_topic_why") or [])]
-    cand.sort(key=lambda x: (x[1].get("fit_score", 0.0), x[0]))
+            and not any(str(w).startswith(("specialist:", "non_substantive:", "guard:")) for w in s.get("off_topic_why") or [])]
+    cand.sort(key=lambda x: (bool(x[1].get("off_topic")), x[1].get("fit_score", 0.0), x[0]))
     return sorted(cand[:limit])
+
+
+def order_for_display(sources: list[dict]) -> list[dict]:
+    """V2.7 citation labels: statutes that fit directly first, then the other on-topic statutes, then on-topic precedents,
+    then everything the gate ruled out (each group in its retrieval order). The labels [n] are the source list's own
+    numbers, so a fallback / abstain list shows [1][2][3] (V3.3 review: [3][4][6], [2][4][5]) and an answer never cites
+    a number that skips over passages the model was not shown."""
+    def key(s: dict):
+        keep = not s.get("off_topic")
+        direct = bool(s.get("fit_direct") or s.get("pinned"))
+        return (0 if keep else 1, 0 if (s.get("category") != "precedent") else 1, 0 if direct else 1) if keep else (1, 0, 0)
+    return sorted(sources, key=key)  # sorted() is stable
 
 
 def _excerpt(s: dict, lang: str, limit: int = 260) -> str:
@@ -91,19 +123,37 @@ def extractive_answer(sources: list[dict], lang: str, disclaimer: str, header: s
     Without the gate (off / no model): the V3.2 list of the first 5."""
     key = "en" if lang == "en" else "ne"
     gated = gate_ran(sources)
+    note = None
     if gated:
         if not on_topic_laws(sources):
             return abstain_answer(sources, lang, disclaimer, playbook)
         ok = [(i, s) for i, s in enumerate(sources, 1) if not s.get("off_topic")]
-        shown = ([x for x in ok if x[1].get("category") != "precedent"] + [x for x in ok if x[1].get("category") == "precedent"])[:3]
+        laws = [x for x in ok if x[1].get("category") != "precedent"]
+        precs = [x for x in ok if x[1].get("category") == "precedent"]
+        if config.FIT_ABSTAIN_STRICT and not direct_laws(sources):
+            # V3.3 live review: 4 of 11 fallbacks listed wholly unrelated provisions under "these match the subject"
+            return abstain_answer(sources, lang, disclaimer, playbook)
+        # directly fitting passages first (each group keeps retrieval order), then the rest; statutes before precedents
+        laws = [x for x in laws if x[1].get("fit_direct") or x[1].get("pinned")] + \
+               [x for x in laws if not (x[1].get("fit_direct") or x[1].get("pinned"))]
+        shown = (laws + precs)[:3]
+        n_direct = sum(1 for _, s in shown if s.get("fit_direct") or s.get("pinned"))
+        if n_direct == len(shown):
+            note = DIRECT_NOTE[key]
+        elif n_direct:
+            nums = ", ".join(f"[{i}]" for i, s in shown if s.get("fit_direct") or s.get("pinned"))
+            note = PARTIAL_NOTE[key].format(nums=nums)
+        else:
+            note = CLOSEST_NOTE[key]
     else:
         shown = list(enumerate(sources[:5], 1))
     lines = [header or _EXTRACTIVE_HEADER[key]]
+    # the labels are the source list's own numbers; after `order_for_display` the passages shown come first, so they are 1..n
     for i, s in shown:
         text = (s.get("text_en") if lang == "en" and s.get("text_en") else s.get("text_ne")) or ""
         lines.append(f"\n**[{i}] {_cite(s, lang)}**\n{text[:700]}")
-    if gated:
-        lines.append("\n" + DIRECT_NOTE[key])
+    if note:
+        lines.append("\n" + note)
     lines.append("\n" + disclaimer)
     return "\n".join(lines)
 

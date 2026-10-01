@@ -49,6 +49,7 @@ _LAW = {
     "CORR": "भ्रष्टाचार निवारण ऐन, २०५९",
     "BONUS": "बोनस ऐन, २०३०",
     "SHH": "कार्यस्थलमा हुने यौनजन्य दुर्व्यवहार ( निवारण) ऐन, २०७१",
+    "PRIV": "वैयक्तिक गोपनीयता सम्बन्धी ऐन, २०७५",
 }
 
 # S = strong (specific, safe alone), W = weak (generic: only alongside a strong hit)
@@ -101,7 +102,7 @@ S ; rajinama pass|rajinama garne|rajinamaa pass|rajinama lekhne|sale deed ; र�
 S ; sarkari jagga|sarkari jaggaa|ailani|parti jagga|guthi jagga|guthi ; सरकारी जग्गा|ऐलानी|पर्ती|गुठी ; MAL
 S ; mohi|mohiyani|mohiyani haq|tenant farmer|kisan mohi ; मोही|मोहीयानी हक ; MAL
 S ; sima|simana|sim ana|boundary|hadbandi|sandhiyar|sandhiyarko jagga|chhimeki ; सिमाना|हदबन्दी|साँध|सिमाना ; CIV
-S ; ghar bahal|ghar bhada|ghar bhaada|kotha bhada|room rent|house rent|bahal|bahalma|bahalwala|bahaalwala|derawal|dera wal|tenant|tenants ; घर बहाल|बहाल|बहालवाला|भाडा ; CIV
+S ; ghar bahal|ghar bhada|ghar bhaada|kotha bhada|room rent|house rent|bahal|bahalma|bahalwala|bahaalwala|derawal|dera wal|tenant|tenants|rent|rental|rented|renting|lease|leased|tenancy|rental agreement|rent agreement|lessee|lessor ; घर बहाल|बहाल|बहालवाला|भाडा ; CIV
 S ; gharbeti|gharbetti|gharbeti le|ghardhani|ghar dhani|landlord|makan malik|makanmalik|house owner ; घरधनी ; CIV
 S ; deposit|dharauti|dharauta|dharautee|dharaut|security deposit|advance rent ; धरौटी|अग्रिम ; CIV
 S ; jamanat|jamanata|zamanat|bail|bail lidaina|jamanat rakhera|dharauti rakhera|dharauti jamanat ; जमानत|धरौटी|थुनामा ; CRIMP
@@ -142,6 +143,12 @@ S ; jhutho muddha|jhutho mudda|jhuto muddha|jhutto muddha|jhutho ujuri|jhutho ja
 S ; kotha khali|ghar khali|room khali|khali garna lagayo|khali garna bhanyo|evict|evicted|eviction|evicting ; बहालमा लिने व्यक्तिलाई हटाउन सक्ने|घरबाट हटाउन|घरधनी|बहाल ; CIV
 S ; tax katauti|tax kattaune|tax katne|salary tax|tax on salary|withholding tax|withholding|talab ma tax|talabma tax ; रोजगारदाताबाट कर कट्टी|कर कट्टी|रोजगारी|आयकर ; ITX
 S ; ansha paunchha|ansh paunchha|ansha paucha|ansha pauchhin|ansha paune|daughter share|daughters share|share of daughter ; अंशियार मानिने|छोरा छोरी|अंशबण्डा|अंश ; CIV
+S ; forged|forgery|forge|forging|jali|jaali|kirte|jalsaji|jaalsaji|fabricated document ; कीर्ते|जालसाजी|झुठ्ठा लिखत ; CRIM
+S ; extortion|extort|blackmailing|blackmailed|blyakmel|blakmel ; आपराधिक लाभ|एक्सटर्सन|डर त्रास ; CRIM
+S ; probation|probationary|parikshan kal|parikshankal|trial period ; परीक्षणकाल|परीक्षण ; LAB
+S ; resign garna dinna|resignation not accepted|rajinama dinna|rajinama swikar|job chhadna dinna|kaam chhadna dinna ; राजिनामा|स्वेच्छाले रोजगारी अन्त्य|सुविधा भुक्तानी ; LAB
+S ; edited photo|photo edit|edit garera|photo morph|morphed|morph|photoshop|photoshopped|deepfake|private photo|private photos|intimate photo|nude photo|photo viral|photo leak|leaked photo ; तस्विर|वैयक्तिक गोपनीयता|गोपनीयता ; PRIV
+S ; privacy|personal data|personal information|gopaniyata|gopaniyeta ; वैयक्तिक गोपनीयता|गोपनीयता ; PRIV
 S ; sambidhan|samvidhan|samvidhaan|constitution ; संविधान
 S ; nagarikta|nagrikta|nagarikata|nagarita|citizenship|nagarikta pramanpatra ; नागरिकता|नागरिकताको प्रमाणपत्र ; CIT
 S ; naam thar|nam thar|naam ra thar|name correction|naam sachyaune|umer sachyaune|janma miti ; नाम थर|जन्म मिति|उमेर ; CIT
@@ -378,6 +385,28 @@ S ; झुट्टा|झुठो|झुटो|झूठा|झुठ्ठा
 S ; छोरी|दिदीबहिनी अंश / अंश पाउँ* / छोरा छोरी अंश ; अंशियार मानिने|अंशबण्डा|छोरा छोरी|अंश ; CIV
 S ; बिग्रि*|खराब|कमसल|नक्कली|डिफेक्टिभ & फिर्ता|बदली ; वस्तु फिर्ता|उपभोक्ता|बिक्रेता|क्षतिपूर्ति ; CONS
 S ; भ्याट दर्ता / भ्याट टर्नओभर / मूल्य अभिवृद्धि दर्ता ; मूल्य अभिवृद्धि कर|दर्ता|करयोग्य कारोबार ; VAT
+S ; नक्कली|जाली सहीछाप|हस्ताक्षर|दस्तखत / सहीछाप|हस्ताक्षर|दस्तखत नक्कली|जाली|कीर्ते / कीर्ते गर* / जालसाजी ; कीर्ते|जालसाजी|झुठ्ठा लिखत ; CRIM
+S ; ब्ल्याकमेल*|ब्लैकमेल* / डर त्रास / धम्की दिएर पैसा|रकम ; आपराधिक लाभ|एक्सटर्सन|डर त्रास ; CRIM
+S ; परीक्षणकाल / परीक्षण काल ; परीक्षणकाल|परीक्षण ; LAB
+S ; विवाह|बिहे|बहुविवाह / दोस्रो|अर्को विवाह|बिहे ; विवाह|बहुविवाह|दोस्रो विवाह ; CIV|CRIM
+S ; सम्बन्धविच्छेद|पारपाचुके / सम्बन्ध विच्छेद ; सम्बन्ध विच्छेद|सम्बन्ध विच्छेद मञ्जुरी ; CIV
+S ; अंशबण्डा|अंशियार|सगोल / पैतृक सम्पत्ति ; अंश|अंशबण्डा|अंशियार ; CIV
+S ; पक्राउ|थुनुवा|हिरासत*|थुना ; पक्राउ|थुना|थुनुवा|हिरासत ; CRIMP
+S ; चेक ; चेक अनादर|चेक|विनिमेय अधिकारपत्र ; BANKOFF|NEG
+S ; श्रमिक|कामदार|रोजगारदाता|ओभरटाइम / प्रसूति बिदा ; श्रमिक|कामदार|रोजगारदाता ; LAB
+S ; चोरी|डकैती|लुटपाट ; चोरी|डकैती|लुटपाट ; CRIM
+S ; नागरिकता ; नागरिकता|नागरिकताको प्रमाणपत्र ; CIT
+S ; उपभोक्ता|पसले|बिक्रेता ; उपभोक्ता|बिक्रेता|क्षतिपूर्ति ; CONS
+S ; तलब|पारिश्रमिक|ज्याला|बोनस|उपदान ; तलब|पारिश्रमिक|रोजगारदाता ; LAB
+S ; घरधनी|डेरावाल|बहालवाला|घरबहाल ; घरधनी|बहाल|बहालमा लिने व्यक्ति ; CIV
+S ; तमसुक|साहू|साँवा|ब्याज|कर्जा|ऋण ; ऋण|कर्जा|ब्याज|साहू ; CIV
+S ; जग्गा|लालपुर्जा|नामसारी|मालपोत ; जग्गा|जग्गाधनी प्रमाणपुर्जा|मालपोत ; MAL
+S ; घूस|रिसवत ; घूस|रिसवत|भ्रष्टाचार ; CORR
+S ; घरेलु हिंसा|घरेलु / हिंसा ; घरेलु हिंसा|हिंसा ; DV
+S ; कुटपिट|हत्या|दाइजो ; कुटपिट|ज्यान मार्ने|दाइजो ; CRIM
+S ; सूचनाको हक ; सूचनाको हक|सूचना अधिकारी ; RTI
+S ; तस्बिर|तस्विर|तस्वीर|फोटो एडिट*|बनावटी|मोर्फ*|बिगार* / एडिट* तस्बिर|तस्विर|तस्वीर|फोटो ; तस्विर|वैयक्तिक गोपनीयता|गोपनीयता ; PRIV
+S ; राजिनामा नदि* / राजिनामा स्वीकार / जागिर छाड्न दिँदैन / नोकरी छाड्न नदि* ; राजिनामा|स्वेच्छाले रोजगारी अन्त्य|सुविधा भुक्तानी ; LAB
 """
 
 

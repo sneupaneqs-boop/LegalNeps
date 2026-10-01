@@ -8,6 +8,7 @@ search go through the same folding so those variants still match.
 from __future__ import annotations
 
 import re
+from functools import lru_cache
 import unicodedata
 
 DEV_DIGITS = str.maketrans("०१२३४५६७८९", "0123456789")
@@ -131,14 +132,51 @@ ROMAN_NE = {
 }
 
 
+_ASKS_EN = re.compile(r"\b(?:in english|english (?:ma|mai|please|only)|answer in english|reply in english|explain in english|"
+                      r"respond in english|write in english)\b", re.I)
+_ASKS_NE = re.compile(r"\b(?:in nepali|nepali ma|nepalima|answer in nepali|reply in nepali)\b|नेपालीमा", re.I)
+# romanised-Nepali words people type that are not English (V2.7: "nagarikta harayo, pratilipi kasari line?" was answered in English)
+ROMAN_NE |= {"harayo", "haraye", "harako", "haryo", "pratilipi", "nagarikta", "nagarikata", "pugyo", "chahinchha", "kahile", "kasle",
+             "kaslai", "bhanera", "nabujhera", "nabujhi", "nadine", "nadiyeko", "liyera", "liyeko", "diyeko", "farkaudaina", "pharkaudaina",
+             "firtaa", "lagcha", "lagchha", "lagdaina", "lagyo", "pachi", "agadi", "tapaiko", "timro", "usle", "usko", "unko",
+             "hajur", "bhitra", "bhaneko", "bhandaina", "hudaina", "thiyo", "sakchhu", "sakincha", "painchha", "ghar", "jagga", "karja",
+             "sarkar", "kanun", "kanoon", "adhikar", "haq", "hak", "dabi", "nalish", "malpot", "lalpurja", "rajinama", "bayana", "tamsuk"}
+
+
+@lru_cache(maxsize=1)
+def _glossary_roman() -> frozenset:
+    """Words of the glossary's romanised-Nepali phrases (data/glossary.json "roman" lists) that are not also an English
+    word of its "en" lists: the corpus-validated vocabulary of Nepali typed in Latin letters."""
+    import json
+    from pathlib import Path
+    try:
+        data = json.loads((Path(__file__).parent / "data" / "glossary.json").read_text(encoding="utf-8"))
+    except Exception:  # noqa: BLE001
+        return frozenset()
+    roman, english = set(), set()
+    for entries in data.get("areas", {}).values():
+        for e in entries:
+            for ph in e.get("roman", []):
+                roman |= set(re.findall(r"[a-z]{4,}", ph.lower()))
+            for ph in e.get("en", []):
+                english |= set(re.findall(r"[a-z]+", ph.lower()))
+    return frozenset(w for w in roman if w not in english and w not in EN_STOP)
+
+
 def guess_language(text: str) -> str:
-    """Reply language for 'auto': Devanagari -> ne; Latin script counts as
-    romanised Nepali when its words are mostly Nepali ones; else en."""
+    """Reply language for 'auto': Devanagari -> ne; Latin script counts as romanised Nepali when its words are mostly
+    Nepali ones (a short list plus the glossary's romanised vocabulary); else en. A person who asks for English / Nepali
+    in so many words gets that."""
+    if _ASKS_EN.search(text or ""):
+        return "en"
+    if _ASKS_NE.search(text or ""):
+        return "ne"
     if detect_language(text) == "ne":
         return "ne"
     words = re.findall(r"[a-z]+", (text or "").lower())
     if not words:
         return "en"
-    ne_hits = sum(w in ROMAN_NE for w in words)
+    roman = _glossary_roman()
+    ne_hits = sum(w in ROMAN_NE or w in roman for w in words)
     en_hits = sum(w in EN_STOP for w in words)
     return "ne" if ne_hits >= 2 and ne_hits > en_hits else "en"
