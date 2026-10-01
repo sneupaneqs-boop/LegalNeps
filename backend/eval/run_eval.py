@@ -46,6 +46,7 @@ SETS = {
     "realworld": "questions_realworld.jsonl",
     "heldout": "questions_heldout.jsonl",
     "answers30": "questions_answers30.jsonl",
+    "answers30b": "questions_answers30b.jsonl",
     # V2.6 section-level TUNING data (12 governing sections the live answers missed) - never a held-out set
     "sections12": "questions_sections12.jsonl",
 }

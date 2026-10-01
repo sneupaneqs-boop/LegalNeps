@@ -1,0 +1,33 @@
+# ANSWER-REVIEW SET B (30): FRESH questions for manual claim-by-claim review of live answers after V3.3 + V2.6.
+# Authored after those fixes; never used for tuning. Only q/lang/area matter (expect is empty).
+# Once a failure here is investigated and fixed, the question is burned: retire it and write a new one.
+{"id": "b01", "q": "मेरो नाममा रहेको जग्गा दाजुले नक्कली सहीछाप गरेर बेचिदियो, के गर्ने?", "lang": "ne", "area": "land", "expect": []}
+{"id": "b02", "q": "घरधनीले बिजुली पानीको बिल मेरो नाममा नलिई मलाई तिर्न लगाइरहेको छ, यो ठीक हो?", "lang": "ne", "area": "tenancy", "expect": []}
+{"id": "b03", "q": "तीन महिनादेखि तलब आएको छैन तर कम्पनीले जागिर छाड्न दिँदैन, के गर्ने?", "lang": "ne", "area": "employment", "expect": []}
+{"id": "b04", "q": "चोरी भएको मोबाइल प्रहरीले उजुरी लिएन, कसरी उजुरी दर्ता गराउने?", "lang": "ne", "area": "criminal", "expect": []}
+{"id": "b05", "q": "श्रीमतीले सम्बन्धविच्छेदको मुद्दा हालेको छ, मैले सन्तानको हक पाउन सक्छु?", "lang": "ne", "area": "family", "expect": []}
+{"id": "b06", "q": "सम्झौता गरेर बयाना दिएँ तर बेच्ने मान्छेले जग्गा रजिस्ट्रेसन गर्न मानेन, के गर्ने?", "lang": "ne", "area": "contract", "expect": []}
+{"id": "b07", "q": "अनलाइनबाट मगाएको सामान नक्कली निस्कियो, कसरी उजुरी गर्ने?", "lang": "ne", "area": "consumer", "expect": []}
+{"id": "b08", "q": "साहूले ऋण तिरेपछि पनि तमसुक फिर्ता गरेको छैन, कानुनले के भन्छ?", "lang": "ne", "area": "debt", "expect": []}
+{"id": "b09", "q": "बाबुको मृत्युपछि अंशबण्डा नगरी दाजुले सबै सम्पत्ति कब्जा गर्यो, मैले कसरी हक पाउने?", "lang": "ne", "area": "inheritance", "expect": []}
+{"id": "b10", "q": "साथीले दिएको चेक बाउन्स भयो, कति समयभित्र उजुरी गर्नुपर्छ?", "lang": "ne", "area": "cheque", "expect": []}
+{"id": "b11", "q": "overtime ko rate kati hunchha ra hapta ma kati ghanta kaam garauna milchha?", "lang": "roman", "area": "labour", "expect": []}
+{"id": "b12", "q": "ghar dhani le bhada 3 mahina ko advance liyera pachi farkaudaina, ke garne?", "lang": "roman", "area": "tenancy", "expect": []}
+{"id": "b13", "q": "bike le thokera bhagyo, hospital ko kharcha ko lagi kasari dabi garne?", "lang": "roman", "area": "traffic", "expect": []}
+{"id": "b14", "q": "mero husband le arko bihe garyo, ma ke garna sakchhu?", "lang": "roman", "area": "family", "expect": []}
+{"id": "b15", "q": "facebook ma mero photo edit garera failaidiyo, kasari complaint garne?", "lang": "roman", "area": "cyber", "expect": []}
+{"id": "b16", "q": "freelancing bata kamayeko paisa ma kar lagchha ki lagdaina?", "lang": "roman", "area": "tax", "expect": []}
+{"id": "b17", "q": "pvt ltd darta garna minimum capital ra kati jana shareholder chahincha?", "lang": "roman", "area": "company", "expect": []}
+{"id": "b18", "q": "nagarikta harayo, pratilipi kasari line?", "lang": "roman", "area": "citizenship", "expect": []}
+{"id": "b19", "q": "bank le loan ko kista nabujhera mero ghar nilam garna khojyo, ke garne?", "lang": "roman", "area": "bank", "expect": []}
+{"id": "b20", "q": "college le certificate nadine bhanyo, fee baki chha bhanera, milchha?", "lang": "roman", "area": "education", "expect": []}
+{"id": "b21", "q": "My employer terminated me during probation without notice. Do I get any compensation?", "lang": "en", "area": "employment", "expect": []}
+{"id": "b22", "q": "What are the grounds for divorce in Nepal and who gets child custody?", "lang": "en", "area": "family", "expect": []}
+{"id": "b23", "q": "Can I sell my ancestral property without my brothers' consent?", "lang": "en", "area": "property", "expect": []}
+{"id": "b24", "q": "What is the punishment for theft in Nepal and what is the limitation period to file a case?", "lang": "en", "area": "criminal", "expect": []}
+{"id": "b25", "q": "A shop refuses to refund a defective product. What can I do?", "lang": "en", "area": "consumer", "expect": []}
+{"id": "b26", "q": "Someone is blackmailing me with my private photos. What are my options?", "lang": "en", "area": "cyber", "expect": []}
+{"id": "b27", "q": "What documents are needed to register for VAT in Nepal?", "lang": "en", "area": "tax", "expect": []}
+{"id": "b28", "q": "Can I cancel a signed rental agreement before the term ends?", "lang": "en", "area": "contract", "expect": []}
+{"id": "b29", "q": "What are the penalties if a director of a company fails to hold the annual general meeting?", "lang": "en", "area": "company", "expect": []}
+{"id": "b30", "q": "How do I file a Right to Information request and how long does the office have to reply?", "lang": "en", "area": "rti", "expect": []}

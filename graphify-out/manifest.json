@@ -102,9 +102,9 @@
     "semantic_hash": ""
   },
   "backend/app/generation.py": {
-    "mtime": 1790867990.0601993,
-    "seen": 1790868157.0915484,
-    "ast_hash": "5da8cfa0c994918c2b418af8b70955a5",
+    "mtime": 1790868621.2281954,
+    "seen": 1790868857.1580076,
+    "ast_hash": "16ed23b0d7a9d78812507cb6a56de6d9",
     "semantic_hash": ""
   },
   "backend/app/glossary.py": {
@@ -138,9 +138,9 @@
     "semantic_hash": ""
   },
   "backend/app/retrieval.py": {
-    "mtime": 1790867540.3344517,
-    "seen": 1790868157.0915632,
-    "ast_hash": "8ed991a05ffe8937516fa4d6fc54b644",
+    "mtime": 1790868621.2281954,
+    "seen": 1790868857.1580217,
+    "ast_hash": "1b1455fbef16d7b6a203682aafb276aa",
     "semantic_hash": ""
   },
   "backend/app/routes/__init__.py": {
@@ -180,9 +180,9 @@
     "semantic_hash": "ebdeab89838527366efaadc464e000b3"
   },
   "backend/eval/run_eval.py": {
-    "mtime": 1790781114.4399815,
-    "seen": 1790781130.4068244,
-    "ast_hash": "d9f10a87f95f79a24abfbf5d536f00e1",
+    "mtime": 1790868839.5244832,
+    "seen": 1790868857.1581314,
+    "ast_hash": "48d6d8e386b26af1fa51384b00e5a462",
     "semantic_hash": ""
   },
   "backend/scripts/build_corpus.py": {
@@ -312,9 +312,9 @@
     "semantic_hash": "20c14ed4a8a3cd0b0129a242c1c8c779"
   },
   "backend/tests/test_playbooks.py": {
-    "mtime": 1790780985.977555,
-    "seen": 1790781130.4068832,
-    "ast_hash": "ef8f67ff841a5e4d93cff4f15e5da18f",
+    "mtime": 1790868621.2321954,
+    "seen": 1790868857.1582155,
+    "ast_hash": "7663db2f2fda5220b1d639757880dbcb",
     "semantic_hash": ""
   },
   "backend/tests/test_retrieval.py": {
@@ -546,9 +546,9 @@
     "semantic_hash": ""
   },
   "backend/app/data/playbooks/inheritance_share.yaml": {
-    "mtime": 1790867689.8171537,
-    "seen": 1790868157.0919886,
-    "ast_hash": "c69ac6d9f87d505c8b4db016c801327f",
+    "mtime": 1790868621.2241955,
+    "seen": 1790868857.1584072,
+    "ast_hash": "3dfa6466d9461692380de846eff910d1",
     "semantic_hash": ""
   },
   "backend/app/data/playbooks/land_boundary_dispute.yaml": {
@@ -612,9 +612,9 @@
     "semantic_hash": ""
   },
   "backend/app/data/playbooks/wrongful_termination.yaml": {
-    "mtime": 1790867689.8131273,
-    "seen": 1790868157.0920107,
-    "ast_hash": "9af21a0d19211ab43ecd010b5b37a7d0",
+    "mtime": 1790868621.2281954,
+    "seen": 1790868857.1584284,
+    "ast_hash": "fbea64c535f413ff0de822a48f93cbb5",
     "semantic_hash": ""
   },
   ".claude/CLAUDE.md": {
@@ -708,9 +708,9 @@
     "semantic_hash": ""
   },
   "docs/PROGRESS.md": {
-    "mtime": 1790867990.0961993,
-    "seen": 1790868157.0920234,
-    "ast_hash": "2d84cb663595126960f41250ca81f3a1",
+    "mtime": 1790868621.5596852,
+    "seen": 1790868857.158439,
+    "ast_hash": "624927ffd9ce85cd25da4ffd76a75ef0",
     "semantic_hash": ""
   },
   "docs/SESSION_PROMPTS.md": {
@@ -1092,9 +1092,9 @@
     "semantic_hash": ""
   },
   "docs/PLAYBOOK_AUDIT.md": {
-    "mtime": 1790780985.981555,
-    "seen": 1790781130.4070477,
-    "ast_hash": "58569021605316220b127ec401015687",
+    "mtime": 1790868621.2321954,
+    "seen": 1790868857.1584377,
+    "ast_hash": "e686de1779dc0095e9b3529d09b1106d",
     "semantic_hash": ""
   },
   "backend/scripts/ingest_regulators.py": {
@@ -1404,9 +1404,9 @@
     "semantic_hash": ""
   },
   "backend/app/translit.py": {
-    "mtime": 1790780985.977555,
-    "seen": 1790781130.4067893,
-    "ast_hash": "3f8c1d05aacfa2dd3105557eb187e314",
+    "mtime": 1790868621.2281954,
+    "seen": 1790868857.1580794,
+    "ast_hash": "a1738a0ac8396571100c7282492d2c29",
     "semantic_hash": ""
   },
   "backend/tests/test_query_understanding.py": {
@@ -1458,9 +1458,9 @@
     "semantic_hash": ""
   },
   "backend/eval/answer_review.py": {
-    "mtime": 1790781114.4404223,
-    "seen": 1790781130.4067926,
-    "ast_hash": "3aecabd73187d4a82df82b1d247c03f5",
+    "mtime": 1790868839.524926,
+    "seen": 1790868857.1580844,
+    "ast_hash": "4c29fe7efbb9fcbbfdf339ad6c7b4d48",
     "semantic_hash": ""
   },
   "backend/eval/live_retrieval.py": {
@@ -1677,6 +1677,30 @@
     "mtime": 1790867990.0681992,
     "seen": 1790868157.091802,
     "ast_hash": "ee85ac45bf6dc2f3bb6cef8e133bf242",
+    "semantic_hash": ""
+  },
+  "backend/tests/test_v26_sections.py": {
+    "mtime": 1790868621.2321954,
+    "seen": 1790868857.1582408,
+    "ast_hash": "3a88124eec6cd06f6b8faf3179c46090",
+    "semantic_hash": ""
+  },
+  "backend/app/data/playbooks/company_annual_return_late.yaml": {
+    "mtime": 1790868621.2241955,
+    "seen": 1790868857.1583917,
+    "ast_hash": "879024f4f96a92f1ba20ed54f33fef8f",
+    "semantic_hash": ""
+  },
+  "backend/app/data/playbooks/maternity_leave.yaml": {
+    "mtime": 1790868621.2281954,
+    "seen": 1790868857.1584122,
+    "ast_hash": "a7d8d4616229cfb18a475f35daa1c58a",
+    "semantic_hash": ""
+  },
+  "backend/app/data/playbooks/salary_tax_withholding.yaml": {
+    "mtime": 1790868621.2281954,
+    "seen": 1790868857.158419,
+    "ast_hash": "ad4c6f610de42b1b5fd9c13107925705",
     "semantic_hash": ""
   }
 }
