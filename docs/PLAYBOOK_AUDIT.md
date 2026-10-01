@@ -803,3 +803,20 @@ Open questions for the advocate (one line each, all new plans):
 | consumer_complaint | Added E-Commerce Act 2081 s.10 (return of goods not matching the seller's description); online-order keywords; bank complaints are vetoed (they go to the bank's complaints desk and NRB). | Whether E-Commerce Act s.10 applies to marketplaces that are not the seller. |
 | unpaid_personal_loan | `not_keywords`: bank, finance company, microfinance. | - |
 | wrongful_termination | Devanagari inflections ("कामबाट निकाल्यो" ...). | - |
+
+## V2.6 additions (2026-10-01): three new playbooks and changes to existing ones
+
+Provisions read in the corpus text (`Index.section`), resolved by `tests/test_playbooks.py`. All NEEDS-ADVOCATE-REVIEW.
+
+| Playbook | Status | Provisions | Covers |
+|---|---|---|---|
+| maternity_leave | NEEDS-ADVOCATE-REVIEW | Labour Act ss.45, 162 | 14 weeks' leave, 60 days' full pay, doctor's extra month, 15 days' paternity-care leave; complaint within 6 months. |
+| salary_tax_withholding | NEEDS-ADVOCATE-REVIEW | Income Tax Act s.87 | Employer's duty to withhold at the Schedule 1 rates. The percentages are NOT in s.87 (the plan says so); Schedule 1 is not in the corpus passage. |
+| company_annual_return_late | NEEDS-ADVOCATE-REVIEW | Companies Act ss.80, 81(1), 81(2) | Filing deadlines and the fine table by months late and paid-up capital; the 90% concession for returns filed by Asar 2082. |
+
+- **Open questions:** maternity_leave - whether the 14 weeks include the 6 compulsory weeks and how the 60 paid days count against them (s.45(1)-(3)); salary_tax_withholding - the current Schedule 1 slabs (the Finance Act changes them yearly) and whether the 2058 Act title or the "आर्थिक ऐन, २०८२ ले गरेको संशोधन सहित" copy is authoritative; company_annual_return_late - whether the s.81(2) fine is per director or per company, and whether the 2082 concession has lapsed.
+
+| Existing playbook | Change | NEEDS-ADVOCATE-REVIEW question |
+|---|---|---|
+| wrongful_termination | + Labour Act s.53 (gratuity, 8.33% of basic pay into the Social Security Fund; the note says the text does not state when it may be drawn); keywords for "dismissed without a reason" | Whether gratuity is payable on dismissal for misconduct (the section text names no condition). |
+| inheritance_share | Civil Code s.205 (son, daughter, spouse, parents are अंशियार) moved to the front of the provision list so the plan's pin limit keeps it | none new |
