@@ -21,7 +21,7 @@ from pathlib import Path
 from collections import OrderedDict
 from threading import Lock
 
-from . import claim_checks, config, fit_reply, glossary, llm, playbooks, prompt_guard, structured, supa, tiers, topical_fit, translit
+from . import claim_checks, config, fit_reply, glossary, llm, playbooks, prompt_guard, section_routes, structured, supa, tiers, topical_fit, translit
 from .playbook_matcher import match_scored as match_playbook_scored
 from .playbook_matcher import strong_match as strong_playbook_match
 from .retrieval import get_index
@@ -593,11 +593,40 @@ def search_with_playbook(message: str, analysis: dict, top_k: int | None = None,
                         key=lambda i: (pinned[i]["id"] not in retrieved_ids, i))[:keep]
         pinned = [pinned[i] for i in sorted(ranked)]
     seen = {p["id"] for p in pinned}
+    # V2.7 verified keyword->section routes: sections that govern a situation no playbook covers (or that the matched
+    # plan's gate dropped). They sit right behind the plan's pins; routes can also name a section that is the wrong
+    # law for the situation (an edited photo is not s.298 confidential information) and drop it from pins and results
+    routed, suppress = [], []
+    if config.SECTION_ROUTES:
+        try:
+            routed, suppress = section_routes.routed_entries(" ".join([message, analysis.get("question") or ""]))
+            # a route is more specific than the plan it sits beside: it leads (a section the plan also pins is promoted,
+            # not repeated); sections the plan does not pin are limited so retrieval keeps room
+            in_pins = {p["id"] for p in pinned}
+            room = max(1, top_k - len(pinned) - 2) if pinned else section_routes.ROUTE_MAX
+            new = 0
+            kept = []
+            for r in routed:
+                if r["id"] in in_pins:
+                    kept.append({**r, "plan_pin": True})
+                elif new < room:
+                    kept.append(r)
+                    new += 1
+            routed = kept
+        except Exception:  # noqa: BLE001 - routing is an extra; never break retrieval
+            log.exception("section routes failed")
+            routed, suppress = [], []
+        if suppress:
+            pinned = [p for p in pinned if not section_routes.is_suppressed(p, suppress)]
+        routed_ids = {r["id"] for r in routed}
+        pinned = [p for p in pinned if p["id"] not in routed_ids]
+        seen = {p["id"] for p in pinned} | routed_ids
     # sections the curated plan marks as misleading for this situation
     # (e.g. deposit recovery vs. the tenant's early-departure notice rule)
     excluded = {(x.get("law_title_ne"), str(x.get("section"))) for x in (playbook or {}).get("exclude_provisions", [])}
     rest = [s for s in laws if s["id"] not in seen
-            and (s.get("doc_title_ne"), str(s.get("section") or "")) not in excluded]
+            and (s.get("doc_title_ne"), str(s.get("section") or "")) not in excluded
+            and not section_routes.is_suppressed(s, suppress)]
     if bank:
         # NRB directives rank below the Acts on generic overlap, so a banking question that names its
         # governing directive would otherwise never see it: search the directive shards explicitly and
@@ -606,7 +635,7 @@ def search_with_playbook(message: str, analysis: dict, top_k: int | None = None,
         reg_ids = {s["id"] for s in reg}
         lead = [s for s in rest[:1] if s["id"] not in reg_ids and _BANK_DOC.search(s.get("doc_title_ne") or "")]
         rest = lead + reg + [s for s in rest if s["id"] not in reg_ids and s not in lead]
-    laws = (pinned + rest)[:max(top_k, len(pinned))]
+    laws = (routed + pinned + rest)[:max(top_k, len(pinned) + len(routed))]
     precedents = []
     if precedent_k and analysis.get("wants_precedent", True):
         precedents = idx.search(queries, top_k=precedent_k + 2, category="precedent", per_doc_cap=1)
@@ -988,7 +1017,7 @@ def run(message: str, language: str = "auto", history: list[dict] | None = None,
 
     query = analysis.get("question") or message
     sources = search(query, analysis, playbook=playbook)
-    if playbook and not any(s.get("pinned") for s in sources):
+    if playbook and not any(s.get("pinned") and (not s.get("routed") or s.get("plan_pin")) for s in sources):
         playbook = None  # the relevance gate (search_with_playbook) dropped the plan: no card, no guide
     playbook_card = _playbook_card(playbook)
     fit_report = None

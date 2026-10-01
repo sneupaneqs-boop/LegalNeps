@@ -122,6 +122,8 @@ TRAILING_PROVISO_CHECK = os.getenv("TRAILING_PROVISO_CHECK", "1").lower() in ("1
 # extractive fallback, and makes the answer abstain ("no provision directly answers this") when fewer than
 # FIT_MIN_ONTOPIC statute passages pass. FIT_GATE=0 restores V3.2 behaviour. Fails open (no model file -> no gate).
 FIT_GATE = os.getenv("FIT_GATE", "1").lower() in ("1", "true", "yes")
+# V2.7: verified keyword -> section routes (app/section_routes.py, data/section_routes.yaml); 0 = V3.3 retrieval
+SECTION_ROUTES = os.getenv("SECTION_ROUTES", "1").lower() in ("1", "true", "yes")
 FIT_MAX_QUERIES = int(os.getenv("FIT_MAX_QUERIES", "4"))    # queries (of build_queries) whose cosine is maximised
 FIT_USE_DENSE = os.getenv("FIT_USE_DENSE", "0").lower() in ("1", "true", "yes")  # dense features did not help held-out
 FIT_MIN_ONTOPIC = int(os.getenv("FIT_MIN_ONTOPIC", "2"))    # on-topic statute passages needed to ask the model at all

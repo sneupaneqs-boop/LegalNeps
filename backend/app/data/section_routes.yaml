@@ -1,0 +1,159 @@
+# V2.7 verified keyword -> SECTION routes (see app/section_routes.py for the schema and the guarantees).
+# Every provision was read in the corpus text (tests/test_v27_routes.py resolves each one and checks it is in force).
+# EVERY row is NEEDS-ADVOCATE-REVIEW (docs/PLAYBOOK_AUDIT.md): the keyword gates are a retrieval aid, not legal advice.
+# `source` says which labelled live answer (V3.3 review, set B, 2026-10-01) the row was written from.
+
+- id: forged_document
+  source: "set B b01 (forged signature on a land sale; also the default-set miss 'forges a document or signature')"
+  all:
+    - [सहीछाप, हस्ताक्षर, दस्तखत, नक्कली सही, जाली सही, लिखत, राजीनामा, कागजात, signature, signatures, forged document,
+       sahi, sahichhap, sahichap, dastakhat, dastkhat, document, documents, deed, lalpurja, rajinama]
+    - [नक्कली, जाली, कीर्ते, जालसाजी, forged, forge, forgery, forging, forge garera, fake, jali, jaali, kirte, jalsaji, jaalsaji,
+       nakkali, nakali, nakli]
+  not: [fake product, fake id, fake account, fake news, fake currency, नक्कली सामान, नक्कली वस्तु, नक्कली खाता]
+  provisions:
+    - {law_title_ne: "मुलुकी अपराध संहिता, २०७४", section: "276 (1)"}
+    - {law_title_ne: "मुलुकी अपराध संहिता, २०७४", section: "279"}
+    - {law_title_ne: "मुलुकी देवानी संहिता, २०७४", section: "421"}
+
+- id: unpaid_wages
+  source: "set B b03 (three months' wages unpaid; the unpaid_salary plan was dropped by the relevance gate)"
+  all:
+    - [तलब, पारिश्रमिक, ज्याला, salary, salaries, wage, wages, talab, talabh, jyala, paritramik, pay]
+    - [आएको छैन, आएन, नपाएको, नपाइ, पाएको छैन, पाएन, नदिएको, दिएको छैन, नदिने, दिँदैन, दिदैन, बाँकी, नआएको, महिनादेखि,
+       unpaid, not paid, not been paid, hasn t been paid, havent been paid, haven t been paid, withheld, owed, overdue,
+       payena, paena, aayena, aaena, nadiyeko, nadine, nadinna, nadeko, bakyauta, bakeya, bakiya]
+  not: [निजामती, सेना, सैनिक, civil servant, army, soldier, mp salary]
+  provisions:
+    - {law_title_ne: "श्रम ऐन, २०७४", section: "35"}
+    - {law_title_ne: "श्रम ऐन, २०७४", section: "148"}
+
+- id: resignation_not_allowed
+  source: "set B b03 ('the company will not let me leave the job')"
+  all:
+    - [राजिनामा, जागिर छाड्न, नोकरी छाड्न, काम छाड्न, जागिर छोड्न, resign, resigns, resigned, resignation, rajinama, quit, quitting,
+       leave the job, leave my job, job chhadna, kaam chhadna, job chhodna]
+    - [दिँदैन, दिदैन, नदिने, दिएन, स्वीकार, मान्दैन, मानेन, नमान, रोक, allow, allows, accept, refuse, refuses, refused, dinna,
+       dindaina, dinchhaina, dinna, manena, mandaina, not letting, will not let, wont let, won t let]
+  not: [निजामती, सेना, सैनिक, civil servant, army, soldier]
+  provisions:
+    - {law_title_ne: "श्रम ऐन, २०७४", section: "141"}
+    - {law_title_ne: "श्रम ऐन, २०७४", section: "148"}
+
+- id: probation_termination
+  source: "set B b21 (terminated during probation)"
+  all:
+    - [probation, probationary, परीक्षणकाल, परीक्षण काल, parikshan kal, parikshankal, trial period, परीक्षण अवधि]
+  provisions:
+    - {law_title_ne: "श्रम ऐन, २०७४", section: "13"}
+
+- id: overtime_rate
+  source: "set B b11 (what is the overtime rate)"
+  all:
+    - [overtime, over time, ovartime, obhartime, ओभरटाइम, अतिरिक्त समय, बढी समय, थप समय, extra hours, extra time]
+    - [rate, rates, दर, कति, डेढी, पारिश्रमिक, पैसा, paisa, kati, pay, paid, payment, how much, double, one and a half]
+  provisions:
+    - {law_title_ne: "श्रम ऐन, २०७४", section: "31"}
+
+- id: divorce_grounds
+  source: "set B b22 (grounds for divorce)"
+  all:
+    - [सम्बन्ध विच्छेद, सम्बन्धविच्छेद, पारपाचुके, divorce, divorcing, bichhed, bichchhed, talak, chhodpatra, छुट्टिन]
+    - [ground, grounds, reason, reasons, आधार, कारण, कुन अवस्थामा, कुन कारणले, कसरी, when can, can i divorce, can she divorce,
+       can he divorce, how to divorce, how can, adhar, karan, kasari]
+  provisions:
+    - {law_title_ne: "मुलुकी देवानी संहिता, २०७४", section: "94"}
+    - {law_title_ne: "मुलुकी देवानी संहिता, २०७४", section: "95"}
+
+- id: child_custody_on_divorce
+  source: "set B b05 (wife filed for divorce; do I get the children?), b22"
+  all:
+    - [सन्तान, छोराछोरी, छोरा छोरी, बच्चा, बच्चाबच्ची, बालबालिका, नाबालक, child, children, custody, kids, santan, santanko, bachha,
+       bachcha, chhora chhori, chorachori, nabalak]
+    - [सम्बन्ध विच्छेद, सम्बन्धविच्छेद, विच्छेद, पारपाचुके, छुट्टिए, मुद्दा हाल, divorce, divorced, divorcing, separation, separated,
+       bichhed, bichchhed, sambandha bichhed, sambandh bichhed, talak, chhodpatra, case filed, filed a case]
+  provisions:
+    - {law_title_ne: "मुलुकी देवानी संहिता, २०७४", section: "115"}
+    - {law_title_ne: "मुलुकी देवानी संहिता, २०७४", section: "116"}
+    - {law_title_ne: "मुलुकी देवानी संहिता, २०७४", section: "114"}
+
+- id: ancestral_property_sale
+  source: "set B b23 (sell ancestral property without the brothers' consent)"
+  all:
+    - [ancestral, joint family, joint property, undivided, coparcener, co parcener, पैतृक, पुर्ख्यौली, पुर्खौली, सगोल, अंशियार,
+       पुख्र्यौली, purkhauli, purkhyauli, paitrik, sagol, anshiyar, brothers, brother, भाइ, दाजुभाइ, दाजु]
+    - [sell, sold, sale, selling, transfer, dispose, बेच, बिक्री, हस्तान्तरण, बेचिदि, bechne, bechna, becheko, bechdiyo, bikri]
+    - [consent, permission, without, मञ्जुरी, सहमति, नसोधी, नसोधिकन, बिना, बेगर, sahamati, sahmati, majuri, manjuri, nasodhi,
+       nasodhikana, bina, bagair]
+  provisions:
+    - {law_title_ne: "मुलुकी देवानी संहिता, २०७४", section: "419"}
+
+- id: theft_penalty_limitation
+  source: "set B b24 (theft punishment and limitation period)"
+  all:
+    - [theft, stealing, steal, stole, stolen, चोरी, chori, chorne, choryo]
+    - [limitation, time limit, deadline, how long, within what, हदम्याद, म्याद, कति समय, कहिलेसम्म, कति दिन, hadmyad, kati samay,
+       kahile samma, punishment, penalty, sentence, jail, imprisonment, सजाय, कैद, sajaya, sajay]
+  provisions:
+    - {law_title_ne: "मुलुकी अपराध संहिता, २०७४", section: "241"}
+    - {law_title_ne: "मुलुकी अपराध संहिता, २०७४", section: "255"}
+
+- id: blackmail_extortion
+  source: "set B b26 (blackmail with private photos)"
+  all:
+    - [blackmail, blackmailing, blackmailed, extort, extortion, ब्ल्याकमेल, ब्लैकमेल, धम्की, डर त्रास, डरत्रास, त्रासमा पारी, dhamki,
+       blyakmel, blakmel, threaten, threatens, threatening]
+    - [photo, photos, picture, pictures, video, videos, private, intimate, nude, leak, तस्बिर, तस्विर, तस्वीर, फोटो, भिडियो,
+       tasbir, tasvir, money, paisa, पैसा, रकम, demand, demands, माग]
+  provisions:
+    - {law_title_ne: "मुलुकी अपराध संहिता, २०७४", section: "253"}
+    - {law_title_ne: "वैयक्तिक गोपनीयता सम्बन्धी ऐन, २०७५", section: "16"}
+
+- id: edited_photo_privacy
+  source: "set B b15 (edited photo spread on Facebook; Criminal Code s.298 was the wrong law)"
+  all:
+    - [photo, photos, picture, pictures, image, images, तस्बिर, तस्विर, तस्वीर, फोटो, tasbir, tasvir]
+    - [edit, edited, editing, morph, morphed, photoshop, photoshopped, manipulated, doctored, deepfake, एडिट, बनावटी, जोडेर, बिगारेर,
+       edit garera, edit gare]
+  provisions:
+    - {law_title_ne: "वैयक्तिक गोपनीयता सम्बन्धी ऐन, २०७५", section: "16"}
+    - {law_title_ne: "वैयक्तिक गोपनीयता सम्बन्धी ऐन, २०७५", section: "29"}
+  suppress:
+    - {law_title_ne: "मुलुकी अपराध संहिता, २०७४", section: "298"}
+
+- id: online_counterfeit_goods
+  source: "set B b07 (counterfeit item delivered by an online order)"
+  all:
+    - [online, onlin, अनलाइन, अनलाईन, daraz, ecommerce, e commerce, website, app, मगाएको, मगाए, order, ordered, orderd]
+    - [नक्कली, नक्कल, डुप्लिकेट, खराब, बिग्रेको, फरक, fake, counterfeit, duplicate, defective, damaged, wrong item, nakkali, nakali, nakli,
+       kharab, kharaab]
+  not: [fake id, fake account, fake profile, fake news, nakali id]
+  provisions:
+    - {law_title_ne: "उपभोक्ता संरक्षण ऐन, २०७५", section: "14"}
+    - {law_title_ne: "उपभोक्ता संरक्षण ऐन, २०७५", section: "16 (2)"}
+
+- id: cheque_complaint_time
+  source: "set B b10 (cheque bounced - within what time must I complain)"
+  all:
+    - [cheque, cheques, chek, चेक, check bounce, check bounced]
+    - [how long, how much time, time limit, within what, deadline, limitation, हदम्याद, म्याद, कति समय, कति दिन, कहिलेसम्म, कहिले सम्म,
+       समयभित्र, kati samay, kati din, kahile samma, hadmyad, myad]
+  provisions:
+    - {law_title_ne: "बैङ्किङ्ग कसूर तथा सजाय ऐन, २०६४", section: "17"}
+
+- id: vat_registration
+  source: "set B b27 (documents needed to register for VAT)"
+  all:
+    - [vat, भ्याट, मूल्य अभिवृद्धि कर, bhat, bhyat, value added tax]
+    - [register, registration, registering, दर्ता, darta, enrol, enroll]
+  provisions:
+    - {law_title_ne: "मूल्य अभिवृद्धि कर ऐन, २०५२", section: "10"}
+
+- id: rti_request
+  source: "set B b30 (RTI request: how to file and the reply time)"
+  all:
+    - [rti, right to information, सूचनाको हक, सूचना माग्न, सूचना माग, suchanako hak, suchana ko hak, suchana mang]
+    - [request, apply, file, filing, निवेदन, माग्न, कसरी, how, time, days, reply, जवाफ, कति दिन, कति समय, fee, दस्तुर, nibedan, kasari]
+  provisions:
+    - {law_title_ne: "सूचनाको हक सम्बन्धी ऐन, २०६४", section: "7"}
+    - {law_title_ne: "सूचनाको हक सम्बन्धी ऐन, २०६४", section: "8"}
