@@ -440,6 +440,11 @@ def judge(cands: list[dict], scorer: Scorer, model: dict | None = None, ranks: l
         if f["specialist"] and not prec:
             reasons.append("specialist:" + "+".join(f["specialist"]))
         pinned = bool(s.get("pinned"))
+        if not prec and "low_topical_fit" in reasons and direct_fit(s, f, scorer.profile)[1] == "named_law":
+            # V2.7: the fitted score is a weak lexical model (V3.3 live review: it failed the Motor Vehicles Act s.163 for a
+            # hit-and-run question); a passage of the statute the question's own concepts name is not "low fit" - only a
+            # specialist regime or a non-substantive chunk can still rule it out
+            reasons.remove("low_topical_fit")
         why = None if (prec or pinned or scorer.profile.wants_form) else non_substantive(s)
         if why:
             reasons.append("non_substantive:" + why)

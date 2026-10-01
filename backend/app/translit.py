@@ -102,7 +102,7 @@ S ; rajinama pass|rajinama garne|rajinamaa pass|rajinama lekhne|sale deed ; र�
 S ; sarkari jagga|sarkari jaggaa|ailani|parti jagga|guthi jagga|guthi ; सरकारी जग्गा|ऐलानी|पर्ती|गुठी ; MAL
 S ; mohi|mohiyani|mohiyani haq|tenant farmer|kisan mohi ; मोही|मोहीयानी हक ; MAL
 S ; sima|simana|sim ana|boundary|hadbandi|sandhiyar|sandhiyarko jagga|chhimeki ; सिमाना|हदबन्दी|साँध|सिमाना ; CIV
-S ; ghar bahal|ghar bhada|ghar bhaada|kotha bhada|room rent|house rent|bahal|bahalma|bahalwala|bahaalwala|derawal|dera wal|tenant|tenants ; घर बहाल|बहाल|बहालवाला|भाडा ; CIV
+S ; ghar bahal|ghar bhada|ghar bhaada|kotha bhada|room rent|house rent|bahal|bahalma|bahalwala|bahaalwala|derawal|dera wal|tenant|tenants|rent|rental|rented|renting|lease|leased|tenancy|rental agreement|rent agreement|lessee|lessor ; घर बहाल|बहाल|बहालवाला|भाडा ; CIV
 S ; gharbeti|gharbetti|gharbeti le|ghardhani|ghar dhani|landlord|makan malik|makanmalik|house owner ; घरधनी ; CIV
 S ; deposit|dharauti|dharauta|dharautee|dharaut|security deposit|advance rent ; धरौटी|अग्रिम ; CIV
 S ; jamanat|jamanata|zamanat|bail|bail lidaina|jamanat rakhera|dharauti rakhera|dharauti jamanat ; जमानत|धरौटी|थुनामा ; CRIMP
@@ -388,6 +388,15 @@ S ; भ्याट दर्ता / भ्याट टर्नओभर / �
 S ; नक्कली|जाली सहीछाप|हस्ताक्षर|दस्तखत / सहीछाप|हस्ताक्षर|दस्तखत नक्कली|जाली|कीर्ते / कीर्ते गर* / जालसाजी ; कीर्ते|जालसाजी|झुठ्ठा लिखत ; CRIM
 S ; ब्ल्याकमेल*|ब्लैकमेल* / डर त्रास / धम्की दिएर पैसा|रकम ; आपराधिक लाभ|एक्सटर्सन|डर त्रास ; CRIM
 S ; परीक्षणकाल / परीक्षण काल ; परीक्षणकाल|परीक्षण ; LAB
+S ; विवाह|बिहे|बहुविवाह / दोस्रो|अर्को विवाह|बिहे ; विवाह|बहुविवाह|दोस्रो विवाह ; CIV|CRIM
+S ; सम्बन्धविच्छेद|पारपाचुके / सम्बन्ध विच्छेद ; सम्बन्ध विच्छेद|सम्बन्ध विच्छेद मञ्जुरी ; CIV
+S ; अंशबण्डा|अंशियार|सगोल / पैतृक सम्पत्ति ; अंश|अंशबण्डा|अंशियार ; CIV
+S ; पक्राउ|थुनुवा|हिरासत*|थुना ; पक्राउ|थुना|थुनुवा|हिरासत ; CRIMP
+S ; चेक ; चेक अनादर|चेक|विनिमेय अधिकारपत्र ; BANKOFF|NEG
+S ; श्रमिक|कामदार|रोजगारदाता|ओभरटाइम / प्रसूति बिदा ; श्रमिक|कामदार|रोजगारदाता ; LAB
+S ; चोरी|डकैती|लुटपाट ; चोरी|डकैती|लुटपाट ; CRIM
+S ; नागरिकता ; नागरिकता|नागरिकताको प्रमाणपत्र ; CIT
+S ; उपभोक्ता|पसले|बिक्रेता ; उपभोक्ता|बिक्रेता|क्षतिपूर्ति ; CONS
 S ; तस्बिर|तस्विर|तस्वीर|फोटो एडिट*|बनावटी|मोर्फ*|बिगार* / एडिट* तस्बिर|तस्विर|तस्वीर|फोटो ; तस्विर|वैयक्तिक गोपनीयता|गोपनीयता ; PRIV
 S ; राजिनामा नदि* / राजिनामा स्वीकार / जागिर छाड्न दिँदैन / नोकरी छाड्न नदि* ; राजिनामा|स्वेच्छाले रोजगारी अन्त्य|सुविधा भुक्तानी ; LAB
 """

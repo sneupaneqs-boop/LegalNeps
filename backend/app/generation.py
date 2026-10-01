@@ -1031,8 +1031,9 @@ def run(message: str, language: str = "auto", history: list[dict] | None = None,
     if not sources:
         yield "done", {"answer": CANNED[("unclear", lang)], "llm_used": False, "cached": False, "llm_calls": llm_calls}
         return
-    if fit_report is not None and len(fit_reply.on_topic_laws(sources)) < config.FIT_MIN_ONTOPIC \
-            and not any(s.get("pinned") for s in sources):
+    if fit_report is not None and not any(s.get("pinned") for s in sources) and (
+            len(fit_reply.on_topic_laws(sources)) < config.FIT_MIN_ONTOPIC
+            or (config.FIT_ABSTAIN_STRICT and not fit_reply.direct_laws(sources))):
         # too few on-topic provisions: do not ask the model to invent an answer (V3.3)
         answer = fit_reply.abstain_answer(sources, lang, DISCLAIMER_EN if lang == "en" else DISCLAIMER_NE, playbook)
         yield from _simulate_stream(answer)
