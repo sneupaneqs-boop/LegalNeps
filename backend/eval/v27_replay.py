@@ -23,8 +23,9 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))
+sys.path.insert(0, str(ROOT / "eval"))
 
-from app import config, fit_reply, generation as g  # noqa: E402
+from app import config, fit_reply, generation as g, structured  # noqa: E402
 from app.retrieval import get_index  # noqa: E402
 
 R = ROOT / "eval" / "reports"
@@ -79,6 +80,18 @@ def decide(question: str, answer: dict | None = None) -> dict:
             "failed": [(s["id"], s.get("off_topic_why")) for s in sources if s.get("off_topic")]}
 
 
+def rules_left(answer_id: str) -> int | None:
+    """Labelled rule/deadline/penalty sentences of a set-B answer that still pass every check (V3.3 + V2.7); None when the
+    answer has no labelled sentences (not structured)."""
+    import v27_sentences as vs
+    sents = [x for x in vs.load_sentences() if x["answer"] == f"r3:{answer_id}"]
+    if not sents:
+        return None
+    vs.config.CONDITION_CHECKS = vs.config.GUARDS_V27 = True
+    kept = [x for x in sents if vs.reason_for(x) is None]
+    return sum(1 for x in kept if (x.get("kind") or "rule") in ("rule", "deadline", "penalty")), len(kept), len(sents)
+
+
 def fallback_text(d: dict, lang: str) -> str:
     return fit_reply.extractive_answer(d["sources"], lang, "DISCLAIMER", None, d["playbook"])
 
@@ -100,6 +113,10 @@ def main() -> None:
             new = "abstain"
         elif live == "structured":
             new = "structured"
+            if args.set == "answers30b":
+                left = rules_left(a["id"])
+                if left is not None and left[0] < structured.MIN_VERIFIED_RULES:
+                    new = "fallback"  # too few verified rules survive the V2.7 sentence checks
         else:
             # a fallback / no-LLM answer stays a fallback, but may now be an abstain (no direct fit among the shown)
             txt = fallback_text(d, lang)

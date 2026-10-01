@@ -21,7 +21,7 @@ from pathlib import Path
 from collections import OrderedDict
 from threading import Lock
 
-from . import claim_checks, config, fit_reply, glossary, llm, playbooks, prompt_guard, section_routes, structured, supa, tiers, topical_fit, translit
+from . import claim_checks, config, fit_reply, glossary, llm, playbooks, prompt_guard, section_routes, situation_guards, structured, supa, tiers, topical_fit, translit
 from .playbook_matcher import match_scored as match_playbook_scored
 from .playbook_matcher import strong_match as strong_playbook_match
 from .retrieval import get_index
@@ -601,6 +601,8 @@ def search_with_playbook(message: str, analysis: dict, top_k: int | None = None,
     if config.SECTION_ROUTES:
         try:
             routed, suppress = section_routes.routed_entries(" ".join([message, analysis.get("question") or ""]))
+            if suppress:  # the wrong-law section leaves the plan's pins first, so the room left is counted without it
+                pinned = [p for p in pinned if not section_routes.is_suppressed(p, suppress)]
             # a route is more specific than the plan it sits beside: it leads (a section the plan also pins is promoted,
             # not repeated); sections the plan does not pin are limited so retrieval keeps room
             in_pins = {p["id"] for p in pinned}
@@ -813,14 +815,21 @@ def apply_topical_gate(message: str, analysis: dict, sources: list[dict], playbo
         log.exception("topical fit gate failed: answering without it")
         return None
     failed = []
+    q_text = " ".join([message, analysis.get("question") or ""])
     for s, v in zip(sources, verdicts):
         s.pop("off_topic", None)
         s["fit_score"] = round(v.score, 3)
         s["fit_direct"] = bool(v.direct)
-        if not v.ok:
+        reasons = list(v.reasons)
+        if v.ok and not s.get("pinned"):
+            gid = situation_guards.source_violation(q_text, s, v27=config.GUARDS_V27)  # V2.7: known wrong-law passages
+            if gid:
+                reasons.append("guard:" + gid)
+        if reasons and not s.get("pinned"):
             s["off_topic"] = True
-            s["off_topic_why"] = v.reasons
-            failed.append({"id": s.get("id"), "why": v.reasons})
+            s["off_topic_why"] = reasons
+            s["fit_direct"] = False
+            failed.append({"id": s.get("id"), "why": reasons})
     return {"checked": len(sources), "off_topic": len(failed), "failed": failed}
 
 

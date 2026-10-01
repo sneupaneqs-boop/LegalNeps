@@ -171,3 +171,29 @@ def violation(question: str, sentence: str, quotes: list[str], source: dict, v27
         if g.sentence and g.sentence.search(sentence or ""):
             return g.id
     return None
+
+
+def source_violation(question: str, source: dict, v27: bool = True) -> str | None:
+    """The id of the guard that rules this PASSAGE out for the question (used before generation and for the extractive
+    fallback, so the wrong-law passage is never offered as "the provisions that match your question"): its law (whole law
+    or section range) is forbidden, or its law title / heading / opening names the regime or party the guard keys on (the
+    heading "जमानत दिने व्यक्ति साहूको रूपमा प्रतिस्थापन हुने" for a borrower who repaid his lender)."""
+    if not question:
+        return None
+    head = " ".join(str(source.get(k) or "") for k in ("title_ne", "title_en")) + " " + str(source.get("text_ne") or "")[:160]
+    for g in GUARDS:
+        if g.v27 and not v27:
+            continue
+        if not all(c.search(question) for c in g.cues) or any(u.search(question) for u in g.unless):
+            continue
+        title = " ".join(str(source.get(k) or "") for k in ("doc_title_ne", "doc_title_en", "source_ne", "source_en", "title_ne"))
+        if g.law and g.law.search(title):
+            if g.sections:
+                n = _section_no(str(source.get("section") or ""))
+                if any(lo <= n <= hi for lo, hi in g.sections):
+                    return g.id
+            elif g.whole_law:
+                return g.id
+        if g.quote and g.quote.search(head) and source.get("category") != "precedent":
+            return g.id
+    return None

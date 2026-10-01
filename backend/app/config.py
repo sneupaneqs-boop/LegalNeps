@@ -130,6 +130,7 @@ SECTION_ROUTES = os.getenv("SECTION_ROUTES", "1").lower() in ("1", "true", "yes"
 FIT_MAX_QUERIES = int(os.getenv("FIT_MAX_QUERIES", "4"))    # queries (of build_queries) whose cosine is maximised
 FIT_USE_DENSE = os.getenv("FIT_USE_DENSE", "0").lower() in ("1", "true", "yes")  # dense features did not help held-out
 FIT_MIN_ONTOPIC = int(os.getenv("FIT_MIN_ONTOPIC", "2"))    # on-topic statute passages needed to ask the model at all
+FIT_FORM_FILTER = os.getenv("FIT_FORM_FILTER", "1").lower() in ("1", "true", "yes")  # V2.7: forms / schedules / blank formats are not provisions
 FIT_STRICT_COV_HEAD = float(os.getenv("FIT_STRICT_COV_HEAD", "0.30"))  # V2.7 strict ("direct") fit: heading+title coverage of the question
 FIT_STRICT_H_UNEXPL = float(os.getenv("FIT_STRICT_H_UNEXPL", "0.60"))  # ...and at most this share of the heading unexplained
 FIT_ABSTAIN_STRICT = os.getenv("FIT_ABSTAIN_STRICT", "1").lower() in ("1", "true", "yes")  # V2.7: no directly-fitting passage -> abstain (fallback)

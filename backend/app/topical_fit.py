@@ -126,6 +126,7 @@ def specialist_hits(head_text: str, law_title: str, opening: str, question_side:
 # ------------------------------------------------------------------ non-substantive chunks (V2.7)
 _PUA_LEAD = re.compile(r"^[\W\uf000-\uf8ff_]+")
 _SCHEDULE_OPEN = re.compile(r"^(?:अनुसूची|परिशिष्ट|तालिका|Schedule|Annex(?:ure)?)\s*[-–—]?\s*[०-९0-9]*[क-ह]?\s*[.:]?\s*(?:\(|$)", re.I)
+_SCHEDULE_REF = re.compile(r"(?m)^\W*अनुसूची[^\n(]{0,14}\s*\([^\n]{0,80}?सँग\s*सम्बन्धित")  # "अनुसूची–३ (नियम ५(ग) सँग सम्बन्धित)" after a date line
 _BLANKS = re.compile(r"…|\.{3,}|_{3,}")
 
 
@@ -139,7 +140,7 @@ def non_substantive(src: dict) -> str | None:
         return None
     text = str(src.get("text_ne") or "")
     head = _PUA_LEAD.sub("", text[:80])
-    if _SCHEDULE_OPEN.match(head):
+    if _SCHEDULE_OPEN.match(head) or _SCHEDULE_REF.search(text[:200]):
         return "schedule_form"
     blanks = len(_BLANKS.findall(text))
     if blanks >= 4 and blanks * 100 >= len(text):  # >= 1 blank per 100 characters
@@ -445,7 +446,7 @@ def judge(cands: list[dict], scorer: Scorer, model: dict | None = None, ranks: l
             # hit-and-run question); a passage of the statute the question's own concepts name is not "low fit" - only a
             # specialist regime or a non-substantive chunk can still rule it out
             reasons.remove("low_topical_fit")
-        why = None if (prec or pinned or scorer.profile.wants_form) else non_substantive(s)
+        why = None if (prec or pinned or scorer.profile.wants_form or not config.FIT_FORM_FILTER) else non_substantive(s)
         if why:
             reasons.append("non_substantive:" + why)
         direct, direct_why = direct_fit(s, f, scorer.profile)

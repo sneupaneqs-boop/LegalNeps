@@ -71,7 +71,7 @@ def related_candidates(sources: list[dict], limit: int | None = None) -> list[tu
     limit = config.FIT_RELATED_MAX if limit is None else limit
     cand = [(i, s) for i, s in enumerate(sources, 1)
             if s.get("category") != "precedent"
-            and not any(str(w).startswith(("specialist:", "non_substantive:")) for w in s.get("off_topic_why") or [])]
+            and not any(str(w).startswith(("specialist:", "non_substantive:", "guard:")) for w in s.get("off_topic_why") or [])]
     cand.sort(key=lambda x: (bool(x[1].get("off_topic")), x[1].get("fit_score", 0.0), x[0]))
     return sorted(cand[:limit])
 
