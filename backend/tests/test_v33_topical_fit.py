@@ -332,3 +332,28 @@ def test_prompt_rules_carry_the_v33_additions_compactly():
     for needle in ("asked quantity", "second heading", "connective", "different subject"):
         assert needle in r
     assert len(r) < 4300
+
+
+def test_malformed_json_from_a_free_model_keeps_its_intact_cited_sentences():
+    # real raw reply (live, 2026-10-01): keys turned into separate strings after the first block
+    from app import structured
+    raw = ('{"blocks":[{"heading":"","sentences":[{"text":"जग्गा नक्कली हस्ताक्षरले बेचेकोमा तपाईंको चिन्ता बुझेँ।",'
+           '"kind":"empathy","cites":[]}]},"heading",":","मुख्य नियम","sentences",":",'
+           '[{"text":"जग्गा प्राप्ति ऐन, २०३४ को दफा २३ अनुसार स्थानीय अधिकारीले पन्ध्र दिनभित्र लेखी पठाउनुपर्छ।",'
+           '"kind":"rule","cites":[{"n":2,"quote":"पन्ध्र दिनभित्र त्यस्तो जग्गाको दर्ताको लगत रहेको कार्यालयलाई लेखी पठाउनु पर्नेछ"}]},'
+           '{"text":"उक्त कार्यालयले यथाशीघ्र सम्पन्न गरी जानकारी दिनुपर्छ।","kind":"procedure",'
+           '"cites":[{"n":2,"quote":"यथाशीघ्र सम्पन्न गरी त्यसको जानकारी स्थानीय अधिकारी"}]}],'
+           '"gaps",":",[],"follow_up_questions",":",["के तपाईंले प्रतिलिपि तयार गर्नुभएको छ?"]]}')
+    doc, complete = structured.parse_answer(raw)
+    assert doc is not None and not complete
+    sents = [s for b in doc["blocks"] for s in b["sentences"]]
+    assert len(sents) == 3 and sum(1 for s in sents if s["cites"]) == 2
+    heads = [b["heading"] for b in doc["blocks"]]
+    assert "मुख्य नियम" in heads
+
+
+def test_well_formed_json_is_untouched_by_the_loose_parser():
+    from app import structured
+    raw = '{"blocks":[{"heading":"Key rules","sentences":[{"text":"A rule.","kind":"rule","cites":[{"n":1,"quote":"q"}]}]}],"gaps":[]}'
+    doc, complete = structured.parse_answer(raw)
+    assert complete and len(doc["blocks"]) == 1 and doc["blocks"][0]["heading"] == "Key rules"

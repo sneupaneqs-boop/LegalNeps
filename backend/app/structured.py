@@ -182,6 +182,40 @@ def _salvage(text: str) -> dict | None:
     return obj
 
 
+_SENT_START = re.compile(r'\{\s*"text"\s*:')
+_HEADING_TOKEN = re.compile(r'"heading"\s*[:,]\s*(?:":"\s*,\s*)?:?\s*"((?:[^"\\]|\\.)*)"')
+
+
+def _loose_blocks(text: str) -> list[dict]:
+    """Free-tier models sometimes emit JSON-ish text whose structure is broken (keys turned into separate
+    strings, "heading",":","..."), so nothing nests under "blocks". Their sentence objects are usually
+    intact: find every {"text": ...} object wherever it sits, and give it the nearest heading before it."""
+    found: list[tuple[int, str, dict]] = []
+    for m in _SENT_START.finditer(text):
+        try:
+            obj, _ = _DEC.raw_decode(text, m.start())
+        except json.JSONDecodeError:
+            continue
+        if isinstance(obj, dict) and isinstance(obj.get("text"), str):
+            heads = list(_HEADING_TOKEN.finditer(text[:m.start()]))
+            try:
+                heading = json.loads(f'"{heads[-1].group(1)}"') if heads else ""
+            except ValueError:
+                heading = ""
+            found.append((m.start(), heading, obj))
+    blocks: list[dict] = []
+    for _, heading, obj in found:
+        if blocks and blocks[-1]["heading"] == heading:
+            blocks[-1]["sentences"].append(obj)
+        else:
+            blocks.append({"heading": heading, "sentences": [obj]})
+    return blocks
+
+
+def _n_sentences(doc: dict | None) -> int:
+    return sum(len(b.get("sentences") or []) for b in (doc or {}).get("blocks", []))
+
+
 def parse_answer(raw: str, cut_off: bool = False) -> tuple[dict | None, bool]:
     """(doc, complete). complete=False when the object was cut off or broken and
     only its complete sentences were kept; doc None when nothing usable."""
@@ -191,10 +225,20 @@ def parse_answer(raw: str, cut_off: bool = False) -> tuple[dict | None, bool]:
     try:
         doc = _norm_doc(llm.parse_json(text))
         if doc is not None:
+            # the lenient JSON parser can accept the first well-formed object of a broken reply: if the text
+            # holds more sentence objects than the parsed document, recover them
+            if len(_SENT_START.findall(text)) > _n_sentences(doc):
+                loose = _norm_doc({"blocks": _loose_blocks(text), "gaps": doc.get("gaps", []),
+                                   "follow_up_questions": doc.get("follow_up_questions", [])})
+                if loose and _n_sentences(loose) > _n_sentences(doc):
+                    return loose, False
             return doc, not cut_off
     except (ValueError, json.JSONDecodeError):
         pass
     doc = _norm_doc(_salvage(text))
+    loose = _norm_doc({**(_salvage(text) or {}), "blocks": _loose_blocks(text)}) if _SENT_START.search(text) else None
+    if loose and loose["blocks"] and _n_sentences(loose) > _n_sentences(doc):
+        doc = loose  # the structure was broken but more intact sentences are recoverable
     return (doc, False) if doc and doc["blocks"] else (None, False)
 
 
