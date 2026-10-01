@@ -677,7 +677,7 @@ _XREF_CARRY_NE = _rx(r"बमोजिम|उपदफा|उपनियम|म
 _XREF_CARRY_EN = re.compile(
     r"\b(?:sub-?sections?|referred|provided|under (?:the )?(?:preceding|above|this)|in accordance|pursuant|as per|"
     r"as set out|registered|so registered|aforementioned|mentioned above|above)\b", re.I)
-_LEADIN_COND = re.compile(r"(?:नभएकोमा|नभएमा|भएकोमा|भएमा|गरेमा|नगरेमा)\s*(?:[:–—-]+)?\s*$")
+_LEADIN_COND = re.compile(r"(?:नभएकोमा|नभएमा|नगरेमा)")  # an "in the absence of" lead-in, within its last words
 _COND_CARRY_NE = _rx(r"नभएकोमा|नभएमा|भएमा|गरेमा|नगरेमा|यदि|भने|अवस्थामा|अन्यथा|बाहेक|सम्म|पछि|सहमति|असहमति")
 _COND_CARRY_EN = re.compile(
     r"\b(?:if|where|when|unless|in case|in the event|otherwise|failing|absent|in the absence|provided|subject to|"
@@ -704,7 +704,7 @@ def leading_scope_problem(sentence: str, qtok: list[str], layout: Layout) -> str
         for j in range(i - 1, -1, -1):
             lj = layout.labels[j] if j < len(layout.labels) else ""
             if lj and re.fullmatch(r"[0-9]{1,2}", lj):
-                lead = " ".join(layout.clauses[j][-6:])
+                lead = " ".join(layout.clauses[j][-9:])
                 if _LEADIN_COND.search(lead) and not (_COND_CARRY_NE.search(s_folded) or _COND_CARRY_EN.search(s_raw)):
                     return "lead_in_condition_dropped"
                 break

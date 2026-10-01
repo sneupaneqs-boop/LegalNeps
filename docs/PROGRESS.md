@@ -200,6 +200,92 @@ S7's own "done when" bar (25 playbooks, ≥90% precision) doesn't require it.
 
 ## Done
 
+### V3.3 — Data-driven topical-fit gate, abstain, review polish (2026-10-01, offline; live re-measure pending)
+
+Goal: the V3.2 live review (fresh 30) showed 24 of 31 bad sentences were WRONG-LAW (a real, verbatim, verified quote from a
+provision that does not govern the person's situation). V3.3 adds an LLM-free topical-fit gate (entailment stays default OFF),
+applied before generation, after it and in the extractive fallback, plus the review's polish list. **The <5% target is NOT
+claimed**: it can only be measured on a NEW fresh live set.
+
+**Files.** New `app/topical_fit.py` (features, specialist-regime table, scorer), `app/data/topical_fit.json` (fitted model),
+`app/fit_reply.py` (abstain reply, topical extractive fallback, citation-label ranges), `eval/build_review_fixture.py` +
+`tests/data/v33_review_fixture.json` (the 147 labelled sentences with full cited passages; `eval/reports/` is git-ignored),
+`eval/topical_fit_calibration.py` (fit / test / production refit), `eval/v33_replay.py`, `tests/test_v33_topical_fit.py` (27
+tests). Changed: `generation.py` (gate, abstain, p11), `verifier.py`, `claim_checks.py`, `structured.py`, `config.py`.
+Config: `FIT_GATE` (default 1; 0 = V3.2), `FIT_MIN_ONTOPIC` (2), `FIT_RELATED_MAX` (3), `FIT_USE_DENSE` (0).
+
+**Gate design.** Per (question, retrieved passage) features: rank; dense cosine question-vs-"law | heading" and relative-to-best
+(max over the question's build_queries); idf-weighted question-term coverage of heading+law title and of the passage body;
+share of the heading's / law title's distinctive terms the question (with glossary + transliteration expansion) never mentions
+(`h_unexpl`, `l_unexpl`); and a `specialist` flag: the passage's law title / heading (some families: also its opening) belongs to
+a specialist population or regime (army, judges, postal, insolvency, hire-purchase, customs/excise, election, civil service,
+prison, instalment tax, education institutions, + review-2 families widow, producer liability, brokerage, sentencing procedure)
+that neither the question, its expansions nor the matched playbook mentions. The table is DATA (`SPECIALIST`); each family records
+its source (`corpus` law/chapter titles, `review1`, `review2`). A passage fails on the specialist flag (hard) or on the fitted
+logistic off-topic score (L2, balanced classes, prior sign constraints, threshold = highest cut keeping over-removal on the
+fitting set's supported sentences within budget). Pinned playbook provisions never fail. Precedents use body features only.
+
+**Protocol.** Features for all 147 sentences offline; weights and thresholds FIT ON REVIEW 1 ONLY (77 sentences: 4 statute and
+3 precedent wrong-law); TESTED on review 2 (70 fresh sentences) with nothing re-fitted; ablations refit on review 1 and test on
+review 2. Honest caveat: the specialist-family table was written from the corpus title inventory with the brief's named regimes in
+mind (army, judges, postal, insolvency, hire-purchase, customs, instalment tax) and broad families were narrowed to title-level
+once after a first review-2 run (no change in supported removals); the `review2` families are excluded from the held-out test.
+
+| Review 2 TEST (fit on review 1) | wrong-law caught (24) | unsupported caught (7) | supported removed (39) | precision / recall |
+|---|---|---|---|---|
+| lexical model + corpus/review-1 markers (**held-out**, budget 10%) | **15** | 2 | **0 (0.0%)** | 1.00 / 0.62 |
+| same, markers OFF (fitted score only) | 2 | 2 | 0 | 1.00 / 0.08 |
+| dense+lexical model (budget 10%) | 15 | 2 | 4 (10.3%) | 0.81 / 0.62 |
+| same + review-2 families (in-sample on review 2) | 22 | 2 | 0 | 1.00 / 0.92 |
+
+Ablation (each refit on review 1, tested on review 2; wrong-law caught / supported removed): -rank 15/3, -q_cov_head 15/0,
+-q_cov_body 15/2, -h_unexpl 15/0, -l_unexpl 15/0 (lexical); dense variant: -d_head 15/0, -d_head_rel 15/4, -d_pass_rel 15/4. Any
+single feature alone catches 0-5 of 24 (d_head alone 5/24 with 31% over-removal). **Plain finding: the fitted score does not
+separate wrong-law from supported** (review-1 AUCs 0.6-0.75 on 4 statute positives; cross-validation picks the heaviest
+shrinkage), the e5-small cosines are compressed (0.86 on-topic and off-topic alike) and added only over-removal, so the
+production model is the lexical one (`FIT_USE_DENSE=0`). What works is the specialist-regime marker table: 15/24 held-out (62%) at
+0/39 over-removal (limit 15%); the score adds ~1. Production refit on BOTH reviews (budget 5%): in-sample 23/31 wrong-law, 4/104
+supported removed (3.8%); leave-one-answer-out over 147: 23/31 wrong-law, 2/12 unsupported, 5/104 supported (4.8%). Those production
+numbers include the review-2 families and are NOT held-out; the held-out numbers are the table above.
+
+**Offline replay of the 30 review-2 answers** (`eval/v33_replay.py`; no LLM rewrite, current worktree retrieval, candidates =
+offline retrieval + the live-cited passages; polish rules not applied): held-out model, `FIT_MIN_ONTOPIC=2`: 0 abstain, 12
+fall back to the topical extractive provisions (6 already fell back live, 2 had no LLM, + a02 a04 a12 a14), 18 stay structured;
+labelled kept sentences 70 -> 53, bad 31 -> 14 (26% of kept, from 44%); all 39 supported kept. Production model: 2 abstain (a02,
+a04), 13 fall back, 15 structured, bad 31 -> 11 of 50 (22%, in-sample). `FIT_MIN_ONTOPIC=3` held-out: a02 abstains; 4: a02 a04
+a12. The abstain rarely fires because the noise passages are lexically on topic (a01 lost land certificate: Copyright Act
+"प्रतिलिपि").
+
+**Behaviour.** (a) Before generation off-topic passages are dropped from the prompt (pins kept; original [n] numbers kept); with
+fewer than `FIT_MIN_ONTOPIC` on-topic statutes and no pin the model is NOT called and the reply is, e.g. NE "मैले खोजेका
+स्रोतहरूमा तपाईंको प्रश्नको सिधै जवाफ दिने प्रावधान भेटिएन, त्यसैले अनुमान गरेर जवाफ दिइरहेको छैन।" / EN "I couldn't find a
+provision that directly answers this in the sources I searched, so I won't guess at an answer." + at most 3 closest statute passages
+under "सम्भावित रूपमा सम्बन्धित (...पुष्टि भएको छैन)" / "Possibly related (I could not confirm these govern your situation)"
+(never a passage ruled out by regime) + the playbook forum/steps. `verification.mode = "abstain"`. (b) After generation a sentence
+whose cited passages all failed is removed (`off_topic_source`). (c) The extractive fallback shows only passing passages (max 3)
+then "These provisions match the subject of your question, but I could not confirm that they directly govern your exact situation."
+(NE equivalent), or the abstain reply when none pass.
+
+**Polish (all with tests from the real labelled sentences).** (i) a sentence opening with an anaphor or proviso (त्यसै गरी, यसै
+संहिताको, यस दफा, त्यस्तो बिदा, तर, This power, Such leave, If such ..., But) whose antecedent was removed - or that opens its block
+- is dropped (`orphan_connective`), never repaired; plain "र/And" is still stripped. (ii) near-identical sentences (Jaccard >= .8)
+dropped, <= 2 sentences per (passage, sub-section), <= 5 per passage, adjacent same-heading blocks merged (streamed text == final
+text). (iii) a passage that opens at sub-section k but holds up to m is labelled "दफा 10 (1)-(3)"; evidence cites carry the
+`sub_section` that holds the quote. (iv) `invented_subject`: a Latin-script name from the question (eSewa) in a cited sentence that no
+cited passage contains. (v) conditional lead-in scope: an item under "... नभएकोमा:" must carry a condition (a15 s3 now caught).
+The leading "उपदफा (१) बमोजिम" cross-reference variant could NOT be separated from good sentences (rw19 s1, rw29 s2/s3 are labelled
+supported) and was removed; a07 s3 and a27 s3 stay uncaught. (vi) an asked-quantity question (कति / how many / what penalty) with no
+figure in any kept sentence gets an explicit "sources retrieved do not give the figure" gap; the false-gap filter is slightly
+looser. (vii) prompt: asked quantity first, no restating under a second heading, no connective openers, forum claims need a cite,
+"not covered" for a different-subject chapter (+~70 tokens).
+
+**What remains uncatchable.** Wrong-law passages that are lexically on topic and from a general code (a02 s.302 trespass, a14 Civil
+Code s.10, a25 sentencing-appeal s.17क partially, a26 precedent) and all review-1 wrong-law Civil Code cases (private-lender chapter
+is the V3.2 guard, not this gate); retrieval misses (the governing section never retrieved: a01, a03, a09, a10, a12, a16 ...) - the
+gate cannot invent the right passage, it can only stop wrong ones; dropped preconditions from a sibling clause (a27 s3 route,
+a07 s3 scope); romanised questions whose expansion lacks the law's subject word make the lexical score remove good Labour Act
+passages (the 4/104). Next: measure on a NEW fresh 30-answer live review; add `SPECIALIST` rows from it.
+
 ### V3.2 live review (2026-09-30, fresh 30)
 
 Independent two-pass LLM review of 30 FRESH live answers (`eval/reports/answer-review-v32-answers30-20260930.json`,
