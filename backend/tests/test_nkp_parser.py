@@ -1,4 +1,8 @@
-from scrape_nkp import parse
+import pytest
+
+pytest.importorskip("bs4", reason="scraper deps: pip install -r requirements-scripts.txt")
+
+from scrape_nkp import parse  # noqa: E402
 
 HTML = """<html><body>
 <h1 class="post-title"><a>निर्णय नं. ११५१६ - सम्पत्ति शुद्धीकरण</a></h1>

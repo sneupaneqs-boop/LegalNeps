@@ -253,6 +253,8 @@ def test_reminder_job_dedups_via_reminders_sent(monkeypatch):
     store.company_profile_upsert("user-a", "Full Co Pvt Ltd", "private_limited", True, True, "owner@example.com")
     for fn in ["all_company_profiles", "obligations_list", "reminder_already_sent", "reminder_record_sent"]:
         monkeypatch.setattr(job.supa, fn, getattr(store, fn))
+    # Whether anything is due within the default 7-day window depends on today's date, so widen it.
+    monkeypatch.setattr(job.config, "COMPLIANCE_REMINDER_DAYS_AHEAD", 400)
 
     sent_first = job.run(dry_run=True)
     assert sent_first > 0
