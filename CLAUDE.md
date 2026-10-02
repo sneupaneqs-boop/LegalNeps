@@ -1,3 +1,9 @@
+## READ FIRST (new session)
+
+**Start with `docs/HANDOFF.md`** — the full hand-off: what this project is, what is deployed and where, what works, what
+failed, what to ignore, what is unfinished. All work lives on branch `claude/dreamy-hawking-4y5lgf` (if you are on another
+branch you are looking at an OLD checkout: `git fetch origin && git checkout claude/dreamy-hawking-4y5lgf`).
+
 ## Plan
 
 The build plan is `docs/STRATEGY_V2.md` (sessions V1–V22); the kickoff prompt and per-session
